@@ -1,6 +1,6 @@
 \name{genintervals}
 \alias{genintervals}
-%- Also NEED an '\alias' for EACH other topic documented here.
+
 \title{Produce Compatibility Intervals for Linear Models
 
 }
@@ -59,6 +59,3 @@ rob<-glm(GroupA ~ GroupB, data=RandomData)
 bob<-genintervals(rob, "GroupB", method="lm")
 
 }
-
-\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

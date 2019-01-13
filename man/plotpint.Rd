@@ -1,7 +1,7 @@
 \name{plotpint}
 \alias{plotpint}
-%- Also NEED an '\alias' for EACH other topic documented here.
-\title{ Plot the P-Value Function
+
+\title{Plot the P-Value Function
 }
 \description{
 Takes the dataframe produced by the interval functions and plots the p-values, compatibility (confidence)
@@ -41,7 +41,3 @@ intervalsdf<-genintervals(RandomModel, "GroupB")
 p<-plotpint(intervalsdf)
 p
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

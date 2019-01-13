@@ -1,6 +1,6 @@
 \name{meanintervals}
 \alias{meanintervals}
-%- Also NEED an '\alias' for EACH other topic documented here.
+
 \title{Produce Compatibility Intervals for Mean Differences
 }
 \description{
@@ -12,7 +12,7 @@ corresponding p-value and s-value.
 meanintervals(x, y, data, paired = F, method = "default",
 replicates = 1000, steps = 10000)
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
   \item{x}{
 Variable that contains the data for the first group being compared.
@@ -60,7 +60,3 @@ RandomData<-data.frame(GroupA, GroupB)
 
 bob<-meanintervals(GroupA, GroupB, RandomData)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

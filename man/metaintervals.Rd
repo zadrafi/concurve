@@ -1,6 +1,6 @@
 \name{metaintervals}
 \alias{metaintervals}
-%- Also NEED an '\alias' for EACH other topic documented here.
+
 \title{Produce Compatibility Intervals for Meta-Analysis Data
 }
 \description{
@@ -11,7 +11,7 @@ into a data frame along with the corresponding p-value and s-value.
 \usage{
 metaintervals(x, measure = "norm", steps = 10000)
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
   \item{x}{
 Object where the meta-analysis parameters are stored, typically a list produced by 'metafor'
@@ -87,7 +87,3 @@ res<-rma(yi, vi, data=dat, slab=paste(StudyName, sep=", "), method="FE", digits=
 
 metaf<-metaintervals(res)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

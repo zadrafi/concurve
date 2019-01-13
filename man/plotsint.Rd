@@ -1,6 +1,6 @@
 \name{plotsint}
 \alias{plotsint}
-%- Also NEED an '\alias' for EACH other topic documented here.
+
 \title{Plot the S-Value Function
 }
 \description{
@@ -54,7 +54,3 @@ intervalsdf<-genintervals(RandomModel, "GroupB")
 s<-plotsint(intervalsdf)
 s
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
