@@ -1,21 +1,21 @@
 {
     "collab_server" : "",
     "contents" : "",
-    "created" : 1547353390699.000,
+    "created" : 1547353661943.000,
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "0",
-    "id" : "15299BB5",
-    "lastKnownWriteTime" : 1547353393,
-    "last_content_update" : 1547353393042,
+    "hash" : "2578509282",
+    "id" : "90B59A58",
+    "lastKnownWriteTime" : 1547353671,
+    "last_content_update" : 1547353671116,
     "path" : "~/Desktop/GitHub/concurve/tests/testthat.R",
     "project_path" : "tests/testthat.R",
     "properties" : {
-        "cursorPosition" : "3,20",
+        "cursorPosition" : "1,16",
         "scrollLine" : "0"
     },
-    "relative_order" : 9,
+    "relative_order" : 4,
     "source_on_save" : false,
     "source_window" : "",
     "type" : "r_source"
