@@ -1,6 +1,6 @@
 Package: concurve
 Type: Package
-Title: Computes and Plots Confidence (Compatibility) Intervals, P-values, and S-values to Form Consonance Functions
+Title: Computes and Plots Confidence (Compatibility) Intervals, P-Values, and S-Values to Form Consonance Functions
 Version: 0.1.0
 Author: Zad Rafi Chow & Andrew Vigotsky 
 Maintainer: Zad Rafi Chow <zad@lesslikely.com>
