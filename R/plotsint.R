@@ -1,9 +1,9 @@
 plotsint<-function(x) {
   if(is.data.frame(x) != TRUE){
-    stop("Error: 'x' must be a data frame from 'intrvals'")
+    stop("Error: 'x' must be a data frame from 'concurve'")
   }
   if(ncol(x) != 5){
-    stop("Error: 'x' must be a data frame from 'intrvals'")
+    stop("Error: 'x' must be a data frame from 'concurve'")
   }
   ggplot(data=x) +
     geom_point(aes(x=lower.limit, y=svalue), colour = "#d46c5b", shape=8, size=0.50) +
@@ -12,7 +12,7 @@ plotsint<-function(x) {
     geom_ribbon(aes(x = upper.limit, ymin = max(svalue), ymax = svalue), fill = "#d46c5b", alpha=0.50)+
     ggtitle("S-value Function") +
     labs(x="Range of Values",
-         y="S-value 
+         y="S-value
          (bits of information)") +
     theme_classic() +
     theme(axis.title.x = element_text(size=15),
