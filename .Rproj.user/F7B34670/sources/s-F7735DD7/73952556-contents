@@ -1,0 +1,6 @@
+exportPattern("^[[:alpha:]]+")
+import(ggplot2)
+import(metafor)
+importFrom("stats", "coef", "confint", "confint.default", "confint.lm",
+                "lm", "quantile", "t.test")
+importFrom("utils", "head")

@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1547353361700.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "540488041",
+    "id" : "CB56C158",
+    "lastKnownWriteTime" : 1547268779,
+    "last_content_update" : 1547268779,
+    "path" : "~/Desktop/GitHub/concurve/R/plotpint.R",
+    "project_path" : "R/plotpint.R",
+    "properties" : {
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

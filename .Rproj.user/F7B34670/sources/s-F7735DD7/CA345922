@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1547353353020.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3960271164",
+    "id" : "CA345922",
+    "lastKnownWriteTime" : 1547265033,
+    "last_content_update" : 1547265033,
+    "path" : "~/Desktop/GitHub/concurve/R/genintervals.R",
+    "project_path" : "R/genintervals.R",
+    "properties" : {
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

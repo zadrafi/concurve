@@ -1,0 +1,55 @@
+\name{genintervals}
+\alias{genintervals}
+%- Also NEED an '\alias' for EACH other topic documented here.
+\title{genintervals
+
+}
+\description{
+Computes thousands of compatibility (confidence) intervals for the chosen parameter in the selected model(ANOVA, ANCOVA, regression, logistic regression) and places the interval limits for each interval level into a data frame along with the corresponding p-value and s-value.
+}
+\usage{
+genintervals(model, var, method = "default", replicates = 1000, steps = 10000)
+}
+%- maybe also 'usage' for other objects documented here.
+\arguments{
+  \item{model}{
+The model of interest is to be indicated here.
+}
+  \item{var}{
+The variable of interest from the model for which the intervals are to be produced.
+}
+  \item{method}{
+Chooses the method to be used to calculate the compatibility intervals. There are currently four methods: "default", "wald", "lm", and "boot". The "default" method uses the profile likelihood method to compute intervals and can be used for models created by the lm function. The "wald" method is typically what most people are familiar with when computing intervals based on the calculated standard error. The "lm" method allows this function to be used for specific scenarios like logistic regression and the glm function. The "boot" method allows for bootstrapping at certain levels.
+}
+  \item{replicates}{
+Indicates how many bootstrap replicates are to be performed if bootstrapping is enabled as a method.
+}
+  \item{steps}{
+Indicates how many compatibility intervals are to be calculated at various levels. For example, setting this to 100 will produce 100 compatibility intervals from 0 to 100. Setting this to 1,000 will produce more compatibility levels. By default, it is set to 10,00. Increasing the number is not recommended as it will take longer to produce all the intervals and store them into a dataframe.
+}
+}
+
+\references{
+Poole C. Beyond the confidence interval. Am J Public Health. 1987;77(2):195-199.
+
+Sullivan KM, Foster DA. Use of the confidence interval function. Epidemiology. 1990;1(1):39-42.
+
+Rothman KJ, Greenland S, Lash TL, Others. Modern epidemiology. 2008.
+}
+
+\examples{
+# Simulate random data
+
+GroupA<-rnorm(50)
+GroupB<-rnorm(50)
+
+RandomData<-data.frame(GroupA, GroupB)
+
+rob<-glm(GroupA ~ GroupB, data=RandomData)
+bob<-genintervals(rob, "GroupB", method="lm")
+
+}
+% Add one or more standard keywords, see file 'KEYWORDS' in the
+% R documentation directory.
+\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
+\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

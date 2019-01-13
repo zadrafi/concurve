@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1547353369105.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1733997311",
+    "id" : "EE53294F",
+    "lastKnownWriteTime" : 1547353387,
+    "last_content_update" : 1547353387947,
+    "path" : "~/Desktop/GitHub/concurve/tests/testthat/testdfstructure.R",
+    "project_path" : "tests/testthat/testdfstructure.R",
+    "properties" : {
+        "cursorPosition" : "62,18",
+        "scrollLine" : "68"
+    },
+    "relative_order" : 8,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
