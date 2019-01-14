@@ -1,5 +1,7 @@
-Plotting Functions With The Estimation Package
+Plotting Functions With The Concurve Package
 ================
+
+[![Build Status](https://travis-ci.org/Zadchow/concurve.svg?branch=master)](https://travis-ci.org/Zadchow/concurve)
 
 # A Single Interval Isn’t Enough
 
