@@ -3,7 +3,7 @@ Plotting Functions With The Estimation Package
 
 # A Single Interval Isn’t Enough
 
-Interval estimates such as ~~confidence~~ **compatibility** intervals
+Interval estimates such as ~~confidence~~ **compatibility/consonance** intervals
 are now widely reported. Many journals and reviewers require them
 alongside the exact P-value of a statistical test and the point
 estimate.
@@ -11,7 +11,7 @@ estimate.
 While this is a large improvement over what constituted statistical
 reporting a decade ago, it is still largely inadequate.
 
-Take for example, the 95% compatibility interval. As many have stated
+Take for example, the 95% consonance interval. As many have stated
 before, there is nothing special about **95%**, yet we rarely see
 intervals of any other level. Choosing to compute a 95% interval is as
 mindless as choosing a 5% alpha level for hypothesis testing. A single
