@@ -2,6 +2,8 @@ Plotting Functions With The Concurve Package
 ================
 
 [![Build Status](https://travis-ci.org/Zadchow/concurve.svg?branch=master)](https://travis-ci.org/Zadchow/concurve)
+[![codecov](https://codecov.io/gh/Zadchow/concurve/branch/master/graph/badge.svg)](https://codecov.io/gh/Zadchow/concurve)
+
 
 # A Single Interval Isn’t Enough
 
