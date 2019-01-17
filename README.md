@@ -80,25 +80,9 @@ It is relatively easy to produce such a function using the
 <span style="color:#d46c5b">[**concurve**](https://github.com/Zadchow/concurve)</span>
 package in R.
 
-> The current version of **ggplot2** (3.1.0), which this package
-> **depends** on, has a bug in the *sec\_axis* function, that prevents
-> the
-> <span style="color:#d46c5b">[**concurve**](https://github.com/Zadchow/concurve)</span>
-> package from plotting functions correctly. Thus, the package depends
-> on a version of **ggplot2** prior to this (at least until it gets
-> patched in the next version). We recommend installing **ggplot2** v.
-> 3.0.0. Below is the full code to install that version of **ggplot2**
-> and our package.
+Install the concurve package. 
 
-> <span style="color:#d46c5b">**library(devtools)**</span>
-
-> <span style="color:#d46c5b">**install\_version(“ggplot2”, version =
-> “3.0.0”, repos = “<http://cran.us.r-project.org>”)**</span>
-
-Install the estimation package. Do NOT update to the recent version of
-**ggplot2** (3.1.0) if
-> prompted.
-
+> library(devtools)
 > <span style="color:#d46c5b">**install\_github(“zadchow/concurve”)**</span>
 
 We’ll use the same data from above to calculate a P-value function and
