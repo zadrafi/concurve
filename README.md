@@ -1,4 +1,4 @@
-Plotting Functions With The Concurve Package
+Plotting Functions With The Concurve Package <img src="man/figures/hexlogo.png" align="right" width="120" />
 ================
 
 [![Build Status](https://travis-ci.org/Zadchow/concurve.svg?branch=master)](https://travis-ci.org/Zadchow/concurve)
@@ -23,7 +23,7 @@ compatibility interval is only a *slice* of a wide range of
 compatibility intervals at different levels. Reporting 95% intervals
 only promotes [cargo-cult
 statistics](https://rss.onlinelibrary.wiley.com/doi/10.1111/j.1740-9713.2018.01174.x)
-since there is not much thought behind the choice. \[1\]
+since there is not much thought behind the choice.[1]
 
 > “***Cargo-cult statistics*** – *the ritualistic miming of statistics
 > rather than conscientious practice*.”
@@ -32,7 +32,7 @@ since there is not much thought behind the choice. \[1\]
 
 Thus, we propose that instead of only calculating ***one*** interval
 estimate, ***every*** interval associated with a compatibility level be
-calculated and plotted to form a function. \[2-4\]
+calculated and plotted to form a function. [2-4]
 
 We will show how to calculate and plot such functions with the
 <span style="color:#d46c5b">[**concurve**](https://github.com/Zadchow/concurve)</span>
