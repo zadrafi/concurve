@@ -86,7 +86,7 @@ Install the concurve package.
 
 ``` r
 library(devtools)
-install_github(“zadchow/concurve”)
+install_github("zadchow/concurve")
 ```
 
 We’ll use the same data from above to calculate a P-value function and

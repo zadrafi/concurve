@@ -91,7 +91,7 @@ Install the concurve package.
 
 ``` r
 library(devtools)
-install_github(“zadchow/concurve”)
+install_github("zadchow/concurve")
 
 ```
 
