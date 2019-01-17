@@ -82,8 +82,11 @@ package in R.
 
 Install the concurve package. 
 
-> library(devtools)
-> <span style="color:#d46c5b">**install\_github(“zadchow/concurve”)**</span>
+``` r
+library(devtools)
+<span style="color:#d46c5b">**install\_github(“zadchow/concurve”)**</span>
+
+```
 
 We’ll use the same data from above to calculate a P-value function and
 since we are focusing on mean differences using a t-test, we will use
