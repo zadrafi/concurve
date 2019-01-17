@@ -84,7 +84,7 @@ Install the concurve package.
 
 ``` r
 library(devtools)
-<span style="color:#d46c5b">**install\_github(“zadchow/concurve”)**</span>
+install_github(“zadchow/concurve”)
 
 ```
 
