@@ -1,15 +1,20 @@
+---
+title: 
+output: github_document
+---
 
-# Plotting Functions With The Concurve Package <img src="man/figures/concurvelogo.svg" align="right" width="120" />
+Plotting Functions With The Concurve Package <img src="man/figures/concurvelogo.svg" align="right" width="120" />
+================
 
-[![Build
-Status](https://travis-ci.org/Zadchow/concurve.svg?branch=master)](https://travis-ci.org/Zadchow/concurve)
+[![Build Status](https://travis-ci.org/Zadchow/concurve.svg?branch=master)](https://travis-ci.org/Zadchow/concurve)
 [![codecov](https://codecov.io/gh/Zadchow/concurve/branch/master/graph/badge.svg)](https://codecov.io/gh/Zadchow/concurve)
+
 
 # A Single Interval Isn’t Enough
 
-Interval estimates such as ~~confidence~~ **compatibility/consonance**
-intervals are now widely reported in many journals alongside the exact
-P-value of a statistical test and the point estimate.
+Interval estimates such as ~~confidence~~ **compatibility/consonance** intervals
+are now widely reported in many journals alongside the exact P-value of a statistical test and the point
+estimate.
 
 While this is a large improvement over what constituted statistical
 reporting a decade ago, it is still largely inadequate.
@@ -25,7 +30,7 @@ statistics](https://rss.onlinelibrary.wiley.com/doi/10.1111/j.1740-9713.2018.011
 since there is not much thought behind the choice.(1)
 
 > “***Cargo-cult statistics*** – *the ritualistic miming of statistics
-> rather than conscientious practice*.” - Stark & Saltelli, 2018
+> rather than conscientious practice*.” -  Stark & Saltelli, 2018
 
 Thus, we propose that instead of only calculating ***one*** interval
 estimate, ***every*** interval associated with a compatibility level be
@@ -59,7 +64,7 @@ looks like.
 
 Plotted with a dot plot, we would see some variability.
 
-``` r
+```r
 summary(testresults)
 ```
 
@@ -82,11 +87,12 @@ It is relatively easy to produce such a function using the
 <span style="color:#d46c5b">[**concurve**](https://github.com/Zadchow/concurve)</span>
 package in R.
 
-Install the concurve package.
+Install the concurve package. 
 
 ``` r
 library(devtools)
 install_github(“zadchow/concurve”)
+
 ```
 
 We’ll use the same data from above to calculate a P-value function and
@@ -111,6 +117,7 @@ pfunction<-plotpint(intervalsdf)
 pfunction
 ```
 
+
 Now we can see every compatibility interval and its corresponding
 P-value and compatibility level plotted. As stated before, a single 95%
 compatibility interval is simply a slice through this function, which
@@ -127,9 +134,10 @@ sfunction<-plotsint(intervalsdf)
 sfunction
 ```
 
-The graph from the code above provides us with compatibility levels and
-the maximum amount of information against the effect sizes contained in
-the compatibility interval.
+
+The graph from the code above provides us with compatibility levels and the maximum
+amount of information against the effect sizes contained in the
+compatibility interval.
 
 # Simple Linear Models
 
