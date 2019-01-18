@@ -59,6 +59,8 @@ looks like.
 
 Plotted with a dot plot, we would see some variability.
 
+<img src="man/figures/dotplot.svg" align="center" width="500" />
+
 ``` r
 summary(testresults)
 ```
@@ -111,6 +113,8 @@ pfunction<-plotpint(intervalsdf)
 pfunction
 ```
 
+<img src="man/figures/function1.png" align="center" width="500" />
+
 Now we can see every compatibility interval and its corresponding
 P-value and compatibility level plotted. As stated before, a single 95%
 compatibility interval is simply a slice through this function, which
@@ -126,6 +130,8 @@ using the ***plotsint*** function
 sfunction<-plotsint(intervalsdf)
 sfunction
 ```
+
+<img src="man/figures/function2.png" align="center" width="500" />
 
 The graph from the code above provides us with compatibility levels and
 the maximum amount of information against the effect sizes contained in
@@ -162,10 +168,14 @@ randomframe<-genintervals(model, "GroupB2")
 plotpint(randomframe)
 ```
 
+<img src="man/figures/function3.png" align="center" width="500" />
+
 ``` r
 s<-plotsint(randomframe)
 s
 ```
+
+<img src="man/figures/function4.png" align="center" width="500" />
 
 We can also compare these functions to likelihood functions (also called
 support intervals), and we’ll see that we get very similar results.
@@ -188,6 +198,8 @@ profilelike.plot(theta=xx$theta,
                  profile.lik.norm=xx$profile.lik.norm, round=3)
 title(main = "Likelihood Function")
 ```
+
+<img src="man/figures/likelihood.svg" align="center" width="500" />
 
 We’ve used a relatively easy example for this blog post, but the
 <span style="color:#d46c5b">[**concurve**](https://github.com/Zadchow/concurve)</span>
@@ -257,6 +269,8 @@ res<-rma(yi, vi, data=dat, slab=paste(StudyName, sep=", "),
 Let’s plot our results in a forest plot. I’m going to omit this code
 since it’s a bit long.
 
+<img src="man/figures/meta-analysis.svg" align="center" width="500" />
+
 Take a look at the pooled summary effect and its interval. Keep it in
 mind as we move onto constructing a compatibility function.
 
@@ -276,11 +290,15 @@ the functions.
 plotpint(metaf)
 ```
 
+<img src="man/figures/function5.png" align="center" width="500" />
+
 And our S-value function
 
 ``` r
 plotsint(metaf)
 ```
+
+<img src="man/figures/function6.png" align="center" width="500" />
 
 Compare the span of these functions and the information they provide to
 the compatibility interval provided by the forest plot. We are now no
