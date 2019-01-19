@@ -3,7 +3,7 @@ title:
 output: github_document
 ---
 
-Plotting Functions With The Concurve Package <img src="man/figures/concurvelogo.svg" align="right" width="120" />
+Plotting Functions With The Concurve Package <img src="man/figures/logo.svg" align="right" width="120" />
 ================
 
 [![Build Status](https://travis-ci.org/Zadchow/concurve.svg?branch=master)](https://travis-ci.org/Zadchow/concurve)
