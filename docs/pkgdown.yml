@@ -3,4 +3,7 @@ pkgdown: 1.3.0
 pkgdown_sha: ~
 articles:
   examples: examples.html
+urls:
+  reference: https://data.lesslikely.com/concurve//reference
+  article: https://data.lesslikely.com/concurve//articles
 

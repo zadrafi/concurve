@@ -1,0 +1,28 @@
+url: https://data.lesslikely.com/concurve/
+
+navbar:
+  structure:
+    left:
+    - home
+    - intro
+    - reference
+    - articles
+    - tutorials
+    - news
+    right: github
+  components:
+    home:
+      icon: fa-home fa-lg
+      href: index.html
+    reference:
+      text: Reference
+      href: reference/index.html
+    articles:
+      text: Articles
+      menu:
+      - text: Examples With Simulated Data
+        href: articles/examples.html
+    github:
+      icon: fa-github fa-lg
+      href: https://github.com/Zadchow/concurve
+

@@ -15,7 +15,8 @@ Description: Allows one to compute confidence (consonance) intervals for various
 Imports: ggplot2,
          metafor
 Suggests: 
-    testthat
+    testthat,
+    knitr
 License: GPL-3 | file LICENSE
 URL: https://data.lesslikely.com/concurve/, https://github.com/Zadchow/concurve
 BugReports: https://github.com/Zadchow/concurve/issues

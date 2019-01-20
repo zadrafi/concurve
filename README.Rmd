@@ -10,7 +10,7 @@ Plotting Functions With The Concurve Package <img src="man/figures/logo.svg" ali
 [![codecov](https://codecov.io/gh/Zadchow/concurve/branch/master/graph/badge.svg)](https://codecov.io/gh/Zadchow/concurve)
 
 
-# A Single Interval Isn’t Enough
+## A Single Interval Isn’t Enough
 
 Interval estimates such as ~~confidence~~ **compatibility/consonance** intervals
 are now widely reported in many journals alongside the exact P-value of a statistical test and the point
@@ -39,14 +39,14 @@ calculated and plotted to form a function. (2-4)
 This can be accomplished using the [**concurve**](https://github.com/Zadchow/concurve)</span>
 package in R.
 
-# Install the package 
+## Install the package 
 
 ``` r
 library(devtools)
 install_github("zadchow/concurve")
 ```
 
-See the example articles/vignettes to see the package in action. 
+## Check out the [articles](https://data.lesslikely.com/concurve/articles/) to see the package in action. 
 
 > "*Statistical software enables and promotes cargo-cult statistics.
 > Marketing and adoption of statistical software are driven by ease of

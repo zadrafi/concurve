@@ -1,2 +1,14 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^pkgdown$
+^.*\.Rproj$
+^\.Rproj\.user$
+^\.travis\.yml$
+^/\.gitattributes$
+^codecov\.yml$
+^_pkgdown\.yml$
+^README\.Rmd$
+^README-.*\.png$
+^logo\.png$
+^appveyor\.yml$
+^\.github$
