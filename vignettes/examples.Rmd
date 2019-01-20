@@ -1,7 +1,5 @@
 ---
 title: "Examples With Simulated Data"
-author: "Zad"
-date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Vignette Title}
@@ -16,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Using Mean Differences
+## Using Mean Differences
 
 If we were to simulate some random data from a normal distribution with
 the following code,
@@ -117,7 +115,7 @@ The graph from the code above provides us with compatibility levels and the maxi
 amount of information against the effect sizes contained in the
 compatibility interval.
 
-# Simple Linear Models
+## Simple Linear Models
 
 We can also try this with other simple linear models.
 
@@ -187,7 +185,7 @@ package is also able to calculate compatibility functions for multiple
 regressions, logistic regressions, ANOVAs, and meta-analyses (that have
 been produced by the ***metafor*** package).
 
-# Using Meta-Analysis Data
+## Using Meta-Analysis Data
 
 Here we present another quick example with a meta-analysis of simulated
 data.

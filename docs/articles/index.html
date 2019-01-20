@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot the P-Value Function — plotpint • concurve</title>
+<title>Articles • concurve</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -37,10 +37,7 @@
 
 
 
-<meta property="og:title" content="Plot the P-Value Function — plotpint" />
-
-<meta property="og:description" content="Takes the dataframe produced by the interval functions and plots the p-values, compatibility (confidence)
-levels, and the interval estimates to produce a p-value functionusing the geom_point function in ggplot2." />
+<meta property="og:title" content="Articles" />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -60,7 +57,7 @@ levels, and the interval estimates to produce a p-value functionusing the geom_p
   </head>
 
   <body>
-    <div class="container template-reference-topic">
+    <div class="container template-article-index">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -116,66 +113,17 @@ levels, and the interval estimates to produce a p-value functionusing the geom_p
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot the P-Value Function</h1>
-    
-    <div class="hidden name"><code>plotpint.Rd</code></div>
+      <h1>Articles</h1>
     </div>
 
-    <div class="ref-description">
-    
-    <p>Takes the dataframe produced by the interval functions and plots the p-values, compatibility (confidence)
-levels, and the interval estimates to produce a p-value functionusing the geom_point function in ggplot2.</p>
-    
+    <div class="section ">
+      <h3>All vignettes</h3>
+      <p class="section-desc"></p>
+
+      <ul>
+        <li><a href="examples.html">Examples With Simulated Data</a></li>
+      </ul>
     </div>
-
-    <pre class="usage"><span class='fu'>plotpint</span>(<span class='no'>x</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>x</th>
-      <td><p>The dataframe produced by one of the interval functions in which the intervals are stored.</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>Plot with intervals at every compatibility level graphed with their corresponding p-values and compatibility levels.</p>
-    
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    <p>Poole C. Beyond the confidence interval. Am J Public Health. 1987;77(2):195-199.</p>
-<p>Sullivan KM, Foster DA. Use of the confidence interval function. Epidemiology. 1990;1(1):39-42.</p>
-<p>Rothman KJ, Greenland S, Lash TL, Others. Modern epidemiology. 2008.</p>
-    
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Simulate random data</span>
-
-<span class='no'>GroupA</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>50</span>)
-<span class='no'>GroupB</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>50</span>)
-
-<span class='no'>RandomData</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='no'>GroupA</span>, <span class='no'>GroupB</span>)
-<span class='no'>RandomModel</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/lm'>lm</a></span>(<span class='no'>GroupA</span> ~ <span class='no'>GroupB</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>RandomData</span>)
-
-<span class='no'>intervalsdf</span><span class='kw'>&lt;-</span><span class='fu'><a href='genintervals.html'>genintervals</a></span>(<span class='no'>RandomModel</span>, <span class='st'>"GroupB"</span>)
-
-<span class='no'>p</span><span class='kw'>&lt;-</span><span class='fu'>plotpint</span>(<span class='no'>intervalsdf</span>)
-<span class='no'>p</span></div><div class='img'><img src='plotpint-1.png' alt='' width='700' height='433' /></div></pre>
-  </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#references">References</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
   </div>
 </div>
 
