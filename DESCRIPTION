@@ -2,15 +2,18 @@ Package: concurve
 Type: Package
 Title: Computes and Plots Confidence (Consonance) Intervals, P-Values, and S-Values to Form Consonance Curves (Functions) 
 Version: 0.1.2
-Author: Zad Rafi Chow & Andrew Vigotsky 
+Authors@R: c(
+    person("Zad", "Chow", , "zad@lesslikely.com", c("aut", "cre")),
+    person("Andrew", "Vigotsky", , role = "aut"))
 Maintainer: Zad Rafi Chow <zad@lesslikely.com>
 Description: Allows one to compute confidence (consonance) intervals for various statistical tests along with their corresponding P-values and S-values. The intervals can be plotted to create P- and S-value functions allowing one to see what effect sizes are compatible with the test model at various levels rather than being limited to one interval estimate. 
 Imports: ggplot2,
          metafor
 Suggests: 
     testthat
-License: GPL-3
-URL: https://concurve.lesslikely.com
+License: GPL-3 | file LICENSE
+URL: https://data.lesslikely.com/concurve/, https://github.com/Zadchow/concurve
+VignetteBuilder: knitr
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
