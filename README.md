@@ -31,7 +31,8 @@ since there is not much thought behind the choice.(1)
 
 Thus, we propose that instead of only calculating ***one*** interval
 estimate, ***every*** interval associated with a compatibility level be
-calculated and plotted to form a function. (2-6)
+calculated, along with its corresponding P-value and S-value, and
+plotted to form a function. (2-8)
 
 This can be accomplished using the
 [**concurve**](https://github.com/Zadchow/concurve)</span> package in R.
@@ -75,3 +76,9 @@ install_github("zadchow/concurve")
     distribution estimator of a parameter. *arXiv \[mathST\]*. 2007.
 6.  Schweder T, Hjort NL. Confidence and Likelihood\*. *Scand J Stat.*
     2002;29(2):309-332.
+7.  Amrhein V, Trafimow D, Greenland S. Inferential Statistics as
+    Descriptive Statistics: There is No Replication Crisis if We Don’t
+    Expect Replication. *Am Stat*. 2018
+8.  Greenland S. Valid P-values Behave Exactly As They Should. Some
+    misleading criticisms of P-values and their resolution with
+    S-values. *Am Stat*. 2018;18(136).
