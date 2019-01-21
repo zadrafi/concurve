@@ -10,7 +10,7 @@ Authors@R: c(
       comment = c(ORCID = "0000-0003-3166-0688")
     )
     )
-Maintainer: Zad Rafi Chow <zad@lesslikely.com>
+Maintainer: Zad Chow <zad@lesslikely.com>
 Description: Allows one to compute confidence (compatibility/consonance) intervals for various statistical tests along with their corresponding P-values and S-values. The intervals can be plotted to create consonance functions allowing one to see what effect sizes are compatible with the test model at various compatibility levels rather than being limited to one interval estimate such as 95%. These methods are discussed by Poole (1987) <doi:10.2105/AJPH.77.2.195>, Schweder & Hort (2002) <doi:10.1111/1467-9469.00285>, Singh, Xie, & Strawderman (2007) <arXiv:0708.0976>, Rothman, Greenland, & Lash (2012, ISBN:9781451190052), and Amrhein, Trafimow, & Greenland (2018) <doi:10.7287/peerj.preprints.26857v4>.
 Imports: ggplot2,
          metafor
