@@ -11,12 +11,12 @@ status](https://ci.appveyor.com/api/projects/status/v8sp9x96dap2om9s?svg=true)](
 
 Interval estimates such as ~~confidence~~ **compatibility/consonance**
 intervals are now widely reported in many journals alongside the exact
-P-value of a statistical test and the point estimate.
+P-value of a statistical test and point estimate.
 
 While this is a large improvement over what constituted statistical
 reporting a decade ago, it is still largely inadequate.
 
-Take for example, the 95% consonance interval. As many have stated
+Take for example, the 95% compatibility interval. As many have stated
 before, there is nothing special about **95%**, yet we rarely see
 intervals of any other level. Choosing to compute a 95% interval is as
 mindless as choosing a 5% alpha level for hypothesis testing. A single
@@ -31,7 +31,7 @@ since there is not much thought behind the choice.(1)
 
 Thus, we propose that instead of only calculating ***one*** interval
 estimate, ***every*** interval associated with a compatibility level be
-calculated and plotted to form a function. (2-4)
+calculated and plotted to form a function. (2-6)
 
 This can be accomplished using the
 [**concurve**](https://github.com/Zadchow/concurve)</span> package in R.
@@ -65,9 +65,13 @@ install_github("zadchow/concurve")
 # References
 
 1.  Stark PB, Saltelli A. Cargo-cult statistics and scientific crisis.
-    Significance. 2018;15(4):40-43.
-2.  Poole C. Beyond the confidence interval. Am J Public Health.
+    *Significance.* 2018;15(4):40-43.
+2.  Poole C. Beyond the confidence interval. *Am J Public Health.*
     1987;77(2):195-199.
 3.  Sullivan KM, Foster DA. Use of the confidence interval function.
-    Epidemiology. 1990;1(1):39-42.
-4.  Rothman KJ, Greenland S, Lash TL, Others. Modern epidemiology. 2008.
+    *Epidemiology.* 1990;1(1):39-42.
+4.  Rothman KJ, Greenland S, Lash TL. Modern epidemiology. 2012.
+5.  Singh K, Xie M, Strawderman WE. Confidence distribution (CD) –
+    distribution estimator of a parameter. *arXiv \[mathST\]*. 2007.
+6.  Schweder T, Hjort NL. Confidence and Likelihood\*. *Scand J Stat.*
+    2002;29(2):309-332.
