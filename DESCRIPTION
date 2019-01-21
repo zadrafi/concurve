@@ -1,7 +1,7 @@
 Package: concurve
 Type: Package
 Title: Computes and Plots Confidence (Consonance) Intervals, P-Values, and S-Values to Form Consonance Curves (Functions) 
-Version: 0.1.2
+Version: 1.0.1
 Authors@R: c(
     person("Zad", "Chow", , "zad@lesslikely.com", role = c("aut", "cre"), 
       comment = c(ORCID = "0000-0003-1545-8199")
