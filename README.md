@@ -14,7 +14,7 @@ intervals are now widely reported in many journals alongside the exact
 P-value of a statistical test and point estimate.
 
 While this is a large improvement over what constituted statistical
-reporting a decade ago, it is still largely inadequate.
+reporting in the past two decades, it is still largely inadequate.
 
 Take for example, the 95% compatibility interval. As many have stated
 before, there is nothing special about **95%**, yet we rarely see
