@@ -6,6 +6,7 @@ Status](https://travis-ci.org/Zadchow/concurve.svg?branch=master)](https://travi
 [![Build
 status](https://ci.appveyor.com/api/projects/status/v8sp9x96dap2om9s?svg=true)](https://ci.appveyor.com/project/Zadchow/concurve)
 [![codecov](https://codecov.io/gh/Zadchow/concurve/branch/master/graph/badge.svg)](https://codecov.io/gh/Zadchow/concurve)
+[![DOI](https://zenodo.org/badge/165464881.svg)](https://zenodo.org/badge/latestdoi/165464881)
 
 ## A Single Interval Isn’t Enough
 
