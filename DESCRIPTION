@@ -18,7 +18,7 @@ Suggests:
     testthat,
     knitr
 License: GPL-3 | file LICENSE
-URL: https://data.lesslikely.com/concurve/, https://github.com/Zadchow/concurve, https://www.lesslikely.com/ 
+URL: https://data.lesslikely.com/concurve/, https://github.com/Zadchow/concurve, https://lesslikely.com/ 
 BugReports: https://github.com/Zadchow/concurve/issues
 VignetteBuilder: knitr
 Encoding: UTF-8
