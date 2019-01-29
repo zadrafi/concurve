@@ -28,7 +28,7 @@ compatibility interval is only a *slice* of a wide range of
 compatibility intervals at different levels. Reporting 95% intervals
 only promotes [cargo-cult
 statistics](https://rss.onlinelibrary.wiley.com/doi/10.1111/j.1740-9713.2018.01174.x)
-since there is not much thought behind the choice.(1)
+since there is not much thought behind the choice. (1)
 
 > “***Cargo-cult statistics*** – *the ritualistic miming of statistics
 > rather than conscientious practice*.” -  Stark & Saltelli, 2018
