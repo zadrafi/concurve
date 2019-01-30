@@ -1,8 +1,7 @@
+^codemeta\.json$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^pkgdown$
-^.*\.Rproj$
-^\.Rproj\.user$
 ^\.travis\.yml$
 ^/\.gitattributes$
 ^codecov\.yml$

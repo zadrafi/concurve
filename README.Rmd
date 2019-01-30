@@ -1,14 +1,16 @@
 ---
-title: 
+title: Concurve
 output: github_document
 ---
-
-Plotting Functions With The Concurve Package <img src="man/figures/logo.svg" align="right" width="120" />
+Plot Interval Functions with the Package <img src="man/figures/logo.svg" align="right" width="120" />
 ================
 
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/concurve)](https://cran.r-project.org/package=concurve)
+![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)
 [![Build Status](https://travis-ci.org/Zadchow/concurve.svg?branch=master)](https://travis-ci.org/Zadchow/concurve)
 [![Build status](https://ci.appveyor.com/api/projects/status/v8sp9x96dap2om9s?svg=true)](https://ci.appveyor.com/project/Zadchow/concurve)
 [![codecov](https://codecov.io/gh/Zadchow/concurve/branch/master/graph/badge.svg)](https://codecov.io/gh/Zadchow/concurve)
+![LICENSE](https://img.shields.io/cran/l/concurve.svg?style=flat)
 [![DOI](https://zenodo.org/badge/165464881.svg)](https://zenodo.org/badge/latestdoi/165464881)
 
 ## A Single Interval Isn’t Enough
@@ -40,14 +42,20 @@ calculated, along with its corresponding P-value and S-value, and plotted to for
 This can be accomplished using the [**concurve**](https://github.com/Zadchow/concurve)</span>
 package in R.
 
-## Install the package 
+## Install the Package from CRAN
 
 ``` r
+install.packages("concurve")
+```
+
+## Install the Developer Version
+
+```r
 library(devtools)
 install_github("zadchow/concurve")
 ```
 
-## Check out the [articles](https://data.lesslikely.com/concurve/articles/) to see the package in action. 
+## Check out the [Articles](https://data.lesslikely.com/concurve/articles/) to See the Package in Action.
 
 > "*Statistical software enables and promotes cargo-cult statistics.
 > Marketing and adoption of statistical software are driven by ease of

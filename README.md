@@ -1,11 +1,17 @@
+Concurve
+================
 
-# Plotting Functions With The Concurve Package <img src="man/figures/logo.svg" align="right" width="120" />
+# Plot Interval Functions with the Package <img src="man/figures/logo.svg" align="right" width="120" />
 
-[![Build
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/concurve)](https://cran.r-project.org/package=concurve)
+![Project Status: Active – The project has reached a stable, usable
+state and is being actively
+developed.](http://www.repostatus.org/badges/latest/active.svg) [![Build
 Status](https://travis-ci.org/Zadchow/concurve.svg?branch=master)](https://travis-ci.org/Zadchow/concurve)
 [![Build
 status](https://ci.appveyor.com/api/projects/status/v8sp9x96dap2om9s?svg=true)](https://ci.appveyor.com/project/Zadchow/concurve)
 [![codecov](https://codecov.io/gh/Zadchow/concurve/branch/master/graph/badge.svg)](https://codecov.io/gh/Zadchow/concurve)
+![LICENSE](https://img.shields.io/cran/l/concurve.svg?style=flat)
 [![DOI](https://zenodo.org/badge/165464881.svg)](https://zenodo.org/badge/latestdoi/165464881)
 
 ## A Single Interval Isn’t Enough
@@ -25,7 +31,7 @@ compatibility interval is only a *slice* of a wide range of
 compatibility intervals at different levels. Reporting 95% intervals
 only promotes [cargo-cult
 statistics](https://rss.onlinelibrary.wiley.com/doi/10.1111/j.1740-9713.2018.01174.x)
-since there is not much thought behind the choice.(1)
+since there is not much thought behind the choice. (1)
 
 > “***Cargo-cult statistics*** – *the ritualistic miming of statistics
 > rather than conscientious practice*.” - Stark & Saltelli, 2018
@@ -38,14 +44,20 @@ plotted to form a function. (2-8)
 This can be accomplished using the
 [**concurve**](https://github.com/Zadchow/concurve)</span> package in R.
 
-## Install the package
+## Install the Package from CRAN
+
+``` r
+install.packages("concurve")
+```
+
+## Install the Developer Version
 
 ``` r
 library(devtools)
 install_github("zadchow/concurve")
 ```
 
-## Check out the [articles](https://data.lesslikely.com/concurve/articles/) to see the package in action.
+## Check out the [Articles](https://data.lesslikely.com/concurve/articles/) to See the Package in Action.
 
 > "*Statistical software enables and promotes cargo-cult statistics.
 > Marketing and adoption of statistical software are driven by ease of
