@@ -1,7 +1,7 @@
 Concurve
 ================
 
-# Plot Interval Functions with the Package <img src="man/figures/logo.svg" align="right" width="120" />
+# Plot Interval Functions with the Concurve Package <img src="man/figures/logo.svg" align="right" width="120" />
 
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/concurve)](https://cran.r-project.org/package=concurve)
 ![Project Status: Active – The project has reached a stable, usable
