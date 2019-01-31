@@ -75,7 +75,7 @@ install_github("zadchow/concurve")
 > “powerful” and “user-friendly” the software is, the more it invites
 > cargo-cult statistics*." - Stark & Saltelli, 2018
 
-# Reference
+# References
 
 1.  Stark PB, Saltelli A. Cargo-cult statistics and scientific crisis.
     _Significance._ 2018;15(4):40-43. 
