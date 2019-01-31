@@ -13,6 +13,7 @@ Plot Interval Functions with the Concurve Package <img src="man/figures/logo.svg
 [![CircleCI](https://circleci.com/gh/Zadchow/concurve.svg?style=svg)](https://circleci.com/gh/Zadchow/concurve)
 ![LICENSE](https://img.shields.io/cran/l/concurve.svg?style=flat)
 [![DOI](https://zenodo.org/badge/165464881.svg)](https://zenodo.org/badge/latestdoi/165464881)
+[![](https://cranlogs.r-pkg.org/badges/grand-total/concurve)](https://cran.r-project.org/package=concurve)
 
 ## A Single Interval Isn’t Enough
 

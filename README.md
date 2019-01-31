@@ -14,6 +14,7 @@ status](https://ci.appveyor.com/api/projects/status/v8sp9x96dap2om9s?svg=true)](
 [![CircleCI](https://circleci.com/gh/Zadchow/concurve.svg?style=svg)](https://circleci.com/gh/Zadchow/concurve)
 ![LICENSE](https://img.shields.io/cran/l/concurve.svg?style=flat)
 [![DOI](https://zenodo.org/badge/165464881.svg)](https://zenodo.org/badge/latestdoi/165464881)
+[![](https://cranlogs.r-pkg.org/badges/grand-total/concurve)](https://cran.r-project.org/package=concurve)
 
 ## A Single Interval Isn’t Enough
 
