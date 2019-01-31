@@ -1,11 +1,18 @@
 {
-  "@context": ["https://doi.org/10.5063/schema/codemeta-2.0", "http://schema.org"],
+  "@context": [
+    "https://doi.org/10.5063/schema/codemeta-2.0",
+    "http://schema.org"
+  ],
   "@type": "SoftwareSourceCode",
   "identifier": "concurve",
   "description": "Allows one to compute confidence (compatibility/consonance) intervals for various statistical tests along with their corresponding P-values and S-values. The intervals can be plotted to create consonance functions allowing one to see what effect sizes are compatible with the test model at various compatibility levels rather than being limited to one interval estimate such as 95%. These methods are discussed by Poole C. (1987) <doi:10.2105/AJPH.77.2.195>, Schweder T, Hjort NL. (2002) <doi:10.1111/1467-9469.00285>, Singh K, Xie M, Strawderman WE. (2007) <arXiv:0708.0976>, Rothman KJ, Greenland S, Lash TL. (2012, ISBN:9781451190052), Amrhein V, Trafimow D, Greenland S. (2018) <doi:10.7287/peerj.preprints.26857v4>, and Greenland S. (2018) <doi:10.1080/00031305.2018.1529625>.",
   "name": "concurve: Computes and Plots Confidence (Compatibility) Intervals, P-Values, and S-Values to Form Consonance Curves (Functions) ",
   "codeRepository": "https://github.com/Zadchow/concurve",
-  "relatedLink": ["https://data.lesslikely.com/concurve/", "https://lesslikely.com/", "https://CRAN.R-project.org/package=concurve"],
+  "relatedLink": [
+    "https://data.lesslikely.com/concurve/",
+    "https://lesslikely.com/",
+    "https://CRAN.R-project.org/package=concurve"
+  ],
   "issueTracker": "https://github.com/Zadchow/concurve/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
   "version": "1.0.3",
@@ -70,6 +77,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=knitr"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "covr",
+      "name": "covr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=covr"
     }
   ],
   "softwareRequirements": [
@@ -99,6 +118,11 @@
     }
   ],
   "keywords": ["confidence", "compatibility", "consonance", "interval", "function"],
-  "fileSize": "1160.325KB",
-  "contIntegration": ["https://travis-ci.org/Zadchow/concurve", "https://ci.appveyor.com/project/Zadchow/concurve", "https://codecov.io/gh/Zadchow/concurve"]
+  "fileSize": "1160.365KB",
+  "contIntegration": [
+    "https://travis-ci.org/Zadchow/concurve",
+    "https://ci.appveyor.com/project/Zadchow/concurve",
+    "https://codecov.io/gh/Zadchow/concurve"
+  ],
+  "readme": "https://github.com/Zadchow/concurve/blob/master/README.md"
 }

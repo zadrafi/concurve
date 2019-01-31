@@ -11,6 +11,7 @@ Status](https://travis-ci.org/Zadchow/concurve.svg?branch=master)](https://travi
 [![Build
 status](https://ci.appveyor.com/api/projects/status/v8sp9x96dap2om9s?svg=true)](https://ci.appveyor.com/project/Zadchow/concurve)
 [![codecov](https://codecov.io/gh/Zadchow/concurve/branch/master/graph/badge.svg)](https://codecov.io/gh/Zadchow/concurve)
+[![CircleCI](https://circleci.com/gh/Zadchow/concurve.svg?style=svg)](https://circleci.com/gh/Zadchow/concurve)
 ![LICENSE](https://img.shields.io/cran/l/concurve.svg?style=flat)
 [![DOI](https://zenodo.org/badge/165464881.svg)](https://zenodo.org/badge/latestdoi/165464881)
 

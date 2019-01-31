@@ -6,7 +6,7 @@
 ^/\.gitattributes$
 ^codecov\.yml$
 ^_config\.yml$
-docs
+^docs$
 ^_pkgdown\.yml$
 ^README\.Rmd$
 ^README-.*\.png$
@@ -16,3 +16,6 @@ docs
 ^\.git$
 ^cran-comments\.md$
 ^extra\.css$
+^\.RData$
+^\.Rhistory$
+^\.circleci$
