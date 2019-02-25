@@ -11,16 +11,28 @@ Status](https://travis-ci.org/Zadchow/concurve.svg?branch=master)](https://travi
 [![Build
 status](https://ci.appveyor.com/api/projects/status/v8sp9x96dap2om9s?svg=true)](https://ci.appveyor.com/project/Zadchow/concurve)
 [![codecov](https://codecov.io/gh/Zadchow/concurve/branch/master/graph/badge.svg)](https://codecov.io/gh/Zadchow/concurve)
-[![CircleCI](https://circleci.com/gh/Zadchow/concurve.svg?style=svg)](https://circleci.com/gh/Zadchow/concurve)
 ![LICENSE](https://img.shields.io/cran/l/concurve.svg?style=flat)
 [![DOI](https://zenodo.org/badge/165464881.svg)](https://zenodo.org/badge/latestdoi/165464881)
 [![](https://cranlogs.r-pkg.org/badges/grand-total/concurve)](https://cran.r-project.org/package=concurve)
+[![Rdoc](http://www.rdocumentation.org/badges/version/concurve)](http://www.rdocumentation.org/packages/concurve)
 
 ## A Single Interval Isn’t Enough
 
 Interval estimates such as ~~confidence~~ **compatibility/consonance**
 intervals are now widely reported in many journals alongside the exact
 P-value of a statistical test and point estimate.
+
+<center>
+
+![](https://media.giphy.com/media/3K0BcXNzGuRin84NJN/giphy.gif)
+
+<p>
+
+[Source: Kristoffer Magnusson](https://rpsychologist.com/d3/CI/)
+
+</p>
+
+</center>
 
 While this is a large improvement over what constituted statistical
 reporting in the past two decades, it is still largely inadequate.
