@@ -2,7 +2,15 @@ url: https://data.lesslikely.com/concurve/
 
 authors:
   Zad Chow:
-    href: https://lesslikely.com
+    href: https://lesslikely.com/
+  Andrew Vigotsky:
+    href: https://www.researchgate.net/profile/Andrew_Vigotsky
+
+template:
+  params:
+    docsearch:
+      api_key: aa56fddedc1fa96b5b2d6c9457d7009b
+      index_name: concurve
 
 navbar:
   structure:
