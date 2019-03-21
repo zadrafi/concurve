@@ -95,5 +95,5 @@ install_github("zadchow/concurve")
     _arXiv [mathST]_. 2007. 
 6.  Schweder T, Hjort NL. Confidence and Likelihood*. 
     _Scand J Stat._ 2002;29(2):309-332. 
-7.  Amrhein V, Trafimow D, Greenland S. Inferential Statistics as Descriptive Statistics: There is No Replication     Crisis if We Don't Expect Replication. _Am Stat_. 2018
-8.  Greenland S. Valid P-values Behave Exactly As They Should. Some misleading criticisms of P-values and their      resolution with S-values. _Am Stat_. 2018;18(136).
+7.  Amrhein V, Trafimow D, Greenland S. Inferential Statistics as Descriptive Statistics: There is No Replication     Crisis if We Don't Expect Replication. _Am Stat_. 2019
+8.  Greenland S. Valid P-values Behave Exactly As They Should. Some misleading criticisms of P-values and their      resolution with S-values. _Am Stat_. 2019;18(136).
