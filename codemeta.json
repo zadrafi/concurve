@@ -5,8 +5,8 @@
   ],
   "@type": "SoftwareSourceCode",
   "identifier": "concurve",
-  "description": "Allows one to compute confidence (compatibility/consonance) intervals for various statistical tests along with their corresponding P-values and S-values. The intervals can be plotted to create consonance functions allowing one to see what effect sizes are compatible with the test model at various compatibility levels rather than being limited to one interval estimate such as 95%. These methods are discussed by Poole C. (1987) <doi:10.2105/AJPH.77.2.195>, Schweder T, Hjort NL. (2002) <doi:10.1111/1467-9469.00285>, Singh K, Xie M, Strawderman WE. (2007) <arXiv:0708.0976>, Rothman KJ, Greenland S, Lash TL. (2008, ISBN:9781451190052), Amrhein V, Trafimow D, Greenland S. (2019) <doi:10.1080/00031305.2018.1543137>, and Greenland S. (2019) <doi:10.1080/00031305.2018.1529625>.",
-  "name": "concurve: Computes and Plots Confidence (Compatibility) Intervals, P-Values, and S-Values to Form Consonance Curves (Functions) ",
+  "description": "Allows one to compute consonance (confidence) intervals for various statistical tests along with their corresponding P-values and S-values. The intervals can be plotted to create consonance and surprisal functions allowing one to see what effect sizes are compatible with the test model at various consonance levels rather than being limited to one interval estimate such as 95%. These methods are discussed by Poole C. (1987) <doi:10.2105/AJPH.77.2.195>, Schweder T, Hjort NL. (2002) <doi:10.1111/1467-9469.00285>, Singh K, Xie M, Strawderman WE. (2007) <arXiv:0708.0976>, Rothman KJ, Greenland S, Lash TL. (2008, ISBN:9781451190052), Amrhein V, Trafimow D, Greenland S. (2019) <doi:10.1080/00031305.2018.1543137>, and Greenland S. (2019) <doi:10.1080/00031305.2018.1529625>.",
+  "name": "concurve: Computes and Plots Consonance (Confidence) Intervals, P-Values, and S-Values to Form Consonance and Surprisal Functions.",
   "codeRepository": "https://github.com/Zadchow/concurve",
   "relatedLink": [
     "https://data.lesslikely.com/concurve/",
@@ -15,14 +15,14 @@
   ],
   "issueTracker": "https://github.com/Zadchow/concurve/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "3.5.2",
+    "version": "3.5.3",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 3.5.2 (2018-12-20)",
+  "runtimePlatform": "R version 3.5.3 (2018-12-20)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -32,14 +32,14 @@
   "author": [
     {
       "@type": "Person",
-      "givenName": "Zad",
+      "givenName": "Zad R.",
       "familyName": "Chow",
       "email": "zad@lesslikely.com",
       "@id": "https://orcid.org/0000-0003-1545-8199"
     },
     {
       "@type": "Person",
-      "givenName": "Andrew",
+      "givenName": "Andrew D.",
       "familyName": "Vigotsky",
       "@id": "https://orcid.org/0000-0003-3166-0688"
     }
@@ -47,7 +47,7 @@
   "maintainer": [
     {
       "@type": "Person",
-      "givenName": "Zad",
+      "givenName": "Zad R.",
       "familyName": "Chow",
       "email": "zad@lesslikely.com",
       "@id": "https://orcid.org/0000-0003-1545-8199"
@@ -117,7 +117,7 @@
       "sameAs": "https://CRAN.R-project.org/package=metafor"
     }
   ],
-  "keywords": ["confidence", "compatibility", "consonance", "interval", "function"],
+  "keywords": ["confidence", "compatibility", "consonance", "surprisal", "interval", "function", "curve"],
   "fileSize": "1160.365KB",
   "contIntegration": [
     "https://travis-ci.org/Zadchow/concurve",

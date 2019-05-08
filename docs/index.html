@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Computes and Plots Confidence (Compatibility) Intervals, P-Values, and S-Values to Form Consonance Curves (Functions) • concurve</title>
+<title>Computes and Plots Consonance (Confidence) Intervals, P-Values, and S-Values to Form Consonance and Surprisal Functions. • concurve</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
@@ -18,8 +18,8 @@
 <script src="pkgdown.js"></script><!-- docsearch --><script src="docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
 <link href="docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><link href="extra.css" rel="stylesheet">
-<meta property="og:title" content="Computes and Plots Confidence (Compatibility) Intervals, P-Values, and S-Values to Form Consonance Curves (Functions)">
-<meta property="og:description" content="Allows one to compute confidence (compatibility/consonance) intervals for various statistical tests along with their corresponding P-values and S-values. The intervals can be plotted to create consonance functions allowing one to see what effect sizes are compatible with the test model at various compatibility levels rather than being limited to one interval estimate such as 95%. These methods are discussed by Poole C. (1987) &lt;doi:10.2105/AJPH.77.2.195&gt;, Schweder T, Hjort NL. (2002) &lt;doi:10.1111/1467-9469.00285&gt;, Singh K, Xie M, Strawderman WE. (2007) &lt;arXiv:0708.0976&gt;, Rothman KJ, Greenland S, Lash TL. (2008, ISBN:9781451190052), Amrhein V, Trafimow D, Greenland S. (2019) &lt;doi:10.1080/00031305.2018.1543137&gt;, and Greenland S. (2019) &lt;doi:10.1080/00031305.2018.1529625&gt;.">
+<meta property="og:title" content="Computes and Plots Consonance (Confidence) Intervals, P-Values, and S-Values to Form Consonance and Surprisal Functions.">
+<meta property="og:description" content="Allows one to compute consonance (confidence) intervals for various statistical tests along with their corresponding P-values and S-values. The intervals can be plotted to create consonance and surprisal functions allowing one to see what effect sizes are compatible with the test model at various consonance levels rather than being limited to one interval estimate such as 95%. These methods are discussed by Poole C. (1987) &lt;doi:10.2105/AJPH.77.2.195&gt;, Schweder T, Hjort NL. (2002) &lt;doi:10.1111/1467-9469.00285&gt;, Singh K, Xie M, Strawderman WE. (2007) &lt;arXiv:0708.0976&gt;, Rothman KJ, Greenland S, Lash TL. (2008, ISBN:9781451190052), Amrhein V, Trafimow D, Greenland S. (2019) &lt;doi:10.1080/00031305.2018.1543137&gt;, and Greenland S. (2019) &lt;doi:10.1080/00031305.2018.1529625&gt;.">
 <meta property="og:image" content="https://data.lesslikely.com/concurve/logo.png">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.6</span>
       </span>
     </div>
 
@@ -98,29 +98,24 @@
     
 <div id="plot-interval-functions-with-the-concurve-package" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#plot-interval-functions-with-the-concurve-package" class="anchor"></a>Plot Interval Functions with the Concurve Package <img src="reference/figures/logo.svg" align="right" width="120">
+<a href="#plot-interval-functions-with-the-concurve-package" class="anchor"></a>Plot Interval Functions With the concurve Package <img src="reference/figures/logo.svg" align="right" width="120">
 </h1></div>
 <p><a href="https://cran.r-project.org/package=concurve"><img src="http://www.r-pkg.org/badges/version/concurve" alt="CRAN_Status_Badge"></a> <img src="http://www.repostatus.org/badges/latest/active.svg" alt="Project Status: Active – The project has reached a stable, usable state and is being actively developed."><a href="https://travis-ci.org/Zadchow/concurve"><img src="https://travis-ci.org/Zadchow/concurve.svg?branch=master" alt="Build Status"></a> <a href="https://ci.appveyor.com/project/Zadchow/concurve"><img src="https://ci.appveyor.com/api/projects/status/v8sp9x96dap2om9s?svg=true" alt="Build status"></a> <a href="https://codecov.io/gh/Zadchow/concurve"><img src="https://codecov.io/gh/Zadchow/concurve/branch/master/graph/badge.svg" alt="codecov"></a> <img src="https://img.shields.io/cran/l/concurve.svg?style=flat" alt="LICENSE"><a href="https://zenodo.org/badge/latestdoi/165464881"><img src="https://zenodo.org/badge/165464881.svg" alt="DOI"></a> <a href="https://cran.r-project.org/package=concurve"><img src="https://cranlogs.r-pkg.org/badges/grand-total/concurve"></a> <a href="http://www.rdocumentation.org/packages/concurve"><img src="http://www.rdocumentation.org/badges/version/concurve" alt="Rdoc"></a></p>
 <div id="a-single-interval-isnt-enough" class="section level2">
 <h2 class="hasAnchor">
 <a href="#a-single-interval-isnt-enough" class="anchor"></a>A Single Interval Isn’t Enough</h2>
-<p>Interval estimates such as <del>confidence</del> <strong>compatibility/consonance</strong> intervals are now widely reported in many journals alongside the exact P-value of a statistical test and point estimate.</p>
-<center>
-<img src="https://media.giphy.com/media/3K0BcXNzGuRin84NJN/giphy.gif" style="width:60.0%"><p>
-<a href="https://rpsychologist.com/d3/CI/">Source: Kristoffer Magnusson</a>
-</p>
-</center>
+<p>Interval estimates such as <del>confidence</del> <strong>consonance</strong> intervals are now widely reported in many journals alongside the exact P-value of a statistical test and point estimate.</p>
 <p>While this is a large improvement over what constituted statistical reporting in the past two decades, it is still largely inadequate.</p>
-<p>Take for example, the 95% compatibility interval. As many have stated before, there is nothing special about <strong>95%</strong>, yet we rarely see intervals of any other level. Choosing to compute a 95% interval is as mindless as choosing a 5% alpha level for hypothesis testing. A single compatibility interval is only a <em>slice</em> of a wide range of compatibility intervals at different levels. Reporting 95% intervals only promotes <a href="https://rss.onlinelibrary.wiley.com/doi/10.1111/j.1740-9713.2018.01174.x">cargo-cult statistics</a> since there is not much thought behind the choice. (1)</p>
+<p>Take for example, the 95% consonance interval. As many have stated before, there is nothing special about <strong>95%</strong>, yet we rarely see intervals of any other level. Choosing to compute a 95% interval is as mindless as choosing a 5% alpha level for hypothesis testing. A single consonance interval is only a <em>slice</em> of a wide range of consonance intervals at different levels. Reporting 95% intervals only promotes <a href="https://rss.onlinelibrary.wiley.com/doi/10.1111/j.1740-9713.2018.01174.x">cargo-cult statistics</a> since there is not much thought behind the choice. (1)</p>
 <blockquote>
 <p>“<strong><em>Cargo-cult statistics</em></strong> – <em>the ritualistic miming of statistics rather than conscientious practice</em>.” - Stark &amp; Saltelli, 2018</p>
 </blockquote>
-<p>Thus, we propose that instead of only calculating <strong><em>one</em></strong> interval estimate, <strong><em>every</em></strong> interval associated with a compatibility level be calculated, along with its corresponding P-value and S-value, and plotted to form a function. (2-8)</p>
+<p>Thus, we propose that instead of only calculating <strong><em>one</em></strong> interval estimate, <strong><em>every</em></strong> interval associated with a consonance level be calculated, along with its corresponding P-value and S-value, and plotted to form a function. (2-8)</p>
 <p>This can be accomplished using the <a href="https://github.com/Zadchow/concurve"><strong>concurve</strong></a> package in R.</p>
 </div>
 <div id="install-the-package-from-cran" class="section level2">
 <h2 class="hasAnchor">
-<a href="#install-the-package-from-cran" class="anchor"></a>Install the Package from CRAN</h2>
+<a href="#install-the-package-from-cran" class="anchor"></a>Install the Package From CRAN</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"concurve"</span>)</a></code></pre></div>
 </div>
 <div id="install-the-developer-version" class="section level2">
@@ -178,9 +173,9 @@
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>
-<a href="https://lesslikely.com/">Zad Chow</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-1545-8199" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID" height="16"></a> </li>
+<a href="https://lesslikely.com/">Zad R. Chow</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-1545-8199" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID" height="16"></a> </li>
 <li>
-<a href="https://www.researchgate.net/profile/Andrew_Vigotsky">Andrew Vigotsky</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-3166-0688" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID" height="16"></a> </li>
+<a href="https://www.researchgate.net/profile/Andrew_Vigotsky">Andrew D. Vigotsky</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-3166-0688" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID" height="16"></a> </li>
 </ul>
 </div>
 
@@ -190,7 +185,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://lesslikely.com/">Zad Chow</a>, <a href="https://www.researchgate.net/profile/Andrew_Vigotsky">Andrew Vigotsky</a>.</p>
+  <p>Developed by <a href="https://lesslikely.com/">Zad R. Chow</a>, <a href="https://www.researchgate.net/profile/Andrew_Vigotsky">Andrew D. Vigotsky</a>.</p>
 </div>
 
 <div class="pkgdown">

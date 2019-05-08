@@ -66,9 +66,7 @@ package in R.
 Install the concurve package. 
 
 ``` r
-library(devtools)
-install_github("zadchow/concurve")
-
+install.packages("concurve")
 ```
 
 We’ll use the same data from above to calculate a P-value function and
@@ -102,7 +100,7 @@ model and its assumptions.
 
 Furthermore, we can also plot every compatibility interval and its
 corresponding
-<span style="color:#d46c5b">[***S-value***](https://www.lesslikely.com/statistics/s-values/)</span>
+<span style="color:#d46c5b">[***S-value***](https://lesslikely.com/statistics/s-values/)</span>
 using the ***plotsint*** function
 
 ``` r
