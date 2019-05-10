@@ -71,7 +71,7 @@ install_github("zadchow/concurve")
 
 # For Stata:
 
-## Check out the [Article on Using Stata](articles/stata.html) for concurve
+## Check out the [Article on Using Stata](articles/stata.html) for concurve.
 
 * * * 
 
