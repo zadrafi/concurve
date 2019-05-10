@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Produce Compatibility Intervals for Meta-Analysis Data — metaintervals • concurve</title>
+<title>Produce Consonance Intervals for Meta-Analysis Data — metaintervals • concurve</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -45,9 +45,9 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Produce Compatibility Intervals for Meta-Analysis Data — metaintervals" />
+<meta property="og:title" content="Produce Consonance Intervals for Meta-Analysis Data — metaintervals" />
 
-<meta property="og:description" content="Computes thousands of compatibility (confidence) intervals for the chosen parameter in the
+<meta property="og:description" content="Computes thousands of consonance (confidence) intervals for the chosen parameter in the
 meta-analysis done by the metafor package and places the interval limits for each interval level
 into a data frame along with the corresponding p-value and s-value." />
 
@@ -105,7 +105,10 @@ into a data frame along with the corresponding p-value and s-value." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/examples.html">Examples With Simulated Data</a>
+      <a href="../articles/examples.html">Examples in R</a>
+    </li>
+    <li>
+      <a href="../articles/stata.html">Using Stata</a>
     </li>
   </ul>
 </li>
@@ -136,14 +139,14 @@ into a data frame along with the corresponding p-value and s-value." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Produce Compatibility Intervals for Meta-Analysis Data</h1>
+    <h1>Produce Consonance Intervals for Meta-Analysis Data</h1>
     
     <div class="hidden name"><code>metaintervals.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Computes thousands of compatibility (confidence) intervals for the chosen parameter in the
+    <p>Computes thousands of consonance (confidence) intervals for the chosen parameter in the
 meta-analysis done by the metafor package and places the interval limits for each interval level
 into a data frame along with the corresponding p-value and s-value.</p>
     
@@ -166,9 +169,9 @@ This is typically a setting used for binary outcomes such as risk ratios and odd
     </tr>
     <tr>
       <th>steps</th>
-      <td><p>Indicates how many compatibility intervals are to be calculated at various levels. For example, setting
-this to 100 will produce 100 compatibility intervals from 0 to 100. Setting this to 10000 will produce more
-compatibility levels. By default, it is set to 1000. Increasing the number substantially is not recommended
+      <td><p>Indicates how many consonance intervals are to be calculated at various levels. For example, setting
+this to 100 will produce 100 consonance intervals from 0 to 100. Setting this to 10000 will produce more
+consonance levels. By default, it is set to 1000. Increasing the number substantially is not recommended
 as it will take longer to produce all the intervals and store them into a dataframe.</p></td>
     </tr>
     </table>

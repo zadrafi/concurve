@@ -1,5 +1,5 @@
 ---
-title: "Examples With Simulated Data"
+title: "Examples in R"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Vignette Title}
@@ -16,19 +16,19 @@ knitr::opts_chunk$set(
 
 ## Using Mean Differences
 
-If we were to simulate some random data from a normal distribution with
+If we were to generate some random data from a normal distribution with
 the following code,
 
 ``` r
-GroupA<-rnorm(15)
-GroupB<-rnorm(15)
+GroupA<-rnorm(20)
+GroupB<-rnorm(20)
 
 RandomData<-data.frame(GroupA, GroupB)
 ```
 
-and compare the means of these two groups using Welch’s t-test,
+and compare the means of these two "groups" using a t-test,
 
-``` r
+```r 
 testresults<-t.test(GroupA, GroupB, data=RandomData, paired=FALSE)
 ```
 
@@ -36,18 +36,18 @@ we would likely see some differences, given that we have such a small
 sample in each group. We can graph our data to see what the variability
 looks like.
 
-Plotted with a dot plot, we would see some variability.
-
-<img src="figures/dotplot.svg" align="center" width="500" />
+<center>
+<img src="https://res.cloudinary.com/less-likely/image/upload/v1557366226/Site/dotplot.svg" align="center" width="500" />
+</center>
 
 ```r
-summary(testresults)
+testresults
 ```
 
 We can see our P-value for the statistical test along with the computed
-95% interval (which is given to us by default by the program). Thus,
+95% interval with the command above (which is given to us by default by the program). Thus,
 effect sizes that range from the lower bound of this interval to the
-upper bound are compatible with the test model at this compatibility
+upper bound are compatible with the test model at this consonance
 level.
 
 However, as stated before, a 95% interval is only an artifact of the
@@ -55,7 +55,7 @@ commonly used 5% alpha level for hypothesis testing and is nowhere near
 as informative as a function.
 
 If we were to take the information from this data and calculate a
-P-value function where every single compatibility interval and its
+P-value function where every single consonance interval and its
 corresponding P-value were plotted, we would be able to see the full
 range of effect sizes compatible with the test model at various levels.
 
@@ -63,16 +63,22 @@ It is relatively easy to produce such a function using the
 <span style="color:#d46c5b">[**concurve**](https://github.com/Zadchow/concurve)</span>
 package in R.
 
-Install the concurve package. 
+Install the package directly from [CRAN](https://cran.r-project.org/web/packages/concurve/index.html) 
 
 ``` r
 install.packages("concurve")
 ```
+or get a more slightly up-to-date version via GitHub.
+
+``` r 
+library(devtools)
+install_github("zadchow/concurve")
+```
 
 We’ll use the same data from above to calculate a P-value function and
 since we are focusing on mean differences using a t-test, we will use
-the ***meanintervals*** function to calculate our compatibility
-intervals function and store it in a dataframe.
+the ***meanintervals*** function to calculate our consonance
+intervals and store them in a dataframe.
 
 ``` r
 library(concurve)
@@ -80,38 +86,42 @@ intervalsdf<-meanintervals(GroupA, GroupB,
                            data=RandomData, method="default")
 ```
 
-Now thousands of compatibility intervals at various levels have been
+Now thousands of consonance intervals at various levels have been
 stored in the dataframe “intervalsdf.”
 
 We can plot this data using the ***plotpint*** function (which stands
-for plot P-value intervals).
+for "plot P-value intervals").
 
 ``` r
 pfunction<-plotpint(intervalsdf)
 pfunction
 ```
-<img src="figures/function1.png" align="center" width="500" />
+<center>
+<img src="figures/function1.png" align="center" width="600" />
+</center>
 
-Now we can see every compatibility interval and its corresponding
-P-value and compatibility level plotted. As stated before, a single 95%
-compatibility interval is simply a slice through this function, which
+Now we can see every consonance interval and its corresponding
+P-value and consonance level plotted. As stated before, a single 95%
+consonance interval is simply a slice through this function, which
 provides far more information as to what is compatible with the test
 model and its assumptions.
 
-Furthermore, we can also plot every compatibility interval and its
-corresponding
+Furthermore, we can also produce a "surprisal" function by plotting every consonance interval and its corresponding
 <span style="color:#d46c5b">[***S-value***](https://lesslikely.com/statistics/s-values/)</span>
-using the ***plotsint*** function
+using the ***plotsint*** function.
 
 ``` r
 sfunction<-plotsint(intervalsdf)
 sfunction
 ```
-<img src="figures/function2.png" align="center" width="500" />
 
-The graph from the code above provides us with compatibility levels and the maximum
+<center>
+<img src="figures/function2.png" align="center" width="600" />
+</center>
+
+The graph from the code above provides us with consonance levels and the maximum
 amount of information against the effect sizes contained in the
-compatibility interval.
+consonance interval.
 
 ## Simple Linear Models
 
@@ -121,13 +131,13 @@ Let’s simulate more normal data and fit a simple linear regression to it
 using ordinary least squares regression with the ***lm*** function.
 
 ``` r
-
 GroupA2<-rnorm(500)
 GroupB2<-rnorm(500)
 
 RandomData2<-data.frame(GroupA2, GroupB2)
 
 model<-lm(GroupA2 ~ GroupB2, data=RandomData2)
+
 summary(model)
 ```
 
@@ -135,8 +145,8 @@ We can see some of the basic statistics of our model including the 95%
 interval for our predictor (GroupB). Perhaps we want more information.
 Well we can do that\! Using the ***geninterval*** function in the
 <span style="color:#d46c5b">[**concurve**](https://github.com/Zadchow/concurve)</span>
-package, we can calculate several compatibility intervals for the
-regression coefficient and then plot the P-value and S-value functions.
+package, we can calculate several consonance intervals for the
+regression coefficient and then plot the consonance and surprisal functions.
 
 ``` r
 randomframe<-genintervals(model, "GroupB2")
@@ -144,14 +154,18 @@ randomframe<-genintervals(model, "GroupB2")
 plotpint(randomframe)
 ```
 
-<img src="figures/function3.png" align="center" width="500" />
+<center>
+<img src="figures/function3.png" align="center" width="600" />
+</center>
 
 ``` r
 s<-plotsint(randomframe)
 s
 ```
 
-<img src="figures/function4.png" align="center" width="500" />
+<center>
+<img src="figures/function4.png" align="center" width="600" />
+</center>
 
 We can also compare these functions to likelihood functions (also called
 support intervals), and we’ll see that we get very similar results.
@@ -166,7 +180,7 @@ xx <- profilelike.lm(formula = GroupA2 ~ 1, data=RandomData2,
 Now we plot our likelihood function and we can see what the maximum
 likelihood estimation is. Notice that it’s practically similar to the
 interval in the S-value function with 0 bits of information against it
-and and the compatibility interval in the P-value function with a
+and and the consonance interval in the P-value function with a
 P-value of 1.
 
 ``` r
@@ -175,11 +189,13 @@ profilelike.plot(theta=xx$theta,
 title(main = "Likelihood Function")
 ```
 
-<img src="figures/likelihood.svg" align="center" width="500" />
+<center>
+<img src="https://res.cloudinary.com/less-likely/image/upload/v1557366228/Site/likelihood.svg" align="center" width="600" />
+</center>
 
 We’ve used a relatively easy example for this blog post, but the
 <span style="color:#d46c5b">[**concurve**](https://github.com/Zadchow/concurve)</span>
-package is also able to calculate compatibility functions for multiple
+package is also able to calculate consonance functions for multiple
 regressions, logistic regressions, ANOVAs, and meta-analyses (that have
 been produced by the ***metafor*** package).
 
@@ -188,7 +204,7 @@ been produced by the ***metafor*** package).
 Here we present another quick example with a meta-analysis of simulated
 data.
 
-First, we simulate random data for two groups in two hypothetical
+First, we generate random data for two groups in two hypothetical
 studies
 
 ``` r
@@ -245,10 +261,12 @@ res<-rma(yi, vi, data=dat, slab=paste(StudyName, sep=", "),
 Let’s plot our results in a forest plot. I’m going to omit this code
 since it’s a bit long.
 
-<img src="figures/meta-analysis.svg" align="center" width="500" />
+<center>
+<img src="https://res.cloudinary.com/less-likely/image/upload/v1557366229/Site/Meta-Analysis.svg" align="center" width="600" />
+</center>
 
 Take a look at the pooled summary effect and its interval. Keep it in
-mind as we move onto constructing a compatibility function.
+mind as we move onto constructing a consonance function.
 
 We can now take the object produced by the meta-analysis and calculate a
 P-value and S-value function with it to see the full spectrum of effect
@@ -266,17 +284,21 @@ the functions.
 plotpint(metaf)
 ```
 
-<img src="figures/function5.png" align="center" width="500" />
+<center>
+
+</center>
 
 And our S-value function
 
 ``` r
 plotsint(metaf)
 ```
-<img src="figures/function6.png" align="center" width="500" />
+<center>
+
+</center>
 
 Compare the span of these functions and the information they provide to
-the compatibility interval provided by the forest plot. We are now no
+the consonance interval provided by the forest plot. We are now no
 longer limited to interpreting an arbitrarily chosen interval by
 mindless analytic decisions often built into statistical packages by
 default.

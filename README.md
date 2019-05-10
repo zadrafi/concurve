@@ -41,7 +41,11 @@ since there is not much thought behind the choice. (1)
 Thus, we propose that instead of only calculating ***one*** interval
 estimate, ***every*** interval associated with a consonance level be
 calculated, along with its corresponding P-value and S-value, and
-plotted to form a function. (2-8)
+plotted to form a function.
+(2-8)
+
+<img src="https://res.cloudinary.com/less-likely/image/upload/v1557366230/Site/FrontConsonance.svg" align="center" width="400" />
+<img src="https://res.cloudinary.com/less-likely/image/upload/v1557366230/Site/FrontSurprisal.svg" align="center" width="400" />
 
 This can be accomplished using the
 [**concurve**](https://github.com/Zadchow/concurve)</span> package in R.

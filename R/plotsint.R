@@ -11,7 +11,7 @@ plotsint<-function(x) {
     geom_ribbon(aes(x = lower.limit, ymin = max(svalue), ymax = svalue), fill = "#d46c5b", alpha=0.50)+
     geom_ribbon(aes(x = upper.limit, ymin = max(svalue), ymax = svalue), fill = "#d46c5b", alpha=0.50)+
     labs(title="Surprisal Function",
-         subtitle="A function that contains consonance/confidence intervals at every level and the \ncorresponding S-values.",
+         subtitle="The function contains consonance/confidence intervals at every level and the \ncorresponding S-values.",
          caption="Produced with the concurve R package.",
          x="Range of Values",
          y="S-value

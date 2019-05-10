@@ -11,7 +11,7 @@ plotpint<-function(x) {
     geom_ribbon(aes(x = lower.limit, ymin = max(intrvl.level*100), ymax = intrvl.level*100), fill = "#239a98", alpha=0.50)+
     geom_ribbon(aes(x = upper.limit, ymin = max(intrvl.level*100), ymax = intrvl.level*100), fill = "#239a98", alpha=0.50)+
     labs(title="Consonance Function",
-         subtitle="A function that contains consonance/confidence intervals at every level and the \ncorresponding P-values.",
+         subtitle="The function contains consonance/confidence intervals at every level and the \ncorresponding P-values.",
          caption="Produced with the concurve R package.",
          x="Range of Values",
          y="Consonance Level (%)") +

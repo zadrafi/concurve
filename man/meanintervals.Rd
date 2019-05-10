@@ -1,12 +1,11 @@
 \name{meanintervals}
 \alias{meanintervals}
 
-\title{Produce Compatibility Intervals for Mean Differences
+\title{Produce Consonance Intervals for Mean Differences
 }
 \description{
-Computes thousands of compatibility (confidence) intervals for the chosen parameter in a statistical test
-that compares means and places the interval limits for each interval level into a data frame along with the
-corresponding p-value and s-value.
+Computes thousands of consonance (confidence) intervals for the chosen parameter in a statistical test
+that compares means and places the interval limits for each interval level into a data frame along with the corresponding p-value and s-value.
 }
 \usage{
 meanintervals(x, y, data, paired = F, method = "default",
@@ -36,9 +35,9 @@ into the function call.
 Indicates how many bootstrap replicates are to be performed if bootstrapping is enabled as a method.
 }
   \item{steps}{
-Indicates how many compatibility intervals are to be calculated at various levels. For example, setting
-this to 100 will produce 100 compatibility intervals from 0 to 100. Setting this to 10000 will produce more
-compatibility levels. By default, it is set to 1000. Increasing the number substantially is not recommended
+Indicates how many consonance intervals are to be calculated at various levels. For example, setting
+this to 100 will produce 100 consonance intervals from 0 to 100. Setting this to 10000 will produce more
+consonance levels. By default, it is set to 1000. Increasing the number substantially is not recommended
 as it will take longer to produce all the intervals and store them into a dataframe.
 }
 }

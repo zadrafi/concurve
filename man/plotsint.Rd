@@ -4,7 +4,7 @@
 \title{Plot the S-Value Function
 }
 \description{
-Takes the dataframe produced by the interval functions and plots the s-values, compatibility (confidence)
+Takes the dataframe produced by the interval functions and plots the s-values, consonance (confidence)
 levels, and the interval estimates to produce a s-value function using the geom_point function in ggplot2.
 }
 \usage{
@@ -18,7 +18,7 @@ The dataframe produced by one of the interval functions in which the intervals a
 }
 
 \value{
-Plot with intervals at every compatibility level graphed with their corresponding s-values
+Plot with intervals at every consonance level graphed with their corresponding s-values
 }
 \references{
 Amrhein V, Trafimow D, Greenland S. Inferential Statistics as Descriptive Statistics:

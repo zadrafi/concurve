@@ -4,7 +4,7 @@
 \title{Plot the P-Value Function
 }
 \description{
-Takes the dataframe produced by the interval functions and plots the p-values, compatibility (confidence)
+Takes the dataframe produced by the interval functions and plots the p-values, consonance (confidence)
 levels, and the interval estimates to produce a p-value functionusing the geom_point function in ggplot2.
 }
 \usage{
@@ -17,7 +17,7 @@ The dataframe produced by one of the interval functions in which the intervals a
 }
 }
 \value{
-Plot with intervals at every compatibility level graphed with their corresponding p-values and compatibility levels.
+Plot with intervals at every consonance level graphed with their corresponding p-values and compatibility levels.
 }
 \references{
 Poole C. Beyond the confidence interval. Am J Public Health. 1987;77(2):195-199.

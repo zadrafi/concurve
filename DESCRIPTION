@@ -1,6 +1,6 @@
 Package: concurve
 Type: Package
-Title: Computes and Plots Consonance (Confidence) Intervals, P-Values, and S-Values to Form Consonance and Surprisal Functions.
+Title: Computes and Plots Consonance (Confidence) Intervals, P-Values, and S-Values to Form Consonance and Surprisal Functions
 Version: 1.0.6
 Authors@R: c(
     person("Zad R.", "Chow", , "zad@lesslikely.com", role = c("aut", "cre"),
