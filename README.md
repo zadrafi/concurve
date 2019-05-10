@@ -68,13 +68,13 @@ library(devtools)
 install_github("zadchow/concurve")
 ```
 
-## Check out the [Examples](articles/examples.html).
+## Check out the [Examples](https://data.lesslikely.com/concurve/articles/examples.html).
 
 -----
 
 # For Stata:
 
-## Check out the [Article on Using Stata](articles/stata.html) for concurve.
+## Check out the [Article on Using Stata](https://data.lesslikely.com/concurve/articles/stata.html) for concurve.
 
 -----
 
