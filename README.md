@@ -10,7 +10,6 @@ developed.](http://www.repostatus.org/badges/latest/active.svg) [![Build
 Status](https://travis-ci.org/Zadchow/concurve.svg?branch=master)](https://travis-ci.org/Zadchow/concurve)
 [![Build
 status](https://ci.appveyor.com/api/projects/status/v8sp9x96dap2om9s?svg=true)](https://ci.appveyor.com/project/Zadchow/concurve)
-[![codecov](https://codecov.io/gh/Zadchow/concurve/branch/master/graph/badge.svg)](https://codecov.io/gh/Zadchow/concurve)
 ![LICENSE](https://img.shields.io/cran/l/concurve.svg?style=flat)
 [![DOI](https://zenodo.org/badge/165464881.svg)](https://zenodo.org/badge/latestdoi/165464881)
 [![](https://cranlogs.r-pkg.org/badges/grand-total/concurve)](https://cran.r-project.org/package=concurve)
@@ -28,10 +27,11 @@ reporting in the past two decades, it is still largely inadequate.
 Take for example, the 95% consonance interval. As many have stated
 before, there is nothing special about **95%**, yet we rarely see
 intervals of any other level. Choosing to compute a 95% interval is as
-mindless as choosing a 5% alpha level for hypothesis testing. A single
-consonance interval is only a *slice* of a wide range of consonance
-intervals at different levels. Reporting 95% intervals only promotes
-[cargo-cult
+mindless as choosing a 5% alpha level for hypothesis testing.
+
+A single consonance interval is only a *slice* of a wide range of
+consonance intervals at different levels. Mindlessly reporting 95%
+intervals only promotes [cargo-cult
 statistics](https://rss.onlinelibrary.wiley.com/doi/10.1111/j.1740-9713.2018.01174.x)
 since there is not much thought behind the choice. (1)
 
@@ -48,7 +48,12 @@ plotted to form a function.
 <img src="https://res.cloudinary.com/less-likely/image/upload/v1557366230/Site/FrontSurprisal.svg" align="center" width="400" />
 
 This can be accomplished using the
-[**concurve**](https://github.com/Zadchow/concurve)</span> package in R.
+[**concurve**](https://github.com/Zadchow/concurve)</span> package in R
+and on Stata.
+
+-----
+
+# For R:
 
 ## Install the Package From CRAN
 
@@ -63,7 +68,15 @@ library(devtools)
 install_github("zadchow/concurve")
 ```
 
-## Check out the [Articles](https://data.lesslikely.com/concurve/articles/) to See the Package in Action.
+## Check out the [Examples](articles/examples.html).
+
+-----
+
+# For Stata:
+
+## Check out the [Article on Using Stata](articles/stata.html) for concurve.
+
+-----
 
 > "*Statistical software enables and promotes cargo-cult statistics.
 > Marketing and adoption of statistical software are driven by ease of
