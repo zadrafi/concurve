@@ -90,13 +90,13 @@ That's a lot and may seem intimidating at first, but I'll explain it line by lin
 postfile topost level pvalue svalue lointerval upinterval using my_new_data, replace
 ```
 
-"**postfile**"_ is the command will be responsible for pasting the data from our overall loop into a new dataset. Here, we are telling `Stata` that the internal `Stata` memory used to hold these results (the post) will be named "**topost**" and that it will have five variables, "**level**", "**pvalue**", "**svalue**", "**lointerval**", and "**upinterval**." 
+"**postfile**" is the command that will be responsible for pasting the data from our overall loop into a new dataset. Here, we are telling `Stata` that the internal `Stata` memory used to hold these results (the post) will be named "**topost**" and that it will have five variables, "**level**", "**pvalue**", "**svalue**", "**lointerval**", and "**upinterval**." 
 
 * "**level**" will contain the consonance level that corresponds to the limits of the interval, with "**lointerval**" being the lower bound of the interval and "**upinterval**" being the upper bound. 
 
 * "**pvalue**"is computed by taking 1 - "**level**", which is alpha. 
 
-* "**svalue**"is computed by taking the negative log base 2 of the computed P-value, and this column will be used to plot the surprisal function. 
+* "**svalue**"is computed by taking the  $-log_{2}$ of the computed P-value, and this column will be used to plot the surprisal function. 
 
 * "**my_new_data**" is the filename that we've assigned to our new dataset. 
 
@@ -113,11 +113,11 @@ forvalues i = 10/99.9 {
 	} 
 ```
 
-The command "**forvalues**" is responsible for taking a set of numbers that we provide it, and running the contents within the braces through those numbers. So here, we've set the local macro "**i**" to contain numbers between 10 and 99.99 for our consonance levels. Why 10? Stata cannot compute consonance intervals lower than 10%. 
+The command "**forvalues**" is responsible for taking a set of numbers that we provide it, and running the contents within the braces through those numbers. So here, we've set the local macro "**i**" to contain numbers between 10 and 99.99 for our consonance levels. Why 10? `Stata` cannot compute consonance intervals lower than 10%. 
 
 Our next line contains the actual contents of what we want to do. Here, it says that we will run a simple linear regression where mpg is the predictor and where price is the outcome, and that the outputs for each loop will be suppressed, hence the "**quiet**." 
 
-Then, we have the command "**level**" with "**i**" inside of it. As you may already know, "**level**" dictates the consonance level that `Stata` provides us. By default, this is set to 95%, but here, we've set it "**i**", which we established via "**forvalues**" as being set to numbers between 10 and 99. 
+Then, we have the command "**level**" with the local macro "**i**" inside of it. As you may already know, "**level**" dictates the consonance level that `Stata` provides us. By default, this is set to 95%, but here, we've set it "**i**", which we established via "**forvalues**" as being set to numbers between 10 and 99. 
 
 The next line two lines
 
@@ -132,7 +132,7 @@ indicate that we will take variables of a certain class r(), (this class contain
 post topost (`i') (1-`i'/100) ( ln(1-`i'/100)/ln(2) * -1) (E[5,1]) (E[6,1])
 ```
 
-From the contents of this matrix list, we will take the estimates from the _fifth_ and _sixth_ rows (look at the last two paranthesis of this line of code above) in the _first_ column which contain our consonance limits, with the fifth row containing the lower bound of the interval and the sixth containing the upper bound. 
+From the contents of this matrix list, we will take the estimates from the _fifth_ and _sixth_ rows (look at the last two paranthesis of this line of code above and then the image below) in the _first_ column which contain our consonance limits, with the fifth row containing the lower bound of the interval and the sixth containing the upper bound. 
 
 <br>
 <center>
@@ -143,7 +143,7 @@ From the contents of this matrix list, we will take the estimates from the _fift
 
 We will place the contents from the fifth row into the second variable we set originally for our new dataset, which was "**lointerval**." The contents of the sixth row will be placed into "**upinterval**." 
 
-All potential values of "**i**" (10-99) will be placed into the first variable that we set, "**level**". From this first variable, we can compute the second variable we set up, which was "**Pvalue**" and we've done that here by subtracting "**level**" from 1 and then dividing the whole equation by 100, so that our P-value can be on the proper scale. Our third variable, which is the longest, computes the "**Svalue**" by using the previous variable, the "**Pvalue**" and taking the negative log base 2 of it. 
+All potential values of "**i**" (10-99) will be placed into the first variable that we set, "**level**". From this first variable, we can compute the second variable we set up, which was "**Pvalue**" and we've done that here by subtracting "**level**" from 1 and then dividing the whole equation by 100, so that our P-value can be on the proper scale. Our third variable, which is the longest, computes the "**Svalue**" by using the previous variable, the "**Pvalue**" and taking the $-log_{2}$ of it. 
 
 The relationships between the variables on this line and the variables we set up in the very first line are dictated by the order of the commands we have set, and therefore they correspond to the same order.  
 
