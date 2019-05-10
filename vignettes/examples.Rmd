@@ -258,12 +258,26 @@ res<-rma(yi, vi, data=dat, slab=paste(StudyName, sep=", "),
          method="FE", digits=2)
 ```
 
-Let’s plot our results in a forest plot. I’m going to omit this code
-since it’s a bit long.
+Let’s look at our output.
 
-<center>
-<img src="https://res.cloudinary.com/less-likely/image/upload/v1557366229/Site/Meta-Analysis.svg" align="center" width="600" />
-</center>
+```r
+res
+```
+
+```
+Fixed-Effects Model (k = 2)
+
+Test for Heterogeneity: 
+Q(df = 1) = 0.00, p-val = 0.96
+
+Model Results:
+
+estimate    se   zval  pval  ci.lb  ci.ub   
+   -0.14  0.22  -0.62  0.53  -0.58   0.30   
+
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+```
 
 Take a look at the pooled summary effect and its interval. Keep it in
 mind as we move onto constructing a consonance function.
@@ -285,7 +299,7 @@ plotpint(metaf)
 ```
 
 <center>
-
+<img src="figures/function5.png" align="center" width="600" />
 </center>
 
 And our S-value function
@@ -294,7 +308,7 @@ And our S-value function
 plotsint(metaf)
 ```
 <center>
-
+<img src="figures/function6.png" align="center" width="600" />
 </center>
 
 Compare the span of these functions and the information they provide to

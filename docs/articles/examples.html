@@ -228,20 +228,32 @@
 <p>Next, we’ll pool the data using a <del>fixed-effects</del> common-effects model</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1">res&lt;-<span class="kw">rma</span>(yi, vi, <span class="dt">data=</span>dat, <span class="dt">slab=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste</a></span>(StudyName, <span class="dt">sep=</span><span class="st">", "</span>), </a>
 <a class="sourceLine" id="cb17-2" title="2">         <span class="dt">method=</span><span class="st">"FE"</span>, <span class="dt">digits=</span><span class="dv">2</span>)</a></code></pre></div>
-<p>Let’s plot our results in a forest plot. I’m going to omit this code since it’s a bit long.</p>
-<center>
-<img src="https://res.cloudinary.com/less-likely/image/upload/v1557366229/Site/Meta-Analysis.svg" align="center" width="600">
-</center>
+<p>Let’s look at our output.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1">res</a></code></pre></div>
+<pre><code>Fixed-Effects Model (k = 2)
+
+Test for Heterogeneity: 
+Q(df = 1) = 0.00, p-val = 0.96
+
+Model Results:
+
+estimate    se   zval  pval  ci.lb  ci.ub   
+   -0.14  0.22  -0.62  0.53  -0.58   0.30   
+
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 </code></pre>
 <p>Take a look at the pooled summary effect and its interval. Keep it in mind as we move onto constructing a consonance function.</p>
 <p>We can now take the object produced by the meta-analysis and calculate a P-value and S-value function with it to see the full spectrum of effect sizes compatible with the test model at every level. We’ll use the <strong><em>metainterval</em></strong> function to do this.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1">metaf&lt;-<span class="kw"><a href="../reference/metaintervals.html">metaintervals</a></span>(res)</a></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1">metaf&lt;-<span class="kw"><a href="../reference/metaintervals.html">metaintervals</a></span>(res)</a></code></pre></div>
 <p>Now that we have our dataframe with every computed interval, we can plot the functions.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="kw"><a href="../reference/plotpint.html">plotpint</a></span>(metaf)</a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="kw"><a href="../reference/plotpint.html">plotpint</a></span>(metaf)</a></code></pre></div>
 <center>
+<img src="figures/function5.png" align="center" width="600">
 </center>
 <p>And our S-value function</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"><span class="kw"><a href="../reference/plotsint.html">plotsint</a></span>(metaf)</a></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1"><span class="kw"><a href="../reference/plotsint.html">plotsint</a></span>(metaf)</a></code></pre></div>
 <center>
+<img src="figures/function6.png" align="center" width="600">
 </center>
 <p>Compare the span of these functions and the information they provide to the consonance interval provided by the forest plot. We are now no longer limited to interpreting an arbitrarily chosen interval by mindless analytic decisions often built into statistical packages by default.</p>
 </div>
