@@ -119,11 +119,15 @@
     }
   ],
   "keywords": ["confidence", "compatibility", "consonance", "surprisal", "interval", "function", "curve"],
-  "fileSize": "1160.365KB",
+  "fileSize": "2241.75KB",
   "contIntegration": [
     "https://travis-ci.org/Zadchow/concurve",
     "https://ci.appveyor.com/project/Zadchow/concurve",
     "https://codecov.io/gh/Zadchow/concurve"
   ],
-  "readme": "https://github.com/Zadchow/concurve/blob/master/README.md"
+  "readme": "https://github.com/Zadchow/concurve/blob/master/README.md",
+  "contributor": {},
+  "copyrightHolder": {},
+  "funder": {},
+  "releaseNotes": "ssh://git@github.com/Zadchow/concurve/blob/master/NEWS.md"
 }
