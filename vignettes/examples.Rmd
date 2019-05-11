@@ -63,7 +63,7 @@ It is relatively easy to produce such a function using the
 <span style="color:#d46c5b">[**concurve**](https://github.com/Zadchow/concurve)</span>
 package in R.
 
-Install the package directly from [CRAN](https://cran.r-project.org/web/packages/concurve/index.html) 
+Install the package directly from [CRAN](https://cran.r-project.org/package=concurve) 
 
 ``` r
 install.packages("concurve")

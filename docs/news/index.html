@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot the S-Value Function — plotsint • concurve</title>
+<title>Changelog • concurve</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -45,10 +45,7 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Plot the S-Value Function — plotsint" />
-
-<meta property="og:description" content="Takes the dataframe produced by the interval functions and plots the s-values, consonance (confidence)
-levels, and the interval estimates to produce a s-value function using the geom_point function in ggplot2." />
+<meta property="og:title" content="Changelog" />
 
 <meta property="og:image" content="https://data.lesslikely.com/concurve/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -68,7 +65,7 @@ levels, and the interval estimates to produce a s-value function using the geom_
   </head>
 
   <body>
-    <div class="container template-reference-topic">
+    <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -141,75 +138,41 @@ levels, and the interval estimates to produce a s-value function using the geom_
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot the S-Value Function</h1>
-    
-    <div class="hidden name"><code>plotsint.Rd</code></div>
+      <h1>Changelog <small></small></h1>
+      <small>Source: <a href='https://github.com/Zadchow/concurve/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div class="ref-description">
-    
-    <p>Takes the dataframe produced by the interval functions and plots the s-values, consonance (confidence)
-levels, and the interval estimates to produce a s-value function using the geom_point function in ggplot2.</p>
-    
-    </div>
-
-    <pre class="usage"><span class='fu'>plotsint</span>(<span class='no'>x</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>x</th>
-      <td><p>The dataframe produced by one of the interval functions in which the intervals are stored.</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>Plot with intervals at every consonance level graphed with their corresponding s-values</p>
-    
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    <p>Amrhein V, Trafimow D, Greenland S. Inferential Statistics as Descriptive Statistics:
-There Is No Replication Crisis If We Don’t Expect Replication. Am Stat; 2018.</p>
-<p>Greenland S. Valid P-values behave exactly as they should: Some misleading criticisms of P-values
-and their resolution with S-values. Am Stat. 2018;18(136).</p>
-<p>Greenland S. The unconditional information in P-values, and its refutational interpretation
-via S-values. 2018.</p>
-<p>Shannon CE. A Mathematical Theory of Communication. Bell System Technical Journal.
-1948;27(3):379-423. doi:10.1002/j.1538-7305.1948.tb01338.x</p>
-<p>Poole C. Beyond the confidence interval. Am J Public Health. 1987;77(2):195-199.</p>
-<p>Sullivan KM, Foster DA. Use of the confidence interval function. Epidemiology. 1990;1(1):39-42.</p>
-<p>Rothman KJ, Greenland S, Lash TL, Others. Modern epidemiology. 2008.</p>
-    
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Simulate random data</span>
-
-<span class='no'>GroupA</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>50</span>)
-<span class='no'>GroupB</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>50</span>)
-
-<span class='no'>RandomData</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='no'>GroupA</span>, <span class='no'>GroupB</span>)
-<span class='no'>RandomModel</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/lm'>lm</a></span>(<span class='no'>GroupA</span> ~ <span class='no'>GroupB</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>RandomData</span>)
-
-<span class='no'>intervalsdf</span><span class='kw'>&lt;-</span><span class='fu'><a href='genintervals.html'>genintervals</a></span>(<span class='no'>RandomModel</span>, <span class='st'>"GroupB"</span>)
-
-<span class='no'>s</span><span class='kw'>&lt;-</span><span class='fu'>plotsint</span>(<span class='no'>intervalsdf</span>)
-<span class='no'>s</span></div><div class='img'><img src='plotsint-1.png' alt='' width='700' height='433' /></div></pre>
+    <div id="concurve-106" class="section level1">
+<h1 class="page-header">
+<a href="#concurve-106" class="anchor"></a>concurve 1.06<small> Unreleased </small>
+</h1>
+<div id="major-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#major-changes" class="anchor"></a>Major changes</h2>
+<ul>
+<li>Now contains <a href="https://data.lesslikely.com/concurve/articles/stata.html">documentation</a> for producing interval functons in <code>Stata</code>.</li>
+</ul>
+</div>
+<div id="minor-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#minor-changes" class="anchor"></a>Minor changes</h2>
+<ul>
+<li>Default plots now contain grids, title, subtitle, and a caption.</li>
+<li>Updated figures in README and the ‘Examples in R’ vignette/article.</li>
+</ul>
+</div>
+</div>
   </div>
+
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#references">References</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+    <div id="tocnav">
+      <h2>Contents</h2>
+      <ul class="nav nav-pills nav-stacked">
+        <li><a href="#concurve-106">1.06</a></li>
+      </ul>
+    </div>
   </div>
+
 </div>
 
       <footer>
