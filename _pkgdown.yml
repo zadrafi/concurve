@@ -8,6 +8,7 @@ authors:
 
 template:
   params:
+    bootswatch: paper
     docsearch:
       api_key: aa56fddedc1fa96b5b2d6c9457d7009b
       index_name: concurve

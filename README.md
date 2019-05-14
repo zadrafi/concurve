@@ -1,16 +1,13 @@
 concurve
 ================
 
-# Plot Interval Functions With the concurve Package <img src="man/figures/logo.svg" align="right" width="120" />
+# Plot Interval Functions With the concurve Package <img src="man/figures/logo.svg" align="right" width="100" />
 
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/concurve)](https://cran.r-project.org/package=concurve)
-![Project Status: Active – The project has reached a stable, usable
-state and is being actively
-developed.](http://www.repostatus.org/badges/latest/active.svg) [![Build
+[![Build
 Status](https://travis-ci.org/Zadchow/concurve.svg?branch=master)](https://travis-ci.org/Zadchow/concurve)
 [![Build
 status](https://ci.appveyor.com/api/projects/status/v8sp9x96dap2om9s?svg=true)](https://ci.appveyor.com/project/Zadchow/concurve)
-![LICENSE](https://img.shields.io/cran/l/concurve.svg?style=flat)
 [![DOI](https://zenodo.org/badge/165464881.svg)](https://zenodo.org/badge/latestdoi/165464881)
 [![](https://cranlogs.r-pkg.org/badges/grand-total/concurve)](https://cran.r-project.org/package=concurve)
 [![Rdoc](http://www.rdocumentation.org/badges/version/concurve)](http://www.rdocumentation.org/packages/concurve)
@@ -19,10 +16,9 @@ status](https://ci.appveyor.com/api/projects/status/v8sp9x96dap2om9s?svg=true)](
 
 Interval estimates such as ~~confidence~~ **consonance** intervals are
 now widely reported in many journals alongside the exact P-value of a
-statistical test and point estimate.
-
-While this is a large improvement over what constituted statistical
-reporting in the past two decades, it is still largely inadequate.
+statistical test and point estimate. While this is a large improvement
+over what constituted statistical reporting in the past two decades, it
+is still largely inadequate.
 
 Take for example, the 95% consonance interval. As many have stated
 before, there is nothing special about **95%**, yet we rarely see
