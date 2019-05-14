@@ -222,7 +222,7 @@ https://www.jstatsoft.org/article/view/v036i03/v36i03.pdf.</p>
 
 <span class='co'>#Use metafor to calculate the standardized mean difference</span>
 
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>metafor</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: Matrix</span></div><div class='output co'>#&gt; <span class='message'>Loading 'metafor' package (version 2.0-0). For an overview </span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>metafor</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: Matrix</span></div><div class='output co'>#&gt; <span class='message'>Loading 'metafor' package (version 2.1-0). For an overview </span>
 #&gt; <span class='message'>and introduction to the package please type: help(metafor).</span></div><div class='input'>
 <span class='no'>dat</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/metafor/topics/escalc'>escalc</a></span>(<span class='kw'>measure</span><span class='kw'>=</span><span class='st'>"SMD"</span>, <span class='kw'>m1i</span><span class='kw'>=</span><span class='no'>MeanTreatment</span>, <span class='kw'>sd1i</span><span class='kw'>=</span><span class='no'>SDTreatment</span>, <span class='kw'>n1i</span><span class='kw'>=</span><span class='no'>NTreatment</span>,
             <span class='kw'>m2i</span><span class='kw'>=</span><span class='no'>MeanControl</span>, <span class='kw'>sd2i</span><span class='kw'>=</span><span class='no'>SDControl</span>, <span class='kw'>n2i</span><span class='kw'>=</span><span class='no'>NControl</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>metadf</span>)
@@ -265,8 +265,8 @@ https://www.jstatsoft.org/article/view/v036i03/v36i03.pdf.</p>
   docsearch({
     
     
-    apiKey: 'aa56fddedc1fa96b5b2d6c9457d7009b',
-    indexName: 'concurve',
+    apiKey: '328a30be91979e947c28ffd52f604eda',
+    indexName: 'lesslikely-concurve',
     inputSelector: 'input#search-input.form-control',
     transformData: function(hits) {
       return hits.map(function (hit) {
