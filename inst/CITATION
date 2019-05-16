@@ -3,8 +3,7 @@ note <- sprintf("R package version %s", meta$Version)
 
 bibentry(
   bibtype = "Manual",
-    title = paste("{concurve}: Computes and Plots Confidence (Compatibility) Intervals,
-P-Values, and S-Values to Form Consonance Curves (Functions)"),
+    title = paste("{concurve}: Computes and Plots Consonance (Confidence) Intervals, P-Values, and S-Values to Form Consonance and Surprisal Functions"),
     author = c(person("Zad R.", "Chow"), person("Andrew D.", "Vigotsky")),
     year = year,
     note = note,

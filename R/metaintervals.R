@@ -21,10 +21,10 @@ metaintervals<-function(x, measure="norm", steps = 10000) {
   if(measure == "norm") {
     df$lower.limit <- df$lower.limit
     df$upper.limit <- df$upper.limit
-  } else if(measure == "log") {   
-    df$lower.limit <- df$lower.limit
-    df$upper.limit <- df$upper.limit
-  }  
+  } else if(measure == "log") {
+    df$lower.limit <- exp(df$lower.limit)
+    df$upper.limit <- exp(df$upper.limit)
+  }
   df<-head(df,-1)
   return(df)
 }

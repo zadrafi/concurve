@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • concurve</title>
+<title>Produce Consonance Intervals for Survival Data — survintervals • concurve</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -45,7 +45,11 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Changelog" />
+<meta property="og:title" content="Produce Consonance Intervals for Survival Data — survintervals" />
+
+<meta property="og:description" content="Computes thousands of consonance (confidence) intervals for the chosen parameter in the
+Cox model computed by the 'survival' package and places the interval limits for each interval level
+into a data frame along with the corresponding p-value and s-value." />
 
 <meta property="og:image" content="https://data.lesslikely.com/concurve/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -65,7 +69,7 @@
   </head>
 
   <body>
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -138,41 +142,58 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/Zadchow/concurve/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+    <h1>Produce Consonance Intervals for Survival Data</h1>
+    
+    <div class="hidden name"><code>survintervals.Rd</code></div>
     </div>
 
-    <div id="concurve-106" class="section level1">
-<h1 class="page-header">
-<a href="#concurve-106" class="anchor"></a>concurve 1.06<small> Unreleased </small>
-</h1>
-<div id="major-changes" class="section level2">
-<h2 class="hasAnchor">
-<a href="#major-changes" class="anchor"></a>Major changes</h2>
-<ul>
-<li>Now contains <a href="https://data.lesslikely.com/concurve/articles/stata.html">documentation</a> for producing interval functons in <code>Stata</code>.</li>
-</ul>
-</div>
-<div id="minor-changes" class="section level2">
-<h2 class="hasAnchor">
-<a href="#minor-changes" class="anchor"></a>Minor changes</h2>
-<ul>
-<li>Default plots now contain grids, title, subtitle, and a caption.</li>
-<li>Updated figures in README and the ‘Examples in R’ vignette/article.</li>
-</ul>
-</div>
-</div>
-  </div>
+    <div class="ref-description">
+    
+    <p>Computes thousands of consonance (confidence) intervals for the chosen parameter in the
+Cox model computed by the 'survival' package and places the interval limits for each interval level
+into a data frame along with the corresponding p-value and s-value.</p>
+    
+    </div>
 
+    <pre class="usage"><span class='fu'>survintervals</span>(<span class='no'>data</span>, <span class='no'>x</span>, <span class='kw'>steps</span> <span class='kw'>=</span> <span class='fl'>10000</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>data</th>
+      <td><p>Object where the Cox model is stored, typically a list produced by the 'survival' package.</p></td>
+    </tr>
+    <tr>
+      <th>x</th>
+      <td><p>Predictor of interest within the survival model for which the consonance intervals should be computed.</p></td>
+    </tr>
+    <tr>
+      <th>steps</th>
+      <td><p>Indicates how many consonance intervals are to be calculated at various levels. For example, setting
+this to 100 will produce 100 consonance intervals from 0 to 100. Setting this to 10000 will produce more
+consonance levels. By default, it is set to 1000. Increasing the number substantially is not recommended
+as it will take longer to produce all the intervals and store them into a dataframe.</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Poole C. Beyond the confidence interval. Am J Public Health. 1987;77(2):195-199.</p>
+<p>Sullivan KM, Foster DA. Use of the confidence interval function. Epidemiology. 1990;1(1):39-42.</p>
+<p>Rothman KJ, Greenland S, Lash TL, Others. Modern epidemiology. 2008.</p>
+    
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#concurve-106">1.06</a></li>
-      </ul>
-    </div>
-  </div>
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#references">References</a></li>
+          </ul>
 
+  </div>
 </div>
 
       <footer>

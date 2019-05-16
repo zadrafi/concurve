@@ -16,7 +16,7 @@
   ],
   "issueTracker": "https://github.com/Zadchow/concurve/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -116,10 +116,46 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=metafor"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "dplyr",
+      "name": "dplyr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=dplyr"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "survival",
+      "name": "survival",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=survival"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "survminer",
+      "name": "survminer",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=survminer"
     }
   ],
   "keywords": ["confidence", "compatibility", "consonance", "surprisal", "interval", "function", "curve"],
-  "fileSize": "4306.324KB",
+  "fileSize": "4306.63KB",
   "contIntegration": [
     "https://travis-ci.org/Zadchow/concurve",
     "https://ci.appveyor.com/project/Zadchow/concurve",
@@ -145,7 +181,7 @@
           "familyName": "Vigotsky"
         }
       ],
-      "name": "{concurve}: Computes and Plots Confidence (Compatibility) Intervals,\nP-Values, and S-Values to Form Consonance Curves (Functions)",
+      "name": "{concurve}: Computes and Plots Consonance (Confidence) Intervals, P-Values, and S-Values to Form Consonance and Surprisal Functions",
       "identifier": "10.5281/zenodo.1308151",
       "url": "https://CRAN.R-project.org/package=concurve",
       "@id": "https://doi.org/10.5281/zenodo.1308151",
