@@ -6,10 +6,10 @@ plotsint<-function(x) {
     stop("Error: 'x' must be a data frame from 'concurve'")
   }
   ggplot(data=x) +
-    geom_point(aes(x=lower.limit, y=svalue), color = "#d46c5b", shape=8, size=0.50) +
-    geom_point(aes(x=upper.limit, y=svalue), color = "#d46c5b", shape=8, size=0.50) +
-    geom_ribbon(aes(x = lower.limit, ymin = max(svalue), ymax = svalue), fill = "#d46c5b", alpha=0.50)+
-    geom_ribbon(aes(x = upper.limit, ymin = max(svalue), ymax = svalue), fill = "#d46c5b", alpha=0.50)+
+    geom_point(aes(x=lower.limit, y=svalue), color = "#d46c5b", fill = "#d46c5b", alpha=0.5, shape=21, stroke=0.8, size=1) +
+    geom_point(aes(x=upper.limit, y=svalue), color = "#d46c5b", fill = "#d46c5b", alpha=0.5, shape=21, stroke=0.8, size=1) +
+    geom_ribbon(aes(x = lower.limit, ymin = max(svalue), ymax = svalue), fill = "#d46c5b", alpha=0.30)+
+    geom_ribbon(aes(x = upper.limit, ymin = max(svalue), ymax = svalue), fill = "#d46c5b", alpha=0.30)+
     labs(title="Surprisal Function",
          subtitle="The function contains consonance/confidence intervals at every level and the \ncorresponding S-values.",
          caption="Produced with the concurve R package.",

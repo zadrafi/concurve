@@ -6,10 +6,10 @@ plotpint<-function(x) {
     stop("Error: 'x' must be a data frame from 'concurve'")
   }
   ggplot(data=x) +
-    geom_point(aes(x=lower.limit, y=intrvl.level*100), color = "#239a98", shape=8, size=0.50) +
-    geom_point(aes(x=upper.limit, y=intrvl.level*100), color = "#239a98", shape=8, size=0.50) +
-    geom_ribbon(aes(x = lower.limit, ymin = max(intrvl.level*100), ymax = intrvl.level*100), fill = "#239a98", alpha=0.50)+
-    geom_ribbon(aes(x = upper.limit, ymin = max(intrvl.level*100), ymax = intrvl.level*100), fill = "#239a98", alpha=0.50)+
+    geom_point(aes(x=lower.limit, y=intrvl.level*100), color = "#239a98", fill = "#239a98", alpha=0.5, shape=21, stroke=0.8, size=1) +
+    geom_point(aes(x=upper.limit, y=intrvl.level*100), color = "#239a98", fill = "#239a98", alpha=0.5, shape=21, stroke=0.8, size=1) +
+    geom_ribbon(aes(x = lower.limit, ymin = max(intrvl.level*100), ymax = intrvl.level*100), fill = "#239a98", alpha=0.30)+
+    geom_ribbon(aes(x = upper.limit, ymin = max(intrvl.level*100), ymax = intrvl.level*100), fill = "#239a98", alpha=0.30)+
     labs(title="Consonance Function",
          subtitle="The function contains consonance/confidence intervals at every level and the \ncorresponding P-values.",
          caption="Produced with the concurve R package.",
