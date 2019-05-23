@@ -1,4 +1,4 @@
-# two-sided t-tests
+# Mean Interval Consonance Function
 
 meanintervals<-function(x, y, data, paired = F, method = "default", replicates = 1000, steps = 10000) {
   if(is.numeric(x) != TRUE){
@@ -42,3 +42,5 @@ meanintervals<-function(x, y, data, paired = F, method = "default", replicates =
   return(df)
 }
 
+# RMD Check
+utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.level", "pvalue", "svalue"))

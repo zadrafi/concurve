@@ -1,4 +1,7 @@
-plotpint<-function(x) {
+plotpint<-function(x, title="Consonance Function",
+                   subtitle="The function contains consonance/confidence intervals at every level and the \ncorresponding P-values.",
+                   caption="Produced with the concurve R package.",
+                   xaxis="Range of Values") {
   if(is.data.frame(x) != TRUE){
     stop("Error: 'x' must be a data frame from 'concurve'")
   }
@@ -10,10 +13,10 @@ plotpint<-function(x) {
     geom_point(aes(x=upper.limit, y=intrvl.level*100), color = "#239a98", fill = "#239a98", alpha=0.5, shape=21, stroke=0.8, size=1) +
     geom_ribbon(aes(x = lower.limit, ymin = max(intrvl.level*100), ymax = intrvl.level*100), fill = "#239a98", alpha=0.30)+
     geom_ribbon(aes(x = upper.limit, ymin = max(intrvl.level*100), ymax = intrvl.level*100), fill = "#239a98", alpha=0.30)+
-    labs(title="Consonance Function",
-         subtitle="The function contains consonance/confidence intervals at every level and the \ncorresponding P-values.",
-         caption="Produced with the concurve R package.",
-         x="Range of Values",
+    labs(title=title,
+         subtitle=subtitle,
+         caption=caption,
+         x=xaxis,
          y="Consonance Level (%)") +
     theme_light() +
     theme(axis.title.x = element_text(size=13),
@@ -26,5 +29,5 @@ plotpint<-function(x) {
           plot.caption = element_text(size=8))
 }
 
-#RMD Check
+# RMD Check
 utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.level", "pvalue", "svalue"))

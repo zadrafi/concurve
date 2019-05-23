@@ -1,4 +1,7 @@
-plotsint<-function(x) {
+plotsint<-function(x, title="Surprisal Function",
+                   subtitle="The function contains consonance/confidence intervals at every level and the \ncorresponding S-values.",
+                   caption="Produced with the concurve R package.",
+                   xaxis="Range of Values") {
   if(is.data.frame(x) != TRUE){
     stop("Error: 'x' must be a data frame from 'concurve'")
   }
@@ -10,10 +13,10 @@ plotsint<-function(x) {
     geom_point(aes(x=upper.limit, y=svalue), color = "#d46c5b", fill = "#d46c5b", alpha=0.5, shape=21, stroke=0.8, size=1) +
     geom_ribbon(aes(x = lower.limit, ymin = max(svalue), ymax = svalue), fill = "#d46c5b", alpha=0.30)+
     geom_ribbon(aes(x = upper.limit, ymin = max(svalue), ymax = svalue), fill = "#d46c5b", alpha=0.30)+
-    labs(title="Surprisal Function",
-         subtitle="The function contains consonance/confidence intervals at every level and the \ncorresponding S-values.",
-         caption="Produced with the concurve R package.",
-         x="Range of Values",
+    labs(title=title,
+         subtitle=subtitle,
+         caption=caption,
+         x=xaxis,
          y="S-value
          (bits of information)") +
     theme_light() +
@@ -26,5 +29,5 @@ plotsint<-function(x) {
           plot.caption = element_text(size=8))
 }
 
-#RMD Check
+# RMD Check
 utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.level", "pvalue", "svalue"))

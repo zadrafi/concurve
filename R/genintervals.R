@@ -1,4 +1,4 @@
-#General confint Function Using Profile Likelihood, Wald, or the bootstrap for linear models.
+# General Consonance Functions Using Profile Likelihood, Wald, or the bootstrap method for linear models.
 
 genintervals<-function(model, var, method = "default", replicates = 1000, steps = 10000) {
   if(is.list(model) != TRUE){
@@ -27,7 +27,7 @@ genintervals<-function(model, var, method = "default", replicates = 1000, steps 
                                           data = model$model[sample(nrow(model$model), replace = T),]))[[var]]) - effect
     results <- lapply(intrvls, FUN = function(i) effect - quantile(boot_dist, probs = (1+c(i,-i))/2))
   }
-  
+
   df<-data.frame(do.call(rbind,results))
   intrvl.limit <- c("lower.limit", "upper.limit")
   colnames(df) <- intrvl.limit
@@ -38,5 +38,5 @@ genintervals<-function(model, var, method = "default", replicates = 1000, steps 
   return(df)
 }
 
-##
+# RMD Check
 utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.level", "pvalue", "svalue"))

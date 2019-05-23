@@ -1,3 +1,5 @@
+# Survival Data Consonance Function
+
 survintervals <- function (data, x, steps = 10000) {
   if(is.list(data) != TRUE){
     stop("Error: 'data' must be an object with a Cox Proportional Hazards model")
@@ -19,5 +21,5 @@ survintervals <- function (data, x, steps = 10000) {
   return(df)
 }
 
-##
+# RMD Check
 utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.level", "pvalue", "svalue"))

@@ -1,4 +1,4 @@
-#Meta-analytic Confidence Function
+# Meta-analytic Consonance Function
 
 metaintervals<-function(x, measure="norm", steps = 10000) {
   if(is.list(x) != TRUE){
@@ -12,7 +12,7 @@ metaintervals<-function(x, measure="norm", steps = 10000) {
   }
   intrvls <- (0:steps)/steps
   results <- lapply(intrvls, FUN = function(i) confint.default(object=x, fixed=TRUE, random=FALSE, level=i)[])
-  df<-data.frame(do.call(rbind,results))
+  df<-data.frame(do.call(rbind, results))
   intrvl.limit <- c("lower.limit", "upper.limit")
   colnames(df) <- intrvl.limit
   df$intrvl.level <- intrvls
@@ -28,3 +28,6 @@ metaintervals<-function(x, measure="norm", steps = 10000) {
   df<-head(df,-1)
   return(df)
 }
+
+# RMD Check
+utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.level", "pvalue", "svalue"))
