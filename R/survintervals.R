@@ -9,15 +9,15 @@ survintervals <- function (data, x, steps = 10000) {
   }
 
   intrvls <- (1:steps)/steps
-  results<- lapply(intrvls, FUN = function(i) summary(data, conf.int = i)$conf.int[x,])
+  results<- lapply(intrvls, FUN = function(i) summary(data, conf.int = i)$conf.int[x, ])
 
-  df<-data.frame(do.call(rbind,results))[,3:4]
+  df<-data.frame(do.call(rbind, results))[, 3:4]
   intrvl.limit <- c("lower.limit", "upper.limit")
   colnames(df) <- intrvl.limit
   df$intrvl.level <- intrvls
-  df$pvalue <- 1-intrvls
+  df$pvalue <- 1 - intrvls
   df$svalue <- -log2(df$pvalue)
-  df<-head(df,-1)
+  df<-head(df, -1)
   return(df)
 }
 

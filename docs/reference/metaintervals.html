@@ -82,7 +82,7 @@ into a data frame along with the corresponding p-value and s-value." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -155,7 +155,7 @@ into a data frame along with the corresponding p-value and s-value.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>metaintervals</span>(<span class='no'>x</span>, <span class='kw'>measure</span> <span class='kw'>=</span> <span class='st'>"norm"</span>, <span class='kw'>steps</span> <span class='kw'>=</span> <span class='fl'>10000</span>)</pre>
+    <pre class="usage"><span class='fu'>metaintervals</span>(<span class='no'>x</span>, <span class='kw'>measure</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>steps</span> <span class='kw'>=</span> <span class='fl'>10000</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -166,9 +166,9 @@ into a data frame along with the corresponding p-value and s-value.</p>
     </tr>
     <tr>
       <th>measure</th>
-      <td><p>Indicates whether the object has a log transformation or is normal. If the measure is set to "log",
-it will take logarithmically transformed values and convert them back to normal values in the dataframe.
-This is typically a setting used for binary outcomes such as risk ratios and odds ratios.</p></td>
+      <td><p>Indicates whether the object has a log transformation or is normal/default. The default setting is "default.
+If the measure is set to "log", it will take logarithmically transformed values and convert them back to normal
+values in the dataframe. This is typically a setting used for binary outcomes such as risk ratios and odds ratios.</p></td>
     </tr>
     <tr>
       <th>steps</th>

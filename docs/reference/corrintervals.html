@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • concurve</title>
+<title>Computes Consonance Intervals For Correlations — corrintervals • concurve</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -45,7 +45,11 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Changelog" />
+<meta property="og:title" content="Computes Consonance Intervals For Correlations — corrintervals" />
+
+<meta property="og:description" content="Computes consonance intervals in order to produce P- and S-value functions for correlational analyses
+using the cor.test function in base R and places the interval limits for each interval level
+into a data frame along with the corresponding p-value and s-value." />
 
 <meta property="og:image" content="https://data.lesslikely.com/concurve/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -65,7 +69,7 @@
   </head>
 
   <body>
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -138,69 +142,73 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/Zadchow/concurve/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+    <h1>Computes Consonance Intervals For Correlations</h1>
+    
+    <div class="hidden name"><code>corrintervals.Rd</code></div>
     </div>
 
-    <div id="concurve-108" class="section level1">
-<h1 class="page-header">
-<a href="#concurve-108" class="anchor"></a>concurve 1.08<small> Unreleased </small>
-</h1>
-<div id="major-changes" class="section level2">
-<h2 class="hasAnchor">
-<a href="#major-changes" class="anchor"></a>Major changes</h2>
-<ul>
-<li>Can produce consonance and surprisal functions for correlations via the <code>corrintervals</code> function.</li>
-<li>Now able to construct consonance and surprisal functions from the point estiate, and confidence limits via the <code>reveng</code> function.</li>
-<li>Graphs produced via the <code>plotpint</code> or <code>plotsint</code> function now able to take custom titles, subtitles, x-axis titles, and captions.</li>
-</ul>
-</div>
-</div>
-    <div id="concurve-107" class="section level1">
-<h1 class="page-header">
-<a href="#concurve-107" class="anchor"></a>concurve 1.07<small> Unreleased </small>
-</h1>
-<div id="major-changes-1" class="section level2">
-<h2 class="hasAnchor">
-<a href="#major-changes-1" class="anchor"></a>Major changes</h2>
-<ul>
-<li>Can now produce consonance and surprisal functions for survival data produced with the <code>survival</code> package.</li>
-</ul>
-</div>
-</div>
-    <div id="concurve-106" class="section level1">
-<h1 class="page-header">
-<a href="#concurve-106" class="anchor"></a>concurve 1.06<small> Unreleased </small>
-</h1>
-<div id="major-changes-2" class="section level2">
-<h2 class="hasAnchor">
-<a href="#major-changes-2" class="anchor"></a>Major changes</h2>
-<ul>
-<li>Now contains <a href="https://data.lesslikely.com/concurve/articles/stata.html">documentation</a> for producing interval functons in <code>Stata</code>.</li>
-</ul>
-</div>
-<div id="minor-changes" class="section level2">
-<h2 class="hasAnchor">
-<a href="#minor-changes" class="anchor"></a>Minor changes</h2>
-<ul>
-<li>Default plots now contain grids, title, subtitle, and a caption.</li>
-<li>Updated figures in README and the ‘Examples in R’ vignette/article.</li>
-</ul>
-</div>
-</div>
-  </div>
+    <div class="ref-description">
+    
+    <p>Computes consonance intervals in order to produce P- and S-value functions for correlational analyses
+using the cor.test function in base R and places the interval limits for each interval level
+into a data frame along with the corresponding p-value and s-value.</p>
+    
+    </div>
 
+    <pre class="usage"><span class='fu'>corrintervals</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>alternative</span>, <span class='no'>method</span>, <span class='kw'>steps</span> <span class='kw'>=</span> <span class='fl'>10000</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>A vector that contains the data for one of the variables that will be analyzed for correlational analysis.</p></td>
+    </tr>
+    <tr>
+      <th>y</th>
+      <td><p>A vector that contains the data for one of the variables that will be analyzed for correlational analysis.</p></td>
+    </tr>
+    <tr>
+      <th>alternative</th>
+      <td><p>Indicates the alternative hypothesis and must be one of "two.sided", "greater" or "less". You can specify
+just the initial letter. "greater" corresponds to positive association, "less" to negative association.</p></td>
+    </tr>
+    <tr>
+      <th>method</th>
+      <td><p>A character string indicating which correlation coefficient is to be used for the test. One of "pearson",
+"kendall", or "spearman", can be abbreviated.</p></td>
+    </tr>
+    <tr>
+      <th>steps</th>
+      <td><p>Indicates how many consonance intervals are to be calculated at various levels. For example, setting
+this to 100 will produce 100 consonance intervals from 0 to 100. Setting this to 10000 will produce more
+consonance levels. By default, it is set to 1000. Increasing the number substantially is not recommended
+as it will take longer to produce all the intervals and store them into a dataframe.</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Poole C. Beyond the confidence interval. Am J Public Health. 1987;77(2):195-199.</p>
+<p>Sullivan KM, Foster DA. Use of the confidence interval function. Epidemiology. 1990;1(1):39-42.</p>
+<p>Rothman KJ, Greenland S, Lash TL, Others. Modern epidemiology. 2008.</p>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+</div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#concurve-108">1.08</a></li>
-        <li><a href="#concurve-107">1.07</a></li>
-        <li><a href="#concurve-106">1.06</a></li>
-      </ul>
-    </div>
-  </div>
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#references">References</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
+  </div>
 </div>
 
       <footer>

@@ -9,7 +9,7 @@ meta-analysis done by the metafor package and places the interval limits for eac
 into a data frame along with the corresponding p-value and s-value.
 }
 \usage{
-metaintervals(x, measure = "norm", steps = 10000)
+metaintervals(x, measure = "default", steps = 10000)
 }
 
 \arguments{
@@ -17,9 +17,9 @@ metaintervals(x, measure = "norm", steps = 10000)
 Object where the meta-analysis parameters are stored, typically a list produced by 'metafor'
 }
   \item{measure}{
-Indicates whether the object has a log transformation or is normal. If the measure is set to "log",
-it will take logarithmically transformed values and convert them back to normal values in the dataframe.
-This is typically a setting used for binary outcomes such as risk ratios and odds ratios.
+Indicates whether the object has a log transformation or is normal/default. The default setting is "default.
+If the measure is set to "log", it will take logarithmically transformed values and convert them back to normal
+values in the dataframe. This is typically a setting used for binary outcomes such as risk ratios and odds ratios.
 }
   \item{steps}{
 Indicates how many consonance intervals are to be calculated at various levels. For example, setting

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot the S-Value Function — plotsint • concurve</title>
+<title>Plot the S-Value (Surprisal) Function — plotsint • concurve</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -45,7 +45,7 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Plot the S-Value Function — plotsint" />
+<meta property="og:title" content="Plot the S-Value (Surprisal) Function — plotsint" />
 
 <meta property="og:description" content="Takes the dataframe produced by the interval functions and plots the s-values, consonance (confidence)
 levels, and the interval estimates to produce a s-value function using the geom_point function in ggplot2." />
@@ -81,7 +81,7 @@ levels, and the interval estimates to produce a s-value function using the geom_
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -141,7 +141,7 @@ levels, and the interval estimates to produce a s-value function using the geom_
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot the S-Value Function</h1>
+    <h1>Plot the S-Value (Surprisal) Function</h1>
     
     <div class="hidden name"><code>plotsint.Rd</code></div>
     </div>
@@ -153,7 +153,7 @@ levels, and the interval estimates to produce a s-value function using the geom_
     
     </div>
 
-    <pre class="usage"><span class='fu'>plotsint</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>plotsint</span>(<span class='no'>x</span>, <span class='no'>title</span>, <span class='no'>subtitle</span>, <span class='no'>caption</span>, <span class='no'>xaxis</span>, <span class='no'>yaxis</span>, <span class='no'>color</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -161,6 +161,37 @@ levels, and the interval estimates to produce a s-value function using the geom_
     <tr>
       <th>x</th>
       <td><p>The dataframe produced by one of the interval functions in which the intervals are stored.</p></td>
+    </tr>
+    <tr>
+      <th>title</th>
+      <td><p>A custom title for the graph. By default, it is set to "Surprisal Function". In order to set a title, it must be in
+quotes. For example, plotsint(x, title="Custom Title").</p></td>
+    </tr>
+    <tr>
+      <th>subtitle</th>
+      <td><p>A custom subtitle for the graph. By default, it is set to "The function contains consonance/confidence intervals at
+every level and the S-values." In order to set a subtitle, it must be in quotes. For example,
+plotsint(x, subtitle="Custom Subtitle").</p></td>
+    </tr>
+    <tr>
+      <th>caption</th>
+      <td><p>A custom caption for the graph. By default, it is set to "Produced with the concurve R package.". In order to set a caption,
+it must be in quotes. For example, plotsint(x, caption="Custom Caption").</p></td>
+    </tr>
+    <tr>
+      <th>xaxis</th>
+      <td><p>A custom x-axis title for the graph. By default, it is set to "Range of Values. In order to set a x-axis title,
+it must be in quotes. For example, plotsint(x, xaxis="Hazard Ratio").</p></td>
+    </tr>
+    <tr>
+      <th>yaxis</th>
+      <td><p>A custom y-axis title for the graph. By default, it is set to "S-value (bits of information)". In order to set a y-axis title,
+it must be in quotes. For example, plotsint(x, yxis="Surpisal Values").</p></td>
+    </tr>
+    <tr>
+      <th>color</th>
+      <td><p>Item that allows the user to choose the color of the points and the ribbons in the graph. By default, it is set to
+color = "#d46c5b". The inputs must be in quotes. For example, plotsint(x, color = "#333333").</p></td>
     </tr>
     </table>
     

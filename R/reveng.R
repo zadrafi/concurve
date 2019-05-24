@@ -12,13 +12,13 @@ reveng<- function(point, LL, UL, measure = "default") {
   }
 
   intrvls <- (1:10000)/10000
-  z<- qnorm(1-intrvls/2)
+  z<- qnorm(1 - intrvls / 2)
 
  if(measure == "default") {
   se <- (UL/LL)/3.92
-  LL<- lapply(z, FUN = function(i) point + (i*se))
-  UL<- lapply(z, FUN = function(i) point - (i*se))
-  df<-data.frame(do.call(rbind,LL), do.call(rbind,UL))
+  LL<- lapply(z, FUN = function(i) point + (i * se))
+  UL<- lapply(z, FUN = function(i) point - (i * se))
+  df<-data.frame(do.call(rbind, LL), do.call(rbind, UL))
   intrvl.limit <- c("lower.limit", "upper.limit")
   colnames(df) <- intrvl.limit
   df$lower.limit <- exp(df$lower.limit)
@@ -26,21 +26,21 @@ reveng<- function(point, LL, UL, measure = "default") {
  }
 
  else if(measure == "log") {
-  se <- log(UL/LL)/3.92
+  se <- log(UL / LL) / 3.92
   logpoint <- log(point)
-  logLL<- lapply(z, FUN = function(i) logpoint + (i*se))
-  logUL<- lapply(z, FUN = function(i) logpoint - (i*se))
-  df<-data.frame(do.call(rbind,logLL), do.call(rbind,logUL))
+  logLL<- lapply(z, FUN = function(i) logpoint + (i * se))
+  logUL<- lapply(z, FUN = function(i) logpoint - (i * se))
+  df<-data.frame(do.call(rbind, logLL), do.call(rbind, logUL))
   intrvl.limit <- c("lower.limit", "upper.limit")
   colnames(df) <- intrvl.limit
   df$lower.limit <- exp(df$lower.limit)
   df$upper.limit <- exp(df$upper.limit)
  }
 
-  df$intrvl.level <- 1-intrvls
-  df$pvalue <- 1-(1-intrvls)
+  df$intrvl.level <- 1 - intrvls
+  df$pvalue <- 1-(1 - intrvls)
   df$svalue <- -log2(df$pvalue)
-  df<-head(df,-1)
+  df<-head(df, -1)
   return(df)
 }
 
