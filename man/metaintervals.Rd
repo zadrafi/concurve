@@ -18,8 +18,8 @@ Object where the meta-analysis parameters are stored, typically a list produced 
 }
   \item{measure}{
 Indicates whether the object has a log transformation or is normal/default. The default setting is "default.
-If the measure is set to "log", it will take logarithmically transformed values and convert them back to normal
-values in the dataframe. This is typically a setting used for binary outcomes such as risk ratios and odds ratios.
+If the measure is set to "ratio", it will take logarithmically transformed values and convert them back to normal
+values in the dataframe. This is typically a setting used for binary outcomes such as risk ratios, hazard ratios, and odds ratios.
 }
   \item{steps}{
 Indicates how many consonance intervals are to be calculated at various levels. For example, setting

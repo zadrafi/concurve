@@ -8,12 +8,17 @@ Takes the dataframe produced by the interval functions and plots the p-values, c
 levels, and the interval estimates to produce a p-value function using the geom_point function in ggplot2.
 }
 \usage{
-plotpint(x, title, subtitle, caption, xaxis, yaxis, color)
+plotpint(x, measure, title, subtitle, caption, xaxis, yaxis, color)
 }
 
 \arguments{
   \item{x}{
 The dataframe produced by one of the interval functions in which the intervals are stored.
+}
+  \item{measure}{
+Indicates whether the object has a log transformation or is normal/default. The default setting is "default.
+If the measure is set to "ratio", it will take logarithmically transformed values and convert them back to normal
+values in the dataframe. This is typically a setting used for binary outcomes such as risk ratios, hazard ratios, and odds ratios.
 }
   \item{title}{
 A custom title for the graph. By default, it is set to "Consonance Function". In order to set a title, it must be in

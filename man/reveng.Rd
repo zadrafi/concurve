@@ -26,7 +26,7 @@ The upper confidence limit from an analysis Ex: 1.4
   \item{measure}{
 The type of data being used. If they involve mean differences,
 then the "default" option should be used, which is also the default setting.
-If the data are ratios, then the "log" option should be used.
+If the data are ratios, then the "ratio" option should be used.
 }
 }
 

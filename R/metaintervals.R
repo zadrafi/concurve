@@ -5,7 +5,7 @@ metaintervals<-function(x, measure = "default", steps = 10000) {
     stop("Error: 'x' must be a list from 'metafor'")
   }
   if(is.character(measure) != TRUE){
-    stop("Error: 'measure' must be a string such as 'default' or 'log'")
+    stop("Error: 'measure' must be a string such as 'default' or 'ratio'")
   }
   if(is.numeric(steps) != TRUE){
     stop("Error: 'steps' must be a numeric vector")
@@ -21,7 +21,7 @@ metaintervals<-function(x, measure = "default", steps = 10000) {
   if(measure == "default") {
     df$lower.limit <- df$lower.limit
     df$upper.limit <- df$upper.limit
-  } else if(measure == "log") {
+  } else if(measure == "ratio") {
     df$lower.limit <- exp(df$lower.limit)
     df$upper.limit <- exp(df$upper.limit)
   }
