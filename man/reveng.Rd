@@ -38,8 +38,3 @@ Sullivan KM, Foster DA. Use of the confidence interval function. Epidemiology. 1
 Rothman KJ, Greenland S, Lash TL, Others. Modern epidemiology. 2008.
 }
 
-\examples{
-
-
-
-}

@@ -4,6 +4,7 @@ import(dplyr)
 import(survival)
 import(survminer)
 import(metafor)
+import(scales)
 importFrom("stats", "coef", "confint", "confint.default", "confint.lm",
                 "lm", "quantile", "t.test", "cor.test", "qnorm")
 importFrom("utils", "head")

@@ -17,7 +17,8 @@ Imports: ggplot2,
          metafor,
          dplyr, 
          survival, 
-         survminer
+         survminer,
+         scales
 Suggests:
     testthat,
     knitr,
