@@ -11,6 +11,24 @@ geom_likely<-function(data, x, y,
   if(ncol(data) != 4){
     stop("Error: 'data' must be a data frame from 'concurve'")
   }
+  if(is.character(title) != TRUE){
+    stop("Error: 'title' must be a string.")
+  }
+  if(is.character(subtitle) != TRUE){
+    stop("Error: 'subtitle' must be a string.")
+  }
+  if(is.character(caption) != TRUE){
+    stop("Error: 'caption' must be a string.")
+  }
+  if(is.character(xaxis) != TRUE){
+    stop("Error: 'xaxis' must be a string.")
+  }
+  if(is.character(yaxis) != TRUE){
+    stop("Error: 'yaxis' must be a string.")
+  }
+  if(is.character(fill) != TRUE){
+    stop("Error: 'fill' must be a string for the color.")
+  }
   ggplot(data = data, aes(x = x, y = y)) +
     geom_line() +
     geom_ribbon(aes(x = x, ymin = min(y), ymax = y), fill = fill, alpha = 0.30) +

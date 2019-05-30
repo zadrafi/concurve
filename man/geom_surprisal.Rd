@@ -1,14 +1,15 @@
-\name{plotsint}
-\alias{plotsint}
+\name{geom_surprisal}
+\alias{geom_surprisal}
 
-\title{Plot the S-Value (Surprisal) Function
+\title{
+Plots the S-Value (Surprisal) Function
 }
 \description{
 Takes the dataframe produced by the interval functions and plots the s-values, consonance (confidence)
 levels, and the interval estimates to produce a s-value function using the geom_point function in ggplot2.
 }
 \usage{
-plotsint(x, measure, title, subtitle, caption, xaxis, yaxis, color)
+geom_surprisal(x, measure, title, subtitle, caption, xaxis, yaxis, color)
 }
 
 \arguments{
@@ -22,33 +23,33 @@ values in the dataframe. This is typically a setting used for binary outcomes su
 }
   \item{title}{
 A custom title for the graph. By default, it is set to "Surprisal Function". In order to set a title, it must be in
-quotes. For example, plotsint(x, title="Custom Title").
+quotes. For example, geom_surprisal(x, title="Custom Title").
 }
   \item{subtitle}{
 A custom subtitle for the graph. By default, it is set to "The function contains consonance/confidence intervals at
 every level and the S-values." In order to set a subtitle, it must be in quotes. For example,
-plotsint(x, subtitle="Custom Subtitle").
+geom_surprisal(x, subtitle="Custom Subtitle").
 }
   \item{caption}{
 A custom caption for the graph. By default, it is set to "Produced with the concurve R package.". In order to set a caption,
-it must be in quotes. For example, plotsint(x, caption="Custom Caption").
+it must be in quotes. For example, geom_surprisal(x, caption="Custom Caption").
 }
   \item{xaxis}{
 A custom x-axis title for the graph. By default, it is set to "Range of Values. In order to set a x-axis title,
-it must be in quotes. For example, plotsint(x, xaxis="Hazard Ratio").
+it must be in quotes. For example, geom_surprisal(x, xaxis="Hazard Ratio").
 }
   \item{yaxis}{
 A custom y-axis title for the graph. By default, it is set to "S-value (bits of information)". In order to set a y-axis title,
-it must be in quotes. For example, plotsint(x, yxis="Surpisal Values").
+it must be in quotes. For example, geom_surprisal(x, yxis="Surpisal Values").
 }
   \item{color}{
 Item that allows the user to choose the color of the points and the ribbons in the graph. By default, it is set to
-color = "#d46c5b". The inputs must be in quotes. For example, plotsint(x, color = "#333333").
+color = "#d46c5b". The inputs must be in quotes. For example, geom_surprisal(x, color = "#333333").
 }
 }
 
 \value{
-Plot with intervals at every consonance level graphed with their corresponding s-values
+Plot with intervals at every consonance level graphed with their corresponding s-values.
 }
 \references{
 Amrhein V, Trafimow D, Greenland S. Inferential Statistics as Descriptive Statistics:
@@ -81,6 +82,6 @@ RandomModel<-lm(GroupA ~ GroupB, data=RandomData)
 
 intervalsdf<-genintervals(RandomModel, "GroupB")
 
-s<-plotsint(intervalsdf)
+s<-geom_surprisal(intervalsdf)
 s
 }

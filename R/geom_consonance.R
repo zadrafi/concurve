@@ -1,4 +1,4 @@
-plotpint<-function(x, measure = "default", nullvalue = "absent", position = "pyramid",
+geom_consonance<-function(x, measure = "default", nullvalue = "absent", position = "pyramid",
                    title = "Consonance Function",
                    subtitle = "The function contains consonance/confidence intervals at every level and the \ncorresponding P-values.",
                    caption = "Produced with the concurve R package.",
@@ -7,13 +7,37 @@ plotpint<-function(x, measure = "default", nullvalue = "absent", position = "pyr
                    color = "#555555",
                    fill = "#239a98") {
   if(is.data.frame(x) != TRUE){
-    stop("Error: 'x' must be a data frame from 'concurve'")
+    stop("Error: 'x' must be a data frame from 'concurve'.")
   }
   if(ncol(x) != 5){
-    stop("Error: 'x' must be a data frame from 'concurve'")
+    stop("Error: 'x' must be a data frame from 'concurve'.")
   }
   if(is.character(measure) != TRUE){
-    stop("Error: 'measure' must be a string such as 'default' or 'ratio'")
+    stop("Error: 'measure' must be a string such as 'default' or 'ratio'.")
+  }
+  if(is.character(nullvalue) != TRUE){
+    stop("Error: 'nullvalue' must be a string such as 'absent' or 'present'.")
+  }
+  if(is.character(position) != TRUE){
+    stop("Error: 'position' must be a string such as 'pyramid' or 'inverted'.")
+  }
+  if(is.character(title) != TRUE){
+    stop("Error: 'title' must be a string.")
+  }
+  if(is.character(subtitle) != TRUE){
+    stop("Error: 'subtitle' must be a string.")
+  }
+  if(is.character(caption) != TRUE){
+    stop("Error: 'caption' must be a string.")
+  }
+  if(is.character(xaxis) != TRUE){
+    stop("Error: 'xaxis' must be a string.")
+  }
+  if(is.character(yaxis) != TRUE){
+    stop("Error: 'yaxis' must be a string.")
+  }
+  if(is.character(fill) != TRUE){
+    stop("Error: 'fill' must be a string for the color.")
   }
   ggplot(data = x) +
     geom_point(aes(x = lower.limit, y = intrvl.level * 100), color = color, fill = fill, alpha = 0.5, shape = 20, size = 0.1) +

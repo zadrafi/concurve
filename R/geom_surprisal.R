@@ -1,4 +1,4 @@
-plotsint<-function(x, measure = "default",
+geom_surprisal<-function(x, measure = "default",
                    title = "Surprisal Function",
                    subtitle = "The function contains consonance/confidence intervals at every level and the \ncorresponding S-values.",
                    caption = "Produced with the concurve R package.",
@@ -13,7 +13,25 @@ plotsint<-function(x, measure = "default",
     stop("Error: 'x' must be a data frame from 'concurve'")
   }
   if(is.character(measure) != TRUE){
-    stop("Error: 'measure' must be a string such as 'default' or 'ratio'")
+    stop("Error: 'measure' must be a string such as 'default' or 'ratio'.")
+  }
+  if(is.character(title) != TRUE){
+    stop("Error: 'title' must be a string.")
+  }
+  if(is.character(subtitle) != TRUE){
+    stop("Error: 'subtitle' must be a string.")
+  }
+  if(is.character(caption) != TRUE){
+    stop("Error: 'caption' must be a string.")
+  }
+  if(is.character(xaxis) != TRUE){
+    stop("Error: 'xaxis' must be a string.")
+  }
+  if(is.character(yaxis) != TRUE){
+    stop("Error: 'yaxis' must be a string.")
+  }
+  if(is.character(fill) != TRUE){
+    stop("Error: 'fill' must be a string for the color.")
   }
   ggplot(data = x) +
     geom_point(aes(x = lower.limit, y = svalue), color = color, fill = fill, alpha = 0.5, shape = 20, size = 0.1) +
