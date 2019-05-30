@@ -1,15 +1,15 @@
 defunct = function(msg = "This function is depreciated") function(...) return(stop(msg))
 
 # Graphical functions
-plotpint = defunct("plotpint() is now depreciated. Please use geom_consonance() instead.")
-plotsint = defunct("plotsint() is now depreciated. Please use geom_surprisal() instead.")
+plotpint = defunct("plotpint() is now depreciated. Please use plot.concurve() instead.")
+plotsint = defunct("plotsint() is now depreciated. Please use plot.concurve() instead.")
 
 # Computational functions
-meanintervals = defunct("meanintervals() is now depreciated. Please use geom_consonance() instead.")
-metaintervals = defunct("metaintervals() is now depreciated. Please use geom_surprisal() instead.")
-genintervals = defunct("genintervals() is now depreciated. Please use geom_consonance() instead.")
-corrintervals = defunct("corrintervals() is now depreciated. Please use geom_surprisal() instead.")
-survintervals = defunct("survintervals() is now depreciated. Please use geom_consonance() instead.")
+meanintervals = defunct("meanintervals() is now depreciated. Please use concurve() instead.")
+metaintervals = defunct("metaintervals() is now depreciated. Please use concurve() instead.")
+genintervals = defunct("genintervals() is now depreciated. Please use concurve() instead.")
+corrintervals = defunct("corrintervals() is now depreciated. Please use concurve() instead.")
+survintervals = defunct("survintervals() is now depreciated. Please use concurve() instead.")
 
 # Current names
 
