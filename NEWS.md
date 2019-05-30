@@ -1,3 +1,17 @@
+# concurve 1.1.1
+
+## Major changes 
+
+* New function to compute log-likelihood functions (also known as support intervals) via the supportintervals() function.
+* Support intervals can now be graphed via the geom_likely() function.
+* The plotpint() function which plotted consonance functions has been renamed to geom_consonance().
+* The plotsint() function which plotted surprisal functions has been renamed to geom_surprisal().
+* Consonance functions can be plotted as a pyramid (right side up) or inverted (upside down) via the "position" item in geom_consonance().
+* Null values (for means & ratios) can be plotted via all the geoms to show how much of the interval surrounds it.
+* Log transformations included in all the geoms for ratio measures. 
+* 
+
+
 # concurve 1.08
 
 ## Major changes
