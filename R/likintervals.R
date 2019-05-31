@@ -1,3 +1,5 @@
+# Adopted from ProfileLikelihood by Leena Choi
+
 likintervals<- function (formula, data, profile.theta, lo.theta = NULL, hi.theta = NULL,
           length = 300, round = 2, subset = NULL, weights = NULL,
           offset = NULL, ...)
