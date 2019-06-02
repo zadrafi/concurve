@@ -1,6 +1,6 @@
 ---
 title: "Examples in R"
-output: rmarkdown::html_vignette
+output: rmarkdown::pdf_document
 vignette: >
   %\VignetteIndexEntry{Examples in R}
   %\VignetteEngine{knitr::rmarkdown}
@@ -93,7 +93,7 @@ We can plot this data using the ***plotpint*** function (which stands
 for "plot P-value intervals").
 
 ``` r
-pfunction<-geom_consonance(intervalsdf)
+pfunction<-gg_consonance(intervalsdf)
 pfunction
 ```
 <center>
@@ -111,7 +111,7 @@ Furthermore, we can also produce a "surprisal" function by plotting every conson
 using the ***plotsint*** function.
 
 ``` r
-sfunction<-geom_surprisal(intervalsdf)
+sfunction<-gg_surprisal(intervalsdf)
 sfunction
 ```
 
@@ -151,7 +151,7 @@ regression coefficient and then plot the consonance and surprisal functions.
 ``` r
 randomframe<-genintervals(model, "GroupB2")
 
-geom_consonance(randomframe)
+gg_consonance(randomframe)
 ```
 
 <center>
@@ -159,7 +159,7 @@ geom_consonance(randomframe)
 </center>
 
 ``` r
-s<-geom_surprisal(randomframe)
+s<-gg_surprisal(randomframe)
 s
 ```
 
@@ -295,7 +295,7 @@ Now that we have our dataframe with every computed interval, we can plot
 the functions.
 
 ``` r
-geom_consonance(metaf)
+gg_consonance(metaf)
 ```
 
 <center>
@@ -305,7 +305,7 @@ geom_consonance(metaf)
 And our S-value function
 
 ``` r
-geom_surprisal(metaf)
+gg_surprisal(metaf)
 ```
 <center>
 <img src="figures/function6.png" align="center" width="600" />
