@@ -1,4 +1,4 @@
-gg_consonance <- function(x, measure = "default", nullvalue = "absent", position = "pyramid",
+gg_consonance <- function(data, measure = "default", nullvalue = "absent", position = "pyramid",
                    title = "Consonance Function",
                    subtitle = "The function contains consonance/confidence intervals at every level and the \ncorresponding P-values.",
                    caption = "Produced with the concurve R package.",
@@ -6,10 +6,10 @@ gg_consonance <- function(x, measure = "default", nullvalue = "absent", position
                    yaxis = "Consonance Level (%)",
                    color = "#555555",
                    fill = "#239a98") {
-  if (is.data.frame(x) != TRUE) {
+  if (is.data.frame(data) != TRUE) {
     stop("Error: 'x' must be a data frame from 'concurve'.")
   }
-  if (ncol(x) != 5) {
+  if (ncol(data) != 5) {
     stop("Error: 'x' must be a data frame from 'concurve'.")
   }
   if (is.character(measure) != TRUE) {
@@ -39,11 +39,15 @@ gg_consonance <- function(x, measure = "default", nullvalue = "absent", position
   if (is.character(fill) != TRUE) {
     stop("Error: 'fill' must be a string for the color.")
   }
-  ggplot(data = x) +
-    geom_point(aes(x = lower.limit, y = intrvl.level * 100), color = color, fill = fill, alpha = 0.5, shape = 20, size = 0.1) +
-    geom_point(aes(x = upper.limit, y = intrvl.level * 100), color = color, fill = fill, alpha = 0.5, shape = 20, size = 0.1) +
-    geom_ribbon(aes(x = lower.limit, ymin = max(intrvl.level * 100), ymax = intrvl.level * 100), fill = fill, alpha = 0.30) +
-    geom_ribbon(aes(x = upper.limit, ymin = max(intrvl.level * 100), ymax = intrvl.level * 100), fill = fill, alpha = 0.30) +
+  ggplot(data = data) +
+    geom_point(aes(x = lower.limit, y = intrvl.level * 100),
+               color = color, fill = fill, alpha = 0.5, shape = 20, size = 0.1) +
+    geom_point(aes(x = upper.limit, y = intrvl.level * 100),
+               color = color, fill = fill, alpha = 0.5, shape = 20, size = 0.1) +
+    geom_ribbon(aes(x = lower.limit, ymin = max(intrvl.level * 100), ymax = intrvl.level * 100),
+                fill = fill, alpha = 0.30) +
+    geom_ribbon(aes(x = upper.limit, ymin = max(intrvl.level * 100), ymax = intrvl.level * 100),
+                fill = fill, alpha = 0.30) +
     labs(title = title,
          subtitle = subtitle,
          caption = caption,

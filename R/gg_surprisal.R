@@ -1,4 +1,4 @@
-gg_surprisal <- function(x, measure = "default",
+gg_surprisal <- function(data, measure = "default",
                    title = "Surprisal Function",
                    subtitle = "The function contains consonance/confidence intervals at every level and the \ncorresponding S-values.",
                    caption = "Produced with the concurve R package.",
@@ -6,11 +6,11 @@ gg_surprisal <- function(x, measure = "default",
                    yaxis = "S-value (bits of information)",
                    color = "#555555",
                    fill = "#1f7f79") {
-  if (is.data.frame(x) != TRUE) {
-    stop("Error: 'x' must be a data frame from 'concurve'")
+  if (is.data.frame(data) != TRUE) {
+    stop("Error: 'data' must be a data frame from 'concurve'")
   }
-  if (ncol(x) != 5) {
-    stop("Error: 'x' must be a data frame from 'concurve'")
+  if (ncol(data) != 5) {
+    stop("Error: 'data' must be a data frame from 'concurve'")
   }
   if (is.character(measure) != TRUE) {
     stop("Error: 'measure' must be a string such as 'default' or 'ratio'.")
@@ -33,7 +33,7 @@ gg_surprisal <- function(x, measure = "default",
   if (is.character(fill) != TRUE) {
     stop("Error: 'fill' must be a string for the color.")
   }
-  ggplot(data = x) +
+  ggplot(data = data) +
     geom_point(aes(x = lower.limit, y = svalue), color = color, fill = fill, alpha = 0.5, shape = 20, size = 0.1) +
     geom_point(aes(x = upper.limit, y = svalue), color = color, fill = fill, alpha = 0.5, shape = 20, size = 0.1) +
     geom_ribbon(aes(x = lower.limit, ymin = max(svalue), ymax = svalue), fill = fill, alpha = 0.30) +
