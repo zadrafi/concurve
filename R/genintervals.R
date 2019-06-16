@@ -15,17 +15,17 @@ genintervals <- function(model, var, method = "default", replicates = 1000, step
   }
   intrvls <- (0:steps) / steps
   if (method == "default") {
-    results <- lapply(intrvls, FUN = function(i) confint(object = model, level = i)[var, ])
+    results <- mclapply(intrvls, FUN = function(i) confint(object = model, level = i)[var, ])
   } else if (method == "Wald") {
-    results <- lapply(intrvls, FUN = function(i) confint.default(object = model, level = i)[var, ])
+    results <- mclapply(intrvls, FUN = function(i) confint.default(object = model, level = i)[var, ])
   } else if (method == "lm") {
-    results <- lapply(intrvls, FUN = function(i) confint.lm(object = model, level = i)[var, ])
+    results <- mclapply(intrvls, FUN = function(i) confint.lm(object = model, level = i)[var, ])
   } else if (method == "boot") {
     effect <- coef(model)[[var]]
     boot_dist <- replicate(replicates,
                            expr = coef(lm(model$call$formula,
                                           data = model$model[sample(nrow(model$model), replace = T), ]))[[var]]) - effect
-    results <- lapply(intrvls, FUN = function(i) effect - quantile(boot_dist, probs = (1 + c(i, -i)) / 2))
+    results <- mclapply(intrvls, FUN = function(i) effect - quantile(boot_dist, probs = (1 + c(i, -i)) / 2))
   }
 
   df <- data.frame(do.call(rbind, results))

@@ -1,8 +1,8 @@
 defunct = function(msg = "This function is depreciated") function(...) return(stop(msg))
 
 # Graphical functions
-plotpint = defunct("plotpint() is now depreciated. Please use gg_consonance() instead.")
-plotsint = defunct("plotsint() is now depreciated. Please use gg_surprisal() instead.")
+plotpint = defunct("plotpint() is now depreciated. Please use ggconcurve() or plot.concurve instead.")
+plotsint = defunct("plotsint() is now depreciated. Please use ggconcurve() or plot.concurve instead.")
 
 # Computational functions
 #meanintervals = defunct("meanintervals() is now depreciated. Please use concurve() instead.")

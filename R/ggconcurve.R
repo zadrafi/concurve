@@ -1,11 +1,12 @@
-gg_consonance <- function(data, measure = "default", nullvalue = "absent", position = "pyramid",
+ggconcurve <- function(type = "consonance", data, measure = "default", nullvalue = "absent", position = "pyramid",
                    title = "Consonance Function",
-                   subtitle = "The function contains consonance/confidence intervals at every level and the \ncorresponding P-values.",
+                   subtitle = "The function contains consonance intervals at every level.",
                    caption = "Produced with the concurve R package.",
                    xaxis = "Range of Values",
                    yaxis = "Consonance Level (%)",
                    color = "#555555",
                    fill = "#239a98") {
+if (type == "consonance") {
   if (is.data.frame(data) != TRUE) {
     stop("Error: 'x' must be a data frame from 'concurve'.")
   }
@@ -67,14 +68,72 @@ gg_consonance <- function(data, measure = "default", nullvalue = "absent", posit
  if (nullvalue == "present") {
   if (measure == "default") {
     annotate("segment", x = 0, xend = 0, y = 0, yend = 100,
-             colour = "#990000", alpha = 0.5, size = 1)
+             color = "#990000", alpha = 0.3, size = .6)
   } else if (measure == "ratio") {
     annotate("segment", x = 1, xend = 1, y = 0, yend = 100,
-              colour = "#990000", alpha = 0.5, size = 1)
+              color = "#990000", alpha = 0.3, size = .6)
   }
  }
  else if (nullvalue == "absent"){
  }
+
+
+} else if (type == "surprisal") {
+
+  if (is.data.frame(data) != TRUE) {
+    stop("Error: 'data' must be a data frame from 'concurve'")
+  }
+  if (ncol(data) != 5) {
+    stop("Error: 'data' must be a data frame from 'concurve'")
+  }
+  if (is.character(measure) != TRUE) {
+    stop("Error: 'measure' must be a string such as 'default' or 'ratio'.")
+  }
+  if (is.character(title) != TRUE) {
+    stop("Error: 'title' must be a string.")
+  }
+  if (is.character(subtitle) != TRUE) {
+    stop("Error: 'subtitle' must be a string.")
+  }
+  if (is.character(caption) != TRUE) {
+    stop("Error: 'caption' must be a string.")
+  }
+  if (is.character(xaxis) != TRUE) {
+    stop("Error: 'xaxis' must be a string.")
+  }
+  if (is.character(yaxis) != TRUE) {
+    stop("Error: 'yaxis' must be a string.")
+  }
+  if (is.character(fill) != TRUE) {
+    stop("Error: 'fill' must be a string for the color.")
+  }
+  ggplot(data = data) +
+    geom_point(aes(x = lower.limit, y = svalue),
+               color = color, fill = fill, alpha = 0.5, shape = 20, size = 0.1) +
+    geom_point(aes(x = upper.limit, y = svalue),
+               color = color, fill = fill, alpha = 0.5, shape = 20, size = 0.1) +
+    geom_ribbon(aes(x = lower.limit, ymin = max(svalue), ymax = svalue),
+                fill = fill, alpha = 0.30) +
+    geom_ribbon(aes(x = upper.limit, ymin = max(svalue), ymax = svalue),
+                fill = fill, alpha = 0.30) +
+    labs(title = "Surprisal Function",
+         subtitle = subtitle,
+         caption = caption,
+         x = xaxis,
+         y = "S-value (bits of information)") +
+    theme_light() +
+    theme(axis.title.x = element_text(size = 13),
+          axis.title.y = element_text(size = 13)) +
+    {if (measure == "default") scale_x_continuous(breaks = scales::pretty_breaks(n = 10))} +
+    {if (measure == "ratio") scale_x_log10(breaks = scales::pretty_breaks(n = 10))} +
+    scale_y_continuous(breaks = seq(0, 14, 0.5), expand = c(0, 0)) +
+    theme(text = element_text(size = 15)) +
+    theme(plot.title = element_text(size = 16),
+          plot.subtitle = element_text(size = 12),
+          plot.caption = element_text(size = 8))
+
+}
+
 }
 
 # RMD Check

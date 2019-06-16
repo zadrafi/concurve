@@ -1,4 +1,4 @@
-gg_likely <- function(data, x, y,
+gglikely <- function(data, x, y,
                    title = "Support Function",
                    subtitle = "A log-likelihood function to assess the probability of the data.",
                    caption = "Produced with the concurve R package.",

@@ -9,7 +9,7 @@ survintervals <- function (data, x, steps = 10000) {
   }
 
   intrvls <- (1:steps) / steps
-  results <- lapply(intrvls, FUN = function(i) summary(data, conf.int = i)$conf.int[x, ])
+  results <- mclapply(intrvls, FUN = function(i) summary(data, conf.int = i)$conf.int[x, ])
 
   df <- data.frame(do.call(rbind, results))[, 3:4]
   intrvl.limit <- c("lower.limit", "upper.limit")

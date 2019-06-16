@@ -1,4 +1,5 @@
 exportPattern("^[[:alpha:]]+")
+import(parallel)
 import(ggplot2)
 import(dplyr)
 import(survival)

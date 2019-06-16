@@ -11,7 +11,7 @@ metaintervals <- function(x, measure = "default", steps = 10000) {
     stop("Error: 'steps' must be a numeric vector")
   }
   intrvls <- (0:steps) / steps
-  results <- lapply(intrvls, FUN = function(i) confint.default(object = x, fixed = TRUE, random = FALSE, level = i)[])
+  results <- mclapply(intrvls, FUN = function(i) confint.default(object = x, fixed = TRUE, random = FALSE, level = i)[])
   df <- data.frame(do.call(rbind, results))
   intrvl.limit <- c("lower.limit", "upper.limit")
   colnames(df) <- intrvl.limit

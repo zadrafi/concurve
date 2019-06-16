@@ -18,7 +18,7 @@ meanintervals <- function(x, y, data, paired = F, method = "default", replicates
   }
   intrvls <- (0:steps)/steps
   if (method == "default") {
-    results <- lapply(intrvls, FUN = function(i) t.test(x, y, data = data, paired = paired , conf.level = i)$conf.int[])
+    results <- mclapply(intrvls, FUN = function(i) t.test(x, y, data = data, paired = paired , conf.level = i)$conf.int[])
   } else if (method == "boot") {
     diff <- mean(x) - mean(y)
     if (paired) {
@@ -30,7 +30,7 @@ meanintervals <- function(x, y, data, paired = F, method = "default", replicates
                              expr = mean(sample(x, length(x), replace = T)) -
                                mean(sample(y, length(y), replace = T))) - diff
     }
-    results <- lapply(intrvls, FUN = function(i) diff - quantile(boot_dist, probs = (1 + c(i, -i)) / 2))
+    results <- mclapply(intrvls, FUN = function(i) diff - quantile(boot_dist, probs = (1 + c(i, -i)) / 2))
   }
   df<-data.frame(do.call(rbind, results))
   intrvl.limit <- c("lower.limit", "upper.limit")

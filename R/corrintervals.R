@@ -10,7 +10,7 @@ corrintervals <- function(x, y, alternative, method, steps = 10000) {
   }
 
   intrvls <- (0:steps) / steps
-  results <- lapply(intrvls, FUN = function(i) cor.test(x, y, alternative = alternative,  method = method,
+  results <- mclapply(intrvls, FUN = function(i) cor.test(x, y, alternative = alternative,  method = method,
                                                         exact = NULL, conf.level = i, continuity = FALSE)$conf.int[])
   df <- data.frame(do.call(rbind, results))
   intrvl.limit <- c("lower.limit", "upper.limit")
