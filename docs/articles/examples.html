@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0</span>
       </span>
     </div>
 
@@ -135,18 +135,18 @@
 <a class="sourceLine" id="cb5-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"zadchow/concurve"</span>)</a></code></pre></div>
 <p>We’ll use the same data from above to calculate a P-value function and since we are focusing on mean differences using a t-test, we will use the <strong><em>meanintervals</em></strong> function to calculate our consonance intervals and store them in a dataframe.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(concurve)</a>
-<a class="sourceLine" id="cb6-2" title="2">intervalsdf&lt;-<span class="kw"><a href="../reference/meanintervals.html">meanintervals</a></span>(GroupA, GroupB, </a>
+<a class="sourceLine" id="cb6-2" title="2">intervalsdf&lt;-<span class="kw"><a href="../reference/curve_mean.html">curve_mean</a></span>(GroupA, GroupB, </a>
 <a class="sourceLine" id="cb6-3" title="3">                           <span class="dt">data=</span>RandomData, <span class="dt">method=</span><span class="st">"default"</span>)</a></code></pre></div>
 <p>Now thousands of consonance intervals at various levels have been stored in the dataframe “intervalsdf.”</p>
 <p>We can plot this data using the <strong><em>plotpint</em></strong> function (which stands for “plot P-value intervals”).</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">pfunction&lt;-<span class="kw"><a href="../reference/plotpint.html">plotpint</a></span>(intervalsdf)</a>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">pfunction&lt;-<span class="kw"><a href="../reference/ggconcurve.html">ggconcurve</a></span>(<span class="dt">type =</span> <span class="st">"consonance"</span>, intervalsdf)</a>
 <a class="sourceLine" id="cb7-2" title="2">pfunction</a></code></pre></div>
 <center>
 <img src="figures/function1.png" align="center" width="600">
 </center>
 <p>Now we can see every consonance interval and its corresponding P-value and consonance level plotted. As stated before, a single 95% consonance interval is simply a slice through this function, which provides far more information as to what is compatible with the test model and its assumptions.</p>
 <p>Furthermore, we can also produce a “surprisal” function by plotting every consonance interval and its corresponding <span style="color:#d46c5b"><a href="https://lesslikely.com/statistics/s-values/"><strong><em>S-value</em></strong></a></span> using the <strong><em>plotsint</em></strong> function.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">sfunction&lt;-<span class="kw"><a href="../reference/plotsint.html">plotsint</a></span>(intervalsdf)</a>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">sfunction&lt;-<span class="kw"><a href="../reference/ggconcurve.html">ggconcurve</a></span>(<span class="dt">type =</span> <span class="st">"surprisal"</span>, intervalsdf)</a>
 <a class="sourceLine" id="cb8-2" title="2">sfunction</a></code></pre></div>
 <center>
 <img src="figures/function2.png" align="center" width="600">
@@ -167,13 +167,13 @@
 <a class="sourceLine" id="cb9-7" title="7"></a>
 <a class="sourceLine" id="cb9-8" title="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(model)</a></code></pre></div>
 <p>We can see some of the basic statistics of our model including the 95% interval for our predictor (GroupB). Perhaps we want more information. Well we can do that! Using the <strong><em>geninterval</em></strong> function in the <span style="color:#d46c5b"><a href="https://github.com/Zadchow/concurve"><strong>concurve</strong></a></span> package, we can calculate several consonance intervals for the regression coefficient and then plot the consonance and surprisal functions.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">randomframe&lt;-<span class="kw"><a href="../reference/genintervals.html">genintervals</a></span>(model, <span class="st">"GroupB2"</span>)</a>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">randomframe&lt;-<span class="kw"><a href="../reference/curve_gen.html">curve_gen</a></span>(model, <span class="st">"GroupB2"</span>)</a>
 <a class="sourceLine" id="cb10-2" title="2"></a>
-<a class="sourceLine" id="cb10-3" title="3"><span class="kw"><a href="../reference/plotpint.html">plotpint</a></span>(randomframe)</a></code></pre></div>
+<a class="sourceLine" id="cb10-3" title="3"><span class="kw"><a href="../reference/ggconcurve.html">ggconcurve</a></span>(<span class="dt">type =</span> <span class="st">"consonance"</span>, randomframe)</a></code></pre></div>
 <center>
 <img src="figures/function3.png" align="center" width="600">
 </center>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1">s&lt;-<span class="kw"><a href="../reference/plotsint.html">plotsint</a></span>(randomframe)</a>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1">s&lt;-<span class="kw"><a href="../reference/ggconcurve.html">ggconcurve</a></span>(<span class="dt">type =</span> <span class="st">"surprisal"</span>, randomframe)</a>
 <a class="sourceLine" id="cb11-2" title="2">s</a></code></pre></div>
 <center>
 <img src="figures/function4.png" align="center" width="600">
@@ -247,14 +247,14 @@ estimate    se   zval  pval  ci.lb  ci.ub
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 </code></pre>
 <p>Take a look at the pooled summary effect and its interval. Keep it in mind as we move onto constructing a consonance function.</p>
 <p>We can now take the object produced by the meta-analysis and calculate a P-value and S-value function with it to see the full spectrum of effect sizes compatible with the test model at every level. We’ll use the <strong><em>metainterval</em></strong> function to do this.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1">metaf&lt;-<span class="kw"><a href="../reference/metaintervals.html">metaintervals</a></span>(res)</a></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1">metaf&lt;-<span class="kw"><a href="../reference/curve_meta.html">curve_meta</a></span>(res)</a></code></pre></div>
 <p>Now that we have our dataframe with every computed interval, we can plot the functions.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="kw"><a href="../reference/plotpint.html">plotpint</a></span>(metaf)</a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="kw"><a href="../reference/ggconcurve.html">ggconcurve</a></span>(<span class="dt">type =</span> <span class="st">"consonance"</span>, metaf)</a></code></pre></div>
 <center>
 <img src="figures/function5.png" align="center" width="600">
 </center>
 <p>And our S-value function</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1"><span class="kw"><a href="../reference/plotsint.html">plotsint</a></span>(metaf)</a></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1"><span class="kw"><a href="../reference/ggconcurve.html">ggconcurve</a></span>(<span class="dt">type =</span> <span class="st">"surprisal"</span>, metaf)</a></code></pre></div>
 <center>
 <img src="figures/function6.png" align="center" width="600">
 </center>

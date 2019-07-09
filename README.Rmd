@@ -2,7 +2,7 @@
 title: concurve
 output: github_document
 ---
-Plot Interval Functions With the concurve Package <img src="man/figures/logo.svg" align="right" width="100" />
+concurve | Graph Interval Functions <img src="man/figures/logo.svg" align="right" width="120" />
 ================
 
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/concurve)](https://cran.r-project.org/package=concurve)
@@ -12,38 +12,19 @@ Plot Interval Functions With the concurve Package <img src="man/figures/logo.svg
 [![](https://cranlogs.r-pkg.org/badges/grand-total/concurve)](https://cran.r-project.org/package=concurve)
 [![Rdoc](http://www.rdocumentation.org/badges/version/concurve)](http://www.rdocumentation.org/packages/concurve)
 
-## A Single Interval Isn’t Enough
+> “The **full p-value function** arguably records the **full measurement information** that a user should be entitled to know!
+>
+> In addition to the overt statistical position, the p-value function also provides easily and accurately many of the familiar types of summary information: a **median estimate** of the parameter; a **one-sided test statistic** for a scalar parameter value at any chosen level; the related **power function**; a **lower confidence bound** at any level; an **upper confidence bound** at any level; and **confidence intervals** with chosen upper and lower confidence limits. The p value reports all the **common inference material**, but with **high accuracy, basic uniqueness, and wide generality**.
+>
+> From a scientific perspective, the likelihood function and p-value function provide the basis for scientific judgments by an investigator, and by other investigators who might have interest. **It thus replaces a blunt yes or no decision by an opportunity for appropriate informed judgment.**” - [D. A. S. Fraser, 2019](https://doi.org/10.1080/00031305.2018.1556735)
 
-Interval estimates such as ~~confidence~~ **consonance** intervals
-are now widely reported in many journals alongside the exact P-value of a statistical test and point
-estimate. While this is a large improvement over what constituted statistical
-reporting in the past two decades, it is still largely inadequate.
-
-Take for example, the 95% consonance interval. As many have stated
-before, there is nothing special about **95%**, yet we rarely see
-intervals of any other level. Choosing to compute a 95% interval is as
-mindless as choosing a 5% alpha level for hypothesis testing. 
-
-A single consonance interval is only a *slice* of a wide range of
-consonance intervals at different levels. Mindlessly reporting 95% intervals
-only promotes [cargo-cult
-statistics](https://rss.onlinelibrary.wiley.com/doi/10.1111/j.1740-9713.2018.01174.x)
-since there is not much thought behind the choice. (1)
-
-> “***Cargo-cult statistics*** – *the ritualistic miming of statistics
-> rather than conscientious practice*.” -  Stark & Saltelli, 2018
-
-Thus, we propose that instead of only calculating ***one*** interval
-estimate, ***every*** interval associated with a consonance level be
-calculated, along with its corresponding P-value and S-value, and plotted to form a function. (2-8)
-
-<img src="https://res.cloudinary.com/less-likely/image/upload/v1557366230/Site/FrontConsonance.svg" align="center" width="400" />
-<img src="https://res.cloudinary.com/less-likely/image/upload/v1557366230/Site/FrontSurprisal.svg" align="center" width="400" />
-
-This can be accomplished using the [**concurve**](https://github.com/Zadchow/concurve)</span>
-package in R and on Stata.
+<img src = "https://res.cloudinary.com/less-likely/image/upload/v1562705215/Site/Figure1.png" align="center" width ="400">
+<img src = "https://res.cloudinary.com/less-likely/image/upload/v1562705215/Site/Figure2.png" align="center" width="400">
 
 * * * 
+<center>
+# Installation
+</center>
 
 # For R:
 
@@ -103,3 +84,4 @@ install_github("zadchow/concurve")
     _Scand J Stat._ 2002;29(2):309-332. 
 7.  Amrhein V, Trafimow D, Greenland S. Inferential Statistics as Descriptive Statistics: There is No Replication     Crisis if We Don't Expect Replication. _Am Stat_. 2019
 8.  Greenland S. Valid P-values Behave Exactly As They Should. Some misleading criticisms of P-values and their      resolution with S-values. _Am Stat_. 2019;18(136).
+9.  Fraser DAS. The p-value Function and Statistical Inference. _Am Stat_. 2019

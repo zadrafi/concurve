@@ -82,7 +82,7 @@ intervals and store them in a dataframe.
 
 ``` r
 library(concurve)
-intervalsdf<-meanintervals(GroupA, GroupB, 
+intervalsdf<-curve_mean(GroupA, GroupB, 
                            data=RandomData, method="default")
 ```
 
@@ -93,7 +93,7 @@ We can plot this data using the ***plotpint*** function (which stands
 for "plot P-value intervals").
 
 ``` r
-pfunction<-gg_consonance(intervalsdf)
+pfunction<-ggconcurve(type = "consonance", intervalsdf)
 pfunction
 ```
 <center>
@@ -111,7 +111,7 @@ Furthermore, we can also produce a "surprisal" function by plotting every conson
 using the ***plotsint*** function.
 
 ``` r
-sfunction<-gg_surprisal(intervalsdf)
+sfunction<-ggconcurve(type = "surprisal", intervalsdf)
 sfunction
 ```
 
@@ -149,9 +149,9 @@ package, we can calculate several consonance intervals for the
 regression coefficient and then plot the consonance and surprisal functions.
 
 ``` r
-randomframe<-genintervals(model, "GroupB2")
+randomframe<-curve_gen(model, "GroupB2")
 
-gg_consonance(randomframe)
+ggconcurve(type = "consonance", randomframe)
 ```
 
 <center>
@@ -159,7 +159,7 @@ gg_consonance(randomframe)
 </center>
 
 ``` r
-s<-gg_surprisal(randomframe)
+s<-ggconcurve(type = "surprisal", randomframe)
 s
 ```
 
@@ -288,14 +288,14 @@ sizes compatible with the test model at every level. We’ll use the
 ***metainterval*** function to do this.
 
 ``` r
-metaf<-metaintervals(res)
+metaf<-curve_meta(res)
 ```
 
 Now that we have our dataframe with every computed interval, we can plot
 the functions.
 
 ``` r
-gg_consonance(metaf)
+ggconcurve(type = "consonance", metaf)
 ```
 
 <center>
@@ -305,7 +305,7 @@ gg_consonance(metaf)
 And our S-value function
 
 ``` r
-gg_surprisal(metaf)
+ggconcurve(type = "surprisal", metaf)
 ```
 <center>
 <img src="figures/function6.png" align="center" width="600" />
