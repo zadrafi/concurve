@@ -1,12 +1,12 @@
 \name{curve_meta}
 \alias{curve_meta}
 
-\title{Produce Consonance Intervals for Meta-Analysis Data
+\title{Computes consonance intervals for meta-analysis data
 }
 \description{
 Computes thousands of consonance (confidence) intervals for the chosen parameter in the
 meta-analysis done by the metafor package and places the interval limits for each interval level
-into a data frame along with the corresponding p-value and s-value.
+into a data frame along with the corresponding p-values and s-values.
 }
 \usage{
 curve_meta(x, measure = "default", steps = 10000)
@@ -40,49 +40,56 @@ Rothman KJ, Greenland S, Lash TL, Others. Modern epidemiology. 2008.
 }
 
 \examples{
-#Simulate random data for two groups in two studies
 
-GroupAData<-runif(20, min=0, max=100)
-GroupAMean<-round(mean(GroupAData), digits=2)
-GroupASD<-round(sd(GroupAData), digits=2)
+# Simulate random data for two groups in two studies
 
-GroupBData<-runif(20, min=0, max=100)
-GroupBMean<-round(mean(GroupBData), digits=2)
-GroupBSD<-round(sd(GroupBData), digits=2)
+GroupAData <- runif(20, min = 0, max = 100)
+GroupAMean <- round(mean(GroupAData), digits = 2)
+GroupASD <- round(sd(GroupAData), digits = 2)
 
-GroupCData<-runif(20, min=0, max=100)
-GroupCMean<-round(mean(GroupCData), digits=2)
-GroupCSD<-round(sd(GroupCData), digits=2)
+GroupBData <- runif(20, min = 0, max = 100)
+GroupBMean <- round(mean(GroupBData), digits = 2)
+GroupBSD <- round(sd(GroupBData), digits = 2)
 
-GroupDData<-runif(20, min=0, max=100)
-GroupDMean<-round(mean(GroupDData), digits=2)
-GroupDSD<-round(sd(GroupDData), digits=2)
+GroupCData <- runif(20, min = 0, max = 100)
+GroupCMean <- round(mean(GroupCData), digits = 2)
+GroupCSD <- round(sd(GroupCData), digits = 2)
 
-#Combine the data
+GroupDData <- runif(20, min = 0, max = 100)
+GroupDMean <- round(mean(GroupDData), digits = 2)
+GroupDSD <- round(sd(GroupDData), digits = 2)
 
-StudyName<-c("Study1", "Study2")
-MeanTreatment<-c(GroupAMean, GroupCMean)
-MeanControl<-c(GroupBMean, GroupDMean)
-SDTreatment<-c(GroupASD, GroupCSD)
-SDControl<-c(GroupBSD, GroupDSD)
-NTreatment<-c(20,20)
-NControl<-c(20,20)
+# Combine the data
 
-metadf<-data.frame(StudyName, MeanTreatment, MeanControl,
-SDTreatment, SDControl, NTreatment, NControl)
+StudyName <- c("Study1", "Study2")
+MeanTreatment <- c(GroupAMean, GroupCMean)
+MeanControl <- c(GroupBMean, GroupDMean)
+SDTreatment <- c(GroupASD, GroupCSD)
+SDControl <- c(GroupBSD, GroupDSD)
+NTreatment <- c(20, 20)
+NControl <- c(20, 20)
 
-#Use metafor to calculate the standardized mean difference
+metadf <- data.frame(
+  StudyName, MeanTreatment, MeanControl,
+  SDTreatment, SDControl, NTreatment, NControl
+)
+
+# Use metafor to calculate the standardized mean difference
 
 library(metafor)
 
-dat<-escalc(measure="SMD", m1i=MeanTreatment, sd1i=SDTreatment, n1i=NTreatment,
-            m2i=MeanControl, sd2i=SDControl, n2i=NControl, data=metadf)
+dat <- escalc(
+  measure = "SMD", m1i = MeanTreatment, sd1i = SDTreatment, n1i = NTreatment,
+  m2i = MeanControl, sd2i = SDControl, n2i = NControl, data = metadf
+)
 
-#Pool the data using a particular method. Here "FE" is the fixed-effects model
+# Pool the data using a particular method. Here "FE" is the fixed-effects model
 
-res<-rma(yi, vi, data=dat, slab=paste(StudyName, sep=", "), method="FE", digits=2)
+res <- rma(yi, vi, data = dat, slab = paste(StudyName, sep = ", "), method = "FE", digits = 2)
 
-#Calculate the intervals using the metainterval function
+# Calculate the intervals using the metainterval function
 
-metaf<-curve_meta(res)
+metaf <- curve_meta(res)
+
+tibble::tibble(metaf)
 }

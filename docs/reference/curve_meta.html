@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Produce Consonance Intervals for Meta-Analysis Data — curve_meta • concurve</title>
+<title>Computes consonance intervals for meta-analysis data — curve_meta • concurve</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -45,11 +45,11 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Produce Consonance Intervals for Meta-Analysis Data — curve_meta" />
+<meta property="og:title" content="Computes consonance intervals for meta-analysis data — curve_meta" />
 
 <meta property="og:description" content="Computes thousands of consonance (confidence) intervals for the chosen parameter in the
 meta-analysis done by the metafor package and places the interval limits for each interval level
-into a data frame along with the corresponding p-value and s-value." />
+into a data frame along with the corresponding p-values and s-values." />
 
 <meta property="og:image" content="https://data.lesslikely.com/concurve/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -142,7 +142,7 @@ into a data frame along with the corresponding p-value and s-value." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Produce Consonance Intervals for Meta-Analysis Data</h1>
+    <h1>Computes consonance intervals for meta-analysis data</h1>
     
     <div class="hidden name"><code>curve_meta.Rd</code></div>
     </div>
@@ -151,7 +151,7 @@ into a data frame along with the corresponding p-value and s-value." />
     
     <p>Computes thousands of consonance (confidence) intervals for the chosen parameter in the
 meta-analysis done by the metafor package and places the interval limits for each interval level
-into a data frame along with the corresponding p-value and s-value.</p>
+into a data frame along with the corresponding p-values and s-values.</p>
     
     </div>
 
@@ -188,51 +188,71 @@ https://www.jstatsoft.org/article/view/v036i03/v36i03.pdf.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>#Simulate random data for two groups in two studies</span>
+    <pre class="examples"><div class='input'>
+<span class='co'># Simulate random data for two groups in two studies</span>
 
-<span class='no'>GroupAData</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Uniform'>runif</a></span>(<span class='fl'>20</span>, <span class='kw'>min</span><span class='kw'>=</span><span class='fl'>0</span>, <span class='kw'>max</span><span class='kw'>=</span><span class='fl'>100</span>)
-<span class='no'>GroupAMean</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Round'>round</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/mean'>mean</a></span>(<span class='no'>GroupAData</span>), <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>2</span>)
-<span class='no'>GroupASD</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Round'>round</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/sd'>sd</a></span>(<span class='no'>GroupAData</span>), <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>2</span>)
+<span class='no'>GroupAData</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Uniform'>runif</a></span>(<span class='fl'>20</span>, <span class='kw'>min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>100</span>)
+<span class='no'>GroupAMean</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Round'>round</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/mean'>mean</a></span>(<span class='no'>GroupAData</span>), <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+<span class='no'>GroupASD</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Round'>round</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/sd'>sd</a></span>(<span class='no'>GroupAData</span>), <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>2</span>)
 
-<span class='no'>GroupBData</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Uniform'>runif</a></span>(<span class='fl'>20</span>, <span class='kw'>min</span><span class='kw'>=</span><span class='fl'>0</span>, <span class='kw'>max</span><span class='kw'>=</span><span class='fl'>100</span>)
-<span class='no'>GroupBMean</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Round'>round</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/mean'>mean</a></span>(<span class='no'>GroupBData</span>), <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>2</span>)
-<span class='no'>GroupBSD</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Round'>round</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/sd'>sd</a></span>(<span class='no'>GroupBData</span>), <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>2</span>)
+<span class='no'>GroupBData</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Uniform'>runif</a></span>(<span class='fl'>20</span>, <span class='kw'>min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>100</span>)
+<span class='no'>GroupBMean</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Round'>round</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/mean'>mean</a></span>(<span class='no'>GroupBData</span>), <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+<span class='no'>GroupBSD</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Round'>round</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/sd'>sd</a></span>(<span class='no'>GroupBData</span>), <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>2</span>)
 
-<span class='no'>GroupCData</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Uniform'>runif</a></span>(<span class='fl'>20</span>, <span class='kw'>min</span><span class='kw'>=</span><span class='fl'>0</span>, <span class='kw'>max</span><span class='kw'>=</span><span class='fl'>100</span>)
-<span class='no'>GroupCMean</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Round'>round</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/mean'>mean</a></span>(<span class='no'>GroupCData</span>), <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>2</span>)
-<span class='no'>GroupCSD</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Round'>round</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/sd'>sd</a></span>(<span class='no'>GroupCData</span>), <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>2</span>)
+<span class='no'>GroupCData</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Uniform'>runif</a></span>(<span class='fl'>20</span>, <span class='kw'>min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>100</span>)
+<span class='no'>GroupCMean</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Round'>round</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/mean'>mean</a></span>(<span class='no'>GroupCData</span>), <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+<span class='no'>GroupCSD</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Round'>round</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/sd'>sd</a></span>(<span class='no'>GroupCData</span>), <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>2</span>)
 
-<span class='no'>GroupDData</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Uniform'>runif</a></span>(<span class='fl'>20</span>, <span class='kw'>min</span><span class='kw'>=</span><span class='fl'>0</span>, <span class='kw'>max</span><span class='kw'>=</span><span class='fl'>100</span>)
-<span class='no'>GroupDMean</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Round'>round</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/mean'>mean</a></span>(<span class='no'>GroupDData</span>), <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>2</span>)
-<span class='no'>GroupDSD</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Round'>round</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/sd'>sd</a></span>(<span class='no'>GroupDData</span>), <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>2</span>)
+<span class='no'>GroupDData</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Uniform'>runif</a></span>(<span class='fl'>20</span>, <span class='kw'>min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>100</span>)
+<span class='no'>GroupDMean</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Round'>round</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/mean'>mean</a></span>(<span class='no'>GroupDData</span>), <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+<span class='no'>GroupDSD</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Round'>round</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/sd'>sd</a></span>(<span class='no'>GroupDData</span>), <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>2</span>)
 
-<span class='co'>#Combine the data</span>
+<span class='co'># Combine the data</span>
 
-<span class='no'>StudyName</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Study1"</span>, <span class='st'>"Study2"</span>)
-<span class='no'>MeanTreatment</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='no'>GroupAMean</span>, <span class='no'>GroupCMean</span>)
-<span class='no'>MeanControl</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='no'>GroupBMean</span>, <span class='no'>GroupDMean</span>)
-<span class='no'>SDTreatment</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='no'>GroupASD</span>, <span class='no'>GroupCSD</span>)
-<span class='no'>SDControl</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='no'>GroupBSD</span>, <span class='no'>GroupDSD</span>)
-<span class='no'>NTreatment</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>20</span>,<span class='fl'>20</span>)
-<span class='no'>NControl</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>20</span>,<span class='fl'>20</span>)
+<span class='no'>StudyName</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Study1"</span>, <span class='st'>"Study2"</span>)
+<span class='no'>MeanTreatment</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='no'>GroupAMean</span>, <span class='no'>GroupCMean</span>)
+<span class='no'>MeanControl</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='no'>GroupBMean</span>, <span class='no'>GroupDMean</span>)
+<span class='no'>SDTreatment</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='no'>GroupASD</span>, <span class='no'>GroupCSD</span>)
+<span class='no'>SDControl</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='no'>GroupBSD</span>, <span class='no'>GroupDSD</span>)
+<span class='no'>NTreatment</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>20</span>, <span class='fl'>20</span>)
+<span class='no'>NControl</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>20</span>, <span class='fl'>20</span>)
 
-<span class='no'>metadf</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='no'>StudyName</span>, <span class='no'>MeanTreatment</span>, <span class='no'>MeanControl</span>,
-<span class='no'>SDTreatment</span>, <span class='no'>SDControl</span>, <span class='no'>NTreatment</span>, <span class='no'>NControl</span>)
+<span class='no'>metadf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(
+  <span class='no'>StudyName</span>, <span class='no'>MeanTreatment</span>, <span class='no'>MeanControl</span>,
+  <span class='no'>SDTreatment</span>, <span class='no'>SDControl</span>, <span class='no'>NTreatment</span>, <span class='no'>NControl</span>
+)
 
-<span class='co'>#Use metafor to calculate the standardized mean difference</span>
+<span class='co'># Use metafor to calculate the standardized mean difference</span>
 
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>metafor</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: Matrix</span></div><div class='output co'>#&gt; <span class='message'>Loading 'metafor' package (version 2.1-0). For an overview </span>
 #&gt; <span class='message'>and introduction to the package please type: help(metafor).</span></div><div class='input'>
-<span class='no'>dat</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/metafor/topics/escalc'>escalc</a></span>(<span class='kw'>measure</span><span class='kw'>=</span><span class='st'>"SMD"</span>, <span class='kw'>m1i</span><span class='kw'>=</span><span class='no'>MeanTreatment</span>, <span class='kw'>sd1i</span><span class='kw'>=</span><span class='no'>SDTreatment</span>, <span class='kw'>n1i</span><span class='kw'>=</span><span class='no'>NTreatment</span>,
-            <span class='kw'>m2i</span><span class='kw'>=</span><span class='no'>MeanControl</span>, <span class='kw'>sd2i</span><span class='kw'>=</span><span class='no'>SDControl</span>, <span class='kw'>n2i</span><span class='kw'>=</span><span class='no'>NControl</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>metadf</span>)
+<span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/metafor/topics/escalc'>escalc</a></span>(
+  <span class='kw'>measure</span> <span class='kw'>=</span> <span class='st'>"SMD"</span>, <span class='kw'>m1i</span> <span class='kw'>=</span> <span class='no'>MeanTreatment</span>, <span class='kw'>sd1i</span> <span class='kw'>=</span> <span class='no'>SDTreatment</span>, <span class='kw'>n1i</span> <span class='kw'>=</span> <span class='no'>NTreatment</span>,
+  <span class='kw'>m2i</span> <span class='kw'>=</span> <span class='no'>MeanControl</span>, <span class='kw'>sd2i</span> <span class='kw'>=</span> <span class='no'>SDControl</span>, <span class='kw'>n2i</span> <span class='kw'>=</span> <span class='no'>NControl</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>metadf</span>
+)
 
-<span class='co'>#Pool the data using a particular method. Here "FE" is the fixed-effects model</span>
+<span class='co'># Pool the data using a particular method. Here "FE" is the fixed-effects model</span>
 
-<span class='no'>res</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/metafor/topics/rma.uni'>rma</a></span>(<span class='no'>yi</span>, <span class='no'>vi</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>dat</span>, <span class='kw'>slab</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/paste'>paste</a></span>(<span class='no'>StudyName</span>, <span class='kw'>sep</span><span class='kw'>=</span><span class='st'>", "</span>), <span class='kw'>method</span><span class='kw'>=</span><span class='st'>"FE"</span>, <span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>2</span>)
+<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/metafor/topics/rma.uni'>rma</a></span>(<span class='no'>yi</span>, <span class='no'>vi</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>dat</span>, <span class='kw'>slab</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/paste'>paste</a></span>(<span class='no'>StudyName</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>", "</span>), <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"FE"</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>2</span>)
 
-<span class='co'>#Calculate the intervals using the metainterval function</span>
+<span class='co'># Calculate the intervals using the metainterval function</span>
 
-<span class='no'>metaf</span><span class='kw'>&lt;-</span><span class='fu'>curve_meta</span>(<span class='no'>res</span>)</div></pre>
+<span class='no'>metaf</span> <span class='kw'>&lt;-</span> <span class='fu'>curve_meta</span>(<span class='no'>res</span>)
+
+<span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='no'>metaf</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 10,000 x 1</span><span>
+#&gt;    metaf$lower.limit $upper.limit $intrvl.level $pvalue  $svalue
+#&gt;                </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span>             0.120        0.120      0          1     0       
+#&gt; </span><span style='color: #555555;'> 2</span><span>             0.120        0.121      0.000</span><span style='text-decoration: underline;'>1</span><span>     1.000 0.000</span><span style='text-decoration: underline;'>144</span><span>
+#&gt; </span><span style='color: #555555;'> 3</span><span>             0.120        0.121      0.000</span><span style='text-decoration: underline;'>2</span><span>     1.000 0.000</span><span style='text-decoration: underline;'>289</span><span>
+#&gt; </span><span style='color: #555555;'> 4</span><span>             0.120        0.121      0.000</span><span style='text-decoration: underline;'>300</span><span>   1.000 0.000</span><span style='text-decoration: underline;'>433</span><span>
+#&gt; </span><span style='color: #555555;'> 5</span><span>             0.120        0.121      0.000</span><span style='text-decoration: underline;'>4</span><span>     1.000 0.000</span><span style='text-decoration: underline;'>577</span><span>
+#&gt; </span><span style='color: #555555;'> 6</span><span>             0.120        0.121      0.000</span><span style='text-decoration: underline;'>5</span><span>     1.000 0.000</span><span style='text-decoration: underline;'>722</span><span>
+#&gt; </span><span style='color: #555555;'> 7</span><span>             0.120        0.121      0.000</span><span style='text-decoration: underline;'>600</span><span>   0.999 0.000</span><span style='text-decoration: underline;'>866</span><span>
+#&gt; </span><span style='color: #555555;'> 8</span><span>             0.120        0.121      0.000</span><span style='text-decoration: underline;'>7</span><span>     0.999 0.001</span><span style='text-decoration: underline;'>01</span><span> 
+#&gt; </span><span style='color: #555555;'> 9</span><span>             0.120        0.121      0.000</span><span style='text-decoration: underline;'>8</span><span>     0.999 0.001</span><span style='text-decoration: underline;'>15</span><span> 
+#&gt; </span><span style='color: #555555;'>10</span><span>             0.120        0.121      0.000</span><span style='text-decoration: underline;'>9</span><span>     0.999 0.001</span><span style='text-decoration: underline;'>30</span><span> 
+#&gt; </span><span style='color: #555555;'># … with 9,990 more rows</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

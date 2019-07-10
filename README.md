@@ -1,7 +1,7 @@
 concurve
 ================
 
-# Plot Interval Functions With the concurve Package <img src="man/figures/logo.svg" align="right" width="100" />
+# concurve | Graph Interval Functions <img src="man/figures/logo.svg" align="right" width="120" />
 
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/concurve)](https://cran.r-project.org/package=concurve)
 [![Build
@@ -12,65 +12,67 @@ status](https://ci.appveyor.com/api/projects/status/v8sp9x96dap2om9s?svg=true)](
 [![](https://cranlogs.r-pkg.org/badges/grand-total/concurve)](https://cran.r-project.org/package=concurve)
 [![Rdoc](http://www.rdocumentation.org/badges/version/concurve)](http://www.rdocumentation.org/packages/concurve)
 
-## A Single Interval Isn’t Enough
+> In addition to the overt statistical position, the p-value function
+> also provides easily and accurately many of the familiar types of
+> summary information: a **median estimate** of the parameter; a
+> **one-sided test statistic** for a scalar parameter value at any
+> chosen level; the related **power function**; a **lower confidence
+> bound** at any level; an **upper confidence bound** at any level; and
+> **confidence intervals** with chosen upper and lower confidence
+> limits. The p value reports all the **common inference material**, but
+> with **high accuracy, basic uniqueness, and wide generality**.
+> 
+> From a scientific perspective, the likelihood function and p-value
+> function provide the basis for scientific judgments by an
+> investigator, and by other investigators who might have interest. **It
+> thus replaces a blunt yes or no decision by an opportunity for
+> appropriate informed judgment.**” - [D. A. S.
+> Fraser, 2019](https://doi.org/10.1080/00031305.2018.1556735)
 
-Interval estimates such as ~~confidence~~ **consonance** intervals are
-now widely reported in many journals alongside the exact P-value of a
-statistical test and point estimate. While this is a large improvement
-over what constituted statistical reporting in the past two decades, it
-is still largely inadequate.
+# Examples
 
-Take for example, the 95% consonance interval. As many have stated
-before, there is nothing special about **95%**, yet we rarely see
-intervals of any other level. Choosing to compute a 95% interval is as
-mindless as choosing a 5% alpha level for hypothesis testing.
-
-A single consonance interval is only a *slice* of a wide range of
-consonance intervals at different levels. Mindlessly reporting 95%
-intervals only promotes [cargo-cult
-statistics](https://rss.onlinelibrary.wiley.com/doi/10.1111/j.1740-9713.2018.01174.x)
-since there is not much thought behind the choice. (1)
-
-> “***Cargo-cult statistics*** – *the ritualistic miming of statistics
-> rather than conscientious practice*.” - Stark & Saltelli, 2018
-
-Thus, we propose that instead of only calculating ***one*** interval
-estimate, ***every*** interval associated with a consonance level be
-calculated, along with its corresponding P-value and S-value, and
-plotted to form a function.
-(2-8)
-
-<img src="https://res.cloudinary.com/less-likely/image/upload/v1557366230/Site/FrontConsonance.svg" align="center" width="400" />
-<img src="https://res.cloudinary.com/less-likely/image/upload/v1557366230/Site/FrontSurprisal.svg" align="center" width="400" />
-
-This can be accomplished using the
-[**concurve**](https://github.com/Zadchow/concurve)</span> package in R
-and on Stata.
+<img src = "https://res.cloudinary.com/less-likely/image/upload/v1562705215/Site/Figure1.png" align="center" width ="400">
+<img src = "https://res.cloudinary.com/less-likely/image/upload/v1562705215/Site/Figure2.png" align="center" width="400">
 
 -----
 
-# For R:
+# Installation
 
-## Install the Package From CRAN
+## For R:
+
+### Install the Package From CRAN
 
 ``` r
 install.packages("concurve")
 ```
 
-## Install the Developer Version
+### Install the Developer Version
 
 ``` r
 library(devtools)
 install_github("zadchow/concurve")
 ```
 
-## Check out the [Examples](https://data.lesslikely.com/concurve/articles/examples.html).
+### Check out the [Examples](https://data.lesslikely.com/concurve/articles/examples.html).
 
 -----
 
-# For Stata:
+## For Stata:
 
-## Check out the [Article on Using Stata](https://data.lesslikely.com/concurve/articles/stata.html) for concurve.
+### Check out the [Article on Using Stata](https://data.lesslikely.com/concurve/articles/stata.html) for concurve.
+
+-----
+
+# Dependencies
+
+  - ggplot2
+  - metafor
+  - parallel
+  - dplyr
+  - tibble
+  - survival
+  - survminer
+  - scales
 
 -----
 
@@ -110,3 +112,5 @@ install_github("zadchow/concurve")
 8.  Greenland S. Valid P-values Behave Exactly As They Should. Some
     misleading criticisms of P-values and their resolution with
     S-values. *Am Stat*. 2019;18(136).
+9.  Fraser DAS. The p-value Function and Statistical Inference. *Am
+    Stat*. 2019

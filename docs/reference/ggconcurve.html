@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plots the P-Value (Consonance) and S-value (Surprisal) Function — ggconcurve • concurve</title>
+<title>Plots the P-Value (Consonance) and S-value (Surprisal) Function via ggplot2 — ggconcurve • concurve</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -45,7 +45,7 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Plots the P-Value (Consonance) and S-value (Surprisal) Function — ggconcurve" />
+<meta property="og:title" content="Plots the P-Value (Consonance) and S-value (Surprisal) Function via ggplot2 — ggconcurve" />
 
 <meta property="og:description" content="Takes the dataframe produced by the interval functions and plots the p-values/s-values, consonance (confidence)
 levels, and the interval estimates to produce a p-value/s-value function using ggplot2 graphics." />
@@ -141,7 +141,7 @@ levels, and the interval estimates to produce a p-value/s-value function using g
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plots the P-Value (Consonance) and S-value (Surprisal) Function</h1>
+    <h1>Plots the P-Value (Consonance) and S-value (Surprisal) Function via ggplot2</h1>
     
     <div class="hidden name"><code>ggconcurve.Rd</code></div>
     </div>
@@ -169,13 +169,11 @@ levels, and the interval estimates to produce a p-value/s-value function using g
     </tr>
     <tr>
       <th>measure</th>
-      <td><p>Indicates whether the object has a log transformation or is normal/default. The default setting is "default".
-If the measure is set to "ratio", it will take logarithmically transformed values and convert them back to normal values in the dataframe. This is typically a setting used for binary outcomes and their measures such as risk ratios, hazard ratios, and odds ratios.</p></td>
+      <td><p>Indicates whether the object has a log transformation or is normal/default. The default setting is "default". If the measure is set to "ratio", it will take logarithmically transformed values and convert them back to normal values in the dataframe. This is typically a setting used for binary outcomes and their measures such as risk ratios, hazard ratios, and odds ratios.</p></td>
     </tr>
     <tr>
       <th>nullvalue</th>
-      <td><p>Indicates whether the null value for the measure should be plotted. By default, it is set to "absent", meaning it will not be plotted as a vertical line. Changing this to "present", will plot a vertical line at 0 when the measure is set to "default" and a vertical line at 1 when the measure is set to "ratio". For example,
-ggconcurve(type = "consonance", data = df, measure = "ratio", nullvalue = "present")</p></td>
+      <td><p>Indicates whether the null value for the measure should be plotted. By default, it is set to "absent", meaning it will not be plotted as a vertical line. Changing this to "present", will plot a vertical line at 0 when the measure is set to "default" and a vertical line at 1 when the measure is set to "ratio". For example, ggconcurve(type = "consonance", data = df, measure = "ratio", nullvalue = "present"). This feature is not yet available for surprisal functions.</p></td>
     </tr>
     <tr>
       <th>position</th>
@@ -188,8 +186,7 @@ ggconcurve(type = "consonance", data = df, position = "inverted")</p></td>
     </tr>
     <tr>
       <th>subtitle</th>
-      <td><p>A custom subtitle for the graph. By default, it is set to "The function contains consonance/confidence intervals at every level and the P-values." In order to set a subtitle, it must be in quotes. For example,
-ggconcurve(x, subtitle = "Custom Subtitle").</p></td>
+      <td><p>A custom subtitle for the graph. By default, it is set to "The function contains consonance/confidence intervals at every level and the P-values." In order to set a subtitle, it must be in quotes. For example, ggconcurve(x, subtitle = "Custom Subtitle").</p></td>
     </tr>
     <tr>
       <th>caption</th>
@@ -197,8 +194,7 @@ ggconcurve(x, subtitle = "Custom Subtitle").</p></td>
     </tr>
     <tr>
       <th>xaxis</th>
-      <td><p>A custom x-axis title for the graph. By default, it is set to "Range of Values. In order to set a x-axis title,
-it must be in quotes. For example, ggconcurve(data, xaxis = "Hazard Ratio").</p></td>
+      <td><p>A custom x-axis title for the graph. By default, it is set to "Range of Values. In order to set a x-axis title, it must be in quotes. For example, ggconcurve(data, xaxis = "Hazard Ratio").</p></td>
     </tr>
     <tr>
       <th>yaxis</th>
@@ -228,16 +224,21 @@ it must be in quotes. For example, ggconcurve(data, xaxis = "Hazard Ratio").</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Simulate random data</span>
 
-<span class='no'>GroupA</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>50</span>)
-<span class='no'>GroupB</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>50</span>)
+<span class='no'>GroupA</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>50</span>)
+<span class='no'>GroupB</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>50</span>)
 
-<span class='no'>RandomData</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='no'>GroupA</span>, <span class='no'>GroupB</span>)
-<span class='no'>RandomModel</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/lm'>lm</a></span>(<span class='no'>GroupA</span> ~ <span class='no'>GroupB</span>, <span class='kw'>data</span><span class='kw'>=</span><span class='no'>RandomData</span>)
+<span class='no'>RandomData</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='no'>GroupA</span>, <span class='no'>GroupB</span>)
+<span class='no'>RandomModel</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/lm'>lm</a></span>(<span class='no'>GroupA</span> ~ <span class='no'>GroupB</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>RandomData</span>)
 
-<span class='no'>intervalsdf</span><span class='kw'>&lt;-</span><span class='fu'><a href='curve_gen.html'>curve_gen</a></span>(<span class='no'>RandomModel</span>, <span class='st'>"GroupB"</span>)
+<span class='no'>intervalsdf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='curve_gen.html'>curve_gen</a></span>(<span class='no'>RandomModel</span>, <span class='st'>"GroupB"</span>)
 
-<span class='no'>p</span><span class='kw'>&lt;-</span><span class='fu'>ggconcurve</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>intervalsdf</span>)
-<span class='no'>p</span></div><div class='img'><img src='ggconcurve-1.png' alt='' width='700' height='433' /></div></pre>
+<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'>ggconcurve</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"consonance"</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>intervalsdf</span>, <span class='kw'>nullvalue</span> <span class='kw'>=</span> <span class='st'>"present"</span>)
+<span class='no'>p</span></div><div class='img'><img src='ggconcurve-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>r</span> <span class='kw'>&lt;-</span> <span class='fu'>ggconcurve</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"consonance"</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>intervalsdf</span>, <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"inverted"</span>)
+<span class='no'>r</span></div><div class='img'><img src='ggconcurve-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>ggconcurve</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"surprisal"</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>intervalsdf</span>)
+<span class='no'>s</span></div><div class='img'><img src='ggconcurve-3.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

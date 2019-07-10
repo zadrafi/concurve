@@ -12,45 +12,56 @@ concurve | Graph Interval Functions <img src="man/figures/logo.svg" align="right
 [![](https://cranlogs.r-pkg.org/badges/grand-total/concurve)](https://cran.r-project.org/package=concurve)
 [![Rdoc](http://www.rdocumentation.org/badges/version/concurve)](http://www.rdocumentation.org/packages/concurve)
 
-> “The **full p-value function** arguably records the **full measurement information** that a user should be entitled to know!
->
 > In addition to the overt statistical position, the p-value function also provides easily and accurately many of the familiar types of summary information: a **median estimate** of the parameter; a **one-sided test statistic** for a scalar parameter value at any chosen level; the related **power function**; a **lower confidence bound** at any level; an **upper confidence bound** at any level; and **confidence intervals** with chosen upper and lower confidence limits. The p value reports all the **common inference material**, but with **high accuracy, basic uniqueness, and wide generality**.
 >
 > From a scientific perspective, the likelihood function and p-value function provide the basis for scientific judgments by an investigator, and by other investigators who might have interest. **It thus replaces a blunt yes or no decision by an opportunity for appropriate informed judgment.**” - [D. A. S. Fraser, 2019](https://doi.org/10.1080/00031305.2018.1556735)
+
+# Examples 
 
 <img src = "https://res.cloudinary.com/less-likely/image/upload/v1562705215/Site/Figure1.png" align="center" width ="400">
 <img src = "https://res.cloudinary.com/less-likely/image/upload/v1562705215/Site/Figure2.png" align="center" width="400">
 
 * * * 
-<center>
+
 # Installation
-</center>
 
-# For R:
+## For R:
 
-## Install the Package From CRAN
+### Install the Package From CRAN
 
 ``` r
 install.packages("concurve")
 ```
 
-## Install the Developer Version
+### Install the Developer Version
 
 ```r
 library(devtools)
 install_github("zadchow/concurve")
 ```
 
-## Check out the [Examples](https://data.lesslikely.com/concurve/articles/examples.html).
+### Check out the [Examples](https://data.lesslikely.com/concurve/articles/examples.html).
 
 * * * 
 
-# For Stata:
+## For Stata:
 
-## Check out the [Article on Using Stata](https://data.lesslikely.com/concurve/articles/stata.html) for concurve.
+### Check out the [Article on Using Stata](https://data.lesslikely.com/concurve/articles/stata.html) for concurve.
 
 * * * 
 
+# Dependencies
+
+* ggplot2
+* metafor
+* parallel
+* dplyr
+* tibble
+* survival
+* survminer
+* scales
+
+* * * 
 
 > "*Statistical software enables and promotes cargo-cult statistics.
 > Marketing and adoption of statistical software are driven by ease of

@@ -1,13 +1,13 @@
 \name{curve_gen}
 \alias{curve_gen}
 
-\title{Produce Consonance Intervals for Linear Models
+\title{Computes consonance intervals for linear models
 
 }
 \description{
 Computes thousands of consonance (confidence) intervals for the chosen parameter in the
 selected model(ANOVA, ANCOVA, regression, logistic regression) and places the interval limits
-for each interval level into a data frame along with the corresponding p-value and s-value.
+for each interval level into a data frame along with the corresponding p-values and s-values.
 }
 \usage{
 curve_gen(model, var, method = "default", replicates = 1000, steps = 10000)
@@ -46,14 +46,17 @@ Rothman KJ, Greenland S, Lash TL, Others. Modern epidemiology. 2008.
 }
 
 \examples{
+
 # Simulate random data
 
-GroupA<-rnorm(50)
-GroupB<-rnorm(50)
+GroupA <- rnorm(50)
+GroupB <- rnorm(50)
 
-RandomData<-data.frame(GroupA, GroupB)
+RandomData <- data.frame(GroupA, GroupB)
 
-rob<-glm(GroupA ~ GroupB, data=RandomData)
-bob<-curve_gen(rob, "GroupB", method="lm")
+rob <- glm(GroupA ~ GroupB, data = RandomData)
+bob <- curve_gen(rob, "GroupB", method = "lm")
+
+tibble::tibble(bob)
 
 }

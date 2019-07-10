@@ -2,7 +2,7 @@
 \alias{ggconcurve}
 
 \title{
-Plots the P-Value (Consonance) and S-value (Surprisal) Function
+Plots the P-Value (Consonance) and S-value (Surprisal) Function via ggplot2
 }
 \description{
 Takes the dataframe produced by the interval functions and plots the p-values/s-values, consonance (confidence)
@@ -21,12 +21,10 @@ Choose whether to plot a "consonance" function or a "surprisal" function. The de
 The dataframe produced by one of the interval functions in which the intervals are stored.
 }
   \item{measure}{
-Indicates whether the object has a log transformation or is normal/default. The default setting is "default".
-If the measure is set to "ratio", it will take logarithmically transformed values and convert them back to normal values in the dataframe. This is typically a setting used for binary outcomes and their measures such as risk ratios, hazard ratios, and odds ratios.
+Indicates whether the object has a log transformation or is normal/default. The default setting is "default". If the measure is set to "ratio", it will take logarithmically transformed values and convert them back to normal values in the dataframe. This is typically a setting used for binary outcomes and their measures such as risk ratios, hazard ratios, and odds ratios.
 }
   \item{nullvalue}{
-Indicates whether the null value for the measure should be plotted. By default, it is set to "absent", meaning it will not be plotted as a vertical line. Changing this to "present", will plot a vertical line at 0 when the measure is set to "default" and a vertical line at 1 when the measure is set to "ratio". For example,
-ggconcurve(type = "consonance", data = df, measure = "ratio", nullvalue = "present")
+Indicates whether the null value for the measure should be plotted. By default, it is set to "absent", meaning it will not be plotted as a vertical line. Changing this to "present", will plot a vertical line at 0 when the measure is set to "default" and a vertical line at 1 when the measure is set to "ratio". For example, ggconcurve(type = "consonance", data = df, measure = "ratio", nullvalue = "present"). This feature is not yet available for surprisal functions.
 }
 
   \item{position}{
@@ -38,15 +36,13 @@ ggconcurve(type = "consonance", data = df, position = "inverted")
 A custom title for the graph. By default, it is set to "Consonance Function". In order to set a title, it must be in quotes. For example, ggconcurve(x, title = "Custom Title").
 }
   \item{subtitle}{
-A custom subtitle for the graph. By default, it is set to "The function contains consonance/confidence intervals at every level and the P-values." In order to set a subtitle, it must be in quotes. For example,
-ggconcurve(x, subtitle = "Custom Subtitle").
+A custom subtitle for the graph. By default, it is set to "The function contains consonance/confidence intervals at every level and the P-values." In order to set a subtitle, it must be in quotes. For example, ggconcurve(x, subtitle = "Custom Subtitle").
 }
   \item{caption}{
 A custom caption for the graph. By default, it is set to "Produced with the concurve R package.". In order to set a caption, it must be in quotes. For example, ggconcurve(data, caption = "Custom Caption").
 }
   \item{xaxis}{
-A custom x-axis title for the graph. By default, it is set to "Range of Values. In order to set a x-axis title,
-it must be in quotes. For example, ggconcurve(data, xaxis = "Hazard Ratio").
+A custom x-axis title for the graph. By default, it is set to "Range of Values. In order to set a x-axis title, it must be in quotes. For example, ggconcurve(data, xaxis = "Hazard Ratio").
 }
   \item{yaxis}{
 A custom y-axis title for the graph. By default, it is set to "Consonance Level". In order to set a y-axis title, it must be in quotes. For example, ggconcurve(data, yxis = "Confidence Level").
@@ -73,14 +69,21 @@ Rothman KJ, Greenland S, Lash TL, Others. Modern epidemiology. 2008.
 \examples{
 # Simulate random data
 
-GroupA<-rnorm(50)
-GroupB<-rnorm(50)
+GroupA <- rnorm(50)
+GroupB <- rnorm(50)
 
-RandomData<-data.frame(GroupA, GroupB)
-RandomModel<-lm(GroupA ~ GroupB, data=RandomData)
+RandomData <- data.frame(GroupA, GroupB)
+RandomModel <- lm(GroupA ~ GroupB, data = RandomData)
 
-intervalsdf<-curve_gen(RandomModel, "GroupB")
+intervalsdf <- curve_gen(RandomModel, "GroupB")
 
-p<-ggconcurve(data = intervalsdf)
+p <- ggconcurve(type = "consonance", data = intervalsdf, nullvalue = "present")
 p
+
+r <- ggconcurve(type = "consonance", data = intervalsdf, position = "inverted")
+r
+
+s <- ggconcurve(type = "surprisal", data = intervalsdf)
+s
+
 }

@@ -1,6 +1,6 @@
 Package: concurve
 Type: Package
-Date: 2019-05-16
+Date: 2019-07-10
 Title: Computes and Plots Consonance (Confidence) Intervals, P-Values, and S-Values to Form Consonance and Surprisal Functions
 Version: 2.0
 Authors@R: c(
@@ -16,7 +16,8 @@ Description: Allows one to compute consonance (confidence) intervals for various
 Imports: parallel,
          ggplot2,
          metafor,
-         dplyr, 
+         dplyr,
+         tibble,
          survival, 
          survminer,
          scales

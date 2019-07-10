@@ -2,7 +2,7 @@
 \alias{curve_rev}
 
 \title{
-Reverse Engineer Consonance and Surprisal Functions From Confidence Limits and Point Estimates
+Reverse engineer consonance and surprisal functions from confidence limits and point estimates
 }
 \description{
 Using the confidence limits and point estimates from a dataset, one can use these estimates to
@@ -37,4 +37,16 @@ Sullivan KM, Foster DA. Use of the confidence interval function. Epidemiology. 1
 
 Rothman KJ, Greenland S, Lash TL, Others. Modern epidemiology. 2008.
 }
+
+\examples{
+
+# From a real published study. Point estimate of the result was hazard ratio of 1.61 and
+# lower bound of the interval is 0.997 while upper bound of the interval is 2.59.
+
+df <- curve_rev(point = 1.61, LL = 0.997, UL = 2.59, measure = "ratio")
+
+tibble::tibble(df)
+
+}
+
 

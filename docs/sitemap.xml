@@ -22,13 +22,13 @@
     <loc>https://data.lesslikely.com/concurve//reference/curve_surv.html</loc>
   </url>
   <url>
+    <loc>https://data.lesslikely.com/concurve//reference/defunct.html</loc>
+  </url>
+  <url>
     <loc>https://data.lesslikely.com/concurve//reference/ggconcurve.html</loc>
   </url>
   <url>
-    <loc>https://data.lesslikely.com/concurve//reference/gglikely.html</loc>
-  </url>
-  <url>
-    <loc>https://data.lesslikely.com/concurve//reference/plot.concurve.html</loc>
+    <loc>https://data.lesslikely.com/concurve//reference/plot_concurve.html</loc>
   </url>
   <url>
     <loc>https://data.lesslikely.com/concurve//articles/examples.html</loc>
