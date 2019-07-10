@@ -28,30 +28,29 @@ Indicates whether the null value for the measure should be plotted. By default, 
 }
 
   \item{position}{
-Determines the orientation of the P-value (consonance) function By default, it is set to "pyramid", meaning the p-value function will stand right side up, like a pyramid. However, it can also be inverted via the option "inverted". This will also change the sequence of the y-axes to match the orientation. This can be set as such,
-ggconcurve(type = "consonance", data = df, position = "inverted")
+Determines the orientation of the P-value (consonance) function By default, it is set to "pyramid", meaning the p-value function will stand right side up, like a pyramid. However, it can also be inverted via the option "inverted". This will also change the sequence of the y-axes to match the orientation. This can be set as such, ggconcurve(type = "consonance", data = df, position = "inverted")
 }
 
   \item{title}{
-A custom title for the graph. By default, it is set to "Consonance Function". In order to set a title, it must be in quotes. For example, ggconcurve(x, title = "Custom Title").
+A custom title for the graph. By default, it is set to "Consonance Function". In order to set a title, it must be in quotes. For example, ggconcurve(type = "consonance", data = x, title = "Custom Title").
 }
   \item{subtitle}{
-A custom subtitle for the graph. By default, it is set to "The function contains consonance/confidence intervals at every level and the P-values." In order to set a subtitle, it must be in quotes. For example, ggconcurve(x, subtitle = "Custom Subtitle").
+A custom subtitle for the graph. By default, it is set to "The function contains consonance/confidence intervals at every level and the P-values." In order to set a subtitle, it must be in quotes. For example, ggconcurve(type = "consonance", data = x, subtitle = "Custom Subtitle").
 }
   \item{caption}{
-A custom caption for the graph. By default, it is set to "Produced with the concurve R package.". In order to set a caption, it must be in quotes. For example, ggconcurve(data, caption = "Custom Caption").
+A custom caption for the graph. By default, it is set to "Produced with the concurve R package.". In order to set a caption, it must be in quotes. For example, ggconcurve(type = "consonance", data = x, caption = "Custom Caption").
 }
   \item{xaxis}{
-A custom x-axis title for the graph. By default, it is set to "Range of Values. In order to set a x-axis title, it must be in quotes. For example, ggconcurve(data, xaxis = "Hazard Ratio").
+A custom x-axis title for the graph. By default, it is set to "Range of Values. In order to set a x-axis title, it must be in quotes. For example, ggconcurve(type = "consonance", data = x, xaxis = "Hazard Ratio").
 }
   \item{yaxis}{
-A custom y-axis title for the graph. By default, it is set to "Consonance Level". In order to set a y-axis title, it must be in quotes. For example, ggconcurve(data, yxis = "Confidence Level").
+A custom y-axis title for the graph. By default, it is set to "Consonance Level". In order to set a y-axis title, it must be in quotes. For example, ggconcurve(type = "consonance", data = x, yxis = "Confidence Level").
 }
   \item{color}{
-Item that allows the user to choose the color of the points and the ribbons in the graph. By default, it is set to color = "#555555". The inputs must be in quotes. For example, ggconcurve(data, color = "#333333").
+Item that allows the user to choose the color of the points and the ribbons in the graph. By default, it is set to color = "#555555". The inputs must be in quotes. For example, ggconcurve(type = "consonance", data = x, color = "#333333").
 }
   \item{fill}{
-Item that allows the user to choose the color of the ribbons in the graph. By default, it is set to color = "#239a98". The inputs must be in quotes. For example, ggconcurve(data, fill = "#333333").
+Item that allows the user to choose the color of the ribbons in the graph. By default, it is set to color = "#239a98". The inputs must be in quotes. For example, ggconcurve(type = "consonance", data = x, fill = "#333333").
 }
 }
 

@@ -9,7 +9,7 @@ Takes the dataframe produced by the interval functions and plots the p-values, s
 levels, and the interval estimates to produce p- and s-value functions using base R graphics.
 }
 \usage{
-plot_concurve(type, data, title, xlab, ylab1, ylab2)
+plot_concurve(type, data, measure, title, xlab, ylab1, ylab2, fill)
 }
 
 \arguments{
@@ -18,6 +18,9 @@ Choose whether to plot a "consonance" function or a "surprisal" function. The de
 }
   \item{data}{
 Dataframe where the results from a curve_ function is stored.
+}
+  \item{measure}{
+Indicates whether the object has a log transformation or is normal/default. The default setting is "default". If the measure is set to "ratio", it will take logarithmically transformed values and convert them back to normal values in the dataframe. This is typically a setting used for binary outcomes and their measures such as risk ratios, hazard ratios, and odds ratios.
 }
   \item{title}{
 The title for the graph. By default, it is set to "Consonance Function". In order to set a title, it must be in quotes. For example, plot_concurve(type = "consonance", data = data, title = "Custom Title").
@@ -31,6 +34,9 @@ A label for the y-axis on the left side of the graph. By default, it is set to "
 }
   \item{ylab2}{
 A label for the y-axis on the right side of the graph. By default, it is set to "Confidence Level."" In order to set a custom y-axis label, it must be in quotes. For example, plot_concurve(type = "consonance", data = data, ylab2= "Custom y-axis title").
+}
+  \item{fill}{
+Item that allows the user to choose the color of the ribbons in the graph. By default, it is set to color = "#239a98". The inputs must be in quotes.
 }
 }
 
