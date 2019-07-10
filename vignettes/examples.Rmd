@@ -20,28 +20,22 @@ If we were to generate some random data from a normal distribution with
 the following code,
 
 ``` r
-GroupA<-rnorm(20)
-GroupB<-rnorm(20)
+GroupA <- rnorm(20)
+GroupB <- rnorm(20)
 
-RandomData<-data.frame(GroupA, GroupB)
+RandomData <- data.frame(GroupA, GroupB)
 ```
 
 and compare the means of these two "groups" using a t-test,
 
 ```r 
-testresults<-t.test(GroupA, GroupB, data=RandomData, paired=FALSE)
+testresults <- t.test(GroupA, GroupB, data = RandomData, paired = FALSE)
 ```
 
 we would likely see some differences, given that we have such a small
-sample in each group. We can graph our data to see what the variability
-looks like.
-
-<center>
-<img src="https://res.cloudinary.com/less-likely/image/upload/v1557366226/Site/dotplot.svg" align="center" width="500" />
-</center>
-
+sample in each group. 
 ```r
-testresults
+summary(testresults)
 ```
 
 We can see our P-value for the statistical test along with the computed
@@ -77,23 +71,30 @@ install_github("zadchow/concurve")
 
 We’ll use the same data from above to calculate a P-value function and
 since we are focusing on mean differences using a t-test, we will use
-the ***meanintervals*** function to calculate our consonance
+the `curve_meta()` function to calculate our consonance
 intervals and store them in a dataframe.
 
 ``` r
 library(concurve)
-intervalsdf<-meanintervals(GroupA, GroupB, 
-                           data=RandomData, method="default")
+intervalsdf <- curve_mean(GroupA, GroupB,
+  data = RandomData, method = "default"
+)
 ```
 
 Now thousands of consonance intervals at various levels have been
-stored in the dataframe “intervalsdf.”
+stored in the dataframe “intervalsdf.” We can preview some of the entries
+via the `tibble` package.
 
-We can plot this data using the ***plotpint*** function (which stands
-for "plot P-value intervals").
+```r
+tibble::tibble(intervalsdf)
+```
+
+There's a quick look at the first few entries of our dataframe. 
+
+We can plot this data using the `ggconcurve()` function.
 
 ``` r
-pfunction<-plotpint(intervalsdf)
+pfunction <- ggconcurve(type = "consonance", intervalsdf)
 pfunction
 ```
 <center>
@@ -108,10 +109,10 @@ model and its assumptions.
 
 Furthermore, we can also produce a "surprisal" function by plotting every consonance interval and its corresponding
 <span style="color:#d46c5b">[***S-value***](https://lesslikely.com/statistics/s-values/)</span>
-using the ***plotsint*** function.
+using the `ggconcurve()` function with type being set as "surprisal".
 
 ``` r
-sfunction<-plotsint(intervalsdf)
+sfunction <- ggconcurve(type = "surprisal", intervalsdf)
 sfunction
 ```
 
@@ -128,30 +129,34 @@ consonance interval.
 We can also try this with other simple linear models.
 
 Let’s simulate more normal data and fit a simple linear regression to it
-using ordinary least squares regression with the ***lm*** function.
+using ordinary least squares regression with the base R `lm()` function.
 
 ``` r
-GroupA2<-rnorm(500)
-GroupB2<-rnorm(500)
+GroupA2 <- rnorm(500)
+GroupB2 <- rnorm(500)
 
-RandomData2<-data.frame(GroupA2, GroupB2)
+RandomData2 <- data.frame(GroupA2, GroupB2)
 
-model<-lm(GroupA2 ~ GroupB2, data=RandomData2)
+model <- lm(GroupA2 ~ GroupB2, data = RandomData2)
 
 summary(model)
 ```
 
 We can see some of the basic statistics of our model including the 95%
 interval for our predictor (GroupB). Perhaps we want more information.
-Well we can do that\! Using the ***geninterval*** function in the
-<span style="color:#d46c5b">[**concurve**](https://github.com/Zadchow/concurve)</span>
-package, we can calculate several consonance intervals for the
-regression coefficient and then plot the consonance and surprisal functions.
+Well we can do that! Using the `curve_gen()`, we can calculate several 
+consonance intervals for the regression coefficient and then plot the 
+consonance and surprisal functions.
 
 ``` r
-randomframe<-genintervals(model, "GroupB2")
+randomframe <- curve_gen(model, "GroupB2")
+tibble::tibble(randomframe)
+```
 
-plotpint(randomframe)
+Now that we have our data frame, we can graph our function. 
+
+``` r
+ggconcurve(type = "consonance", randomframe)
 ```
 
 <center>
@@ -159,7 +164,7 @@ plotpint(randomframe)
 </center>
 
 ``` r
-s<-plotsint(randomframe)
+s <- ggconcurve(type = "surprisal", randomframe)
 s
 ```
 
@@ -172,9 +177,11 @@ support intervals), and we’ll see that we get very similar results.
 We’ll do this using the ***ProfileLikelihood*** package.
 
 ``` r
-xx <- profilelike.lm(formula = GroupA2 ~ 1, data=RandomData2, 
-                     profile.theta="GroupB2",
-                     lo.theta=-0.3, hi.theta=0.3, length=500)
+xx <- profilelike.lm(
+  formula = GroupA2 ~ 1, data = RandomData2,
+  profile.theta = "GroupB2",
+  lo.theta = -0.3, hi.theta = 0.3, length = 500
+)
 ```
 
 Now we plot our likelihood function and we can see what the maximum
@@ -184,13 +191,15 @@ and and the consonance interval in the P-value function with a
 P-value of 1.
 
 ``` r
-profilelike.plot(theta=xx$theta, 
-                 profile.lik.norm=xx$profile.lik.norm, round=3)
+profilelike.plot(
+  theta = xx$theta,
+  profile.lik.norm = xx$profile.lik.norm, round = 3
+)
 title(main = "Likelihood Function")
 ```
 
 <center>
-<img src="https://res.cloudinary.com/less-likely/image/upload/v1557366228/Site/likelihood.svg" align="center" width="600" />
+<img src="figures/likelihood.png" align="center" width="600" />
 </center>
 
 We’ve used a relatively easy example for this blog post, but the
@@ -208,54 +217,60 @@ First, we generate random data for two groups in two hypothetical
 studies
 
 ``` r
-GroupAData<-runif(20, min=0, max=100)
-GroupAMean<-round(mean(GroupAData), digits=2)
-GroupASD<-round(sd(GroupAData), digits=2)
+GroupAData <- runif(20, min = 0, max = 100)
+GroupAMean <- round(mean(GroupAData), digits = 2)
+GroupASD <- round(sd(GroupAData), digits = 2)
 
-GroupBData<-runif(20, min=0, max=100)
-GroupBMean<-round(mean(GroupBData), digits=2)
-GroupBSD<-round(sd(GroupBData), digits=2)
+GroupBData <- runif(20, min = 0, max = 100)
+GroupBMean <- round(mean(GroupBData), digits = 2)
+GroupBSD <- round(sd(GroupBData), digits = 2)
 
-GroupCData<-runif(20, min=0, max=100)
-GroupCMean<-round(mean(GroupCData), digits=2)
-GroupCSD<-round(sd(GroupCData), digits=2)
+GroupCData <- runif(20, min = 0, max = 100)
+GroupCMean <- round(mean(GroupCData), digits = 2)
+GroupCSD <- round(sd(GroupCData), digits = 2)
 
-GroupDData<-runif(20, min=0, max=100)
-GroupDMean<-round(mean(GroupDData), digits=2)
-GroupDSD<-round(sd(GroupDData), digits=2)
+GroupDData <- runif(20, min = 0, max = 100)
+GroupDMean <- round(mean(GroupDData), digits = 2)
+GroupDSD <- round(sd(GroupDData), digits = 2)
 ```
 
 We can then quickly combine the data in a dataframe.
 
 ``` r
-StudyName<-c("Study1", "Study2")
-MeanTreatment<-c(GroupAMean, GroupCMean)
-MeanControl<-c(GroupBMean, GroupDMean)
-SDTreatment<-c(GroupASD, GroupCSD)
-SDControl<-c(GroupBSD, GroupDSD)
-NTreatment<-c(20,20)
-NControl<-c(20,20)
+StudyName <- c("Study1", "Study2")
+MeanTreatment <- c(GroupAMean, GroupCMean)
+MeanControl <- c(GroupBMean, GroupDMean)
+SDTreatment <- c(GroupASD, GroupCSD)
+SDControl <- c(GroupBSD, GroupDSD)
+NTreatment <- c(20, 20)
+NControl <- c(20, 20)
 
-metadf<-data.frame(StudyName, MeanTreatment, MeanControl, 
-                   SDTreatment, SDControl, 
-                   NTreatment, NControl)
+metadf <- data.frame(
+  StudyName, MeanTreatment, MeanControl,
+  SDTreatment, SDControl,
+  NTreatment, NControl
+)
 ```
 
 Then, we’ll use ***metafor*** to calculate the standardized mean
 difference.
 
 ``` r
-dat<-escalc(measure="SMD", 
-            m1i=MeanTreatment, sd1i=SDTreatment, n1i=NTreatment,
-            m2i=MeanControl, sd2i=SDControl, n2i=NControl, 
-            data=metadf)
+dat <- escalc(
+  measure = "SMD",
+  m1i = MeanTreatment, sd1i = SDTreatment, n1i = NTreatment,
+  m2i = MeanControl, sd2i = SDControl, n2i = NControl,
+  data = metadf
+)
 ```
 
 Next, we’ll pool the data using a ~~fixed-effects~~ common-effects model
 
 ``` r
-res<-rma(yi, vi, data=dat, slab=paste(StudyName, sep=", "), 
-         method="FE", digits=2)
+res <- rma(yi, vi,
+  data = dat, slab = paste(StudyName, sep = ", "),
+  method = "FE", digits = 2
+)
 ```
 
 Let’s look at our output.
@@ -268,12 +283,12 @@ res
 Fixed-Effects Model (k = 2)
 
 Test for Heterogeneity: 
-Q(df = 1) = 0.00, p-val = 0.96
+Q(df = 1) = 0.01, p-val = 0.91
 
 Model Results:
 
-estimate    se   zval  pval  ci.lb  ci.ub   
-   -0.14  0.22  -0.62  0.53  -0.58   0.30   
+estimate    se  zval  pval  ci.lb  ci.ub 
+    0.16  0.22  0.70  0.48  -0.28   0.60  
 
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
@@ -285,17 +300,18 @@ mind as we move onto constructing a consonance function.
 We can now take the object produced by the meta-analysis and calculate a
 P-value and S-value function with it to see the full spectrum of effect
 sizes compatible with the test model at every level. We’ll use the
-***metainterval*** function to do this.
+`curve_meta()` function to do this.
 
 ``` r
-metaf<-metaintervals(res)
+metaf <- curve_meta(res)
+tibble::tibble(metaf)
 ```
 
 Now that we have our dataframe with every computed interval, we can plot
 the functions.
 
 ``` r
-plotpint(metaf)
+ggconcurve(type = "consonance", metaf)
 ```
 
 <center>
@@ -305,7 +321,7 @@ plotpint(metaf)
 And our S-value function
 
 ``` r
-plotsint(metaf)
+ggconcurve(type = "surprisal", metaf)
 ```
 <center>
 <img src="figures/function6.png" align="center" width="600" />

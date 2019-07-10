@@ -4,28 +4,31 @@
     <loc>https://data.lesslikely.com/concurve//index.html</loc>
   </url>
   <url>
-    <loc>https://data.lesslikely.com/concurve//reference/corrintervals.html</loc>
+    <loc>https://data.lesslikely.com/concurve//reference/curve_corr.html</loc>
   </url>
   <url>
-    <loc>https://data.lesslikely.com/concurve//reference/genintervals.html</loc>
+    <loc>https://data.lesslikely.com/concurve//reference/curve_gen.html</loc>
   </url>
   <url>
-    <loc>https://data.lesslikely.com/concurve//reference/meanintervals.html</loc>
+    <loc>https://data.lesslikely.com/concurve//reference/curve_mean.html</loc>
   </url>
   <url>
-    <loc>https://data.lesslikely.com/concurve//reference/metaintervals.html</loc>
+    <loc>https://data.lesslikely.com/concurve//reference/curve_meta.html</loc>
   </url>
   <url>
-    <loc>https://data.lesslikely.com/concurve//reference/plotpint.html</loc>
+    <loc>https://data.lesslikely.com/concurve//reference/curve_rev.html</loc>
   </url>
   <url>
-    <loc>https://data.lesslikely.com/concurve//reference/plotsint.html</loc>
+    <loc>https://data.lesslikely.com/concurve//reference/curve_surv.html</loc>
   </url>
   <url>
-    <loc>https://data.lesslikely.com/concurve//reference/reveng.html</loc>
+    <loc>https://data.lesslikely.com/concurve//reference/defunct.html</loc>
   </url>
   <url>
-    <loc>https://data.lesslikely.com/concurve//reference/survintervals.html</loc>
+    <loc>https://data.lesslikely.com/concurve//reference/ggconcurve.html</loc>
+  </url>
+  <url>
+    <loc>https://data.lesslikely.com/concurve//reference/plot_concurve.html</loc>
   </url>
   <url>
     <loc>https://data.lesslikely.com/concurve//articles/examples.html</loc>

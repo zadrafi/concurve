@@ -1,10 +1,15 @@
 exportPattern("^[[:alpha:]]+")
+import(parallel)
 import(ggplot2)
 import(dplyr)
+import(tibble)
 import(survival)
 import(survminer)
 import(metafor)
 import(scales)
 importFrom("stats", "coef", "confint", "confint.default", "confint.lm",
                 "lm", "quantile", "t.test", "cor.test", "qnorm")
+importFrom("graphics", "axis", "par", "polygon", "text")
+importFrom("stats", "logLik", "model.frame", "model.matrix",
+             "model.response", "na.fail")
 importFrom("utils", "head")
