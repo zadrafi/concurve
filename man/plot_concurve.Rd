@@ -9,7 +9,7 @@ Takes the dataframe produced by the interval functions and plots the p-values, s
 levels, and the interval estimates to produce p- and s-value functions using base R graphics.
 }
 \usage{
-plot_concurve(type, data, measure, title, xlab, ylab1, ylab2, fill)
+plot_concurve(type, data, measure, intervals, title, xlab, ylab1, ylab2, fontsize, fill)
 }
 
 \arguments{
@@ -22,6 +22,10 @@ Dataframe where the results from a curve_ function is stored.
   \item{measure}{
 Indicates whether the object has a log transformation or is normal/default. The default setting is "default". If the measure is set to "ratio", it will take logarithmically transformed values and convert them back to normal values in the dataframe. This is typically a setting used for binary outcomes and their measures such as risk ratios, hazard ratios, and odds ratios.
 }
+  \item{intervals}{
+Indicates whether the limits for different consonance levels should be plotted on the graph. By default, this is set to FALSE. When set to TRUE, it will plot 50\%, 75\%, 95\%, and 99\% intervals.
+}
+
   \item{title}{
 The title for the graph. By default, it is set to "Consonance Function". In order to set a title, it must be in quotes. For example, plot_concurve(type = "consonance", data = data, title = "Custom Title").
 }
@@ -35,6 +39,10 @@ A label for the y-axis on the left side of the graph. By default, it is set to "
   \item{ylab2}{
 A label for the y-axis on the right side of the graph. By default, it is set to "Confidence Level."" In order to set a custom y-axis label, it must be in quotes. For example, plot_concurve(type = "consonance", data = data, ylab2= "Custom y-axis title").
 }
+  \item{fontsize}{
+Controls the font size in the graphs. By default, it is set to size 12.).
+}
+
   \item{fill}{
 Item that allows the user to choose the color of the ribbons in the graph. By default, it is set to color = "#239a98". The inputs must be in quotes.
 }
@@ -74,6 +82,6 @@ RandomModel <- lm(GroupA ~ GroupB, data = RandomData)
 
 intervalsdf <- curve_gen(RandomModel, "GroupB")
 
-s <- plot_concurve(type = "consonance", data = intervalsdf)
-s
+plot_concurve(type = "consonance", data = intervalsdf)
+
 }

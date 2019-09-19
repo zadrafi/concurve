@@ -283,12 +283,12 @@ res
 Fixed-Effects Model (k = 2)
 
 Test for Heterogeneity: 
-Q(df = 1) = 0.01, p-val = 0.91
+Q(df = 1) = 0.61, p-val = 0.44
 
 Model Results:
 
 estimate    se  zval  pval  ci.lb  ci.ub 
-    0.16  0.22  0.70  0.48  -0.28   0.60  
+    0.16  0.22  0.73  0.47  -0.28   0.60  
 
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 

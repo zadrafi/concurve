@@ -18,8 +18,8 @@ concurve | Graph Interval Functions <img src="man/figures/logo.svg" align="right
 
 # Examples 
 
-<img src = "https://res.cloudinary.com/less-likely/image/upload/v1562705215/Site/Figure1.png" align="center" width ="400">
-<img src = "https://res.cloudinary.com/less-likely/image/upload/v1562705215/Site/Figure2.png" align="center" width="400">
+<img src = "https://res.cloudinary.com/less-likely/image/upload/v1568855498/Site/Figure1.png" align="center" width ="400">
+<img src = "https://res.cloudinary.com/less-likely/image/upload/v1568855498/Site/Figure2.png" align="center" width="400">
 
 * * * 
 
@@ -96,3 +96,5 @@ install_github("zadchow/concurve")
 7.  Amrhein V, Trafimow D, Greenland S. Inferential Statistics as Descriptive Statistics: There is No Replication     Crisis if We Don't Expect Replication. _Am Stat_. 2019
 8.  Greenland S. Valid P-values Behave Exactly As They Should. Some misleading criticisms of P-values and their      resolution with S-values. _Am Stat_. 2019;18(136).
 9.  Fraser DAS. The p-value Function and Statistical Inference. _Am Stat_. 2019
+10. Chow ZR, Greenland S. Semantic and Cognitive Tools to Aid Statistical Inference: Replace Confidence and Significance by Compatibility and Surprise. _arXiv:1909.08579 [stat.ME]_. 2019
+11. Greenland S, Chow ZR. To Aid Statistical Inference, Emphasize Unconditional Descriptions of Statistics. _arXiv:1909.08583 [stat.ME]_. 2019

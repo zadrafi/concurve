@@ -31,8 +31,8 @@ status](https://ci.appveyor.com/api/projects/status/v8sp9x96dap2om9s?svg=true)](
 
 # Examples
 
-<img src = "https://res.cloudinary.com/less-likely/image/upload/v1562705215/Site/Figure1.png" align="center" width ="400">
-<img src = "https://res.cloudinary.com/less-likely/image/upload/v1562705215/Site/Figure2.png" align="center" width="400">
+<img src = "https://res.cloudinary.com/less-likely/image/upload/v1568855498/Site/Figure1.png" align="center" width ="400">
+<img src = "https://res.cloudinary.com/less-likely/image/upload/v1568855498/Site/Figure2.png" align="center" width="400">
 
 -----
 
@@ -114,3 +114,9 @@ install_github("zadchow/concurve")
     S-values. *Am Stat*. 2019;18(136).
 9.  Fraser DAS. The p-value Function and Statistical Inference. *Am
     Stat*. 2019
+10. Chow ZR, Greenland S. Semantic and Cognitive Tools to Aid
+    Statistical Inference: Replace Confidence and Significance by
+    Compatibility and Surprise. *arXiv:1909.08579 \[stat.ME\]*. 2019
+11. Greenland S, Chow ZR. To Aid Statistical Inference, Emphasize
+    Unconditional Descriptions of Statistics. *arXiv:1909.08583
+    \[stat.ME\]*. 2019

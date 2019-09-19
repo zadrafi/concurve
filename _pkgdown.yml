@@ -33,8 +33,10 @@ navbar:
     articles:
       text: Articles
       menu:
-      - text: Examples With Simulated Data
+      - text: Examples in R
         href: articles/examples.html
+      - text: Using Stata
+        href: articles/stata.html
     news:
       text: News
       href: news/index.html

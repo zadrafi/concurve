@@ -1,6 +1,6 @@
 # Reverse Engineer Consonance Functions Using the Point Estimate and Confidence Limits
 
-curve_rev <- function(point, LL, UL, measure = "default") {
+curve_rev <- function(point, LL, UL, measure = "default", steps = 10000) {
   if (is.numeric(point) != TRUE) {
     stop("Error: 'x' must be a numeric vector")
   }
@@ -14,7 +14,7 @@ curve_rev <- function(point, LL, UL, measure = "default") {
     stop("Error: 'measure' must be a string such as 'default' or 'ratio'")
   }
 
-  intrvls <- (1:10000) / 10000
+  intrvls <- (1:steps) / steps
   z <- qnorm(1 - intrvls / 2)
 
   if (measure == "default") {

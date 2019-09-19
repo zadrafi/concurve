@@ -1,18 +1,21 @@
 plot_concurve <- function(type = "consonance",
                           data,
                           measure = "default",
+                          intervals = FALSE,
                           title = "Consonance Function",
                           xlab = "Theta",
                           ylab1 = "P-value",
                           ylab2 = "Confidence Level (%)",
+                          fontsize = 12,
                           fill = "#239a9880") {
 
   # Overall graph parameters
   par(
+    ps = fontsize,
     mar = c(4.5, 5, 3, 5),
     font.main = 1,
-    cex.main = 1.3,
-    cex.lab = 1.15
+    cex.main = 1,
+    cex.lab = 1
   )
 
   # Consonance function
@@ -86,8 +89,11 @@ plot_concurve <- function(type = "consonance",
       side = 4, at = c(seq(from = 0, to = 100, by = 10)),
       tck = 1, lty = 2, col = "grey", las = 1
     )
-    text(par("usr") + 0.95, 28,
-      srt = -90, adj = 0, labels = "Consonance Level (%)", cex = 1.05,
+
+    # 0.95, 28
+
+    text(par("usr") + 1, 15,
+      srt = -90, adj = 0, labels = ylab2, cex = 1,
       xpd = TRUE
     )
     par(new = T)
@@ -97,7 +103,7 @@ plot_concurve <- function(type = "consonance",
     )
 
     # Labels for interval estimates and maximum likelihood
-
+    if (intervals == TRUE) {
     text(
       x = 1.27, y = 3,
       paste(
@@ -142,6 +148,7 @@ plot_concurve <- function(type = "consonance",
       ),
       cex = 0.93, col = "black"
     )
+    }
   }
 
   # Surprisal function
@@ -154,9 +161,9 @@ plot_concurve <- function(type = "consonance",
           xlim = c(min(lower.limit), max(upper.limit)),
           panel.first = grid(),
           type = "l",
-          xlab = "Theta",
-          ylab = "S-value",
-          main = "Surpisal Function",
+          xlab = xlab,
+          ylab = "S-value (bits of information)",
+          main = title,
           yaxt = "n",
           las = 1
         )
@@ -166,9 +173,9 @@ plot_concurve <- function(type = "consonance",
           xlim = c(min(lower.limit), max(upper.limit)),
           panel.first = grid(),
           type = "l",
-          xlab = "Theta",
-          ylab = "S-value",
-          main = "Surpisal Function",
+          xlab = xlab,
+          ylab = "S-value (bits of information)",
+          main = title,
           yaxt = "n",
           las = 1,
           log = "x"
