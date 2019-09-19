@@ -10,7 +10,7 @@ levels, and the interval estimates to produce a p-value/s-value function using g
 }
 \usage{
 ggconcurve(type, data, measure, nullvalue, position,
-           title, subtitle, caption, xaxis, yaxis, color, fill)
+           title, subtitle, xaxis, yaxis, color, fill)
 }
 
 \arguments{
@@ -37,9 +37,7 @@ A custom title for the graph. By default, it is set to "Consonance Function". In
   \item{subtitle}{
 A custom subtitle for the graph. By default, it is set to "The function contains consonance/confidence intervals at every level and the P-values." In order to set a subtitle, it must be in quotes. For example, ggconcurve(type = "consonance", data = x, subtitle = "Custom Subtitle").
 }
-  \item{caption}{
-A custom caption for the graph. By default, it is set to "Produced with the concurve R package.". In order to set a caption, it must be in quotes. For example, ggconcurve(type = "consonance", data = x, caption = "Custom Caption").
-}
+
   \item{xaxis}{
 A custom x-axis title for the graph. By default, it is set to "Range of Values. In order to set a x-axis title, it must be in quotes. For example, ggconcurve(type = "consonance", data = x, xaxis = "Hazard Ratio").
 }
@@ -76,13 +74,8 @@ RandomModel <- lm(GroupA ~ GroupB, data = RandomData)
 
 intervalsdf <- curve_gen(RandomModel, "GroupB")
 
-p <- ggconcurve(type = "consonance", data = intervalsdf, nullvalue = "present")
-p
+ggconcurve(type = "consonance", data = intervalsdf, nullvalue = "present")
 
-r <- ggconcurve(type = "consonance", data = intervalsdf, position = "inverted")
-r
-
-s <- ggconcurve(type = "surprisal", data = intervalsdf)
-s
+ggconcurve(type = "surprisal", data = intervalsdf)
 
 }

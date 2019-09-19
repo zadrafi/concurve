@@ -10,7 +10,7 @@ compute thousands of consonance intervals and graph the intervals to form a cons
 surprisal function.
 }
 \usage{
-curve_rev(point, LL, UL, measure = "default")
+curve_rev(point, LL, UL, measure = "default", steps = 10000)
 }
 
 \arguments{
@@ -28,6 +28,13 @@ The type of data being used. If they involve mean differences,
 then the "default" option should be used, which is also the default setting.
 If the data are ratios, then the "ratio" option should be used.
 }
+  \item{steps}{
+Indicates how many consonance intervals are to be calculated at various levels. For example, setting
+this to 100 will produce 100 consonance intervals from 0 to 100. Setting this to 10000 will produce more
+consonance levels. By default, it is set to 1000. Increasing the number substantially is not recommended
+as it will take longer to produce all the intervals and store them into a dataframe.
+}
+
 }
 
 \references{
