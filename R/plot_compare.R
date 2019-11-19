@@ -1,4 +1,4 @@
-plot_compare <- function(type = "consonance", data1, data2, measure = "default", nullvalue = "absent", position = "pyramid",
+plot_compare <- function(data1, data2, type = "consonance", measure = "default", nullvalue = "absent", position = "pyramid",
                          title = "Consonance Function",
                          subtitle = "The function contains consonance intervals at every level.",
                          xaxis = "Range of Values",
@@ -6,24 +6,24 @@ plot_compare <- function(type = "consonance", data1, data2, measure = "default",
                          color = "#555555",
                          fill1 = "#239a98",
                          fill2 = "#d46c5b") {
-  if (is.data.frame(data1) != TRUE) {
-    stop("Error: 'x' must be a data frame from 'concurve'.")
-  }
-  if (ncol(data1) != 5) {
-    stop("Error: 'x' must be a data frame from 'concurve'.")
-  }
-  if (is.data.frame(data2) != TRUE) {
-    stop("Error: 'x' must be a data frame from 'concurve'.")
-  }
-  if (ncol(data2) != 5) {
-    stop("Error: 'x' must be a data frame from 'concurve'.")
-  }
 
 
   # Consonance Function -----------------------------------------------------
 
 
   if (type == "consonance") {
+    if (is.data.frame(data1) != TRUE) {
+      stop("Error: 'x' must be a data frame from 'concurve'.")
+    }
+    if (ncol(data1) != 5) {
+      stop("Error: 'x' must be a data frame from 'concurve'.")
+    }
+    if (is.data.frame(data2) != TRUE) {
+      stop("Error: 'x' must be a data frame from 'concurve'.")
+    }
+    if (ncol(data2) != 5) {
+      stop("Error: 'x' must be a data frame from 'concurve'.")
+    }
     if (is.character(measure) != TRUE) {
       stop("Error: 'measure' must be a string such as 'default' or 'ratio'.")
     }
@@ -122,12 +122,12 @@ plot_compare <- function(type = "consonance", data1, data2, measure = "default",
         if (measure == "default") {
           annotate("segment",
             x = 0, xend = 0, y = 0, yend = 1,
-            color = "#990000", alpha = 0.3, size = .8
+            color = "#990000", alpha = 0.3, size = .8, linetype = 1
           )
         } else if (measure == "ratio") {
           annotate("segment",
             x = 1, xend = 1, y = 0, yend = 1,
-            color = "#990000", alpha = 0.3, size = .8
+            color = "#990000", alpha = 0.3, size = .8, linetype = 1
           )
         }
       }
@@ -137,6 +137,18 @@ plot_compare <- function(type = "consonance", data1, data2, measure = "default",
 
     # Surprisal Function ------------------------------------------------------
   } else if (type == "surprisal") {
+    if (is.data.frame(data1) != TRUE) {
+      stop("Error: 'x' must be a data frame from 'concurve'.")
+    }
+    if (ncol(data1) != 5) {
+      stop("Error: 'x' must be a data frame from 'concurve'.")
+    }
+    if (is.data.frame(data2) != TRUE) {
+      stop("Error: 'x' must be a data frame from 'concurve'.")
+    }
+    if (ncol(data2) != 5) {
+      stop("Error: 'x' must be a data frame from 'concurve'.")
+    }
     if (is.character(measure) != TRUE) {
       stop("Error: 'measure' must be a string such as 'default' or 'ratio'.")
     }
@@ -208,8 +220,80 @@ plot_compare <- function(type = "consonance", data1, data2, measure = "default",
         if (measure == "ratio") scale_x_log10(breaks = scales::pretty_breaks(n = 10))
       } +
       scale_y_continuous(breaks = seq(0, 14, 0.5), expand = c(0, 0))
+
+
+    # Likelihood Function -----------------------------------------------------
+  } else if (type == "likelihood") {
+    if (ncol(data1) != 3) {
+      stop("Error: 'data1' must be a data frame from 'concurve'.")
+    }
+    if (ncol(data2) != 3) {
+      stop("Error: 'data2' must be a data frame from 'concurve'.")
+    }
+    if (is.character(measure) != TRUE) {
+      stop("Error: 'measure' must be a string such as 'default' or 'ratio'.")
+    }
+    if (is.character(nullvalue) != TRUE) {
+      stop("Error: 'nullvalue' must be a string such as 'absent' or 'present'.")
+    }
+    if (is.character(title) != TRUE) {
+      stop("Error: 'title' must be a string.")
+    }
+    if (is.character(subtitle) != TRUE) {
+      stop("Error: 'subtitle' must be a string.")
+    }
+    if (is.character(xaxis) != TRUE) {
+      stop("Error: 'xaxis' must be a string.")
+    }
+    if (is.character(yaxis) != TRUE) {
+      stop("Error: 'yaxis' must be a string.")
+    }
+    if (is.character(fill1) != TRUE) {
+      stop("Error: 'fill1' must be a string for the color.")
+    }
+    if (is.character(fill2) != TRUE) {
+      stop("Error: 'fill2' must be a string for the color.")
+    }
+
+    ggplot(data = data1, mapping = aes(x = values, y = support)) +
+      geom_line() +
+      geom_ribbon(aes(x = values, ymin = min(support), ymax = support), fill = fill1, alpha = 0.30) +
+      geom_line(data = data2) +
+      geom_ribbon(data = data2, aes(x = values, ymin = min(support), ymax = support), fill = fill2, alpha = 0.30) +
+      labs(
+        x = xaxis,
+        y = "Relative Likelihood 1/MLR"
+      ) +
+      theme_bw() +
+      theme(
+        plot.title = element_text(size = 16),
+        plot.subtitle = element_text(size = 12),
+        plot.caption = element_text(size = 8),
+        axis.title.x = element_text(size = 13),
+        axis.title.y = element_text(size = 13),
+        text = element_text(size = 15)
+      ) +
+      {
+        if (measure == "ratio") scale_x_log10(breaks = scales::pretty_breaks(n = 10))
+      } +
+      scale_y_continuous(breaks = scales::pretty_breaks(n = 10)) +
+      if (nullvalue == "present") {
+        if (measure == "default") {
+          annotate("segment",
+            x = 0, xend = 0, y = 0, yend = 1,
+            color = "#990000", alpha = 0.3, size = .8, linetype = 1
+          )
+        } else if (measure == "ratio") {
+          annotate("segment",
+            x = 1, xend = 1, y = 0, yend = 1,
+            color = "#990000", alpha = 0.3, size = .8, linetype = 1
+          )
+        }
+      }
   }
 }
+
+
 
 # RMD Check
 utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.level", "pvalue", "svalue"))
