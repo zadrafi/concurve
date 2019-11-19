@@ -1,18 +1,27 @@
-ggconcurve <- function(data, type = "consonance", measure = "default", nullvalue = "absent", position = "pyramid",
-                       title = "Consonance Function",
-                       subtitle = "The function contains consonance intervals at every level.",
-                       xaxis = "Range of Values",
-                       yaxis = "P-value",
-                       color = "#555555",
-                       fill = "#239a98") {
-  if (is.data.frame(data) != TRUE) {
-    stop("Error: 'data' must be a data frame from 'concurve'.")
+plot_compare <- function(type = "consonance", data1, data2, measure = "default", nullvalue = "absent", position = "pyramid",
+                         title = "Consonance Function",
+                         subtitle = "The function contains consonance intervals at every level.",
+                         xaxis = "Range of Values",
+                         yaxis = "P-value",
+                         color = "#555555",
+                         fill1 = "#239a98",
+                         fill2 = "#d46c5b") {
+  if (is.data.frame(data1) != TRUE) {
+    stop("Error: 'x' must be a data frame from 'concurve'.")
   }
-  if (ncol(data) != 5) {
-    stop("Error: 'data' must be a data frame from 'concurve'.")
+  if (ncol(data1) != 5) {
+    stop("Error: 'x' must be a data frame from 'concurve'.")
+  }
+  if (is.data.frame(data2) != TRUE) {
+    stop("Error: 'x' must be a data frame from 'concurve'.")
+  }
+  if (ncol(data2) != 5) {
+    stop("Error: 'x' must be a data frame from 'concurve'.")
   }
 
-  # Consonance Function
+
+  # Consonance Function -----------------------------------------------------
+
 
   if (type == "consonance") {
     if (is.character(measure) != TRUE) {
@@ -36,35 +45,56 @@ ggconcurve <- function(data, type = "consonance", measure = "default", nullvalue
     if (is.character(yaxis) != TRUE) {
       stop("Error: 'yaxis' must be a string.")
     }
-    if (is.character(fill) != TRUE) {
-      stop("Error: 'fill' must be a string for the color.")
+    if (is.character(fill1) != TRUE) {
+      stop("Error: 'fill1' must be a string for the color.")
     }
-    ggplot(data = data) +
+    if (is.character(fill2) != TRUE) {
+      stop("Error: 'fill2' must be a string for the color.")
+    }
+    ggplot(data = data1) +
       geom_point(aes(x = lower.limit, y = pvalue),
-        color = color, fill = fill, alpha = 0.5, shape = 20, size = 0.1
+        color = color, fill = fill1, alpha = 0.5, shape = 20, size = 0.1
       ) +
       geom_point(aes(x = upper.limit, y = pvalue),
-        color = color, fill = fill, alpha = 0.5, shape = 20, size = 0.1
+        color = color, fill = fill1, alpha = 0.5, shape = 20, size = 0.1
       ) +
       geom_ribbon(aes(x = lower.limit, ymin = min(pvalue), ymax = pvalue),
-        fill = fill, alpha = 0.30
+        fill = fill1, alpha = 0.30
       ) +
       geom_ribbon(aes(x = upper.limit, ymin = min(pvalue), ymax = pvalue),
-        fill = fill, alpha = 0.30
+        fill = fill1, alpha = 0.30
       ) +
+      geom_point(
+        data = data2, aes(x = lower.limit, y = pvalue),
+        color = color, fill = fill2, alpha = 0.5, shape = 20, size = 0.1
+      ) +
+      geom_point(
+        data = data2, aes(x = upper.limit, y = pvalue),
+        color = color, fill = fill2, alpha = 0.5, shape = 20, size = 0.1
+      ) +
+      geom_ribbon(
+        data = data2, aes(x = lower.limit, ymin = min(pvalue), ymax = pvalue),
+        fill = fill2, alpha = 0.30
+      ) +
+      geom_ribbon(
+        data = data2, aes(x = upper.limit, ymin = min(pvalue), ymax = pvalue),
+        fill = fill2, alpha = 0.30
+      ) +
+      theme_bw() +
       labs(
         title = title,
         subtitle = subtitle,
         x = xaxis,
-        y = yaxis
+        y = yaxis,
+        color = fill1
       ) +
-      theme_bw() +
       theme(
         plot.title = element_text(size = 12),
         plot.subtitle = element_text(size = 11),
         axis.title.x = element_text(size = 12),
         axis.title.y = element_text(size = 12),
-        text = element_text(size = 11)
+        text = element_text(size = 11),
+        legend.position = "bottom"
       ) +
       {
         if (measure == "default") scale_x_continuous(breaks = scales::pretty_breaks(n = 10))
@@ -104,7 +134,8 @@ ggconcurve <- function(data, type = "consonance", measure = "default", nullvalue
       else if (nullvalue == "absent") {
       }
 
-    # Surprisal function
+
+    # Surprisal Function ------------------------------------------------------
   } else if (type == "surprisal") {
     if (is.character(measure) != TRUE) {
       stop("Error: 'measure' must be a string such as 'default' or 'ratio'.")
@@ -121,21 +152,40 @@ ggconcurve <- function(data, type = "consonance", measure = "default", nullvalue
     if (is.character(yaxis) != TRUE) {
       stop("Error: 'yaxis' must be a string.")
     }
-    if (is.character(fill) != TRUE) {
-      stop("Error: 'fill' must be a string for the color.")
+    if (is.character(fill1) != TRUE) {
+      stop("Error: 'fill1' must be a string for the color.")
     }
-    ggplot(data = data) +
+    if (is.character(fill2) != TRUE) {
+      stop("Error: 'fill2' must be a string for the color.")
+    }
+    ggplot(data = data1) +
       geom_point(aes(x = lower.limit, y = svalue),
-        color = color, fill = fill, alpha = 0.5, shape = 20, size = 0.1
+        color = color, fill = fill1, alpha = 0.5, shape = 20, size = 0.1
       ) +
       geom_point(aes(x = upper.limit, y = svalue),
-        color = color, fill = fill, alpha = 0.5, shape = 20, size = 0.1
+        color = color, fill = fill1, alpha = 0.5, shape = 20, size = 0.1
       ) +
       geom_ribbon(aes(x = lower.limit, ymin = max(svalue), ymax = svalue),
-        fill = fill, alpha = 0.30
+        fill = fill1, alpha = 0.30
       ) +
       geom_ribbon(aes(x = upper.limit, ymin = max(svalue), ymax = svalue),
-        fill = fill, alpha = 0.30
+        fill = fill1, alpha = 0.30
+      ) +
+      geom_point(
+        data = data2, aes(x = lower.limit, y = svalue),
+        color = color, fill = fill2, alpha = 0.5, shape = 20, size = 0.1
+      ) +
+      geom_point(
+        data = data2, aes(x = upper.limit, y = svalue),
+        color = color, fill = fill2, alpha = 0.5, shape = 20, size = 0.1
+      ) +
+      geom_ribbon(
+        data = data2, aes(x = lower.limit, ymin = max(svalue), ymax = svalue),
+        fill = fill2, alpha = 0.30
+      ) +
+      geom_ribbon(
+        data = data2, aes(x = upper.limit, ymin = max(svalue), ymax = svalue),
+        fill = fill2, alpha = 0.30
       ) +
       labs(
         title = title,

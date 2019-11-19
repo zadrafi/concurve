@@ -1,5 +1,5 @@
-plot_concurve <- function(type = "consonance",
-                          data,
+plot_concurve <- function(data,
+                          type = "consonance",
                           measure = "default",
                           intervals = FALSE,
                           title = "Consonance Function",
