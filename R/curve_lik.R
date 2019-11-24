@@ -50,7 +50,10 @@ curve_lik <- function(point, LL, UL, measure = "ratio", steps = 10000) {
   )
 
   support <- exp((-zscore^2) / 2)
+  deviancestat <- (zscore^2)
 
-  likfunction <- data.frame(values, zscore, support)
+  likfunction <- data.frame(values, zscore, support, deviancestat)
   return(likfunction)
 }
+
+utils::globalVariables(c("likfunction", "values", "zscore", "support", "deviancestat"))

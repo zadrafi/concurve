@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Computes and Plots Consonance (Confidence) Intervals, P-Values, and S-Values to Form Consonance and Surprisal Functions • concurve</title>
+<title>Computes and Plots Compatibility (Confidence) Intervals, P-Values, S-Values, &amp; Likelihood Intervals to Form Consonance, Surprisal, &amp; Likelihood Functions • concurve</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
@@ -19,8 +19,8 @@
 <script src="pkgdown.js"></script><!-- docsearch --><script src="docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
 <link href="docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><link href="extra.css" rel="stylesheet">
-<meta property="og:title" content="Computes and Plots Consonance (Confidence) Intervals, P-Values, and S-Values to Form Consonance and Surprisal Functions">
-<meta property="og:description" content="Allows one to compute consonance (confidence) intervals for various statistical tests along with their corresponding P-values and S-values. The intervals can be plotted to create consonance and surprisal functions allowing one to see what effect sizes are compatible with the test model at various consonance levels rather than being limited to one interval estimate such as 95%. These methods are discussed by Poole C. (1987) &lt;doi:10.2105/AJPH.77.2.195&gt;, Schweder T, Hjort NL. (2002) &lt;doi:10.1111/1467-9469.00285&gt;, Singh K, Xie M, Strawderman WE. (2007) &lt;arXiv:0708.0976&gt;, Rothman KJ, Greenland S, Lash TL. (2008, ISBN:9781451190052), Amrhein V, Trafimow D, Greenland S. (2019) &lt;doi:10.1080/00031305.2018.1543137&gt;, Greenland S. (2019) &lt;doi:10.1080/00031305.2018.1529625&gt;, Chow ZR, Greenland S. (2019) &lt;arXiv:1909.08579&gt;, and Greenland S, Chow ZR. (2019) &lt;arXiv:1909.08583&gt;.">
+<meta property="og:title" content="Computes and Plots Compatibility (Confidence) Intervals, P-Values, S-Values, &amp; Likelihood Intervals to Form Consonance, Surprisal, &amp; Likelihood Functions">
+<meta property="og:description" content="Allows one to compute consonance (confidence) intervals for various statistical tests along with their corresponding P-values, S-values, and likelihoods. The intervals can be plotted to create consonance, surprisal, and likelihood functions allowing one to see what effect sizes are compatible with the test model at various consonance levels rather than being limited to one interval estimate such as 95%. These methods are discussed by Poole C. (1987) &lt;doi:10.2105/AJPH.77.2.195&gt;, Schweder T, Hjort NL. (2002) &lt;doi:10.1111/1467-9469.00285&gt;, Singh K, Xie M, Strawderman WE. (2007) &lt;arXiv:0708.0976&gt;, Rothman KJ, Greenland S, Lash TL. (2008, ISBN:9781451190052), Amrhein V, Trafimow D, Greenland S. (2019) &lt;doi:10.1080/00031305.2018.1543137&gt;, Greenland S. (2019) &lt;doi:10.1080/00031305.2018.1529625&gt;, Chow ZR, Greenland S. (2019) &lt;arXiv:1909.08579&gt;, and Greenland S, Chow ZR. (2019) &lt;arXiv:1909.08583&gt;.">
 <meta property="og:image" content="https://data.lesslikely.com/concurve/logo.png">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.2.0</span>
       </span>
     </div>
 
@@ -106,16 +106,33 @@
 <a href="#concurve--graph-interval-functions-" class="anchor"></a>concurve | Graph Interval Functions <img src="reference/figures/logo.svg" align="right" width="120">
 </h1></div>
 
-<blockquote>
-<p>In addition to the overt statistical position, the p-value function also provides easily and accurately many of the familiar types of summary information: a <strong>median estimate</strong> of the parameter; a <strong>one-sided test statistic</strong> for a scalar parameter value at any chosen level; the related <strong>power function</strong>; a <strong>lower confidence bound</strong> at any level; an <strong>upper confidence bound</strong> at any level; and <strong>confidence intervals</strong> with chosen upper and lower confidence limits. The p value reports all the <strong>common inference material</strong>, but with <strong>high accuracy, basic uniqueness, and wide generality</strong>.</p>
-<p>From a scientific perspective, the likelihood function and p-value function provide the basis for scientific judgments by an investigator, and by other investigators who might have interest. <strong>It thus replaces a blunt yes or no decision by an opportunity for appropriate informed judgment.</strong>” - <a href="https://doi.org/10.1080/00031305.2018.1556735">D. A. S. Fraser, 2019</a></p>
-</blockquote>
+<hr>
 </div>
 <div id="examples" class="section level1">
 <h1 class="hasAnchor">
 <a href="#examples" class="anchor"></a>Examples</h1>
-<p><img src="https://res.cloudinary.com/less-likely/image/upload/v1568855498/Site/Figure1.png" align="center" width="400"><img src="https://res.cloudinary.com/less-likely/image/upload/v1568855498/Site/Figure2.png" align="center" width="400"></p>
 <hr>
+<div id="plot-publication-ready-interval-functions" class="section level2">
+<h2 class="hasAnchor">
+<a href="#plot-publication-ready-interval-functions" class="anchor"></a>Plot Publication-Ready Interval Functions</h2>
+<div id="consonance-surprisal-likelihood--deviance" class="section level3">
+<h3 class="hasAnchor">
+<a href="#consonance-surprisal-likelihood--deviance" class="anchor"></a>(Consonance, Surprisal, Likelihood, &amp; Deviance)</h3>
+<p><img src="https://res.cloudinary.com/less-likely/image/upload/v1574598684/Site/cfunction.png" align="center" width="400"><img src="https://res.cloudinary.com/less-likely/image/upload/v1574598684/Site/sfunction.png" align="center" width="400"><img src="https://res.cloudinary.com/less-likely/image/upload/v1574598684/Site/lfunction.png" align="center" width="400"><img src="https://res.cloudinary.com/less-likely/image/upload/v1574598684/Site/dfunction.png" align="center" width="400"></p>
+<hr>
+</div>
+</div>
+<div id="compare-interval-functions-from-different-datastudies" class="section level2">
+<h2 class="hasAnchor">
+<a href="#compare-interval-functions-from-different-datastudies" class="anchor"></a>Compare Interval Functions From Different Data/Studies</h2>
+<p><img src="https://res.cloudinary.com/less-likely/image/upload/v1574598684/Site/cfunctions.png" align="center" width="400"><img src="https://res.cloudinary.com/less-likely/image/upload/v1574598684/Site/sfunctions.png" align="center" width="400"><img src="https://res.cloudinary.com/less-likely/image/upload/v1574598684/Site/lfunctions.png" align="center" width="400"><img src="https://res.cloudinary.com/less-likely/image/upload/v1574598684/Site/dfunctions.png" align="center" width="400"></p>
+<hr>
+</div>
+<div id="export-tabled-results-easily-for-word-powerpoint--latex" class="section level2">
+<h2 class="hasAnchor">
+<a href="#export-tabled-results-easily-for-word-powerpoint--latex" class="anchor"></a>Export Tabled Results Easily For Word, Powerpoint, &amp; LaTeX</h2>
+<p><img src="https://res.cloudinary.com/less-likely/image/upload/v1574600583/Site/wordexport.png" align="center" width="700"></p>
+</div>
 </div>
 <div id="installation" class="section level1">
 <h1 class="hasAnchor">
@@ -158,14 +175,37 @@
 <li>metafor</li>
 <li>parallel</li>
 <li>dplyr</li>
+<li>tidyr</li>
+<li>knitr</li>
+<li>flextable</li>
+<li>officer</li>
 <li>tibble</li>
 <li>survival</li>
 <li>survminer</li>
 <li>scales</li>
 </ul>
 <hr>
+</div>
+<div id="purpose" class="section level1">
+<h1 class="hasAnchor">
+<a href="#purpose" class="anchor"></a>Purpose</h1>
 <blockquote>
-<p>"<em>Statistical software enables and promotes cargo-cult statistics. Marketing and adoption of statistical software are driven by ease of use and the range of statistical routines the software implements. Offering complex and “modern” methods provides a competitive advantage. And some disciplines have in effect standardised on particular statistical software, often proprietary software</em>.</p>
+<p>In particular, the usual 95% default forces the user’s focus onto parameter values that yield p &gt; 0.05, without regard to the trivial difference between (say) p = 0.06 and p = 0.04 (a difference not even worth a coin toss). To address this problem, we first note that a 95% interval estimate is only one of a number of arbitrary dichotomization of possibilities of parameter values (into either inside or outside of an interval). A more accurate picture of uncertainty is then obtained by examining intervals using other percentiles, e.g., proportionally-spaced compatibility levels such as p 0.25, 0.05, 0.01, which correspond to 75%, 95%, 99% CIs and equally-spaced S-values of s &lt; 2, 4.32, 6.64 bits. When a detailed picture is desired, a table or graph of all the P-values and S-values across a broad range of parameter values seems the clearest way to see how compatibility varies smoothly across the values.</p>
+<p>Graphs of P-values or their equivalent have been promoted for decades [34, 56–59], yet their adoption has been slight. Nonetheless, P-value and S-value graphing software is now available freely through several statistical packages [60–62]. A graph of the P-values p against possible parameter values allows one to see at a glance which parameter values are most compatible with the data under the background assumptions. This graph is known as the P-value function, or compatibility, consonance, or confidence curve [34, 57, 58, 63, 64]. Transforming the corresponding P-values in the graph to S-values produces an S-value (surprisal) function.</p>
+<p>Following the common (and important) warning that P-values are not hypothesis probabilities, we caution that the P-value graph is not a probability distribution: It shows compatibility of parameter values with the data, rather than plausibility or probability of those values given the data. This is not a subtle difference: compatibility is a much weaker condition than plausibility. Consider for example that complete fabrication of the data is always an explanation compatible with the data (and indeed has happened in some influential medical studies [65]), but in studies with many participants and authors involved in all aspects of data collection it becomes so implausible or improbable as to not even merit mention. We emphasize then that all the P-value ever addresses in a direct logical sense is compatibility; for hypothesis probabilities one must turn to Bayesian methods [25].</p>
+<ul>
+<li>
+<a href="https://arxiv.org/abs/1909.08579">Chow &amp; Greenland, 2019</a>; <a href="https://arxiv.org/abs/1909.08583">Greenland &amp; Chow, 2019</a>
+</li>
+</ul>
+</blockquote>
+<hr>
+<blockquote>
+<p>In addition to the overt statistical position, the p-value function also provides easily and accurately many of the familiar types of summary information: a <strong>median estimate</strong> of the parameter; a <strong>one-sided test statistic</strong> for a scalar parameter value at any chosen level; the related <strong>power function</strong>; a <strong>lower confidence bound</strong> at any level; an <strong>upper confidence bound</strong> at any level; and <strong>confidence intervals</strong> with chosen upper and lower confidence limits. The p value reports all the <strong>common inference material</strong>, but with <strong>high accuracy, basic uniqueness, and wide generality</strong>.</p>
+<p>From a scientific perspective, the <strong>likelihood function</strong> and <strong>p-value function</strong> provide the basis for scientific judgments by an investigator, and by other investigators who might have interest. <strong>It thus replaces a blunt yes or no decision by an opportunity for appropriate informed judgment.</strong>” - <a href="https://doi.org/10.1080/00031305.2018.1556735">Fraser, 2019</a></p>
+</blockquote>
+<hr>
+<blockquote>
 <p><em>Statistical software does not help you know what to compute, nor how to interpret the result. It does not offer to explain the assumptions behind methods, nor does it flag delicate or dubious assumptions. It does not warn you about multiplicity or p-hacking. It does not check whether you picked the hypothesis or analysis after looking at the data, nor track the number of analyses you tried before arriving at the one you sought to publish – another form of multiplicity. The more “powerful” and “user-friendly” the software is, the more it invites cargo-cult statistics</em>." - Stark &amp; Saltelli, 2018</p>
 </blockquote>
 </div>
@@ -173,18 +213,41 @@
 <h1 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h1>
 <ol>
-<li>Stark PB, Saltelli A. Cargo-cult statistics and scientific crisis. <em>Significance.</em> 2018;15(4):40-43.</li>
+<li>Chow ZR, Greenland S. Semantic and Cognitive Tools to Aid Statistical Inference: Replace Confidence and Significance by Compatibility and Surprise. <a href="https://arxiv.org/abs/1909.08579"><em>arXiv:1909.08579 [stat.ME]</em>.</a> 2019</li>
+<li>Greenland S, Chow ZR. To Aid Statistical Inference, Emphasize Unconditional Descriptions of Statistics. <a href="https://arxiv.org/abs/1909.08583"><em>arXiv:1909.08583 [stat.ME]</em>.</a> 2019</li>
 <li>Poole C. Beyond the confidence interval. <em>Am J Public Health.</em> 1987;77(2):195-199.</li>
-<li>Sullivan KM, Foster DA. Use of the confidence interval function. <em>Epidemiology.</em> 1990;1(1):39-42.</li>
+<li>Sullivan KM, Foster DA. Use of the confidence interval function._Epidemiology._ 1990;1(1):39-42.</li>
 <li>Rothman KJ, Greenland S, Lash TL. Modern epidemiology. 2012.</li>
 <li>Singh K, Xie M, Strawderman WE. Confidence distribution (CD) – distribution estimator of a parameter. <em>arXiv [mathST]</em>. 2007.</li>
 <li>Schweder T, Hjort NL. Confidence and Likelihood*. <em>Scand J Stat.</em> 2002;29(2):309-332.</li>
 <li>Amrhein V, Trafimow D, Greenland S. Inferential Statistics as Descriptive Statistics: There is No Replication Crisis if We Don’t Expect Replication. <em>Am Stat</em>. 2019</li>
 <li>Greenland S. Valid P-values Behave Exactly As They Should. Some misleading criticisms of P-values and their resolution with S-values. <em>Am Stat</em>. 2019;18(136).</li>
 <li>Fraser DAS. The p-value Function and Statistical Inference. <em>Am Stat</em>. 2019</li>
-<li>Chow ZR, Greenland S. Semantic and Cognitive Tools to Aid Statistical Inference: Replace Confidence and Significance by Compatibility and Surprise. <em>arXiv:1909.08579 [stat.ME]</em>. 2019</li>
-<li>Greenland S, Chow ZR. To Aid Statistical Inference, Emphasize Unconditional Descriptions of Statistics. <em>arXiv:1909.08583 [stat.ME]</em>. 2019</li>
+<li>Stark PB, Saltelli A. Cargo-cult statistics and scientific crisis. <em>Significance.</em> 2018;15(4):40-43.</li>
 </ol>
+</div>
+<div id="session-info" class="section level1">
+<h1 class="hasAnchor">
+<a href="#session-info" class="anchor"></a>Session info</h1>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="co">## R version 3.6.1 (2019-07-05)</span></a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="co">## Platform: x86_64-apple-darwin15.6.0 (64-bit)</span></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="co">## Running under: macOS Catalina 10.15.1</span></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="co">## </span></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="co">## Matrix products: default</span></a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="co">## BLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib</span></a>
+<a class="sourceLine" id="cb3-7" title="7"><span class="co">## LAPACK: /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib</span></a>
+<a class="sourceLine" id="cb3-8" title="8"><span class="co">## </span></a>
+<a class="sourceLine" id="cb3-9" title="9"><span class="co">## locale:</span></a>
+<a class="sourceLine" id="cb3-10" title="10"><span class="co">## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8</span></a>
+<a class="sourceLine" id="cb3-11" title="11"><span class="co">## </span></a>
+<a class="sourceLine" id="cb3-12" title="12"><span class="co">## attached base packages:</span></a>
+<a class="sourceLine" id="cb3-13" title="13"><span class="co">## [1] stats     graphics  grDevices utils     datasets  methods   base     </span></a>
+<a class="sourceLine" id="cb3-14" title="14"><span class="co">## </span></a>
+<a class="sourceLine" id="cb3-15" title="15"><span class="co">## loaded via a namespace (and not attached):</span></a>
+<a class="sourceLine" id="cb3-16" title="16"><span class="co">##  [1] compiler_3.6.1  magrittr_1.5    tools_3.6.1     htmltools_0.4.0</span></a>
+<a class="sourceLine" id="cb3-17" title="17"><span class="co">##  [5] yaml_2.2.0      Rcpp_1.0.3      stringi_1.4.3   rmarkdown_1.17 </span></a>
+<a class="sourceLine" id="cb3-18" title="18"><span class="co">##  [9] knitr_1.26      stringr_1.4.0   xfun_0.11       digest_0.6.23  </span></a>
+<a class="sourceLine" id="cb3-19" title="19"><span class="co">## [13] rlang_0.4.2     evaluate_0.14</span></a></code></pre></div>
 </div>
 
   </div>
@@ -234,6 +297,7 @@
 <li><a href="https://zenodo.org/badge/latestdoi/165464881"><img src="https://zenodo.org/badge/165464881.svg" alt="DOI"></a></li>
 <li><a href="https://cran.r-project.org/package=concurve"><img src="https://cranlogs.r-pkg.org/badges/grand-total/concurve"></a></li>
 <li><a href="http://www.rdocumentation.org/packages/concurve"><img src="http://www.rdocumentation.org/badges/version/concurve" alt="Rdoc"></a></li>
+<li><a href="https://www.gnu.org/licenses/gpl-3.0"><img src="https://img.shields.io/badge/License-GPL%20v3-blue.svg" alt="License: GPL v3"></a></li>
 </ul>
 </div>
 </div>

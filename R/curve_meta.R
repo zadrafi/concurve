@@ -25,9 +25,10 @@ curve_meta <- function(x, measure = "default", steps = 10000) {
     df$lower.limit <- exp(df$lower.limit)
     df$upper.limit <- exp(df$upper.limit)
   }
+  df$limit.ratio <- (df$upper.limit) / (df$lower.limit)
   df <- head(df, -1)
   return(df)
 }
 
 # RMD Check
-utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.level", "pvalue", "svalue"))
+utils::globalVariables(c("df", "lower.limit", "upper.limit", "limit.ratio", "intrvl.level", "pvalue", "svalue"))

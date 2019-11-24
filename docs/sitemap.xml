@@ -10,6 +10,9 @@
     <loc>https://data.lesslikely.com/concurve//reference/curve_gen.html</loc>
   </url>
   <url>
+    <loc>https://data.lesslikely.com/concurve//reference/curve_lik.html</loc>
+  </url>
+  <url>
     <loc>https://data.lesslikely.com/concurve//reference/curve_mean.html</loc>
   </url>
   <url>
@@ -22,10 +25,16 @@
     <loc>https://data.lesslikely.com/concurve//reference/curve_surv.html</loc>
   </url>
   <url>
+    <loc>https://data.lesslikely.com/concurve//reference/curve_table.html</loc>
+  </url>
+  <url>
     <loc>https://data.lesslikely.com/concurve//reference/defunct.html</loc>
   </url>
   <url>
     <loc>https://data.lesslikely.com/concurve//reference/ggconcurve.html</loc>
+  </url>
+  <url>
+    <loc>https://data.lesslikely.com/concurve//reference/plot_compare.html</loc>
   </url>
   <url>
     <loc>https://data.lesslikely.com/concurve//reference/plot_concurve.html</loc>

@@ -37,7 +37,7 @@ curve_rev <- function(point, LL, UL, measure = "default", steps = 10000) {
     df$lower.limit <- exp(df$lower.limit)
     df$upper.limit <- exp(df$upper.limit)
   }
-
+  df$limit.ratio <- (df$upper.limit) / (df$lower.limit)
   df$intrvl.level <- 1 - intrvls
   df$pvalue <- 1 - (1 - intrvls)
   df$svalue <- -log2(df$pvalue)
@@ -46,4 +46,4 @@ curve_rev <- function(point, LL, UL, measure = "default", steps = 10000) {
 }
 
 # RMD Check
-utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.level", "pvalue", "svalue"))
+utils::globalVariables(c("df", "lower.limit", "upper.limit", "limit.ratio", "intrvl.level", "pvalue", "svalue"))

@@ -66,16 +66,41 @@ Rothman KJ, Greenland S, Lash TL, Others. Modern epidemiology. 2008.
 \examples{
 # Simulate random data
 
-GroupA <- rnorm(50)
-GroupB <- rnorm(50)
+library(concurve)
+
+GroupA <- rnorm(500)
+GroupB <- rnorm(500)
 
 RandomData <- data.frame(GroupA, GroupB)
-RandomModel <- lm(GroupA ~ GroupB, data = RandomData)
 
-intervalsdf <- curve_gen(RandomModel, "GroupB")
 
-ggconcurve(type = "consonance", data = intervalsdf, nullvalue = "present")
+intervalsdf <- curve_mean(GroupA, GroupB,
+                          data = RandomData, method = "default"
+)
 
-ggconcurve(type = "surprisal", data = intervalsdf)
+
+(function1 <- ggconcurve(type = "consonance", intervalsdf, xaxis = ("\u0398 Range of Values")))
+
+GroupA2 <- rnorm(500)
+GroupB2 <- rnorm(500)
+
+RandomData2 <- data.frame(GroupA2, GroupB2)
+
+model <- lm(GroupA2 ~ GroupB2, data = RandomData2)
+
+randomframe <- curve_gen(model, "GroupB2")
+
+(function2 <- ggconcurve(type = "consonance", randomframe, levels = c(0.25, 0.50, 0.75, 0.85, 0.90, 0.95), nullvalue = "present", subtitle = "The function displays compatibility intervals at every level."))
+
+(function3 <- ggconcurve(type = "surprisal", randomframe, levels = c(0.25, 0.50, 0.75, 0.85, 0.90, 0.95), nullvalue = "present", subtitle = "The function displays compatibility intervals at every surprisal level."))
+
+lik1 <- curve_lik(point = 1.7, LL = 1.1, UL = 2.6, measure = "ratio", steps = 10000)
+
+(ggconcurve(data = lik1, type = "likelihood", measure = "ratio", nullvalue = "present",  subtitle = "The function displays likelihood intervals at every level."))
+
+lik2 <- curve_lik(point = 1.61, LL = 0.997, UL = 2.59, measure = "ratio", steps = 10000)
+
+(ggconcurve(data = lik2, type = "deviance", measure = "ratio", nullvalue = "present",
+subtitle = "The function displays deviance intervals at every level."))
 
 }

@@ -37,6 +37,7 @@ curve_mean <- function(x, y, data, paired = F, method = "default", replicates = 
   df <- data.frame(do.call(rbind, results))
   intrvl.limit <- c("lower.limit", "upper.limit")
   colnames(df) <- intrvl.limit
+  df$limit.ratio <- (df$upper.limit) / (df$lower.limit)
   df$intrvl.level <- intrvls
   df$pvalue <- 1 - intrvls
   df$svalue <- -log2(df$pvalue)
@@ -44,5 +45,6 @@ curve_mean <- function(x, y, data, paired = F, method = "default", replicates = 
   return(df)
 }
 
+
 # RMD Check
-utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.level", "pvalue", "svalue"))
+utils::globalVariables(c("df", "lower.limit", "upper.limit", "limit.ratio", "intrvl.level", "pvalue", "svalue"))

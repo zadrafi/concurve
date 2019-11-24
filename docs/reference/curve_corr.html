@@ -87,7 +87,7 @@ into a data frame along with the corresponding p-values and s-values." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.2.0</span>
       </span>
     </div>
 
@@ -201,18 +201,18 @@ this to 100 will produce 100 consonance intervals from 0 to 100. Setting this to
  <span class='kw'>alternative</span> <span class='kw'>=</span> <span class='st'>"two.sided"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"pearson"</span>)
 
 <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='no'>joe</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 10,000 x 1</span><span>
-#&gt;    joe$lower.limit $upper.limit $intrvl.level $pvalue  $svalue
-#&gt;              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span>           0.398        0.398      0          1     0       
-#&gt; </span><span style='color: #555555;'> 2</span><span>           0.398        0.398      0.000</span><span style='text-decoration: underline;'>1</span><span>     1.000 0.000</span><span style='text-decoration: underline;'>144</span><span>
-#&gt; </span><span style='color: #555555;'> 3</span><span>           0.398        0.398      0.000</span><span style='text-decoration: underline;'>2</span><span>     1.000 0.000</span><span style='text-decoration: underline;'>289</span><span>
-#&gt; </span><span style='color: #555555;'> 4</span><span>           0.398        0.398      0.000</span><span style='text-decoration: underline;'>300</span><span>   1.000 0.000</span><span style='text-decoration: underline;'>433</span><span>
-#&gt; </span><span style='color: #555555;'> 5</span><span>           0.398        0.398      0.000</span><span style='text-decoration: underline;'>4</span><span>     1.000 0.000</span><span style='text-decoration: underline;'>577</span><span>
-#&gt; </span><span style='color: #555555;'> 6</span><span>           0.398        0.398      0.000</span><span style='text-decoration: underline;'>5</span><span>     1.000 0.000</span><span style='text-decoration: underline;'>722</span><span>
-#&gt; </span><span style='color: #555555;'> 7</span><span>           0.398        0.398      0.000</span><span style='text-decoration: underline;'>600</span><span>   0.999 0.000</span><span style='text-decoration: underline;'>866</span><span>
-#&gt; </span><span style='color: #555555;'> 8</span><span>           0.398        0.398      0.000</span><span style='text-decoration: underline;'>7</span><span>     0.999 0.001</span><span style='text-decoration: underline;'>01</span><span> 
-#&gt; </span><span style='color: #555555;'> 9</span><span>           0.398        0.398      0.000</span><span style='text-decoration: underline;'>8</span><span>     0.999 0.001</span><span style='text-decoration: underline;'>15</span><span> 
-#&gt; </span><span style='color: #555555;'>10</span><span>           0.398        0.398      0.000</span><span style='text-decoration: underline;'>9</span><span>     0.999 0.001</span><span style='text-decoration: underline;'>30</span><span> 
+#&gt;    joe$lower.limit $upper.limit $limit.ratio $intrvl.level $pvalue  $svalue
+#&gt;              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span>           0.398        0.398         1         0          1     0       
+#&gt; </span><span style='color: #555555;'> 2</span><span>           0.398        0.398         1.00      0.000</span><span style='text-decoration: underline;'>1</span><span>     1.000 0.000</span><span style='text-decoration: underline;'>144</span><span>
+#&gt; </span><span style='color: #555555;'> 3</span><span>           0.398        0.398         1.00      0.000</span><span style='text-decoration: underline;'>2</span><span>     1.000 0.000</span><span style='text-decoration: underline;'>289</span><span>
+#&gt; </span><span style='color: #555555;'> 4</span><span>           0.398        0.398         1.00      0.000</span><span style='text-decoration: underline;'>300</span><span>   1.000 0.000</span><span style='text-decoration: underline;'>433</span><span>
+#&gt; </span><span style='color: #555555;'> 5</span><span>           0.398        0.398         1.00      0.000</span><span style='text-decoration: underline;'>4</span><span>     1.000 0.000</span><span style='text-decoration: underline;'>577</span><span>
+#&gt; </span><span style='color: #555555;'> 6</span><span>           0.398        0.398         1.00      0.000</span><span style='text-decoration: underline;'>5</span><span>     1.000 0.000</span><span style='text-decoration: underline;'>722</span><span>
+#&gt; </span><span style='color: #555555;'> 7</span><span>           0.398        0.398         1.00      0.000</span><span style='text-decoration: underline;'>600</span><span>   0.999 0.000</span><span style='text-decoration: underline;'>866</span><span>
+#&gt; </span><span style='color: #555555;'> 8</span><span>           0.398        0.398         1.00      0.000</span><span style='text-decoration: underline;'>7</span><span>     0.999 0.001</span><span style='text-decoration: underline;'>01</span><span> 
+#&gt; </span><span style='color: #555555;'> 9</span><span>           0.398        0.398         1.00      0.000</span><span style='text-decoration: underline;'>8</span><span>     0.999 0.001</span><span style='text-decoration: underline;'>15</span><span> 
+#&gt; </span><span style='color: #555555;'>10</span><span>           0.398        0.398         1.00      0.000</span><span style='text-decoration: underline;'>9</span><span>     0.999 0.001</span><span style='text-decoration: underline;'>30</span><span> 
 #&gt; </span><span style='color: #555555;'># … with 9,990 more rows</span><span></div><div class='input'>
 </div></span></pre>
   </div>
