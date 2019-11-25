@@ -11,7 +11,7 @@ curve_meta <- function(x, measure = "default", steps = 10000) {
     stop("Error: 'steps' must be a numeric vector")
   }
   intrvls <- (0:steps) / steps
-  results <- mclapply(intrvls, FUN = function(i) confint.default(object = x, fixed = TRUE, random = FALSE, level = i)[])
+  results <- mclapply(intrvls, FUN = function(i) confint.default(object = x, fixed = TRUE, random = FALSE, level = i)[], mc.cores = detectCores(logical = FALSE) - 1)
   df <- data.frame(do.call(rbind, results))
   intrvl.limit <- c("lower.limit", "upper.limit")
   colnames(df) <- intrvl.limit
@@ -25,10 +25,10 @@ curve_meta <- function(x, measure = "default", steps = 10000) {
     df$lower.limit <- exp(df$lower.limit)
     df$upper.limit <- exp(df$upper.limit)
   }
-  df$limit.ratio <- (df$upper.limit) / (df$lower.limit)
+  df$intrvl.width <- (abs((df$upper.limit) - (df$lower.limit)))
   df <- head(df, -1)
   return(df)
 }
 
 # RMD Check
-utils::globalVariables(c("df", "lower.limit", "upper.limit", "limit.ratio", "intrvl.level", "pvalue", "svalue"))
+utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.width", "intrvl.level", "pvalue", "svalue"))

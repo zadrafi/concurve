@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • concurve</title>
+<title>Compute and Compare the Area Under the Curve (AUC) for Two Different Datasets — curve_compare • concurve</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -50,7 +50,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Compute and Compare the Area Under the Curve (AUC) for Two Different Datasets — curve_compare" />
+<meta property="og:description" content="" />
 <meta property="og:image" content="https://data.lesslikely.com/concurve/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -71,7 +72,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -142,111 +143,81 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Compute and Compare the Area Under the Curve (AUC) for Two Different Datasets</h1>
+    
+    <div class="hidden name"><code>curve_compare.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p><!-- %%  ~~ A concise (1-5 lines) description of what the function does. ~~ --></p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>curve_compare</span>(<span class='no'>data1</span>, <span class='no'>data2</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"consonance"</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="curve_compare.html">curve_compare()</a></code> </p>
-        </td>
-        <td><p>Compute and Compare the Area Under the Curve (AUC) for Two Different Datasets</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="curve_corr.html">curve_corr()</a></code> </p>
-        </td>
-        <td><p>Computes consonance intervals for correlations</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="curve_gen.html">curve_gen()</a></code> </p>
-        </td>
-        <td><p>Computes consonance intervals for linear models</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="curve_lik.html">curve_lik()</a></code> </p>
-        </td>
-        <td><p>Computes Likelihood Intervals for Ratio Data
-<!-- %%  ~~function to do ... ~~ --></p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="curve_mean.html">curve_mean()</a></code> </p>
-        </td>
-        <td><p>Computes consonance intervals for mean differences</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="curve_meta.html">curve_meta()</a></code> </p>
-        </td>
-        <td><p>Computes consonance intervals for meta-analysis data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="curve_rev.html">curve_rev()</a></code> </p>
-        </td>
-        <td><p>Reverse engineer consonance and surprisal functions from confidence limits and point estimates</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="curve_surv.html">curve_surv()</a></code> </p>
-        </td>
-        <td><p>Produce Consonance Intervals for Survival Data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="curve_table.html">curve_table()</a></code> </p>
-        </td>
-        <td><p>Produces a Table of Relevant Statistics from the `concurve` functions
-<!-- %%  ~~function to do ... ~~ --></p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ggconcurve.html">ggconcurve()</a></code> </p>
-        </td>
-        <td><p>Plots the P-Value (Consonance) and S-value (Surprisal) Function via ggplot2</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plot_compare.html">plot_compare()</a></code> </p>
-        </td>
-        <td><p>Compares Different Functions on the Same Plot
-<!-- %%  ~~function to do ... ~~ --></p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plot_concurve.html">plot_concurve()</a></code> </p>
-        </td>
-        <td><p>Plots the P- (Consonance) and S-Value (Surprisal) Functions using base R graphics.</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>data1</th>
+      <td><p><!-- %%     ~~Describe \code{data1} here~~ --></p></td>
+    </tr>
+    <tr>
+      <th>data2</th>
+      <td><p><!-- %%     ~~Describe \code{data2} here~~ --></p></td>
+    </tr>
+    <tr>
+      <th>type</th>
+      <td><p><!-- %%     ~~Describe \code{type} here~~ --></p></td>
+    </tr>
+    <tr>
+      <th>plot</th>
+      <td><p><!-- %%     ~~Describe \code{plot} here~~ --></p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p><!-- %%     ~~Describe \code{\dots} here~~ --></p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p><!-- %%  ~~ If necessary, more details than the description above ~~ --></p>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p><!-- %%  ~Describe the value returned -->
+<!-- %%  If it is a LIST, use -->
+<!-- %%  \item{comp1 }{Description of 'comp1'} -->
+<!-- %%  \item{comp2 }{Description of 'comp2'} -->
+<!-- %% ... --></p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p><!-- %% ~put references to the literature/web site here ~ --></p>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p><!-- %%  ~~further notes~~ --></p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><!-- %% ~~objects to See Also as \code{\link{help}}, ~~~ --></p></div>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'></div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
+      <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#details">Details</a></li>
+      <li><a href="#value">Value</a></li>
+      <li><a href="#references">References</a></li>
+      <li><a href="#note">Note</a></li>
+      <li><a href="#see-also">See also</a></li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
+
+    <h2>Author</h2>
+    <p><!-- %%  ~~who you are~~ --></p>
   </div>
 </div>
 

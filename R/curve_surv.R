@@ -9,12 +9,12 @@ curve_surv <- function(data, x, steps = 10000) {
   }
 
   intrvls <- (1:steps) / steps
-  results <- mclapply(intrvls, FUN = function(i) summary(data, conf.int = i)$conf.int[x, ])
+  results <- mclapply(intrvls, FUN = function(i) summary(data, conf.int = i)$conf.int[x, ], mc.cores = detectCores(logical = FALSE) - 1)
 
   df <- data.frame(do.call(rbind, results))[, 3:4]
   intrvl.limit <- c("lower.limit", "upper.limit")
   colnames(df) <- intrvl.limit
-  df$limit.ratio <- (df$upper.limit) / (df$lower.limit)
+  df$intrvl.width <- (abs((df$upper.limit) - (df$lower.limit)))
   df$intrvl.level <- intrvls
   df$pvalue <- 1 - intrvls
   df$svalue <- -log2(df$pvalue)
@@ -23,4 +23,4 @@ curve_surv <- function(data, x, steps = 10000) {
 }
 
 # RMD Check
-utils::globalVariables(c("df", "lower.limit", "upper.limit", "limit.ratio", "intrvl.level", "pvalue", "svalue"))
+utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.width", "intrvl.level", "pvalue", "svalue"))

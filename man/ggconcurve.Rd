@@ -79,7 +79,7 @@ intervalsdf <- curve_mean(GroupA, GroupB,
 )
 
 
-(function1 <- ggconcurve(type = "consonance", intervalsdf, xaxis = ("\u0398 Range of Values")))
+(function1 <- ggconcurve(type = "consonance", intervalsdf))
 
 GroupA2 <- rnorm(500)
 GroupB2 <- rnorm(500)

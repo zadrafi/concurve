@@ -1,14 +1,15 @@
 plot_compare <- function(data1, data2, type = "consonance", measure = "default", nullvalue = "absent", position = "pyramid",
                          title = "Interval Functions",
                          subtitle = "The function displays intervals at every level.",
-                         xaxis = "\u0398 Range of Values",
+                         xaxis = expression(Theta~"Range of Values"),
                          yaxis = "P-value",
                          color = "#555555",
                          fill1 = "#239a98",
                          fill2 = "#d46c5b") {
-
+  cols <- c(fill1, fill2)
 
   # Consonance Function -----------------------------------------------------
+
   if (type == "consonance") {
     if (is.data.frame(data1) != TRUE) {
       stop("Error: 'x' must be a data frame from 'concurve'.")
@@ -51,40 +52,39 @@ plot_compare <- function(data1, data2, type = "consonance", measure = "default",
     }
     ggplot(data = data1) +
       geom_point(aes(x = lower.limit, y = pvalue),
-        color = color, fill = fill1, alpha = 0.5, shape = 20, size = 0.1
+        color = color, fill = fill1, alpha = 0.5, size = 0.1
       ) +
       geom_point(aes(x = upper.limit, y = pvalue),
-        color = color, fill = fill1, alpha = 0.5, shape = 20, size = 0.1
+        color = color, fill = fill1, alpha = 0.5, size = 0.1
       ) +
-      geom_ribbon(aes(x = lower.limit, ymin = min(pvalue), ymax = pvalue),
-        fill = fill1, alpha = 0.30
+      geom_ribbon(aes(x = lower.limit, ymin = min(pvalue), ymax = pvalue, fill = fill1),
+        alpha = 0.30
       ) +
-      geom_ribbon(aes(x = upper.limit, ymin = min(pvalue), ymax = pvalue),
-        fill = fill1, alpha = 0.30
+      geom_ribbon(aes(x = upper.limit, ymin = min(pvalue), ymax = pvalue, fill = fill1),
+        alpha = 0.30
       ) +
       geom_point(
         data = data2, aes(x = lower.limit, y = pvalue),
-        color = color, fill = fill2, alpha = 0.5, shape = 20, size = 0.1
+        color = color, fill = fill2, alpha = 0.5, size = 0.1
       ) +
       geom_point(
         data = data2, aes(x = upper.limit, y = pvalue),
-        color = color, fill = fill2, alpha = 0.5, shape = 20, size = 0.1
+        color = color, fill = fill2, alpha = 0.5, size = 0.1
       ) +
       geom_ribbon(
-        data = data2, aes(x = lower.limit, ymin = min(pvalue), ymax = pvalue),
-        fill = fill2, alpha = 0.30
+        data = data2, aes(x = lower.limit, ymin = min(pvalue), ymax = pvalue, fill = fill2),
+        alpha = 0.30
       ) +
       geom_ribbon(
-        data = data2, aes(x = upper.limit, ymin = min(pvalue), ymax = pvalue),
-        fill = fill2, alpha = 0.30
+        data = data2, aes(x = upper.limit, ymin = min(pvalue), ymax = pvalue, fill = fill2),
+        alpha = 0.30
       ) +
       theme_bw() +
       labs(
         title = title,
         subtitle = subtitle,
         x = xaxis,
-        y = yaxis,
-        color = fill1
+        y = yaxis
       ) +
       theme(
         plot.title = element_text(size = 12),
@@ -92,8 +92,27 @@ plot_compare <- function(data1, data2, type = "consonance", measure = "default",
         axis.title.x = element_text(size = 12),
         axis.title.y = element_text(size = 12),
         text = element_text(size = 11),
-        legend.position = "bottom"
+        legend.background = element_blank(),
+        legend.position = c(.998, .998),
+        legend.justification = c("right", "top"),
+        legend.key = element_rect(linetype = 1),
+        legend.key.size = unit(0.495, "cm")
       ) +
+      scale_fill_manual(
+        aesthetics = "fill",
+        values = cols,
+        labels = c("Study 1", "Study 2")
+      ) +
+      guides(fill = guide_legend(
+        title = "Identity",
+        title.theme = element_text(
+          size = 8
+        ),
+        label.theme = element_text(
+          size = 8
+        ),
+        label.hjust = 4.5
+      )) +
       {
         if (measure == "default") scale_x_continuous(breaks = scales::pretty_breaks(n = 10))
       } +
@@ -175,11 +194,11 @@ plot_compare <- function(data1, data2, type = "consonance", measure = "default",
       geom_point(aes(x = upper.limit, y = svalue),
         color = color, fill = fill1, alpha = 0.5, shape = 20, size = 0.1
       ) +
-      geom_ribbon(aes(x = lower.limit, ymin = max(svalue), ymax = svalue),
-        fill = fill1, alpha = 0.30
+      geom_ribbon(aes(x = lower.limit, ymin = max(svalue), ymax = svalue, fill = fill1),
+        alpha = 0.30
       ) +
-      geom_ribbon(aes(x = upper.limit, ymin = max(svalue), ymax = svalue),
-        fill = fill1, alpha = 0.30
+      geom_ribbon(aes(x = upper.limit, ymin = max(svalue), ymax = svalue, fill = fill1),
+        alpha = 0.30
       ) +
       geom_point(
         data = data2, aes(x = lower.limit, y = svalue),
@@ -190,11 +209,11 @@ plot_compare <- function(data1, data2, type = "consonance", measure = "default",
         color = color, fill = fill2, alpha = 0.5, shape = 20, size = 0.1
       ) +
       geom_ribbon(
-        data = data2, aes(x = lower.limit, ymin = max(svalue), ymax = svalue),
-        fill = fill2, alpha = 0.30
+        data = data2, aes(x = lower.limit, ymin = max(svalue), ymax = svalue, fill = fill2),
+        alpha = 0.30
       ) +
       geom_ribbon(
-        data = data2, aes(x = upper.limit, ymin = max(svalue), ymax = svalue),
+        data = data2, aes(x = upper.limit, ymin = max(svalue), ymax = svalue, fill = fill2),
         fill = fill2, alpha = 0.30
       ) +
       labs(
@@ -209,8 +228,28 @@ plot_compare <- function(data1, data2, type = "consonance", measure = "default",
         plot.subtitle = element_text(size = 11),
         axis.title.x = element_text(size = 12),
         axis.title.y = element_text(size = 12),
-        text = element_text(size = 11)
+        text = element_text(size = 11),
+        legend.background = element_blank(),
+        legend.position = c(.998, .2),
+        legend.justification = c("right", "top"),
+        legend.key = element_rect(linetype = 1),
+        legend.key.size = unit(0.495, "cm")
       ) +
+      scale_fill_manual(
+        aesthetics = "fill",
+        values = cols,
+        labels = c("Study 1", "Study 2")
+      ) +
+      guides(fill = guide_legend(
+        title = "Identity",
+        title.theme = element_text(
+          size = 8
+        ),
+        label.theme = element_text(
+          size = 8
+        ),
+        label.hjust = 4.5
+      )) +
       {
         if (measure == "default") scale_x_continuous(breaks = scales::pretty_breaks(n = 10))
       } +
@@ -255,9 +294,9 @@ plot_compare <- function(data1, data2, type = "consonance", measure = "default",
 
     ggplot(data = data1, mapping = aes(x = values, y = support)) +
       geom_line() +
-      geom_ribbon(aes(x = values, ymin = min(support), ymax = support), fill = fill1, alpha = 0.30) +
+      geom_ribbon(aes(x = values, ymin = min(support), ymax = support, fill = fill1), alpha = 0.30) +
       geom_line(data = data2) +
-      geom_ribbon(data = data2, aes(x = values, ymin = min(support), ymax = support), fill = fill2, alpha = 0.30) +
+      geom_ribbon(data = data2, aes(x = values, ymin = min(support), ymax = support, fill = fill2), alpha = 0.30) +
       labs(
         title = "Likelihood Functions",
         subtitle = subtitle,
@@ -266,13 +305,32 @@ plot_compare <- function(data1, data2, type = "consonance", measure = "default",
       ) +
       theme_bw() +
       theme(
-        plot.title = element_text(size = 14),
-        plot.subtitle = element_text(size = 12),
-        plot.caption = element_text(size = 8),
-        axis.title.x = element_text(size = 13),
-        axis.title.y = element_text(size = 13),
-        text = element_text(size = 15)
+        plot.title = element_text(size = 12),
+        plot.subtitle = element_text(size = 11),
+        axis.title.x = element_text(size = 12),
+        axis.title.y = element_text(size = 12),
+        text = element_text(size = 11),
+        legend.background = element_blank(),
+        legend.position = c(.998, .998),
+        legend.justification = c("right", "top"),
+        legend.key = element_rect(linetype = 1),
+        legend.key.size = unit(0.495, "cm")
       ) +
+      scale_fill_manual(
+        aesthetics = "fill",
+        values = cols,
+        labels = c("Study 1", "Study 2")
+      ) +
+      guides(fill = guide_legend(
+        title = "Identity",
+        title.theme = element_text(
+          size = 8
+        ),
+        label.theme = element_text(
+          size = 8
+        ),
+        label.hjust = 4.5
+      )) +
       {
         if (measure == "ratio") scale_x_log10(breaks = scales::pretty_breaks(n = 10))
       } +
@@ -290,6 +348,7 @@ plot_compare <- function(data1, data2, type = "consonance", measure = "default",
           )
         }
       }
+
     # Deviance Function -----------------------------------------------------
   } else if (type == "deviance") {
     if (ncol(data1) != 4) {
@@ -325,9 +384,9 @@ plot_compare <- function(data1, data2, type = "consonance", measure = "default",
 
     ggplot(data = data1, mapping = aes(x = values, y = deviancestat)) +
       geom_line() +
-      geom_ribbon(aes(x = values, ymin = deviancestat, ymax = max(deviancestat)), fill = fill1, alpha = 0.30) +
+      geom_ribbon(aes(x = values, ymin = deviancestat, ymax = max(deviancestat), fill = fill1), alpha = 0.30) +
       geom_line(data = data2) +
-      geom_ribbon(data = data2, aes(x = values, ymin = deviancestat, ymax = max(deviancestat)), fill = fill2, alpha = 0.30) +
+      geom_ribbon(data = data2, aes(x = values, ymin = deviancestat, ymax = max(deviancestat), fill = fill2), alpha = 0.30) +
       labs(
         title = "Deviance Functions",
         subtitle = subtitle,
@@ -336,13 +395,32 @@ plot_compare <- function(data1, data2, type = "consonance", measure = "default",
       ) +
       theme_bw() +
       theme(
-        plot.title = element_text(size = 14),
-        plot.subtitle = element_text(size = 12),
-        plot.caption = element_text(size = 8),
-        axis.title.x = element_text(size = 13),
-        axis.title.y = element_text(size = 13),
-        text = element_text(size = 15)
+        plot.title = element_text(size = 12),
+        plot.subtitle = element_text(size = 11),
+        axis.title.x = element_text(size = 12),
+        axis.title.y = element_text(size = 12),
+        text = element_text(size = 11),
+        legend.background = element_blank(),
+        legend.position = c(.998, .2),
+        legend.justification = c("right", "top"),
+        legend.key = element_rect(linetype = 1),
+        legend.key.size = unit(0.495, "cm")
       ) +
+      scale_fill_manual(
+        aesthetics = "fill",
+        values = cols,
+        labels = c("Study 1", "Study 2")
+      ) +
+      guides(fill = guide_legend(
+        title = "Identity",
+        title.theme = element_text(
+          size = 8
+        ),
+        label.theme = element_text(
+          size = 8
+        ),
+        label.hjust = 4.5
+      )) +
       {
         if (measure == "ratio") scale_x_log10(breaks = scales::pretty_breaks(n = 10))
       } +
@@ -365,4 +443,4 @@ plot_compare <- function(data1, data2, type = "consonance", measure = "default",
 
 
 # RMD Check
-utils::globalVariables(c("df", "lower.limit", "upper.limit", "limit.ratio", "intrvl.level", "pvalue", "svalue"))
+utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.width", "intrvl.level", "pvalue", "svalue"))

@@ -3,7 +3,7 @@ plot_concurve <- function(data,
                           measure = "default",
                           intervals = FALSE,
                           title = "Consonance Function",
-                          xlab = "Theta",
+                          xlab  = expression(Theta~"Range of Values"),
                           ylab1 = "P-value",
                           ylab2 = "Confidence Level (%)",
                           fontsize = 12,
@@ -104,50 +104,50 @@ plot_concurve <- function(data,
 
     # Labels for interval estimates and maximum likelihood
     if (intervals == TRUE) {
-    text(
-      x = 1.27, y = 3,
-      paste(
-        "Point Estimate:",
-        round(((max(data$lower.limit) + min(data$upper.limit)) / 2), 3)
-      ),
-      cex = 0.93, col = "black"
-    )
-    text(
-      x = 1.27, y = 10,
-      paste("50% CI:",
-        round(unname((quantile(data$lower.limit, prob = 0.50))), 3), "-",
-        round(unname((quantile(data$upper.limit, prob = 0.50))), 3),
-        sep = " ", collapse = ", "
-      ),
-      cex = 0.93, col = "black"
-    )
-    text(
-      x = 1.27, y = 17,
-      paste("75% CI:",
-        round(unname((quantile(data$lower.limit, prob = 0.25))), 3), "-",
-        round(unname((quantile(data$upper.limit, prob = 0.75))), 3),
-        sep = " ", collapse = ", "
-      ),
-      cex = 0.93, col = "black"
-    )
-    text(
-      x = 1.27, y = 24,
-      paste("95% CI:",
-        round(unname((quantile(data$lower.limit, prob = 0.05))), 3), "-",
-        round(unname((quantile(data$upper.limit, prob = 0.95))), 3),
-        sep = " ", collapse = ", "
-      ),
-      cex = 0.93, col = "black"
-    )
-    text(
-      x = 1.27, y = 31,
-      paste("99% CI:",
-        round(unname((quantile(data$lower.limit, prob = 0.01))), 3), "-",
-        round(unname((quantile(data$upper.limit, prob = 0.99))), 3),
-        sep = " ", collapse = ", "
-      ),
-      cex = 0.93, col = "black"
-    )
+      text(
+        x = 1.27, y = 3,
+        paste(
+          "Point Estimate:",
+          round(((max(data$lower.limit) + min(data$upper.limit)) / 2), 3)
+        ),
+        cex = 0.93, col = "black"
+      )
+      text(
+        x = 1.27, y = 10,
+        paste("50% CI:",
+          round(unname((quantile(data$lower.limit, prob = 0.50))), 3), "-",
+          round(unname((quantile(data$upper.limit, prob = 0.50))), 3),
+          sep = " ", collapse = ", "
+        ),
+        cex = 0.93, col = "black"
+      )
+      text(
+        x = 1.27, y = 17,
+        paste("75% CI:",
+          round(unname((quantile(data$lower.limit, prob = 0.25))), 3), "-",
+          round(unname((quantile(data$upper.limit, prob = 0.75))), 3),
+          sep = " ", collapse = ", "
+        ),
+        cex = 0.93, col = "black"
+      )
+      text(
+        x = 1.27, y = 24,
+        paste("95% CI:",
+          round(unname((quantile(data$lower.limit, prob = 0.05))), 3), "-",
+          round(unname((quantile(data$upper.limit, prob = 0.95))), 3),
+          sep = " ", collapse = ", "
+        ),
+        cex = 0.93, col = "black"
+      )
+      text(
+        x = 1.27, y = 31,
+        paste("99% CI:",
+          round(unname((quantile(data$lower.limit, prob = 0.01))), 3), "-",
+          round(unname((quantile(data$upper.limit, prob = 0.99))), 3),
+          sep = " ", collapse = ", "
+        ),
+        cex = 0.93, col = "black"
+      )
     }
   }
 
@@ -201,4 +201,4 @@ plot_concurve <- function(data,
 
 
 # RMD Check
-utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.level", "pvalue", "svalue"))
+utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.width", "intrvl.level", "pvalue", "svalue"))

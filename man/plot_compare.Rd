@@ -91,7 +91,7 @@ intervalsdf <- curve_mean(GroupA, GroupB,
 )
 
 
-(function1 <- ggconcurve(type = "consonance", intervalsdf, xaxis = ("\u0398 Range of Values")))
+(function1 <- ggconcurve(type = "consonance", intervalsdf, xaxis = expression(Theta~"= Range of Values")))
 
 GroupA2 <- rnorm(500)
 GroupB2 <- rnorm(500)
@@ -118,9 +118,9 @@ lik2 <- curve_lik(point = 1.61, LL = 0.997, UL = 2.59, measure = "ratio", steps 
 subtitle = "The function displays deviance intervals at every level."))
 
 
-(plot_compare(data1 = lik1, data2 = lik2, type = "likelihood",  measure = "ratio", nullvalue = "present", subtitle = "Comparison of Likelihood Functions", xaxis = "\u0398 = Hazard Ratio / Odds Ratio"))
+(plot_compare(data1 = lik1, data2 = lik2, type = "likelihood",  measure = "ratio", nullvalue = "present", subtitle = "Comparison of Likelihood Functions", xaxis = expression(Theta~"= Hazard Ratio / Odds Ratio")))
 
-(plot_compare(data1 = lik1, data2 = lik2, type = "deviance",  measure = "ratio", nullvalue = "present", subtitle = "Comparison of Deviance Functions",  xaxis = "\u0398 = Hazard Ratio / Odds Ratio"))
+(plot_compare(data1 = lik1, data2 = lik2, type = "deviance",  measure = "ratio", nullvalue = "present", subtitle = "Comparison of Deviance Functions",  xaxis = expression(Theta~"= Hazard Ratio / Odds Ratio")))
 
 
 }

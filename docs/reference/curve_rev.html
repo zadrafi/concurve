@@ -204,18 +204,18 @@ as it will take longer to produce all the intervals and store them into a datafr
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>curve_rev</span>(<span class='kw'>point</span> <span class='kw'>=</span> <span class='fl'>1.61</span>, <span class='kw'>LL</span> <span class='kw'>=</span> <span class='fl'>0.997</span>, <span class='kw'>UL</span> <span class='kw'>=</span> <span class='fl'>2.59</span>, <span class='kw'>measure</span> <span class='kw'>=</span> <span class='st'>"ratio"</span>)
 
 <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='no'>df</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 9,999 x 1</span><span>
-#&gt;    df$lower.limit $upper.limit $limit.ratio $intrvl.level   $pvalue $svalue
-#&gt;             </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span>          0.624         4.15         6.65         1.000 0.000</span><span style='text-decoration: underline;'>100</span><span>0   13.3 
-#&gt; </span><span style='color: #555555;'> 2</span><span>          0.651         3.98         6.12         1.000 0.000</span><span style='text-decoration: underline;'>200</span><span>    12.3 
-#&gt; </span><span style='color: #555555;'> 3</span><span>          0.667         3.88         5.82         1.000 0.000</span><span style='text-decoration: underline;'>300</span><span>    11.7 
-#&gt; </span><span style='color: #555555;'> 4</span><span>          0.680         3.81         5.61         1.000 0.000</span><span style='text-decoration: underline;'>400</span><span>    11.3 
-#&gt; </span><span style='color: #555555;'> 5</span><span>          0.690         3.76         5.45         1.000 0.000</span><span style='text-decoration: underline;'>500</span><span>    11.0 
-#&gt; </span><span style='color: #555555;'> 6</span><span>          0.698         3.71         5.32         0.999 0.000</span><span style='text-decoration: underline;'>6</span><span>      10.7 
-#&gt; </span><span style='color: #555555;'> 7</span><span>          0.705         3.68         5.21         0.999 0.000</span><span style='text-decoration: underline;'>7</span><span>      10.5 
-#&gt; </span><span style='color: #555555;'> 8</span><span>          0.712         3.64         5.12         0.999 0.000</span><span style='text-decoration: underline;'>8</span><span>      10.3 
-#&gt; </span><span style='color: #555555;'> 9</span><span>          0.717         3.61         5.04         0.999 0.000</span><span style='text-decoration: underline;'>9</span><span>      10.1 
-#&gt; </span><span style='color: #555555;'>10</span><span>          0.722         3.59         4.97         0.999 0.001        9.97
+#&gt;    df$lower.limit $upper.limit $intrvl.width $intrvl.level   $pvalue $svalue
+#&gt;             </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span>          0.624         4.15          3.53         1.000 0.000</span><span style='text-decoration: underline;'>100</span><span>0   13.3 
+#&gt; </span><span style='color: #555555;'> 2</span><span>          0.651         3.98          3.33         1.000 0.000</span><span style='text-decoration: underline;'>200</span><span>    12.3 
+#&gt; </span><span style='color: #555555;'> 3</span><span>          0.667         3.88          3.22         1.000 0.000</span><span style='text-decoration: underline;'>300</span><span>    11.7 
+#&gt; </span><span style='color: #555555;'> 4</span><span>          0.680         3.81          3.13         1.000 0.000</span><span style='text-decoration: underline;'>400</span><span>    11.3 
+#&gt; </span><span style='color: #555555;'> 5</span><span>          0.690         3.76          3.07         1.000 0.000</span><span style='text-decoration: underline;'>500</span><span>    11.0 
+#&gt; </span><span style='color: #555555;'> 6</span><span>          0.698         3.71          3.02         0.999 0.000</span><span style='text-decoration: underline;'>6</span><span>      10.7 
+#&gt; </span><span style='color: #555555;'> 7</span><span>          0.705         3.68          2.97         0.999 0.000</span><span style='text-decoration: underline;'>7</span><span>      10.5 
+#&gt; </span><span style='color: #555555;'> 8</span><span>          0.712         3.64          2.93         0.999 0.000</span><span style='text-decoration: underline;'>8</span><span>      10.3 
+#&gt; </span><span style='color: #555555;'> 9</span><span>          0.717         3.61          2.90         0.999 0.000</span><span style='text-decoration: underline;'>9</span><span>      10.1 
+#&gt; </span><span style='color: #555555;'>10</span><span>          0.722         3.59          2.87         0.999 0.001        9.97
 #&gt; </span><span style='color: #555555;'># … with 9,989 more rows</span><span></div><div class='input'>
 </div></span></pre>
   </div>

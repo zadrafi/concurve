@@ -40,7 +40,7 @@ v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org
 
 ## Export Tabled Results Easily For Word, Powerpoint, & LaTeX
 
-<img src = "https://res.cloudinary.com/less-likely/image/upload/v1574600583/Site/wordexport.png" align="center" width="700">
+<img src = "https://res.cloudinary.com/less-likely/image/upload/v1574628079/Site/tables.png" align="center" width="700">
 
 # Installation
 

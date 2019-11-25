@@ -210,16 +210,16 @@
                           <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>RandomData</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"default"</span>
 )
 
-(<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'>curve_table</span>(<span class='no'>intervalsdf</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"data.frame"</span>))</div><div class='output co'>#&gt;      Lower Limit Upper Limit Limit Ratio Interval Level (%) P-value
-#&gt; 2501       0.043       0.083       1.911               25.0   0.750
-#&gt; 5001       0.021       0.105       4.930               50.0   0.500
-#&gt; 7501      -0.008       0.135     -16.319               75.0   0.250
-#&gt; 8001      -0.016       0.143      -8.704               80.0   0.200
-#&gt; 8501      -0.026       0.153      -5.819               85.0   0.150
-#&gt; 9001      -0.039       0.166      -4.241               90.0   0.100
-#&gt; 9501      -0.059       0.185      -3.156               95.0   0.050
-#&gt; 9751      -0.076       0.203      -2.660               97.5   0.025
-#&gt; 9901      -0.097       0.224      -2.303               99.0   0.010
+(<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'>curve_table</span>(<span class='no'>intervalsdf</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"data.frame"</span>))</div><div class='output co'>#&gt;      Lower Limit Upper Limit Interval Width Interval Level (%) P-value
+#&gt; 2501       0.043       0.083          0.040               25.0   0.750
+#&gt; 5001       0.021       0.105          0.084               50.0   0.500
+#&gt; 7501      -0.008       0.135          0.143               75.0   0.250
+#&gt; 8001      -0.016       0.143          0.159               80.0   0.200
+#&gt; 8501      -0.026       0.153          0.179               85.0   0.150
+#&gt; 9001      -0.039       0.166          0.205               90.0   0.100
+#&gt; 9501      -0.059       0.185          0.244               95.0   0.050
+#&gt; 9751      -0.076       0.203          0.279               97.5   0.025
+#&gt; 9901      -0.097       0.224          0.321               99.0   0.010
 #&gt;      S-value (bits)
 #&gt; 2501          0.415
 #&gt; 5001          1.000
@@ -230,40 +230,40 @@
 #&gt; 9501          4.322
 #&gt; 9751          5.322
 #&gt; 9901          6.644</div><div class='input'>(<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'>curve_table</span>(<span class='no'>intervalsdf</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"tibble"</span>))</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 9 x 1</span><span>
-#&gt;   subdf$`Lower Li… $`Upper Limit` $`Limit Ratio` $`Interval Leve… $`P-value`
-#&gt;              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>            0.043          0.083           1.91             25        0.75 
-#&gt; </span><span style='color: #555555;'>2</span><span>            0.021          0.105           4.93             50        0.5  
-#&gt; </span><span style='color: #555555;'>3</span><span>           -</span><span style='color: #BB0000;'>0.008</span><span>          0.135         -</span><span style='color: #BB0000;'>16.3</span><span>              75        0.25 
-#&gt; </span><span style='color: #555555;'>4</span><span>           -</span><span style='color: #BB0000;'>0.016</span><span>          0.143          -</span><span style='color: #BB0000;'>8.70</span><span>             80        0.2  
-#&gt; </span><span style='color: #555555;'>5</span><span>           -</span><span style='color: #BB0000;'>0.026</span><span>          0.153          -</span><span style='color: #BB0000;'>5.82</span><span>             85        0.15 
-#&gt; </span><span style='color: #555555;'>6</span><span>           -</span><span style='color: #BB0000;'>0.039</span><span>          0.166          -</span><span style='color: #BB0000;'>4.24</span><span>             90        0.1  
-#&gt; </span><span style='color: #555555;'>7</span><span>           -</span><span style='color: #BB0000;'>0.059</span><span>          0.185          -</span><span style='color: #BB0000;'>3.16</span><span>             95        0.05 
-#&gt; </span><span style='color: #555555;'>8</span><span>           -</span><span style='color: #BB0000;'>0.076</span><span>          0.203          -</span><span style='color: #BB0000;'>2.66</span><span>             97.5      0.025
-#&gt; </span><span style='color: #555555;'>9</span><span>           -</span><span style='color: #BB0000;'>0.097</span><span>          0.224          -</span><span style='color: #BB0000;'>2.30</span><span>             99        0.01 
+#&gt;   subdf$`Lower Li… $`Upper Limit` $`Interval Widt… $`Interval Leve… $`P-value`
+#&gt;              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>            0.043          0.083            0.04              25        0.75 
+#&gt; </span><span style='color: #555555;'>2</span><span>            0.021          0.105            0.084             50        0.5  
+#&gt; </span><span style='color: #555555;'>3</span><span>           -</span><span style='color: #BB0000;'>0.008</span><span>          0.135            0.143             75        0.25 
+#&gt; </span><span style='color: #555555;'>4</span><span>           -</span><span style='color: #BB0000;'>0.016</span><span>          0.143            0.159             80        0.2  
+#&gt; </span><span style='color: #555555;'>5</span><span>           -</span><span style='color: #BB0000;'>0.026</span><span>          0.153            0.179             85        0.15 
+#&gt; </span><span style='color: #555555;'>6</span><span>           -</span><span style='color: #BB0000;'>0.039</span><span>          0.166            0.205             90        0.1  
+#&gt; </span><span style='color: #555555;'>7</span><span>           -</span><span style='color: #BB0000;'>0.059</span><span>          0.185            0.244             95        0.05 
+#&gt; </span><span style='color: #555555;'>8</span><span>           -</span><span style='color: #BB0000;'>0.076</span><span>          0.203            0.279             97.5      0.025
+#&gt; </span><span style='color: #555555;'>9</span><span>           -</span><span style='color: #BB0000;'>0.097</span><span>          0.224            0.321             99        0.01 
 #&gt; </span><span style='color: #555555;'># … with 1 more variable: $`S-value (bits)` </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div><div class='input'>(<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'>curve_table</span>(<span class='no'>intervalsdf</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"latex"</span>))</div><div class='output co'>#&gt; 
 #&gt; 
-#&gt; |     | Lower Limit| Upper Limit| Limit Ratio| Interval Level (%)| P-value| S-value (bits)|
-#&gt; |:----|-----------:|-----------:|-----------:|------------------:|-------:|--------------:|
-#&gt; |2501 |       0.043|       0.083|       1.911|               25.0|   0.750|          0.415|
-#&gt; |5001 |       0.021|       0.105|       4.930|               50.0|   0.500|          1.000|
-#&gt; |7501 |      -0.008|       0.135|     -16.319|               75.0|   0.250|          2.000|
-#&gt; |8001 |      -0.016|       0.143|      -8.704|               80.0|   0.200|          2.322|
-#&gt; |8501 |      -0.026|       0.153|      -5.819|               85.0|   0.150|          2.737|
-#&gt; |9001 |      -0.039|       0.166|      -4.241|               90.0|   0.100|          3.322|
-#&gt; |9501 |      -0.059|       0.185|      -3.156|               95.0|   0.050|          4.322|
-#&gt; |9751 |      -0.076|       0.203|      -2.660|               97.5|   0.025|          5.322|
-#&gt; |9901 |      -0.097|       0.224|      -2.303|               99.0|   0.010|          6.644|</div><div class='input'>(<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'>curve_table</span>(<span class='no'>intervalsdf</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"image"</span>))</div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `Lower Limit`, `Upper Limit`, `Limit Ratio`, `Interval Level (%)`, `P-value`, `S-value (bits)` 
+#&gt; |     | Lower Limit| Upper Limit| Interval Width| Interval Level (%)| P-value| S-value (bits)|
+#&gt; |:----|-----------:|-----------:|--------------:|------------------:|-------:|--------------:|
+#&gt; |2501 |       0.043|       0.083|          0.040|               25.0|   0.750|          0.415|
+#&gt; |5001 |       0.021|       0.105|          0.084|               50.0|   0.500|          1.000|
+#&gt; |7501 |      -0.008|       0.135|          0.143|               75.0|   0.250|          2.000|
+#&gt; |8001 |      -0.016|       0.143|          0.159|               80.0|   0.200|          2.322|
+#&gt; |8501 |      -0.026|       0.153|          0.179|               85.0|   0.150|          2.737|
+#&gt; |9001 |      -0.039|       0.166|          0.205|               90.0|   0.100|          3.322|
+#&gt; |9501 |      -0.059|       0.185|          0.244|               95.0|   0.050|          4.322|
+#&gt; |9751 |      -0.076|       0.203|          0.279|               97.5|   0.025|          5.322|
+#&gt; |9901 |      -0.097|       0.224|          0.321|               99.0|   0.010|          6.644|</div><div class='input'>(<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'>curve_table</span>(<span class='no'>intervalsdf</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"image"</span>))</div><div class='output co'>#&gt; a flextable object.
+#&gt; col_keys: `Lower Limit`, `Upper Limit`, `Interval Width`, `Interval Level (%)`, `P-value`, `S-value (bits)` 
 #&gt; header has 1 row(s) 
 #&gt; body has 9 row(s) 
 #&gt; original dataset sample: 
-#&gt;      Lower Limit Upper Limit Limit Ratio Interval Level (%) P-value
-#&gt; 2501       0.043       0.083       1.911                 25    0.75
-#&gt; 5001       0.021       0.105       4.930                 50    0.50
-#&gt; 7501      -0.008       0.135     -16.319                 75    0.25
-#&gt; 8001      -0.016       0.143      -8.704                 80    0.20
-#&gt; 8501      -0.026       0.153      -5.819                 85    0.15
+#&gt;      Lower Limit Upper Limit Interval Width Interval Level (%) P-value
+#&gt; 2501       0.043       0.083          0.040                 25    0.75
+#&gt; 5001       0.021       0.105          0.084                 50    0.50
+#&gt; 7501      -0.008       0.135          0.143                 75    0.25
+#&gt; 8001      -0.016       0.143          0.159                 80    0.20
+#&gt; 8501      -0.026       0.153          0.179                 85    0.15
 #&gt;      S-value (bits)
 #&gt; 2501          0.415
 #&gt; 5001          1.000

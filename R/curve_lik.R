@@ -17,8 +17,8 @@ curve_lik <- function(point, LL, UL, measure = "ratio", steps = 10000) {
 
   if (measure == "default") {
     se <- (UL / LL) / 3.92
-    LL <- mclapply(z, FUN = function(i) point + (i * se))
-    UL <- mclapply(z, FUN = function(i) point - (i * se))
+    LL <- mclapply(z, FUN = function(i) point + (i * se), mc.cores = detectCores(logical = FALSE) - 1)
+    UL <- mclapply(z, FUN = function(i) point - (i * se), mc.cores = detectCores(logical = FALSE) - 1)
     df <- data.frame(do.call(rbind, UL), do.call(rbind, LL))
     intrvl.limit <- c("lower.limit", "upper.limit")
     colnames(df) <- intrvl.limit
@@ -27,8 +27,8 @@ curve_lik <- function(point, LL, UL, measure = "ratio", steps = 10000) {
   else if (measure == "ratio") {
     se <- log(UL / LL) / 3.92
     logpoint <- log(point)
-    logLL <- mclapply(z, FUN = function(i) logpoint + (i * se))
-    logUL <- mclapply(z, FUN = function(i) logpoint - (i * se))
+    logLL <- mclapply(z, FUN = function(i) logpoint + (i * se), mc.cores = detectCores(logical = FALSE) - 1)
+    logUL <- mclapply(z, FUN = function(i) logpoint - (i * se), mc.cores = detectCores(logical = FALSE) - 1)
     df <- data.frame(do.call(rbind, logUL), do.call(rbind, logLL))
     intrvl.limit <- c("lower.limit", "upper.limit")
     colnames(df) <- intrvl.limit

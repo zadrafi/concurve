@@ -18,7 +18,7 @@ curve_mean <- function(x, y, data, paired = F, method = "default", replicates = 
   }
   intrvls <- (0:steps) / steps
   if (method == "default") {
-    results <- mclapply(intrvls, FUN = function(i) t.test(x, y, data = data, paired = paired, conf.level = i)$conf.int[])
+    results <- mclapply(intrvls, FUN = function(i) t.test(x, y, data = data, paired = paired, conf.level = i)$conf.int[], mc.cores = detectCores(logical = FALSE) - 1)
   } else if (method == "boot") {
     diff <- mean(x) - mean(y)
     if (paired) {
@@ -32,12 +32,12 @@ curve_mean <- function(x, y, data, paired = F, method = "default", replicates = 
           mean(sample(y, length(y), replace = T))
       ) - diff
     }
-    results <- mclapply(intrvls, FUN = function(i) diff - quantile(boot_dist, probs = (1 + c(i, -i)) / 2))
+    results <- mclapply(intrvls, FUN = function(i) diff - quantile(boot_dist, probs = (1 + c(i, -i)) / 2), mc.cores = detectCores(logical = FALSE) - 1)
   }
   df <- data.frame(do.call(rbind, results))
   intrvl.limit <- c("lower.limit", "upper.limit")
   colnames(df) <- intrvl.limit
-  df$limit.ratio <- (df$upper.limit) / (df$lower.limit)
+  df$intrvl.width <- (abs((df$upper.limit) - (df$lower.limit)))
   df$intrvl.level <- intrvls
   df$pvalue <- 1 - intrvls
   df$svalue <- -log2(df$pvalue)
@@ -47,4 +47,4 @@ curve_mean <- function(x, y, data, paired = F, method = "default", replicates = 
 
 
 # RMD Check
-utils::globalVariables(c("df", "lower.limit", "upper.limit", "limit.ratio", "intrvl.level", "pvalue", "svalue"))
+utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.width", "intrvl.level", "pvalue", "svalue"))

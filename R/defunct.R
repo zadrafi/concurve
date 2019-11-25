@@ -1,4 +1,6 @@
-defunct <- function(msg = "This function is deprecated") function(...) return(stop(msg))
+defunct <- function(msg = "This function is deprecated") function(...) {
+  return(stop(msg))
+}
 
 # Graphical functions
 plotpint <- defunct("plotpint() is now deprecated. Please use ggconcurve() or plot_concurve() instead.")
@@ -11,4 +13,3 @@ genintervals <- defunct("genintervals() is now deprecated. Please use curve_gen(
 corrintervals <- defunct("corrintervals() is now deprecated. Please use curve_corr() instead.")
 survintervals <- defunct("survintervals() is now deprecated. Please use curve_surv() instead.")
 rev_eng <- defunct("rev_eng() is now deprecated. Please use curve_rev instead.")
-

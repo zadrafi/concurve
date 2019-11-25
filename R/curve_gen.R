@@ -15,11 +15,11 @@ curve_gen <- function(model, var, method = "default", replicates = 1000, steps =
   }
   intrvls <- (0:steps) / steps
   if (method == "default") {
-    results <- mclapply(intrvls, FUN = function(i) confint(object = model, level = i)[var, ])
+    results <- mclapply(intrvls, FUN = function(i) confint(object = model, level = i)[var, ], mc.cores = detectCores(logical = FALSE) - 1)
   } else if (method == "Wald") {
-    results <- mclapply(intrvls, FUN = function(i) confint.default(object = model, level = i)[var, ])
+    results <- mclapply(intrvls, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = detectCores(logical = FALSE) - 1)
   } else if (method == "lm") {
-    results <- mclapply(intrvls, FUN = function(i) confint.lm(object = model, level = i)[var, ])
+    results <- mclapply(intrvls, FUN = function(i) confint.lm(object = model, level = i)[var, ], mc.cores = detectCores(logical = FALSE) - 1)
   } else if (method == "boot") {
     effect <- coef(model)[[var]]
     boot_dist <- replicate(replicates,
@@ -27,13 +27,13 @@ curve_gen <- function(model, var, method = "default", replicates = 1000, steps =
         data = model$model[sample(nrow(model$model), replace = T), ]
       ))[[var]]
     ) - effect
-    results <- mclapply(intrvls, FUN = function(i) effect - quantile(boot_dist, probs = (1 + c(i, -i)) / 2))
+    results <- mclapply(intrvls, FUN = function(i) effect - quantile(boot_dist, probs = (1 + c(i, -i)) / 2), mc.cores = detectCores(logical = FALSE) - 1)
   }
 
   df <- data.frame(do.call(rbind, results))
   intrvl.limit <- c("lower.limit", "upper.limit")
   colnames(df) <- intrvl.limit
-  df$limit.ratio <- (df$upper.limit) / (df$lower.limit)
+  df$intrvl.width <- (abs((df$upper.limit) - (df$lower.limit)))
   df$intrvl.level <- intrvls
   df$pvalue <- 1 - intrvls
   df$svalue <- -log2(df$pvalue)
@@ -42,4 +42,4 @@ curve_gen <- function(model, var, method = "default", replicates = 1000, steps =
 }
 
 # RMD Check
-utils::globalVariables(c("df", "lower.limit", "upper.limit", "limit.ratio", "intrvl.level", "pvalue", "svalue"))
+utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.width", "intrvl.level", "pvalue", "svalue"))

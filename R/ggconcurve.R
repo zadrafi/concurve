@@ -1,7 +1,7 @@
 ggconcurve <- function(data, type = "consonance", measure = "default", levels = 0.95, nullvalue = "absent", position = "pyramid",
                        title = "Interval Function",
                        subtitle = "The function displays intervals at every level.",
-                       xaxis = "\u0398 Range of Values",
+                       xaxis = expression(Theta~"Range of Values"),
                        yaxis = "P-value",
                        color = "#555555",
                        fill = "#239a98") {
@@ -41,9 +41,9 @@ ggconcurve <- function(data, type = "consonance", measure = "default", levels = 
 
     # Plotting Intervals ------------------------------------------------------
 
-    interval <- mclapply(levels, FUN = function(i) (c(i, subset(data, intrvl.level == i)[, 1], subset(data, intrvl.level == i)[, 2])))
+    interval <- mclapply(levels, FUN = function(i) (c(i, subset(data, intrvl.level == i)[, 1], subset(data, intrvl.level == i)[, 2])), mc.cores = detectCores(logical = FALSE) - 1)
     interval <- data.frame(do.call(rbind, interval))
-    interval <- gather(interval, key = "levels", value = "limits", X2:X3)
+    interval <- pivot_longer(interval, X2:X3, names_to = "levels", values_to = "limits")
     interval <- interval[, -2]
     colum_names <- c("levels", "limits")
     colnames(interval) <- colum_names
@@ -146,7 +146,7 @@ ggconcurve <- function(data, type = "consonance", measure = "default", levels = 
 
     # Plotting Intervals ------------------------------------------------------
 
-    interval <- mclapply(levels, FUN = function(i) (c(i, subset(data, intrvl.level == i)[, 1], subset(data, intrvl.level == i)[, 2])))
+    interval <- mclapply(levels, FUN = function(i) (c(i, subset(data, intrvl.level == i)[, 1], subset(data, intrvl.level == i)[, 2])), mc.cores = detectCores(logical = FALSE) - 1)
     interval <- data.frame(do.call(rbind, interval))
     interval <- gather(interval, key = "levels", value = "limits", X2:X3)
     interval <- interval[, -2]
