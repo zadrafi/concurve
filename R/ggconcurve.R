@@ -133,9 +133,6 @@ ggconcurve <- function(data, type = "consonance", measure = "default", levels = 
     if (is.character(subtitle) != TRUE) {
       stop("Error: 'subtitle' must be a string.")
     }
-    if (is.character(xaxis) != TRUE) {
-      stop("Error: 'xaxis' must be a string.")
-    }
     if (is.character(yaxis) != TRUE) {
       stop("Error: 'yaxis' must be a string.")
     }
@@ -211,9 +208,6 @@ ggconcurve <- function(data, type = "consonance", measure = "default", levels = 
     if (is.character(subtitle) != TRUE) {
       stop("Error: 'subtitle' must be a string.")
     }
-    if (is.character(xaxis) != TRUE) {
-      stop("Error: 'xaxis' must be a string.")
-    }
     if (is.character(yaxis) != TRUE) {
       stop("Error: 'yaxis' must be a string.")
     }
@@ -276,9 +270,6 @@ ggconcurve <- function(data, type = "consonance", measure = "default", levels = 
     }
     if (is.character(subtitle) != TRUE) {
       stop("Error: 'subtitle' must be a string.")
-    }
-    if (is.character(xaxis) != TRUE) {
-      stop("Error: 'xaxis' must be a string.")
     }
     if (is.character(yaxis) != TRUE) {
       stop("Error: 'yaxis' must be a string.")
