@@ -1,5 +1,7 @@
-defunct <- function(msg = "This function is deprecated") function(...) {
-  return(stop(msg))
+defunct <- function(msg = "This function is deprecated") {
+  function(...) {
+    return(stop(msg))
+  }
 }
 
 # Graphical functions

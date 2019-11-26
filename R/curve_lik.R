@@ -51,9 +51,10 @@ curve_lik <- function(point, LL, UL, measure = "ratio", steps = 10000) {
 
   support <- exp((-zscore^2) / 2)
   deviancestat <- (zscore^2)
-
-  likfunction <- data.frame(values, zscore, support, deviancestat)
+  likelihood <- support * (log(point))
+  loglikelihood <- log(likelihood)
+  likfunction <- data.frame(values, zscore, likelihood, loglikelihood, support, deviancestat)
   return(likfunction)
 }
 
-utils::globalVariables(c("likfunction", "values", "zscore", "support", "deviancestat"))
+utils::globalVariables(c("likfunction", "values", "zscore", "likelihood", "loglikelihood", "support", "deviancestat"))

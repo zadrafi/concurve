@@ -1,8 +1,8 @@
-curve_compare <- function(data1, data2, type = "consonance", plot = TRUE, ...) {
+curve_compare <- function(data1, data2, type = "c", plot = TRUE, ...) {
 
   # Consonance Function -----------------------------------------------------
 
-  if (type == "consonance") {
+  if (type == "c") {
     if (is.data.frame(data1) != TRUE) {
       stop("Error: 'x' must be a data frame from 'concurve'.")
     }
@@ -16,7 +16,7 @@ curve_compare <- function(data1, data2, type = "consonance", plot = TRUE, ...) {
       stop("Error: 'x' must be a data frame from 'concurve'.")
     }
     if (plot == TRUE) {
-      plot_comparison <- (plot_compare(data1, data2, type = "consonance", ...))
+      plot_comparison <- (plot_compare(data1, data2, type = "c", ...))
     } else if (plot == FALSE) {
 
     }
@@ -67,7 +67,7 @@ curve_compare <- function(data1, data2, type = "consonance", plot = TRUE, ...) {
 
 
     # Surprisal Function ------------------------------------------------------
-  } else if (type == "surprisal") {
+  } else if (type == "s") {
     if (is.data.frame(data1) != TRUE) {
       stop("Error: 'x' must be a data frame from 'concurve'.")
     }
@@ -82,7 +82,7 @@ curve_compare <- function(data1, data2, type = "consonance", plot = TRUE, ...) {
     }
 
     if (plot == TRUE) {
-      plot_comparison <- (plot_compare(data1, data2, type = "surprisal", ...))
+      plot_comparison <- (plot_compare(data1, data2, type = "s", ...))
     } else if (plot == FALSE) {
 
     }

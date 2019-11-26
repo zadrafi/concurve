@@ -88,6 +88,11 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "compiler",
+      "name": "compiler"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "ggplot2",
       "name": "ggplot2",
       "provider": {
@@ -220,7 +225,7 @@
     }
   ],
   "keywords": ["confidence", "compatibility", "consonance", "surprisal", "interval", "function", "curve"],
-  "fileSize": "3840.811KB",
+  "fileSize": "3841.184KB",
   "contIntegration": [
     "https://travis-ci.org/Zadchow/concurve",
     "https://ci.appveyor.com/project/Zadchow/concurve",
