@@ -16,6 +16,8 @@ Description: Allows one to compute consonance (confidence) intervals for various
 Imports: parallel,
          compiler,
          ggplot2,
+         ggthemes,
+         Cairo,
          metafor,
          dplyr,
          tidyr,

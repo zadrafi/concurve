@@ -23,11 +23,11 @@ curve_gen <- function(model, var, method = "default", replicates = 1000, steps =
   } else if (method == "boot") {
     effect <- coef(model)[[var]]
     boot_dist <- replicate(replicates,
-      expr = coef(lm(model$call$formula,
-        data = model$model[sample(nrow(model$model), replace = T), ]
+      expr = coef(glm(model$call$formula,
+        data = model$model[sample(nrow(model$model), family = model$family$family)]
       ))[[var]]
     ) - effect
-    results <- mclapply(intrvls, FUN = function(i) effect - quantile(boot_dist, probs = (1 + c(i, -i)) / 2), mc.cores = detectCores(logical = FALSE) - 1)
+    results <- mclapply(intrvls, FUN = function(i) effect - quantile(boot_dist, probs = (1 + c(i, -i)) / 2), mc.cores = detectCores() - 1)
   }
 
   df <- data.frame(do.call(rbind, results))

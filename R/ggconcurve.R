@@ -5,6 +5,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
                        yaxis = "P-value",
                        color = "#000000",
                        fill = "#239a98") {
+  Cairo.capabilities()
 
   # Consonance Function -----------------------------------------------------
 
@@ -70,7 +71,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
         x = xaxis,
         y = yaxis
       ) +
-      theme_bw() +
+      theme_hc() +
       theme(
         plot.title = element_text(size = 12),
         plot.subtitle = element_text(size = 11),
@@ -171,7 +172,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
         x = xaxis,
         y = "S-value \n(Bits of Information)"
       ) +
-      theme_bw() +
+      theme_hc() +
       theme(
         plot.title = element_text(size = 12),
         plot.subtitle = element_text(size = 11),
@@ -224,7 +225,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
         x = xaxis,
         y = "Relative Likelihood \n(1/MLR)"
       ) +
-      theme_bw() +
+      theme_hc() +
       theme(
         plot.title = element_text(size = 16),
         plot.subtitle = element_text(size = 12),
@@ -287,7 +288,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
         x = xaxis,
         y = "Log Likelihood"
       ) +
-      theme_bw() +
+      theme_hc() +
       theme(
         plot.title = element_text(size = 16),
         plot.subtitle = element_text(size = 12),
@@ -303,13 +304,13 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
       if (nullvalue == TRUE) {
         if (measure == "default") {
           annotate("segment",
-                   x = 0, xend = 0, y = 0, yend = 1,
-                   color = "#990000", alpha = 0.3, size = .75, linetype = 1
+            x = 0, xend = 0, y = 0, yend = 1,
+            color = "#990000", alpha = 0.3, size = .75, linetype = 1
           )
         } else if (measure == "ratio") {
           annotate("segment",
-                   x = 1, xend = 1, y = 0, yend = 1,
-                   color = "#990000", alpha = 0.3, size = .75, linetype = 1
+            x = 1, xend = 1, y = 0, yend = 1,
+            color = "#990000", alpha = 0.3, size = .75, linetype = 1
           )
         }
       }
@@ -350,7 +351,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
         x = xaxis,
         y = "Likelihood"
       ) +
-      theme_bw() +
+      theme_hc() +
       theme(
         plot.title = element_text(size = 16),
         plot.subtitle = element_text(size = 12),
@@ -366,13 +367,13 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
       if (nullvalue == TRUE) {
         if (measure == "default") {
           annotate("segment",
-                   x = 0, xend = 0, y = 0, yend = 1,
-                   color = "#990000", alpha = 0.3, size = .75, linetype = 1
+            x = 0, xend = 0, y = 0, yend = 1,
+            color = "#990000", alpha = 0.3, size = .75, linetype = 1
           )
         } else if (measure == "ratio") {
           annotate("segment",
-                   x = 1, xend = 1, y = 0, yend = 1,
-                   color = "#990000", alpha = 0.3, size = .75, linetype = 1
+            x = 1, xend = 1, y = 0, yend = 1,
+            color = "#990000", alpha = 0.3, size = .75, linetype = 1
           )
         }
       }
@@ -413,7 +414,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
         x = xaxis,
         y = "Deviance Statistic \n2ln(MLR)"
       ) +
-      theme_bw() +
+      theme_hc() +
       theme(
         plot.title = element_text(size = 16),
         plot.subtitle = element_text(size = 12),
