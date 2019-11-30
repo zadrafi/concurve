@@ -13,13 +13,14 @@ curve_gen <- function(model, var, method = "default", replicates = 1000, steps =
   if (is.numeric(steps) != TRUE) {
     stop("Error: 'steps' must be a numeric vector")
   }
+  pboptions(type = "timer", style = 1, char = "+")
   intrvls <- (0:steps) / steps
   if (method == "default") {
-    results <- mclapply(intrvls, FUN = function(i) confint(object = model, level = i)[var, ], mc.cores = detectCores(logical = FALSE) - 1)
+    results <- pblapply(intrvls, FUN = function(i) confint(object = model, level = i)[var, ], cl = detectCores() - 1)
   } else if (method == "Wald") {
-    results <- mclapply(intrvls, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = detectCores(logical = FALSE) - 1)
+    results <- pblapply(intrvls, FUN = function(i) confint.default(object = model, level = i)[var, ], cl = detectCores() - 1)
   } else if (method == "lm") {
-    results <- mclapply(intrvls, FUN = function(i) confint.lm(object = model, level = i)[var, ], mc.cores = detectCores(logical = FALSE) - 1)
+    results <- pblapply(intrvls, FUN = function(i) confint.lm(object = model, level = i)[var, ], cl = detectCores() - 1)
   } else if (method == "boot") {
     effect <- coef(model)[[var]]
     boot_dist <- replicate(replicates,
@@ -27,7 +28,7 @@ curve_gen <- function(model, var, method = "default", replicates = 1000, steps =
         data = model$model[sample(nrow(model$model), family = model$family$family)]
       ))[[var]]
     ) - effect
-    results <- mclapply(intrvls, FUN = function(i) effect - quantile(boot_dist, probs = (1 + c(i, -i)) / 2), mc.cores = detectCores() - 1)
+    results <- pblapply(intrvls, FUN = function(i) effect - quantile(boot_dist, probs = (1 + c(i, -i)) / 2), mc.cores = detectCores() - 1)
   }
 
   df <- data.frame(do.call(rbind, results))
@@ -35,6 +36,7 @@ curve_gen <- function(model, var, method = "default", replicates = 1000, steps =
   colnames(df) <- intrvl.limit
   df$intrvl.width <- (abs((df$upper.limit) - (df$lower.limit)))
   df$intrvl.level <- intrvls
+  df$cdf <- (abs(df$intrvl.level / 2)) + 0.5
   df$pvalue <- 1 - intrvls
   df$svalue <- -log2(df$pvalue)
   df <- head(df, -1)
@@ -42,4 +44,4 @@ curve_gen <- function(model, var, method = "default", replicates = 1000, steps =
 }
 
 # RMD Check
-utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.width", "intrvl.level", "pvalue", "svalue"))
+utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.width", "intrvl.level", "cdf", "pvalue", "svalue"))

@@ -1,10 +1,10 @@
 curve_table <- function(data, levels, type = "data.frame") {
   levels <- c(0.25, 0.50, 0.75, 0.80, 0.85, 0.90, 0.95, 0.975, 0.99)
-
-  subdf <- mclapply(levels, FUN = function(i) (subset(data, intrvl.level == i)), mc.cores = detectCores(logical = FALSE) - 1)
+  pboptions(type = "timer", style = 1, char = "+")
+  subdf <- pblapply(levels, FUN = function(i) (subset(data, intrvl.level == i)), cl = detectCores() - 1)
   subdf <- data.frame(do.call(rbind, subdf))
   subdf$intrvl.level <- (subdf$intrvl.level * 100)
-  subcolnames <- c("Lower Limit", "Upper Limit", "Interval Width", "Interval Level (%)", "P-value", "S-value (bits)")
+  subcolnames <- c("Lower Limit", "Upper Limit", "Interval Width", "Interval Level (%)", "CDF", "P-value", "S-value (bits)")
   colnames(subdf) <- subcolnames
   subdf <- round(subdf, digits = 3)
 
@@ -38,4 +38,4 @@ curve_table <- function(data, levels, type = "data.frame") {
   }
 }
 
-utils::globalVariables(c("subdf", "Lower Limit", "Upper Limit", "Interval Width", "Interval Level", "P-value", "S-value"))
+utils::globalVariables(c("subdf", "Lower Limit", "Upper Limit", "Interval Width", "Interval Level", "CDF", "P-value", "S-value"))

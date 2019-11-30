@@ -6,13 +6,13 @@ curve_compare <- function(data1, data2, type = "c", plot = TRUE, ...) {
     if (is.data.frame(data1) != TRUE) {
       stop("Error: 'x' must be a data frame from 'concurve'.")
     }
-    if (ncol(data1) != 6) {
+    if (ncol(data1) != 7) {
       stop("Error: 'x' must be a data frame from 'concurve'.")
     }
     if (is.data.frame(data2) != TRUE) {
       stop("Error: 'x' must be a data frame from 'concurve'.")
     }
-    if (ncol(data2) != 6) {
+    if (ncol(data2) != 7) {
       stop("Error: 'x' must be a data frame from 'concurve'.")
     }
     if (plot == TRUE) {
@@ -71,13 +71,13 @@ curve_compare <- function(data1, data2, type = "c", plot = TRUE, ...) {
     if (is.data.frame(data1) != TRUE) {
       stop("Error: 'x' must be a data frame from 'concurve'.")
     }
-    if (ncol(data1) != 6) {
+    if (ncol(data1) != 7) {
       stop("Error: 'x' must be a data frame from 'concurve'.")
     }
     if (is.data.frame(data2) != TRUE) {
       stop("Error: 'x' must be a data frame from 'concurve'.")
     }
-    if (ncol(data2) != 6) {
+    if (ncol(data2) != 7) {
       stop("Error: 'x' must be a data frame from 'concurve'.")
     }
 
@@ -132,3 +132,6 @@ curve_compare <- function(data1, data2, type = "c", plot = TRUE, ...) {
     }
   }
 }
+
+# RMD Check
+utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.width", "intrvl.level", "cdf", "pvalue", "svalue"))

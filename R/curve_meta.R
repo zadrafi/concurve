@@ -10,8 +10,9 @@ curve_meta <- function(x, measure = "default", steps = 10000) {
   if (is.numeric(steps) != TRUE) {
     stop("Error: 'steps' must be a numeric vector")
   }
+  pboptions(type = "timer", style = 1, char = "+")
   intrvls <- (0:steps) / steps
-  results <- mclapply(intrvls, FUN = function(i) confint.default(object = x, fixed = TRUE, random = FALSE, level = i)[], mc.cores = detectCores(logical = FALSE) - 1)
+  results <- pblapply(intrvls, FUN = function(i) confint.default(object = x, fixed = TRUE, random = FALSE, level = i)[], cl = detectCores() - 1)
   df <- data.frame(do.call(rbind, results))
   intrvl.limit <- c("lower.limit", "upper.limit")
   colnames(df) <- intrvl.limit
@@ -26,9 +27,10 @@ curve_meta <- function(x, measure = "default", steps = 10000) {
     df$upper.limit <- exp(df$upper.limit)
   }
   df$intrvl.width <- (abs((df$upper.limit) - (df$lower.limit)))
+  df$cdf <- (abs(df$intrvl.level / 2)) + 0.5
   df <- head(df, -1)
   return(df)
 }
 
 # RMD Check
-utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.width", "intrvl.level", "pvalue", "svalue"))
+utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.width", "intrvl.level", "cdf", "pvalue", "svalue"))

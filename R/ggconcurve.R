@@ -5,15 +5,15 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
                        yaxis = "P-value",
                        color = "#000000",
                        fill = "#239a98") {
-  Cairo.capabilities()
 
-  # Consonance Function -----------------------------------------------------
+
+  # Consonance Curve -----------------------------------------------------
 
   if (type == "c") {
     if (is.data.frame(data) != TRUE) {
       stop("Error: 'data' must be a data frame from 'concurve'.")
     }
-    if (ncol(data) != 6) {
+    if (ncol(data) != 7) {
       stop("Error: 'data' must be a data frame from 'concurve'.")
     }
     if (is.character(measure) != TRUE) {
@@ -42,7 +42,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
 
     # Plotting Intervals ------------------------------------------------------
 
-    interval <- mclapply(levels, FUN = function(i) (c(i, subset(data, intrvl.level == i)[, 1], subset(data, intrvl.level == i)[, 2])), mc.cores = detectCores(logical = FALSE) - 1)
+    interval <- pblapply(levels, FUN = function(i) (c(i, subset(data, intrvl.level == i)[, 1], subset(data, intrvl.level == i)[, 2])), cl = detectCores() - 1)
     interval <- data.frame(do.call(rbind, interval))
     interval <- pivot_longer(interval, X2:X3, names_to = "levels", values_to = "limits")
     interval <- interval[, -2]
@@ -71,7 +71,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
         x = xaxis,
         y = yaxis
       ) +
-      theme_hc() +
+      theme_bw() +
       theme(
         plot.title = element_text(size = 12),
         plot.subtitle = element_text(size = 11),
@@ -80,24 +80,24 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
         text = element_text(size = 11)
       ) +
       {
-        if (measure == "default") scale_x_continuous(breaks = scales::pretty_breaks(n = 10))
+        if (measure == "default") scale_x_continuous(breaks = scales::pretty_breaks(n = 5))
       } +
       {
-        if (measure == "ratio") scale_x_log10(breaks = scales::pretty_breaks(n = 10))
+        if (measure == "ratio") scale_x_log10(breaks = scales::pretty_breaks(n = 5))
       } +
       {
         if (position == "inverted") {
           scale_y_reverse(
-            breaks = seq(0, 1, .05),
-            sec.axis = sec_axis(~ (1 - .) * 100, name = "Levels for CI (%)", breaks = seq(0, 100, 5))
+            breaks = seq(0, 1, 0.10),
+            sec.axis = sec_axis(~ (1 - .) * 100, name = "Levels for CI (%)", breaks = seq(0, 100, 10))
           )
         }
       } +
       {
         if (position == "pyramid") {
           scale_y_continuous(
-            breaks = seq(0, 1, .05),
-            sec.axis = sec_axis(~ (1 - .) * 100, name = "Levels for CI (%)", breaks = seq(0, 100, 5))
+            breaks = seq(0, 1, 0.10),
+            sec.axis = sec_axis(~ (1 - .) * 100, name = "Levels for CI (%)", breaks = seq(0, 100, 10))
           )
         }
       } +
@@ -117,12 +117,12 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
       else if (nullvalue == FALSE) {
       }
 
-    # Surprisal Function ------------------------------------------------------
+    # Surprisal Curve ------------------------------------------------------
   } else if (type == "s") {
     if (is.data.frame(data) != TRUE) {
       stop("Error: 'data' must be a data frame from 'concurve'.")
     }
-    if (ncol(data) != 6) {
+    if (ncol(data) != 7) {
       stop("Error: 'data' must be a data frame from 'concurve'.")
     }
     if (is.character(measure) != TRUE) {
@@ -144,7 +144,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
 
     # Plotting Intervals ------------------------------------------------------
 
-    interval <- mclapply(levels, FUN = function(i) (c(i, subset(data, intrvl.level == i)[, 1], subset(data, intrvl.level == i)[, 2])), mc.cores = detectCores(logical = FALSE) - 1)
+    interval <- pblapply(levels, FUN = function(i) (c(i, subset(data, intrvl.level == i)[, 1], subset(data, intrvl.level == i)[, 2])), cl = detectCores() - 1)
     interval <- data.frame(do.call(rbind, interval))
     interval <- gather(interval, key = "levels", value = "limits", X2:X3)
     interval <- interval[, -2]
@@ -172,7 +172,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
         x = xaxis,
         y = "S-value \n(Bits of Information)"
       ) +
-      theme_hc() +
+      theme_bw() +
       theme(
         plot.title = element_text(size = 12),
         plot.subtitle = element_text(size = 11),
@@ -181,13 +181,68 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
         text = element_text(size = 11)
       ) +
       {
-        if (measure == "default") scale_x_continuous(breaks = scales::pretty_breaks(n = 10))
+        if (measure == "default") scale_x_continuous(breaks = scales::pretty_breaks(n = 5))
       } +
       {
-        if (measure == "ratio") scale_x_log10(breaks = scales::pretty_breaks(n = 10))
+        if (measure == "ratio") scale_x_log10(breaks = scales::pretty_breaks(n = 5))
       } +
-      scale_y_continuous(breaks = seq(0, 14, 0.5), expand = c(0, 0))
+      scale_y_continuous(breaks = seq(0, 14, 1), expand = c(0, 0))
 
+
+
+    # Consonance Distribution -----------------------------------------------------
+  } else if (type == "cdf") {
+    if (is.data.frame(data) != TRUE) {
+      stop("Error: 'data' must be a data frame from 'concurve'.")
+    }
+    if (ncol(data) != 7) {
+      stop("Error: 'data' must be a data frame from 'concurve'.")
+    }
+    if (is.character(measure) != TRUE) {
+      stop("Error: 'measure' must be a string such as 'default' or 'ratio'.")
+    }
+    if (is.logical(nullvalue) != TRUE) {
+      stop("Error: 'nullvalue' must be a logical statement such as 'TRUE' or 'FALSE'.")
+    }
+    if (is.character(position) != TRUE) {
+      stop("Error: 'position' must be a string such as 'pyramid' or 'inverted'.")
+    }
+    if (is.character(title) != TRUE) {
+      stop("Error: 'title' must be a string.")
+    }
+    if (is.character(subtitle) != TRUE) {
+      stop("Error: 'subtitle' must be a string.")
+    }
+
+    if (is.character(yaxis) != TRUE) {
+      stop("Error: 'yaxis' must be a string.")
+    }
+    if (is.character(fill) != TRUE) {
+      stop("Error: 'fill' must be a string for the color.")
+    }
+
+    values <- c(data$lower.limit, data$upper.limit)
+    ecdf(values)
+
+    if (measure == "default") {
+      plot(ecdf(values),
+        panel.first = grid(ny = 0),
+        xlab = xaxis,
+        ylab = "Distribution",
+        main = "Consonance Distribution",
+        las = 1
+      )
+    } else if (measure == "ratio") {
+      plot(ecdf(values),
+        panel.first = grid(ny = 0),
+        xlab = xaxis,
+        ylab = "Distribution",
+        main = "Consonance Distribution",
+        las = 1,
+        log = "x"
+      )
+    }
+    abline(h = 0.5)
 
     # Relative Likelihood Function -----------------------------------------------------
   } else if (type == "l1") {
@@ -225,7 +280,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
         x = xaxis,
         y = "Relative Likelihood \n(1/MLR)"
       ) +
-      theme_hc() +
+      theme_bw() +
       theme(
         plot.title = element_text(size = 16),
         plot.subtitle = element_text(size = 12),
@@ -288,7 +343,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
         x = xaxis,
         y = "Log Likelihood"
       ) +
-      theme_hc() +
+      theme_bw() +
       theme(
         plot.title = element_text(size = 16),
         plot.subtitle = element_text(size = 12),
@@ -351,7 +406,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
         x = xaxis,
         y = "Likelihood"
       ) +
-      theme_hc() +
+      theme_bw() +
       theme(
         plot.title = element_text(size = 16),
         plot.subtitle = element_text(size = 12),
@@ -414,7 +469,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
         x = xaxis,
         y = "Deviance Statistic \n2ln(MLR)"
       ) +
-      theme_hc() +
+      theme_bw() +
       theme(
         plot.title = element_text(size = 16),
         plot.subtitle = element_text(size = 12),
@@ -444,4 +499,4 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
 }
 
 # RMD Check
-utils::globalVariables(c("df", "lower.limit", "upper.limit", "limit.ratio", "intrvl.level", "pvalue", "svalue"))
+utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.width", "intrvl.level", "cdf", "pvalue", "svalue"))

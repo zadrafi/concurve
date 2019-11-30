@@ -6,22 +6,21 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
                          color = "#000000",
                          fill1 = "#239a98",
                          fill2 = "#d46c5b") {
-  Cairo.capabilities()
   cols <- c(fill1, fill2)
 
-  # Consonance Function -----------------------------------------------------
+  # Consonance Curve -----------------------------------------------------
 
   if (type == "c") {
     if (is.data.frame(data1) != TRUE) {
       stop("Error: 'x' must be a data frame from 'concurve'.")
     }
-    if (ncol(data1) != 6) {
+    if (ncol(data1) != 7) {
       stop("Error: 'x' must be a data frame from 'concurve'.")
     }
     if (is.data.frame(data2) != TRUE) {
       stop("Error: 'x' must be a data frame from 'concurve'.")
     }
-    if (ncol(data2) != 6) {
+    if (ncol(data2) != 7) {
       stop("Error: 'x' must be a data frame from 'concurve'.")
     }
     if (is.character(measure) != TRUE) {
@@ -77,7 +76,7 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
         data = data2, aes(x = upper.limit, ymin = min(pvalue), ymax = pvalue, fill = fill2),
         alpha = 0.30
       ) +
-      theme_hc() +
+      theme_bw() +
       labs(
         title = title,
         subtitle = subtitle,
@@ -112,24 +111,24 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
         label.hjust = 4.5
       )) +
       {
-        if (measure == "default") scale_x_continuous(breaks = scales::pretty_breaks(n = 10))
+        if (measure == "default") scale_x_continuous(breaks = scales::pretty_breaks(n = 5))
       } +
       {
-        if (measure == "ratio") scale_x_log10(breaks = scales::pretty_breaks(n = 10))
+        if (measure == "ratio") scale_x_log10(breaks = scales::pretty_breaks(n = 5))
       } +
       {
         if (position == "inverted") {
           scale_y_reverse(
-            breaks = seq(0, 1, .05),
-            sec.axis = sec_axis(~ (1 - .) * 100, name = "Levels for CI (%)", breaks = seq(0, 100, 5))
+            breaks = seq(0, 1, 0.10),
+            sec.axis = sec_axis(~ (1 - .) * 100, name = "Levels for CI (%)", breaks = seq(0, 100, 10))
           )
         }
       } +
       {
         if (position == "pyramid") {
           scale_y_continuous(
-            breaks = seq(0, 1, .05),
-            sec.axis = sec_axis(~ (1 - .) * 100, name = "Levels for CI (%)", breaks = seq(0, 100, 5))
+            breaks = seq(0, 1, 0.10),
+            sec.axis = sec_axis(~ (1 - .) * 100, name = "Levels for CI (%)", breaks = seq(0, 100, 10))
           )
         }
       } +
@@ -150,18 +149,18 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
       }
 
 
-    # Surprisal Function ------------------------------------------------------
+    # Surprisal Curve ------------------------------------------------------
   } else if (type == "s") {
     if (is.data.frame(data1) != TRUE) {
       stop("Error: 'x' must be a data frame from 'concurve'.")
     }
-    if (ncol(data1) != 6) {
+    if (ncol(data1) != 7) {
       stop("Error: 'x' must be a data frame from 'concurve'.")
     }
     if (is.data.frame(data2) != TRUE) {
       stop("Error: 'x' must be a data frame from 'concurve'.")
     }
-    if (ncol(data2) != 6) {
+    if (ncol(data2) != 7) {
       stop("Error: 'x' must be a data frame from 'concurve'.")
     }
     if (is.character(measure) != TRUE) {
@@ -217,7 +216,7 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
         x = xaxis,
         y = "S-value (bits of information)"
       ) +
-      theme_hc() +
+      theme_bw() +
       theme(
         plot.title = element_text(size = 12),
         plot.subtitle = element_text(size = 11),
@@ -246,12 +245,12 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
         label.hjust = 4.5
       )) +
       {
-        if (measure == "default") scale_x_continuous(breaks = scales::pretty_breaks(n = 10))
+        if (measure == "default") scale_x_continuous(breaks = scales::pretty_breaks(n = 5))
       } +
       {
-        if (measure == "ratio") scale_x_log10(breaks = scales::pretty_breaks(n = 10))
+        if (measure == "ratio") scale_x_log10(breaks = scales::pretty_breaks(n = 5))
       } +
-      scale_y_continuous(breaks = seq(0, 14, 0.5), expand = c(0, 0))
+      scale_y_continuous(breaks = seq(0, 14, 1.0), expand = c(0, 0))
 
 
     # Relative Likelihood Function -----------------------------------------------------
@@ -295,7 +294,7 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
         x = xaxis,
         y = "Relative Likelihood \n(1/MLR)"
       ) +
-      theme_hc() +
+      theme_bw() +
       theme(
         plot.title = element_text(size = 12),
         plot.subtitle = element_text(size = 11),
@@ -383,7 +382,7 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
         x = xaxis,
         y = "Log-Likelihood"
       ) +
-      theme_hc() +
+      theme_bw() +
       theme(
         plot.title = element_text(size = 12),
         plot.subtitle = element_text(size = 11),
@@ -471,7 +470,7 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
         x = xaxis,
         y = "Likelihood"
       ) +
-      theme_hc() +
+      theme_bw() +
       theme(
         plot.title = element_text(size = 12),
         plot.subtitle = element_text(size = 11),
@@ -558,7 +557,7 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
         x = xaxis,
         y = "Deviance Statistic \n2ln(MLR)"
       ) +
-      theme_hc() +
+      theme_bw() +
       theme(
         plot.title = element_text(size = 12),
         plot.subtitle = element_text(size = 11),
@@ -608,4 +607,4 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
 
 
 # RMD Check
-utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.width", "intrvl.level", "pvalue", "svalue"))
+utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.width", "intrvl.level", "cdf", "pvalue", "svalue"))

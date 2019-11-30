@@ -16,9 +16,10 @@ curve_mean <- function(x, y, data, paired = F, method = "default", replicates = 
   if (is.numeric(steps) != TRUE) {
     stop("Error: 'steps' must be a numeric vector")
   }
+  pboptions(type = "timer", style = 1, char = "+")
   intrvls <- (0:steps) / steps
   if (method == "default") {
-    results <- mclapply(intrvls, FUN = function(i) t.test(x, y, data = data, paired = paired, conf.level = i)$conf.int[], mc.cores = detectCores(logical = FALSE) - 1)
+    results <- pblapply(intrvls, FUN = function(i) t.test(x, y, data = data, paired = paired, conf.level = i)$conf.int[], cl = detectCores() - 1)
   } else if (method == "boot") {
     diff <- mean(x) - mean(y)
     if (paired) {
@@ -32,13 +33,14 @@ curve_mean <- function(x, y, data, paired = F, method = "default", replicates = 
           mean(sample(y, length(y), replace = T))
       ) - diff
     }
-    results <- mclapply(intrvls, FUN = function(i) diff - quantile(boot_dist, probs = (1 + c(i, -i)) / 2), mc.cores = detectCores(logical = FALSE) - 1)
+    results <- pblapply(intrvls, FUN = function(i) diff - quantile(boot_dist, probs = (1 + c(i, -i)) / 2), cl = detectCores() - 1)
   }
   df <- data.frame(do.call(rbind, results))
   intrvl.limit <- c("lower.limit", "upper.limit")
   colnames(df) <- intrvl.limit
   df$intrvl.width <- (abs((df$upper.limit) - (df$lower.limit)))
   df$intrvl.level <- intrvls
+  df$cdf <- (abs(df$intrvl.level / 2)) + 0.5
   df$pvalue <- 1 - intrvls
   df$svalue <- -log2(df$pvalue)
   df <- head(df, -1)
@@ -47,4 +49,4 @@ curve_mean <- function(x, y, data, paired = F, method = "default", replicates = 
 
 
 # RMD Check
-utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.width", "intrvl.level", "pvalue", "svalue"))
+utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.width", "intrvl.level", "cdf", "pvalue", "svalue"))
