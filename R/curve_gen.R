@@ -1,9 +1,6 @@
 # General Consonance Functions Using Profile Likelihood, Wald, or the bootstrap method for linear models.
 
-curve_gen <- function(model, var, method = "default", replicates = 1000, steps = 10000) {
-  if (is.list(model) != TRUE) {
-    stop("Error: 'model' must be an object with a statistical model")
-  }
+curve_gen <- function(model, var, method = "wald", replicates = 1000, steps = 10000, table = TRUE, ...) {
   if (is.character(method) != TRUE) {
     stop("Error: 'method' must be a character vector")
   }
@@ -15,21 +12,13 @@ curve_gen <- function(model, var, method = "default", replicates = 1000, steps =
   }
   pboptions(type = "timer", style = 1, char = "+")
   intrvls <- (0:steps) / steps
-  if (method == "default") {
-    results <- pblapply(intrvls, FUN = function(i) confint(object = model, level = i)[var, ], cl = detectCores() - 1)
-  } else if (method == "Wald") {
+  if (method == "wald") {
     results <- pblapply(intrvls, FUN = function(i) confint.default(object = model, level = i)[var, ], cl = detectCores() - 1)
-  } else if (method == "lm") {
-    results <- pblapply(intrvls, FUN = function(i) confint.lm(object = model, level = i)[var, ], cl = detectCores() - 1)
-  } else if (method == "boot") {
-    effect <- coef(model)[[var]]
-    boot_dist <- replicate(replicates,
-      expr = coef(glm(model$call$formula,
-        data = model$model[sample(nrow(model$model), family = model$family$family)]
-      ))[[var]]
-    ) - effect
-    results <- pblapply(intrvls, FUN = function(i) effect - quantile(boot_dist, probs = (1 + c(i, -i)) / 2), mc.cores = detectCores() - 1)
+  } else if (method == "glm") {
+    require(MASS)
+    results <- pblapply(intrvls, FUN = function(i) confint(object = model, level = i)[var, ], cl = detectCores() - 1)
   }
+
 
   df <- data.frame(do.call(rbind, results))
   intrvl.limit <- c("lower.limit", "upper.limit")
@@ -40,7 +29,24 @@ curve_gen <- function(model, var, method = "default", replicates = 1000, steps =
   df$pvalue <- 1 - intrvls
   df$svalue <- -log2(df$pvalue)
   df <- head(df, -1)
-  return(df)
+  class(df) <- c("data.frame", "concurve")
+  densdf <- data.frame(c(df$lower.limit, df$upper.limit))
+  colnames(densdf) <- "x"
+  densdf <- head(densdf, -1)
+  class(densdf) <- c("data.frame", "concurve")
+
+
+  if (table == TRUE) {
+    levels <- c(0.25, 0.50, 0.75, 0.80, 0.85, 0.90, 0.95, 0.975, 0.99)
+    (df_subintervals <- (curve_table(df, levels, type = "data.frame")))
+    class(df_subintervals) <- c("data.frame", "concurve")
+    dataframes <- list(df, densdf, df_subintervals)
+    names(dataframes) <- c("Intervals Dataframe", "Intervals Density", "Intervals Table")
+    class(dataframes) <- "concurve"
+    return(dataframes)
+  } else if (table == FALSE) {
+    return(list(df, densdf))
+  }
 }
 
 # RMD Check

@@ -1,6 +1,6 @@
 # Survival Data Consonance Function
 
-curve_surv <- function(data, x, steps = 10000) {
+curve_surv <- function(data, x, steps = 10000, table = TRUE) {
   if (is.list(data) != TRUE) {
     stop("Error: 'data' must be an object with a Cox Proportional Hazards model")
   }
@@ -20,7 +20,23 @@ curve_surv <- function(data, x, steps = 10000) {
   df$pvalue <- 1 - intrvls
   df$svalue <- -log2(df$pvalue)
   df <- head(df, -1)
-  return(df)
+  class(df) <- c("data.frame", "concurve")
+  densdf <- data.frame(c(df$lower.limit, df$upper.limit))
+  colnames(densdf) <- "x"
+  densdf <- head(densdf, -1)
+  class(densdf) <- c("data.frame", "concurve")
+
+  if (table == TRUE) {
+    levels <- c(0.25, 0.50, 0.75, 0.80, 0.85, 0.90, 0.95, 0.975, 0.99)
+    (df_subintervals <- (curve_table(df, levels, type = "data.frame")))
+    class(df_subintervals) <- c("data.frame", "concurve")
+    dataframes <- list(df, densdf, df_subintervals)
+    names(dataframes) <- c("Intervals Dataframe", "Intervals Density", "Intervals Table")
+    class(dataframes) <- "concurve"
+    return(dataframes)
+  } else if (table == FALSE) {
+    return(list(df, densdf))
+  }
 }
 
 # RMD Check

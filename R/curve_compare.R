@@ -3,14 +3,14 @@ curve_compare <- function(data1, data2, type = "c", plot = TRUE, ...) {
   # Consonance Function -----------------------------------------------------
 
   if (type == "c") {
-    if (is.data.frame(data1) != TRUE) {
-      stop("Error: 'x' must be a data frame from 'concurve'.")
+    if (is(data1, "concurve") != TRUE) {
+      stop("Error: 'data1' must be a data frame from 'concurve'.")
     }
     if (ncol(data1) != 7) {
       stop("Error: 'x' must be a data frame from 'concurve'.")
     }
-    if (is.data.frame(data2) != TRUE) {
-      stop("Error: 'x' must be a data frame from 'concurve'.")
+    if (is(data2, "concurve") != TRUE) {
+      stop("Error: 'data2' must be a data frame from 'concurve'.")
     }
     if (ncol(data2) != 7) {
       stop("Error: 'x' must be a data frame from 'concurve'.")
@@ -21,8 +21,9 @@ curve_compare <- function(data1, data2, type = "c", plot = TRUE, ...) {
 
     }
 
+    class(data1) <- "data.frame"
     df1 <- pivot_longer(data1, lower.limit:upper.limit, names_to = "limit.bound", values_to = "Limit")
-
+    class(data2) <- "data.frame"
     df2 <- pivot_longer(data2, lower.limit:upper.limit, names_to = "limit.bound", values_to = "Limit")
 
     df1 <- data.frame(
@@ -54,6 +55,7 @@ curve_compare <- function(data1, data2, type = "c", plot = TRUE, ...) {
       AUC_ratio <- (AUC_shared / (AUC_1 + AUC_2 - 2 * AUC_shared))
 
       AUC_results <- data.frame(AUC_1, AUC_2, AUC_shared, AUC_overlap, AUC_ratio)
+      class(AUC_results) <- c("data.frame", "concurve")
       AUC_results <- round(AUC_results, digits = 3)
       names <- c("AUC 1", "AUC 2", "Shared AUC", "AUC Overlap (%)", "Overlap:Non-Overlap AUC Ratio")
       colnames(AUC_results) <- names
@@ -68,14 +70,14 @@ curve_compare <- function(data1, data2, type = "c", plot = TRUE, ...) {
 
     # Surprisal Function ------------------------------------------------------
   } else if (type == "s") {
-    if (is.data.frame(data1) != TRUE) {
-      stop("Error: 'x' must be a data frame from 'concurve'.")
+    if (is(data1, "concurve") != TRUE) {
+      stop("Error: 'data1' must be a data frame from 'concurve'.")
     }
     if (ncol(data1) != 7) {
       stop("Error: 'x' must be a data frame from 'concurve'.")
     }
-    if (is.data.frame(data2) != TRUE) {
-      stop("Error: 'x' must be a data frame from 'concurve'.")
+    if (is(data2, "concurve") != TRUE) {
+      stop("Error: 'data2' must be a data frame from 'concurve'.")
     }
     if (ncol(data2) != 7) {
       stop("Error: 'x' must be a data frame from 'concurve'.")
@@ -87,9 +89,11 @@ curve_compare <- function(data1, data2, type = "c", plot = TRUE, ...) {
 
     }
 
+    class(data1) <- "data.frame"
     df1 <- pivot_longer(data1, lower.limit:upper.limit, names_to = "limit.bound", values_to = "Limit")
-
+    class(data2) <- "data.frame"
     df2 <- pivot_longer(data2, lower.limit:upper.limit, names_to = "limit.bound", values_to = "Limit")
+
 
     df1 <- data.frame(
       "x" = df1$Limit,
@@ -120,6 +124,7 @@ curve_compare <- function(data1, data2, type = "c", plot = TRUE, ...) {
       AUC_ratio <- (AUC_shared / (AUC_1 + AUC_2 - 2 * AUC_shared))
 
       AUC_results <- data.frame(AUC_1, AUC_2, AUC_shared, AUC_overlap, AUC_ratio)
+      class(AUC_results) <- c("data.frame", "concurve")
       AUC_results <- round(AUC_results, digits = 3)
       names <- c("AUC 1", "AUC 2", "Shared AUC", "AUC Overlap (%)", "Overlap:Non-Overlap AUC Ratio")
       colnames(AUC_results) <- names

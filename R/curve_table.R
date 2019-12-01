@@ -3,6 +3,7 @@ curve_table <- function(data, levels, type = "data.frame") {
   pboptions(type = "timer", style = 1, char = "+")
   subdf <- pblapply(levels, FUN = function(i) (subset(data, intrvl.level == i)), cl = detectCores() - 1)
   subdf <- data.frame(do.call(rbind, subdf))
+  class(subdf) <- c("data.frame", "concurve")
   subdf$intrvl.level <- (subdf$intrvl.level * 100)
   subcolnames <- c("Lower Limit", "Upper Limit", "Interval Width", "Interval Level (%)", "CDF", "P-value", "S-value (bits)")
   colnames(subdf) <- subcolnames

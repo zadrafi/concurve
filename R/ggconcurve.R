@@ -10,7 +10,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
   # Consonance Curve -----------------------------------------------------
 
   if (type == "c") {
-    if (is.data.frame(data) != TRUE) {
+    if (is(data, "concurve") != TRUE) {
       stop("Error: 'data' must be a data frame from 'concurve'.")
     }
     if (ncol(data) != 7) {
@@ -88,6 +88,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
       {
         if (position == "inverted") {
           scale_y_reverse(
+            expand = expand_scale(mult = c(0.01, 0.025)),
             breaks = seq(0, 1, 0.10),
             sec.axis = sec_axis(~ (1 - .) * 100, name = "Levels for CI (%)", breaks = seq(0, 100, 10))
           )
@@ -96,6 +97,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
       {
         if (position == "pyramid") {
           scale_y_continuous(
+            expand = expand_scale(mult = c(0.01, 0.025)),
             breaks = seq(0, 1, 0.10),
             sec.axis = sec_axis(~ (1 - .) * 100, name = "Levels for CI (%)", breaks = seq(0, 100, 10))
           )
@@ -119,7 +121,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
 
     # Surprisal Curve ------------------------------------------------------
   } else if (type == "s") {
-    if (is.data.frame(data) != TRUE) {
+    if (is(data, "concurve") != TRUE) {
       stop("Error: 'data' must be a data frame from 'concurve'.")
     }
     if (ncol(data) != 7) {
@@ -186,16 +188,16 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
       {
         if (measure == "ratio") scale_x_log10(breaks = scales::pretty_breaks(n = 5))
       } +
-      scale_y_continuous(breaks = seq(0, 14, 1), expand = c(0, 0))
+      scale_y_continuous(breaks = seq(0, 14, 1), expand = c(0.0075, 0.0075))
 
 
 
     # Consonance Distribution -----------------------------------------------------
   } else if (type == "cdf") {
-    if (is.data.frame(data) != TRUE) {
+    if (is(data, "concurve") != TRUE) {
       stop("Error: 'data' must be a data frame from 'concurve'.")
     }
-    if (ncol(data) != 7) {
+    if (ncol(data) != 1) {
       stop("Error: 'data' must be a data frame from 'concurve'.")
     }
     if (is.character(measure) != TRUE) {
@@ -213,7 +215,6 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
     if (is.character(subtitle) != TRUE) {
       stop("Error: 'subtitle' must be a string.")
     }
-
     if (is.character(yaxis) != TRUE) {
       stop("Error: 'yaxis' must be a string.")
     }
@@ -221,34 +222,96 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
       stop("Error: 'fill' must be a string for the color.")
     }
 
-    values <- c(data$lower.limit, data$upper.limit)
-    ecdf(values)
+    ggplot(data = data, mapping = aes(x = x)) +
+      stat_ecdf(geom = "point", color = fill, size = 0.75, shape = 8) +
+      labs(
+        title = "Consonance Distribution",
+        subtitle = subtitle,
+        x = xaxis,
+        y = "Cumulative Confidence"
+      ) +
+      theme_bw() +
+      theme(
+        plot.title = element_text(size = 16),
+        plot.subtitle = element_text(size = 12),
+        plot.caption = element_text(size = 8),
+        axis.title.x = element_text(size = 13),
+        axis.title.y = element_text(size = 13),
+        text = element_text(size = 15)
+      ) +
+      {
+        if (measure == "ratio") scale_x_log10(breaks = scales::pretty_breaks(n = 10))
+      } +
+      scale_y_continuous(expand = expand_scale(mult = c(0.01, 0.05)), breaks = scales::pretty_breaks(n = 10)) +
+      if (nullvalue == TRUE) {
+        if (measure == "default") {
+          annotate("segment",
+            x = 0, xend = 0, y = 0, yend = 1,
+            color = "#990000", alpha = 0.3, size = .75, linetype = 1
+          )
+        } else if (measure == "ratio") {
+          annotate("segment",
+            x = 1, xend = 1, y = 0, yend = 1,
+            color = "#990000", alpha = 0.3, size = .75, linetype = 1
+          )
+        }
+      }
 
-    if (measure == "default") {
-      plot(ecdf(values),
-        panel.first = grid(ny = 0),
-        xlab = xaxis,
-        ylab = "Distribution",
-        main = "Consonance Distribution",
-        las = 1
-      )
-    } else if (measure == "ratio") {
-      plot(ecdf(values),
-        panel.first = grid(ny = 0),
-        xlab = xaxis,
-        ylab = "Distribution",
-        main = "Consonance Distribution",
-        las = 1,
-        log = "x"
-      )
+    # Consonance Density ---------------------------------------------
+  } else if (type == "cd") {
+    if (ncol(data) != 1) {
+      stop("Error: 'data' must be a data frame from the curve_boot function in 'concurve'.")
     }
-    abline(h = 0.5)
+    if (is.character(title) != TRUE) {
+      stop("Error: 'title' must be a string.")
+    }
+    if (is.character(subtitle) != TRUE) {
+      stop("Error: 'subtitle' must be a string.")
+    }
+    if (is.character(yaxis) != TRUE) {
+      stop("Error: 'yaxis' must be a string.")
+    }
+    if (is.character(fill) != TRUE) {
+      stop("Error: 'fill' must be a string for the color.")
+    }
+
+    ggplot(data = data, mapping = aes(x = x)) +
+      geom_density(fill = fill, alpha = 0.3) +
+      labs(
+        title = "Consonance Density",
+        subtitle = subtitle,
+        x = xaxis,
+        y = "Density"
+      ) +
+      theme_bw() +
+      theme(
+        plot.title = element_text(size = 16),
+        plot.subtitle = element_text(size = 12),
+        plot.caption = element_text(size = 8),
+        axis.title.x = element_text(size = 13),
+        axis.title.y = element_text(size = 13),
+        text = element_text(size = 15)
+      ) +
+      {
+        if (measure == "ratio") scale_x_log10(breaks = scales::pretty_breaks(n = 10))
+      } +
+      scale_y_continuous(expand = expand_scale(mult = c(0.01, 0.05)), breaks = scales::pretty_breaks(n = 10)) +
+      if (nullvalue == TRUE) {
+        if (measure == "default") {
+          annotate("segment",
+            x = 0, xend = 0, y = 0, yend = 1,
+            color = "#990000", alpha = 0.3, size = .75, linetype = 1
+          )
+        } else if (measure == "ratio") {
+          annotate("segment",
+            x = 1, xend = 1, y = 0, yend = 1,
+            color = "#990000", alpha = 0.3, size = .75, linetype = 1
+          )
+        }
+      }
 
     # Relative Likelihood Function -----------------------------------------------------
   } else if (type == "l1") {
-    if (is.data.frame(data) != TRUE) {
-      stop("Error: 'data' must be a data frame from 'concurve'.")
-    }
     if (ncol(data) != 6) {
       stop("Error: 'data' must be a data frame from 'concurve'.")
     }
@@ -292,7 +355,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
       {
         if (measure == "ratio") scale_x_log10(breaks = scales::pretty_breaks(n = 10))
       } +
-      scale_y_continuous(breaks = scales::pretty_breaks(n = 10)) +
+      scale_y_continuous(expand = expand_scale(mult = c(0.01, 0.05)), breaks = scales::pretty_breaks(n = 10)) +
       if (nullvalue == TRUE) {
         if (measure == "default") {
           annotate("segment",
@@ -309,9 +372,6 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
 
     # Log-Likelihood Function -----------------------------------------------------
   } else if (type == "l2") {
-    if (is.data.frame(data) != TRUE) {
-      stop("Error: 'data' must be a data frame from 'concurve'.")
-    }
     if (ncol(data) != 6) {
       stop("Error: 'data' must be a data frame from 'concurve'.")
     }
@@ -355,7 +415,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
       {
         if (measure == "ratio") scale_x_log10(breaks = scales::pretty_breaks(n = 10))
       } +
-      scale_y_continuous(breaks = scales::pretty_breaks(n = 10)) +
+      scale_y_continuous(expand = expand_scale(mult = c(0.01, 0.05)), breaks = scales::pretty_breaks(n = 10)) +
       if (nullvalue == TRUE) {
         if (measure == "default") {
           annotate("segment",
@@ -372,9 +432,6 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
 
     # Likelihood Function -----------------------------------------------------
   } else if (type == "l3") {
-    if (is.data.frame(data) != TRUE) {
-      stop("Error: 'data' must be a data frame from 'concurve'.")
-    }
     if (ncol(data) != 6) {
       stop("Error: 'data' must be a data frame from 'concurve'.")
     }
@@ -418,7 +475,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
       {
         if (measure == "ratio") scale_x_log10(breaks = scales::pretty_breaks(n = 10))
       } +
-      scale_y_continuous(breaks = scales::pretty_breaks(n = 10)) +
+      scale_y_continuous(expand = expand_scale(mult = c(0.01, 0.05)), breaks = scales::pretty_breaks(n = 10)) +
       if (nullvalue == TRUE) {
         if (measure == "default") {
           annotate("segment",
@@ -435,9 +492,6 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
 
     # Deviance Function -----------------------------------------------------
   } else if (type == "d") {
-    if (is.data.frame(data) != TRUE) {
-      stop("Error: 'data' must be a data frame from 'concurve'.")
-    }
     if (ncol(data) != 6) {
       stop("Error: 'data' must be a data frame from 'concurve'.")
     }
@@ -481,7 +535,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
       {
         if (measure == "ratio") scale_x_log10(breaks = scales::pretty_breaks(n = 10))
       } +
-      scale_y_continuous(breaks = scales::pretty_breaks(n = 10)) +
+      scale_y_continuous(breaks = scales::pretty_breaks(n = 10), expand = c(0.0075, 0.0075)) +
       if (nullvalue == TRUE) {
         if (measure == "default") {
           annotate("segment",

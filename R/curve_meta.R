@@ -1,6 +1,6 @@
 # Meta-analytic Consonance Function
 
-curve_meta <- function(x, measure = "default", steps = 10000) {
+curve_meta <- function(x, measure = "default", steps = 10000, table = TRUE) {
   if (is.list(x) != TRUE) {
     stop("Error: 'x' must be a list from 'metafor'")
   }
@@ -29,7 +29,23 @@ curve_meta <- function(x, measure = "default", steps = 10000) {
   df$intrvl.width <- (abs((df$upper.limit) - (df$lower.limit)))
   df$cdf <- (abs(df$intrvl.level / 2)) + 0.5
   df <- head(df, -1)
-  return(df)
+  class(df) <- c("data.frame", "concurve")
+  densdf <- data.frame(c(df$lower.limit, df$upper.limit))
+  colnames(densdf) <- "x"
+  densdf <- head(densdf, -1)
+  class(densdf) <- c("data.frame", "concurve")
+
+  if (table == TRUE) {
+    levels <- c(0.25, 0.50, 0.75, 0.80, 0.85, 0.90, 0.95, 0.975, 0.99)
+    (df_subintervals <- (curve_table(df, levels, type = "data.frame")))
+    class(df_subintervals) <- c("data.frame", "concurve")
+    dataframes <- list(df, densdf, df_subintervals)
+    names(dataframes) <- c("Intervals Dataframe", "Intervals Density", "Intervals Table")
+    class(dataframes) <- "concurve"
+    return(dataframes)
+  } else if (table == FALSE) {
+    return(list(df, densdf))
+  }
 }
 
 # RMD Check

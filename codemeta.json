@@ -105,6 +105,18 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "boot",
+      "name": "boot",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=boot"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "bcaboot",
       "name": "bcaboot",
       "provider": {
@@ -249,7 +261,7 @@
     }
   ],
   "keywords": ["confidence", "compatibility", "consonance", "surprisal", "interval", "function", "curve"],
-  "fileSize": "3841.12KB",
+  "fileSize": "3841.511KB",
   "contIntegration": [
     "https://travis-ci.org/Zadchow/concurve",
     "https://ci.appveyor.com/project/Zadchow/concurve",

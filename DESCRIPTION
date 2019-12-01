@@ -1,6 +1,6 @@
 Package: concurve
 Type: Package
-Date: 2019-11-24
+Date: 2019-11-30
 Title: Computes and Plots Compatibility (Confidence) Intervals, P-Values, S-Values, & Likelihood Intervals to Form Consonance, Surprisal, & Likelihood Functions
 Version: 2.2.0
 Authors@R: c(
@@ -16,6 +16,7 @@ Description: Allows one to compute consonance (confidence) intervals for various
 Imports: parallel,
          pbapply,
          compiler,
+         boot,
          bcaboot,
          ggplot2,
          metafor,

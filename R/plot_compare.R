@@ -11,14 +11,14 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
   # Consonance Curve -----------------------------------------------------
 
   if (type == "c") {
-    if (is.data.frame(data1) != TRUE) {
-      stop("Error: 'x' must be a data frame from 'concurve'.")
+    if (is(data1, "concurve") != TRUE) {
+      stop("Error: 'data1' must be a data frame from 'concurve'.")
     }
     if (ncol(data1) != 7) {
       stop("Error: 'x' must be a data frame from 'concurve'.")
     }
-    if (is.data.frame(data2) != TRUE) {
-      stop("Error: 'x' must be a data frame from 'concurve'.")
+    if (is(data2, "concurve") != TRUE) {
+      stop("Error: 'data2' must be a data frame from 'concurve'.")
     }
     if (ncol(data2) != 7) {
       stop("Error: 'x' must be a data frame from 'concurve'.")
@@ -119,6 +119,7 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
       {
         if (position == "inverted") {
           scale_y_reverse(
+            expand = expand_scale(mult = c(0.01, 0.025)),
             breaks = seq(0, 1, 0.10),
             sec.axis = sec_axis(~ (1 - .) * 100, name = "Levels for CI (%)", breaks = seq(0, 100, 10))
           )
@@ -127,6 +128,7 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
       {
         if (position == "pyramid") {
           scale_y_continuous(
+            expand = expand_scale(mult = c(0.01, 0.025)),
             breaks = seq(0, 1, 0.10),
             sec.axis = sec_axis(~ (1 - .) * 100, name = "Levels for CI (%)", breaks = seq(0, 100, 10))
           )
@@ -151,14 +153,14 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
 
     # Surprisal Curve ------------------------------------------------------
   } else if (type == "s") {
-    if (is.data.frame(data1) != TRUE) {
-      stop("Error: 'x' must be a data frame from 'concurve'.")
+    if (is(data1, "concurve") != TRUE) {
+      stop("Error: 'data1' must be a data frame from 'concurve'.")
     }
     if (ncol(data1) != 7) {
       stop("Error: 'x' must be a data frame from 'concurve'.")
     }
-    if (is.data.frame(data2) != TRUE) {
-      stop("Error: 'x' must be a data frame from 'concurve'.")
+    if (is(data2, "concurve") != TRUE) {
+      stop("Error: 'data2' must be a data frame from 'concurve'.")
     }
     if (ncol(data2) != 7) {
       stop("Error: 'x' must be a data frame from 'concurve'.")
@@ -214,7 +216,7 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
         title = title,
         subtitle = subtitle,
         x = xaxis,
-        y = "S-value (bits of information)"
+        y = "S-value \n(Bits of Information)"
       ) +
       theme_bw() +
       theme(
@@ -250,7 +252,7 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
       {
         if (measure == "ratio") scale_x_log10(breaks = scales::pretty_breaks(n = 5))
       } +
-      scale_y_continuous(breaks = seq(0, 14, 1.0), expand = c(0, 0))
+      scale_y_continuous(breaks = seq(0, 14, 1.0), expand = c(0.0075, 0.0075))
 
 
     # Relative Likelihood Function -----------------------------------------------------
@@ -325,7 +327,7 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
       {
         if (measure == "ratio") scale_x_log10(breaks = scales::pretty_breaks(n = 10))
       } +
-      scale_y_continuous(breaks = scales::pretty_breaks(n = 10)) +
+      scale_y_continuous(expand = expand_scale(mult = c(0.01, 0.05)), breaks = scales::pretty_breaks(n = 10)) +
       if (nullvalue == TRUE) {
         if (measure == "default") {
           annotate("segment",
@@ -413,7 +415,7 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
       {
         if (measure == "ratio") scale_x_log10(breaks = scales::pretty_breaks(n = 10))
       } +
-      scale_y_continuous(breaks = scales::pretty_breaks(n = 10)) +
+      scale_y_continuous(expand = expand_scale(mult = c(0.01, 0.05)), breaks = scales::pretty_breaks(n = 10)) +
       if (nullvalue == TRUE) {
         if (measure == "default") {
           annotate("segment",
@@ -501,7 +503,7 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
       {
         if (measure == "ratio") scale_x_log10(breaks = scales::pretty_breaks(n = 10))
       } +
-      scale_y_continuous(breaks = scales::pretty_breaks(n = 10)) +
+      scale_y_continuous(expand = expand_scale(mult = c(0.01, 0.05)), breaks = scales::pretty_breaks(n = 10)) +
       if (nullvalue == TRUE) {
         if (measure == "default") {
           annotate("segment",
@@ -588,7 +590,7 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
       {
         if (measure == "ratio") scale_x_log10(breaks = scales::pretty_breaks(n = 10))
       } +
-      scale_y_continuous(breaks = scales::pretty_breaks(n = 10)) +
+      scale_y_continuous(breaks = scales::pretty_breaks(n = 10), expand = c(0.0075, 0.0075)) +
       if (nullvalue == TRUE) {
         if (measure == "default") {
           annotate("segment",
