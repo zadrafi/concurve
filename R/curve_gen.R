@@ -10,13 +10,13 @@ curve_gen <- function(model, var, method = "wald", replicates = 1000, steps = 10
   if (is.numeric(steps) != TRUE) {
     stop("Error: 'steps' must be a numeric vector")
   }
-  pboptions(type = "timer", style = 1, char = "+")
+
   intrvls <- (0:steps) / steps
   if (method == "wald") {
-    results <- pblapply(intrvls, FUN = function(i) confint.default(object = model, level = i)[var, ], cl = detectCores() - 1)
+    results <- pbmclapply(intrvls, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = detectCores() - 1)
   } else if (method == "glm") {
     require(MASS)
-    results <- pblapply(intrvls, FUN = function(i) confint(object = model, level = i)[var, ], cl = detectCores() - 1)
+    results <- pbmclapply(intrvls, FUN = function(i) confint(object = model, level = i)[var, ], mc.cores = detectCores() - 1)
   }
 
 

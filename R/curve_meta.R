@@ -10,9 +10,9 @@ curve_meta <- function(x, measure = "default", steps = 10000, table = TRUE) {
   if (is.numeric(steps) != TRUE) {
     stop("Error: 'steps' must be a numeric vector")
   }
-  pboptions(type = "timer", style = 1, char = "+")
+
   intrvls <- (0:steps) / steps
-  results <- pblapply(intrvls, FUN = function(i) confint.default(object = x, fixed = TRUE, random = FALSE, level = i)[], cl = detectCores() - 1)
+  results <- pbmclapply(intrvls, FUN = function(i) confint.default(object = x, fixed = TRUE, random = FALSE, level = i)[], mc.cores = detectCores() - 1)
   df <- data.frame(do.call(rbind, results))
   intrvl.limit <- c("lower.limit", "upper.limit")
   colnames(df) <- intrvl.limit

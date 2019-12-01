@@ -9,14 +9,14 @@ curve_corr <- function(x, y, alternative, method, steps = 10000, table = TRUE) {
     stop("Error: 'steps' must be a numeric vector")
   }
 
-  pboptions(type = "timer", style = 1, char = "+")
+
   intrvls <- (0:steps) / steps
-  results <- pblapply(intrvls, FUN = function(i) {
+  results <- pbmclapply(intrvls, FUN = function(i) {
     cor.test(x, y,
       alternative = alternative, method = method,
       exact = NULL, conf.level = i, continuity = FALSE
     )$conf.int[]
-  }, cl = detectCores() - 1)
+  }, mc.cores = detectCores() - 1)
   df <- data.frame(do.call(rbind, results))
   intrvl.limit <- c("lower.limit", "upper.limit")
   colnames(df) <- intrvl.limit

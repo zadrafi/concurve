@@ -7,9 +7,9 @@ curve_surv <- function(data, x, steps = 10000, table = TRUE) {
   if (is.numeric(steps) != TRUE) {
     stop("Error: 'steps' must be a numeric vector")
   }
-  pboptions(type = "timer", style = 1, char = "+")
+
   intrvls <- (1:steps) / steps
-  results <- pblapply(intrvls, FUN = function(i) summary(data, conf.int = i)$conf.int[x, ], cl = detectCores() - 1)
+  results <- pbmclapply(intrvls, FUN = function(i) summary(data, conf.int = i)$conf.int[x, ], mc.cores = detectCores() - 1)
 
   df <- data.frame(do.call(rbind, results))[, 3:4]
   intrvl.limit <- c("lower.limit", "upper.limit")

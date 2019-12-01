@@ -88,15 +88,15 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "pbapply",
-      "name": "pbapply",
+      "identifier": "pbmcapply",
+      "name": "pbmcapply",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
         "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
       },
-      "sameAs": "https://CRAN.R-project.org/package=pbapply"
+      "sameAs": "https://CRAN.R-project.org/package=pbmcapply"
     },
     {
       "@type": "SoftwareApplication",
@@ -126,6 +126,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=bcaboot"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "ProfileLikelihood",
+      "name": "ProfileLikelihood",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=ProfileLikelihood"
     },
     {
       "@type": "SoftwareApplication",
@@ -261,7 +273,7 @@
     }
   ],
   "keywords": ["confidence", "compatibility", "consonance", "surprisal", "interval", "function", "curve"],
-  "fileSize": "3841.511KB",
+  "fileSize": "4102.335KB",
   "contIntegration": [
     "https://travis-ci.org/Zadchow/concurve",
     "https://ci.appveyor.com/project/Zadchow/concurve",

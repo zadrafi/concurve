@@ -1,7 +1,7 @@
 curve_table <- function(data, levels, type = "data.frame") {
   levels <- c(0.25, 0.50, 0.75, 0.80, 0.85, 0.90, 0.95, 0.975, 0.99)
-  pboptions(type = "timer", style = 1, char = "+")
-  subdf <- pblapply(levels, FUN = function(i) (subset(data, intrvl.level == i)), cl = detectCores() - 1)
+
+  subdf <- pbmclapply(levels, FUN = function(i) (subset(data, intrvl.level == i)), mc.cores = detectCores() - 1)
   subdf <- data.frame(do.call(rbind, subdf))
   class(subdf) <- c("data.frame", "concurve")
   subdf$intrvl.level <- (subdf$intrvl.level * 100)

@@ -13,14 +13,14 @@ curve_rev <- function(point, LL, UL, measure = "default", steps = 10000, table =
   if (is.character(measure) != TRUE) {
     stop("Error: 'measure' must be a string such as 'default' or 'ratio'")
   }
-  pboptions(type = "timer", style = 1, char = "+")
+
   intrvls <- (1:steps) / steps
   z <- qnorm(1 - intrvls / 2)
 
   if (measure == "default") {
     se <- (UL / LL) / 3.92
-    LL <- pblapply(z, FUN = function(i) point + (i * se), cl = detectCores() - 1)
-    UL <- pblapply(z, FUN = function(i) point - (i * se), cl = detectCores() - 1)
+    LL <- pbmclapply(z, FUN = function(i) point + (i * se), mc.cores = detectCores() - 1)
+    UL <- pbmclapply(z, FUN = function(i) point - (i * se), mc.cores = detectCores() - 1)
     df <- data.frame(do.call(rbind, UL), do.call(rbind, LL))
     intrvl.limit <- c("lower.limit", "upper.limit")
     colnames(df) <- intrvl.limit
@@ -29,8 +29,8 @@ curve_rev <- function(point, LL, UL, measure = "default", steps = 10000, table =
   else if (measure == "ratio") {
     se <- log(UL / LL) / 3.92
     logpoint <- log(point)
-    logLL <- pblapply(z, FUN = function(i) logpoint + (i * se), cl = detectCores() - 1)
-    logUL <- pblapply(z, FUN = function(i) logpoint - (i * se), cl = detectCores() - 1)
+    logLL <- pbmclapply(z, FUN = function(i) logpoint + (i * se), mc.cores = detectCores() - 1)
+    logUL <- pbmclapply(z, FUN = function(i) logpoint - (i * se), mc.cores = detectCores() - 1)
     df <- data.frame(do.call(rbind, logUL), do.call(rbind, logLL))
     intrvl.limit <- c("lower.limit", "upper.limit")
     colnames(df) <- intrvl.limit

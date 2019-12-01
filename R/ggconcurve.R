@@ -42,7 +42,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
 
     # Plotting Intervals ------------------------------------------------------
 
-    interval <- pblapply(levels, FUN = function(i) (c(i, subset(data, intrvl.level == i)[, 1], subset(data, intrvl.level == i)[, 2])), cl = detectCores() - 1)
+    interval <- pbmclapply(levels, FUN = function(i) (c(i, subset(data, intrvl.level == i)[, 1], subset(data, intrvl.level == i)[, 2])), mc.cores = detectCores() - 1)
     interval <- data.frame(do.call(rbind, interval))
     interval <- pivot_longer(interval, X2:X3, names_to = "levels", values_to = "limits")
     interval <- interval[, -2]
@@ -146,7 +146,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
 
     # Plotting Intervals ------------------------------------------------------
 
-    interval <- pblapply(levels, FUN = function(i) (c(i, subset(data, intrvl.level == i)[, 1], subset(data, intrvl.level == i)[, 2])), cl = detectCores() - 1)
+    interval <- pbmclapply(levels, FUN = function(i) (c(i, subset(data, intrvl.level == i)[, 1], subset(data, intrvl.level == i)[, 2])), mc.cores = detectCores() - 1)
     interval <- data.frame(do.call(rbind, interval))
     interval <- gather(interval, key = "levels", value = "limits", X2:X3)
     interval <- interval[, -2]
@@ -223,7 +223,8 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
     }
 
     ggplot(data = data, mapping = aes(x = x)) +
-      stat_ecdf(geom = "point", color = fill, size = 0.75, shape = 8) +
+      stat_ecdf(geom = "point", color = fill, size = 0.70, shape = 8, alpha = 0.3) +
+      geom_hline(yintercept = 0.50) +
       labs(
         title = "Consonance Distribution",
         subtitle = subtitle,
@@ -232,7 +233,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
       ) +
       theme_bw() +
       theme(
-        plot.title = element_text(size = 16),
+        plot.title = element_text(size = 14),
         plot.subtitle = element_text(size = 12),
         plot.caption = element_text(size = 8),
         axis.title.x = element_text(size = 13),
@@ -285,7 +286,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
       ) +
       theme_bw() +
       theme(
-        plot.title = element_text(size = 16),
+        plot.title = element_text(size = 14),
         plot.subtitle = element_text(size = 12),
         plot.caption = element_text(size = 8),
         axis.title.x = element_text(size = 13),
@@ -345,7 +346,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
       ) +
       theme_bw() +
       theme(
-        plot.title = element_text(size = 16),
+        plot.title = element_text(size = 14),
         plot.subtitle = element_text(size = 12),
         plot.caption = element_text(size = 8),
         axis.title.x = element_text(size = 13),
@@ -405,7 +406,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
       ) +
       theme_bw() +
       theme(
-        plot.title = element_text(size = 16),
+        plot.title = element_text(size = 14),
         plot.subtitle = element_text(size = 12),
         plot.caption = element_text(size = 8),
         axis.title.x = element_text(size = 13),
@@ -465,7 +466,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
       ) +
       theme_bw() +
       theme(
-        plot.title = element_text(size = 16),
+        plot.title = element_text(size = 14),
         plot.subtitle = element_text(size = 12),
         plot.caption = element_text(size = 8),
         axis.title.x = element_text(size = 13),
@@ -525,7 +526,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
       ) +
       theme_bw() +
       theme(
-        plot.title = element_text(size = 16),
+        plot.title = element_text(size = 14),
         plot.subtitle = element_text(size = 12),
         plot.caption = element_text(size = 8),
         axis.title.x = element_text(size = 13),
