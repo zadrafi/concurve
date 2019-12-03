@@ -1,3 +1,15 @@
+#' Compute the Profile Likelihood Functions
+#'
+#' @param likobject An object from the ProfileLikelihood package
+#' @param data The dataframe that was used to create the likelihood object in the ProfileLikelihood package.
+#' @param table Indicates whether or not a table output with some relevant statistics should
+# be generated. The default is TRUE and generates a table which is included in the list object
+#'
+#' @examples
+#'
+#' data(dataglm)
+#' xx <- profilelike.glm(y ~ x1 + x2, data = dataglm, profile.theta = "group", family = binomial(link = "logit"), length = 500, round = 2)
+#' (curve_lik(xx, dataglm))
 curve_lik <- function(likobject, data, table = TRUE) {
   values <- likobject[[1]] # theta values
   likelihood <- likobject[[2]] # profile likelihoods

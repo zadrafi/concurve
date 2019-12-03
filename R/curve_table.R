@@ -1,3 +1,35 @@
+#' Produce Tables For concurve Functions
+#'
+#' Produces publication-ready tables with relevant statistics of interest for functions produced
+#' from the concurve package.
+#'
+#' @param data Dataframe from a concurve function to produce a table for
+#' @param levels Levels of the consonance intervals or likelihood intervals that should be
+#' included in the table.
+#' @param type Indicates whether the table is for a consonance function or likelihood function.
+#' The default is set to "c" for consonance and can be switched to "l" for likelihood.
+#' @param format The format of the tables. The options include "data.frame" which is the
+#' default, "tibble", "docx" (which creates a table for a word document), "pptx" (which
+#' creates a table for powerpoint), "latex", (which creates a table for a TeX document), and
+#' "image", which produces an image of the table.
+#'
+#' @examples
+#'
+#' library(concurve)
+#'
+#' GroupA <- rnorm(500)
+#' GroupB <- rnorm(500)
+#'
+#' RandomData <- data.frame(GroupA, GroupB)
+#'
+#' (intervalsdf <- curve_mean(GroupA, GroupB, data = RandomData, method = "default"))
+#'
+#' (z <- curve_table(intervalsdf[[1]], format = "data.frame"))
+#' (z <- curve_table(intervalsdf[[1]], format = "tibble"))
+#' (z <- curve_table(intervalsdf, format = "docx"))
+#' (z <- curve_table(intervalsdf, format = "pptx"))
+#' (z <- curve_table(intervalsdf[[1]], format = "latex"))
+#' (z <- curve_table(intervalsdf[[1]], format = "image"))
 curve_table <- function(data, levels, type = "c", format = "data.frame") {
   if (type == "c") {
     levels <- c(0.25, 0.50, 0.75, 0.80, 0.85, 0.90, 0.95, 0.975, 0.99)

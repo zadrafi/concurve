@@ -1,5 +1,37 @@
-# Mean Interval Consonance Function
-
+#' Mean Interval Consonance Function
+#'
+#' Computes thousands of consonance (confidence) intervals for the chosen parameter in a statistical test
+#' that compares means and places the interval limits for each interval level into a data
+#' frame along with the corresponding p-values and s-values.
+#'
+#' @param x Variable that contains the data for the first group being compared.
+#' @param y Variable that contains the data for the second group being compared.
+#' @param data Data frame from which the variables are being extracted from.
+#' @param paired Indicates whether the statistical test is a paired difference test.
+#' By default, it is set to "F",which means the function will be an unpaired statistical test
+#' comparing two independent groups.Inserting "paired" will change the test to a paired
+#' difference test.
+#' @param method By default this is turned off (set to "default"), but allows for bootstrapping
+#' if "boot" is insertedinto the function call.
+#' @param replicates Indicates how many bootstrap replicates are to be performed if bootstrapping
+#' is enabled as a method.
+#' @param steps Indicates how many consonance intervals are to be calculated at various levels.
+#' For example, settingthis to 100 will produce 100 consonance intervals from 0 to 100. Setting
+#' this to 10000 will produce moreconsonance levels. By default, it is set to 1000. Increasing
+#' the number substantially is not recommended as it will take longer to produce all the intervals
+#' and store them into a dataframe.
+#' @param table Indicates whether or not a table output with some relevant statistics should
+#' be generated. The default is TRUE and generates a table which is included in the list
+#' object.
+#'
+#' @examples
+#'
+#' # Simulate random data
+#' GroupA <- runif(100, min = 0, max = 100)
+#' GroupB <- runif(100, min = 0, max = 100)
+#' RandomData <- data.frame(GroupA, GroupB)
+#' bob <- curve_mean(GroupA, GroupB, RandomData)
+#' tibble::tibble(bob)
 curve_mean <- function(x, y, data, paired = F, method = "default", replicates = 1000, steps = 10000, table = TRUE) {
   if (is.numeric(x) != TRUE) {
     stop("Error: 'x' must be a numeric vector")
