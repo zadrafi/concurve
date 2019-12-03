@@ -1,3 +1,5 @@
+# Importing other packages
+
 use_package("parallel", "Imports", min_version = NULL)
 use_package("pbmcapply", "Imports", min_version = NULL)
 use_package("compiler", "Imports", min_version = NULL)
@@ -16,7 +18,14 @@ use_package("survival", "Imports", min_version = NULL)
 use_package("survminer", "Imports", min_version = NULL)
 use_package("scales", "Imports", min_version = NULL)
 
-
+# Suggest other packages
 use_package("testthat", "Suggests", min_version = NULL)
 use_package("covr", "Suggests", min_version = NULL)
 use_package("spelling", "Suggests", min_version = NULL)
+
+# Other helper functions
+
+use_build_ignore("usethis.R", escape = TRUE)
+use_spell_check(vignettes = TRUE, lang = "en-US", error = FALSE)
+use_cran_comments(open = interactive())
+use_tidy_style()

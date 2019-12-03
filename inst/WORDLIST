@@ -2,12 +2,12 @@ AJPH
 Amrhein
 ANCOVA
 arXiv
+Codecov
 DAS
 databrowser
 df
 dichotomization
 doi
-DOI
 dplyr
 estiate
 flextable
@@ -24,6 +24,7 @@ jstatsoft
 kendall
 KJ
 knitr
+Lifecycle
 lm
 logarithmically
 lointerval
