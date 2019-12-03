@@ -3,7 +3,7 @@ curve_boot <- function(data = data, func = func, method = "bca", replicates = 20
 
 
 
-# BCA Bootstrap Method  ---------------------------------------------------
+  # BCA Bootstrap Method  ---------------------------------------------------
 
   if (method == "bca") {
     intrvls <- 0.5 / steps
@@ -69,9 +69,9 @@ curve_boot <- function(data = data, func = func, method = "bca", replicates = 20
 
     if (table == TRUE) {
       levels <- c(0.25, 0.50, 0.75, 0.80, 0.85, 0.90, 0.95, 0.975, 0.99)
-      (bca_subintervals <- (curve_table(df_bca, levels, type = "data.frame")))
+      (bca_subintervals <- (curve_table(df_bca, levels, type = "c", format = "data.frame")))
       class(bca_subintervals) <- c("data.frame", "concurve")
-      (std_subintervals <- (curve_table(df_std, levels, type = "data.frame")))
+      (std_subintervals <- (curve_table(df_std, levels, type = "c", format = "data.frame")))
       class(std_subintervals) <- c("data.frame", "concurve")
       dataframes <- list(df_std, std_subintervals, df_bca, bca_subintervals)
       names(dataframes) <- c("Standard Intervals", "Standard Table", "BCA Intervals", "BCA Table")
@@ -116,7 +116,7 @@ curve_boot <- function(data = data, func = func, method = "bca", replicates = 20
 
     if (table == TRUE) {
       levels <- c(0.25, 0.50, 0.75, 0.80, 0.85, 0.90, 0.95, 0.975, 0.99)
-      (df_subintervals <- (curve_table(df, levels, type = "data.frame")))
+      (df_subintervals <- (curve_table(df, levels, type = "c", format = "data.frame")))
       class(df_subintervals) <- c("data.frame", "concurve")
       dataframes <- list(df, densdf, df_subintervals)
       names(dataframes) <- c("Intervals Dataframe", "Intervals Density", "Intervals Table")

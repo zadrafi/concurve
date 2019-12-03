@@ -1,16 +1,22 @@
 
 # concurve | Graph Interval Functions <img src="man/figures/logo.svg" align="right" width="120" />
 
+<!-- badges: start -->
+
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/concurve)](https://cran.r-project.org/package=concurve)
 [![Build
 Status](https://travis-ci.org/Zadchow/concurve.svg?branch=master)](https://travis-ci.org/Zadchow/concurve)
 [![Build
 status](https://ci.appveyor.com/api/projects/status/v8sp9x96dap2om9s?svg=true)](https://ci.appveyor.com/project/Zadchow/concurve)
-[![DOI](https://zenodo.org/badge/165464881.svg)](https://zenodo.org/badge/latestdoi/165464881)
+[![Lifecycle:
+maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![](https://cranlogs.r-pkg.org/badges/grand-total/concurve)](https://cran.r-project.org/package=concurve)
 [![Rdoc](http://www.rdocumentation.org/badges/version/concurve)](http://www.rdocumentation.org/packages/concurve)
 [![License: GPL
 v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/concurve)](https://CRAN.R-project.org/package=concurve)
+<!-- badges: end -->
 
 -----
 
@@ -204,10 +210,8 @@ install_github("zadchow/concurve")
     ## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
     ## 
     ## attached base packages:
-    ## [1] stats     graphics  grDevices utils     datasets  methods   base     
+    ## [1] stats     graphics  grDevices utils     methods   base     
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] compiler_3.6.1  magrittr_1.5    tools_3.6.1     htmltools_0.4.0
-    ##  [5] yaml_2.2.0      Rcpp_1.0.3      stringi_1.4.3   rmarkdown_1.17 
-    ##  [9] knitr_1.26      stringr_1.4.0   xfun_0.11       digest_0.6.23  
-    ## [13] rlang_0.4.2     evaluate_0.14
+    ##  [1] compiler_3.6.1  magrittr_1.5    tools_3.6.1     htmltools_0.4.0 yaml_2.2.0      Rcpp_1.0.3      stringi_1.4.3  
+    ##  [8] rmarkdown_1.18  knitr_1.26      stringr_1.4.0   xfun_0.11       digest_0.6.23   rlang_0.4.2     evaluate_0.14

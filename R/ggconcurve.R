@@ -313,7 +313,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
 
     # Relative Likelihood Function -----------------------------------------------------
   } else if (type == "l1") {
-    if (ncol(data) != 6) {
+    if (ncol(data) != 5) {
       stop("Error: 'data' must be a data frame from 'concurve'.")
     }
     if (is.character(measure) != TRUE) {
@@ -342,7 +342,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
         title = "Relative Likelihood Function",
         subtitle = subtitle,
         x = xaxis,
-        y = "Relative Likelihood \n(1/MLR)"
+        y = "Relative Likelihood"
       ) +
       theme_bw() +
       theme(
@@ -371,9 +371,9 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
         }
       }
 
-    # Log-Likelihood Function -----------------------------------------------------
+    # Log Likelihood Function -----------------------------------------------------
   } else if (type == "l2") {
-    if (ncol(data) != 6) {
+    if (ncol(data) != 5) {
       stop("Error: 'data' must be a data frame from 'concurve'.")
     }
     if (is.character(measure) != TRUE) {
@@ -399,7 +399,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
       geom_line() +
       geom_ribbon(aes(x = values, ymin = min(loglikelihood), ymax = loglikelihood), fill = "#239a98", alpha = 0.30) +
       labs(
-        title = "Log-Likelihood Function",
+        title = "Log Likelihood Function",
         subtitle = subtitle,
         x = xaxis,
         y = "Log Likelihood"
@@ -433,7 +433,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
 
     # Likelihood Function -----------------------------------------------------
   } else if (type == "l3") {
-    if (ncol(data) != 6) {
+    if (ncol(data) != 5) {
       stop("Error: 'data' must be a data frame from 'concurve'.")
     }
     if (is.character(measure) != TRUE) {
@@ -493,7 +493,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
 
     # Deviance Function -----------------------------------------------------
   } else if (type == "d") {
-    if (ncol(data) != 6) {
+    if (ncol(data) != 5) {
       stop("Error: 'data' must be a data frame from 'concurve'.")
     }
     if (is.character(measure) != TRUE) {
@@ -522,7 +522,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
         title = "Deviance Function",
         subtitle = subtitle,
         x = xaxis,
-        y = "Deviance Statistic \n2ln(MLR)"
+        y = "Deviance Statistic"
       ) +
       theme_bw() +
       theme(
@@ -536,20 +536,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
       {
         if (measure == "ratio") scale_x_log10(breaks = scales::pretty_breaks(n = 10))
       } +
-      scale_y_continuous(breaks = scales::pretty_breaks(n = 10), expand = c(0.0075, 0.0075)) +
-      if (nullvalue == TRUE) {
-        if (measure == "default") {
-          annotate("segment",
-            x = 0, xend = 0, y = 0, yend = 1,
-            color = "#990000", alpha = 0.3, size = .8, linetype = 1
-          )
-        } else if (measure == "ratio") {
-          annotate("segment",
-            x = 1, xend = 1, y = 0, yend = 1,
-            color = "#990000", alpha = 0.3, size = .8, linetype = 1
-          )
-        }
-      }
+      scale_y_continuous(breaks = scales::pretty_breaks(n = 10), expand = c(0.0075, 0.0075))
   }
 }
 

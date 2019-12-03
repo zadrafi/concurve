@@ -1,44 +1,73 @@
-Package: concurve
 Type: Package
-Date: 2019-12-01
-Title: Computes and Plots Compatibility (Confidence) Intervals, P-Values, S-Values, & Likelihood Intervals to Form Consonance, Surprisal, & Likelihood Functions
+Package: concurve
+Title: Computes and Plots Compatibility (Confidence) Intervals,
+    P-Values, S-Values, & Likelihood Intervals to Form Consonance,
+    Surprisal, & Likelihood Functions
 Version: 2.2.0
-Authors@R: c(
-    person("Zad R.", "Chow", , "zad@lesslikely.com", role = c("aut", "cre"),
-      comment = c(ORCID = "0000-0003-1545-8199")
-    ),
-    person("Andrew D.", "Vigotsky", role = "aut",
-      comment = c(ORCID = "0000-0003-3166-0688")
-    )
-    )
+Date: 2019-12-01
+Authors@R: 
+    c(person(given = "Zad R.",
+             family = "Chow",
+             role = c("aut", "cre"),
+             email = "zad@lesslikely.com",
+             comment = c(ORCID = "0000-0003-1545-8199")),
+      person(given = "Andrew D.",
+             family = "Vigotsky",
+             role = "aut",
+             comment = c(ORCID = "0000-0003-3166-0688")))
 Maintainer: Zad R. Chow <zad@lesslikely.com>
-Description: Allows one to compute consonance (confidence) intervals for various statistical tests along with their corresponding P-values, S-values, and likelihoods. The intervals can be plotted to create consonance, surprisal, and likelihood functions allowing one to see what effect sizes are compatible with the test model at various consonance levels rather than being limited to one interval estimate such as 95%. These methods are discussed by Poole C. (1987) <doi:10.2105/AJPH.77.2.195>, Schweder T, Hjort NL. (2002) <doi:10.1111/1467-9469.00285>, Singh K, Xie M, Strawderman WE. (2007) <arXiv:0708.0976>, Rothman KJ, Greenland S, Lash TL. (2008, ISBN:9781451190052), Amrhein V, Trafimow D, Greenland S. (2019) <doi:10.1080/00031305.2018.1543137>, Greenland S. (2019) <doi:10.1080/00031305.2018.1529625>, Chow ZR, Greenland S. (2019) <arXiv:1909.08579>, and Greenland S, Chow ZR. (2019) <arXiv:1909.08583>.
-Imports: parallel,
-         pbmcapply,
-         compiler,
-         boot,
-         bcaboot,
-         ProfileLikelihood,
-         ggplot2,
-         metafor,
-         dplyr,
-         tidyr,
-         flextable,
-         officer,
-         knitr,
-         tibble,
-         survival, 
-         survminer,
-         scales
-Suggests:
-    testthat,
-    covr
-License: GPL-3 | file LICENSE
-URL: https://data.lesslikely.com/concurve/, https://github.com/Zadchow/concurve, https://lesslikely.com/
+Description: Allows one to compute consonance (confidence)
+    intervals for various statistical tests along with their corresponding
+    P-values, S-values, and likelihoods. The intervals can be plotted to
+    create consonance, surprisal, and likelihood functions allowing one to
+    see what effect sizes are compatible with the test model at various
+    consonance levels rather than being limited to one interval estimate
+    such as 95%. These methods are discussed by Poole C. (1987)
+    <doi:10.2105/AJPH.77.2.195>, Schweder T, Hjort NL. (2002)
+    <doi:10.1111/1467-9469.00285>, Singh K, Xie M, Strawderman WE. (2007)
+    <arXiv:0708.0976>, Rothman KJ, Greenland S, Lash TL. (2008,
+    ISBN:9781451190052), Amrhein V, Trafimow D, Greenland S. (2019)
+    <doi:10.1080/00031305.2018.1543137>, Greenland S. (2019)
+    <doi:10.1080/00031305.2018.1529625>, Chow ZR, Greenland S. (2019)
+    <arXiv:1909.08579>, and Greenland S, Chow ZR. (2019)
+    <arXiv:1909.08583>.
+License: GPL-3
+URL: https://data.lesslikely.com/concurve/,
+    https://github.com/Zadchow/concurve, https://lesslikely.com/
 BugReports: https://github.com/Zadchow/concurve/issues
-VignetteBuilder: knitr
-Encoding: UTF-8
+Imports: 
+    bcaboot,
+    boot,
+    compiler,
+    dplyr,
+    flextable,
+    ggplot2,
+    knitr,
+    metafor,
+    officer,
+    parallel,
+    pbmcapply,
+    ProfileLikelihood,
+    rlang (>= 0.1.2),
+    scales,
+    survival,
+    survminer,
+    tibble,
+    tidyr,
+    magrittr
+Suggests:
+    covr,
+    roxygen2,
+    spelling,
+    testthat
+VignetteBuilder: 
+    knitr
 ByteCompile: true
+Encoding: UTF-8
+Language: en-US
 LazyData: true
 RoxygenNote: 7.0.1
-X-schema.org-keywords: confidence, compatibility, consonance, surprisal, interval, function, curve
+X-schema.org-keywords: confidence, compatibility, consonance,
+    surprisal, interval, function, curve
+Depends: 
+    R (>= 3.2)

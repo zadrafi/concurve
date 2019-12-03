@@ -38,7 +38,7 @@ curve_gen <- function(model, var, method = "wald", replicates = 1000, steps = 10
 
   if (table == TRUE) {
     levels <- c(0.25, 0.50, 0.75, 0.80, 0.85, 0.90, 0.95, 0.975, 0.99)
-    (df_subintervals <- (curve_table(df, levels, type = "data.frame")))
+    (df_subintervals <- (curve_table(df, levels, type = "c", format = "data.frame")))
     class(df_subintervals) <- c("data.frame", "concurve")
     dataframes <- list(df, densdf, df_subintervals)
     names(dataframes) <- c("Intervals Dataframe", "Intervals Density", "Intervals Table")
