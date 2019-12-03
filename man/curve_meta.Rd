@@ -79,5 +79,4 @@ res <- rma(yi, vi, data = dat, slab = paste(StudyName, sep = ", "), method = "FE
 metaf <- curve_meta(res)
 #
 tibble::tibble(metaf[[1]])
-
 }

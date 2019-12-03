@@ -43,4 +43,5 @@ randomframe <- curve_gen(model, "GroupB2", method = "glm")
 (curve_compare(intervalsdf[[1]], randomframe[[1]]))
 (curve_compare(intervalsdf[[1]], randomframe[[1]], type = "s"))
 }
+
 }

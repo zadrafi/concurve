@@ -111,5 +111,4 @@ RandomData <- data.frame(GroupA, GroupB)
 
 intervalsdf <- curve_mean(GroupA, GroupB, data = RandomData, method = "default")
 (function1 <- ggconcurve(type = "c", intervalsdf[[1]]))
-
 }

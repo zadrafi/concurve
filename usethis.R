@@ -31,3 +31,9 @@ use_spell_check(vignettes = TRUE, lang = "en-US", error = FALSE)
 use_cran_comments(open = interactive())
 use_tidy_style()
 use_revdep()
+
+check(pkg = ".", document = NA, build_args = NULL,
+      manual = TRUE, cran = TRUE, remote = TRUE, incoming = TRUE,
+      force_suggests = TRUE, run_dont_test = TRUE, args = "--timings",
+      env_vars = NULL, quiet = FALSE, check_dir = tempdir(),
+      cleanup = TRUE, error_on = c("never", "error", "warning", "note"))

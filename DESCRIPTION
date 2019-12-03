@@ -3,7 +3,7 @@ Package: concurve
 Title: Computes and Plots Compatibility (Confidence) Intervals,
     P-Values, S-Values, & Likelihood Intervals to Form Consonance,
     Surprisal, & Likelihood Functions
-Version: 2.2.0
+Version: 2.3.0
 Date: 2019-12-01
 Authors@R: 
     c(person(given = "Zad R.",

@@ -1,4 +1,4 @@
-# concurve 3.0
+# concurve 2.3.0
 
 ## Major changes 
 

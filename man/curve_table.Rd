@@ -38,6 +38,4 @@ intervalsdf <- curve_mean(GroupA, GroupB, data = RandomData, method = "default")
 (z <- curve_table(intervalsdf[[1]], format = "data.frame"))
 (z <- curve_table(intervalsdf[[1]], format = "tibble"))
 (z <- curve_table(intervalsdf[[1]], format = "latex"))
-
-
 }
