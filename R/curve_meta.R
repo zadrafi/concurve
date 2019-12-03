@@ -67,7 +67,7 @@
 #' #
 #' metaf <- curve_meta(res)
 #' #
-#' tibble::tibble(metaf)
+#' tibble::tibble(metaf[[1]])
 curve_meta <- function(x, measure = "default", steps = 10000, table = TRUE) {
   if (is.list(x) != TRUE) {
     stop("Error: 'x' must be a list from 'metafor'")

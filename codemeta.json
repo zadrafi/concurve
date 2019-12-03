@@ -102,6 +102,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=testthat"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "rmarkdown",
+      "name": "rmarkdown",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=rmarkdown"
     }
   ],
   "softwareRequirements": [
@@ -322,13 +334,25 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "MASS",
+      "name": "MASS",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=MASS"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "R",
       "name": "R",
       "version": ">= 3.2"
     }
   ],
   "keywords": ["confidence", "compatibility", "consonance", "surprisal", "interval", "function", "curve"],
-  "fileSize": "3867.198KB",
+  "fileSize": "3874.265KB",
   "contIntegration": [
     "https://travis-ci.org/Zadchow/concurve",
     "https://ci.appveyor.com/project/Zadchow/concurve",

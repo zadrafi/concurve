@@ -2,15 +2,20 @@
 #'
 #' Compares the p-value/s-value, and likelihood functions and computes an AUC number.
 #'
-#' @param data1 The first dataframe produced by one of the interval functions in which the intervals are stored.
-#' @param data2 The second dataframe produced by one of the interval functions in which the intervals are stored.
+#' @param data1 The first dataframe produced by one of the interval functions
+#' in which the intervals are stored.
+#' @param data2 The second dataframe produced by one of the interval functions in
+#' which the intervals are stored.
 #' @param type Choose whether to plot a "consonance" function, a "surprisal" function or
-#' "likelihood". The default option is set to "c". The type must be set in quotes, for example
-#' ggconcurve (type = "s") or ggconcurve(type = "c"). Other options include "pd" for the consonance
-#' distribution function, and "cd" for the consonance density function, "l1" for relative
-#' likelihood, "l2" for log-likelihood, "l3" for likelihood and "d" for deviance function.
-#' @param plot by default it is set to TRUE and will use the plot_compare() function to plot the two functions
-#' @param ... Can be used to pass further arguments to plot_compare()
+#' "likelihood". The default option is set to "c". The type must be set in quotes,
+#' for example ggconcurve (type = "s") or ggconcurve(type = "c"). Other options
+#' include "pd" for the consonance distribution function, and "cd" for the consonance
+#' density function, "l1" for relative likelihood, "l2" for log-likelihood, "l3"
+#' for likelihood and "d" for deviance function.
+#' @param plot by default it is set to TRUE and will use the plot_compare() function
+#' to plot the two functions.
+#' @param ... Can be used to pass further arguments to plot_compare().
+#'
 #' @examples
 #' library(concurve)
 #' GroupA <- rnorm(500)
@@ -20,11 +25,12 @@
 #' GroupA2 <- rnorm(500)
 #' GroupB2 <- rnorm(500)
 #' RandomData2 <- data.frame(GroupA2, GroupB2)
-#' model <- lm(GroupA2 ~ GroupB2, data = RandomData2)
-#' randomframe <- curve_gen(model, "GroupB2")
+#' model <- glm(GroupA2 ~ GroupB2, family = gaussian, data = RandomData2)
+#' randomframe <- curve_gen(model, "GroupB2", method = "glm", steps = 1000)
 #' (curve_compare(data1 = intervalsdf[[1]], data2 = randomframe[[1]], type = "c", plot = TRUE, measure = "default", nullvalue = TRUE))
 #' (curve_compare(data1 = intervalsdf[[1]], data2 = randomframe[[1]], type = "s", plot = TRUE, measure = "default", nullvalue = FALSE))
-#' #
+#'
+
 curve_compare <- function(data1, data2, type = "c", plot = TRUE, ...) {
 
   # Consonance Function -----------------------------------------------------

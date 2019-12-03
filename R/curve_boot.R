@@ -8,7 +8,6 @@
 #' will be bootstrapped.
 #' @param method The boostrap method that will be used to generate the functions.
 #' Methods include "bca" which is the default and "t".
-#'
 #' @param replicates Indicates how many bootstrap replicates are to be performed.
 #' The defaultis currently 20000 but more may be desirable, especially to make
 #' the functions more smooth.
@@ -21,20 +20,25 @@
 #' @param table Indicates whether or not a table output with some relevant
 #' statistics should be generated. The default is TRUE and generates a table
 #' which is included in the list object.
+#'
 #' @return A list with the dataframe of values in the first list and the table
 #' in the second if table = TRUE.
 #'
 #' @examples
-#' iris <- datasets::iris
-#' foo <- function(data, indices) {
-#'   foo <- function(data, indices) {
-#'     dt <- data[indices, ]
-#'     c(
-#'       cor(dt[, 1], dt[, 2], method = "p")
-#'     )
-#'   }
-#'   (y <- curve_boot(data = iris, func = foo, method = "bca", replicates = 200, steps = 1000))
+#' library(Lock5Data)
+#' dataz <- data(CommuteAtlanta)
+#'
+#' func = function(data, index) {
+#'   x <- as.numeric(unlist(data[1]))
+#'   y <- as.numeric(unlist(data[2]))
+#'   return(mean(x[index]) - mean(y[index]))
 #' }
+#'
+#' z <- curve_boot(data = CommuteAtlanta, func = func, method = "t", replicates = 2000, steps = 1000)
+#' ggconcurve(data = z[[1]])
+#' ggconcurve(data = z[[2]], type = "cd")
+#'
+
 curve_boot <- function(data = data, func = func, method = "bca", replicates = 20000, steps = 1000, table = TRUE) {
 
 

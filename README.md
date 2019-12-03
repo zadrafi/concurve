@@ -3,19 +3,17 @@
 
 <!-- badges: start -->
 
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/concurve)](https://cran.r-project.org/package=concurve)
-[![Build
-Status](https://travis-ci.org/Zadchow/concurve.svg?branch=master)](https://travis-ci.org/Zadchow/concurve)
-[![Build
-status](https://ci.appveyor.com/api/projects/status/v8sp9x96dap2om9s?svg=true)](https://ci.appveyor.com/project/Zadchow/concurve)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/concurve)](https://CRAN.R-project.org/package=concurve)
+[![Travis build
+status](https://travis-ci.org/Zadchow/concurve.svg?branch=master)](https://travis-ci.org/Zadchow/concurve)
 [![Lifecycle:
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![](https://cranlogs.r-pkg.org/badges/grand-total/concurve)](https://cran.r-project.org/package=concurve)
 [![Rdoc](http://www.rdocumentation.org/badges/version/concurve)](http://www.rdocumentation.org/packages/concurve)
 [![License: GPL
 v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![CRAN
-status](https://www.r-pkg.org/badges/version/concurve)](https://CRAN.R-project.org/package=concurve)
+
 <!-- badges: end -->
 
 -----
@@ -80,6 +78,14 @@ install_github("zadchow/concurve")
   - ggplot2
   - metafor
   - parallel
+  - MASS
+  - boot
+  - bcaboot
+  - compiler
+  - ProfileLikelihood
+  - pbmcapply
+  - rlang
+  - magrittr
   - dplyr
   - tidyr
   - knitr

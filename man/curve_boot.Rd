@@ -46,14 +46,17 @@ Use the BCa bootstrap method and the t boostrap method from the bcaboot and boot
 to generate consonance distrbutions.
 }
 \examples{
-iris <- datasets::iris
-foo <- function(data, indices) {
-  foo <- function(data, indices) {
-    dt <- data[indices, ]
-    c(
-      cor(dt[, 1], dt[, 2], method = "p")
-    )
-  }
-  (y <- curve_boot(data = iris, func = foo, method = "bca", replicates = 200, steps = 1000))
+library(Lock5Data)
+dataz <- data(CommuteAtlanta)
+
+func = function(data, index) {
+  x <- as.numeric(unlist(data[1]))
+  y <- as.numeric(unlist(data[2]))
+  return(mean(x[index]) - mean(y[index]))
 }
+
+z <- curve_boot(data = CommuteAtlanta, func = func, method = "t", replicates = 2000, steps = 1000)
+ggconcurve(data = z[[1]])
+ggconcurve(data = z[[2]], type = "cd")
+
 }

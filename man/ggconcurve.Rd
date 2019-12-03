@@ -86,7 +86,7 @@ For example, ggconcurve(type = "consonance", data = x, color = "#333333").}
 
 \item{fill}{Item that allows the user to choose the color of the ribbons in the graph.
 By default, it is set to color = "#239a98". The inputs must be in quotes. For example,
-ggconcurve(type = "consonance", data = x, fill = "#333333").}
+ggconcurve(type = "c", data = x, fill = "#333333").}
 }
 \value{
 Plot with intervals at every consonance level graphed with their corresponding
@@ -109,5 +109,5 @@ GroupB <- rnorm(500)
 RandomData <- data.frame(GroupA, GroupB)
 
 intervalsdf <- curve_mean(GroupA, GroupB, data = RandomData, method = "default")
-(function1 <- ggconcurve(type = "consonance", intervalsdf))
+(function1 <- ggconcurve(type = "c", intervalsdf[[1]]))
 }

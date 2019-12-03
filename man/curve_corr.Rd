@@ -45,5 +45,6 @@ corresponding p-values and s-values.
 GroupA <- rnorm(50)
 GroupB <- rnorm(50)
 joe <- curve_corr(x = GroupA, y = GroupB, alternative = "two.sided", method = "pearson")
-tibble::tibble(joe)
+tibble::tibble(joe[[1]])
+
 }

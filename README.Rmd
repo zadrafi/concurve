@@ -7,7 +7,6 @@ concurve | Graph Interval Functions <img src="man/figures/logo.svg" align="right
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/concurve)](https://CRAN.R-project.org/package=concurve)
 [![Travis build status](https://travis-ci.org/Zadchow/concurve.svg?branch=master)](https://travis-ci.org/Zadchow/concurve)
-[![Codecov test coverage](https://codecov.io/gh/Zadchow/concurve/branch/master/graph/badge.svg)](https://codecov.io/gh/Zadchow/concurve?branch=master)
 [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![](https://cranlogs.r-pkg.org/badges/grand-total/concurve)](https://cran.r-project.org/package=concurve)
 [![Rdoc](http://www.rdocumentation.org/badges/version/concurve)](http://www.rdocumentation.org/packages/concurve)
@@ -76,6 +75,14 @@ install_github("zadchow/concurve")
 * ggplot2
 * metafor
 * parallel
+* MASS
+* boot
+* bcaboot
+* compiler
+* ProfileLikelihood
+* pbmcapply
+* rlang
+* magrittr
 * dplyr
 * tidyr
 * knitr

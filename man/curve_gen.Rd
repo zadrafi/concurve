@@ -5,15 +5,7 @@
 \title{General Consonance Functions Using Profile Likelihood, Wald,
 or the bootstrap method for linear models.}
 \usage{
-curve_gen(
-  model,
-  var,
-  method = "wald",
-  replicates = 1000,
-  steps = 10000,
-  table = TRUE,
-  ...
-)
+curve_gen(model, var, method = "wald", steps = 1000, table = TRUE)
 }
 \arguments{
 \item{model}{The statistical model of interest
@@ -31,10 +23,6 @@ familiar with when computing intervals based on the calculated standard error.
 The "lm" method allows this function to be used for specific scenarios like
 logistic regression and the 'glm' function. The "boot" method allows for
 bootstrapping at certain levels.}
-
-\item{replicates}{Indicates how many bootstrap replicates are to be performed.
-The defaultis currently 20000 but more may be desirable, especially to make
-the functions more smooth.}
 
 \item{steps}{Indicates how many consonance intervals are to be calculated at
 various levels. For example, setting this to 100 will produce 100 consonance
@@ -63,6 +51,6 @@ GroupA <- rnorm(50)
 GroupB <- rnorm(50)
 RandomData <- data.frame(GroupA, GroupB)
 rob <- glm(GroupA ~ GroupB, data = RandomData)
-bob <- curve_gen(rob, "GroupB", method = "lm")
-tibble::tibble(bob)
+bob <- curve_gen(rob, "GroupB", method = "glm")
+tibble::tibble(bob[[1]])
 }

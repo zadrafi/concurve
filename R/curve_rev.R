@@ -31,7 +31,7 @@
 #' #
 #' df <- curve_rev(point = 1.61, LL = 0.997, UL = 2.59, measure = "ratio")
 #'
-#' tibble::tibble(df)
+#' tibble::tibble(df[[1]])
 curve_rev <- function(point, LL, UL, type = "c", measure = "default", steps = 10000, table = TRUE) {
 
 

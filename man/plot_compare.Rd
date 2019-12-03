@@ -102,9 +102,9 @@ intervalsdf <- curve_mean(GroupA, GroupB, data = RandomData, method = "default")
 GroupA2 <- rnorm(500)
 GroupB2 <- rnorm(500)
 RandomData2 <- data.frame(GroupA2, GroupB2)
-model <- lm(GroupA2 ~ GroupB2, data = RandomData2)
+model <- glm(GroupA2 ~ GroupB2, family = gaussian, data = RandomData2)
 
-randomframe <- curve_gen(model, "GroupB2")
+randomframe <- curve_gen(model, "GroupB2", method = "glm", steps = 1000)
 
-(plot_compare(data1 = intervalsdf[[1]], data2 = randomframe[[1]], type = "s", measure = "default", nullvalue = TRUE))
+(plot_compare(data1 = intervalsdf[[1]], data2 = randomframe[[1]], type = "s", measure = "default", nullvalue = FALSE))
 }

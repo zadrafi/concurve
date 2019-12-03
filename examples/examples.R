@@ -9,6 +9,8 @@ RandomData <- data.frame(GroupA, GroupB)
   data = RandomData, method = "default"
 ))
 
+tibble::tibble(intervalsdf[[1]])
+
 
 (z <- curve_table(intervalsdf[[1]], format = "data.frame"))
 (z <- curve_table(intervalsdf[[1]], format = "tibble"))
@@ -28,9 +30,9 @@ GroupB2 <- rnorm(500)
 RandomData2 <- data.frame(GroupA2, GroupB2)
 
 
-model <- lm(GroupA2 ~ GroupB2, data = RandomData2)
+model <- glm(GroupA2 ~ GroupB2, data = RandomData2)
 
-randomframe <- curve_gen(model, "GroupB2")
+randomframe <- curve_gen(model, "GroupB2", method = "glm")
 
 (function2 <- ggconcurve(type = "c", randomframe[[1]], levels = c(0.50, 0.75, 0.95), nullvalue = TRUE))
 

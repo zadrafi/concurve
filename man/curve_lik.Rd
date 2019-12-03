@@ -20,8 +20,9 @@ which is included in the list object.}
 Compute the Profile Likelihood Functions
 }
 \examples{
-
+library(ProfileLikelihood)
 data(dataglm)
 xx <- profilelike.glm(y ~ x1 + x2, data = dataglm, profile.theta = "group", family = binomial(link = "logit"), length = 500, round = 2)
-(curve_lik(xx, dataglm))
+lik <- curve_lik(xx, dataglm)
+tibble::tibble(lik[[1]])
 }

@@ -20,9 +20,6 @@
 #' The "lm" method allows this function to be used for specific scenarios like
 #' logistic regression and the 'glm' function. The "boot" method allows for
 #' bootstrapping at certain levels.
-#' @param replicates Indicates how many bootstrap replicates are to be performed.
-#' The defaultis currently 20000 but more may be desirable, especially to make
-#' the functions more smooth.
 #' @param steps Indicates how many consonance intervals are to be calculated at
 #' various levels. For example, setting this to 100 will produce 100 consonance
 #' intervals from 0 to 100. Setting this to 10000 will produce more consonance
@@ -32,6 +29,7 @@
 #' @param table Indicates whether or not a table output with some relevant
 #' statistics should be generated. The default is TRUE and generates a table
 #' which is included in the list object.
+#'
 #' @return
 #' @export
 #'
@@ -41,27 +39,24 @@
 #' GroupB <- rnorm(50)
 #' RandomData <- data.frame(GroupA, GroupB)
 #' rob <- glm(GroupA ~ GroupB, data = RandomData)
-#' bob <- curve_gen(rob, "GroupB", method = "lm")
-#' tibble::tibble(bob)
-curve_gen <- function(model, var, method = "wald", replicates = 1000, steps = 10000, table = TRUE, ...) {
+#' bob <- curve_gen(rob, "GroupB", method = "glm")
+#' tibble::tibble(bob[[1]])
+
+curve_gen <- function(model, var, method = "wald", steps = 1000, table = TRUE) {
   if (is.character(method) != TRUE) {
     stop("Error: 'method' must be a character vector")
-  }
-  if (is.numeric(replicates) != TRUE) {
-    stop("Error: 'replicates' must be a numeric vector")
   }
   if (is.numeric(steps) != TRUE) {
     stop("Error: 'steps' must be a numeric vector")
   }
 
-  intrvls <- (0:steps) / steps
+  intrvls <- (1:(steps - 1)) / steps
+
   if (method == "wald") {
     results <- pbmclapply(intrvls, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = detectCores() - 1)
   } else if (method == "glm") {
-    require(MASS)
-    results <- pbmclapply(intrvls, FUN = function(i) confint(object = model, level = i)[var, ], mc.cores = detectCores() - 1)
+    results <- pbmclapply(intrvls, FUN = function(i) confint(object = model, level = i, trace = FALSE)[var, ], mc.cores = detectCores() - 1)
   }
-
 
   df <- data.frame(do.call(rbind, results))
   intrvl.limit <- c("lower.limit", "upper.limit")

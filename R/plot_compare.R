@@ -55,6 +55,7 @@
 #' @param fill Item that allows the user to choose the color of the ribbons in the graph.
 #' By default, it is set to color = "#239a98". The inputs must be in quotes. For example,
 #' ggconcurve(type = "consonance", data = x, fill = "#333333").
+#'
 #' @return A plot that compares two functions.
 #' @examples
 #' library(concurve)
@@ -66,11 +67,12 @@
 #' GroupA2 <- rnorm(500)
 #' GroupB2 <- rnorm(500)
 #' RandomData2 <- data.frame(GroupA2, GroupB2)
-#' model <- lm(GroupA2 ~ GroupB2, data = RandomData2)
+#' model <- glm(GroupA2 ~ GroupB2, family = gaussian, data = RandomData2)
 #'
-#' randomframe <- curve_gen(model, "GroupB2")
+#' randomframe <- curve_gen(model, "GroupB2", method = "glm", steps = 1000)
 #'
-#' (plot_compare(data1 = intervalsdf[[1]], data2 = randomframe[[1]], type = "s", measure = "default", nullvalue = TRUE))
+#' (plot_compare(data1 = intervalsdf[[1]], data2 = randomframe[[1]], type = "s", measure = "default", nullvalue = FALSE))
+
 plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalue = FALSE, position = "pyramid",
                          title = "Interval Functions",
                          subtitle = "The function displays intervals at every level.",
