@@ -1,25 +1,28 @@
-#' Reverse Engineer Consonance / Likelihood Functions Using the Point Estimate and Confidence Limits
+#' Reverse Engineer Consonance / Likelihood Functions Using the Point
+#' Estimate and Confidence Limits
 #'
-#' Using the confidence limits and point estimates from a dataset, one can use these
-#' estimates to compute thousands of consonance intervals and graph the intervals to
-#' form a consonance and surprisal function.
+#' Using the confidence limits and point estimates from a dataset, one can use
+#' these estimates to compute thousands of consonance intervals and graph the
+#' intervals to form a consonance and surprisal function.
 #'
 #' @param point The point estimate from an analysis. Ex: 1.20
 #' @param LL The lower confidence limit from an analysis Ex: 1.0
 #' @param UL The upper confidence limit from an analysis Ex: 1.4
-#' @param type Indicates whether the produced result should be a consonance function
-#' or a likelihood function. The default is "c" for consonance and likelihood can be set via
-#' "l".
+#' @param type Indicates whether the produced result should be a consonance
+#' function or a likelihood function. The default is "c" for consonance and
+#' likelihood can be set via "l".
 #' @param measure The type of data being used. If they involve mean differences,
 # then the "default" option should be used, which is also the default setting.
 # If the data are ratios, then the "ratio" option should be used.
-#' @param steps Indicates how many consonance intervals are to be calculated at various levels.
-#' For example, setting this to 100 will produce 100 consonance intervals from 0 to 100.
-#' Setting this to 10000 will produce more consonance levels. By default, it is set to 1000.
-#' Increasing the number substantially is not recommended as it will take longer to produce
-#' all the intervals and store them into a dataframe.
-#' @param table Indicates whether or not a table output with some relevant statistics should
-#' be generated. The default is TRUE and generates a table which is included in the list object.
+#' @param steps Indicates how many consonance intervals are to be calculated at
+#' various levels. For example, setting this to 100 will produce 100 consonance
+#' intervals from 0 to 100. Setting this to 10000 will produce more consonance
+#' levels. By default, it is set to 1000. Increasing the number substantially
+#' is not recommended as it will take longer to produce all the intervals and
+#' store them into a dataframe.
+#' @param table Indicates whether or not a table output with some relevant
+#' statistics should be generated. The default is TRUE and generates a table
+#' which is included in the list object.
 #'
 #' @examples
 #'

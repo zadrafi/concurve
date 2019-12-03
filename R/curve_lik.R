@@ -1,9 +1,11 @@
 #' Compute the Profile Likelihood Functions
 #'
 #' @param likobject An object from the ProfileLikelihood package
-#' @param data The dataframe that was used to create the likelihood object in the ProfileLikelihood package.
-#' @param table Indicates whether or not a table output with some relevant statistics should
-# be generated. The default is TRUE and generates a table which is included in the list object
+#' @param data The dataframe that was used to create the likelihood
+#' object in the ProfileLikelihood package.
+#' @param table Indicates whether or not a table output with some relevant
+#' statistics should be generated. The default is TRUE and generates a table
+#' which is included in the list object.
 #'
 #' @examples
 #'

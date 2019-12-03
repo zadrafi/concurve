@@ -2,7 +2,8 @@
 % Please edit documentation in R/curve_rev.R
 \name{curve_rev}
 \alias{curve_rev}
-\title{Reverse Engineer Consonance / Likelihood Functions Using the Point Estimate and Confidence Limits}
+\title{Reverse Engineer Consonance / Likelihood Functions Using the Point
+Estimate and Confidence Limits}
 \usage{
 curve_rev(
   point,
@@ -21,25 +22,27 @@ curve_rev(
 
 \item{UL}{The upper confidence limit from an analysis Ex: 1.4}
 
-\item{type}{Indicates whether the produced result should be a consonance function
-or a likelihood function. The default is "c" for consonance and likelihood can be set via
-"l".}
+\item{type}{Indicates whether the produced result should be a consonance
+function or a likelihood function. The default is "c" for consonance and
+likelihood can be set via "l".}
 
 \item{measure}{The type of data being used. If they involve mean differences,}
 
-\item{steps}{Indicates how many consonance intervals are to be calculated at various levels.
-For example, setting this to 100 will produce 100 consonance intervals from 0 to 100.
-Setting this to 10000 will produce more consonance levels. By default, it is set to 1000.
-Increasing the number substantially is not recommended as it will take longer to produce
-all the intervals and store them into a dataframe.}
+\item{steps}{Indicates how many consonance intervals are to be calculated at
+various levels. For example, setting this to 100 will produce 100 consonance
+intervals from 0 to 100. Setting this to 10000 will produce more consonance
+levels. By default, it is set to 1000. Increasing the number substantially
+is not recommended as it will take longer to produce all the intervals and
+store them into a dataframe.}
 
-\item{table}{Indicates whether or not a table output with some relevant statistics should
-be generated. The default is TRUE and generates a table which is included in the list object.}
+\item{table}{Indicates whether or not a table output with some relevant
+statistics should be generated. The default is TRUE and generates a table
+which is included in the list object.}
 }
 \description{
-Using the confidence limits and point estimates from a dataset, one can use these
-estimates to compute thousands of consonance intervals and graph the intervals to
-form a consonance and surprisal function.
+Using the confidence limits and point estimates from a dataset, one can use
+these estimates to compute thousands of consonance intervals and graph the
+intervals to form a consonance and surprisal function.
 }
 \examples{
 

@@ -1,7 +1,7 @@
 #' Produce Tables For concurve Functions
 #'
-#' Produces publication-ready tables with relevant statistics of interest for functions produced
-#' from the concurve package.
+#' Produces publication-ready tables with relevant statistics of interest
+#' for functions produced from the concurve package.
 #'
 #' @param data Dataframe from a concurve function to produce a table for
 #' @param levels Levels of the consonance intervals or likelihood intervals that should be

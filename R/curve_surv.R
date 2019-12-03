@@ -1,21 +1,23 @@
 #' Produce Consonance Intervals for Survival Data
 #'
-#' Computes thousands of consonance (confidence) intervals for the chosen parameter in the
-#' Cox model computed by the 'survival' package and places the interval limits for each interval level
-#' into a data frame along with the corresponding p-value and s-value.
+#' Computes thousands of consonance (confidence) intervals for the chosen
+#' parameter in the Cox model computed by the 'survival' package and places
+#' the interval limits for each interval level into a data frame along
+#' with the corresponding p-value and s-value.
 #'
 #' @param data Object where the Cox model is stored, typically a list produced by the
 #' 'survival' package.
-#' @param x Predictor of interest within the survival model for which the consonance intervals
-#' should be computed.
-#' @param steps Indicates how many consonance intervals are to be calculated at various levels.
-#' For example, setting this to 100 will produce 100 consonance intervals from 0 to 100.
-#' Setting this to 10000 will produce more consonance levels. By default, it is set to 1000.
-#' Increasing the number substantially is not recommended as it will take longer to produce
-#' all the intervals and store them into a dataframe.
-#' @param table Indicates whether or not a table output with some relevant statistics should be
-#' generated. The default is TRUE and generates a table which is included in the list object
-#'
+#' @param x Predictor of interest within the survival model for which the
+#' consonance intervals should be computed.
+#' @param steps Indicates how many consonance intervals are to be calculated at
+#' various levels. For example, setting this to 100 will produce 100 consonance
+#' intervals from 0 to 100. Setting this to 10000 will produce more consonance
+#' levels. By default, it is set to 1000. Increasing the number substantially
+#' is not recommended as it will take longer to produce all the intervals and
+#' store them into a dataframe.
+#' @param table Indicates whether or not a table output with some relevant
+#' statistics should be generated. The default is TRUE and generates a table
+#' which is included in the list object.
 #' @examples
 #'
 curve_surv <- function(data, x, steps = 10000, table = TRUE) {

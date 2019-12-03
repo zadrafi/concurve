@@ -7,27 +7,31 @@
 curve_meta(x, measure = "default", steps = 10000, table = TRUE)
 }
 \arguments{
-\item{x}{Object where the meta-analysis parameters are stored, typically a list produced by 'metafor'}
+\item{x}{Object where the meta-analysis parameters are stored, typically a
+list produced by 'metafor'}
 
 \item{measure}{Indicates whether the object has a log transformation or is normal/default.
 The default setting is "default. If the measure is set to "ratio", it will take
 logarithmically transformed values and convert them back to normal values in the dataframe.
-This is typically a setting used for binary outcomes such as risk ratios, hazard ratios, and odds ratios.}
+This is typically a setting used for binary outcomes such as risk ratios,
+hazard ratios, and odds ratios.}
 
-\item{steps}{Indicates how many consonance intervals are to be calculated at various levels.
-For example, setting this to 100 will produce 100 consonance intervals from 0 to 100.
-Setting this to 10000 will produce more consonance levels. By default, it is set to 1000.
-Increasing the number substantially is not recommended as it will take longer to produce all
-the intervals and store them into a dataframe.}
+\item{steps}{Indicates how many consonance intervals are to be calculated at
+various levels. For example, setting this to 100 will produce 100 consonance
+intervals from 0 to 100. Setting this to 10000 will produce more consonance
+levels. By default, it is set to 1000. Increasing the number substantially
+is not recommended as it will take longer to produce all the intervals and
+store them into a dataframe.}
 
-\item{table}{Indicates whether or not a table output with some relevant statistics
-should be generated. The default is TRUE and generates a table which is included in the
-list object.}
+\item{table}{Indicates whether or not a table output with some relevant
+statistics should be generated. The default is TRUE and generates a table
+which is included in the list object.}
 }
 \description{
-Computes thousands of consonance (confidence) intervals for the chosen parameter in the
-meta-analysis done by the metafor package and places the interval limits for each interval level
-into a data frame along with the corresponding p-values and s-values.
+Computes thousands of consonance (confidence) intervals for the chosen
+parameter in the meta-analysis done by the metafor package and places the
+interval limits for each interval level into a data frame along with the
+corresponding p-values and s-values.
 }
 \examples{
 

@@ -9,9 +9,12 @@ curve_lik(likobject, data, table = TRUE)
 \arguments{
 \item{likobject}{An object from the ProfileLikelihood package}
 
-\item{data}{The dataframe that was used to create the likelihood object in the ProfileLikelihood package.}
+\item{data}{The dataframe that was used to create the likelihood
+object in the ProfileLikelihood package.}
 
-\item{table}{Indicates whether or not a table output with some relevant statistics should}
+\item{table}{Indicates whether or not a table output with some relevant
+statistics should be generated. The default is TRUE and generates a table
+which is included in the list object.}
 }
 \description{
 Compute the Profile Likelihood Functions

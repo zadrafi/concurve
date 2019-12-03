@@ -21,8 +21,8 @@ creates a table for powerpoint), "latex", (which creates a table for a TeX docum
 "image", which produces an image of the table.}
 }
 \description{
-Produces publication-ready tables with relevant statistics of interest for functions produced
-from the concurve package.
+Produces publication-ready tables with relevant statistics of interest
+for functions produced from the concurve package.
 }
 \examples{
 

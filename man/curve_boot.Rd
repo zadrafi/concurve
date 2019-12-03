@@ -14,29 +14,32 @@ curve_boot(
 )
 }
 \arguments{
-\item{data}{Dataset that is being used to create a consonance function}
+\item{data}{Dataset that is being used to create a consonance function.}
 
 \item{func}{Custom function that is used to create parameters of interest that
-will be bootstrapped}
+will be bootstrapped.}
 
 \item{method}{The boostrap method that will be used to generate the functions.
 Methods include "bca" which is the default and "t".}
 
-\item{replicates}{Indicates how many bootstrap replicates are to be performed. The default
-is currently 20000 but more may be desirable, especially to make the functions more smooth}
+\item{replicates}{Indicates how many bootstrap replicates are to be performed.
+The defaultis currently 20000 but more may be desirable, especially to make
+the functions more smooth.}
 
-\item{steps}{Indicates how many consonance intervals are to be calculated at various levels.
-For example, setting this to 100 will produce 100 consonance intervals from 0 to 100.
-Setting this to 10000 will produce more consonance levels. By default, it is set to 1000.
-Increasing the number substantially is not recommended as it will take longer to produce
-all the intervals and store them into a dataframe.}
+\item{steps}{Indicates how many consonance intervals are to be calculated at
+various levels. For example, setting this to 100 will produce 100 consonance
+intervals from 0 to 100. Setting this to 10000 will produce more consonance
+levels. By default, it is set to 1000. Increasing the number substantially
+is not recommended as it will take longer to produce all the intervals and
+store them into a dataframe.}
 
-\item{table}{Indicates whether or not a table output with some relevant statistics should
-be generated. The default is TRUE and generates a table which is included in the list object}
+\item{table}{Indicates whether or not a table output with some relevant
+statistics should be generated. The default is TRUE and generates a table
+which is included in the list object.}
 }
 \value{
-A list with the dataframe of values in the first list and the table in the second
-if table = TRUE
+A list with the dataframe of values in the first list and the table
+in the second if table = TRUE.
 }
 \description{
 Use the BCa bootstrap method and the t boostrap method from the bcaboot and boot packages

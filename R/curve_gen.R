@@ -1,26 +1,37 @@
-# General Consonance Functions Using Profile Likelihood, Wald, or the bootstrap method for linear models.
+#' General Consonance Functions Using Profile Likelihood, Wald,
+#' or the bootstrap method for linear models.
 #'
-#' Computes thousands of consonance (confidence) intervals for the chosen parameter in the
-# selected model(ANOVA, ANCOVA, regression, logistic regression) and places the interval limits
-# for each interval level into a data frame along with the corresponding p-values and s-values.
+#' Computes thousands of consonance (confidence) intervals for
+#' the chosen parameter in the selected model
+#' (ANOVA, ANCOVA, regression, logistic regression) and places
+#' the interval limits for each interval level into a data frame along
+#' with the corresponding p-values and s-values.
 #'
-#' @param model The statistical model of interest(ANOVA, regression, logistic regression) is to be indicated here.
-#' @param var The variable of interest from the model (coefficients, intercept) for which the intervals are to be produced.
-#' @param method Chooses the method to be used to calculate the consonance intervals. There are currently four
-# methods: "default", "wald", "lm", and "boot". The "default" method uses the profile likelihood method to
-# compute intervals and can be used for models created by the 'lm' function. The "wald" method is typically
-# what most people are familiar with when computing intervals based on the calculated standard error.
-# The "lm" method allows this function to be used for specific scenarios like logistic regression and
-# the 'glm' function. The "boot" method allows for bootstrapping at certain levels.
-#' @param replicates Indicates how many bootstrap replicates are to be performed if bootstrapping is enabled as a method.
-#' @param steps Indicates how many consonance intervals are to be calculated at various levels.
-#' For example, setting this to 100 will produce 100 compatibility intervals from 0 to 100.
-#' Setting this to 10000 will produce more consonance levels. By default, it is set to 1000.
-#' Increasing the number substantially is not recommended as it will take longer to produce all
-#' the intervals and store them into a dataframe.
-#' @param table Indicates whether or not a table output with some relevant statistics should
-# be generated. The default is TRUE and generates a table which is included in the list object
-#'
+#' @param model The statistical model of interest
+#' (ANOVA, regression, logistic regression) is to be indicated here.
+#' @param var The variable of interest from the model (coefficients, intercept)
+#' for which the intervals are to be produced.
+#' @param method Chooses the method to be used to calculate the
+#' consonance intervals. There are currently four methods:
+#' "default", "wald", "lm", and "boot". The "default" method uses the profile
+#' likelihood method to compute intervals and can be used for models created by
+#' the 'lm' function. The "wald" method is typicallywhat most people are
+#' familiar with when computing intervals based on the calculated standard error.
+#' The "lm" method allows this function to be used for specific scenarios like
+#' logistic regression and the 'glm' function. The "boot" method allows for
+#' bootstrapping at certain levels.
+#' @param replicates Indicates how many bootstrap replicates are to be performed.
+#' The defaultis currently 20000 but more may be desirable, especially to make
+#' the functions more smooth.
+#' @param steps Indicates how many consonance intervals are to be calculated at
+#' various levels. For example, setting this to 100 will produce 100 consonance
+#' intervals from 0 to 100. Setting this to 10000 will produce more consonance
+#' levels. By default, it is set to 1000. Increasing the number substantially
+#' is not recommended as it will take longer to produce all the intervals and
+#' store them into a dataframe.
+#' @param table Indicates whether or not a table output with some relevant
+#' statistics should be generated. The default is TRUE and generates a table
+#' which is included in the list object.
 #' @return
 #' @export
 #'
