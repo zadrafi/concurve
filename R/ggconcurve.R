@@ -30,7 +30,7 @@
 #' plotted as a vertical line. Changing this to TRUE, will plot a vertical
 #' line at 0 when the measure is set to " default" and a vertical line at
 #' 1 when the measure is set to "ratio". For example,
-#' ggconcurve(type = "consonance", data = df, measure = "ratio", nullvalue = "present").
+#' ggconcurve(type = "c", data = df, measure = "ratio", nullvalue = "present").
 #' This feature is not yet available for surprisal functions.
 #' @param position Determines the orientation of the P-value (consonance) function.
 #' By default, it is set to "pyramid", meaning the p-value function will
@@ -40,32 +40,33 @@
 #' ggconcurve(type = "c", data = df, position = "inverted").
 #' @param title A custom title for the graph. By default, it is
 #' set to "Consonance Function". In order to set a title, it must
-#' be in quotes. For example, ggconcurve(type = "consonance",
+#' be in quotes. For example, ggconcurve(type = "c",
 #' data = x, title = "Custom Title").
 #' @param subtitle A custom subtitle for the graph. By default, it is set
 #' to "The function contains consonance/confidence intervals at every level
 #' and the P-values." In order to set a subtitle, it must be in quotes.
-#' For example, ggconcurve(type = "consonance", data = x, subtitle = "Custom Subtitle").
+#' For example, ggconcurve(type = "c", data = x, subtitle = "Custom Subtitle").
 #' @param xaxis A custom x-axis title for the graph. By default,
 #' it is set to "Range of Values.
 #' In order to set a x-axis title, it must be in quotes. For example,
-#' ggconcurve(type = "consonance", data = x, xaxis = "Hazard Ratio").
+#' ggconcurve(type = "c", data = x, xaxis = "Hazard Ratio").
 #' @param yaxis A custom y-axis title for the graph. By default,
 #' it is set to "Consonance Level".
 #' In order to set a y-axis title, it must be in quotes. For example,
-#' ggconcurve(type = "consonance", data = x, yxis = "Confidence Level").
+#' ggconcurve(type = "c", data = x, yxis = "Confidence Level").
 #' @param color Item that allows the user to choose the color of the points
 #' and the ribbons in the graph. By default, it is set to color = "#555555".
 #' The inputs must be in quotes.
-#' For example, ggconcurve(type = "consonance", data = x, color = "#333333").
+#' For example, ggconcurve(type = "c", data = x, color = "#333333").
 #' @param fill Item that allows the user to choose the color of the ribbons in the graph.
-#' By default, it is set to color = "#239a98". The inputs must be in quotes. For example,
+#' By default, it is set to fill = "#239a98". The inputs must be in quotes. For example,
 #' ggconcurve(type = "c", data = x, fill = "#333333").
 #'
 #' @return Plot with intervals at every consonance level graphed with their corresponding
 #' p-values and compatibility levels.
 #'
 #' @examples
+#'
 #' # Simulate random data
 #'
 #' library(concurve)
@@ -77,7 +78,6 @@
 #'
 #' intervalsdf <- curve_mean(GroupA, GroupB, data = RandomData, method = "default")
 #' (function1 <- ggconcurve(type = "c", intervalsdf[[1]]))
-
 ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullvalue = FALSE, position = "pyramid",
                        title = "Interval Function",
                        subtitle = "The function displays intervals at every level.",
@@ -122,7 +122,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
 
     # Plotting Intervals ------------------------------------------------------
 
-    interval <- pbmclapply(levels, FUN = function(i) (c(i, subset(data, intrvl.level == i)[, 1], subset(data, intrvl.level == i)[, 2])), mc.cores = detectCores() - 1)
+    interval <- pbmclapply(levels, FUN = function(i) (c(i, subset(data, intrvl.level == i)[, 1], subset(data, intrvl.level == i)[, 2])), mc.cores = getOption("mc.cores", 2L))
     interval <- data.frame(do.call(rbind, interval))
     interval <- pivot_longer(interval, X2:X3, names_to = "levels", values_to = "limits")
     interval <- interval[, -2]
@@ -226,7 +226,7 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
 
     # Plotting Intervals ------------------------------------------------------
 
-    interval <- pbmclapply(levels, FUN = function(i) (c(i, subset(data, intrvl.level == i)[, 1], subset(data, intrvl.level == i)[, 2])), mc.cores = detectCores() - 1)
+    interval <- pbmclapply(levels, FUN = function(i) (c(i, subset(data, intrvl.level == i)[, 1], subset(data, intrvl.level == i)[, 2])), mc.cores = getOption("mc.cores", 2L))
     interval <- data.frame(do.call(rbind, interval))
     interval <- gather(interval, key = "levels", value = "limits", X2:X3)
     interval <- interval[, -2]
@@ -622,3 +622,4 @@ ggconcurve <- function(data, type = "c", measure = "default", levels = 0.95, nul
 
 # RMD Check
 utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.width", "intrvl.level", "cdf", "pvalue", "svalue"))
+utils::globalVariables(c("X2", "X3", "limits", "x"))

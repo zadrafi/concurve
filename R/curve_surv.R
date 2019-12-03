@@ -18,8 +18,8 @@
 #' @param table Indicates whether or not a table output with some relevant
 #' statistics should be generated. The default is TRUE and generates a table
 #' which is included in the list object.
-#' @examples
 #'
+
 curve_surv <- function(data, x, steps = 10000, table = TRUE) {
   if (is.list(data) != TRUE) {
     stop("Error: 'data' must be an object with a Cox Proportional Hazards model")
@@ -29,7 +29,7 @@ curve_surv <- function(data, x, steps = 10000, table = TRUE) {
   }
 
   intrvls <- (1:steps) / steps
-  results <- pbmclapply(intrvls, FUN = function(i) summary(data, conf.int = i)$conf.int[x, ], mc.cores = detectCores() - 1)
+  results <- pbmclapply(intrvls, FUN = function(i) summary(data, conf.int = i)$conf.int[x, ], mc.cores = getOption("mc.cores", 2L))
 
   df <- data.frame(do.call(rbind, results))[, 3:4]
   intrvl.limit <- c("lower.limit", "upper.limit")

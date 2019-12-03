@@ -24,15 +24,29 @@ tibble::tibble(intervalsdf[[1]])
 (function1s <- ggconcurve(data = intervalsdf[[2]], type = "cdf"))
 
 
+options(mc.cores = 8L)
+getOption("mc.cores", 2L)
+
 GroupA2 <- rnorm(500)
 GroupB2 <- rnorm(500)
 
 RandomData2 <- data.frame(GroupA2, GroupB2)
 
+model <- glm(GroupA2 ~ GroupB2, data = RandomData2)
+
+system.time(randomframe <- curve_gen(model, "GroupB2", method = "glm", steps = 10000))
+
+options(mc.cores = 2L)
+
+GroupA2 <- rnorm(500)
+GroupB2 <- rnorm(500)
+
+RandomData2 <- data.frame(GroupA2, GroupB2)
 
 model <- glm(GroupA2 ~ GroupB2, data = RandomData2)
 
-randomframe <- curve_gen(model, "GroupB2", method = "glm")
+system.time(randomframe <- curve_gen(model, "GroupB2", method = "glm", steps = 10000))
+
 
 (function2 <- ggconcurve(type = "c", randomframe[[1]], levels = c(0.50, 0.75, 0.95), nullvalue = TRUE))
 
@@ -103,6 +117,9 @@ plot_compare(data1 = lik1[[1]], data2 = lik2[[1]], type = "d", measure = "ratio"
 
 # Bootstrapping -----------------------------------------------------------
 
+options(mc.cores = 8L)
+getOption("mc.cores", 2L)
+
 data(diabetes, package = "bcaboot")
 Xy <- cbind(diabetes$x, diabetes$y)
 rfun <- function(Xy) {
@@ -111,7 +128,22 @@ rfun <- function(Xy) {
   return(summary(lm(y ~ X))$adj.r.squared)
 }
 
-(x <- curve_boot(data = Xy, func = rfun, method = "bca", replicates = 2000, steps = 1000))
+system.time(x <- curve_boot(data = Xy, func = rfun, method = "bca", replicates = 20000, steps = 1000))
+
+
+options(mc.cores = 2L)
+getOption("mc.cores", 2L)
+
+data(diabetes, package = "bcaboot")
+Xy <- cbind(diabetes$x, diabetes$y)
+rfun <- function(Xy) {
+  y <- Xy[, 11]
+  X <- Xy[, 1:10]
+  return(summary(lm(y ~ X))$adj.r.squared)
+}
+
+system.time(x <- curve_boot(data = Xy, func = rfun, method = "bca", replicates = 20000, steps = 1000))
+
 
 ggconcurve(data = x[[1]])
 ggconcurve(data = x[[3]])

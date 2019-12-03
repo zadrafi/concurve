@@ -25,16 +25,12 @@
 #' statistics should be generated. The default is TRUE and generates a table
 #' which is included in the list object.
 #'
-#' @return
-#' @export
-#'
 #' @examples
+#'
 #' GroupA <- rnorm(50)
 #' GroupB <- rnorm(50)
 #' joe <- curve_corr(x = GroupA, y = GroupB, alternative = "two.sided", method = "pearson")
 #' tibble::tibble(joe[[1]])
-#'
-
 curve_corr <- function(x, y, alternative, method, steps = 10000, table = TRUE) {
   if (is.numeric(x) != TRUE) {
     stop("Error: 'x' must be a numeric vector")
@@ -53,7 +49,7 @@ curve_corr <- function(x, y, alternative, method, steps = 10000, table = TRUE) {
       alternative = alternative, method = method,
       exact = NULL, conf.level = i, continuity = FALSE
     )$conf.int[]
-  }, mc.cores = detectCores() - 1)
+  }, mc.cores = getOption("mc.cores", 2L))
   df <- data.frame(do.call(rbind, results))
   intrvl.limit <- c("lower.limit", "upper.limit")
   colnames(df) <- intrvl.limit

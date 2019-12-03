@@ -32,9 +32,6 @@ store them into a dataframe.}
 statistics should be generated. The default is TRUE and generates a table
 which is included in the list object.}
 }
-\value{
-
-}
 \description{
 Computes consonance intervals to produce P- and S-value functions for
 correlational analysesusing the cor.test function in base R and places the
@@ -42,6 +39,7 @@ interval limits for each interval levelinto a data frame along with the
 corresponding p-values and s-values.
 }
 \examples{
+
 GroupA <- rnorm(50)
 GroupB <- rnorm(50)
 joe <- curve_corr(x = GroupA, y = GroupB, alternative = "two.sided", method = "pearson")

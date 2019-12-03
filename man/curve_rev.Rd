@@ -52,4 +52,5 @@ intervals to form a consonance and surprisal function.
 df <- curve_rev(point = 1.61, LL = 0.997, UL = 2.59, measure = "ratio")
 
 tibble::tibble(df[[1]])
+
 }

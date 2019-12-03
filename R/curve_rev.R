@@ -56,8 +56,8 @@ curve_rev <- function(point, LL, UL, type = "c", measure = "default", steps = 10
 
     if (measure == "default") {
       se <- (UL / LL) / 3.92
-      LL <- pbmclapply(z, FUN = function(i) point + (i * se), mc.cores = detectCores() - 1)
-      UL <- pbmclapply(z, FUN = function(i) point - (i * se), mc.cores = detectCores() - 1)
+      LL <- pbmclapply(z, FUN = function(i) point + (i * se), mc.cores = getOption("mc.cores", 2L))
+      UL <- pbmclapply(z, FUN = function(i) point - (i * se), mc.cores = getOption("mc.cores", 2L))
       df <- data.frame(do.call(rbind, UL), do.call(rbind, LL))
       intrvl.limit <- c("lower.limit", "upper.limit")
       colnames(df) <- intrvl.limit
@@ -66,8 +66,8 @@ curve_rev <- function(point, LL, UL, type = "c", measure = "default", steps = 10
     else if (measure == "ratio") {
       se <- log(UL / LL) / 3.92
       logpoint <- log(point)
-      logLL <- pbmclapply(z, FUN = function(i) logpoint + (i * se), mc.cores = detectCores() - 1)
-      logUL <- pbmclapply(z, FUN = function(i) logpoint - (i * se), mc.cores = detectCores() - 1)
+      logLL <- pbmclapply(z, FUN = function(i) logpoint + (i * se), mc.cores = getOption("mc.cores", 2L))
+      logUL <- pbmclapply(z, FUN = function(i) logpoint - (i * se), mc.cores = getOption("mc.cores", 2L))
       df <- data.frame(do.call(rbind, logUL), do.call(rbind, logLL))
       intrvl.limit <- c("lower.limit", "upper.limit")
       colnames(df) <- intrvl.limit
@@ -106,8 +106,8 @@ curve_rev <- function(point, LL, UL, type = "c", measure = "default", steps = 10
 
     if (measure == "default") {
       se <- (UL / LL) / 3.92
-      LL <- pbmclapply(z, FUN = function(i) point + (i * se), mc.cores = detectCores() - 1)
-      UL <- pbmclapply(z, FUN = function(i) point - (i * se), mc.cores = detectCores() - 1)
+      LL <- pbmclapply(z, FUN = function(i) point + (i * se), mc.cores = getOption("mc.cores", 2L))
+      UL <- pbmclapply(z, FUN = function(i) point - (i * se), mc.cores = getOption("mc.cores", 2L))
       df <- data.frame(do.call(rbind, UL), do.call(rbind, LL))
       intrvl.limit <- c("lower.limit", "upper.limit")
       colnames(df) <- intrvl.limit
@@ -116,8 +116,8 @@ curve_rev <- function(point, LL, UL, type = "c", measure = "default", steps = 10
     else if (measure == "ratio") {
       se <- log(UL / LL) / 3.92
       logpoint <- log(point)
-      logLL <- pbmclapply(z, FUN = function(i) logpoint + (i * se), mc.cores = detectCores() - 1)
-      logUL <- pbmclapply(z, FUN = function(i) logpoint - (i * se), mc.cores = detectCores() - 1)
+      logLL <- pbmclapply(z, FUN = function(i) logpoint + (i * se), mc.cores = getOption("mc.cores", 2L))
+      logUL <- pbmclapply(z, FUN = function(i) logpoint - (i * se), mc.cores = getOption("mc.cores", 2L))
       df <- data.frame(do.call(rbind, logUL), do.call(rbind, logLL))
       intrvl.limit <- c("lower.limit", "upper.limit")
       colnames(df) <- intrvl.limit

@@ -30,10 +30,9 @@
 #' statistics should be generated. The default is TRUE and generates a table
 #' which is included in the list object.
 #'
-#' @return
-#' @export
-#'
 #' @examples
+#'
+#' \donttest{
 #' # Simulate random data
 #' GroupA <- rnorm(50)
 #' GroupB <- rnorm(50)
@@ -41,7 +40,8 @@
 #' rob <- glm(GroupA ~ GroupB, data = RandomData)
 #' bob <- curve_gen(rob, "GroupB", method = "glm")
 #' tibble::tibble(bob[[1]])
-
+#' }
+#'
 curve_gen <- function(model, var, method = "wald", steps = 1000, table = TRUE) {
   if (is.character(method) != TRUE) {
     stop("Error: 'method' must be a character vector")
@@ -53,9 +53,9 @@ curve_gen <- function(model, var, method = "wald", steps = 1000, table = TRUE) {
   intrvls <- (1:(steps - 1)) / steps
 
   if (method == "wald") {
-    results <- pbmclapply(intrvls, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = detectCores() - 1)
+    results <- pbmclapply(intrvls, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = getOption("mc.cores", 2L))
   } else if (method == "glm") {
-    results <- pbmclapply(intrvls, FUN = function(i) confint(object = model, level = i, trace = FALSE)[var, ], mc.cores = detectCores() - 1)
+    results <- pbmclapply(intrvls, FUN = function(i) confint(object = model, level = i, trace = FALSE)[var, ], mc.cores = getOption("mc.cores", 2L))
   }
 
   df <- data.frame(do.call(rbind, results))

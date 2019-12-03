@@ -35,7 +35,7 @@ corresponding p-values and s-values.
 }
 \examples{
 
-#  Simulate random data for two groups in two studies
+# Simulate random data for two groups in two studies
 GroupAData <- runif(20, min = 0, max = 100)
 GroupAMean <- round(mean(GroupAData), digits = 2)
 GroupASD <- round(sd(GroupAData), digits = 2)
@@ -79,4 +79,5 @@ res <- rma(yi, vi, data = dat, slab = paste(StudyName, sep = ", "), method = "FE
 metaf <- curve_meta(res)
 #
 tibble::tibble(metaf[[1]])
+
 }

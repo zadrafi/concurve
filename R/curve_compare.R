@@ -17,20 +17,21 @@
 #' @param ... Can be used to pass further arguments to plot_compare().
 #'
 #' @examples
+#' \donttest{
 #' library(concurve)
 #' GroupA <- rnorm(500)
 #' GroupB <- rnorm(500)
 #' RandomData <- data.frame(GroupA, GroupB)
-#' intervalsdf <- curve_mean(GroupA, GroupB, data = RandomData, method = "default")
+#' intervalsdf <- curve_mean(GroupA, GroupB, data = RandomData)
 #' GroupA2 <- rnorm(500)
 #' GroupB2 <- rnorm(500)
 #' RandomData2 <- data.frame(GroupA2, GroupB2)
 #' model <- glm(GroupA2 ~ GroupB2, family = gaussian, data = RandomData2)
-#' randomframe <- curve_gen(model, "GroupB2", method = "glm", steps = 1000)
-#' (curve_compare(data1 = intervalsdf[[1]], data2 = randomframe[[1]], type = "c", plot = TRUE, measure = "default", nullvalue = TRUE))
-#' (curve_compare(data1 = intervalsdf[[1]], data2 = randomframe[[1]], type = "s", plot = TRUE, measure = "default", nullvalue = FALSE))
+#' randomframe <- curve_gen(model, "GroupB2", method = "glm")
+#' (curve_compare(intervalsdf[[1]], randomframe[[1]]))
+#' (curve_compare(intervalsdf[[1]], randomframe[[1]], type = "s"))
+#' }
 #'
-
 curve_compare <- function(data1, data2, type = "c", plot = TRUE, ...) {
 
   # Consonance Function -----------------------------------------------------

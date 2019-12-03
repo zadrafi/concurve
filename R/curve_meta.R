@@ -24,7 +24,7 @@
 #'
 #' @examples
 #'
-#' #  Simulate random data for two groups in two studies
+#' # Simulate random data for two groups in two studies
 #' GroupAData <- runif(20, min = 0, max = 100)
 #' GroupAMean <- round(mean(GroupAData), digits = 2)
 #' GroupASD <- round(sd(GroupAData), digits = 2)
@@ -80,7 +80,7 @@ curve_meta <- function(x, measure = "default", steps = 10000, table = TRUE) {
   }
 
   intrvls <- (0:steps) / steps
-  results <- pbmclapply(intrvls, FUN = function(i) confint.default(object = x, fixed = TRUE, random = FALSE, level = i)[], mc.cores = detectCores() - 1)
+  results <- pbmclapply(intrvls, FUN = function(i) confint.default(object = x, fixed = TRUE, random = FALSE, level = i)[], mc.cores = getOption("mc.cores", 2L))
   df <- data.frame(do.call(rbind, results))
   intrvl.limit <- c("lower.limit", "upper.limit")
   colnames(df) <- intrvl.limit

@@ -30,6 +30,3 @@ parameter in the Cox model computed by the 'survival' package and places
 the interval limits for each interval level into a data frame along
 with the corresponding p-value and s-value.
 }
-\examples{
-
-}

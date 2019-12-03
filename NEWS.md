@@ -1,4 +1,18 @@
-# concurve 2.2.0
+# concurve 3.0
+
+## Major changes 
+
+* `ggconcurve()` plots confidence (consonance) distributions, densities, and likelihood functions.  
+* `curve_compare()` compares two functions and calculates the area between the curve. 
+* `plot_compare() `allows two separate functions to be plotted and compared simultaneously.
+* `curve_table()` produces publication-ready tables of relevant statistics.
+* `curve_boot()` uses bootstrapping to approximate the consonance functions. 
+* `curve_lik()` produces likelihood functions by transforming the objects from the `ProfileLikelihood` package.
+
+## Minor changes 
+
+* All functions now provide progress on how long it will take to complete the task.
+* Interval widths are now provided as measures of precision. 
 
 
 # concurve 2.1.0

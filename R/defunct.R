@@ -5,8 +5,8 @@ defunct <- function(msg = "This function is deprecated") {
 }
 
 # Graphical functions
-plotpint <- defunct("plotpint() is now deprecated. Please use ggconcurve() or plot_concurve() instead.")
-plotsint <- defunct("plotsint() is now deprecated. Please use ggconcurve() or plot_concurve() instead.")
+plotpint <- defunct("plotpint() is now deprecated. Please use ggconcurve() instead.")
+plotsint <- defunct("plotsint() is now deprecated. Please use ggconcurve() instead.")
 
 # Computational functions
 meanintervals <- defunct("meanintervals() is now deprecated. Please use curve_mean() instead.")

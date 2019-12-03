@@ -54,8 +54,8 @@ Imports:
     survminer,
     tibble,
     tidyr,
-    magrittr,
-    MASS
+    MASS,
+    methods
 Suggests:
     covr,
     roxygen2,

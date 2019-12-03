@@ -8,7 +8,7 @@ curve_boot(
   data = data,
   func = func,
   method = "bca",
-  replicates = 20000,
+  replicates = 2000,
   steps = 1000,
   table = TRUE
 )
@@ -46,17 +46,22 @@ Use the BCa bootstrap method and the t boostrap method from the bcaboot and boot
 to generate consonance distrbutions.
 }
 \examples{
-library(Lock5Data)
-dataz <- data(CommuteAtlanta)
 
-func = function(data, index) {
-  x <- as.numeric(unlist(data[1]))
-  y <- as.numeric(unlist(data[2]))
-  return(mean(x[index]) - mean(y[index]))
+\donttest{
+data(diabetes, package = "bcaboot")
+Xy <- cbind(diabetes$x, diabetes$y)
+rfun <- function(Xy) {
+  y <- Xy[, 11]
+  X <- Xy[, 1:10]
+  return(summary(lm(y ~ X))$adj.r.squared)
 }
 
-z <- curve_boot(data = CommuteAtlanta, func = func, method = "t", replicates = 2000, steps = 1000)
-ggconcurve(data = z[[1]])
-ggconcurve(data = z[[2]], type = "cd")
+x <- curve_boot(data = Xy, func = rfun, method = "bca", replicates = 2000, steps = 1000)
+
+ggconcurve(data = x[[1]])
+ggconcurve(data = x[[3]])
+
+plot_compare(x[[1]], x[[3]])
+}
 
 }

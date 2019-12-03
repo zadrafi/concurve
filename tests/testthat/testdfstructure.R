@@ -1,6 +1,9 @@
+
+
 context("Dataframe Structure")
 test_that("curve_mean", {
   library(concurve)
+
 
   # Produce random sample data
   GroupA <- runif(100, min = 0, max = 100)
@@ -8,7 +11,7 @@ test_that("curve_mean", {
 
   RandomData <- data.frame(GroupA, GroupB)
 
-  bob <- curve_mean(GroupA, GroupB, RandomData)
+  bob <- curve_mean(GroupA, GroupB, RandomData, method = "default")
 
   # Set sample dataframe.
   variable1 <- rnorm(100)
@@ -16,18 +19,22 @@ test_that("curve_mean", {
   variable3 <- rnorm(100)
   variable4 <- rnorm(100)
   variable5 <- rnorm(100)
+  variable6 <- rnorm(100)
+  variable7 <- rnorm(100)
 
-  sampledf <- data.frame(variable1, variable2, variable3, variable4, variable5)
+  sampledf <- data.frame(variable1, variable2, variable3, variable4, variable5, variable6, variable7)
 
-  columnnames <- c("lower.limit", "upper.limit", "intrvl.level", "pvalue", "svalue")
+  columnnames <- c("lower.limit", "upper.limit", "intrvl.width", "intrvl.level", "cdf", "pvalue", "svalue")
 
   colnames(sampledf) <- columnnames
 
-  expect_equivalent(str(bob), str(sampledf))
+  expect_equivalent(str(bob[[1]]), str(sampledf))
 })
 
 test_that("curve_gen", {
   library(concurve)
+
+
 
   # Produce random sample data
   GroupA <- rnorm(50)
@@ -36,7 +43,7 @@ test_that("curve_gen", {
   RandomData <- data.frame(GroupA, GroupB)
 
   rob <- glm(GroupA ~ GroupB, data = RandomData)
-  bob <- curve_gen(rob, "GroupB", method = "lm")
+  bob <- curve_gen(rob, "GroupB", method = "glm")
 
   # Set sample dataframe.
   variable1 <- rnorm(100)
@@ -44,19 +51,22 @@ test_that("curve_gen", {
   variable3 <- rnorm(100)
   variable4 <- rnorm(100)
   variable5 <- rnorm(100)
+  variable6 <- rnorm(100)
+  variable7 <- rnorm(100)
 
-  sampledf <- data.frame(variable1, variable2, variable3, variable4, variable5)
+  sampledf <- data.frame(variable1, variable2, variable3, variable4, variable5, variable6, variable7)
 
-  columnnames <- c("lower.limit", "upper.limit", "intrvl.level", "pvalue", "svalue")
+  columnnames <- c("lower.limit", "upper.limit", "intrvl.width", "intrvl.level", "cdf", "pvalue", "svalue")
 
   colnames(sampledf) <- columnnames
 
-  expect_equivalent(str(bob), str(sampledf))
+  expect_equivalent(str(bob[[1]]), str(sampledf))
 })
 
 test_that("curve_meta", {
   library(concurve)
   library(metafor)
+
 
   # Produce random sample data
   GroupAData <- runif(20, min = 0, max = 100)
@@ -110,12 +120,14 @@ test_that("curve_meta", {
   variable3 <- rnorm(100)
   variable4 <- rnorm(100)
   variable5 <- rnorm(100)
+  variable6 <- rnorm(100)
+  variable7 <- rnorm(100)
 
-  sampledf <- data.frame(variable1, variable2, variable3, variable4, variable5)
+  sampledf <- data.frame(variable1, variable2, variable3, variable4, variable5, variable6, variable7)
 
-  columnnames <- c("lower.limit", "upper.limit", "intrvl.level", "pvalue", "svalue")
+  columnnames <- c("lower.limit", "upper.limit", "intrvl.width", "intrvl.level", "cdf", "pvalue", "svalue")
 
   colnames(sampledf) <- columnnames
 
-  expect_equivalent(str(metaf), str(sampledf))
+  expect_equivalent(str(metaf[[1]]), str(sampledf))
 })

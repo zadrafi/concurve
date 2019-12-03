@@ -47,7 +47,7 @@ should be plotted. By default, it is set to FALSE, meaning it will not be
 plotted as a vertical line. Changing this to TRUE, will plot a vertical
 line at 0 when the measure is set to " default" and a vertical line at
 1 when the measure is set to "ratio". For example,
-ggconcurve(type = "consonance", data = df, measure = "ratio", nullvalue = "present").
+ggconcurve(type = "c", data = df, measure = "ratio", nullvalue = "present").
 This feature is not yet available for surprisal functions.}
 
 \item{position}{Determines the orientation of the P-value (consonance) function.
@@ -59,13 +59,13 @@ ggconcurve(type = "c", data = df, position = "inverted").}
 
 \item{title}{A custom title for the graph. By default, it is
 set to "Consonance Function". In order to set a title, it must
-be in quotes. For example, ggconcurve(type = "consonance",
+be in quotes. For example, ggconcurve(type = "c",
 data = x, title = "Custom Title").}
 
 \item{subtitle}{A custom subtitle for the graph. By default, it is set
 to "The function contains consonance/confidence intervals at every level
 and the P-values." In order to set a subtitle, it must be in quotes.
-For example, ggconcurve(type = "consonance", data = x, subtitle = "Custom Subtitle").}
+For example, ggconcurve(type = "c", data = x, subtitle = "Custom Subtitle").}
 
 \item{xaxis}{A custom x-axis title for the graph. By default,
 it is set to "Range of Values.
@@ -75,16 +75,20 @@ ggconcurve(type = "consonance", data = x, xaxis = "Hazard Ratio").}
 \item{yaxis}{A custom y-axis title for the graph. By default,
 it is set to "Consonance Level".
 In order to set a y-axis title, it must be in quotes. For example,
-ggconcurve(type = "consonance", data = x, yxis = "Confidence Level").}
+ggconcurve(type = "c", data = x, yxis = "Confidence Level").}
 
 \item{color}{Item that allows the user to choose the color of the points
 and the ribbons in the graph. By default, it is set to color = "#555555".
 The inputs must be in quotes.
-For example, ggconcurve(type = "consonance", data = x, color = "#333333").}
+For example, ggconcurve(type = "c", data = x, color = "#333333").}
 
-\item{fill}{Item that allows the user to choose the color of the ribbons in the graph.
-By default, it is set to color = "#239a98". The inputs must be in quotes. For example,
-ggconcurve(type = "consonance", data = x, fill = "#333333").}
+\item{fill1}{Item that allows the user to choose the color of the ribbons in the graph
+for data1. By default, it is set to fill1 = "#239a98". The inputs must be in quotes.
+For example, ggconcurve(type = "c", data = x, fill1 = "#333333").}
+
+\item{fill2}{Item that allows the user to choose the color of the ribbons in the graph
+for data1. By default, it is set to fill2 = "#d46c5b". The inputs must be in quotes.
+For example, ggconcurve(type = "c", data = x, fill2 = "#333333").}
 }
 \value{
 A plot that compares two functions.
@@ -93,12 +97,13 @@ A plot that compares two functions.
 Compares the p-value/s-value, and likelihood functions using ggplot2 graphics.
 }
 \examples{
+\donttest{
 library(concurve)
 
 GroupA <- rnorm(500)
 GroupB <- rnorm(500)
 RandomData <- data.frame(GroupA, GroupB)
-intervalsdf <- curve_mean(GroupA, GroupB, data = RandomData, method = "default")
+intervalsdf <- curve_mean(GroupA, GroupB, data = RandomData)
 GroupA2 <- rnorm(500)
 GroupB2 <- rnorm(500)
 RandomData2 <- data.frame(GroupA2, GroupB2)
@@ -106,5 +111,7 @@ model <- glm(GroupA2 ~ GroupB2, family = gaussian, data = RandomData2)
 
 randomframe <- curve_gen(model, "GroupB2", method = "glm", steps = 1000)
 
-(plot_compare(data1 = intervalsdf[[1]], data2 = randomframe[[1]], type = "s", measure = "default", nullvalue = FALSE))
+(plot_compare(intervalsdf[[1]], randomframe[[1]], type = "s"))
+}
+
 }

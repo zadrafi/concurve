@@ -49,7 +49,7 @@ should be plotted. By default, it is set to FALSE, meaning it will not be
 plotted as a vertical line. Changing this to TRUE, will plot a vertical
 line at 0 when the measure is set to " default" and a vertical line at
 1 when the measure is set to "ratio". For example,
-ggconcurve(type = "consonance", data = df, measure = "ratio", nullvalue = "present").
+ggconcurve(type = "c", data = df, measure = "ratio", nullvalue = "present").
 This feature is not yet available for surprisal functions.}
 
 \item{position}{Determines the orientation of the P-value (consonance) function.
@@ -61,31 +61,31 @@ ggconcurve(type = "c", data = df, position = "inverted").}
 
 \item{title}{A custom title for the graph. By default, it is
 set to "Consonance Function". In order to set a title, it must
-be in quotes. For example, ggconcurve(type = "consonance",
+be in quotes. For example, ggconcurve(type = "c",
 data = x, title = "Custom Title").}
 
 \item{subtitle}{A custom subtitle for the graph. By default, it is set
 to "The function contains consonance/confidence intervals at every level
 and the P-values." In order to set a subtitle, it must be in quotes.
-For example, ggconcurve(type = "consonance", data = x, subtitle = "Custom Subtitle").}
+For example, ggconcurve(type = "c", data = x, subtitle = "Custom Subtitle").}
 
 \item{xaxis}{A custom x-axis title for the graph. By default,
 it is set to "Range of Values.
 In order to set a x-axis title, it must be in quotes. For example,
-ggconcurve(type = "consonance", data = x, xaxis = "Hazard Ratio").}
+ggconcurve(type = "c", data = x, xaxis = "Hazard Ratio").}
 
 \item{yaxis}{A custom y-axis title for the graph. By default,
 it is set to "Consonance Level".
 In order to set a y-axis title, it must be in quotes. For example,
-ggconcurve(type = "consonance", data = x, yxis = "Confidence Level").}
+ggconcurve(type = "c", data = x, yxis = "Confidence Level").}
 
 \item{color}{Item that allows the user to choose the color of the points
 and the ribbons in the graph. By default, it is set to color = "#555555".
 The inputs must be in quotes.
-For example, ggconcurve(type = "consonance", data = x, color = "#333333").}
+For example, ggconcurve(type = "c", data = x, color = "#333333").}
 
 \item{fill}{Item that allows the user to choose the color of the ribbons in the graph.
-By default, it is set to color = "#239a98". The inputs must be in quotes. For example,
+By default, it is set to fill = "#239a98". The inputs must be in quotes. For example,
 ggconcurve(type = "c", data = x, fill = "#333333").}
 }
 \value{
@@ -99,6 +99,7 @@ the interval estimates to produce a p-value/s-value function
 using ggplot2 graphics.
 }
 \examples{
+
 # Simulate random data
 
 library(concurve)
@@ -110,4 +111,5 @@ RandomData <- data.frame(GroupA, GroupB)
 
 intervalsdf <- curve_mean(GroupA, GroupB, data = RandomData, method = "default")
 (function1 <- ggconcurve(type = "c", intervalsdf[[1]]))
+
 }

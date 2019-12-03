@@ -35,9 +35,6 @@ store them into a dataframe.}
 statistics should be generated. The default is TRUE and generates a table
 which is included in the list object.}
 }
-\value{
-
-}
 \description{
 Computes thousands of consonance (confidence) intervals for
 the chosen parameter in the selected model
@@ -46,6 +43,8 @@ the interval limits for each interval level into a data frame along
 with the corresponding p-values and s-values.
 }
 \examples{
+
+\donttest{
 # Simulate random data
 GroupA <- rnorm(50)
 GroupB <- rnorm(50)
@@ -53,4 +52,6 @@ RandomData <- data.frame(GroupA, GroupB)
 rob <- glm(GroupA ~ GroupB, data = RandomData)
 bob <- curve_gen(rob, "GroupB", method = "glm")
 tibble::tibble(bob[[1]])
+}
+
 }
