@@ -9,6 +9,8 @@
 \alias{survintervals}
 \alias{likintervals}
 \alias{rev_eng}
+\alias{ggconcurve}
+\alias{plot_concurve}
 \title{Deprecated functions in \pkg{concurve}.}
 \usage{
 plotpint(...)
@@ -26,18 +28,34 @@ corrintervals(...)
 survintervals(...)
 
 rev_eng(...)
+
+ggconcurve(...)
+
+plot_concurve(...)
+
 }
+
 \description{
 The functions listed below are deprecated. Please use the listed alternatives.}
 
 \section{\code{plotpint}}{
 
-For \code{plotpint}, use \code{\link{ggconcurve}} or \code{\link{plot_concurve}}.
+For \code{plotpint}, use \code{\link{ggcurve}}.
 }
 
 \section{\code{plotsint}}{
 
-For \code{plotsint}, use \code{\link{ggconcurve}} or \code{\link{plot_concurve}}.
+For \code{plotsint}, use \code{\link{ggcurve}}.
+}
+
+\section{\code{plot_concurve}}{
+
+For \code{plot_concurve}, use \code{\link{ggcurve}}.
+}
+
+\section{\code{ggconcurve}}{
+
+For \code{ggconcurve}, use \code{\link{ggcurve}}.
 }
 
 \section{\code{meanintervals}}{

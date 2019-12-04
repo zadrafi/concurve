@@ -51,9 +51,10 @@
   
 
 <meta property="og:title" content="Produce Consonance Intervals for Survival Data — curve_surv" />
-<meta property="og:description" content="Computes thousands of consonance (confidence) intervals for the chosen parameter in the
-Cox model computed by the 'survival' package and places the interval limits for each interval level
-into a data frame along with the corresponding p-value and s-value." />
+<meta property="og:description" content="Computes thousands of consonance (confidence) intervals for the chosen
+parameter in the Cox model computed by the 'survival' package and places
+the interval limits for each interval level into a data frame along
+with the corresponding p-value and s-value." />
 <meta property="og:image" content="https://data.lesslikely.com/concurve/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -85,9 +86,9 @@ into a data frame along with the corresponding p-value and s-value." />
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <span class="navbar-brand">
+      <span class="navbar-brand"><img src="https://res.cloudinary.com/less-likely/image/upload/v1575427534/Site/Logo.svg" id ="package-logo" align="left" width="35">
         <a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.0</span>
       </span>
     </div>
 
@@ -123,7 +124,7 @@ into a data frame along with the corresponding p-value and s-value." />
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/Zadchow/concurve">
+  <a href="https://github.com/zadchow/concurve">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -148,50 +149,55 @@ into a data frame along with the corresponding p-value and s-value." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Produce Consonance Intervals for Survival Data</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/zadchow/concurve/blob/master/R/curve_surv.R'><code>R/curve_surv.R</code></a></small>
     <div class="hidden name"><code>curve_surv.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Computes thousands of consonance (confidence) intervals for the chosen parameter in the
-Cox model computed by the 'survival' package and places the interval limits for each interval level
-into a data frame along with the corresponding p-value and s-value.</p>
+    <p>Computes thousands of consonance (confidence) intervals for the chosen
+parameter in the Cox model computed by the 'survival' package and places
+the interval limits for each interval level into a data frame along
+with the corresponding p-value and s-value.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>curve_surv</span>(<span class='no'>data</span>, <span class='no'>x</span>, <span class='kw'>steps</span> <span class='kw'>=</span> <span class='fl'>10000</span>)</pre>
+    <pre class="usage"><span class='fu'>curve_surv</span>(<span class='no'>data</span>, <span class='no'>x</span>, <span class='kw'>steps</span> <span class='kw'>=</span> <span class='fl'>10000</span>, <span class='kw'>table</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p>Object where the Cox model is stored, typically a list produced by the 'survival' package.</p></td>
+      <td><p>Object where the Cox model is stored, typically a list produced by the
+'survival' package.</p></td>
     </tr>
     <tr>
       <th>x</th>
-      <td><p>Predictor of interest within the survival model for which the consonance intervals should be computed.</p></td>
+      <td><p>Predictor of interest within the survival model for which the
+consonance intervals should be computed.</p></td>
     </tr>
     <tr>
       <th>steps</th>
-      <td><p>Indicates how many consonance intervals are to be calculated at various levels. For example, setting
-this to 100 will produce 100 consonance intervals from 0 to 100. Setting this to 10000 will produce more
-consonance levels. By default, it is set to 1000. Increasing the number substantially is not recommended
-as it will take longer to produce all the intervals and store them into a dataframe.</p></td>
+      <td><p>Indicates how many consonance intervals are to be calculated at
+various levels. For example, setting this to 100 will produce 100 consonance
+intervals from 0 to 100. Setting this to 10000 will produce more consonance
+levels. By default, it is set to 1000. Increasing the number substantially
+is not recommended as it will take longer to produce all the intervals and
+store them into a dataframe.</p></td>
+    </tr>
+    <tr>
+      <th>table</th>
+      <td><p>Indicates whether or not a table output with some relevant
+statistics should be generated. The default is TRUE and generates a table
+which is included in the list object.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    <p>Poole C. Beyond the confidence interval. Am J Public Health. 1987;77(2):195-199.</p>
-<p>Sullivan KM, Foster DA. Use of the confidence interval function. Epidemiology. 1990;1(1):39-42.</p>
-<p>Rothman KJ, Greenland S, Lash TL, Others. Modern epidemiology. 2008.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#references">References</a></li>
     </ul>
 
   </div>

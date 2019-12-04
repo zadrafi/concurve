@@ -1,12 +1,11 @@
-year <- sub("-.*", "", meta$Date)
-note <- sprintf("R package version %s", meta$Version)
+citHeader("To cite concurve in publications use:")
 
-bibentry(
-  bibtype = "Manual",
-    title = paste("{concurve}: Computes and Plots Consonance (Confidence) Intervals, P-Values, and S-Values to Form Consonance and Surprisal Functions"),
-    author = c(person("Zad R.", "Chow"), person("Andrew D.", "Vigotsky")),
-    year = year,
-    note = note,
-    url = "https://CRAN.R-project.org/package=concurve",
-    doi = "10.5281/zenodo.1308151"
+citEntry(
+  entry    = "Manual",
+  title = paste("{concurve}: Computes and Plots Compatibility (Confidence) Intervals, P-Values, S-Values, & Likelihood Intervals to Form Consonance, Surprisal, & Likelihood Functions"),
+  author = c(person("Zad R.", "Chow"), person("Andrew D.", "Vigotsky")),
+  year = 2019,
+  url = "https://CRAN.R-project.org/package=concurve",
+  textVersion = paste(
+  )
 )

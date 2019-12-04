@@ -1,6 +1,9 @@
 ---
 title: "Examples in R"
 output: rmarkdown::html_vignette
+bibliography: references.bib
+link-citations: yes
+csl: american-medical-association.csl
 vignette: >
   %\VignetteIndexEntry{Examples in R}
   %\VignetteEngine{knitr::rmarkdown}
@@ -9,326 +12,279 @@ vignette: >
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
+	message = TRUE,
+	warning = TRUE,
+	collapse = TRUE,
+	comment = "#>"
 )
 ```
 
-## Using Mean Differences
+## Introduction
 
-If we were to generate some random data from a normal distribution with
-the following code,
+Here I show how to produce _P_-value, _S_-value, likelihood, and deviance functions with the `concurve` package using fake data and data from real studies. Simply put, these functions are rich sources of information for scientific inference and the image below, taken from Xie & Singh, 2013[@xie2013isr] displays why. 
 
-``` r
-GroupA <- rnorm(20)
-GroupB <- rnorm(20)
+<img src="figures/densityfunction.png" align="center" width="750" />
 
+For a more extensive discussion of these concepts, see the following references. [@birnbaum1961ams; @chow2019asb; @fraser2017arsa; @fraser2019as; @Poole1987-nb; @poole1987ajph; @Schweder2002-vh; @schweder2016; @Singh2007-zr; @Sullivan1990-ha; @whitehead1993sm; @xie2013isr; @rothman2008me]
+
+To get started, we could generate some normal data and combine two vectors in a dataframe
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+library(concurve)
+set.seed(1031)
+GroupA <- rnorm(500)
+GroupB <- rnorm(500)
 RandomData <- data.frame(GroupA, GroupB)
 ```
 
-and compare the means of these two "groups" using a t-test,
+and look at the differences between the two vectors. We'll plug these vectors and the dataframe they're in inside of the `curve_mean()` function. Here, the default method involves calculating CIs using the Wald method.  
 
-```r 
-testresults <- t.test(GroupA, GroupB, data = RandomData, paired = FALSE)
-```
-
-we would likely see some differences, given that we have such a small
-sample in each group. 
-```r
-summary(testresults)
-```
-
-We can see our P-value for the statistical test along with the computed
-95% interval with the command above (which is given to us by default by the program). Thus,
-effect sizes that range from the lower bound of this interval to the
-upper bound are compatible with the test model at this consonance
-level.
-
-However, as stated before, a 95% interval is only an artifact of the
-commonly used 5% alpha level for hypothesis testing and is nowhere near
-as informative as a function.
-
-If we were to take the information from this data and calculate a
-P-value function where every single consonance interval and its
-corresponding P-value were plotted, we would be able to see the full
-range of effect sizes compatible with the test model at various levels.
-
-It is relatively easy to produce such a function using the
-<span style="color:#d46c5b">[**concurve**](https://github.com/Zadchow/concurve)</span>
-package in R.
-
-Install the package directly from [CRAN](https://cran.r-project.org/package=concurve) 
-
-``` r
-install.packages("concurve")
-```
-or get a more slightly up-to-date version via GitHub.
-
-``` r 
-library(devtools)
-install_github("zadchow/concurve")
-```
-
-We’ll use the same data from above to calculate a P-value function and
-since we are focusing on mean differences using a t-test, we will use
-the `curve_meta()` function to calculate our consonance
-intervals and store them in a dataframe.
-
-``` r
-library(concurve)
+``` {r}
 intervalsdf <- curve_mean(GroupA, GroupB,
   data = RandomData, method = "default"
 )
 ```
 
-Now thousands of consonance intervals at various levels have been
-stored in the dataframe “intervalsdf.” We can preview some of the entries
-via the `tibble` package.
+Each of the functions within `concurve` will generally produce a list with three items, and the first will usually contain the function of interest. 
 
-```r
-tibble::tibble(intervalsdf)
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+tibble::tibble(intervalsdf[[1]])
 ```
 
-There's a quick look at the first few entries of our dataframe. 
+We can view the function using the `ggcurve()` function. The two basic arguments that must be provided are the data argument and the "type" argument. To plot a consonance function, we would write "c". 
 
-We can plot this data using the `ggconcurve()` function.
-
-``` r
-pfunction <- ggconcurve(type = "consonance", intervalsdf)
-pfunction
-```
-<center>
-<img src="figures/function1.png" align="center" width="600" />
-</center>
-
-Now we can see every consonance interval and its corresponding
-P-value and consonance level plotted. As stated before, a single 95%
-consonance interval is simply a slice through this function, which
-provides far more information as to what is compatible with the test
-model and its assumptions.
-
-Furthermore, we can also produce a "surprisal" function by plotting every consonance interval and its corresponding
-<span style="color:#d46c5b">[***S-value***](https://lesslikely.com/statistics/s-values/)</span>
-using the `ggconcurve()` function with type being set as "surprisal".
-
-``` r
-sfunction <- ggconcurve(type = "surprisal", intervalsdf)
-sfunction
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+(function1 <- ggcurve(data = intervalsdf[[1]], type = "c"))
 ```
 
-<center>
-<img src="figures/function2.png" align="center" width="600" />
-</center>
+We can see that the consonance "curve" is every interval estimate plotted, and provides the _P_-values, CIs, along with the median unbiased estimate It can be defined as such,
 
-The graph from the code above provides us with consonance levels and the maximum
-amount of information against the effect sizes contained in the
-consonance interval.
+$$C V_{n}(\theta)=1-2\left|H_{n}(\theta)-0.5\right|=2 \min \left\{H_{n}(\theta), 1-H_{n}(\theta)\right\}$$
 
-## Simple Linear Models
+Its information counterpart, the surprisal function, can be constructed by taking the $-log_{2}$ of the _P_-value.[@chow2019asb; @greenland2019as; @Shannon1948-uq]
 
-We can also try this with other simple linear models.
+To view the surprisal function, we simply change the type to "s". 
 
-Let’s simulate more normal data and fit a simple linear regression to it
-using ordinary least squares regression with the base R `lm()` function.
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+(function1 <- ggcurve(data = intervalsdf[[1]], type = "s"))
+```
 
-``` r
+
+We can also view the consonance distribution by changing the type to "cdf", which is a cumulative probability distribution. The point at which the curve reaches 50% is known as the "median unbiased estimate". It is the same estimate that is typically at the peak of the _P_-value curve from above. 
+
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+(function1s <- ggcurve(data = intervalsdf[[2]], type = "cdf"))
+```
+
+We can also get relevant statistics that show the range of values by using the `curve_table()` function. There are several formats that can be exported such as .docx, .ppt, and TeX. 
+
+```{r echo=TRUE, fig.height=2, fig.width=4}
+(x <- curve_table(data = intervalsdf[[1]], format = "image"))
+```
+
+# Comparing Functions
+
+If we wanted to compare two studies to see the amount of "consonance", we could use the `curve_compare()` function to get a numerical output. 
+
+First, we generate some more fake data
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
 GroupA2 <- rnorm(500)
 GroupB2 <- rnorm(500)
-
 RandomData2 <- data.frame(GroupA2, GroupB2)
-
 model <- lm(GroupA2 ~ GroupB2, data = RandomData2)
-
-summary(model)
-```
-
-We can see some of the basic statistics of our model including the 95%
-interval for our predictor (GroupB). Perhaps we want more information.
-Well we can do that! Using the `curve_gen()`, we can calculate several 
-consonance intervals for the regression coefficient and then plot the 
-consonance and surprisal functions.
-
-``` r
 randomframe <- curve_gen(model, "GroupB2")
-tibble::tibble(randomframe)
 ```
 
-Now that we have our data frame, we can graph our function. 
+Once again, we'll plot this data with `ggcurve()`. We can also indicate whether we want certain interval estimates to be plotted in the function with the "levels" argument. If we wanted to plot the 50%, 75%, and 95% intervals, we'd provide the argument this way: 
 
-``` r
-ggconcurve(type = "consonance", randomframe)
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+(function2 <- ggcurve(type = "c", randomframe[[1]], levels = c(0.50, 0.75, 0.95), nullvalue = TRUE))
 ```
 
-<center>
-<img src="figures/function3.png" align="center" width="600" />
-</center>
+Now that we have two datasets and two functions, we can compare them using the `curve_compare()` function.
 
-``` r
-s <- ggconcurve(type = "surprisal", randomframe)
-s
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+(curve_compare(
+  data1 = intervalsdf[[1]], data2 = randomframe[[1]], type = "c",
+  plot = TRUE, measure = "default", nullvalue = TRUE
+))
 ```
 
-<center>
-<img src="figures/function4.png" align="center" width="600" />
-</center>
+This function will provide us with the area that is shared between the curve, along with a ratio of overlap to non-overlap. 
 
-We can also compare these functions to likelihood functions (also called
-support intervals), and we’ll see that we get very similar results.
-We’ll do this using the ***ProfileLikelihood*** package.
+We can also do this for the surprisal function simply by changing type to "s".
 
-``` r
-xx <- profilelike.lm(
-  formula = GroupA2 ~ 1, data = RandomData2,
-  profile.theta = "GroupB2",
-  lo.theta = -0.3, hi.theta = 0.3, length = 500
-)
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+(curve_compare(
+  data1 = intervalsdf[[1]], data2 = randomframe[[1]], type = "s",
+  plot = TRUE, measure = "default", nullvalue = FALSE
+))
 ```
 
-Now we plot our likelihood function and we can see what the maximum
-likelihood estimation is. Notice that it’s practically similar to the
-interval in the S-value function with 0 bits of information against it
-and and the consonance interval in the P-value function with a
-P-value of 1.
+It's clear that the outputs have changed and indicate far more overlap than before.
 
-``` r
-profilelike.plot(
-  theta = xx$theta,
-  profile.lik.norm = xx$profile.lik.norm, round = 3
-)
-title(main = "Likelihood Function")
+# Constructing Functions From Single Intervals
+
+We can also take a set of confidence limits and use them to construct a consonance, surprisal, likelihood or deviance function using the `curve_rev()` function. 
+
+Here, we'll use two epidemiological studies[@brown2017j; @brown2017jcp] that studied the impact of SSRI exposure in pregnant mothers, and the rate of autism in children. 
+
+Both of these studies suggested a null effect of SSRI exposure on autism rates in children. 
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+curve1 <- curve_rev(point = 1.7, LL = 1.1, UL = 2.6, type = "c", measure = "ratio", steps = 10000)
+(ggcurve(data = curve1[[1]], type = "c", measure = "ratio", nullvalue = TRUE))
+curve2 <- curve_rev(point = 1.61, LL = 0.997, UL = 2.59,type = "c", measure = "ratio", steps = 10000)
+(ggcurve(data = curve2[[1]], type = "c", measure = "ratio", nullvalue = TRUE))
 ```
 
-<center>
-<img src="figures/likelihood.png" align="center" width="600" />
-</center>
+The null value is shown via the red line and it's clear that a large mass of the function is away from it. 
 
-We’ve used a relatively easy example for this blog post, but the
-<span style="color:#d46c5b">[**concurve**](https://github.com/Zadchow/concurve)</span>
-package is also able to calculate consonance functions for multiple
-regressions, logistic regressions, ANOVAs, and meta-analyses (that have
-been produced by the ***metafor*** package).
+We can also see this by plotting the likelihood functions via the `curve_rev()` function. 
 
-## Using Meta-Analysis Data
-
-Here we present another quick example with a meta-analysis of simulated
-data.
-
-First, we generate random data for two groups in two hypothetical
-studies
-
-``` r
-GroupAData <- runif(20, min = 0, max = 100)
-GroupAMean <- round(mean(GroupAData), digits = 2)
-GroupASD <- round(sd(GroupAData), digits = 2)
-
-GroupBData <- runif(20, min = 0, max = 100)
-GroupBMean <- round(mean(GroupBData), digits = 2)
-GroupBSD <- round(sd(GroupBData), digits = 2)
-
-GroupCData <- runif(20, min = 0, max = 100)
-GroupCMean <- round(mean(GroupCData), digits = 2)
-GroupCSD <- round(sd(GroupCData), digits = 2)
-
-GroupDData <- runif(20, min = 0, max = 100)
-GroupDMean <- round(mean(GroupDData), digits = 2)
-GroupDSD <- round(sd(GroupDData), digits = 2)
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+lik1 <- curve_rev(point = 1.7, LL = 1.1, UL = 2.6, type = "l", measure = "ratio", steps = 10000)
+(ggcurve(data = lik1[[1]], type = "l1", measure = "ratio", nullvalue = TRUE))
+lik2 <- curve_rev(point = 1.61, LL = 0.997, UL = 2.59,type = "l", measure = "ratio", steps = 10000)
+(ggcurve(data = lik2[[1]], type = "l1", measure = "ratio", nullvalue = TRUE))
 ```
 
-We can then quickly combine the data in a dataframe.
+We can also view the amount of agreement between the likelihood functions of these two studies. 
 
-``` r
-StudyName <- c("Study1", "Study2")
-MeanTreatment <- c(GroupAMean, GroupCMean)
-MeanControl <- c(GroupBMean, GroupDMean)
-SDTreatment <- c(GroupASD, GroupCSD)
-SDControl <- c(GroupBSD, GroupDSD)
-NTreatment <- c(20, 20)
-NControl <- c(20, 20)
-
-metadf <- data.frame(
-  StudyName, MeanTreatment, MeanControl,
-  SDTreatment, SDControl,
-  NTreatment, NControl
-)
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+(plot_compare(
+  data1 = lik1[[1]], data2 = lik2[[1]], type = "l1", measure = "ratio", nullvalue = TRUE, title = "Brown et al. 2017. J Clin Psychiatry. vs. \nBrown et al. 2017. JAMA.",
+  subtitle = "J Clin Psychiatry: OR = 1.7, 1/6.83 LI: LL = 1.1, UL = 2.6 \nJAMA: HR = 1.61, 1/6.83 LI: LL = 0.997, UL = 2.59", xaxis = expression(Theta ~ "= Hazard Ratio / Odds Ratio")
+))
 ```
 
-Then, we’ll use ***metafor*** to calculate the standardized mean
-difference.
+and the consonance functions
 
-``` r
-dat <- escalc(
-  measure = "SMD",
-  m1i = MeanTreatment, sd1i = SDTreatment, n1i = NTreatment,
-  m2i = MeanControl, sd2i = SDControl, n2i = NControl,
-  data = metadf
-)
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+(plot_compare(
+  data1 = curve1[[1]], data2 = curve2[[1]], type = "c", measure = "ratio", nullvalue = TRUE, title = "Brown et al. 2017. J Clin Psychiatry. vs. \nBrown et al. 2017. JAMA.",
+  subtitle = "J Clin Psychiatry: OR = 1.7, 1/6.83 LI: LL = 1.1, UL = 2.6 \nJAMA: HR = 1.61, 1/6.83 LI: LL = 0.997, UL = 2.59", xaxis = expression(Theta ~ "= Hazard Ratio / Odds Ratio")
+))
 ```
 
-Next, we’ll pool the data using a ~~fixed-effects~~ common-effects model
+# The Bootstrap and Consonance Functions 
 
-``` r
-res <- rma(yi, vi,
-  data = dat, slab = paste(StudyName, sep = ", "),
-  method = "FE", digits = 2
-)
+Some authors have shown that the bootstrap distribution is equal to the confidence distribution because it meets the definition of a consonance distribution.[@efron1994; @efron2018; @xie2013isr] The bootstrap distribution and the asymptotic consonance distribution would be defined as: 
+
+$$H_{n}(\theta)=1-P\left(\hat{\theta}-\hat{\theta}^{*} \leq \hat{\theta}-\theta | \mathbf{x}\right)=P\left(\hat{\theta}^{*} \leq \theta | \mathbf{x}\right)$$
+
+Certain bootstrap methods such as the BCa method and _t_-bootstrap method also yield second order accuracy of consonance distributions. 
+
+$$H_{n}(\theta)=1-P\left(\frac{\hat{\theta}^{*}-\hat{\theta}}{\widehat{S E}^{*}\left(\hat{\theta}^{*}\right)} \leq \frac{\hat{\theta}-\theta}{\widehat{S E}(\hat{\theta})} | \mathbf{x}\right)$$
+
+Here, I demonstrate how to use these particular bootstrap methods to arrive at consonance curves and densities. 
+
+We'll use the Iris dataset and construct a function that'll yield a parameter of interest.
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+iris <- datasets::iris
+foo <- function(data, indices) {
+  dt <- data[indices, ]
+  c(
+    cor(dt[, 1], dt[, 2], method = "p")
+  )
+}
 ```
 
-Let’s look at our output.
+We can now use the `curve_boot()` method to construct a function. The default method used for this function is the "BCa" method provided by the [`bcaboot`](https://cran.r-project.org/package=bcaboot) package.[@efron2018] 
 
-```r
-res
+```{r include=FALSE}
+y <- curve_boot(data = iris, func = foo, method = "bca", replicates = 2000, steps = 1000)
 ```
 
-```
-Fixed-Effects Model (k = 2)
+I will suppress the output of the function because it is unnecessarily long. But we've placed all the estimates into a list object called y. 
 
-Test for Heterogeneity: 
-Q(df = 1) = 0.61, p-val = 0.44
+The first item in the list will be the consonance distribution constructed by typical means, while the third item will be the bootstrap approximation to the consonance distribution. 
 
-Model Results:
-
-estimate    se  zval  pval  ci.lb  ci.ub 
-    0.16  0.22  0.73  0.47  -0.28   0.60  
-
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1 
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+ggcurve(data = y[[1]])
+ggcurve(data = y[[3]])
 ```
 
-Take a look at the pooled summary effect and its interval. Keep it in
-mind as we move onto constructing a consonance function.
+We can also print out a table for TeX documents
 
-We can now take the object produced by the meta-analysis and calculate a
-P-value and S-value function with it to see the full spectrum of effect
-sizes compatible with the test model at every level. We’ll use the
-`curve_meta()` function to do this.
-
-``` r
-metaf <- curve_meta(res)
-tibble::tibble(metaf)
+```{r echo=TRUE, fig.height=2, fig.width=4}
+(gg <- curve_table(data = y[[1]], format = "image"))
 ```
 
-Now that we have our dataframe with every computed interval, we can plot
-the functions.
+More bootstrap replications will lead to a smoother function. But for now, we can compare these two functions to see how similar they are. 
 
-``` r
-ggconcurve(type = "consonance", metaf)
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+plot_compare(y[[1]], y[[3]])
 ```
 
-<center>
-<img src="figures/function5.png" align="center" width="600" />
-</center>
+The densities can also be calculated accurately using the _t_-bootstrap method. Here we use a different dataset to show this
 
-And our S-value function
-
-``` r
-ggconcurve(type = "surprisal", metaf)
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+library(Lock5Data)
+dataz <- data(CommuteAtlanta)
+func = function(data, index) {
+  x <- as.numeric(unlist(data[1]))
+  y <- as.numeric(unlist(data[2]))
+  return(mean(x[index]) - mean(y[index]))
+}
 ```
-<center>
-<img src="figures/function6.png" align="center" width="600" />
-</center>
 
-Compare the span of these functions and the information they provide to
-the consonance interval provided by the forest plot. We are now no
-longer limited to interpreting an arbitrarily chosen interval by
-mindless analytic decisions often built into statistical packages by
-default.
+Our function is a simple mean difference. This time, we'll set the method to "t" for the _t_-bootstrap method
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+z <- curve_boot(data = CommuteAtlanta, func = func, method = "t", replicates = 2000, steps = 1000)
+ggcurve(data = z[[1]])
+ggcurve(data = z[[2]], type = "cd")
+```
+
+The consonance curve and density are nearly identical. With more bootstrap replications, they are very likely to converge. 
+
+```{r echo=TRUE, fig.height=2, fig.width=4}
+(zz <- curve_table(data = z[[1]], format = "image"))
+```
+
+## Using Profile Likelihoods 
+
+For this last example, we'll explore the `curve_lik()` function, which can help generate profile likelihood functions, and deviance statistics with the help of the [`ProfileLikelihood`](https://cran.r-project.org/package=ProfileLikelihood) package.
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+library(ProfileLikelihood)
+```
+
+We'll use a simple example taken directly from the [`ProfileLikelihood`](https://cran.r-project.org/package=ProfileLikelihood) documentation where we'll calculate the likelihoods from a glm model 
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+data(dataglm)
+xx <- profilelike.glm(y ~ x1 + x2, data=dataglm, profile.theta="group",
+family=binomial(link="logit"), length=500, round=2)
+```
+
+Then, we’ll use `curve_lik()` on the object that the [`ProfileLikelihood`](https://cran.r-project.org/package=ProfileLikelihood) package created. 
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+lik <- curve_lik(xx, dataglm)
+tibble::tibble(lik[[1]])
+```
+
+Next, we’ll plot three functions, the relative likelihood, the log likelihood, the likelihoodm, and the deviance function. 
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+ggcurve(lik[[1]], type = "l1")
+ggcurve(lik[[1]], type = "l2")
+ggcurve(lik[[1]], type = "l3")
+ggcurve(lik[[1]], type = "d")
+```
+
+The obvious advantage of using reduced likelihoods is that they are free of nuisance parameters
+
+$$L_{t_{n}}(\theta)=f_{n}\left(F_{n}^{-1}\left(H_{p i v}(\theta)\right)\right)\left|\frac{\partial}{\partial t} \psi\left(t_{n}, \theta\right)\right|=h_{p i v}(\theta)\left|\frac{\partial}{\partial t} \psi(t, \theta)\right| /\left.\left|\frac{\partial}{\partial \theta} \psi(t, \theta)\right|\right|_{t=t_{n}}$$
+thus, giving summaries of the data that can be incorporated into combined analyses. 
+
+* * * 
+
+# References
+
+* * * 

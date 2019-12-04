@@ -5,18 +5,18 @@
   ],
   "@type": "SoftwareSourceCode",
   "identifier": "concurve",
-  "description": "Allows one to compute consonance (confidence) intervals for various statistical tests along with their corresponding P-values and S-values. The intervals can be plotted to create consonance and surprisal functions allowing one to see what effect sizes are compatible with the test model at various consonance levels rather than being limited to one interval estimate such as 95%. These methods are discussed by Poole C. (1987) <doi:10.2105/AJPH.77.2.195>, Schweder T, Hjort NL. (2002) <doi:10.1111/1467-9469.00285>, Singh K, Xie M, Strawderman WE. (2007) <arXiv:0708.0976>, Rothman KJ, Greenland S, Lash TL. (2008, ISBN:9781451190052), Amrhein V, Trafimow D, Greenland S. (2019) <doi:10.1080/00031305.2018.1543137>, Greenland S. (2019) <doi:10.1080/00031305.2018.1529625>, Chow ZR, Greenland S. (2019) <arXiv:1909.08579>, and Greenland S, Chow ZR. (2019) <arXiv:1909.08583>.",
-  "name": "concurve: Computes and Plots Consonance (Confidence) Intervals, P-Values, and S-Values to Form Consonance and Surprisal Functions",
-  "date": "2019-05-10",
-  "codeRepository": "https://github.com/Zadchow/concurve",
+  "description": "Allows one to compute consonance (confidence)\n    intervals for various statistical tests along with their corresponding\n    P-values, S-values, and likelihoods. The intervals can be plotted to\n    create consonance, surprisal, and likelihood functions allowing one to\n    see what effect sizes are compatible with the test model at various\n    consonance levels rather than being limited to one interval estimate\n    such as 95%. These methods are discussed by Poole C. (1987)\n    <doi:10.2105/AJPH.77.2.195>, Schweder T, Hjort NL. (2002)\n    <doi:10.1111/1467-9469.00285>, Singh K, Xie M, Strawderman WE. (2007)\n    <arXiv:0708.0976>, Rothman KJ, Greenland S, Lash TL. (2008,\n    ISBN:9781451190052), Amrhein V, Trafimow D, Greenland S. (2019)\n    <doi:10.1080/00031305.2018.1543137>, Greenland S. (2019)\n    <doi:10.1080/00031305.2018.1529625>, Chow ZR, Greenland S. (2019)\n    <arXiv:1909.08579>, and Greenland S, Chow ZR. (2019)\n    <arXiv:1909.08583>.",
+  "name": "concurve: Computes and Plots Compatibility (Confidence) Intervals,\n    P-Values, S-Values, & Likelihood Intervals to Form Consonance,\n    Surprisal, & Likelihood Functions",
+  "date": "2019-11-24",
+  "codeRepository": "https://github.com/zadchow/concurve",
   "relatedLink": [
     "https://data.lesslikely.com/concurve/",
     "https://lesslikely.com/",
     "https://CRAN.R-project.org/package=concurve"
   ],
-  "issueTracker": "https://github.com/Zadchow/concurve/issues",
+  "issueTracker": "https://github.com/zadchow/concurve/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "2.1.0",
+  "version": "2.3.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -57,6 +57,42 @@
   "softwareSuggestions": [
     {
       "@type": "SoftwareApplication",
+      "identifier": "covr",
+      "name": "covr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=covr"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "roxygen2",
+      "name": "roxygen2",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=roxygen2"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "spelling",
+      "name": "spelling",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=spelling"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "testthat",
       "name": "testthat",
       "provider": {
@@ -69,58 +105,58 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "knitr",
-      "name": "knitr",
+      "identifier": "rmarkdown",
+      "name": "rmarkdown",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
         "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
       },
-      "sameAs": "https://CRAN.R-project.org/package=knitr"
+      "sameAs": "https://CRAN.R-project.org/package=rmarkdown"
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "covr",
-      "name": "covr",
+      "identifier": "Lock5Data",
+      "name": "Lock5Data",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
         "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
       },
-      "sameAs": "https://CRAN.R-project.org/package=covr"
+      "sameAs": "https://CRAN.R-project.org/package=Lock5Data"
     }
   ],
   "softwareRequirements": [
     {
       "@type": "SoftwareApplication",
-      "identifier": "parallel",
-      "name": "parallel"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "ggplot2",
-      "name": "ggplot2",
+      "identifier": "bcaboot",
+      "name": "bcaboot",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
         "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
       },
-      "sameAs": "https://CRAN.R-project.org/package=ggplot2"
+      "sameAs": "https://CRAN.R-project.org/package=bcaboot"
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "metafor",
-      "name": "metafor",
+      "identifier": "boot",
+      "name": "boot",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
         "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
       },
-      "sameAs": "https://CRAN.R-project.org/package=metafor"
+      "sameAs": "https://CRAN.R-project.org/package=boot"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "compiler",
+      "name": "compiler"
     },
     {
       "@type": "SoftwareApplication",
@@ -136,15 +172,117 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "tibble",
-      "name": "tibble",
+      "identifier": "flextable",
+      "name": "flextable",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
         "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
       },
-      "sameAs": "https://CRAN.R-project.org/package=tibble"
+      "sameAs": "https://CRAN.R-project.org/package=flextable"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "ggplot2",
+      "name": "ggplot2",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=ggplot2"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "knitr",
+      "name": "knitr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=knitr"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "metafor",
+      "name": "metafor",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=metafor"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "officer",
+      "name": "officer",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=officer"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "parallel",
+      "name": "parallel"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "pbmcapply",
+      "name": "pbmcapply",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=pbmcapply"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "ProfileLikelihood",
+      "name": "ProfileLikelihood",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=ProfileLikelihood"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "rlang",
+      "name": "rlang",
+      "version": ">= 0.1.2",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=rlang"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "scales",
+      "name": "scales",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=scales"
     },
     {
       "@type": "SoftwareApplication",
@@ -172,19 +310,54 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "scales",
-      "name": "scales",
+      "identifier": "tibble",
+      "name": "tibble",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
         "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
       },
-      "sameAs": "https://CRAN.R-project.org/package=scales"
+      "sameAs": "https://CRAN.R-project.org/package=tibble"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "tidyr",
+      "name": "tidyr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=tidyr"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "MASS",
+      "name": "MASS",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=MASS"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "methods",
+      "name": "methods"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "R",
+      "name": "R",
+      "version": ">= 3.2"
     }
   ],
   "keywords": ["confidence", "compatibility", "consonance", "surprisal", "interval", "function", "curve"],
-  "fileSize": "3833.993KB",
+  "fileSize": "2225.399KB",
   "contIntegration": [
     "https://travis-ci.org/Zadchow/concurve",
     "https://ci.appveyor.com/project/Zadchow/concurve",
@@ -198,6 +371,7 @@
   "citation": [
     {
       "@type": "SoftwareSourceCode",
+      "datePublished": "2019",
       "author": [
         {
           "@type": "Person",
@@ -210,11 +384,9 @@
           "familyName": "Vigotsky"
         }
       ],
-      "name": "{concurve}: Computes and Plots Consonance (Confidence) Intervals, P-Values, and S-Values to Form Consonance and Surprisal Functions",
-      "identifier": "10.5281/zenodo.1308151",
-      "url": "https://CRAN.R-project.org/package=concurve",
-      "@id": "https://doi.org/10.5281/zenodo.1308151",
-      "sameAs": "https://doi.org/10.5281/zenodo.1308151"
+      "name": "{concurve}: Computes and Plots Compatibility (Confidence) Intervals, P-Values, S-Values, & Likelihood Intervals to Form Consonance, Surprisal, & Likelihood Functions",
+      "url": "https://CRAN.R-project.org/package=concurve"
     }
-  ]
+  ],
+  "developmentStatus": "https://www.tidyverse.org/lifecycle/#maturing"
 }

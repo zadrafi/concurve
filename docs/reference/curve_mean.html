@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Computes consonance intervals for mean differences — curve_mean • concurve</title>
+<title>Mean Interval Consonance Function — curve_mean • concurve</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -50,9 +50,11 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Computes consonance intervals for mean differences — curve_mean" />
-<meta property="og:description" content="Computes thousands of consonance (confidence) intervals for the chosen parameter in a statistical test
-that compares means and places the interval limits for each interval level into a data frame along with the corresponding p-values and s-values." />
+<meta property="og:title" content="Mean Interval Consonance Function — curve_mean" />
+<meta property="og:description" content="Computes thousands of consonance (confidence) intervals for the chosen
+parameter in a statistical test that compares means and places the interval
+limits for each interval level into a data frame along with the corresponding
+p-values and s-values." />
 <meta property="og:image" content="https://data.lesslikely.com/concurve/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -84,9 +86,9 @@ that compares means and places the interval limits for each interval level into 
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <span class="navbar-brand">
+      <span class="navbar-brand"><img src="https://res.cloudinary.com/less-likely/image/upload/v1575427534/Site/Logo.svg" id ="package-logo" align="left" width="35">
         <a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.0</span>
       </span>
     </div>
 
@@ -122,7 +124,7 @@ that compares means and places the interval limits for each interval level into 
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/Zadchow/concurve">
+  <a href="https://github.com/zadchow/concurve">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -146,18 +148,28 @@ that compares means and places the interval limits for each interval level into 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Computes consonance intervals for mean differences</h1>
-    
+    <h1>Mean Interval Consonance Function</h1>
+    <small class="dont-index">Source: <a href='https://github.com/zadchow/concurve/blob/master/R/curve_mean.R'><code>R/curve_mean.R</code></a></small>
     <div class="hidden name"><code>curve_mean.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Computes thousands of consonance (confidence) intervals for the chosen parameter in a statistical test
-that compares means and places the interval limits for each interval level into a data frame along with the corresponding p-values and s-values.</p>
+    <p>Computes thousands of consonance (confidence) intervals for the chosen
+parameter in a statistical test that compares means and places the interval
+limits for each interval level into a data frame along with the corresponding
+p-values and s-values.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>curve_mean</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>data</span>, <span class='kw'>paired</span> <span class='kw'>=</span> <span class='no'>F</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
-<span class='kw'>replicates</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>steps</span> <span class='kw'>=</span> <span class='fl'>10000</span>)</pre>
+    <pre class="usage"><span class='fu'>curve_mean</span>(
+  <span class='no'>x</span>,
+  <span class='no'>y</span>,
+  <span class='no'>data</span>,
+  <span class='kw'>paired</span> <span class='kw'>=</span> <span class='no'>F</span>,
+  <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
+  <span class='kw'>replicates</span> <span class='kw'>=</span> <span class='fl'>1000</span>,
+  <span class='kw'>steps</span> <span class='kw'>=</span> <span class='fl'>10000</span>,
+  <span class='kw'>table</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -176,66 +188,66 @@ that compares means and places the interval limits for each interval level into 
     </tr>
     <tr>
       <th>paired</th>
-      <td><p>Indicates whether the statistical test is a paired difference test. By default, it is set to "F",
-which means the function will be an unpaired statistical test comparing two independent groups.
-Inserting "paired" will change the test to a paired difference test.</p></td>
+      <td><p>Indicates whether the statistical test is a paired difference test.
+By default, it is set to "F",which means the function will be an unpaired
+statistical test comparing two independent groups.Inserting "paired" will
+change the test to a paired difference test.</p></td>
     </tr>
     <tr>
       <th>method</th>
-      <td><p>By default this is turned off (set to "default"), but allows for bootstrapping if "boot" is inserted
-into the function call.</p></td>
+      <td><p>By default this is turned off (set to "default"), but
+allows for bootstrapping if "boot" is insertedinto the function call.</p></td>
     </tr>
     <tr>
       <th>replicates</th>
-      <td><p>Indicates how many bootstrap replicates are to be performed if bootstrapping is enabled as a method.</p></td>
+      <td><p>Indicates how many bootstrap replicates are to be performed.
+The defaultis currently 20000 but more may be desirable, especially to make
+the functions more smooth.</p></td>
     </tr>
     <tr>
       <th>steps</th>
-      <td><p>Indicates how many consonance intervals are to be calculated at various levels. For example, setting
-this to 100 will produce 100 consonance intervals from 0 to 100. Setting this to 10000 will produce more
-consonance levels. By default, it is set to 1000. Increasing the number substantially is not recommended
-as it will take longer to produce all the intervals and store them into a dataframe.</p></td>
+      <td><p>Indicates how many consonance intervals are to be calculated at
+various levels. For example, setting this to 100 will produce 100 consonance
+intervals from 0 to 100. Setting this to 10000 will produce more consonance
+levels. By default, it is set to 1000. Increasing the number substantially
+is not recommended as it will take longer to produce all the intervals and
+store them into a dataframe.</p></td>
+    </tr>
+    <tr>
+      <th>table</th>
+      <td><p>Indicates whether or not a table output with some relevant
+statistics should be generated. The default is TRUE and generates a table
+which is included in the list object.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    <p>Poole C. Beyond the confidence interval. Am J Public Health. 1987;77(2):195-199.</p>
-<p>Sullivan KM, Foster DA. Use of the confidence interval function. Epidemiology. 1990;1(1):39-42.</p>
-<p>Rothman KJ, Greenland S, Lash TL, Others. Modern epidemiology. 2008.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'># Simulate random data</span>
-
 <span class='no'>GroupA</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>100</span>, <span class='kw'>min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>100</span>)
 <span class='no'>GroupB</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>100</span>, <span class='kw'>min</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>100</span>)
-
 <span class='no'>RandomData</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='no'>GroupA</span>, <span class='no'>GroupB</span>)
-
 <span class='no'>bob</span> <span class='kw'>&lt;-</span> <span class='fu'>curve_mean</span>(<span class='no'>GroupA</span>, <span class='no'>GroupB</span>, <span class='no'>RandomData</span>)
-
-<span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='no'>bob</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 10,000 x 1</span><span>
-#&gt;    bob$lower.limit $upper.limit $intrvl.level $pvalue  $svalue
-#&gt;              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span>          -</span><span style='color: #BB0000;'>0.919</span><span>       -</span><span style='color: #BB0000;'>0.919</span><span>      0          1     0       
-#&gt; </span><span style='color: #555555;'> 2</span><span>          -</span><span style='color: #BB0000;'>0.919</span><span>       -</span><span style='color: #BB0000;'>0.918</span><span>      0.000</span><span style='text-decoration: underline;'>1</span><span>     1.000 0.000</span><span style='text-decoration: underline;'>144</span><span>
-#&gt; </span><span style='color: #555555;'> 3</span><span>          -</span><span style='color: #BB0000;'>0.920</span><span>       -</span><span style='color: #BB0000;'>0.917</span><span>      0.000</span><span style='text-decoration: underline;'>2</span><span>     1.000 0.000</span><span style='text-decoration: underline;'>289</span><span>
-#&gt; </span><span style='color: #555555;'> 4</span><span>          -</span><span style='color: #BB0000;'>0.920</span><span>       -</span><span style='color: #BB0000;'>0.917</span><span>      0.000</span><span style='text-decoration: underline;'>300</span><span>   1.000 0.000</span><span style='text-decoration: underline;'>433</span><span>
-#&gt; </span><span style='color: #555555;'> 5</span><span>          -</span><span style='color: #BB0000;'>0.921</span><span>       -</span><span style='color: #BB0000;'>0.916</span><span>      0.000</span><span style='text-decoration: underline;'>4</span><span>     1.000 0.000</span><span style='text-decoration: underline;'>577</span><span>
-#&gt; </span><span style='color: #555555;'> 6</span><span>          -</span><span style='color: #BB0000;'>0.921</span><span>       -</span><span style='color: #BB0000;'>0.916</span><span>      0.000</span><span style='text-decoration: underline;'>5</span><span>     1.000 0.000</span><span style='text-decoration: underline;'>722</span><span>
-#&gt; </span><span style='color: #555555;'> 7</span><span>          -</span><span style='color: #BB0000;'>0.922</span><span>       -</span><span style='color: #BB0000;'>0.915</span><span>      0.000</span><span style='text-decoration: underline;'>600</span><span>   0.999 0.000</span><span style='text-decoration: underline;'>866</span><span>
-#&gt; </span><span style='color: #555555;'> 8</span><span>          -</span><span style='color: #BB0000;'>0.922</span><span>       -</span><span style='color: #BB0000;'>0.915</span><span>      0.000</span><span style='text-decoration: underline;'>7</span><span>     0.999 0.001</span><span style='text-decoration: underline;'>01</span><span> 
-#&gt; </span><span style='color: #555555;'> 9</span><span>          -</span><span style='color: #BB0000;'>0.923</span><span>       -</span><span style='color: #BB0000;'>0.914</span><span>      0.000</span><span style='text-decoration: underline;'>8</span><span>     0.999 0.001</span><span style='text-decoration: underline;'>15</span><span> 
-#&gt; </span><span style='color: #555555;'>10</span><span>          -</span><span style='color: #BB0000;'>0.923</span><span>       -</span><span style='color: #BB0000;'>0.914</span><span>      0.000</span><span style='text-decoration: underline;'>9</span><span>     0.999 0.001</span><span style='text-decoration: underline;'>30</span><span> 
-#&gt; </span><span style='color: #555555;'># … with 9,990 more rows</span><span></div><div class='input'>
-</div></span></pre>
+<span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='no'>bob</span><span class='kw'>[[</span><span class='fl'>1</span>]])</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 10,000 x 1</span><span>
+#&gt;    `bob[[1]]`$lowe… $upper.limit $intrvl.width $intrvl.level  $cdf $pvalue
+#&gt;               </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span>             5.15         5.15       0            0        0.5     1    
+#&gt; </span><span style='color: #555555;'> 2</span><span>             5.15         5.15       0.001</span><span style='text-decoration: underline;'>03</span><span>      0.000</span><span style='text-decoration: underline;'>1</span><span>   0.500   1.000
+#&gt; </span><span style='color: #555555;'> 3</span><span>             5.15         5.15       0.002</span><span style='text-decoration: underline;'>06</span><span>      0.000</span><span style='text-decoration: underline;'>2</span><span>   0.500   1.000
+#&gt; </span><span style='color: #555555;'> 4</span><span>             5.15         5.15       0.003</span><span style='text-decoration: underline;'>08</span><span>      0.000</span><span style='text-decoration: underline;'>300</span><span> 0.500   1.000
+#&gt; </span><span style='color: #555555;'> 5</span><span>             5.15         5.15       0.004</span><span style='text-decoration: underline;'>11</span><span>      0.000</span><span style='text-decoration: underline;'>4</span><span>   0.500   1.000
+#&gt; </span><span style='color: #555555;'> 6</span><span>             5.15         5.15       0.005</span><span style='text-decoration: underline;'>14</span><span>      0.000</span><span style='text-decoration: underline;'>5</span><span>   0.500   1.000
+#&gt; </span><span style='color: #555555;'> 7</span><span>             5.15         5.15       0.006</span><span style='text-decoration: underline;'>17</span><span>      0.000</span><span style='text-decoration: underline;'>600</span><span> 0.500   0.999
+#&gt; </span><span style='color: #555555;'> 8</span><span>             5.15         5.15       0.007</span><span style='text-decoration: underline;'>19</span><span>      0.000</span><span style='text-decoration: underline;'>7</span><span>   0.500   0.999
+#&gt; </span><span style='color: #555555;'> 9</span><span>             5.15         5.15       0.008</span><span style='text-decoration: underline;'>22</span><span>      0.000</span><span style='text-decoration: underline;'>8</span><span>   0.500   0.999
+#&gt; </span><span style='color: #555555;'>10</span><span>             5.15         5.15       0.009</span><span style='text-decoration: underline;'>25</span><span>      0.000</span><span style='text-decoration: underline;'>9</span><span>   0.500   0.999
+#&gt; </span><span style='color: #555555;'># … with 9,990 more rows, and 1 more variable: $svalue </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#references">References</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

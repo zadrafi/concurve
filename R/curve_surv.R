@@ -1,6 +1,26 @@
-# Survival Data Consonance Function
+#' Produce Consonance Intervals for Survival Data
+#'
+#' Computes thousands of consonance (confidence) intervals for the chosen
+#' parameter in the Cox model computed by the 'survival' package and places
+#' the interval limits for each interval level into a data frame along
+#' with the corresponding p-value and s-value.
+#'
+#' @param data Object where the Cox model is stored, typically a list produced by the
+#' 'survival' package.
+#' @param x Predictor of interest within the survival model for which the
+#' consonance intervals should be computed.
+#' @param steps Indicates how many consonance intervals are to be calculated at
+#' various levels. For example, setting this to 100 will produce 100 consonance
+#' intervals from 0 to 100. Setting this to 10000 will produce more consonance
+#' levels. By default, it is set to 1000. Increasing the number substantially
+#' is not recommended as it will take longer to produce all the intervals and
+#' store them into a dataframe.
+#' @param table Indicates whether or not a table output with some relevant
+#' statistics should be generated. The default is TRUE and generates a table
+#' which is included in the list object.
+#'
 
-curve_surv <- function(data, x, steps = 10000) {
+curve_surv <- function(data, x, steps = 10000, table = TRUE) {
   if (is.list(data) != TRUE) {
     stop("Error: 'data' must be an object with a Cox Proportional Hazards model")
   }
@@ -9,17 +29,35 @@ curve_surv <- function(data, x, steps = 10000) {
   }
 
   intrvls <- (1:steps) / steps
-  results <- mclapply(intrvls, FUN = function(i) summary(data, conf.int = i)$conf.int[x, ])
+  results <- pbmclapply(intrvls, FUN = function(i) summary(data, conf.int = i)$conf.int[x, ], mc.cores = getOption("mc.cores", 1L))
 
   df <- data.frame(do.call(rbind, results))[, 3:4]
   intrvl.limit <- c("lower.limit", "upper.limit")
   colnames(df) <- intrvl.limit
+  df$intrvl.width <- (abs((df$upper.limit) - (df$lower.limit)))
   df$intrvl.level <- intrvls
+  df$cdf <- (abs(df$intrvl.level / 2)) + 0.5
   df$pvalue <- 1 - intrvls
   df$svalue <- -log2(df$pvalue)
   df <- head(df, -1)
-  return(df)
+  class(df) <- c("data.frame", "concurve")
+  densdf <- data.frame(c(df$lower.limit, df$upper.limit))
+  colnames(densdf) <- "x"
+  densdf <- head(densdf, -1)
+  class(densdf) <- c("data.frame", "concurve")
+
+  if (table == TRUE) {
+    levels <- c(0.25, 0.50, 0.75, 0.80, 0.85, 0.90, 0.95, 0.975, 0.99)
+    (df_subintervals <- (curve_table(df, levels, type = "c", format = "data.frame")))
+    class(df_subintervals) <- c("data.frame", "concurve")
+    dataframes <- list(df, densdf, df_subintervals)
+    names(dataframes) <- c("Intervals Dataframe", "Intervals Density", "Intervals Table")
+    class(dataframes) <- "concurve"
+    return(dataframes)
+  } else if (table == FALSE) {
+    return(list(df, densdf))
+  }
 }
 
 # RMD Check
-utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.level", "pvalue", "svalue"))
+utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.width", "intrvl.level", "cdf", "pvalue", "svalue"))

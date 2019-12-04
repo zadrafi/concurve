@@ -4,10 +4,22 @@
     <loc>https://data.lesslikely.com/concurve//index.html</loc>
   </url>
   <url>
+    <loc>https://data.lesslikely.com/concurve//reference/concurve-package.html</loc>
+  </url>
+  <url>
+    <loc>https://data.lesslikely.com/concurve//reference/curve_boot.html</loc>
+  </url>
+  <url>
+    <loc>https://data.lesslikely.com/concurve//reference/curve_compare.html</loc>
+  </url>
+  <url>
     <loc>https://data.lesslikely.com/concurve//reference/curve_corr.html</loc>
   </url>
   <url>
     <loc>https://data.lesslikely.com/concurve//reference/curve_gen.html</loc>
+  </url>
+  <url>
+    <loc>https://data.lesslikely.com/concurve//reference/curve_lik.html</loc>
   </url>
   <url>
     <loc>https://data.lesslikely.com/concurve//reference/curve_mean.html</loc>
@@ -22,13 +34,19 @@
     <loc>https://data.lesslikely.com/concurve//reference/curve_surv.html</loc>
   </url>
   <url>
+    <loc>https://data.lesslikely.com/concurve//reference/curve_table.html</loc>
+  </url>
+  <url>
     <loc>https://data.lesslikely.com/concurve//reference/defunct.html</loc>
   </url>
   <url>
-    <loc>https://data.lesslikely.com/concurve//reference/ggconcurve.html</loc>
+    <loc>https://data.lesslikely.com/concurve//reference/ggcurve.html</loc>
   </url>
   <url>
-    <loc>https://data.lesslikely.com/concurve//reference/plot_concurve.html</loc>
+    <loc>https://data.lesslikely.com/concurve//reference/plot_compare.html</loc>
+  </url>
+  <url>
+    <loc>https://data.lesslikely.com/concurve//reference/tidyeval.html</loc>
   </url>
   <url>
     <loc>https://data.lesslikely.com/concurve//articles/examples.html</loc>

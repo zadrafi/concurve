@@ -6,7 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Computes consonance intervals for linear models — curve_gen • concurve</title>
+<title>General Consonance Functions Using Profile Likelihood, Wald,
+or the bootstrap method for linear models. — curve_gen • concurve</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -50,10 +51,13 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Computes consonance intervals for linear models — curve_gen" />
-<meta property="og:description" content="Computes thousands of consonance (confidence) intervals for the chosen parameter in the
-selected model(ANOVA, ANCOVA, regression, logistic regression) and places the interval limits
-for each interval level into a data frame along with the corresponding p-values and s-values." />
+<meta property="og:title" content="General Consonance Functions Using Profile Likelihood, Wald,
+or the bootstrap method for linear models. — curve_gen" />
+<meta property="og:description" content="Computes thousands of consonance (confidence) intervals for
+the chosen parameter in the selected model
+(ANOVA, ANCOVA, regression, logistic regression) and places
+the interval limits for each interval level into a data frame along
+with the corresponding p-values and s-values." />
 <meta property="og:image" content="https://data.lesslikely.com/concurve/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -85,9 +89,9 @@ for each interval level into a data frame along with the corresponding p-values 
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <span class="navbar-brand">
+      <span class="navbar-brand"><img src="https://res.cloudinary.com/less-likely/image/upload/v1575427534/Site/Logo.svg" id ="package-logo" align="left" width="35">
         <a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.0</span>
       </span>
     </div>
 
@@ -123,7 +127,7 @@ for each interval level into a data frame along with the corresponding p-values 
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/Zadchow/concurve">
+  <a href="https://github.com/zadchow/concurve">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -147,89 +151,95 @@ for each interval level into a data frame along with the corresponding p-values 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Computes consonance intervals for linear models</h1>
-    
+    <h1>General Consonance Functions Using Profile Likelihood, Wald,
+or the bootstrap method for linear models.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/zadchow/concurve/blob/master/R/curve_gen.R'><code>R/curve_gen.R</code></a></small>
     <div class="hidden name"><code>curve_gen.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Computes thousands of consonance (confidence) intervals for the chosen parameter in the
-selected model(ANOVA, ANCOVA, regression, logistic regression) and places the interval limits
-for each interval level into a data frame along with the corresponding p-values and s-values.</p>
+    <p>Computes thousands of consonance (confidence) intervals for
+the chosen parameter in the selected model
+(ANOVA, ANCOVA, regression, logistic regression) and places
+the interval limits for each interval level into a data frame along
+with the corresponding p-values and s-values.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>curve_gen</span>(<span class='no'>model</span>, <span class='no'>var</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>replicates</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>steps</span> <span class='kw'>=</span> <span class='fl'>10000</span>)</pre>
+    <pre class="usage"><span class='fu'>curve_gen</span>(<span class='no'>model</span>, <span class='no'>var</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"wald"</span>, <span class='kw'>steps</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>table</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>model</th>
-      <td><p>The statistical model of interest(ANOVA, regression, logistic regression) is to be indicated here.</p></td>
+      <td><p>The statistical model of interest
+(ANOVA, regression, logistic regression) is to be indicated here.</p></td>
     </tr>
     <tr>
       <th>var</th>
-      <td><p>The variable of interest from the model (coefficients, intercept) for which the intervals are to be produced.</p></td>
+      <td><p>The variable of interest from the model (coefficients, intercept)
+for which the intervals are to be produced.</p></td>
     </tr>
     <tr>
       <th>method</th>
-      <td><p>Chooses the method to be used to calculate the consonance intervals. There are currently four
-methods: "default", "wald", "lm", and "boot". The "default" method uses the profile likelihood method to
-compute intervals and can be used for models created by the 'lm' function. The "wald" method is typically
-what most people are familiar with when computing intervals based on the calculated standard error.
-The "lm" method allows this function to be used for specific scenarios like logistic regression and
-the 'glm' function. The "boot" method allows for bootstrapping at certain levels.</p></td>
-    </tr>
-    <tr>
-      <th>replicates</th>
-      <td><p>Indicates how many bootstrap replicates are to be performed if bootstrapping is enabled as a method.</p></td>
+      <td><p>Chooses the method to be used to calculate the
+consonance intervals. There are currently four methods:
+"default", "wald", "lm", and "boot". The "default" method uses the profile
+likelihood method to compute intervals and can be used for models created by
+the 'lm' function. The "wald" method is typicallywhat most people are
+familiar with when computing intervals based on the calculated standard error.
+The "lm" method allows this function to be used for specific scenarios like
+logistic regression and the 'glm' function. The "boot" method allows for
+bootstrapping at certain levels.</p></td>
     </tr>
     <tr>
       <th>steps</th>
-      <td><p>Indicates how many consonance intervals are to be calculated at various levels. For example, setting
-this to 100 will produce 100 compatibility intervals from 0 to 100. Setting this to 10000 will produce more consonance levels. By default, it is set to 1000. Increasing the number substantially is not recommended as it will take longer to produce all the intervals and store them into a dataframe.</p></td>
+      <td><p>Indicates how many consonance intervals are to be calculated at
+various levels. For example, setting this to 100 will produce 100 consonance
+intervals from 0 to 100. Setting this to 10000 will produce more consonance
+levels. By default, it is set to 1000. Increasing the number substantially
+is not recommended as it will take longer to produce all the intervals and
+store them into a dataframe.</p></td>
+    </tr>
+    <tr>
+      <th>table</th>
+      <td><p>Indicates whether or not a table output with some relevant
+statistics should be generated. The default is TRUE and generates a table
+which is included in the list object.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    <p>Poole C. Beyond the confidence interval. Am J Public Health. 1987;77(2):195-199.</p>
-<p>Sullivan KM, Foster DA. Use of the confidence interval function. Epidemiology. 1990;1(1):39-42.</p>
-<p>Rothman KJ, Greenland S, Lash TL, Others. Modern epidemiology. 2008.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
+<span class='co'># \donttest{</span>
 <span class='co'># Simulate random data</span>
-
 <span class='no'>GroupA</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>50</span>)
 <span class='no'>GroupB</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>50</span>)
-
 <span class='no'>RandomData</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='no'>GroupA</span>, <span class='no'>GroupB</span>)
+<span class='no'>rob</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>GroupA</span> ~ <span class='no'>GroupB</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>RandomData</span>)
+<span class='no'>bob</span> <span class='kw'>&lt;-</span> <span class='fu'>curve_gen</span>(<span class='no'>rob</span>, <span class='st'>"GroupB"</span>)
+<span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='no'>bob</span><span class='kw'>[[</span><span class='fl'>1</span>]])</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 998 x 1</span><span>
+#&gt;    `bob[[1]]`$lowe… $upper.limit $intrvl.width $intrvl.level  $cdf $pvalue
+#&gt;               </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span>           0.031</span><span style='text-decoration: underline;'>2</span><span>       0.031</span><span style='text-decoration: underline;'>5</span><span>      0.000</span><span style='text-decoration: underline;'>336</span><span>         0.001 0.500   0.999
+#&gt; </span><span style='color: #555555;'> 2</span><span>           0.031</span><span style='text-decoration: underline;'>0</span><span>       0.031</span><span style='text-decoration: underline;'>7</span><span>      0.000</span><span style='text-decoration: underline;'>672</span><span>         0.002 0.501   0.998
+#&gt; </span><span style='color: #555555;'> 3</span><span>           0.030</span><span style='text-decoration: underline;'>9</span><span>       0.031</span><span style='text-decoration: underline;'>9</span><span>      0.001</span><span style='text-decoration: underline;'>01</span><span>          0.003 0.501   0.997
+#&gt; </span><span style='color: #555555;'> 4</span><span>           0.030</span><span style='text-decoration: underline;'>7</span><span>       0.032</span><span style='text-decoration: underline;'>0</span><span>      0.001</span><span style='text-decoration: underline;'>34</span><span>          0.004 0.502   0.996
+#&gt; </span><span style='color: #555555;'> 5</span><span>           0.030</span><span style='text-decoration: underline;'>5</span><span>       0.032</span><span style='text-decoration: underline;'>2</span><span>      0.001</span><span style='text-decoration: underline;'>68</span><span>          0.005 0.502   0.995
+#&gt; </span><span style='color: #555555;'> 6</span><span>           0.030</span><span style='text-decoration: underline;'>4</span><span>       0.032</span><span style='text-decoration: underline;'>4</span><span>      0.002</span><span style='text-decoration: underline;'>02</span><span>          0.006 0.503   0.994
+#&gt; </span><span style='color: #555555;'> 7</span><span>           0.030</span><span style='text-decoration: underline;'>2</span><span>       0.032</span><span style='text-decoration: underline;'>5</span><span>      0.002</span><span style='text-decoration: underline;'>35</span><span>          0.007 0.503   0.993
+#&gt; </span><span style='color: #555555;'> 8</span><span>           0.030</span><span style='text-decoration: underline;'>0</span><span>       0.032</span><span style='text-decoration: underline;'>7</span><span>      0.002</span><span style='text-decoration: underline;'>69</span><span>          0.008 0.504   0.992
+#&gt; </span><span style='color: #555555;'> 9</span><span>           0.029</span><span style='text-decoration: underline;'>9</span><span>       0.032</span><span style='text-decoration: underline;'>9</span><span>      0.003</span><span style='text-decoration: underline;'>02</span><span>          0.009 0.504   0.991
+#&gt; </span><span style='color: #555555;'>10</span><span>           0.029</span><span style='text-decoration: underline;'>7</span><span>       0.033</span><span style='text-decoration: underline;'>1</span><span>      0.003</span><span style='text-decoration: underline;'>36</span><span>          0.01  0.505   0.99 
+#&gt; </span><span style='color: #555555;'># … with 988 more rows, and 1 more variable: $svalue </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div><div class='input'># }
 
-<span class='no'>rob</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='no'>GroupA</span> ~ <span class='no'>GroupB</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>RandomData</span>)
-<span class='no'>bob</span> <span class='kw'>&lt;-</span> <span class='fu'>curve_gen</span>(<span class='no'>rob</span>, <span class='st'>"GroupB"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"lm"</span>)
-
-<span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='no'>bob</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 10,000 x 1</span><span>
-#&gt;    bob$lower.limit $upper.limit $intrvl.level $pvalue  $svalue
-#&gt;              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span>         -</span><span style='color: #BB0000;'>0.073</span><span style='color: #BB0000;text-decoration: underline;'>2</span><span>      -</span><span style='color: #BB0000;'>0.073</span><span style='color: #BB0000;text-decoration: underline;'>2</span><span>      0          1     0       
-#&gt; </span><span style='color: #555555;'> 2</span><span>         -</span><span style='color: #BB0000;'>0.073</span><span style='color: #BB0000;text-decoration: underline;'>2</span><span>      -</span><span style='color: #BB0000;'>0.073</span><span style='color: #BB0000;text-decoration: underline;'>1</span><span>      0.000</span><span style='text-decoration: underline;'>1</span><span>     1.000 0.000</span><span style='text-decoration: underline;'>144</span><span>
-#&gt; </span><span style='color: #555555;'> 3</span><span>         -</span><span style='color: #BB0000;'>0.073</span><span style='color: #BB0000;text-decoration: underline;'>2</span><span>      -</span><span style='color: #BB0000;'>0.073</span><span style='color: #BB0000;text-decoration: underline;'>1</span><span>      0.000</span><span style='text-decoration: underline;'>2</span><span>     1.000 0.000</span><span style='text-decoration: underline;'>289</span><span>
-#&gt; </span><span style='color: #555555;'> 4</span><span>         -</span><span style='color: #BB0000;'>0.073</span><span style='color: #BB0000;text-decoration: underline;'>2</span><span>      -</span><span style='color: #BB0000;'>0.073</span><span style='color: #BB0000;text-decoration: underline;'>1</span><span>      0.000</span><span style='text-decoration: underline;'>300</span><span>   1.000 0.000</span><span style='text-decoration: underline;'>433</span><span>
-#&gt; </span><span style='color: #555555;'> 5</span><span>         -</span><span style='color: #BB0000;'>0.073</span><span style='color: #BB0000;text-decoration: underline;'>2</span><span>      -</span><span style='color: #BB0000;'>0.073</span><span style='color: #BB0000;text-decoration: underline;'>1</span><span>      0.000</span><span style='text-decoration: underline;'>4</span><span>     1.000 0.000</span><span style='text-decoration: underline;'>577</span><span>
-#&gt; </span><span style='color: #555555;'> 6</span><span>         -</span><span style='color: #BB0000;'>0.073</span><span style='color: #BB0000;text-decoration: underline;'>2</span><span>      -</span><span style='color: #BB0000;'>0.073</span><span style='color: #BB0000;text-decoration: underline;'>1</span><span>      0.000</span><span style='text-decoration: underline;'>5</span><span>     1.000 0.000</span><span style='text-decoration: underline;'>722</span><span>
-#&gt; </span><span style='color: #555555;'> 7</span><span>         -</span><span style='color: #BB0000;'>0.073</span><span style='color: #BB0000;text-decoration: underline;'>3</span><span>      -</span><span style='color: #BB0000;'>0.073</span><span style='color: #BB0000;text-decoration: underline;'>1</span><span>      0.000</span><span style='text-decoration: underline;'>600</span><span>   0.999 0.000</span><span style='text-decoration: underline;'>866</span><span>
-#&gt; </span><span style='color: #555555;'> 8</span><span>         -</span><span style='color: #BB0000;'>0.073</span><span style='color: #BB0000;text-decoration: underline;'>3</span><span>      -</span><span style='color: #BB0000;'>0.073</span><span style='color: #BB0000;text-decoration: underline;'>0</span><span>      0.000</span><span style='text-decoration: underline;'>7</span><span>     0.999 0.001</span><span style='text-decoration: underline;'>01</span><span> 
-#&gt; </span><span style='color: #555555;'> 9</span><span>         -</span><span style='color: #BB0000;'>0.073</span><span style='color: #BB0000;text-decoration: underline;'>3</span><span>      -</span><span style='color: #BB0000;'>0.073</span><span style='color: #BB0000;text-decoration: underline;'>0</span><span>      0.000</span><span style='text-decoration: underline;'>8</span><span>     0.999 0.001</span><span style='text-decoration: underline;'>15</span><span> 
-#&gt; </span><span style='color: #555555;'>10</span><span>         -</span><span style='color: #BB0000;'>0.073</span><span style='color: #BB0000;text-decoration: underline;'>3</span><span>      -</span><span style='color: #BB0000;'>0.073</span><span style='color: #BB0000;text-decoration: underline;'>0</span><span>      0.000</span><span style='text-decoration: underline;'>9</span><span>     0.999 0.001</span><span style='text-decoration: underline;'>30</span><span> 
-#&gt; </span><span style='color: #555555;'># … with 9,990 more rows</span><span></div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#references">References</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

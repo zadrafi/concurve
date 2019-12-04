@@ -7,6 +7,7 @@
 ^codecov\.yml$
 ^_config\.yml$
 ^docs$
+^examples$
 ^_pkgdown\.yml$
 ^README\.Rmd$
 ^README-.*\.png$
@@ -19,3 +20,9 @@
 ^\.RData$
 ^\.Rhistory$
 ^\.circleci$
+^revdep$
+^Makefile$
+^\.covrignore$
+^LICENSE\.md$
+^usethis\.R$
+

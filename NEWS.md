@@ -1,3 +1,20 @@
+# concurve 2.3.0
+
+## Major changes 
+* `ggconcurve()` is now `ggcurve()`.
+* `ggcurve()` plots confidence (consonance) distributions, densities, likelihood, and deviance functions. 
+* `plot_curve()` is now deprecated. Please use `ggcurve()` instead. 
+* `curve_compare()` compares two functions and calculates the area between the curve. 
+* `plot_compare() `allows two separate functions to be plotted and compared simultaneously.
+* `curve_table()` produces publication-ready tables of relevant statistics.
+* `curve_boot()` uses bootstrapping to approximate the consonance functions via the [`boot`](https://cran.r-project.org/package=boot) and [`bcaboot`](https://cran.r-project.org/package=bcaboot) packages. 
+* `curve_lik()` produces likelihood functions by transforming the objects from the [`ProfileLikelihood`](https://cran.r-project.org/package=ProfileLikelihood) package.
+
+## Minor changes 
+
+* All functions now provide progress on how long it will take to complete the task.
+* Interval widths are now provided as measures of precision. 
+
 # concurve 2.1.0
 
 ## Major changes 
