@@ -260,8 +260,8 @@
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">GroupA2 &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="dv">500</span>)</a>
 <a class="sourceLine" id="cb8-2" title="2">GroupB2 &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="dv">500</span>)</a>
 <a class="sourceLine" id="cb8-3" title="3">RandomData2 &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(GroupA2, GroupB2)</a>
-<a class="sourceLine" id="cb8-4" title="4">model &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span>(GroupA2 <span class="op">~</span><span class="st"> </span>GroupB2, <span class="dt">data =</span> RandomData2)</a>
-<a class="sourceLine" id="cb8-5" title="5">randomframe &lt;-<span class="st"> </span><span class="kw"><a href="../reference/curve_gen.html">curve_gen</a></span>(model, <span class="st">"GroupB2"</span>, <span class="dt">method =</span> <span class="st">"glm"</span>, <span class="dt">steps =</span> <span class="dv">10000</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb8-4" title="4">model &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(GroupA2 <span class="op">~</span><span class="st"> </span>GroupB2, <span class="dt">data =</span> RandomData2)</a>
+<a class="sourceLine" id="cb8-5" title="5">randomframe &lt;-<span class="st"> </span><span class="kw"><a href="../reference/curve_gen.html">curve_gen</a></span>(model, <span class="st">"GroupB2"</span>)</a></code></pre></div>
 <p>Once again, we’ll plot this data with <code><a href="../reference/ggcurve.html">ggcurve()</a></code>. We can also indicate whether we want certain interval estimates to be plotted in the function with the “levels” argument. If we wanted to plot the 50%, 75%, and 95% intervals, we’d provide the argument this way:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">(function2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ggcurve.html">ggcurve</a></span>(<span class="dt">type =</span> <span class="st">"c"</span>, randomframe[[<span class="dv">1</span>]], <span class="dt">levels =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.50</span>, <span class="fl">0.75</span>, <span class="fl">0.95</span>), <span class="dt">nullvalue =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
 <p><img src="examples_files/figure-html/unnamed-chunk-9-1.png" width="576"></p>
@@ -292,7 +292,7 @@
 <a class="sourceLine" id="cb11-8" title="8"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb11-9" title="9"><span class="co">#&gt;  AUC 1   AUC 2   Shared AUC   AUC Overlap (%)   Overlap:Non-Overlap AUC Ratio</span></a>
 <a class="sourceLine" id="cb11-10" title="10"><span class="co">#&gt; ------  ------  -----------  ----------------  ------------------------------</span></a>
-<a class="sourceLine" id="cb11-11" title="11"><span class="co">#&gt;  3.947   2.563        2.145             0.491                           0.966</span></a>
+<a class="sourceLine" id="cb11-11" title="11"><span class="co">#&gt;  3.947   1.531        1.531             0.388                           0.634</span></a>
 <a class="sourceLine" id="cb11-12" title="12"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb11-13" title="13"><span class="co">#&gt; [[2]]</span></a></code></pre></div>
 <p><img src="examples_files/figure-html/unnamed-chunk-11-1.png" width="576"></p>
@@ -436,7 +436,8 @@
 <a class="sourceLine" id="cb23-7" title="7">}</a></code></pre></div>
 <p>Our function is a simple mean difference. This time, we’ll set the method to “t” for the <em>t</em>-bootstrap method</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" title="1">z &lt;-<span class="st"> </span><span class="kw"><a href="../reference/curve_boot.html">curve_boot</a></span>(<span class="dt">data =</span> CommuteAtlanta, <span class="dt">func =</span> func, <span class="dt">method =</span> <span class="st">"t"</span>, <span class="dt">replicates =</span> <span class="dv">2000</span>, <span class="dt">steps =</span> <span class="dv">1000</span>)</a>
-<a class="sourceLine" id="cb24-2" title="2"><span class="kw"><a href="../reference/ggcurve.html">ggcurve</a></span>(<span class="dt">data =</span> z[[<span class="dv">1</span>]])</a></code></pre></div>
+<a class="sourceLine" id="cb24-2" title="2"><span class="co">#&gt; Warning in norm.inter(t, alpha): extreme order statistics used as endpoints</span></a>
+<a class="sourceLine" id="cb24-3" title="3"><span class="kw"><a href="../reference/ggcurve.html">ggcurve</a></span>(<span class="dt">data =</span> z[[<span class="dv">1</span>]])</a></code></pre></div>
 <p><img src="examples_files/figure-html/unnamed-chunk-22-1.png" width="576"></p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1"><span class="kw"><a href="../reference/ggcurve.html">ggcurve</a></span>(<span class="dt">data =</span> z[[<span class="dv">2</span>]], <span class="dt">type =</span> <span class="st">"cd"</span>)</a></code></pre></div>
 <p><img src="examples_files/figure-html/unnamed-chunk-22-2.png" width="576"></p>

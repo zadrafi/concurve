@@ -46,7 +46,8 @@ a:focus {
 }
 
 h1, .h1 {
-  font-size: 32px;
+  font-size: 25px;
+  font-weight: 900;
 }
 
 h1 small, .h1 small {
@@ -56,15 +57,15 @@ h1 small, .h1 small {
 }
 
 h2, .h2 {
-  font-size: 28px;
+  font-size: 25px;
 }
 
 h3, .h3 {
-  font-size: 20px;
+  font-size: 24px;
 }
 
 h4, .h4 {
-  font-size: 20px;
+  font-size: 23px;
 }
 
 .contents h1, .contents h2, .contents h3, .contents h4 {

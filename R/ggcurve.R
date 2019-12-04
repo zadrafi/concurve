@@ -122,7 +122,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
 
     # Plotting Intervals ------------------------------------------------------
 
-    interval <- pbmclapply(levels, FUN = function(i) (c(i, subset(data, intrvl.level == i)[, 1], subset(data, intrvl.level == i)[, 2])), mc.cores = getOption("mc.cores", 2L))
+    interval <- pbmclapply(levels, FUN = function(i) (c(i, subset(data, intrvl.level == i)[, 1], subset(data, intrvl.level == i)[, 2])), mc.cores = getOption("mc.cores", 1L))
     interval <- data.frame(do.call(rbind, interval))
     interval <- pivot_longer(interval, X2:X3, names_to = "levels", values_to = "limits")
     interval <- interval[, -2]
@@ -226,7 +226,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
 
     # Plotting Intervals ------------------------------------------------------
 
-    interval <- pbmclapply(levels, FUN = function(i) (c(i, subset(data, intrvl.level == i)[, 1], subset(data, intrvl.level == i)[, 2])), mc.cores = getOption("mc.cores", 2L))
+    interval <- pbmclapply(levels, FUN = function(i) (c(i, subset(data, intrvl.level == i)[, 1], subset(data, intrvl.level == i)[, 2])), mc.cores = getOption("mc.cores", 1L))
     interval <- data.frame(do.call(rbind, interval))
     interval <- gather(interval, key = "levels", value = "limits", X2:X3)
     interval <- interval[, -2]

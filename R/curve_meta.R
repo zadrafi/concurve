@@ -90,7 +90,7 @@ curve_meta <- function(x, measure = "default", steps = 10000, table = TRUE) {
   }
 
   intrvls <- (0:steps) / steps
-  results <- pbmclapply(intrvls, FUN = function(i) confint.default(object = x, fixed = TRUE, random = FALSE, level = i)[], mc.cores = getOption("mc.cores", 2L))
+  results <- pbmclapply(intrvls, FUN = function(i) confint.default(object = x, fixed = TRUE, random = FALSE, level = i)[], mc.cores = getOption("mc.cores", 1L))
   df <- data.frame(do.call(rbind, results))
   intrvl.limit <- c("lower.limit", "upper.limit")
   colnames(df) <- intrvl.limit

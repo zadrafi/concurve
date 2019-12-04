@@ -1,5 +1,12 @@
 
-# concurve | Graph Interval Functions <img src="man/figures/logo.svg" align="right" width="70" />
+<center>
+
+<strong> concurve | Graph Interval Functions </strong>
+<img src="man/figures/logo.svg" align="right" width="70"/>
+
+</center>
+
+-----
 
 <!-- badges: start -->
 
@@ -15,7 +22,7 @@ maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www
 v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 <!-- badges: end -->
 
-## Compare Interval Functions From Different Data/Studies
+### [Compare](file:///Users/Zad/Desktop/GitHub/concurve/docs/reference/curve_compare.html) Functions From Different Datasets/Studies
 
 <img src = "https://res.cloudinary.com/less-likely/image/upload/v1574598684/Site/cfunctions.png" align="center" width ="200">
 <img src = "https://res.cloudinary.com/less-likely/image/upload/v1574598684/Site/sfunctions.png" align="center" width="200">
@@ -24,42 +31,32 @@ v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org
 
 -----
 
-## Export Tabled Results Easily For Word, Powerpoint, & TeX documents
+### [Export Tables](file:///Users/Zad/Desktop/GitHub/concurve/docs/reference/curve_table.html) Easily For Word, Powerpoint, & TeX documents
 
 <center>
 
-<img src = "https://res.cloudinary.com/less-likely/image/upload/v1574628079/Site/tables.png" align="center" width="500">
+<img src = "https://res.cloudinary.com/less-likely/image/upload/v1574628079/Site/tables.png" align="center" width="375">
+
+<img src = "https://res.cloudinary.com/less-likely/image/upload/v1575441662/Site/Logo2.jpg" align="center" width="150">
 
 </center>
 
-# Installation
+-----
 
-## For R:
+### Install the Package From [CRAN](https://cran.r-project.org/package=concurve) Below To Follow The [Examples](https://data.lesslikely.com/concurve/articles/examples.html).
 
-### Install the Package From CRAN
+(`Serious
+Recommendation`)
 
-``` r
-install.packages("concurve")
-```
-
-### Install the Developer Version
-
-``` r
-library(devtools)
-install_github("zadchow/concurve")
-```
-
-### Check out the [Examples](https://data.lesslikely.com/concurve/articles/examples.html).
+    install.packages("concurve")
 
 -----
 
-## For Stata:
-
-### Check out the [Article on Using Stata](https://data.lesslikely.com/concurve/articles/stata.html) for concurve.
+## Check out the [Article on Using Stata](https://data.lesslikely.com/concurve/articles/stata.html) for concurve.
 
 -----
 
-# Dependencies
+## Dependencies
 
   - ggplot2
   - metafor

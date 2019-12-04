@@ -63,14 +63,14 @@ curve_boot <- function(data = data, func = func, method = "bca", replicates = 20
 
     # Data Frame with BCA Intervals ------------------------------
 
-    bca <- pbmclapply(1:length(alpha), FUN = function(i) c(nth(z$bca, i), nth(z$bca, -i)), mc.cores = getOption("mc.cores", 2L))
+    bca <- pbmclapply(1:length(alpha), FUN = function(i) c(nth(z$bca, i), nth(z$bca, -i)), mc.cores = getOption("mc.cores", 1L))
     bcaintervals <- data.frame(do.call(rbind, bca))
     intrvl.limit <- c("lower.limit", "upper.limit")
     colnames(bcaintervals) <- intrvl.limit
-    news <- pbmclapply(1:length(alpha), FUN = function(i) nth(z$bca, -i) - nth(z$bca, i), mc.cores = getOption("mc.cores", 2L))
+    news <- pbmclapply(1:length(alpha), FUN = function(i) nth(z$bca, -i) - nth(z$bca, i), mc.cores = getOption("mc.cores", 1L))
     width <- data.frame(do.call(rbind, news))
     colnames(width) <- "intrvl.width"
-    bews <- pbmclapply(1:length(alpha), FUN = function(i) nth(z$alphaperc, -i) - nth(z$alphaperc, i), mc.cores = getOption("mc.cores", 2L))
+    bews <- pbmclapply(1:length(alpha), FUN = function(i) nth(z$alphaperc, -i) - nth(z$alphaperc, i), mc.cores = getOption("mc.cores", 1L))
     levels <- data.frame(do.call(rbind, bews))
     colnames(levels) <- "intrvl.level"
 
@@ -86,14 +86,14 @@ curve_boot <- function(data = data, func = func, method = "bca", replicates = 20
 
     # Data Frame with Standard Intervals ------------------------------
 
-    std <- pbmclapply(1:length(alpha), FUN = function(i) c(nth(z$std, i), nth(z$std, -i)), mc.cores = getOption("mc.cores", 2L))
+    std <- pbmclapply(1:length(alpha), FUN = function(i) c(nth(z$std, i), nth(z$std, -i)), mc.cores = getOption("mc.cores", 1L))
     stdintervals <- data.frame(do.call(rbind, std))
     intrvl.limit <- c("lower.limit", "upper.limit")
     colnames(stdintervals) <- intrvl.limit
-    news <- pbmclapply(1:length(alpha), FUN = function(i) nth(z$std, -i) - nth(z$std, i), mc.cores = getOption("mc.cores", 2L))
+    news <- pbmclapply(1:length(alpha), FUN = function(i) nth(z$std, -i) - nth(z$std, i), mc.cores = getOption("mc.cores", 1L))
     width <- data.frame(do.call(rbind, news))
     colnames(width) <- "intrvl.width"
-    bews <- pbmclapply(1:length(alpha), FUN = function(i) nth(z$alphaperc, -i) - nth(z$alphaperc, i), mc.cores = getOption("mc.cores", 2L))
+    bews <- pbmclapply(1:length(alpha), FUN = function(i) nth(z$alphaperc, -i) - nth(z$alphaperc, i), mc.cores = getOption("mc.cores", 1L))
     levels <- data.frame(do.call(rbind, bews))
     colnames(levels) <- "intrvl.level"
 
@@ -130,13 +130,13 @@ curve_boot <- function(data = data, func = func, method = "bca", replicates = 20
 
     # Boot Percentile Method For Density --------------------------------------
   } else if (method == "t") {
-    t.boot <- boot(data = data, statistic = func, R = replicates, parallel = "multicore", ncpus = getOption("mc.cores", 2L))
+    t.boot <- boot(data = data, statistic = func, R = replicates, parallel = "multicore", ncpus = getOption("mc.cores", 1L))
 
     intrvls <- 1:steps / steps
 
     t <- pbmclapply(intrvls,
       FUN = function(i) boot.ci(t.boot, conf = i, type = "perc")$perc[4:5],
-      mc.cores = getOption("mc.cores", 2L)
+      mc.cores = getOption("mc.cores", 1L)
     )
 
     df <- data.frame(do.call(rbind, t))

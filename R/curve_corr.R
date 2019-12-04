@@ -49,7 +49,7 @@ curve_corr <- function(x, y, alternative, method, steps = 10000, table = TRUE) {
       alternative = alternative, method = method,
       exact = NULL, conf.level = i, continuity = FALSE
     )$conf.int[]
-  }, mc.cores = getOption("mc.cores", 2L))
+  }, mc.cores = getOption("mc.cores", 1L))
   df <- data.frame(do.call(rbind, results))
   intrvl.limit <- c("lower.limit", "upper.limit")
   colnames(df) <- intrvl.limit

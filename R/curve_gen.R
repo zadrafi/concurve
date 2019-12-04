@@ -53,9 +53,9 @@ curve_gen <- function(model, var, method = "wald", steps = 1000, table = TRUE) {
   intrvls <- (1:(steps - 1)) / steps
 
   if (method == "wald") {
-    results <- pbmclapply(intrvls, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = getOption("mc.cores", 2L))
+    results <- pbmclapply(intrvls, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = getOption("mc.cores", 1L))
   } else if (method == "glm") {
-    results <- pbmclapply(intrvls, FUN = function(i) confint(object = model, level = i, trace = FALSE)[var, ], mc.cores = getOption("mc.cores", 2L))
+    results <- pbmclapply(intrvls, FUN = function(i) confint(object = model, level = i, trace = FALSE)[var, ], mc.cores = getOption("mc.cores", 1L))
   }
 
   df <- data.frame(do.call(rbind, results))
