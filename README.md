@@ -22,7 +22,7 @@ maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www
 v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 <!-- badges: end -->
 
-### [Compare](file:///Users/Zad/Desktop/GitHub/concurve/docs/reference/curve_compare.html) Functions From Different Datasets/Studies
+### [Compare](https://data.lesslikely.com/concurve/reference/curve_compare.html) Functions From Different Datasets/Studies
 
 <img src = "https://res.cloudinary.com/less-likely/image/upload/v1574598684/Site/cfunctions.png" align="center" width ="200">
 <img src = "https://res.cloudinary.com/less-likely/image/upload/v1574598684/Site/sfunctions.png" align="center" width="200">
@@ -31,7 +31,7 @@ v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org
 
 -----
 
-### [Export Tables](file:///Users/Zad/Desktop/GitHub/concurve/docs/reference/curve_table.html) Easily For Word, Powerpoint, & TeX documents
+### [Export Tables](https://data.lesslikely.com/concurve/reference/curve_table.html) Easily For Word, Powerpoint, & TeX documents
 
 <center>
 
