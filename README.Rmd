@@ -1,8 +1,7 @@
 ---
 output: github_document
-  
 ---
-concurve | Graph Interval Functions <img src="man/figures/logo.svg" align="right" width="120" />
+concurve | Graph Interval Functions <img src="man/figures/logo.svg" align="right" width="70" />
 ================
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/concurve)](https://CRAN.R-project.org/package=concurve)
@@ -11,37 +10,22 @@ concurve | Graph Interval Functions <img src="man/figures/logo.svg" align="right
 [![](https://cranlogs.r-pkg.org/badges/grand-total/concurve)](https://cran.r-project.org/package=concurve)
 [![Rdoc](http://www.rdocumentation.org/badges/version/concurve)](http://www.rdocumentation.org/packages/concurve)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-
 <!-- badges: end -->
-
-* * * 
-
-# Examples 
-
-* * * 
-
-## Plot Publication-Ready Interval Functions 
-### (Consonance, Surprisal, Likelihood, & Deviance)
-
-<img src = "https://res.cloudinary.com/less-likely/image/upload/v1574598684/Site/cfunction.png" align="center" width ="400">
-<img src = "https://res.cloudinary.com/less-likely/image/upload/v1574598684/Site/sfunction.png" align="center" width="400">
-<img src = "https://res.cloudinary.com/less-likely/image/upload/v1574598684/Site/lfunction.png" align="center" width ="400">
-<img src = "https://res.cloudinary.com/less-likely/image/upload/v1574598684/Site/dfunction.png" align="center" width="400">
-
-* * * 
 
 ## Compare Interval Functions From Different Data/Studies
 
-<img src = "https://res.cloudinary.com/less-likely/image/upload/v1574598684/Site/cfunctions.png" align="center" width ="400">
-<img src = "https://res.cloudinary.com/less-likely/image/upload/v1574598684/Site/sfunctions.png" align="center" width="400">
-<img src = "https://res.cloudinary.com/less-likely/image/upload/v1574598684/Site/lfunctions.png" align="center" width ="400">
-<img src = "https://res.cloudinary.com/less-likely/image/upload/v1574598684/Site/dfunctions.png" align="center" width="400">
+<img src = "https://res.cloudinary.com/less-likely/image/upload/v1574598684/Site/cfunctions.png" align="center" width ="200">
+<img src = "https://res.cloudinary.com/less-likely/image/upload/v1574598684/Site/sfunctions.png" align="center" width="200">
+<img src = "https://res.cloudinary.com/less-likely/image/upload/v1574598684/Site/lfunctions.png" align="center" width ="200">
+<img src = "https://res.cloudinary.com/less-likely/image/upload/v1574598684/Site/dfunctions.png" align="center" width="200">
 
 * * * 
 
-## Export Tabled Results Easily For Word, Powerpoint, & LaTeX
+## Export Tabled Results Easily For Word, Powerpoint, & TeX documents
 
-<img src = "https://res.cloudinary.com/less-likely/image/upload/v1574628079/Site/tables.png" align="center" width="700">
+<center>
+<img src = "https://res.cloudinary.com/less-likely/image/upload/v1574628079/Site/tables.png" align="center" width="500">
+</center>
 
 # Installation
 

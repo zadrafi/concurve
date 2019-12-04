@@ -31,10 +31,10 @@ Description: Allows one to compute consonance (confidence)
     <doi:10.1080/00031305.2018.1529625>, Chow ZR, Greenland S. (2019)
     <arXiv:1909.08579>, and Greenland S, Chow ZR. (2019)
     <arXiv:1909.08583>.
-License: GPL-3
+License: GPL-3 | file LICENSE
 URL: https://data.lesslikely.com/concurve/,
-    https://github.com/Zadchow/concurve, https://lesslikely.com/
-BugReports: https://github.com/Zadchow/concurve/issues
+    https://github.com/zadchow/concurve, https://lesslikely.com/
+BugReports: https://github.com/zadchow/concurve/issues
 Imports: 
     bcaboot,
     boot,
@@ -61,14 +61,16 @@ Suggests:
     roxygen2,
     spelling,
     testthat,
-    rmarkdown
+    rmarkdown,
+    Lock5Data
 VignetteBuilder: 
     knitr
 ByteCompile: true
 Encoding: UTF-8
 Language: en-US
 LazyData: true
-RoxygenNote: 7.0.1
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.0.2
 X-schema.org-keywords: confidence, compatibility, consonance,
     surprisal, interval, function, curve
 Depends: 

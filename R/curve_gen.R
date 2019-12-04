@@ -37,8 +37,8 @@
 #' GroupA <- rnorm(50)
 #' GroupB <- rnorm(50)
 #' RandomData <- data.frame(GroupA, GroupB)
-#' rob <- glm(GroupA ~ GroupB, data = RandomData)
-#' bob <- curve_gen(rob, "GroupB", method = "glm")
+#' rob <- lm(GroupA ~ GroupB, data = RandomData)
+#' bob <- curve_gen(rob, "GroupB")
 #' tibble::tibble(bob[[1]])
 #' }
 #'

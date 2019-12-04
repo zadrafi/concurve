@@ -19,9 +19,9 @@ tibble::tibble(intervalsdf[[1]])
 (z <- curve_table(intervalsdf[[1]], format = "latex"))
 (z <- curve_table(intervalsdf[[1]], format = "image"))
 
-(function1 <- ggconcurve(data = intervalsdf[[1]], type = "c"))
-(function1 <- ggconcurve(data = intervalsdf[[1]], type = "s"))
-(function1s <- ggconcurve(data = intervalsdf[[2]], type = "cdf"))
+(function1 <- ggcurve(data = intervalsdf[[1]], type = "c"))
+(function1 <- ggcurve(data = intervalsdf[[1]], type = "s"))
+(function1s <- ggcurve(data = intervalsdf[[2]], type = "cdf"))
 
 
 options(mc.cores = 8L)
@@ -48,7 +48,7 @@ model <- glm(GroupA2 ~ GroupB2, data = RandomData2)
 system.time(randomframe <- curve_gen(model, "GroupB2", method = "glm", steps = 10000))
 
 
-(function2 <- ggconcurve(type = "c", randomframe[[1]], levels = c(0.50, 0.75, 0.95), nullvalue = TRUE))
+(function2 <- ggcurve(type = "c", randomframe[[1]], levels = c(0.50, 0.75, 0.95), nullvalue = TRUE))
 
 (curve_compare(
   data1 = intervalsdf[[1]], data2 = randomframe[[1]], type = "c",
@@ -88,12 +88,11 @@ system.time(randomframe <- curve_gen(model, "GroupB2", method = "glm", steps = 1
 
 
 lik1 <- curve_rev(point = 1.7, LL = 1.1, UL = 2.6, type = "l", measure = "ratio", steps = 10000)
-(ggconcurve(data = lik1[[1]], type = "l1", measure = "ratio", nullvalue = FALSE))
-
+(ggcurve(data = lik1[[1]], type = "l1", measure = "ratio", nullvalue = FALSE))
 
 
 lik2 <- curve_rev(point = 1.61, LL = 0.997, UL = 2.59,type = "l", measure = "ratio", steps = 10000)
-(ggconcurve(data = lik2[[1]], type = "l1", measure = "ratio", nullvalue = FALSE))
+(ggcurve(data = lik2[[1]], type = "l1", measure = "ratio", nullvalue = FALSE))
 
 
 (plot_compare(
@@ -111,7 +110,7 @@ lik2 <- curve_rev(point = 1.61, LL = 0.997, UL = 2.59,type = "l", measure = "rat
 
 plot_compare(data1 = lik1[[1]], data2 = lik2[[1]], type = "d", measure = "ratio", nullvalue = FALSE)
 
-(function4 <- ggconcurve(randomframe[[1]], type = "s", title = "Surprisal Function", subtitle = "Interval estimates are plotted to their corresponding S-values")
+(function4 <- ggcurve(randomframe[[1]], type = "s", title = "Surprisal Function", subtitle = "Interval estimates are plotted to their corresponding S-values")
 )
 
 
@@ -145,8 +144,8 @@ rfun <- function(Xy) {
 system.time(x <- curve_boot(data = Xy, func = rfun, method = "bca", replicates = 20000, steps = 1000))
 
 
-ggconcurve(data = x[[1]])
-ggconcurve(data = x[[3]])
+ggcurve(data = x[[1]])
+ggcurve(data = x[[3]])
 
 plot_compare(x[[1]], x[[3]])
 
@@ -162,8 +161,8 @@ foo <- function(data, indices) {
 y <- curve_boot(data = iris, func = foo, method = "bca", replicates = 200, steps = 1000)
 
 
-ggconcurve(data = y[[1]])
-ggconcurve(data = y[[3]])
+ggcurve(data = y[[1]])
+ggcurve(data = y[[3]])
 
 plot_compare(y[[1]], y[[3]])
 
@@ -179,8 +178,8 @@ func = function(data, index) {
 }
 
 z <- curve_boot(data = CommuteAtlanta, func = func, method = "t", replicates = 200, steps = 1000)
-ggconcurve(data = z[[1]])
-ggconcurve(data = z[[2]], type = "cd")
+ggcurve(data = z[[1]])
+ggcurve(data = z[[2]], type = "cd")
 
 # Meta-Analysis -----------------------------------------------------------
 
@@ -248,16 +247,16 @@ metaf2 <- curve_meta(res2)
 tibble::tibble(metaf2[[1]])
 
 
-(function5 <- ggconcurve(metaf[[1]], type = "c"))
+(function5 <- ggcurve(metaf[[1]], type = "c"))
 
 
-(function6 <- ggconcurve(metaf[[1]], type = "s", title = "Surprisal Function", subtitle = "Interval estimates are plotted to their corresponding S-values")
+(function6 <- ggcurve(metaf[[1]], type = "s", title = "Surprisal Function", subtitle = "Interval estimates are plotted to their corresponding S-values")
 )
 
-(function7 <- ggconcurve(metaf2[[1]], type = "c"))
+(function7 <- ggcurve(metaf2[[1]], type = "c"))
 
 
-(function8 <- ggconcurve(metaf2[[1]], type = "s", title = "Surprisal Function", subtitle = "Interval estimates are plotted to their corresponding S-values")
+(function8 <- ggcurve(metaf2[[1]], type = "s", title = "Surprisal Function", subtitle = "Interval estimates are plotted to their corresponding S-values")
 )
 
 (curve_compare(data1 = metaf[[1]], data2 = metaf2[[1]], type = "c", plot = TRUE, measure = "default")

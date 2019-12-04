@@ -8,7 +8,7 @@
 #' which the intervals are stored.
 #' @param type Choose whether to plot a "consonance" function, a "surprisal" function or
 #' "likelihood". The default option is set to "c". The type must be set in quotes,
-#' for example ggconcurve (type = "s") or ggconcurve(type = "c"). Other options
+#' for example curve_compare (type = "s") or curve_compare(type = "c"). Other options
 #' include "pd" for the consonance distribution function, and "cd" for the consonance
 #' density function, "l1" for relative likelihood, "l2" for log-likelihood, "l3"
 #' for likelihood and "d" for deviance function.
@@ -19,15 +19,15 @@
 #' @examples
 #' \donttest{
 #' library(concurve)
-#' GroupA <- rnorm(500)
-#' GroupB <- rnorm(500)
+#' GroupA <- rnorm(50)
+#' GroupB <- rnorm(50)
 #' RandomData <- data.frame(GroupA, GroupB)
 #' intervalsdf <- curve_mean(GroupA, GroupB, data = RandomData)
-#' GroupA2 <- rnorm(500)
-#' GroupB2 <- rnorm(500)
+#' GroupA2 <- rnorm(50)
+#' GroupB2 <- rnorm(50)
 #' RandomData2 <- data.frame(GroupA2, GroupB2)
-#' model <- glm(GroupA2 ~ GroupB2, family = gaussian, data = RandomData2)
-#' randomframe <- curve_gen(model, "GroupB2", method = "glm")
+#' model <- lm(GroupA2 ~ GroupB2, data = RandomData2)
+#' randomframe <- curve_gen(model, "GroupB2")
 #' (curve_compare(intervalsdf[[1]], randomframe[[1]]))
 #' (curve_compare(intervalsdf[[1]], randomframe[[1]], type = "s"))
 #' }

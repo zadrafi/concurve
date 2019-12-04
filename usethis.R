@@ -23,14 +23,21 @@ use_package("scales", "Imports", min_version = NULL)
 use_package("testthat", "Suggests", min_version = NULL)
 use_package("covr", "Suggests", min_version = NULL)
 use_package("spelling", "Suggests", min_version = NULL)
+use_package("Lock5Data", "Suggests", min_version = NULL)
 
 # Other helper functions
 
 use_build_ignore("usethis.R", escape = TRUE)
+use_build_ignore("references.bib", escape = TRUE)
+use_build_ignore("american-medical-association.csl", escape = TRUE)
+
 use_spell_check(vignettes = TRUE, lang = "en-US", error = FALSE)
 use_cran_comments(open = interactive())
 use_tidy_style()
 use_revdep()
+
+check_rhub(pkg = ".", platforms = NULL, email = NULL,
+           interactive = TRUE, build_args = NULL)
 
 check(pkg = ".", document = NA, build_args = NULL,
       manual = TRUE, cran = TRUE, remote = TRUE, incoming = TRUE,

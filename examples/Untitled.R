@@ -161,7 +161,7 @@ text(x = 1.25, y = 30, paste("99% CI:",
 
 
 
-ggconcurve("consonance", randomframe, position = "pyramid", nullvalue = "present")
+ggcurve("consonance", randomframe, position = "pyramid", nullvalue = "present")
 plot.concurve(type = "consonance", data = randomframe)
 
 library(microbenchmark)

@@ -41,7 +41,7 @@
 #' GroupDMean <- round(mean(GroupDData), digits = 2)
 #' GroupDSD <- round(sd(GroupDData), digits = 2)
 #'
-#' #  Combine the data
+#' # Combine the data
 #'
 #' StudyName <- c("Study1", "Study2")
 #' MeanTreatment <- c(GroupAMean, GroupCMean)
@@ -51,22 +51,32 @@
 #' NTreatment <- c(20, 20)
 #' NControl <- c(20, 20)
 #'
-#' metadf <- data.frame(StudyName, MeanTreatment, MeanControl, SDTreatment, SDControl, NTreatment, NControl)
+#' metadf <- data.frame(
+#'   StudyName, MeanTreatment, MeanControl,
+#'   SDTreatment, SDControl, NTreatment, NControl
+#' )
 #'
 #' # Use metafor to calculate the standardized mean difference
 #'
 #' library(metafor)
-#' #
-#' dat <- escalc(measure = "SMD", m1i = MeanTreatment, sd1i = SDTreatment, n1i = NTreatment, m2i = MeanControl, sd2i = SDControl, n2i = NControl, data = metadf)
-#' #
+#'
+#' dat <- escalc(
+#'   measure = "SMD", m1i = MeanTreatment, sd1i = SDTreatment,
+#'   n1i = NTreatment, m2i = MeanControl, sd2i = SDControl,
+#'   n2i = NControl, data = metadf
+#' )
+#'
 #' # Pool the data using a particular method. Here "FE" is the fixed-effects model
-#' #
-#' res <- rma(yi, vi, data = dat, slab = paste(StudyName, sep = ", "), method = "FE", digits = 2)
-#' #
+#'
+#' res <- rma(yi, vi,
+#'   data = dat, slab = paste(StudyName, sep = ", "),
+#'   method = "FE", digits = 2
+#' )
+#'
 #' # Calculate the intervals using the metainterval function
-#' #
+#'
 #' metaf <- curve_meta(res)
-#' #
+#'
 #' tibble::tibble(metaf[[1]])
 curve_meta <- function(x, measure = "default", steps = 10000, table = TRUE) {
   if (is.list(x) != TRUE) {

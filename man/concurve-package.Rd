@@ -30,9 +30,9 @@ Allows one to compute consonance (confidence)
 Useful links:
 \itemize{
   \item \url{https://data.lesslikely.com/concurve/}
-  \item \url{https://github.com/Zadchow/concurve}
+  \item \url{https://github.com/zadchow/concurve}
   \item \url{https://lesslikely.com/}
-  \item Report bugs at \url{https://github.com/Zadchow/concurve/issues}
+  \item Report bugs at \url{https://github.com/zadchow/concurve/issues}
 }
 
 }

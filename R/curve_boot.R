@@ -35,10 +35,10 @@
 #'   return(summary(lm(y ~ X))$adj.r.squared)
 #' }
 #'
-#' x <- curve_boot(data = Xy, func = rfun, method = "bca", replicates = 2000, steps = 1000)
+#' x <- curve_boot(data = Xy, func = rfun, method = "bca", replicates = 200, steps = 1000)
 #'
-#' ggconcurve(data = x[[1]])
-#' ggconcurve(data = x[[3]])
+#' ggcurve(data = x[[1]])
+#' ggcurve(data = x[[3]])
 #'
 #' plot_compare(x[[1]], x[[3]])
 #' }
