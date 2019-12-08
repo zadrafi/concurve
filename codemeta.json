@@ -16,7 +16,7 @@
   ],
   "issueTracker": "https://github.com/zadchow/concurve/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "2.3.0",
+  "version": "2.3.0.1",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -155,11 +155,6 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "compiler",
-      "name": "compiler"
-    },
-    {
-      "@type": "SoftwareApplication",
       "identifier": "dplyr",
       "name": "dplyr",
       "provider": {
@@ -261,19 +256,6 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "rlang",
-      "name": "rlang",
-      "version": ">= 0.1.2",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=rlang"
-    },
-    {
-      "@type": "SoftwareApplication",
       "identifier": "scales",
       "name": "scales",
       "provider": {
@@ -334,18 +316,6 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "MASS",
-      "name": "MASS",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=MASS"
-    },
-    {
-      "@type": "SoftwareApplication",
       "identifier": "methods",
       "name": "methods"
     },
@@ -353,11 +323,11 @@
       "@type": "SoftwareApplication",
       "identifier": "R",
       "name": "R",
-      "version": ">= 3.2"
+      "version": ">= 3.5.0"
     }
   ],
-  "keywords": ["confidence", "compatibility", "consonance", "surprisal", "interval", "function", "curve"],
-  "fileSize": "2225.368KB",
+  "keywords": ["confidence", "compatibility", "consonance", "surprisal", "interval", "function", "curve", "confidence-intervals", "cargo-cult-statistics", "compatibility-intervals", "assumptions", "stata", "confidence-distribution", "likelihood-functions", "bootstrap-method", "r", "frequentist-methods", "fiducial-distribution"],
+  "fileSize": "4719.963KB",
   "contIntegration": [
     "https://travis-ci.org/Zadchow/concurve",
     "https://ci.appveyor.com/project/Zadchow/concurve",
@@ -367,7 +337,7 @@
   "contributor": {},
   "copyrightHolder": {},
   "funder": {},
-  "releaseNotes": "ssh://git@github.com/Zadchow/concurve/blob/master/NEWS.md",
+  "releaseNotes": "https://github.com/Zadchow/concurve/blob/master/NEWS.md",
   "citation": [
     {
       "@type": "SoftwareSourceCode",

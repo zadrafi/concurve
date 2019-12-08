@@ -45,39 +45,41 @@ v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org
 
 ### Install the Package From [CRAN](https://cran.r-project.org/package=concurve) Below To Follow The [Examples](https://data.lesslikely.com/concurve/articles/examples.html).
 
-(`Serious
-Recommendation`)
+(`Seriously Recommend Looking at Examples`)
 
     install.packages("concurve")
 
+Try the following if you run into any installation
+issues:
+
+    install.packages("concurve", dep = TRUE)
+
 -----
 
-## Check out the [Article on Using Stata](https://data.lesslikely.com/concurve/articles/stata.html) for concurve.
+## Check out the [Article on Using `Stata`](https://data.lesslikely.com/concurve/articles/stata.html) for concurve.
 
 -----
 
 ## Dependencies
 
-  - ggplot2
-  - metafor
-  - parallel
-  - MASS
-  - boot
-  - bcaboot
-  - compiler
-  - ProfileLikelihood
-  - pbmcapply
-  - rlang
-  - magrittr
-  - dplyr
-  - tidyr
-  - knitr
-  - flextable
-  - officer
-  - tibble
-  - survival
-  - survminer
-  - scales
+  - `R` ≥ 3.5.0
+  - `ggplot2`
+  - `metafor`
+  - `parallel`
+  - `boot`
+  - `bcaboot`
+  - `ProfileLikelihood`
+  - `pbmcapply`
+  - `dplyr`
+  - `tidyr`
+  - `knitr`
+  - `flextable`
+  - `officer`
+  - `tibble`
+  - `survival`
+  - `survminer`
+  - `scales`
+  - `methods`
 
 -----
 
