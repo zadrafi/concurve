@@ -94,9 +94,6 @@ curve_meta <- function(x, measure = "default", steps = 10000, table = TRUE) {
   df <- data.frame(do.call(rbind, results))
   intrvl.limit <- c("lower.limit", "upper.limit")
   colnames(df) <- intrvl.limit
-  df$intrvl.level <- intrvls
-  df$pvalue <- 1 - intrvls
-  df$svalue <- -log2(df$pvalue)
   if (measure == "default") {
     df$lower.limit <- df$lower.limit
     df$upper.limit <- df$upper.limit
@@ -105,7 +102,10 @@ curve_meta <- function(x, measure = "default", steps = 10000, table = TRUE) {
     df$upper.limit <- exp(df$upper.limit)
   }
   df$intrvl.width <- (abs((df$upper.limit) - (df$lower.limit)))
+  df$intrvl.level <- intrvls
   df$cdf <- (abs(df$intrvl.level / 2)) + 0.5
+  df$pvalue <- 1 - intrvls
+  df$svalue <- -log2(df$pvalue)
   df <- head(df, -1)
   class(df) <- c("data.frame", "concurve")
   densdf <- data.frame(c(df$lower.limit, df$upper.limit))

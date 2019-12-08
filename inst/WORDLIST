@@ -17,10 +17,8 @@ dichotomization
 distrbutions
 docx
 doi
-dplyr
 estiate
 eval
-flextable
 forvalues
 frac
 functons
@@ -31,7 +29,6 @@ Hjort
 insertedinto
 kendall
 KJ
-knitr
 leq
 levelinto
 Lifecycle
@@ -39,7 +36,6 @@ likelihoodm
 lm
 logarithmically
 lointerval
-magrittr
 mathbf
 mathST
 metafor
@@ -48,7 +44,6 @@ NL
 nullvalue
 ORCID
 paranthesis
-pbmcapply
 pearson
 postfile
 powerpoint
@@ -61,7 +56,6 @@ Pvalue
 Rdoc
 README
 relace
-rlang
 Rothman
 Saltelli
 Scand
@@ -73,11 +67,9 @@ Strawderman
 summarise
 surprisal
 Surprisal
-survminer
 svalue
 Svalue
 tibble
-tidyr
 topost
 Trafimow
 Twoway

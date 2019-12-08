@@ -54,23 +54,23 @@ install.packages("concurve", dep = TRUE)
 
 ## Dependencies
 * `R` ≥ 3.5.0
-* `ggplot2`
-* `metafor`
-* `parallel`
-* `boot`
-* `bcaboot`
-* `ProfileLikelihood`
-* `pbmcapply`
-* `dplyr`
-* `tidyr`
-* `knitr`
-* `flextable`
-* `officer`
-* `tibble`
-* `survival`
-* `survminer`
-* `scales`
-* `methods`
+* [`ggplot2`](https://ggplot2.tidyverse.org/)
+* [`metafor`](http://www.metafor-project.org/doku.php/metafor)
+* [`parallel`](https://cran.r-project.org/web/views/HighPerformanceComputing.html)
+* [`boot`](https://cran.r-project.org/package=boot)
+* [`bcaboot`](https://cran.r-project.org/package=bcaboot)
+* [`ProfileLikelihood`](https://cran.r-project.org/package=ProfileLikelihood)
+* [`pbmcapply`](https://cran.r-project.org/package=pbmcapply)
+* [`dplyr`](https://dplyr.tidyverse.org/)
+* [`tidyr`](https://tidyr.tidyverse.org/)
+* [`knitr`](https://yihui.org/knitr/)
+* [`flextable`](https://davidgohel.github.io/flextable/)
+* [`officer`](https://davidgohel.github.io/officer/)
+* [`tibble`](https://tibble.tidyverse.org/)
+* [`survival`](https://cran.r-project.org/package=survival)
+* [`survminer`](https://cran.r-project.org/package=survminer)
+* [`scales`](https://cran.r-project.org/package=scales)
+* [`methods`]()
 
 * * * 
 

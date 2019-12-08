@@ -34,6 +34,8 @@ use_spell_check(vignettes = TRUE, lang = "en-US", error = FALSE)
 use_cran_comments(open = interactive())
 use_tidy_style()
 use_revdep()
+codemetar::write_codemeta()
+
 
 check_rhub(pkg = ".", platforms = NULL, email = NULL,
            interactive = TRUE, build_args = NULL)

@@ -116,6 +116,8 @@ plot_compare(data1 = lik1[[1]], data2 = lik2[[1]], type = "d", measure = "ratio"
 
 # Bootstrapping -----------------------------------------------------------
 
+# Nonparametric BCA Bootstrapping ---------------------------------------------
+
 options(mc.cores = 8L)
 getOption("mc.cores", 2L)
 
@@ -166,6 +168,29 @@ ggcurve(data = y[[3]])
 
 plot_compare(y[[1]], y[[3]])
 
+# Parametric BCA Bootstrapping --------------------------------------------
+
+data(diabetes, package = "bcaboot")
+X <- diabetes$x
+y <- scale(diabetes$y, center = TRUE, scale = FALSE)
+lm.model <- lm(y ~ X - 1)
+mu.hat <- lm.model$fitted.values
+sigma.hat <- stats::sd(lm.model$residuals)
+t0 <- summary(lm.model)$adj.r.squared
+y.star <- sapply(mu.hat, rnorm, n = 1000, sd = sigma.hat)
+tt <- apply(y.star, 1, function(y) summary(lm(y ~ X - 1))$adj.r.squared)
+b.star <- y.star %*% X
+set.seed(1234)
+
+replicates = 2000
+steps = 1000
+intrvls <- 0.5 / steps
+alpha <- seq(0.00, 0.50, intrvls)
+
+df <- curve_boot(method = "bcapar", t0 = t0, tt = tt, bb = b.star)
+
+
+# Percentile Bootstrapping ------------------------------------------------
 
 
 library(Lock5Data)
