@@ -356,8 +356,8 @@
       "version": ">= 3.2"
     }
   ],
-  "keywords": ["confidence", "compatibility", "consonance", "surprisal", "interval", "function", "curve"],
-  "fileSize": "2225.368KB",
+  "keywords": ["confidence", "compatibility", "consonance", "surprisal", "interval", "function", "curve", "confidence-intervals", "cargo-cult-statistics", "statistical", "likelihood", "compatibility-intervals", "assumptions", "stata", "range", "statistics", "greenland", "stark", "fraser"],
+  "fileSize": "2225.435KB",
   "contIntegration": [
     "https://travis-ci.org/Zadchow/concurve",
     "https://ci.appveyor.com/project/Zadchow/concurve",
@@ -367,7 +367,7 @@
   "contributor": {},
   "copyrightHolder": {},
   "funder": {},
-  "releaseNotes": "ssh://git@github.com/Zadchow/concurve/blob/master/NEWS.md",
+  "releaseNotes": "ssh://https://github.com/Zadchow/concurve/blob/master/NEWS.md",
   "citation": [
     {
       "@type": "SoftwareSourceCode",

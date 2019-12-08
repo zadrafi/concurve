@@ -45,10 +45,14 @@ v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org
 
 ### Install the Package From [CRAN](https://cran.r-project.org/package=concurve) Below To Follow The [Examples](https://data.lesslikely.com/concurve/articles/examples.html).
 
-(`Serious
-Recommendation`)
+(`Seriously Recommend Looking at Examples`)
 
     install.packages("concurve")
+
+Try the following if you run into any installation
+issues:
+
+    install.packages("concurve", dep = TRUE)
 
 -----
 
