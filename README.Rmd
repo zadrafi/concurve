@@ -46,6 +46,7 @@ Try the following if you run into any installation issues:
 ```
 install.packages("concurve", dep = TRUE)
 ```
+
 * * * 
 
 ## Check out the [Article on Using `Stata`](https://data.lesslikely.com/concurve/articles/stata.html) for concurve.

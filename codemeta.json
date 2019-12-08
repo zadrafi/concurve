@@ -326,8 +326,10 @@
       "version": ">= 3.5.0"
     }
   ],
+
   "keywords": ["confidence", "compatibility", "consonance", "surprisal", "interval", "function", "curve", "confidence-intervals", "cargo-cult-statistics", "compatibility-intervals", "assumptions", "stata", "confidence-distribution", "likelihood-functions", "bootstrap-method", "r", "frequentist-methods", "fiducial-distribution"],
   "fileSize": "4719.963KB",
+
   "contIntegration": [
     "https://travis-ci.org/Zadchow/concurve",
     "https://ci.appveyor.com/project/Zadchow/concurve",
@@ -337,7 +339,9 @@
   "contributor": {},
   "copyrightHolder": {},
   "funder": {},
+
   "releaseNotes": "https://github.com/Zadchow/concurve/blob/master/NEWS.md",
+
   "citation": [
     {
       "@type": "SoftwareSourceCode",
