@@ -49,32 +49,29 @@ install.packages("concurve", dep = TRUE)
 
 * * * 
 
-## Check out the [Article on Using Stata](https://data.lesslikely.com/concurve/articles/stata.html) for concurve.
+## Check out the [Article on Using `Stata`](https://data.lesslikely.com/concurve/articles/stata.html) for concurve.
 
 * * * 
 
 ## Dependencies
-
-* ggplot2
-* metafor
-* parallel
-* MASS
-* boot
-* bcaboot
-* compiler
-* ProfileLikelihood
-* pbmcapply
-* rlang
-* magrittr
-* dplyr
-* tidyr
-* knitr
-* flextable
-* officer
-* tibble
-* survival
-* survminer
-* scales
+* `R` ≥ 3.5.0
+* `ggplot2`
+* `metafor`
+* `parallel`
+* `boot`
+* `bcaboot`
+* `ProfileLikelihood`
+* `pbmcapply`
+* `dplyr`
+* `tidyr`
+* `knitr`
+* `flextable`
+* `officer`
+* `tibble`
+* `survival`
+* `survminer`
+* `scales`
+* `methods`
 
 * * * 
 

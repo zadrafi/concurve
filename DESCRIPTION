@@ -3,8 +3,8 @@ Package: concurve
 Title: Computes and Plots Compatibility (Confidence) Intervals,
     P-Values, S-Values, & Likelihood Intervals to Form Consonance,
     Surprisal, & Likelihood Functions
-Version: 2.3.0
-Date: 2019-12-04
+Version: 2.3.0.1
+Date: 2019-12-08
 Authors@R: 
     c(person(given = "Zad R.",
              family = "Chow",
@@ -38,7 +38,6 @@ BugReports: https://github.com/zadchow/concurve/issues
 Imports: 
     bcaboot,
     boot,
-    compiler,
     dplyr,
     flextable,
     ggplot2,
@@ -48,13 +47,11 @@ Imports:
     parallel,
     pbmcapply,
     ProfileLikelihood,
-    rlang (>= 0.1.2),
     scales,
     survival,
     survminer,
     tibble,
     tidyr,
-    MASS,
     methods
 Suggests:
     covr,
@@ -74,4 +71,4 @@ RoxygenNote: 7.0.2
 X-schema.org-keywords: confidence, compatibility, consonance,
     surprisal, interval, function, curve
 Depends: 
-    R (>= 3.2)
+    R (>= 3.5.0)

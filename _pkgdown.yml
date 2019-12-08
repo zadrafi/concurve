@@ -9,14 +9,12 @@ authors:
     href: https://www.researchgate.net/profile/Andrew_Vigotsky
 
 template:
+  params:
+    bootswatch: paper
   path: inst/templates
   assets: inst/assets
   default_assets: false
-  params:
-    bootswatch: paper
-    docsearch:
-      api_key: 328a30be91979e947c28ffd52f604eda
-      index_name: lesslikely-concurve
+
 
 navbar:
   type: default

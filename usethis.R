@@ -1,9 +1,8 @@
 # Importing other packages
 
-use_package("MASS", "Imports", min_version = NULL)
+
 use_package("parallel", "Imports", min_version = NULL)
 use_package("pbmcapply", "Imports", min_version = NULL)
-use_package("compiler", "Imports", min_version = NULL)
 use_package("boot", "Imports", min_version = NULL)
 use_package("bcaboot", "Imports", min_version = NULL)
 use_package("ProfileLikelihood", "Imports", min_version = NULL)
