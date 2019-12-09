@@ -6,8 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>General Consonance Functions Using Profile Likelihood, Wald,
-or the bootstrap method for linear models. — curve_gen • concurve</title>
+<title>Consonance Functions For Linear Models. — curve_gen • concurve</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -45,8 +44,7 @@ or the bootstrap method for linear models. — curve_gen • concurve</title>
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="General Consonance Functions Using Profile Likelihood, Wald,
-or the bootstrap method for linear models. — curve_gen" />
+<meta property="og:title" content="Consonance Functions For Linear Models. — curve_gen" />
 <meta property="og:description" content="Computes thousands of consonance (confidence) intervals for
 the chosen parameter in the selected model
 (ANOVA, ANCOVA, regression, logistic regression) and places
@@ -85,7 +83,7 @@ with the corresponding p-values and s-values." />
       </button>
       <span class="navbar-brand"><img src="https://res.cloudinary.com/less-likely/image/upload/v1575427534/Site/Logo.svg" id ="package-logo" align="left" width="35">
         <a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.0</span>
       </span>
     </div>
 
@@ -109,6 +107,9 @@ with the corresponding p-values and s-values." />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/examples.html">Examples in R</a>
+    </li>
+    <li>
+      <a href="../articles/troubleshooting.html">Troubleshooting</a>
     </li>
     <li>
       <a href="../articles/stata.html">Using Stata</a>
@@ -139,8 +140,7 @@ with the corresponding p-values and s-values." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>General Consonance Functions Using Profile Likelihood, Wald,
-or the bootstrap method for linear models.</h1>
+    <h1>Consonance Functions For Linear Models.</h1>
     <small class="dont-index">Source: <a href='https://github.com/zadchow/concurve/blob/master/R/curve_gen.R'><code>R/curve_gen.R</code></a></small>
     <div class="hidden name"><code>curve_gen.Rd</code></div>
     </div>
@@ -197,6 +197,11 @@ which is included in the list object.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A list with 3 items where the dataframe of values is in the first
+object, the values needed to calculate the density function in the second,
+and the table for the values in the third if table = TRUE.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
@@ -210,16 +215,16 @@ which is included in the list object.</p></td>
 <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='no'>bob</span><span class='kw'>[[</span><span class='fl'>1</span>]])</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 998 x 1</span><span>
 #&gt;    `bob[[1]]`$lowe… $upper.limit $intrvl.width $intrvl.level  $cdf $pvalue
 #&gt;               </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span>           0.031</span><span style='text-decoration: underline;'>2</span><span>       0.031</span><span style='text-decoration: underline;'>5</span><span>      0.000</span><span style='text-decoration: underline;'>336</span><span>         0.001 0.500   0.999
-#&gt; </span><span style='color: #555555;'> 2</span><span>           0.031</span><span style='text-decoration: underline;'>0</span><span>       0.031</span><span style='text-decoration: underline;'>7</span><span>      0.000</span><span style='text-decoration: underline;'>672</span><span>         0.002 0.501   0.998
-#&gt; </span><span style='color: #555555;'> 3</span><span>           0.030</span><span style='text-decoration: underline;'>9</span><span>       0.031</span><span style='text-decoration: underline;'>9</span><span>      0.001</span><span style='text-decoration: underline;'>01</span><span>          0.003 0.501   0.997
-#&gt; </span><span style='color: #555555;'> 4</span><span>           0.030</span><span style='text-decoration: underline;'>7</span><span>       0.032</span><span style='text-decoration: underline;'>0</span><span>      0.001</span><span style='text-decoration: underline;'>34</span><span>          0.004 0.502   0.996
-#&gt; </span><span style='color: #555555;'> 5</span><span>           0.030</span><span style='text-decoration: underline;'>5</span><span>       0.032</span><span style='text-decoration: underline;'>2</span><span>      0.001</span><span style='text-decoration: underline;'>68</span><span>          0.005 0.502   0.995
-#&gt; </span><span style='color: #555555;'> 6</span><span>           0.030</span><span style='text-decoration: underline;'>4</span><span>       0.032</span><span style='text-decoration: underline;'>4</span><span>      0.002</span><span style='text-decoration: underline;'>02</span><span>          0.006 0.503   0.994
-#&gt; </span><span style='color: #555555;'> 7</span><span>           0.030</span><span style='text-decoration: underline;'>2</span><span>       0.032</span><span style='text-decoration: underline;'>5</span><span>      0.002</span><span style='text-decoration: underline;'>35</span><span>          0.007 0.503   0.993
-#&gt; </span><span style='color: #555555;'> 8</span><span>           0.030</span><span style='text-decoration: underline;'>0</span><span>       0.032</span><span style='text-decoration: underline;'>7</span><span>      0.002</span><span style='text-decoration: underline;'>69</span><span>          0.008 0.504   0.992
-#&gt; </span><span style='color: #555555;'> 9</span><span>           0.029</span><span style='text-decoration: underline;'>9</span><span>       0.032</span><span style='text-decoration: underline;'>9</span><span>      0.003</span><span style='text-decoration: underline;'>02</span><span>          0.009 0.504   0.991
-#&gt; </span><span style='color: #555555;'>10</span><span>           0.029</span><span style='text-decoration: underline;'>7</span><span>       0.033</span><span style='text-decoration: underline;'>1</span><span>      0.003</span><span style='text-decoration: underline;'>36</span><span>          0.01  0.505   0.99 
+#&gt; </span><span style='color: #555555;'> 1</span><span>         -</span><span style='color: #BB0000;'>0.006</span><span style='color: #BB0000;text-decoration: underline;'>12</span><span>     -</span><span style='color: #BB0000;'>0.005</span><span style='color: #BB0000;text-decoration: underline;'>70</span><span>      0.000</span><span style='text-decoration: underline;'>421</span><span>         0.001 0.500   0.999
+#&gt; </span><span style='color: #555555;'> 2</span><span>         -</span><span style='color: #BB0000;'>0.006</span><span style='color: #BB0000;text-decoration: underline;'>33</span><span>     -</span><span style='color: #BB0000;'>0.005</span><span style='color: #BB0000;text-decoration: underline;'>49</span><span>      0.000</span><span style='text-decoration: underline;'>841</span><span>         0.002 0.501   0.998
+#&gt; </span><span style='color: #555555;'> 3</span><span>         -</span><span style='color: #BB0000;'>0.006</span><span style='color: #BB0000;text-decoration: underline;'>54</span><span>     -</span><span style='color: #BB0000;'>0.005</span><span style='color: #BB0000;text-decoration: underline;'>28</span><span>      0.001</span><span style='text-decoration: underline;'>26</span><span>          0.003 0.501   0.997
+#&gt; </span><span style='color: #555555;'> 4</span><span>         -</span><span style='color: #BB0000;'>0.006</span><span style='color: #BB0000;text-decoration: underline;'>75</span><span>     -</span><span style='color: #BB0000;'>0.005</span><span style='color: #BB0000;text-decoration: underline;'>07</span><span>      0.001</span><span style='text-decoration: underline;'>68</span><span>          0.004 0.502   0.996
+#&gt; </span><span style='color: #555555;'> 5</span><span>         -</span><span style='color: #BB0000;'>0.006</span><span style='color: #BB0000;text-decoration: underline;'>96</span><span>     -</span><span style='color: #BB0000;'>0.004</span><span style='color: #BB0000;text-decoration: underline;'>86</span><span>      0.002</span><span style='text-decoration: underline;'>10</span><span>          0.005 0.502   0.995
+#&gt; </span><span style='color: #555555;'> 6</span><span>         -</span><span style='color: #BB0000;'>0.007</span><span style='color: #BB0000;text-decoration: underline;'>17</span><span>     -</span><span style='color: #BB0000;'>0.004</span><span style='color: #BB0000;text-decoration: underline;'>65</span><span>      0.002</span><span style='text-decoration: underline;'>52</span><span>          0.006 0.503   0.994
+#&gt; </span><span style='color: #555555;'> 7</span><span>         -</span><span style='color: #BB0000;'>0.007</span><span style='color: #BB0000;text-decoration: underline;'>38</span><span>     -</span><span style='color: #BB0000;'>0.004</span><span style='color: #BB0000;text-decoration: underline;'>44</span><span>      0.002</span><span style='text-decoration: underline;'>94</span><span>          0.007 0.503   0.993
+#&gt; </span><span style='color: #555555;'> 8</span><span>         -</span><span style='color: #BB0000;'>0.007</span><span style='color: #BB0000;text-decoration: underline;'>59</span><span>     -</span><span style='color: #BB0000;'>0.004</span><span style='color: #BB0000;text-decoration: underline;'>23</span><span>      0.003</span><span style='text-decoration: underline;'>37</span><span>          0.008 0.504   0.992
+#&gt; </span><span style='color: #555555;'> 9</span><span>         -</span><span style='color: #BB0000;'>0.007</span><span style='color: #BB0000;text-decoration: underline;'>80</span><span>     -</span><span style='color: #BB0000;'>0.004</span><span style='color: #BB0000;text-decoration: underline;'>02</span><span>      0.003</span><span style='text-decoration: underline;'>79</span><span>          0.009 0.504   0.991
+#&gt; </span><span style='color: #555555;'>10</span><span>         -</span><span style='color: #BB0000;'>0.008</span><span style='color: #BB0000;text-decoration: underline;'>01</span><span>     -</span><span style='color: #BB0000;'>0.003</span><span style='color: #BB0000;text-decoration: underline;'>81</span><span>      0.004</span><span style='text-decoration: underline;'>21</span><span>          0.01  0.505   0.99 
 #&gt; </span><span style='color: #555555;'># … with 988 more rows, and 1 more variable: $svalue </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div><div class='input'># }
 
 </div></span></pre>
@@ -228,6 +233,7 @@ which is included in the list object.</p></td>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

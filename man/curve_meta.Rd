@@ -2,7 +2,7 @@
 % Please edit documentation in R/curve_meta.R
 \name{curve_meta}
 \alias{curve_meta}
-\title{Meta-analytic Consonance Function}
+\title{Consonance Functions For Meta-Analytic Data}
 \usage{
 curve_meta(x, measure = "default", steps = 10000, table = TRUE)
 }
@@ -26,6 +26,11 @@ store them into a dataframe.}
 \item{table}{Indicates whether or not a table output with some relevant
 statistics should be generated. The default is TRUE and generates a table
 which is included in the list object.}
+}
+\value{
+A list with 3 items where the dataframe of values is in the first
+object, the values needed to calculate the density function in the second,
+and the table for the values in the third if table = TRUE.
 }
 \description{
 Computes thousands of consonance (confidence) intervals for the chosen

@@ -38,4 +38,12 @@ intervalsdf <- curve_mean(GroupA, GroupB, data = RandomData, method = "default")
 (z <- curve_table(intervalsdf[[1]], format = "data.frame"))
 (z <- curve_table(intervalsdf[[1]], format = "tibble"))
 (z <- curve_table(intervalsdf[[1]], format = "latex"))
+(z <- curve_table(intervalsdf[[1]], format = "image"))
+}
+\seealso{
+\code{\link{ggcurve}}
+
+\code{\link{curve_compare}}
+
+\code{\link{plot_compare}}
 }

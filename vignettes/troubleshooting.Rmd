@@ -1,0 +1,78 @@
+---
+title: "Troubleshooting"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Troubleshooting}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+<center>
+<img src = "https://res.cloudinary.com/less-likely/image/upload/v1575441662/Site/Logo2.jpg" align="right" width="100">
+</center>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  message = TRUE,
+  warning = TRUE,
+  collapse = TRUE,
+  comment = "#>"
+)
+library(concurve)
+```
+
+# Installation
+
+If you encounter any issues with installation, try the following script to see if it resolves your issue, as this will also install the other packages that are necessary for `concurve` to function.
+
+```{r eval=FALSE}
+install.packages("concurve", dep = TRUE)
+```
+
+If that doesn't work, please try installing, and resinstalling `R`, and then installing the package again. 
+
+You can also try installing the developer version with 
+
+```{r eval=FALSE}
+library(devtools)
+install_github("zadchow/concurve")
+```
+
+# Distorted Plots
+
+If you encounter issues when plotting the functions, it is because there are a large number of points being plotted, which could lead to the graph being slightly distorted or not loading at all. The simplest solution to this is to refresh the plot and try the function again.
+
+This applies to the `ggcurve()`, `curve_compare()`, and `plot_compare()` functions.
+
+# Slow Performance 
+
+Because this package is computing thousands of interval estimates via iterations and bootstrapping, it requires a lot of computational power. Luckily, `concurve` supports parallelization, although it is disabled by default because some users, such as those who use Windows, are unable to use it. 
+
+However, if you are able to use parallelization, you can enable it with the following script 
+
+```{r eval=FALSE}
+library(parallel)
+options(mc.cores = detectCores())
+```
+
+The script will detect the number of cores on your machine via the `parallel` package and use them to speed up the computations, especially for bootstrapping. 
+
+However, if you would like to speed up the computations and are unable to use parallelization, then you can reduce the number of `steps` in the each of the `concurve` functions, which will drastically reduce the time it takes to complete the operation. By default, most of the `steps` arguments are set to 10000. 
+
+For example, here I changed the number of steps to 100, which is the minimum needed to plot a function, and the process is now much quicker.
+
+```{r}
+system.time(df1 <- curve_rev(point = 1.61, LL = 0.997, UL = 2.59, measure = "ratio", steps = 100))
+
+system.time(df1 <- curve_rev(point = 1.61, LL = 0.997, UL = 2.59, measure = "ratio", steps = 10000))
+```
+
+# Bugs 
+
+If you encounter any other bugs, please report them at 
+https://github.com/zadchow/concurve/issues
+
+# Session info
+
+```{r session_info, include=TRUE, echo=FALSE}
+sessionInfo()
+```

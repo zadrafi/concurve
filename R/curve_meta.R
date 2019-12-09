@@ -1,4 +1,4 @@
-#' Meta-analytic Consonance Function
+#' Consonance Functions For Meta-Analytic Data
 #'
 #' Computes thousands of consonance (confidence) intervals for the chosen
 #' parameter in the meta-analysis done by the metafor package and places the
@@ -21,6 +21,10 @@
 #' @param table Indicates whether or not a table output with some relevant
 #' statistics should be generated. The default is TRUE and generates a table
 #' which is included in the list object.
+#'
+#' @return A list with 3 items where the dataframe of values is in the first
+#' object, the values needed to calculate the density function in the second,
+#' and the table for the values in the third if table = TRUE.
 #'
 #' @examples
 #'

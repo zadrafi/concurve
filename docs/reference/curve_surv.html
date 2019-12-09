@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Produce Consonance Intervals for Survival Data — curve_surv • concurve</title>
+<title>Consonance Functions For Survival Data — curve_surv • concurve</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -44,7 +44,7 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Produce Consonance Intervals for Survival Data — curve_surv" />
+<meta property="og:title" content="Consonance Functions For Survival Data — curve_surv" />
 <meta property="og:description" content="Computes thousands of consonance (confidence) intervals for the chosen
 parameter in the Cox model computed by the 'survival' package and places
 the interval limits for each interval level into a data frame along
@@ -82,7 +82,7 @@ with the corresponding p-value and s-value." />
       </button>
       <span class="navbar-brand"><img src="https://res.cloudinary.com/less-likely/image/upload/v1575427534/Site/Logo.svg" id ="package-logo" align="left" width="35">
         <a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.0</span>
       </span>
     </div>
 
@@ -106,6 +106,9 @@ with the corresponding p-value and s-value." />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/examples.html">Examples in R</a>
+    </li>
+    <li>
+      <a href="../articles/troubleshooting.html">Troubleshooting</a>
     </li>
     <li>
       <a href="../articles/stata.html">Using Stata</a>
@@ -136,7 +139,7 @@ with the corresponding p-value and s-value." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Produce Consonance Intervals for Survival Data</h1>
+    <h1>Consonance Functions For Survival Data</h1>
     <small class="dont-index">Source: <a href='https://github.com/zadchow/concurve/blob/master/R/curve_surv.R'><code>R/curve_surv.R</code></a></small>
     <div class="hidden name"><code>curve_surv.Rd</code></div>
     </div>
@@ -180,12 +183,49 @@ which is included in the list object.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p>A list with 3 items where the dataframe of values is in the first
+object, the values needed to calculate the density function in the second,
+and the table for the values in the third if table = TRUE.</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>carData</span>)
+<span class='no'>Rossi</span>[<span class='fl'>1</span>:<span class='fl'>5</span>, <span class='fl'>1</span>:<span class='fl'>10</span>]</div><div class='output co'>#&gt;   week arrest fin age  race wexp         mar paro prio educ
+#&gt; 1   20      1  no  27 black   no not married  yes    3    3
+#&gt; 2   17      1  no  18 black   no not married  yes    8    4
+#&gt; 3   25      1  no  19 other  yes not married  yes   13    3
+#&gt; 4   52      0 yes  23 black  yes     married  yes    1    5
+#&gt; 5   52      0  no  19 other  yes not married  yes    3    3</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>survival</span>)
+
+<span class='no'>mod.allison</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/survival/man/coxph.html'>coxph</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/survival/man/Surv.html'>Surv</a></span>(<span class='no'>week</span>, <span class='no'>arrest</span>) ~ <span class='no'>fin</span> + <span class='no'>age</span> + <span class='no'>race</span> + <span class='no'>wexp</span> + <span class='no'>mar</span> + <span class='no'>paro</span> + <span class='no'>prio</span>,
+  <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Rossi</span>
+)
+<span class='no'>mod.allison</span></div><div class='output co'>#&gt; Call:
+#&gt; coxph(formula = Surv(week, arrest) ~ fin + age + race + wexp + 
+#&gt;     mar + paro + prio, data = Rossi)
+#&gt; 
+#&gt;                    coef exp(coef) se(coef)      z       p
+#&gt; finyes         -0.37942   0.68426  0.19138 -1.983 0.04742
+#&gt; age            -0.05744   0.94418  0.02200 -2.611 0.00903
+#&gt; raceother      -0.31390   0.73059  0.30799 -1.019 0.30812
+#&gt; wexpyes        -0.14980   0.86088  0.21222 -0.706 0.48029
+#&gt; marnot married  0.43370   1.54296  0.38187  1.136 0.25606
+#&gt; paroyes        -0.08487   0.91863  0.19576 -0.434 0.66461
+#&gt; prio            0.09150   1.09581  0.02865  3.194 0.00140
+#&gt; 
+#&gt; Likelihood ratio test=33.27  on 7 df, p=2.362e-05
+#&gt; n= 432, number of events= 114 </div><div class='input'>
+<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'>curve_surv</span>(<span class='no'>mod.allison</span>, <span class='st'>"prio"</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>

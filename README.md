@@ -16,7 +16,10 @@ status](https://www.r-pkg.org/badges/version/concurve)](https://CRAN.R-project.o
 status](https://travis-ci.org/Zadchow/concurve.svg?branch=master)](https://travis-ci.org/Zadchow/concurve)
 [![Lifecycle:
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
-[![](https://cranlogs.r-pkg.org/badges/grand-total/concurve)](https://cran.r-project.org/package=concurve)
+[![Monthly
+Downloads](https://cranlogs.r-pkg.org/badges/concurve)](https://cran.r-project.org/package=concurve)
+[![Total
+Downloads](https://cranlogs.r-pkg.org/badges/grand-total/concurve)](https://cran.r-project.org/package=concurve)
 [![Rdoc](http://www.rdocumentation.org/badges/version/concurve)](http://www.rdocumentation.org/packages/concurve)
 [![License: GPL
 v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
@@ -66,7 +69,7 @@ issues:
     3.5.0
   - [`ggplot2`](https://ggplot2.tidyverse.org/)
   - [`metafor`](http://www.metafor-project.org/doku.php/metafor)
-  - [`parallel`](https://cran.r-project.org/web/views/HighPerformanceComputing.html)
+  - [`parallel`]()
   - [`boot`](https://cran.r-project.org/package=boot)
   - [`bcaboot`](https://cran.r-project.org/package=bcaboot)
   - [`ProfileLikelihood`](https://cran.r-project.org/package=ProfileLikelihood)

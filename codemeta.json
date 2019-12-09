@@ -16,7 +16,7 @@
   ],
   "issueTracker": "https://github.com/zadchow/concurve/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "2.3.0.1",
+  "version": "2.4.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -126,6 +126,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=Lock5Data"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "carData",
+      "name": "carData",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=carData"
     }
   ],
   "softwareRequirements": [
@@ -327,7 +339,7 @@
     }
   ],
   "keywords": ["confidence", "compatibility", "consonance", "surprisal", "interval", "function", "curve", "confidence-intervals", "cargo-cult-statistics", "compatibility-intervals", "assumptions", "stata", "confidence-distribution", "likelihood-functions", "bootstrap-method", "r", "frequentist-methods", "fiducial-distribution"],
-  "fileSize": "4720.65KB",
+  "fileSize": "2236.004KB",
   "contIntegration": [
     "https://travis-ci.org/Zadchow/concurve",
     "https://ci.appveyor.com/project/Zadchow/concurve",
@@ -341,7 +353,6 @@
   "citation": [
     {
       "@type": "SoftwareSourceCode",
-      "datePublished": "2019",
       "author": [
         {
           "@type": "Person",

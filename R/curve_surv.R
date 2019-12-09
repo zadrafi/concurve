@@ -1,4 +1,4 @@
-#' Produce Consonance Intervals for Survival Data
+#' Consonance Functions For Survival Data
 #'
 #' Computes thousands of consonance (confidence) intervals for the chosen
 #' parameter in the Cox model computed by the 'survival' package and places
@@ -19,7 +19,23 @@
 #' statistics should be generated. The default is TRUE and generates a table
 #' which is included in the list object.
 #'
-
+#' @return A list with 3 items where the dataframe of values is in the first
+#' object, the values needed to calculate the density function in the second,
+#' and the table for the values in the third if table = TRUE.
+#'
+#' @examples
+#'
+#'
+#' library(carData)
+#' Rossi[1:5, 1:10]
+#' library(survival)
+#'
+#' mod.allison <- coxph(Surv(week, arrest) ~ fin + age + race + wexp + mar + paro + prio,
+#'   data = Rossi
+#' )
+#' mod.allison
+#'
+#' z <- curve_surv(mod.allison, "prio")
 curve_surv <- function(data, x, steps = 10000, table = TRUE) {
   if (is.list(data) != TRUE) {
     stop("Error: 'data' must be an object with a Cox Proportional Hazards model")

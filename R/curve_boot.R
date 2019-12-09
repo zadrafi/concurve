@@ -1,6 +1,6 @@
 #' Generate Consonance Functions via Bootstrapping
 #'
-#' Use the BCa bootstrap method and the t boostrap method from the bcaboot and boot packages
+#' Use the Bca bootstrap method and the t-boostrap method from the bcaboot and boot packages
 #' to generate consonance distrbutions.
 #'
 #' @param data Dataset that is being used to create a consonance function.
@@ -9,6 +9,14 @@
 #' @param method The boostrap method that will be used to generate the functions.
 #' Methods include "bca" which is the default, "bcapar", which is parametric
 #' bootstrapping using the bca method and "t", for the t-bootstrap/percentile method.
+#' @param t0 	Only used for the "bcapar" method.
+#' Observed estimate of theta, usually by maximum likelihood.
+#' @param tt Only used for the "bcapar" method.
+#' A vector of parametric bootstrap replications of theta of length B,
+#' usually large, say B = 2000
+#' @param bb Only used for the "bcapar" method.
+#' A B by p matrix of natural sufficient vectors,
+#' where p is the dimension of the exponential family.
 #' @param replicates Indicates how many bootstrap replicates are to be performed.
 #' The defaultis currently 20000 but more may be desirable, especially to make
 #' the functions more smooth.
@@ -22,12 +30,15 @@
 #' statistics should be generated. The default is TRUE and generates a table
 #' which is included in the list object.
 #'
-#' @return A list with the dataframe of values in the first list and the table
-#' in the second if table = TRUE.
+#' @return A list with 7 items where the dataframe of standard values is in the first
+#' list and the table for it in the second if table = TRUE. The Bca intervals and table
+#' are found in the third and fourth list. The values for the density function are in
+#' the fifth object, while the Bca stats are in the sixth and seventh objects.
 #'
 #' @examples
 #'
 #' \donttest{
+#' \dontrun{
 #' data(diabetes, package = "bcaboot")
 #' Xy <- cbind(diabetes$x, diabetes$y)
 #' rfun <- function(Xy) {
@@ -43,8 +54,23 @@
 #'
 #' plot_compare(x[[1]], x[[3]])
 #' }
+#' }
 #'
-curve_boot <- function(data = data, func = func, method = "bca", ..., replicates = 2000, steps = 1000, table = TRUE) {
+#' @references
+#'
+#' Efron, B., and Tibshirani, R. J. (1994), An Introduction to the Bootstrap, CRC Press.
+#'
+#' Efron, B., and Narasimhan, B. (2018), “The automatic construction of bootstrap conﬁdence intervals,” 17.
+#'
+#' Schweder, T., and Hjort, N. L. (2016), Confidence, Likelihood, Probability:
+#' Statistical Inference with Confidence Distributions, Cambridge University Press.
+#'
+#' Xie, M., and Singh, K. (2013), “Confidence Distribution, the Frequentist Distribution Estimator of a Parameter:
+#' A Review,” International Statistical Review, 81, 3–39. https://doi.org/10.1111/insr.12000.
+#'
+#'
+
+curve_boot <- function(data = data, func = func, method = "bca", t0, tt, bb, replicates = 2000, steps = 1000, table = TRUE) {
 
 
   # BCA Non-Parametric Bootstrap Method  ---------------------------------------------------
@@ -145,7 +171,7 @@ curve_boot <- function(data = data, func = func, method = "bca", ..., replicates
     intrvls <- 0.5 / steps
     alpha <- seq(0.00, 0.50, intrvls)
 
-    result <- bcapar(t0 = t0, tt = tt, bb = b.star, alpha = alpha, cd = 1) # > $call
+    result <- bcapar(t0 = t0, tt = tt, bb = bb, alpha = alpha, cd = 1) # > $call
 
     # Parametric Bootstrap Statistics -----------------------------------------
 

@@ -1,5 +1,9 @@
-# Importing other packages
+library(usethis)
+library(roxygen2)
+library(devtools)
+library(concurve)
 
+# Importing other packages
 
 use_package("parallel", "Imports", min_version = NULL)
 use_package("pbmcapply", "Imports", min_version = NULL)
@@ -35,6 +39,8 @@ use_cran_comments(open = interactive())
 use_tidy_style()
 use_revdep()
 codemetar::write_codemeta()
+
+roxygenise()
 
 
 check_rhub(pkg = ".", platforms = NULL, email = NULL,

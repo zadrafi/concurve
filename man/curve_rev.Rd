@@ -5,15 +5,8 @@
 \title{Reverse Engineer Consonance / Likelihood Functions Using the Point
 Estimate and Confidence Limits}
 \usage{
-curve_rev(
-  point,
-  LL,
-  UL,
-  type = "c",
-  measure = "default",
-  steps = 10000,
-  table = TRUE
-)
+curve_rev(point, LL, UL, type = "c", measure = "default", steps = 10000,
+  table = TRUE)
 }
 \arguments{
 \item{point}{The point estimate from an analysis. Ex: 1.20}
@@ -39,10 +32,16 @@ store them into a dataframe.}
 statistics should be generated. The default is TRUE and generates a table
 which is included in the list object.}
 }
+\value{
+A list with 3 items where the dataframe of values is in the first
+object, the values needed to calculate the density function in the second,
+and the table for the values in the third if table = TRUE.
+}
 \description{
 Using the confidence limits and point estimates from a dataset, one can use
 these estimates to compute thousands of consonance intervals and graph the
-intervals to form a consonance and surprisal function.
+intervals to form a consonance and surprisal function. The intervals are
+calculated from the approximated normal distribution.
 }
 \examples{
 
@@ -52,4 +51,11 @@ intervals to form a consonance and surprisal function.
 df <- curve_rev(point = 1.61, LL = 0.997, UL = 2.59, measure = "ratio")
 
 tibble::tibble(df[[1]])
+}
+\seealso{
+\code{\link{ggcurve}}
+
+\code{\link{curve_compare}}
+
+\code{\link{plot_compare}}
 }

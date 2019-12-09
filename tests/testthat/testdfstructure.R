@@ -2,8 +2,6 @@
 
 context("Dataframe Structure")
 test_that("curve_mean", {
-  library(concurve)
-
 
   # Produce random sample data
   GroupA <- runif(100, min = 0, max = 100)
@@ -32,9 +30,6 @@ test_that("curve_mean", {
 })
 
 test_that("curve_gen", {
-  library(concurve)
-
-
 
   # Produce random sample data
   GroupA <- rnorm(50)
@@ -64,9 +59,7 @@ test_that("curve_gen", {
 })
 
 test_that("curve_meta", {
-  library(concurve)
   library(metafor)
-
 
   # Produce random sample data
   GroupAData <- runif(20, min = 0, max = 100)

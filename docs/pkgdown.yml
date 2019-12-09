@@ -4,6 +4,7 @@ pkgdown_sha: ~
 articles:
   examples: examples.html
   stata: stata.html
+  troubleshooting: troubleshooting.html
 urls:
   reference: https://data.lesslikely.com/concurve//reference
   article: https://data.lesslikely.com/concurve//articles
