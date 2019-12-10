@@ -339,7 +339,7 @@
     }
   ],
   "keywords": ["confidence", "compatibility", "consonance", "surprisal", "interval", "function", "curve", "confidence-intervals", "cargo-cult-statistics", "compatibility-intervals", "assumptions", "stata", "confidence-distribution", "likelihood-functions", "bootstrap-method", "r", "frequentist-methods", "fiducial-distribution"],
-  "fileSize": "1861.564KB",
+  "fileSize": "1864.95KB",
   "contIntegration": [
     "https://travis-ci.org/Zadchow/concurve",
     "https://ci.appveyor.com/project/Zadchow/concurve",
