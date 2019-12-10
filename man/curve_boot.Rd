@@ -53,28 +53,6 @@ the fifth object, while the Bca stats are in the sixth and seventh objects.
 Use the Bca bootstrap method and the t-boostrap method from the bcaboot and boot packages
 to generate consonance distrbutions.
 }
-\examples{
-
-\donttest{
-\dontrun{
-data(diabetes, package = "bcaboot")
-Xy <- cbind(diabetes$x, diabetes$y)
-rfun <- function(Xy) {
-  y <- Xy[, 11]
-  X <- Xy[, 1:10]
-  return(summary(lm(y ~ X))$adj.r.squared)
-}
-
-x <- curve_boot(data = Xy, func = rfun, method = "bca", replicates = 200, steps = 1000)
-
-ggcurve(data = x[[1]])
-ggcurve(data = x[[3]])
-
-plot_compare(x[[1]], x[[3]])
-}
-}
-
-}
 \references{
 Efron, B., and Tibshirani, R. J. (1994), An Introduction to the Bootstrap, CRC Press.
 
@@ -84,5 +62,5 @@ Schweder, T., and Hjort, N. L. (2016), Confidence, Likelihood, Probability:
 Statistical Inference with Confidence Distributions, Cambridge University Press.
 
 Xie, M., and Singh, K. (2013), “Confidence Distribution, the Frequentist Distribution Estimator of a Parameter:
-A Review,” International Statistical Review, 81, 3–39. https://doi.org/10.1111/insr.12000.
+A Review,” International Statistical Review, 81, 3–39.
 }

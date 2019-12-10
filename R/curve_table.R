@@ -28,9 +28,9 @@
 #' (z <- curve_table(intervalsdf[[1]], format = "tibble"))
 #' (z <- curve_table(intervalsdf[[1]], format = "latex"))
 #' (z <- curve_table(intervalsdf[[1]], format = "image"))
-#' @seealso \code{\link{ggcurve}}
-#' @seealso \code{\link{curve_compare}}
-#' @seealso \code{\link{plot_compare}}
+#' @seealso [ggcurve()]
+#' @seealso [curve_compare()]
+#' @seealso [plot_compare()]
 #'
 curve_table <- function(data, levels, type = "c", format = "data.frame") {
   if (type == "c") {

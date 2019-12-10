@@ -1,5 +1,6 @@
 library(usethis)
 library(roxygen2)
+library(roxygen2md)
 library(devtools)
 library(concurve)
 
@@ -40,14 +41,26 @@ use_tidy_style()
 use_revdep()
 codemetar::write_codemeta()
 
-roxygenise()
+build(pkg = ".", path = NULL, binary = FALSE, vignettes = TRUE,
+      manual = TRUE, args = NULL, quiet = FALSE)
+
+devtools::document()
+roxygen2md(scope = "full")
+check_man(pkg = ".")
 
 
-check_rhub(pkg = ".", platforms = NULL, email = NULL,
-           interactive = TRUE, build_args = NULL)
+check(
+  pkg = ".", document = TRUE, build_args = NULL,
+  manual = TRUE, cran = TRUE, remote = TRUE, incoming = TRUE,
+  force_suggests = TRUE, run_dont_test = TRUE, args = "--timings",
+  env_vars = NULL, quiet = FALSE, check_dir = tempdir(),
+  cleanup = TRUE, error_on = c("never", "error", "warning", "note")
+)
 
-check(pkg = ".", document = NA, build_args = NULL,
-      manual = TRUE, cran = TRUE, remote = TRUE, incoming = TRUE,
-      force_suggests = TRUE, run_dont_test = TRUE, args = "--timings",
-      env_vars = NULL, quiet = FALSE, check_dir = tempdir(),
-      cleanup = TRUE, error_on = c("never", "error", "warning", "note"))
+
+check_rhub(
+  pkg = ".", platforms = NULL, email = NULL,
+  interactive = TRUE, build_args = NULL
+)
+
+rhub::check_for_cran(".")

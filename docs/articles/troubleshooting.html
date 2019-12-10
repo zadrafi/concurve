@@ -112,11 +112,11 @@
 <h1 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h1>
 <p>If you encounter any issues with installation, try the following script to see if it resolves your issue, as this will also install the other packages that are necessary for <code>concurve</code> to function.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"concurve"</span>, <span class="dt">dep =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"concurve"</span>, <span class="dt">dep =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <p>If that doesn’t work, please try installing, and resinstalling <code>R</code>, and then installing the package again.</p>
 <p>You can also try installing the developer version with</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(devtools)</a>
-<a class="sourceLine" id="cb2-2" title="2"><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">"zadchow/concurve"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(devtools)</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">"zadchow/concurve"</span>)</span></code></pre></div>
 </div>
 <div id="distorted-plots" class="section level1">
 <h1 class="hasAnchor">
@@ -129,23 +129,23 @@
 <a href="#slow-performance" class="anchor"></a>Slow Performance</h1>
 <p>Because this package is computing thousands of interval estimates via iterations and bootstrapping, it requires a lot of computational power. Luckily, <code>concurve</code> supports parallelization, although it is disabled by default because some users, such as those who use Windows, are unable to use it.</p>
 <p>However, if you are able to use parallelization, you can enable it with the following script</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(parallel)</a>
-<a class="sourceLine" id="cb3-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="dt">mc.cores =</span> <span class="kw"><a href="https://rdrr.io/r/parallel/detectCores.html">detectCores</a></span>())</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(parallel)</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="kw"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="dt">mc.cores =</span> <span class="kw"><a href="https://rdrr.io/r/parallel/detectCores.html">detectCores</a></span>())</span></code></pre></div>
 <p>The script will detect the number of cores on your machine via the <code>parallel</code> package and use them to speed up the computations, especially for bootstrapping.</p>
 <p>However, if you would like to speed up the computations and are unable to use parallelization, then you can reduce the number of <code>steps</code> in the each of the <code>concurve</code> functions, which will drastically reduce the time it takes to complete the operation. By default, most of the <code>steps</code> arguments are set to 10000.</p>
 <p>For example, here I changed the number of steps to 100, which is the minimum needed to plot a function, and the process is now much quicker.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>(df1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/curve_rev.html">curve_rev</a></span>(<span class="dt">point =</span> <span class="fl">1.61</span>, <span class="dt">LL =</span> <span class="fl">0.997</span>, <span class="dt">UL =</span> <span class="fl">2.59</span>, <span class="dt">measure =</span> <span class="st">"ratio"</span>, <span class="dt">steps =</span> <span class="dv">100</span>))</a>
-<a class="sourceLine" id="cb4-2" title="2"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb4-3" title="3"><span class="co">#&gt;   0.183   0.009   0.195</span></a>
-<a class="sourceLine" id="cb4-4" title="4"></a>
-<a class="sourceLine" id="cb4-5" title="5"><span class="kw"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>(df1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/curve_rev.html">curve_rev</a></span>(<span class="dt">point =</span> <span class="fl">1.61</span>, <span class="dt">LL =</span> <span class="fl">0.997</span>, <span class="dt">UL =</span> <span class="fl">2.59</span>, <span class="dt">measure =</span> <span class="st">"ratio"</span>, <span class="dt">steps =</span> <span class="dv">10000</span>))</a>
-<a class="sourceLine" id="cb4-6" title="6"><span class="co">#&gt;    user  system elapsed </span></a>
-<a class="sourceLine" id="cb4-7" title="7"><span class="co">#&gt;   0.030   0.002   0.033</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>(df1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/curve_rev.html">curve_rev</a></span>(<span class="dt">point =</span> <span class="fl">1.61</span>, <span class="dt">LL =</span> <span class="fl">0.997</span>, <span class="dt">UL =</span> <span class="fl">2.59</span>, <span class="dt">measure =</span> <span class="st">"ratio"</span>, <span class="dt">steps =</span> <span class="dv">100</span>))</span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="co">#&gt;    user  system elapsed </span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="co">#&gt;   0.152   0.005   0.158</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="kw"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>(df1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/curve_rev.html">curve_rev</a></span>(<span class="dt">point =</span> <span class="fl">1.61</span>, <span class="dt">LL =</span> <span class="fl">0.997</span>, <span class="dt">UL =</span> <span class="fl">2.59</span>, <span class="dt">measure =</span> <span class="st">"ratio"</span>, <span class="dt">steps =</span> <span class="dv">10000</span>))</span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&gt;    user  system elapsed </span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt;   0.023   0.001   0.024</span></span></code></pre></div>
 </div>
 <div id="bugs" class="section level1">
 <h1 class="hasAnchor">
 <a href="#bugs" class="anchor"></a>Bugs</h1>
-<p>If you encounter any other bugs, please report them at <a href="https://github.com/zadchow/concurve/issues" class="uri">https://github.com/zadchow/concurve/issues</a></p>
+<p>If you encounter any other bugs, please report them at <a href="https://github.com/zadchow/concurve/issues">https://github.com/zadchow/concurve/issues</a></p>
 </div>
 <div id="session-info" class="section level1">
 <h1 class="hasAnchor">

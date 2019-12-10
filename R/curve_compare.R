@@ -32,9 +32,9 @@
 #' curve_compare(intervalsdf[[1]], randomframe[[1]], type = "s")
 #' }
 #'
-#' @seealso \code{\link{plot_compare}}
-#' @seealso \code{\link{ggcurve}}
-#' @seealso \code{\link{curve_table}}
+#' @seealso [plot_compare()]
+#' @seealso [ggcurve()]
+#' @seealso [curve_table()]
 #'
 curve_compare <- function(data1, data2, type = "c", plot = TRUE, ...) {
 

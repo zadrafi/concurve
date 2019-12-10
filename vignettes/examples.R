@@ -1,9 +1,9 @@
 ## ----setup, include = FALSE---------------------------------------------------
 knitr::opts_chunk$set(
-	message = TRUE,
-	warning = TRUE,
-	collapse = TRUE,
-	comment = "#>"
+  message = TRUE,
+  warning = TRUE,
+  collapse = TRUE,
+  comment = "#>"
 )
 
 ## ----echo=TRUE, fig.height=4.5, fig.width=6-----------------------------------
@@ -28,7 +28,7 @@ tibble::tibble(intervalsdf[[1]])
 (function1 <- ggcurve(data = intervalsdf[[1]], type = "s"))
 
 ## ----echo=TRUE, fig.height=4.5, fig.width=6-----------------------------------
-(function1s <- ggcurve(data = intervalsdf[[2]], type = "cdf"))
+(function1s <- ggcurve(data = intervalsdf[[2]], type = "cdf", nullvalue = TRUE))
 
 ## ----echo=TRUE, fig.height=2, fig.width=4-------------------------------------
 (x <- curve_table(data = intervalsdf[[1]], format = "image"))
@@ -56,15 +56,74 @@ randomframe <- curve_gen(model, "GroupB2")
 ))
 
 ## ----echo=TRUE, fig.height=4.5, fig.width=6-----------------------------------
+library(carData)
+Rossi[1:5, 1:10]
+
+## ----echo=TRUE, fig.height=4.5, fig.width=6-----------------------------------
+library(survival)
+mod.allison <- coxph(Surv(week, arrest) ~
+fin + age + race + wexp + mar + paro + prio,
+data = Rossi
+)
+mod.allison
+
+## ----echo=TRUE, fig.height=4.5, fig.width=6-----------------------------------
+z <- curve_surv(mod.allison, "prio")
+
+## ----echo=TRUE, fig.height=4.5, fig.width=6-----------------------------------
+ggcurve(z[[1]], measure = "ratio", nullvalue = TRUE)
+ggcurve(z[[2]], type = "cd", measure = "ratio", nullvalue = TRUE)
+curve_table(z[[1]], format = "image")
+
+## ----echo=TRUE, fig.height=4.5, fig.width=6-----------------------------------
+x <- curve_surv(mod.allison, "age")
+ggcurve(x[[1]], measure = "ratio")
+ggcurve(x[[2]], type = "cd", measure = "ratio")
+curve_table(x[[1]], format = "image")
+
+## ----echo=TRUE, fig.height=4.5, fig.width=6-----------------------------------
+library(metafor)
+dat.hine1989
+
+## ----echo=TRUE, fig.height=4.5, fig.width=6-----------------------------------
+dat <- escalc(measure = "RD", n1i = n1i, n2i = n2i, ai = ai, ci = ci, data = dat.hine1989)
+dat
+
+## ----echo=TRUE, fig.height=4.5, fig.width=6-----------------------------------
+dat$yi <- dat$yi * 100
+dat$vi <- dat$vi * 100^2
+
+## ----echo=TRUE, fig.height=4.5, fig.width=6-----------------------------------
+fe <- rma(yi, vi, data = dat, method = "FE")
+
+## ----echo=TRUE, fig.height=4.5, fig.width=6-----------------------------------
+fecurve <- curve_meta(fe)
+
+## ----echo=TRUE, fig.height=4.5, fig.width=6-----------------------------------
+ggcurve(fecurve[[1]], nullvalue = TRUE)
+
+## ----echo=TRUE, fig.height=4.5, fig.width=6-----------------------------------
+re <- rma(yi, vi, data = dat, method = "REML")
+
+## ----echo=TRUE, fig.height=4.5, fig.width=6-----------------------------------
+recurve <- curve_meta(re)
+
+## ----echo=TRUE, fig.height=4.5, fig.width=6-----------------------------------
+ggcurve(recurve[[1]], nullvalue = TRUE)
+
+## ----echo=TRUE, fig.height=4.5, fig.width=6-----------------------------------
+curve_compare(fecurve[[1]], recurve[[1]], plot = TRUE)
+
+## ----echo=TRUE, fig.height=4.5, fig.width=6-----------------------------------
 curve1 <- curve_rev(point = 1.7, LL = 1.1, UL = 2.6, type = "c", measure = "ratio", steps = 10000)
 (ggcurve(data = curve1[[1]], type = "c", measure = "ratio", nullvalue = TRUE))
-curve2 <- curve_rev(point = 1.61, LL = 0.997, UL = 2.59,type = "c", measure = "ratio", steps = 10000)
+curve2 <- curve_rev(point = 1.61, LL = 0.997, UL = 2.59, type = "c", measure = "ratio", steps = 10000)
 (ggcurve(data = curve2[[1]], type = "c", measure = "ratio", nullvalue = TRUE))
 
 ## ----echo=TRUE, fig.height=4.5, fig.width=6-----------------------------------
 lik1 <- curve_rev(point = 1.7, LL = 1.1, UL = 2.6, type = "l", measure = "ratio", steps = 10000)
 (ggcurve(data = lik1[[1]], type = "l1", measure = "ratio", nullvalue = TRUE))
-lik2 <- curve_rev(point = 1.61, LL = 0.997, UL = 2.59,type = "l", measure = "ratio", steps = 10000)
+lik2 <- curve_rev(point = 1.61, LL = 0.997, UL = 2.59, type = "l", measure = "ratio", steps = 10000)
 (ggcurve(data = lik2[[1]], type = "l1", measure = "ratio", nullvalue = TRUE))
 
 ## ----echo=TRUE, fig.height=4.5, fig.width=6-----------------------------------
@@ -102,9 +161,12 @@ ggcurve(data = y[[3]], nullvalue = TRUE)
 plot_compare(y[[1]], y[[3]])
 
 ## ----echo=TRUE, fig.height=4.5, fig.width=6-----------------------------------
+knitr::kable(y[[5]])
+
+## ----echo=TRUE, fig.height=4.5, fig.width=6-----------------------------------
 library(Lock5Data)
 dataz <- data(CommuteAtlanta)
-func = function(data, index) {
+func <- function(data, index) {
   x <- as.numeric(unlist(data[1]))
   y <- as.numeric(unlist(data[2]))
   return(mean(x[index]) - mean(y[index]))
@@ -148,8 +210,10 @@ library(ProfileLikelihood)
 
 ## ----echo=TRUE, fig.height=4.5, fig.width=6-----------------------------------
 data(dataglm)
-xx <- profilelike.glm(y ~ x1 + x2, data=dataglm, profile.theta="group",
-family=binomial(link="logit"), length=500, round=2)
+xx <- profilelike.glm(y ~ x1 + x2,
+  data = dataglm, profile.theta = "group",
+  family = binomial(link = "logit"), length = 500, round = 2
+)
 
 ## ----echo=TRUE, fig.height=4.5, fig.width=6-----------------------------------
 lik <- curve_lik(xx, dataglm)

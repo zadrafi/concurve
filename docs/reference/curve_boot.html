@@ -221,28 +221,8 @@ the fifth object, while the Bca stats are in the sixth and seventh objects.</p>
 <p>Schweder, T., and Hjort, N. L. (2016), Confidence, Likelihood, Probability:
 Statistical Inference with Confidence Distributions, Cambridge University Press.</p>
 <p>Xie, M., and Singh, K. (2013), “Confidence Distribution, the Frequentist Distribution Estimator of a Parameter:
-A Review,” International Statistical Review, 81, 3–39. https://doi.org/10.1111/insr.12000.</p>
+A Review,” International Statistical Review, 81, 3–39.</p>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'># \donttest{</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>diabetes</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"bcaboot"</span>)
-<span class='no'>Xy</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='no'>diabetes</span>$<span class='no'>x</span>, <span class='no'>diabetes</span>$<span class='no'>y</span>)
-<span class='no'>rfun</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>Xy</span>) {
-  <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='no'>Xy</span>[, <span class='fl'>11</span>]
-  <span class='no'>X</span> <span class='kw'>&lt;-</span> <span class='no'>Xy</span>[, <span class='fl'>1</span>:<span class='fl'>10</span>]
-  <span class='fu'><a href='https://rdrr.io/r/base/function.html'>return</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>y</span> ~ <span class='no'>X</span>))$<span class='no'>adj.r.squared</span>)
-}
-
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>curve_boot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>Xy</span>, <span class='kw'>func</span> <span class='kw'>=</span> <span class='no'>rfun</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"bca"</span>, <span class='kw'>replicates</span> <span class='kw'>=</span> <span class='fl'>200</span>, <span class='kw'>steps</span> <span class='kw'>=</span> <span class='fl'>1000</span>)
-
-<span class='fu'><a href='ggcurve.html'>ggcurve</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>x</span><span class='kw'>[[</span><span class='fl'>1</span>]])
-<span class='fu'><a href='ggcurve.html'>ggcurve</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>x</span><span class='kw'>[[</span><span class='fl'>3</span>]])
-
-<span class='fu'><a href='plot_compare.html'>plot_compare</a></span>(<span class='no'>x</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='no'>x</span><span class='kw'>[[</span><span class='fl'>3</span>]])
-}
-<span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -250,7 +230,6 @@ A Review,” International Statistical Review, 81, 3–39. https://doi.org/10.11
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
       <li><a href="#references">References</a></li>
-      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>

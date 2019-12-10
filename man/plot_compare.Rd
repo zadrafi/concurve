@@ -107,36 +107,37 @@ plot_compare(intervalsdf[[1]], randomframe[[1]], type = "c")
 
 }
 \references{
-Birnbaum, A. (1961), “A unified theory of estimation, I,” The Annals of Mathematical Statistics, 32, 112–135. https://doi.org/10.1214/aoms/1177705145.
+Birnbaum, A. (1961), “A unified theory of estimation, I,” The Annals of Mathematical Statistics, 32, 112–135.
 
 Chow, Z. R., and Greenland, S. (2019), “Semantic and Cognitive Tools to Aid Statistical Inference: Replace Confidence and Significance by Compatibility and Surprise,” arXiv:1909.08579.
 
-Fraser, D. A. S. (2017), “p-Values: The Insight to Modern Statistical Inference,” Annual Review of Statistics and Its Application, 4, 1–14. https://doi.org/10.1146/annurev-statistics-060116-054139.
+Fraser, D. A. S. (2017), “p-Values: The Insight to Modern Statistical Inference,” Annual Review of Statistics and Its Application, 4, 1–14.
 
-Fraser, D. A. S. (2019), “The P-value function and statistical inference,” The American Statistician, 73, 135–147. https://doi.org/10.1080/00031305.2018.1556735.
+Fraser, D. A. S. (2019), “The P-value function and statistical inference,” The American Statistician, 73, 135–147.
 
-Hjort, N. L., and Schweder, T. (2018), “Confidence distributions and related themes,” Journal of Statistical Planning and Inference, 195, 1–13. https://doi.org/10.1016/j.jspi.2017.09.017.
+Hjort, N. L., and Schweder, T. (2018), “Confidence distributions and related themes,” Journal of Statistical Planning and Inference, 195, 1–13.
 
-Infanger, D., and Schmidt‐Trucksäss, A. (2019), “P value functions: An underused method to present research results and to promote quantitative reasoning,” Statistics in Medicine. https://doi.org/10.1002/sim.8293.
+Infanger, D., and Schmidt‐Trucksäss, A. (2019), “P value functions: An underused method to present research results and to promote quantitative reasoning,” Statistics in Medicine.
 
-Poole, C. (1987a), “Beyond the confidence interval,” American Journal of Public Health, 77, 195–199. https://doi.org/10.2105/AJPH.77.2.195.
+Poole, C. (1987a), “Beyond the confidence interval,” American Journal of Public Health, 77, 195–199.
 
-Poole, C. (1987b), “Confidence intervals exclude nothing.,” American Journal of Public Health, 77, 492–493. https://doi.org/10.2105/ajph.77.4.492.
+Poole, C. (1987b), “Confidence intervals exclude nothing.,” American Journal of Public Health, 77, 492–493.
 
 Rothman, K. J., Greenland, S., and Lash, T. L. (2008a), Modern Epidemiology, Lippincott Williams & Wilkins.
 
-Rothman, K. J., Greenland, S., and Lash, T. L. (2008b), “Precision and statistics in epidemiologic studies,” in Modern Epidemiology, eds. K. J. Rothman, S. Greenland, and T. L. Lash, Lippincott Williams & Wilkins, pp. 148–167.
+Rothman, K. J., Greenland, S., and Lash, T. L. (2008b), “Precision and statistics in epidemiologic studies,” in Modern Epidemiology, eds. K. J. Rothman, S. Greenland, and T. L.
+Lash, Lippincott Williams & Wilkins, pp. 148–167.
 
-Schweder, T., and Hjort, N. L. (2002), “Confidence and Likelihood*,” Scandinavian Journal of Statistics, 29, 309–332. https://doi.org/10.1111/1467-9469.00285.
+Schweder, T., and Hjort, N. L. (2002), “Confidence and Likelihood*,” Scandinavian Journal of Statistics, 29, 309–332.
 
 Schweder, T., and Hjort, N. L. (2016), Confidence, Likelihood, Probability: Statistical Inference with Confidence Distributions, Cambridge University Press.
 
-Sullivan, K. M., and Foster, D. A. (1990), “Use of the confidence interval function,” Epidemiology, 1, 39–42. https://doi.org/10.1097/00001648-199001000-00009.
+Sullivan, K. M., and Foster, D. A. (1990), “Use of the confidence interval function,” Epidemiology, 1, 39–42.
 
-Xie, M., and Singh, K. (2013), “Confidence Distribution, the Frequentist Distribution Estimator of a Parameter: A Review,” International Statistical Review, 81, 3–39. https://doi.org/10.1111/insr.12000.
+Xie, M., and Singh, K. (2013), “Confidence Distribution, the Frequentist Distribution Estimator of a Parameter: A Review,” International Statistical Review, 81, 3–39.
 }
 \seealso{
-\code{\link{ggcurve}}
+\code{\link[=ggcurve]{ggcurve()}}
 
-\code{\link{curve_compare}}
+\code{\link[=curve_compare]{curve_compare()}}
 }

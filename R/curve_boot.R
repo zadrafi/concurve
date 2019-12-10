@@ -35,27 +35,6 @@
 #' are found in the third and fourth list. The values for the density function are in
 #' the fifth object, while the Bca stats are in the sixth and seventh objects.
 #'
-#' @examples
-#'
-#' \donttest{
-#' \dontrun{
-#' data(diabetes, package = "bcaboot")
-#' Xy <- cbind(diabetes$x, diabetes$y)
-#' rfun <- function(Xy) {
-#'   y <- Xy[, 11]
-#'   X <- Xy[, 1:10]
-#'   return(summary(lm(y ~ X))$adj.r.squared)
-#' }
-#'
-#' x <- curve_boot(data = Xy, func = rfun, method = "bca", replicates = 200, steps = 1000)
-#'
-#' ggcurve(data = x[[1]])
-#' ggcurve(data = x[[3]])
-#'
-#' plot_compare(x[[1]], x[[3]])
-#' }
-#' }
-#'
 #' @references
 #'
 #' Efron, B., and Tibshirani, R. J. (1994), An Introduction to the Bootstrap, CRC Press.
@@ -66,7 +45,7 @@
 #' Statistical Inference with Confidence Distributions, Cambridge University Press.
 #'
 #' Xie, M., and Singh, K. (2013), “Confidence Distribution, the Frequentist Distribution Estimator of a Parameter:
-#' A Review,” International Statistical Review, 81, 3–39. https://doi.org/10.1111/insr.12000.
+#' A Review,” International Statistical Review, 81, 3–39.
 #'
 #'
 
@@ -171,7 +150,7 @@ curve_boot <- function(data = data, func = func, method = "bca", t0, tt, bb, rep
     intrvls <- 0.5 / steps
     alpha <- seq(0.00, 0.50, intrvls)
 
-    result <- bcapar(t0 = t0, tt = tt, bb = bb, alpha = alpha, cd = 1) # > $call
+    result <- bcapar(t0 = t0, tt = tt, bb = bb, alpha = alpha, cd = 1)
 
     # Parametric Bootstrap Statistics -----------------------------------------
 

@@ -19,7 +19,9 @@ curve_rev(point, LL, UL, type = "c", measure = "default", steps = 10000,
 function or a likelihood function. The default is "c" for consonance and
 likelihood can be set via "l".}
 
-\item{measure}{The type of data being used. If they involve mean differences,}
+\item{measure}{The type of data being used. If they involve mean differences,
+then the "default" option should be used, which is also the default setting.
+If the data are ratios, then the "ratio" option should be used.}
 
 \item{steps}{Indicates how many consonance intervals are to be calculated at
 various levels. For example, setting this to 100 will produce 100 consonance
@@ -53,9 +55,9 @@ df <- curve_rev(point = 1.61, LL = 0.997, UL = 2.59, measure = "ratio")
 tibble::tibble(df[[1]])
 }
 \seealso{
-\code{\link{ggcurve}}
+\code{\link[=ggcurve]{ggcurve()}}
 
-\code{\link{curve_compare}}
+\code{\link[=curve_compare]{curve_compare()}}
 
-\code{\link{plot_compare}}
+\code{\link[=plot_compare]{plot_compare()}}
 }

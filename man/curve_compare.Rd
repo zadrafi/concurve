@@ -49,9 +49,9 @@ curve_compare(intervalsdf[[1]], randomframe[[1]], type = "s")
 
 }
 \seealso{
-\code{\link{plot_compare}}
+\code{\link[=plot_compare]{plot_compare()}}
 
-\code{\link{ggcurve}}
+\code{\link[=ggcurve]{ggcurve()}}
 
-\code{\link{curve_table}}
+\code{\link[=curve_table]{curve_table()}}
 }

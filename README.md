@@ -52,8 +52,7 @@ v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org
 
     install.packages("concurve")
 
-Try the following if you run into any installation
-issues:
+Try the following if you run into any installation issues:
 
     install.packages("concurve", dep = TRUE)
 
@@ -65,11 +64,10 @@ issues:
 
 ## Dependencies
 
-  - `R` ≥
-    3.5.0
+  - `R` ≥ 3.5.0
   - [`ggplot2`](https://ggplot2.tidyverse.org/)
   - [`metafor`](http://www.metafor-project.org/doku.php/metafor)
-  - [`parallel`]()
+  - `parallel`
   - [`boot`](https://cran.r-project.org/package=boot)
   - [`bcaboot`](https://cran.r-project.org/package=bcaboot)
   - [`ProfileLikelihood`](https://cran.r-project.org/package=ProfileLikelihood)
@@ -83,7 +81,7 @@ issues:
   - [`survival`](https://cran.r-project.org/package=survival)
   - [`survminer`](https://cran.r-project.org/package=survminer)
   - [`scales`](https://cran.r-project.org/package=scales)
-  - [`methods`]()
+  - `methods`
 
 -----
 
