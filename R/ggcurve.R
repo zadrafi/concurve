@@ -1,5 +1,4 @@
-#' Plots the P-Value (Consonance), S-value (Surprisal),
-#' and Likelihood Function via ggplot2
+#' Plots Consonance, Surprisal, and Likelihood Functions
 #'
 #' Takes the dataframe produced by the interval functions and
 #' plots the p-values/s-values, consonance (confidence) levels, and
@@ -62,7 +61,7 @@
 #' By default, it is set to fill = "#239a98". The inputs must be in quotes. For example,
 #' ggcurve(type = "c", data = x, fill = "#333333").
 #'
-#' @return Plot with intervals at every consonance level graphed with their corresponding
+#' @return A plot with intervals at every consonance level graphed with their corresponding
 #' p-values and compatibility levels.
 #'
 #' @examples
@@ -77,12 +76,45 @@
 #' RandomData <- data.frame(GroupA, GroupB)
 #'
 #' intervalsdf <- curve_mean(GroupA, GroupB, data = RandomData, method = "default")
-#' (function1 <- ggcurve(type = "c", intervalsdf[[1]]))
+#' ggcurve(type = "c", intervalsdf[[1]], nullvalue = TRUE)
+#' @references
+#'
+#' Birnbaum, A. (1961), “A unified theory of estimation, I,” The Annals of Mathematical Statistics, 32, 112–135.
+#'
+#' Chow, Z. R., and Greenland, S. (2019), “Semantic and Cognitive Tools to Aid Statistical Inference: Replace Confidence and Significance by Compatibility and Surprise,” arXiv:1909.08579.
+#'
+#' Fraser, D. A. S. (2017), “p-Values: The Insight to Modern Statistical Inference,” Annual Review of Statistics and Its Application, 4, 1–14.
+#'
+#' Fraser, D. A. S. (2019), “The P-value function and statistical inference,” The American Statistician, 73, 135–147.
+#'
+#' Hjort, N. L., and Schweder, T. (2018), “Confidence distributions and related themes,” Journal of Statistical Planning and Inference, 195, 1–13.
+#'
+#' Infanger, D., and Schmidt‐Trucksäss, A. (2019), “P value functions: An underused method to present research results and to promote quantitative reasoning,” Statistics in Medicine.
+#'
+#' Poole, C. (1987a), “Beyond the confidence interval,” American Journal of Public Health, 77, 195–199.
+#'
+#' Poole, C. (1987b), “Confidence intervals exclude nothing.,” American Journal of Public Health, 77, 492–493.
+#'
+#' Rothman, K. J., Greenland, S., and Lash, T. L. (2008a), Modern Epidemiology, Lippincott Williams & Wilkins.
+#'
+#' Rothman, K. J., Greenland, S., and Lash, T. L. (2008b), “Precision and statistics in epidemiologic studies,” in Modern Epidemiology, eds. K. J. Rothman, S. Greenland, and T. L.
+#' Lash, Lippincott Williams & Wilkins, pp. 148–167.
+#'
+#' Schweder, T., and Hjort, N. L. (2002), “Confidence and Likelihood*,” Scandinavian Journal of Statistics, 29, 309–332.
+#'
+#' Schweder, T., and Hjort, N. L. (2016), Confidence, Likelihood, Probability: Statistical Inference with Confidence Distributions, Cambridge University Press.
+#'
+#' Sullivan, K. M., and Foster, D. A. (1990), “Use of the confidence interval function,” Epidemiology, 1, 39–42.
+#'
+#' Xie, M., and Singh, K. (2013), “Confidence Distribution, the Frequentist Distribution Estimator of a Parameter: A Review,” International Statistical Review, 81, 3–39.
+#' @seealso [plot_compare()]
+#'
+
 ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullvalue = FALSE, position = "pyramid",
                     title = "Interval Function",
                     subtitle = "The function displays intervals at every level.",
                     xaxis = expression(Theta ~ "Range of Values"),
-                    yaxis = "P-value",
+                    yaxis = expression(paste(italic(p), "-value")),
                     color = "#000000",
                     fill = "#239a98") {
 
@@ -112,9 +144,6 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
       stop("Error: 'subtitle' must be a string.")
     }
 
-    if (is.character(yaxis) != TRUE) {
-      stop("Error: 'yaxis' must be a string.")
-    }
     if (is.character(fill) != TRUE) {
       stop("Error: 'fill' must be a string for the color.")
     }
@@ -137,8 +166,8 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
       geom_line(aes(x = upper.limit, y = pvalue),
         color = color
       ) +
-      geom_point(data = interval, mapping = aes(x = limits, y = 1 - levels), size = .95) +
-      geom_line(data = interval, mapping = aes(x = limits, y = 1 - levels, group = levels), size = .40) +
+      geom_point(data = interval, mapping = aes(x = limits, y = 1 - levels), size = 1.75, shape = 18) +
+      geom_line(data = interval, mapping = aes(x = limits, y = 1 - levels, group = levels), size = .30) +
       geom_ribbon(aes(x = lower.limit, ymin = min(pvalue), ymax = pvalue),
         fill = fill, alpha = 0.20
       ) +
@@ -146,12 +175,12 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
         fill = fill, alpha = 0.20
       ) +
       labs(
-        title = "Consonance Function",
+        title = "Consonance Curve",
         subtitle = subtitle,
         x = xaxis,
         y = yaxis
       ) +
-      theme_bw() +
+      theme_minimal() +
       theme(
         plot.title = element_text(size = 12),
         plot.subtitle = element_text(size = 11),
@@ -187,12 +216,12 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
         if (measure == "default") {
           annotate("segment",
             x = 0, xend = 0, y = 0, yend = 1,
-            color = "#990000", alpha = 0.3, size = .75, linetype = 1
+            color = "#990000", alpha = 0.4, size = .75, linetype = 3
           )
         } else if (measure == "ratio") {
           annotate("segment",
             x = 1, xend = 1, y = 0, yend = 1,
-            color = "#990000", alpha = 0.3, size = .75, linetype = 1
+            color = "#990000", alpha = 0.4, size = .75, linetype = 3
           )
         }
       }
@@ -216,9 +245,6 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
     if (is.character(subtitle) != TRUE) {
       stop("Error: 'subtitle' must be a string.")
     }
-    if (is.character(yaxis) != TRUE) {
-      stop("Error: 'yaxis' must be a string.")
-    }
     if (is.character(fill) != TRUE) {
       stop("Error: 'fill' must be a string for the color.")
     }
@@ -240,13 +266,13 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
       geom_line(aes(x = upper.limit, y = svalue),
         color = color
       ) +
-      geom_point(data = interval, mapping = aes(x = limits, y = (-log2(1 - levels))), size = .95) +
-      geom_line(data = interval, mapping = aes(x = limits, y = (-log2(1 - levels)), group = levels), size = .40) +
+      geom_point(data = interval, mapping = aes(x = limits, y = (-log2(1 - levels))), size = 1.75, shape = 18) +
+      geom_line(data = interval, mapping = aes(x = limits, y = (-log2(1 - levels)), group = levels), size = .30) +
       geom_ribbon(aes(x = lower.limit, ymin = max(svalue), ymax = svalue),
-        fill = fill, alpha = 0.30
+        fill = fill, alpha = 0.20
       ) +
       geom_ribbon(aes(x = upper.limit, ymin = max(svalue), ymax = svalue),
-        fill = fill, alpha = 0.30
+        fill = fill, alpha = 0.20
       ) +
       labs(
         title = "Surprisal Function",
@@ -254,7 +280,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
         x = xaxis,
         y = "S-value \n(Bits of Information)"
       ) +
-      theme_bw() +
+      theme_minimal() +
       theme(
         plot.title = element_text(size = 12),
         plot.subtitle = element_text(size = 11),
@@ -295,23 +321,20 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
     if (is.character(subtitle) != TRUE) {
       stop("Error: 'subtitle' must be a string.")
     }
-    if (is.character(yaxis) != TRUE) {
-      stop("Error: 'yaxis' must be a string.")
-    }
     if (is.character(fill) != TRUE) {
       stop("Error: 'fill' must be a string for the color.")
     }
 
     ggplot(data = data, mapping = aes(x = x)) +
-      stat_ecdf(geom = "point", color = fill, size = 0.70, shape = 8, alpha = 0.3) +
-      geom_hline(yintercept = 0.50) +
+      stat_ecdf(geom = "point", color = fill, size = 0.75, shape = 5, alpha = 0.75) +
+      geom_hline(yintercept = 0.50, linetype = "dotted") +
       labs(
         title = "Consonance Distribution",
         subtitle = subtitle,
         x = xaxis,
         y = "Cumulative Confidence"
       ) +
-      theme_bw() +
+      theme_minimal() +
       theme(
         plot.title = element_text(size = 14),
         plot.subtitle = element_text(size = 12),
@@ -328,12 +351,12 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
         if (measure == "default") {
           annotate("segment",
             x = 0, xend = 0, y = 0, yend = 1,
-            color = "#990000", alpha = 0.3, size = .75, linetype = 1
+            color = "#990000", alpha = 0.4, size = .75, linetype = 3
           )
         } else if (measure == "ratio") {
           annotate("segment",
             x = 1, xend = 1, y = 0, yend = 1,
-            color = "#990000", alpha = 0.3, size = .75, linetype = 1
+            color = "#990000", alpha = 0.4, size = .75, linetype = 3
           )
         }
       }
@@ -349,22 +372,19 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
     if (is.character(subtitle) != TRUE) {
       stop("Error: 'subtitle' must be a string.")
     }
-    if (is.character(yaxis) != TRUE) {
-      stop("Error: 'yaxis' must be a string.")
-    }
     if (is.character(fill) != TRUE) {
       stop("Error: 'fill' must be a string for the color.")
     }
 
     ggplot(data = data, mapping = aes(x = x)) +
-      geom_density(fill = fill, alpha = 0.3) +
+      geom_density(fill = fill, alpha = 0.20) +
       labs(
         title = "Consonance Density",
         subtitle = subtitle,
         x = xaxis,
         y = "Density"
       ) +
-      theme_bw() +
+      theme_minimal() +
       theme(
         plot.title = element_text(size = 14),
         plot.subtitle = element_text(size = 12),
@@ -381,12 +401,12 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
         if (measure == "default") {
           annotate("segment",
             x = 0, xend = 0, y = 0, yend = 1,
-            color = "#990000", alpha = 0.3, size = .75, linetype = 1
+            color = "#990000", alpha = 0.4, size = .75, linetype = 3
           )
         } else if (measure == "ratio") {
           annotate("segment",
             x = 1, xend = 1, y = 0, yend = 1,
-            color = "#990000", alpha = 0.3, size = .75, linetype = 1
+            color = "#990000", alpha = 0.4, size = .75, linetype = 3
           )
         }
       }
@@ -408,23 +428,20 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
     if (is.character(subtitle) != TRUE) {
       stop("Error: 'subtitle' must be a string.")
     }
-    if (is.character(yaxis) != TRUE) {
-      stop("Error: 'yaxis' must be a string.")
-    }
     if (is.character(fill) != TRUE) {
       stop("Error: 'fill' must be a string for the color.")
     }
 
     ggplot(data = data, mapping = aes(x = values, y = support)) +
       geom_line() +
-      geom_ribbon(aes(x = values, ymin = min(support), ymax = support), fill = "#239a98", alpha = 0.30) +
+      geom_ribbon(aes(x = values, ymin = min(support), ymax = support), fill = "#239a98", alpha = 0.20) +
       labs(
         title = "Relative Likelihood Function",
         subtitle = subtitle,
         x = xaxis,
         y = "Relative Likelihood"
       ) +
-      theme_bw() +
+      theme_minimal() +
       theme(
         plot.title = element_text(size = 14),
         plot.subtitle = element_text(size = 12),
@@ -441,17 +458,17 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
         if (measure == "default") {
           annotate("segment",
             x = 0, xend = 0, y = 0, yend = 1,
-            color = "#990000", alpha = 0.3, size = .75, linetype = 1
+            color = "#990000", alpha = 0.4, size = .75, linetype = 3
           )
         } else if (measure == "ratio") {
           annotate("segment",
             x = 1, xend = 1, y = 0, yend = 1,
-            color = "#990000", alpha = 0.3, size = .75, linetype = 1
+            color = "#990000", alpha = 0.4, size = .75, linetype = 3
           )
         }
       }
 
-    # Log Likelihood Function -----------------------------------------------------
+    # Log-Likelihood Function -----------------------------------------------------
   } else if (type == "l2") {
     if (ncol(data) != 5) {
       stop("Error: 'data' must be a data frame from 'concurve'.")
@@ -468,23 +485,20 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
     if (is.character(subtitle) != TRUE) {
       stop("Error: 'subtitle' must be a string.")
     }
-    if (is.character(yaxis) != TRUE) {
-      stop("Error: 'yaxis' must be a string.")
-    }
     if (is.character(fill) != TRUE) {
       stop("Error: 'fill' must be a string for the color.")
     }
 
     ggplot(data = data, mapping = aes(x = values, y = loglikelihood)) +
       geom_line() +
-      geom_ribbon(aes(x = values, ymin = min(loglikelihood), ymax = loglikelihood), fill = "#239a98", alpha = 0.30) +
+      geom_ribbon(aes(x = values, ymin = min(loglikelihood), ymax = loglikelihood), fill = "#239a98", alpha = 0.20) +
       labs(
-        title = "Log Likelihood Function",
+        title = "Log-Likelihood Function",
         subtitle = subtitle,
         x = xaxis,
-        y = "Log Likelihood"
+        y = "Log-Likelihood"
       ) +
-      theme_bw() +
+      theme_minimal() +
       theme(
         plot.title = element_text(size = 14),
         plot.subtitle = element_text(size = 12),
@@ -501,12 +515,12 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
         if (measure == "default") {
           annotate("segment",
             x = 0, xend = 0, y = 0, yend = 1,
-            color = "#990000", alpha = 0.3, size = .75, linetype = 1
+            color = "#990000", alpha = 0.4, size = .75, linetype = 3
           )
         } else if (measure == "ratio") {
           annotate("segment",
             x = 1, xend = 1, y = 0, yend = 1,
-            color = "#990000", alpha = 0.3, size = .75, linetype = 1
+            color = "#990000", alpha = 0.4, size = .75, linetype = 3
           )
         }
       }
@@ -528,23 +542,20 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
     if (is.character(subtitle) != TRUE) {
       stop("Error: 'subtitle' must be a string.")
     }
-    if (is.character(yaxis) != TRUE) {
-      stop("Error: 'yaxis' must be a string.")
-    }
     if (is.character(fill) != TRUE) {
       stop("Error: 'fill' must be a string for the color.")
     }
 
     ggplot(data = data, mapping = aes(x = values, y = likelihood)) +
       geom_line() +
-      geom_ribbon(aes(x = values, ymin = min(likelihood), ymax = likelihood), fill = "#239a98", alpha = 0.30) +
+      geom_ribbon(aes(x = values, ymin = min(likelihood), ymax = likelihood), fill = "#239a98", alpha = 0.20) +
       labs(
         title = "Likelihood Function",
         subtitle = subtitle,
         x = xaxis,
         y = "Likelihood"
       ) +
-      theme_bw() +
+      theme_minimal() +
       theme(
         plot.title = element_text(size = 14),
         plot.subtitle = element_text(size = 12),
@@ -561,12 +572,12 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
         if (measure == "default") {
           annotate("segment",
             x = 0, xend = 0, y = 0, yend = 1,
-            color = "#990000", alpha = 0.3, size = .75, linetype = 1
+            color = "#990000", alpha = 0.4, size = .75, linetype = 3
           )
         } else if (measure == "ratio") {
           annotate("segment",
             x = 1, xend = 1, y = 0, yend = 1,
-            color = "#990000", alpha = 0.3, size = .75, linetype = 1
+            color = "#990000", alpha = 0.4, size = .75, linetype = 3
           )
         }
       }
@@ -588,23 +599,20 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
     if (is.character(subtitle) != TRUE) {
       stop("Error: 'subtitle' must be a string.")
     }
-    if (is.character(yaxis) != TRUE) {
-      stop("Error: 'yaxis' must be a string.")
-    }
     if (is.character(fill) != TRUE) {
       stop("Error: 'fill' must be a string for the color.")
     }
 
     ggplot(data = data, mapping = aes(x = values, y = deviancestat)) +
       geom_line() +
-      geom_ribbon(aes(x = values, ymin = deviancestat, ymax = max(deviancestat)), fill = "#239a98", alpha = 0.30) +
+      geom_ribbon(aes(x = values, ymin = deviancestat, ymax = max(deviancestat)), fill = "#239a98", alpha = 0.20) +
       labs(
         title = "Deviance Function",
         subtitle = subtitle,
         x = xaxis,
         y = "Deviance Statistic"
       ) +
-      theme_bw() +
+      theme_minimal() +
       theme(
         plot.title = element_text(size = 14),
         plot.subtitle = element_text(size = 12),

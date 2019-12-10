@@ -2,8 +2,7 @@
 % Please edit documentation in R/curve_gen.R
 \name{curve_gen}
 \alias{curve_gen}
-\title{General Consonance Functions Using Profile Likelihood, Wald,
-or the bootstrap method for linear models.}
+\title{Consonance Functions For Linear Models.}
 \usage{
 curve_gen(model, var, method = "wald", steps = 1000, table = TRUE)
 }
@@ -34,6 +33,11 @@ store them into a dataframe.}
 \item{table}{Indicates whether or not a table output with some relevant
 statistics should be generated. The default is TRUE and generates a table
 which is included in the list object.}
+}
+\value{
+A list with 3 items where the dataframe of values is in the first
+object, the values needed to calculate the density function in the second,
+and the table for the values in the third if table = TRUE.
 }
 \description{
 Computes thousands of consonance (confidence) intervals for

@@ -5,15 +5,8 @@
 \title{Reverse Engineer Consonance / Likelihood Functions Using the Point
 Estimate and Confidence Limits}
 \usage{
-curve_rev(
-  point,
-  LL,
-  UL,
-  type = "c",
-  measure = "default",
-  steps = 10000,
-  table = TRUE
-)
+curve_rev(point, LL, UL, type = "c", measure = "default", steps = 10000,
+  table = TRUE)
 }
 \arguments{
 \item{point}{The point estimate from an analysis. Ex: 1.20}
@@ -26,7 +19,9 @@ curve_rev(
 function or a likelihood function. The default is "c" for consonance and
 likelihood can be set via "l".}
 
-\item{measure}{The type of data being used. If they involve mean differences,}
+\item{measure}{The type of data being used. If they involve mean differences,
+then the "default" option should be used, which is also the default setting.
+If the data are ratios, then the "ratio" option should be used.}
 
 \item{steps}{Indicates how many consonance intervals are to be calculated at
 various levels. For example, setting this to 100 will produce 100 consonance
@@ -39,10 +34,16 @@ store them into a dataframe.}
 statistics should be generated. The default is TRUE and generates a table
 which is included in the list object.}
 }
+\value{
+A list with 3 items where the dataframe of values is in the first
+object, the values needed to calculate the density function in the second,
+and the table for the values in the third if table = TRUE.
+}
 \description{
 Using the confidence limits and point estimates from a dataset, one can use
 these estimates to compute thousands of consonance intervals and graph the
-intervals to form a consonance and surprisal function.
+intervals to form a consonance and surprisal function. The intervals are
+calculated from the approximated normal distribution.
 }
 \examples{
 
@@ -52,4 +53,11 @@ intervals to form a consonance and surprisal function.
 df <- curve_rev(point = 1.61, LL = 0.997, UL = 2.59, measure = "ratio")
 
 tibble::tibble(df[[1]])
+}
+\seealso{
+\code{\link[=ggcurve]{ggcurve()}}
+
+\code{\link[=curve_compare]{curve_compare()}}
+
+\code{\link[=plot_compare]{plot_compare()}}
 }

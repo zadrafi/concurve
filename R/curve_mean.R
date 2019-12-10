@@ -1,4 +1,4 @@
-#' Mean Interval Consonance Function
+#' Consonance Functions For Mean Differences
 #'
 #' Computes thousands of consonance (confidence) intervals for the chosen
 #' parameter in a statistical test that compares means and places the interval
@@ -26,6 +26,10 @@
 #' @param table Indicates whether or not a table output with some relevant
 #' statistics should be generated. The default is TRUE and generates a table
 #' which is included in the list object.
+#'
+#' @return A list with 3 items where the dataframe of values is in the first
+#' object, the values needed to calculate the density function in the second,
+#' and the table for the values in the third if table = TRUE.
 #'
 #' @examples
 #'

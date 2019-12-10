@@ -2,7 +2,7 @@
 % Please edit documentation in R/curve_compare.R
 \name{curve_compare}
 \alias{curve_compare}
-\title{Compares two functions and produces an AUC score to show the amount of consonance.}
+\title{Compare Two Functions and Produces An AUC Score}
 \usage{
 curve_compare(data1, data2, type = "c", plot = TRUE, ...)
 }
@@ -25,6 +25,9 @@ to plot the two functions.}
 
 \item{...}{Can be used to pass further arguments to plot_compare().}
 }
+\value{
+Computes an AUC score and returns a plot that graphs two functions.
+}
 \description{
 Compares the p-value/s-value, and likelihood functions and computes an AUC number.
 }
@@ -40,8 +43,15 @@ GroupB2 <- rnorm(50)
 RandomData2 <- data.frame(GroupA2, GroupB2)
 model <- lm(GroupA2 ~ GroupB2, data = RandomData2)
 randomframe <- curve_gen(model, "GroupB2")
-(curve_compare(intervalsdf[[1]], randomframe[[1]]))
-(curve_compare(intervalsdf[[1]], randomframe[[1]], type = "s"))
+curve_compare(intervalsdf[[1]], randomframe[[1]])
+curve_compare(intervalsdf[[1]], randomframe[[1]], type = "s")
 }
 
+}
+\seealso{
+\code{\link[=plot_compare]{plot_compare()}}
+
+\code{\link[=ggcurve]{ggcurve()}}
+
+\code{\link[=curve_table]{curve_table()}}
 }

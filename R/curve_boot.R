@@ -1,13 +1,22 @@
 #' Generate Consonance Functions via Bootstrapping
 #'
-#' Use the BCa bootstrap method and the t boostrap method from the bcaboot and boot packages
+#' Use the Bca bootstrap method and the t-boostrap method from the bcaboot and boot packages
 #' to generate consonance distrbutions.
 #'
 #' @param data Dataset that is being used to create a consonance function.
 #' @param func Custom function that is used to create parameters of interest that
 #' will be bootstrapped.
 #' @param method The boostrap method that will be used to generate the functions.
-#' Methods include "bca" which is the default and "t".
+#' Methods include "bca" which is the default, "bcapar", which is parametric
+#' bootstrapping using the bca method and "t", for the t-bootstrap/percentile method.
+#' @param t0 	Only used for the "bcapar" method.
+#' Observed estimate of theta, usually by maximum likelihood.
+#' @param tt Only used for the "bcapar" method.
+#' A vector of parametric bootstrap replications of theta of length B,
+#' usually large, say B = 2000
+#' @param bb Only used for the "bcapar" method.
+#' A B by p matrix of natural sufficient vectors,
+#' where p is the dimension of the exponential family.
 #' @param replicates Indicates how many bootstrap replicates are to be performed.
 #' The defaultis currently 20000 but more may be desirable, especially to make
 #' the functions more smooth.
@@ -21,32 +30,29 @@
 #' statistics should be generated. The default is TRUE and generates a table
 #' which is included in the list object.
 #'
-#' @return A list with the dataframe of values in the first list and the table
-#' in the second if table = TRUE.
+#' @return A list with 7 items where the dataframe of standard values is in the first
+#' list and the table for it in the second if table = TRUE. The Bca intervals and table
+#' are found in the third and fourth list. The values for the density function are in
+#' the fifth object, while the Bca stats are in the sixth and seventh objects.
 #'
-#' @examples
+#' @references
 #'
-#' \donttest{
-#' data(diabetes, package = "bcaboot")
-#' Xy <- cbind(diabetes$x, diabetes$y)
-#' rfun <- function(Xy) {
-#'   y <- Xy[, 11]
-#'   X <- Xy[, 1:10]
-#'   return(summary(lm(y ~ X))$adj.r.squared)
-#' }
+#' Efron, B., and Tibshirani, R. J. (1994), An Introduction to the Bootstrap, CRC Press.
 #'
-#' x <- curve_boot(data = Xy, func = rfun, method = "bca", replicates = 200, steps = 1000)
+#' Efron, B., and Narasimhan, B. (2018), “The automatic construction of bootstrap conﬁdence intervals,” 17.
 #'
-#' ggcurve(data = x[[1]])
-#' ggcurve(data = x[[3]])
+#' Schweder, T., and Hjort, N. L. (2016), Confidence, Likelihood, Probability:
+#' Statistical Inference with Confidence Distributions, Cambridge University Press.
 #'
-#' plot_compare(x[[1]], x[[3]])
-#' }
+#' Xie, M., and Singh, K. (2013), “Confidence Distribution, the Frequentist Distribution Estimator of a Parameter:
+#' A Review,” International Statistical Review, 81, 3–39.
 #'
-curve_boot <- function(data = data, func = func, method = "bca", replicates = 2000, steps = 1000, table = TRUE) {
+#'
+
+curve_boot <- function(data = data, func = func, method = "bca", t0, tt, bb, replicates = 2000, steps = 1000, table = TRUE) {
 
 
-  # BCA Bootstrap Method  ---------------------------------------------------
+  # BCA Non-Parametric Bootstrap Method  ---------------------------------------------------
 
   if (method == "bca") {
     intrvls <- 0.5 / steps
@@ -61,6 +67,17 @@ curve_boot <- function(data = data, func = func, method = "bca", replicates = 20
     z$alphaperc <- as.numeric(z$alphaperc)
     1:length(alpha)
 
+
+    # Bootstrap Statistics ----------------------------------------------------
+
+    bootstats <- result[["stats"]]
+    bootstats <- as.data.frame(bootstats)
+    class(bootstats) <- c("data.frame", "concurve")
+
+    bcastats <- result[["ustats"]]
+    bcastats <- as.data.frame(bcastats)
+    class(bcastats) <- c("data.frame", "concurve")
+
     # Data Frame with BCA Intervals ------------------------------
 
     bca <- pbmclapply(1:length(alpha), FUN = function(i) c(nth(z$bca, i), nth(z$bca, -i)), mc.cores = getOption("mc.cores", 1L))
@@ -74,12 +91,12 @@ curve_boot <- function(data = data, func = func, method = "bca", replicates = 20
     levels <- data.frame(do.call(rbind, bews))
     colnames(levels) <- "intrvl.level"
 
-    df_bca <- data.frame(bcaintervals$lower.limit, bcaintervals$upper.limit, levels$intrvl.level, width$intrvl.width)
-    df_names <- c("lower.limit", "upper.limit", "intrvl.level", "intrvl.width")
+    df_bca <- data.frame(bcaintervals$lower.limit, bcaintervals$upper.limit, width$intrvl.width, levels$intrvl.level)
+    df_names <- c("lower.limit", "upper.limit", "intrvl.width", "intrvl.level")
     colnames(df_bca) <- df_names
+    df_bca$cdf <- (abs(df_bca$intrvl.level / 2)) + 0.5
     df_bca$pvalue <- 1 - df_bca$intrvl.level
     df_bca$svalue <- -log2(df_bca$pvalue)
-    df_bca$cdf <- (abs(df_bca$intrvl.level / 2)) + 0.5
     df_bca <- head(df_bca, -1)
     df_bca <- df_bca[-1, ]
     class(df_bca) <- c("data.frame", "concurve")
@@ -97,12 +114,12 @@ curve_boot <- function(data = data, func = func, method = "bca", replicates = 20
     levels <- data.frame(do.call(rbind, bews))
     colnames(levels) <- "intrvl.level"
 
-    df_std <- data.frame(stdintervals$lower.limit, stdintervals$upper.limit, levels$intrvl.level, width$intrvl.width)
-    df_names <- c("lower.limit", "upper.limit", "intrvl.level", "intrvl.width")
+    df_std <- data.frame(stdintervals$lower.limit, stdintervals$upper.limit, width$intrvl.width, levels$intrvl.level)
+    df_names <- c("lower.limit", "upper.limit", "intrvl.width", "intrvl.level")
     colnames(df_std) <- df_names
+    df_std$cdf <- (abs(df_std$intrvl.level / 2)) + 0.5
     df_std$pvalue <- 1 - df_std$intrvl.level
     df_std$svalue <- -log2(df_std$pvalue)
-    df_std$cdf <- (abs(df_std$intrvl.level / 2)) + 0.5
     df_std <- head(df_std, -1)
     df_std <- df_std[-1, ]
     class(df_std) <- c("data.frame", "concurve")
@@ -116,13 +133,109 @@ curve_boot <- function(data = data, func = func, method = "bca", replicates = 20
       class(bca_subintervals) <- c("data.frame", "concurve")
       (std_subintervals <- (curve_table(df_std, levels, type = "c", format = "data.frame")))
       class(std_subintervals) <- c("data.frame", "concurve")
-      dataframes <- list(df_std, std_subintervals, df_bca, bca_subintervals)
-      names(dataframes) <- c("Standard Intervals", "Standard Table", "BCA Intervals", "BCA Table")
+      dataframes <- list(df_std, std_subintervals, df_bca, bca_subintervals, bootstats, bcastats)
+      names(dataframes) <- c("Standard Intervals", "Standard Table", "BCA Intervals", "BCA Table", "Bootstrap Statistics", "BCA Statistics")
       class(dataframes) <- "concurve"
       return(dataframes)
     } else if (table == FALSE) {
-      dataframes <- list(df_std, df_bca)
-      names(dataframes) <- c("Standard", "BCA")
+      dataframes <- list(df_std, df_bca, bootstats, bcastats)
+      names(dataframes) <- c("Standard", "BCA", "Bootstrap Statistics", "BCA Statistics")
+      class(dataframes) <- "concurve"
+      return(dataframes)
+    }
+
+
+    # Parametric BCA Bootstrap Method -----------------------------------------
+  } else if (method == "bcapar") {
+    intrvls <- 0.5 / steps
+    alpha <- seq(0.00, 0.50, intrvls)
+
+    result <- bcapar(t0 = t0, tt = tt, bb = bb, alpha = alpha, cd = 1)
+
+    # Parametric Bootstrap Statistics -----------------------------------------
+
+    bootstats <- result[["stats"]]
+    bootstats <- as.data.frame(bootstats)
+    class(bootstats) <- c("data.frame", "concurve")
+
+    bcastats <- result[["ustats"]]
+    bcastats <- as.data.frame(bcastats)
+    class(bcastats) <- c("data.frame", "concurve")
+
+
+    # Parametric BCA Bootstrap Density ----------------------------------------
+
+    densdf <- result[["w"]]
+    densdf <- as.data.frame(densdf)
+    class(densdf) <- c("data.frame", "concurve")
+    colnames(densdf) <- "x"
+
+    z <- result[["lims"]]
+    z <- as.data.frame(z)
+    z <- as_tibble(rownames_to_column(z))
+    colnames(z)[1] <- "alphaperc"
+    z$alphaperc <- as.numeric(z$alphaperc)
+    1:length(alpha)
+
+    bca <- pbmclapply(1:length(alpha), FUN = function(i) c(nth(z$bca, i), nth(z$bca, -i)), mc.cores = getOption("mc.cores", 1L))
+    bcaintervals <- data.frame(do.call(rbind, bca))
+    intrvl.limit <- c("lower.limit", "upper.limit")
+    colnames(bcaintervals) <- intrvl.limit
+    news <- pbmclapply(1:length(alpha), FUN = function(i) nth(z$bca, -i) - nth(z$bca, i), mc.cores = getOption("mc.cores", 1L))
+    width <- data.frame(do.call(rbind, news))
+    colnames(width) <- "intrvl.width"
+    bews <- pbmclapply(1:length(alpha), FUN = function(i) nth(z$alphaperc, -i) - nth(z$alphaperc, i), mc.cores = getOption("mc.cores", 1L))
+    levels <- data.frame(do.call(rbind, bews))
+    colnames(levels) <- "intrvl.level"
+
+    df_bca <- data.frame(bcaintervals$lower.limit, bcaintervals$upper.limit, width$intrvl.width, levels$intrvl.level)
+    df_names <- c("lower.limit", "upper.limit", "intrvl.width", "intrvl.level")
+    colnames(df_bca) <- df_names
+    df_bca$cdf <- (abs(df_bca$intrvl.level / 2)) + 0.5
+    df_bca$pvalue <- 1 - df_bca$intrvl.level
+    df_bca$svalue <- -log2(df_bca$pvalue)
+    df_bca <- head(df_bca, -1)
+    df_bca <- df_bca[-1, ]
+    class(df_bca) <- c("data.frame", "concurve")
+
+    # Data Frame with Standard Intervals ------------------------------
+
+    std <- pbmclapply(1:length(alpha), FUN = function(i) c(nth(z$std, i), nth(z$std, -i)), mc.cores = getOption("mc.cores", 1L))
+    stdintervals <- data.frame(do.call(rbind, std))
+    intrvl.limit <- c("lower.limit", "upper.limit")
+    colnames(stdintervals) <- intrvl.limit
+    news <- pbmclapply(1:length(alpha), FUN = function(i) nth(z$std, -i) - nth(z$std, i), mc.cores = getOption("mc.cores", 1L))
+    width <- data.frame(do.call(rbind, news))
+    colnames(width) <- "intrvl.width"
+    bews <- pbmclapply(1:length(alpha), FUN = function(i) nth(z$alphaperc, -i) - nth(z$alphaperc, i), mc.cores = getOption("mc.cores", 1L))
+    levels <- data.frame(do.call(rbind, bews))
+    colnames(levels) <- "intrvl.level"
+
+    df_std <- data.frame(stdintervals$lower.limit, stdintervals$upper.limit, width$intrvl.width, levels$intrvl.level)
+    df_names <- c("lower.limit", "upper.limit", "intrvl.width", "intrvl.level")
+    colnames(df_std) <- df_names
+    df_std$cdf <- (abs(df_std$intrvl.level / 2)) + 0.5
+    df_std$pvalue <- 1 - df_std$intrvl.level
+    df_std$svalue <- -log2(df_std$pvalue)
+    df_std <- head(df_std, -1)
+    df_std <- df_std[-1, ]
+    class(df_std) <- c("data.frame", "concurve")
+
+    # Combine Data Frames -----------------------------------------------------
+
+    if (table == TRUE) {
+      levels <- c(0.25, 0.50, 0.75, 0.80, 0.85, 0.90, 0.95, 0.975, 0.99)
+      (bca_subintervals <- (curve_table(df_bca, levels, type = "c", format = "data.frame")))
+      class(bca_subintervals) <- c("data.frame", "concurve")
+      (std_subintervals <- (curve_table(df_std, levels, type = "c", format = "data.frame")))
+      class(std_subintervals) <- c("data.frame", "concurve")
+      dataframes <- list(df_std, std_subintervals, df_bca, bca_subintervals, densdf, bootstats, bcastats)
+      names(dataframes) <- c("Standard Intervals", "Standard Table", "BCA Intervals", "BCA Table", "BCA Density", "Bootstrap Statistics", "BCA Statistics")
+      class(dataframes) <- "concurve"
+      return(dataframes)
+    } else if (table == FALSE) {
+      dataframes <- list(df_std, df_bca, densdf, bootstats, bcastats)
+      names(dataframes) <- c("Standard", "BCA", "BCA Density", "Bootstrap Statistics", "BCA Statistics")
       class(dataframes) <- "concurve"
       return(dataframes)
     }

@@ -1,4 +1,4 @@
-#' Compares two functions and produces an AUC score to show the amount of consonance.
+#' Compare Two Functions and Produces An AUC Score
 #'
 #' Compares the p-value/s-value, and likelihood functions and computes an AUC number.
 #'
@@ -15,7 +15,7 @@
 #' @param plot by default it is set to TRUE and will use the plot_compare() function
 #' to plot the two functions.
 #' @param ... Can be used to pass further arguments to plot_compare().
-#'
+#' @return Computes an AUC score and returns a plot that graphs two functions.
 #' @examples
 #' \donttest{
 #' library(concurve)
@@ -28,9 +28,13 @@
 #' RandomData2 <- data.frame(GroupA2, GroupB2)
 #' model <- lm(GroupA2 ~ GroupB2, data = RandomData2)
 #' randomframe <- curve_gen(model, "GroupB2")
-#' (curve_compare(intervalsdf[[1]], randomframe[[1]]))
-#' (curve_compare(intervalsdf[[1]], randomframe[[1]], type = "s"))
+#' curve_compare(intervalsdf[[1]], randomframe[[1]])
+#' curve_compare(intervalsdf[[1]], randomframe[[1]], type = "s")
 #' }
+#'
+#' @seealso [plot_compare()]
+#' @seealso [ggcurve()]
+#' @seealso [curve_table()]
 #'
 curve_compare <- function(data1, data2, type = "c", plot = TRUE, ...) {
 
@@ -85,7 +89,7 @@ curve_compare <- function(data1, data2, type = "c", plot = TRUE, ...) {
       AUC_2 <- integrate(f1, min(df2$x), max(df2$x))$value
       AUC_shared <- integrate(f, domain[1], domain[2])$value
 
-      AUC_overlap <- (AUC_shared / (AUC_1 + AUC_2 - AUC_shared))
+      AUC_overlap <- (AUC_shared / (AUC_1 + AUC_2 - AUC_shared)) * 100
       AUC_ratio <- (AUC_shared / (AUC_1 + AUC_2 - 2 * AUC_shared))
 
       AUC_results <- data.frame(AUC_1, AUC_2, AUC_shared, AUC_overlap, AUC_ratio)
@@ -154,7 +158,7 @@ curve_compare <- function(data1, data2, type = "c", plot = TRUE, ...) {
       AUC_2 <- integrate(f1, min(df2$x), max(df2$x))$value
       AUC_shared <- integrate(f, domain[1], domain[2])$value
 
-      AUC_overlap <- (AUC_shared / (AUC_1 + AUC_2 - AUC_shared))
+      AUC_overlap <- (AUC_shared / (AUC_1 + AUC_2 - AUC_shared)) * 100
       AUC_ratio <- (AUC_shared / (AUC_1 + AUC_2 - 2 * AUC_shared))
 
       AUC_results <- data.frame(AUC_1, AUC_2, AUC_shared, AUC_overlap, AUC_ratio)

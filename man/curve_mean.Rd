@@ -2,18 +2,10 @@
 % Please edit documentation in R/curve_mean.R
 \name{curve_mean}
 \alias{curve_mean}
-\title{Mean Interval Consonance Function}
+\title{Consonance Functions For Mean Differences}
 \usage{
-curve_mean(
-  x,
-  y,
-  data,
-  paired = F,
-  method = "default",
-  replicates = 1000,
-  steps = 10000,
-  table = TRUE
-)
+curve_mean(x, y, data, paired = F, method = "default", replicates = 1000,
+  steps = 10000, table = TRUE)
 }
 \arguments{
 \item{x}{Variable that contains the data for the first group being compared.}
@@ -44,6 +36,11 @@ store them into a dataframe.}
 \item{table}{Indicates whether or not a table output with some relevant
 statistics should be generated. The default is TRUE and generates a table
 which is included in the list object.}
+}
+\value{
+A list with 3 items where the dataframe of values is in the first
+object, the values needed to calculate the density function in the second,
+and the table for the values in the third if table = TRUE.
 }
 \description{
 Computes thousands of consonance (confidence) intervals for the chosen

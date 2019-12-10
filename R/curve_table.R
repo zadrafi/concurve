@@ -27,6 +27,11 @@
 #' (z <- curve_table(intervalsdf[[1]], format = "data.frame"))
 #' (z <- curve_table(intervalsdf[[1]], format = "tibble"))
 #' (z <- curve_table(intervalsdf[[1]], format = "latex"))
+#' (z <- curve_table(intervalsdf[[1]], format = "image"))
+#' @seealso [ggcurve()]
+#' @seealso [curve_compare()]
+#' @seealso [plot_compare()]
+#'
 curve_table <- function(data, levels, type = "c", format = "data.frame") {
   if (type == "c") {
     levels <- c(0.25, 0.50, 0.75, 0.80, 0.85, 0.90, 0.95, 0.975, 0.99)

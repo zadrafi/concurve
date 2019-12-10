@@ -1,4 +1,4 @@
-#' Computes Consonance Intervals for Correlations
+#' Consonance Functions for Correlations
 #'
 #' Computes consonance intervals to produce P- and S-value functions for
 #' correlational analysesusing the cor.test function in base R and places the
@@ -24,6 +24,10 @@
 #' @param table Indicates whether or not a table output with some relevant
 #' statistics should be generated. The default is TRUE and generates a table
 #' which is included in the list object.
+#'
+#' @return A list with 3 items where the dataframe of values is in the first
+#' object, the values needed to calculate the density function in the second,
+#' and the table for the values in the third if table = TRUE.
 #'
 #' @examples
 #'

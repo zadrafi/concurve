@@ -49,7 +49,8 @@ Estimate and Confidence Limits — curve_rev • concurve</title>
 Estimate and Confidence Limits — curve_rev" />
 <meta property="og:description" content="Using the confidence limits and point estimates from a dataset, one can use
 these estimates to compute thousands of consonance intervals and graph the
-intervals to form a consonance and surprisal function." />
+intervals to form a consonance and surprisal function. The intervals are
+calculated from the approximated normal distribution." />
 <meta property="og:image" content="https://data.lesslikely.com/concurve/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -83,7 +84,7 @@ intervals to form a consonance and surprisal function." />
       </button>
       <span class="navbar-brand"><img src="https://res.cloudinary.com/less-likely/image/upload/v1575427534/Site/Logo.svg" id ="package-logo" align="left" width="35">
         <a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.0</span>
       </span>
     </div>
 
@@ -107,6 +108,9 @@ intervals to form a consonance and surprisal function." />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/examples.html">Examples in R</a>
+    </li>
+    <li>
+      <a href="../articles/troubleshooting.html">Troubleshooting</a>
     </li>
     <li>
       <a href="../articles/stata.html">Using Stata</a>
@@ -146,18 +150,12 @@ Estimate and Confidence Limits</h1>
     <div class="ref-description">
     <p>Using the confidence limits and point estimates from a dataset, one can use
 these estimates to compute thousands of consonance intervals and graph the
-intervals to form a consonance and surprisal function.</p>
+intervals to form a consonance and surprisal function. The intervals are
+calculated from the approximated normal distribution.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>curve_rev</span>(
-  <span class='no'>point</span>,
-  <span class='no'>LL</span>,
-  <span class='no'>UL</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"c"</span>,
-  <span class='kw'>measure</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
-  <span class='kw'>steps</span> <span class='kw'>=</span> <span class='fl'>10000</span>,
-  <span class='kw'>table</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>curve_rev</span>(<span class='no'>point</span>, <span class='no'>LL</span>, <span class='no'>UL</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>measure</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>steps</span> <span class='kw'>=</span> <span class='fl'>10000</span>,
+  <span class='kw'>table</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -182,7 +180,9 @@ likelihood can be set via "l".</p></td>
     </tr>
     <tr>
       <th>measure</th>
-      <td><p>The type of data being used. If they involve mean differences,</p></td>
+      <td><p>The type of data being used. If they involve mean differences,
+then the "default" option should be used, which is also the default setting.
+If the data are ratios, then the "ratio" option should be used.</p></td>
     </tr>
     <tr>
       <th>steps</th>
@@ -201,6 +201,16 @@ which is included in the list object.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A list with 3 items where the dataframe of values is in the first
+object, the values needed to calculate the density function in the second,
+and the table for the values in the third if table = TRUE.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='ggcurve.html'>ggcurve()</a></code></p>
+<p><code><a href='curve_compare.html'>curve_compare()</a></code></p>
+<p><code><a href='plot_compare.html'>plot_compare()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
@@ -228,6 +238,8 @@ which is included in the list object.</p></td>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
+      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

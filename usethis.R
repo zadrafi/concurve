@@ -1,5 +1,10 @@
-# Importing other packages
+library(usethis)
+library(roxygen2)
+library(roxygen2md)
+library(devtools)
+library(concurve)
 
+# Importing other packages
 
 use_package("parallel", "Imports", min_version = NULL)
 use_package("pbmcapply", "Imports", min_version = NULL)
@@ -34,12 +39,28 @@ use_spell_check(vignettes = TRUE, lang = "en-US", error = FALSE)
 use_cran_comments(open = interactive())
 use_tidy_style()
 use_revdep()
+codemetar::write_codemeta()
 
-check_rhub(pkg = ".", platforms = NULL, email = NULL,
-           interactive = TRUE, build_args = NULL)
+build(pkg = ".", path = NULL, binary = FALSE, vignettes = TRUE,
+      manual = TRUE, args = NULL, quiet = FALSE)
 
-check(pkg = ".", document = NA, build_args = NULL,
-      manual = TRUE, cran = TRUE, remote = TRUE, incoming = TRUE,
-      force_suggests = TRUE, run_dont_test = TRUE, args = "--timings",
-      env_vars = NULL, quiet = FALSE, check_dir = tempdir(),
-      cleanup = TRUE, error_on = c("never", "error", "warning", "note"))
+devtools::document()
+roxygen2md(scope = "full")
+check_man(pkg = ".")
+
+
+check(
+  pkg = ".", document = TRUE, build_args = NULL,
+  manual = TRUE, cran = TRUE, remote = TRUE, incoming = TRUE,
+  force_suggests = TRUE, run_dont_test = TRUE, args = "--timings",
+  env_vars = NULL, quiet = FALSE, check_dir = tempdir(),
+  cleanup = TRUE, error_on = c("never", "error", "warning", "note")
+)
+
+
+check_rhub(
+  pkg = ".", platforms = NULL, email = NULL,
+  interactive = TRUE, build_args = NULL
+)
+
+rhub::check_for_cran(".")

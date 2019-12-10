@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Compute the Profile Likelihood Functions — curve_lik • concurve</title>
+<title>Compute Profile Likelihood Functions — curve_lik • concurve</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -44,8 +44,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Compute the Profile Likelihood Functions — curve_lik" />
-<meta property="og:description" content="Compute the Profile Likelihood Functions" />
+<meta property="og:title" content="Compute Profile Likelihood Functions — curve_lik" />
+<meta property="og:description" content="Compute Profile Likelihood Functions" />
 <meta property="og:image" content="https://data.lesslikely.com/concurve/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand"><img src="https://res.cloudinary.com/less-likely/image/upload/v1575427534/Site/Logo.svg" id ="package-logo" align="left" width="35">
         <a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.0</span>
       </span>
     </div>
 
@@ -103,6 +103,9 @@
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/examples.html">Examples in R</a>
+    </li>
+    <li>
+      <a href="../articles/troubleshooting.html">Troubleshooting</a>
     </li>
     <li>
       <a href="../articles/stata.html">Using Stata</a>
@@ -133,13 +136,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Compute the Profile Likelihood Functions</h1>
+    <h1>Compute Profile Likelihood Functions</h1>
     <small class="dont-index">Source: <a href='https://github.com/zadchow/concurve/blob/master/R/curve_lik.R'><code>R/curve_lik.R</code></a></small>
     <div class="hidden name"><code>curve_lik.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Compute the Profile Likelihood Functions</p>
+    <p>Compute Profile Likelihood Functions</p>
     </div>
 
     <pre class="usage"><span class='fu'>curve_lik</span>(<span class='no'>likobject</span>, <span class='no'>data</span>, <span class='kw'>table</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
@@ -164,6 +167,10 @@ which is included in the list object.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A list with 2 items where the dataframe of values is in the first
+object, and the table for the values in the second if table = TRUE.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
@@ -188,6 +195,7 @@ which is included in the list object.</p></td>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

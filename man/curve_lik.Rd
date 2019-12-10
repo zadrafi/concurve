@@ -2,7 +2,7 @@
 % Please edit documentation in R/curve_lik.R
 \name{curve_lik}
 \alias{curve_lik}
-\title{Compute the Profile Likelihood Functions}
+\title{Compute Profile Likelihood Functions}
 \usage{
 curve_lik(likobject, data, table = TRUE)
 }
@@ -16,8 +16,12 @@ object in the ProfileLikelihood package.}
 statistics should be generated. The default is TRUE and generates a table
 which is included in the list object.}
 }
+\value{
+A list with 2 items where the dataframe of values is in the first
+object, and the table for the values in the second if table = TRUE.
+}
 \description{
-Compute the Profile Likelihood Functions
+Compute Profile Likelihood Functions
 }
 \examples{
 

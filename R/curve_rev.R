@@ -3,7 +3,8 @@
 #'
 #' Using the confidence limits and point estimates from a dataset, one can use
 #' these estimates to compute thousands of consonance intervals and graph the
-#' intervals to form a consonance and surprisal function.
+#' intervals to form a consonance and surprisal function. The intervals are
+#' calculated from the approximated normal distribution.
 #'
 #' @param point The point estimate from an analysis. Ex: 1.20
 #' @param LL The lower confidence limit from an analysis Ex: 1.0
@@ -12,8 +13,8 @@
 #' function or a likelihood function. The default is "c" for consonance and
 #' likelihood can be set via "l".
 #' @param measure The type of data being used. If they involve mean differences,
-# then the "default" option should be used, which is also the default setting.
-# If the data are ratios, then the "ratio" option should be used.
+#' then the "default" option should be used, which is also the default setting.
+#' If the data are ratios, then the "ratio" option should be used.
 #' @param steps Indicates how many consonance intervals are to be calculated at
 #' various levels. For example, setting this to 100 will produce 100 consonance
 #' intervals from 0 to 100. Setting this to 10000 will produce more consonance
@@ -24,6 +25,10 @@
 #' statistics should be generated. The default is TRUE and generates a table
 #' which is included in the list object.
 #'
+#' @return A list with 3 items where the dataframe of values is in the first
+#' object, the values needed to calculate the density function in the second,
+#' and the table for the values in the third if table = TRUE.
+#'
 #' @examples
 #'
 #' # From a real published study. Point estimate of the result was hazard ratio of 1.61 and
@@ -32,6 +37,10 @@
 #' df <- curve_rev(point = 1.61, LL = 0.997, UL = 2.59, measure = "ratio")
 #'
 #' tibble::tibble(df[[1]])
+#' @seealso [ggcurve()]
+#' @seealso [curve_compare()]
+#' @seealso [plot_compare()]
+#'
 curve_rev <- function(point, LL, UL, type = "c", measure = "default", steps = 10000, table = TRUE) {
 
 
@@ -111,6 +120,7 @@ curve_rev <- function(point, LL, UL, type = "c", measure = "default", steps = 10
       df <- data.frame(do.call(rbind, UL), do.call(rbind, LL))
       intrvl.limit <- c("lower.limit", "upper.limit")
       colnames(df) <- intrvl.limit
+      class(df) <- c("data.frame", "concurve")
     }
 
     else if (measure == "ratio") {
@@ -123,12 +133,14 @@ curve_rev <- function(point, LL, UL, type = "c", measure = "default", steps = 10
       colnames(df) <- intrvl.limit
       df$lower.limit <- exp(df$lower.limit)
       df$upper.limit <- exp(df$upper.limit)
+      class(df) <- c("data.frame", "concurve")
     }
 
     df$intrvl.level <- 1 - intrvls
     df$pvalue <- 1 - (1 - intrvls)
     df$svalue <- -log2(df$pvalue)
     df <- head(df, -1)
+    class(df) <- c("data.frame", "concurve")
 
 
     se <- log(UL / LL) / 3.92
@@ -143,6 +155,7 @@ curve_rev <- function(point, LL, UL, type = "c", measure = "default", steps = 10
     likelihood <- support * (log(point))
     loglikelihood <- log(likelihood)
     likfunction <- data.frame(values, likelihood, loglikelihood, support, deviancestat)
+    class(likfunction) <- c("data.frame", "concurve")
 
 
     if (table == TRUE) {

@@ -4,14 +4,8 @@
 \alias{curve_boot}
 \title{Generate Consonance Functions via Bootstrapping}
 \usage{
-curve_boot(
-  data = data,
-  func = func,
-  method = "bca",
-  replicates = 2000,
-  steps = 1000,
-  table = TRUE
-)
+curve_boot(data = data, func = func, method = "bca", t0, tt, bb,
+  replicates = 2000, steps = 1000, table = TRUE)
 }
 \arguments{
 \item{data}{Dataset that is being used to create a consonance function.}
@@ -20,7 +14,19 @@ curve_boot(
 will be bootstrapped.}
 
 \item{method}{The boostrap method that will be used to generate the functions.
-Methods include "bca" which is the default and "t".}
+Methods include "bca" which is the default, "bcapar", which is parametric
+bootstrapping using the bca method and "t", for the t-bootstrap/percentile method.}
+
+\item{t0}{Only used for the "bcapar" method.
+Observed estimate of theta, usually by maximum likelihood.}
+
+\item{tt}{Only used for the "bcapar" method.
+A vector of parametric bootstrap replications of theta of length B,
+usually large, say B = 2000}
+
+\item{bb}{Only used for the "bcapar" method.
+A B by p matrix of natural sufficient vectors,
+where p is the dimension of the exponential family.}
 
 \item{replicates}{Indicates how many bootstrap replicates are to be performed.
 The defaultis currently 20000 but more may be desirable, especially to make
@@ -38,30 +44,23 @@ statistics should be generated. The default is TRUE and generates a table
 which is included in the list object.}
 }
 \value{
-A list with the dataframe of values in the first list and the table
-in the second if table = TRUE.
+A list with 7 items where the dataframe of standard values is in the first
+list and the table for it in the second if table = TRUE. The Bca intervals and table
+are found in the third and fourth list. The values for the density function are in
+the fifth object, while the Bca stats are in the sixth and seventh objects.
 }
 \description{
-Use the BCa bootstrap method and the t boostrap method from the bcaboot and boot packages
+Use the Bca bootstrap method and the t-boostrap method from the bcaboot and boot packages
 to generate consonance distrbutions.
 }
-\examples{
+\references{
+Efron, B., and Tibshirani, R. J. (1994), An Introduction to the Bootstrap, CRC Press.
 
-\donttest{
-data(diabetes, package = "bcaboot")
-Xy <- cbind(diabetes$x, diabetes$y)
-rfun <- function(Xy) {
-  y <- Xy[, 11]
-  X <- Xy[, 1:10]
-  return(summary(lm(y ~ X))$adj.r.squared)
-}
+Efron, B., and Narasimhan, B. (2018), “The automatic construction of bootstrap conﬁdence intervals,” 17.
 
-x <- curve_boot(data = Xy, func = rfun, method = "bca", replicates = 200, steps = 1000)
+Schweder, T., and Hjort, N. L. (2016), Confidence, Likelihood, Probability:
+Statistical Inference with Confidence Distributions, Cambridge University Press.
 
-ggcurve(data = x[[1]])
-ggcurve(data = x[[3]])
-
-plot_compare(x[[1]], x[[3]])
-}
-
+Xie, M., and Singh, K. (2013), “Confidence Distribution, the Frequentist Distribution Estimator of a Parameter:
+A Review,” International Statistical Review, 81, 3–39.
 }

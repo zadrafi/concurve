@@ -1,5 +1,4 @@
-#' General Consonance Functions Using Profile Likelihood, Wald,
-#' or the bootstrap method for linear models.
+#' Consonance Functions For Linear Models.
 #'
 #' Computes thousands of consonance (confidence) intervals for
 #' the chosen parameter in the selected model
@@ -29,6 +28,10 @@
 #' @param table Indicates whether or not a table output with some relevant
 #' statistics should be generated. The default is TRUE and generates a table
 #' which is included in the list object.
+#'
+#' @return A list with 3 items where the dataframe of values is in the first
+#' object, the values needed to calculate the density function in the second,
+#' and the table for the values in the third if table = TRUE.
 #'
 #' @examples
 #'

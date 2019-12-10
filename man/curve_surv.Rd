@@ -2,7 +2,7 @@
 % Please edit documentation in R/curve_surv.R
 \name{curve_surv}
 \alias{curve_surv}
-\title{Produce Consonance Intervals for Survival Data}
+\title{Consonance Functions For Survival Data}
 \usage{
 curve_surv(data, x, steps = 10000, table = TRUE)
 }
@@ -24,9 +24,28 @@ store them into a dataframe.}
 statistics should be generated. The default is TRUE and generates a table
 which is included in the list object.}
 }
+\value{
+A list with 3 items where the dataframe of values is in the first
+object, the values needed to calculate the density function in the second,
+and the table for the values in the third if table = TRUE.
+}
 \description{
 Computes thousands of consonance (confidence) intervals for the chosen
 parameter in the Cox model computed by the 'survival' package and places
 the interval limits for each interval level into a data frame along
 with the corresponding p-value and s-value.
+}
+\examples{
+
+
+library(carData)
+Rossi[1:5, 1:10]
+library(survival)
+
+mod.allison <- coxph(Surv(week, arrest) ~ fin + age + race + wexp + mar + paro + prio,
+  data = Rossi
+)
+mod.allison
+
+z <- curve_surv(mod.allison, "prio")
 }

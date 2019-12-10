@@ -39,6 +39,8 @@ navbar:
       menu:
       - text: Examples in R
         href: articles/examples.html
+      - text: Troubleshooting
+        href: articles/troubleshooting.html
       - text: Using Stata
         href: articles/stata.html
     news:

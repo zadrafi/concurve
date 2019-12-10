@@ -5,9 +5,8 @@ GroupB <- rnorm(500)
 
 RandomData <- data.frame(GroupA, GroupB)
 
-(intervalsdf <- curve_mean(GroupA, GroupB,
-  data = RandomData, method = "default"
-))
+intervalsdf <- curve_mean(GroupA, GroupB,
+  data = RandomData, method = "default")
 
 tibble::tibble(intervalsdf[[1]])
 
@@ -19,9 +18,10 @@ tibble::tibble(intervalsdf[[1]])
 (z <- curve_table(intervalsdf[[1]], format = "latex"))
 (z <- curve_table(intervalsdf[[1]], format = "image"))
 
-(function1 <- ggcurve(data = intervalsdf[[1]], type = "c"))
+(function1 <- ggcurve(data = intervalsdf[[1]], type = "c", nullvalue = TRUE))
+
 (function1 <- ggcurve(data = intervalsdf[[1]], type = "s"))
-(function1s <- ggcurve(data = intervalsdf[[2]], type = "cdf"))
+(function1s <- ggcurve(data = intervalsdf[[2]], type = "cdf", nullvalue = TRUE))
 
 
 options(mc.cores = 8L)
@@ -32,9 +32,9 @@ GroupB2 <- rnorm(500)
 
 RandomData2 <- data.frame(GroupA2, GroupB2)
 
-model <- glm(GroupA2 ~ GroupB2, data = RandomData2)
+model <- lm(GroupA2 ~ GroupB2, data = RandomData2)
 
-system.time(randomframe <- curve_gen(model, "GroupB2", method = "glm", steps = 10000))
+system.time(randomframe <- curve_gen(model, "GroupB2"))
 
 options(mc.cores = 2L)
 
@@ -43,9 +43,9 @@ GroupB2 <- rnorm(500)
 
 RandomData2 <- data.frame(GroupA2, GroupB2)
 
-model <- glm(GroupA2 ~ GroupB2, data = RandomData2)
+model <- lm(GroupA2 ~ GroupB2, data = RandomData2)
 
-system.time(randomframe <- curve_gen(model, "GroupB2", method = "glm", steps = 10000))
+system.time(randomframe <- curve_gen(model, "GroupB2"))
 
 
 (function2 <- ggcurve(type = "c", randomframe[[1]], levels = c(0.50, 0.75, 0.95), nullvalue = TRUE))
@@ -60,7 +60,7 @@ system.time(randomframe <- curve_gen(model, "GroupB2", method = "glm", steps = 1
   plot = TRUE, measure = "default", nullvalue = FALSE
 ))
 
-(plot_compare(data1 = intervalsdf[[1]], data2 = randomframe[[1]], type = "s", measure = "default", nullvalue = TRUE))
+(plot_compare(data1 = intervalsdf[[1]], data2 = randomframe[[1]], type = "c", measure = "default", nullvalue = TRUE))
 
 
 (df1 <- curve_rev(point = 1.61, LL = 0.997, UL = 2.59, measure = "ratio", steps = 10000)) ## may take some time
@@ -88,11 +88,11 @@ system.time(randomframe <- curve_gen(model, "GroupB2", method = "glm", steps = 1
 
 
 lik1 <- curve_rev(point = 1.7, LL = 1.1, UL = 2.6, type = "l", measure = "ratio", steps = 10000)
-(ggcurve(data = lik1[[1]], type = "l1", measure = "ratio", nullvalue = FALSE))
+(ggcurve(data = lik1[[1]], type = "l1", measure = "ratio", nullvalue = TRUE))
 
 
 lik2 <- curve_rev(point = 1.61, LL = 0.997, UL = 2.59,type = "l", measure = "ratio", steps = 10000)
-(ggcurve(data = lik2[[1]], type = "l1", measure = "ratio", nullvalue = FALSE))
+(ggcurve(data = lik2[[1]], type = "l1", measure = "ratio", nullvalue = TRUE))
 
 
 (plot_compare(
@@ -116,6 +116,8 @@ plot_compare(data1 = lik1[[1]], data2 = lik2[[1]], type = "d", measure = "ratio"
 
 # Bootstrapping -----------------------------------------------------------
 
+# Nonparametric BCA Bootstrapping ---------------------------------------------
+
 options(mc.cores = 8L)
 getOption("mc.cores", 2L)
 
@@ -128,6 +130,10 @@ rfun <- function(Xy) {
 }
 
 system.time(x <- curve_boot(data = Xy, func = rfun, method = "bca", replicates = 20000, steps = 1000))
+
+
+x[[5]]
+x[[6]]
 
 
 options(mc.cores = 2L)
@@ -166,6 +172,32 @@ ggcurve(data = y[[3]])
 
 plot_compare(y[[1]], y[[3]])
 
+# Parametric BCA Bootstrapping --------------------------------------------
+
+data(diabetes, package = "bcaboot")
+X <- diabetes$x
+y <- scale(diabetes$y, center = TRUE, scale = FALSE)
+lm.model <- lm(y ~ X - 1)
+mu.hat <- lm.model$fitted.values
+sigma.hat <- stats::sd(lm.model$residuals)
+t0 <- summary(lm.model)$adj.r.squared
+y.star <- sapply(mu.hat, rnorm, n = 1000, sd = sigma.hat)
+tt <- apply(y.star, 1, function(y) summary(lm(y ~ X - 1))$adj.r.squared)
+b.star <- y.star %*% X
+set.seed(1234)
+
+replicates = 2000
+steps = 1000
+intrvls <- 0.5 / steps
+alpha <- seq(0.00, 0.50, intrvls)
+
+df <- curve_boot(method = "bcapar", t0 = t0, tt = tt, bb = b.star)
+
+ggcurve(df[[1]])
+ggcurve(df[[3]])
+ggcurve(df[[5]], type = "cd")
+
+# Percentile Bootstrapping ------------------------------------------------
 
 
 library(Lock5Data)

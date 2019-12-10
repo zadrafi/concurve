@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Compares two functions and produces an AUC score to show the amount of consonance. — curve_compare • concurve</title>
+<title>Compare Two Functions and Produces An AUC Score — curve_compare • concurve</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -44,7 +44,7 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Compares two functions and produces an AUC score to show the amount of consonance. — curve_compare" />
+<meta property="og:title" content="Compare Two Functions and Produces An AUC Score — curve_compare" />
 <meta property="og:description" content="Compares the p-value/s-value, and likelihood functions and computes an AUC number." />
 <meta property="og:image" content="https://data.lesslikely.com/concurve/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand"><img src="https://res.cloudinary.com/less-likely/image/upload/v1575427534/Site/Logo.svg" id ="package-logo" align="left" width="35">
         <a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.0</span>
       </span>
     </div>
 
@@ -103,6 +103,9 @@
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/examples.html">Examples in R</a>
+    </li>
+    <li>
+      <a href="../articles/troubleshooting.html">Troubleshooting</a>
     </li>
     <li>
       <a href="../articles/stata.html">Using Stata</a>
@@ -133,7 +136,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Compares two functions and produces an AUC score to show the amount of consonance.</h1>
+    <h1>Compare Two Functions and Produces An AUC Score</h1>
     <small class="dont-index">Source: <a href='https://github.com/zadchow/concurve/blob/master/R/curve_compare.R'><code>R/curve_compare.R</code></a></small>
     <div class="hidden name"><code>curve_compare.Rd</code></div>
     </div>
@@ -177,6 +180,14 @@ to plot the two functions.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Computes an AUC score and returns a plot that graphs two functions.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='plot_compare.html'>plot_compare()</a></code></p>
+<p><code><a href='ggcurve.html'>ggcurve()</a></code></p>
+<p><code><a href='curve_table.html'>curve_table()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
@@ -190,19 +201,19 @@ to plot the two functions.</p></td>
 <span class='no'>RandomData2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='no'>GroupA2</span>, <span class='no'>GroupB2</span>)
 <span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>GroupA2</span> ~ <span class='no'>GroupB2</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>RandomData2</span>)
 <span class='no'>randomframe</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='curve_gen.html'>curve_gen</a></span>(<span class='no'>model</span>, <span class='st'>"GroupB2"</span>)
-(<span class='fu'>curve_compare</span>(<span class='no'>intervalsdf</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='no'>randomframe</span><span class='kw'>[[</span><span class='fl'>1</span>]]))</div><div class='output co'>#&gt; [1] "AUC = Area Under the Curve"</div><div class='output co'>#&gt; [[1]]
+<span class='fu'>curve_compare</span>(<span class='no'>intervalsdf</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='no'>randomframe</span><span class='kw'>[[</span><span class='fl'>1</span>]])</div><div class='output co'>#&gt; [1] "AUC = Area Under the Curve"</div><div class='output co'>#&gt; [[1]]
 #&gt; 
 #&gt; 
 #&gt; | AUC 1| AUC 2| Shared AUC| AUC Overlap (%)| Overlap:Non-Overlap AUC Ratio|
 #&gt; |-----:|-----:|----------:|---------------:|-----------------------------:|
-#&gt; | 0.317| 0.204|      0.043|           0.089|                         0.098|
+#&gt; | 0.335| 0.211|      0.089|          19.496|                         0.242|
 #&gt; 
-#&gt; [[2]]</div><div class='img'><img src='curve_compare-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; </div><div class='input'>(<span class='fu'>curve_compare</span>(<span class='no'>intervalsdf</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='no'>randomframe</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"s"</span>))</div><div class='output co'>#&gt; [1] "AUC = Area Under the Curve"</div><div class='output co'>#&gt; [[1]]
+#&gt; [[2]]</div><div class='img'><img src='curve_compare-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; </div><div class='input'><span class='fu'>curve_compare</span>(<span class='no'>intervalsdf</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='no'>randomframe</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"s"</span>)</div><div class='output co'>#&gt; [1] "AUC = Area Under the Curve"</div><div class='output co'>#&gt; [[1]]
 #&gt; 
 #&gt; 
 #&gt; |  AUC 1| AUC 2| Shared AUC| AUC Overlap (%)| Overlap:Non-Overlap AUC Ratio|
 #&gt; |------:|-----:|----------:|---------------:|-----------------------------:|
-#&gt; | 12.935| 4.309|      4.265|           0.329|                         0.489|
+#&gt; | 13.683| 4.462|      4.462|          32.611|                         0.484|
 #&gt; 
 #&gt; [[2]]</div><div class='img'><img src='curve_compare-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; </div><div class='input'># }
 
@@ -212,6 +223,8 @@ to plot the two functions.</p></td>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
+      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
