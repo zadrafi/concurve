@@ -114,6 +114,16 @@ plot_compare(data1 = lik1[[1]], data2 = lik2[[1]], type = "d", measure = "ratio"
 )
 
 
+# Excel Trial
+
+excel <- curve_rev(point = 2.8, LL = -0.9, UL = 6.5)
+
+ggcurve(excel[[1]], nullvalue = TRUE, levels = c(0.50, 0.75, 0.95),
+        subtitle = "EXCEL TRIAL: Point = 2.8, 95% CL: LL = -0.9, UL = 6.5 p = 0.13",
+        xaxis = expression(Theta ~ "= % Difference For Primary Composite Outcome"))
+
+
+
 # Bootstrapping -----------------------------------------------------------
 
 # Nonparametric BCA Bootstrapping ---------------------------------------------

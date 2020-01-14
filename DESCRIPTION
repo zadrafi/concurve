@@ -6,8 +6,8 @@ Title: Computes and Plots Compatibility (Confidence) Intervals,
 Version: 2.4.0
 Date: 2019-12-09
 Authors@R: 
-    c(person(given = "Zad R.",
-             family = "Chow",
+    c(person(given = "Zad",
+             family = "Rafi",
              role = c("aut", "cre"),
              email = "zad@lesslikely.com",
              comment = c(ORCID = "0000-0003-1545-8199")),
@@ -15,14 +15,18 @@ Authors@R:
              family = "Vigotsky",
              role = "aut",
              comment = c(ORCID = "0000-0003-3166-0688")))
-Maintainer: Zad R. Chow <zad@lesslikely.com>
-Description: Allows one to compute consonance (confidence)
+Maintainer: Zad Rafi <zad@lesslikely.com>
+Description: Allows one to compute compatibility (confidence)
     intervals for various statistical tests along with their corresponding
     P-values, S-values, and likelihoods. The intervals can be plotted to
     create consonance, surprisal, and likelihood functions allowing one to
     see what effect sizes are compatible with the test model at various
-    consonance levels rather than being limited to one interval estimate
-    such as 95%. These methods are discussed by Poole C. (1987)
+    compatibility levels rather than being limited to one interval estimate
+    such as 95%. Functions can also be compared to one another to see how much
+    they overlap with one another and differ. Results can also be exported for 
+    Word, Powerpoint, and TeX documents. The package currently supports bootstrapping,
+    linear models, generalized linear models, survival analysis, and meta-analysis. 
+    These methods are discussed by Poole C. (1987)
     <doi:10.2105/AJPH.77.2.195>, Schweder T, Hjort NL. (2002)
     <doi:10.1111/1467-9469.00285>, Singh K, Xie M, Strawderman WE. (2007)
     <arXiv:0708.0976>, Rothman KJ, Greenland S, Lash TL. (2008,
@@ -33,8 +37,8 @@ Description: Allows one to compute consonance (confidence)
     <arXiv:1909.08583>.
 License: GPL-3 | file LICENSE
 URL: https://data.lesslikely.com/concurve/,
-    https://github.com/zadchow/concurve, https://lesslikely.com/
-BugReports: https://github.com/zadchow/concurve/issues
+    https://github.com/zadrafi/concurve, https://lesslikely.com/
+BugReports: https://github.com/zadrafi/concurve/issues
 Imports: 
     bcaboot,
     boot,

@@ -92,13 +92,13 @@
 
       
 
-      </header><div class="row">
+      </header><script src="troubleshooting_files/jquery-1.11.3/jquery.min.js"></script><script src="troubleshooting_files/elevate-section-attrs-2.0/elevate-section-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Troubleshooting</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/zadchow/concurve/blob/master/vignettes/troubleshooting.Rmd"><code>vignettes/troubleshooting.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/zadrafi/concurve/blob/master/vignettes/troubleshooting.Rmd"><code>vignettes/troubleshooting.Rmd</code></a></small>
       <div class="hidden name"><code>troubleshooting.Rmd</code></div>
 
     </div>
@@ -136,11 +136,11 @@
 <p>For example, here I changed the number of steps to 100, which is the minimum needed to plot a function, and the process is now much quicker.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>(df1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/curve_rev.html">curve_rev</a></span>(<span class="dt">point =</span> <span class="fl">1.61</span>, <span class="dt">LL =</span> <span class="fl">0.997</span>, <span class="dt">UL =</span> <span class="fl">2.59</span>, <span class="dt">measure =</span> <span class="st">"ratio"</span>, <span class="dt">steps =</span> <span class="dv">100</span>))</span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="co">#&gt;    user  system elapsed </span></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="co">#&gt;   0.159   0.006   0.164</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="co">#&gt;   0.169   0.008   0.178</span></span>
 <span id="cb4-4"><a href="#cb4-4"></a></span>
 <span id="cb4-5"><a href="#cb4-5"></a><span class="kw"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>(df1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/curve_rev.html">curve_rev</a></span>(<span class="dt">point =</span> <span class="fl">1.61</span>, <span class="dt">LL =</span> <span class="fl">0.997</span>, <span class="dt">UL =</span> <span class="fl">2.59</span>, <span class="dt">measure =</span> <span class="st">"ratio"</span>, <span class="dt">steps =</span> <span class="dv">10000</span>))</span>
 <span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&gt;    user  system elapsed </span></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt;   0.022   0.002   0.023</span></span></code></pre></div>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt;   0.025   0.002   0.027</span></span></code></pre></div>
 </div>
 <div id="bugs" class="section level1">
 <h1 class="hasAnchor">
@@ -150,9 +150,9 @@
 <div id="session-info" class="section level1">
 <h1 class="hasAnchor">
 <a href="#session-info" class="anchor"></a>Session info</h1>
-<pre><code>#&gt; R version 3.6.1 (2019-07-05)
+<pre><code>#&gt; R version 3.6.2 (2019-12-12)
 #&gt; Platform: x86_64-apple-darwin15.6.0 (64-bit)
-#&gt; Running under: macOS Catalina 10.15.1
+#&gt; Running under: macOS Catalina 10.15.2
 #&gt; 
 #&gt; Matrix products: default
 #&gt; BLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib
@@ -162,35 +162,35 @@
 #&gt; [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
 #&gt; 
 #&gt; attached base packages:
-#&gt; [1] stats     graphics  grDevices utils     methods   base     
+#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     
 #&gt; 
 #&gt; other attached packages:
 #&gt; [1] concurve_2.4.0
 #&gt; 
 #&gt; loaded via a namespace (and not attached):
 #&gt;  [1] Rcpp_1.0.3            lattice_0.20-38       tidyr_1.0.0          
-#&gt;  [4] zoo_1.8-6             assertthat_0.2.1      zeallot_0.1.0        
+#&gt;  [4] zoo_1.8-7             assertthat_0.2.1      zeallot_0.1.0        
 #&gt;  [7] rprojroot_1.3-2       digest_0.6.23         R6_2.4.1             
 #&gt; [10] survminer_0.4.6       backports_1.1.5       evaluate_0.14        
-#&gt; [13] ggplot2_3.2.1         pillar_1.4.2          gdtools_0.2.1        
+#&gt; [13] ggplot2_3.2.1         pillar_1.4.3          gdtools_0.2.1        
 #&gt; [16] rlang_0.4.2           lazyeval_0.2.2        uuid_0.1-2           
-#&gt; [19] rstudioapi_0.10       data.table_1.12.6     Matrix_1.2-18        
-#&gt; [22] flextable_0.5.6       rmarkdown_1.18        pkgdown_1.4.1        
-#&gt; [25] desc_1.2.0            splines_3.6.1         stringr_1.4.0        
-#&gt; [28] bcaboot_0.2-1         munsell_0.5.0         broom_0.5.2          
-#&gt; [31] compiler_3.6.1        xfun_0.11             pkgconfig_2.0.3      
+#&gt; [19] rstudioapi_0.10       data.table_1.12.8     Matrix_1.2-18        
+#&gt; [22] flextable_0.5.6       rmarkdown_2.0         pkgdown_1.4.1        
+#&gt; [25] desc_1.2.0            splines_3.6.2         stringr_1.4.0        
+#&gt; [28] bcaboot_0.2-1         munsell_0.5.0         broom_0.5.3          
+#&gt; [31] compiler_3.6.2        xfun_0.12             pkgconfig_2.0.3      
 #&gt; [34] systemfonts_0.1.1     base64enc_0.1-3       ProfileLikelihood_1.1
 #&gt; [37] htmltools_0.4.0       tidyselect_0.2.5      tibble_2.1.3         
 #&gt; [40] gridExtra_2.3         km.ci_0.5-2           crayon_1.3.4         
-#&gt; [43] dplyr_0.8.3           ggpubr_0.2.4          MASS_7.3-51.4        
-#&gt; [46] grid_3.6.1            xtable_1.8-4          nlme_3.1-142         
+#&gt; [43] dplyr_0.8.3           ggpubr_0.2.4          MASS_7.3-51.5        
+#&gt; [46] grid_3.6.2            xtable_1.8-4          nlme_3.1-143         
 #&gt; [49] gtable_0.3.0          lifecycle_0.1.0       metafor_2.1-0        
 #&gt; [52] magrittr_1.5          KMsurv_0.1-5          scales_1.1.0         
-#&gt; [55] zip_2.0.4             stringi_1.4.3         ggsignif_0.6.0       
+#&gt; [55] zip_2.0.4             stringi_1.4.5         ggsignif_0.6.0       
 #&gt; [58] fs_1.3.1              xml2_1.2.2            survMisc_0.5.5       
-#&gt; [61] vctrs_0.2.0           generics_0.0.2        boot_1.3-23          
-#&gt; [64] pbmcapply_1.5.0       tools_3.6.1           glue_1.3.1           
-#&gt; [67] officer_0.3.6         purrr_0.3.3           parallel_3.6.1       
+#&gt; [61] vctrs_0.2.1           generics_0.0.2        boot_1.3-24          
+#&gt; [64] pbmcapply_1.5.0       tools_3.6.2           glue_1.3.1           
+#&gt; [67] officer_0.3.6         purrr_0.3.3           parallel_3.6.2       
 #&gt; [70] survival_3.1-8        yaml_2.2.0            colorspace_1.4-1     
 #&gt; [73] memoise_1.1.0         knitr_1.26</code></pre>
 </div>
@@ -216,7 +216,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://lesslikely.com/">Zad R. Chow</a>, <a href="https://www.researchgate.net/profile/Andrew_Vigotsky">Andrew D. Vigotsky</a>.</p>
+  <p>Developed by Zad Rafi, <a href="https://www.researchgate.net/profile/Andrew_Vigotsky">Andrew D. Vigotsky</a>.</p>
 </div>
 
 <div class="pkgdown">

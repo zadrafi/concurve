@@ -41,7 +41,7 @@ use_tidy_style()
 use_revdep()
 codemetar::write_codemeta()
 
-build(pkg = ".", path = NULL, binary = FALSE, vignettes = TRUE,
+build(pkg = ".", path = NULL, binary = TRUE, vignettes = TRUE,
       manual = TRUE, args = NULL, quiet = FALSE)
 
 devtools::document()
