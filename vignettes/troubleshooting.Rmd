@@ -34,7 +34,7 @@ You can also try installing the developer version with
 
 ```{r eval=FALSE}
 library(devtools)
-install_github("zadchow/concurve")
+install_github("zadrafi/concurve")
 ```
 
 # Distorted Plots
@@ -69,7 +69,7 @@ system.time(df1 <- curve_rev(point = 1.61, LL = 0.997, UL = 2.59, measure = "rat
 # Bugs 
 
 If you encounter any other bugs, please report them at 
-[https://github.com/zadchow/concurve/issues](https://github.com/zadchow/concurve/issues)
+[https://github.com/zadrafi/concurve/issues](https://github.com/zadrafi/concurve/issues)
 
 # Session info
 

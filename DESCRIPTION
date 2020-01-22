@@ -3,8 +3,8 @@ Package: concurve
 Title: Computes and Plots Compatibility (Confidence) Intervals,
     P-Values, S-Values, & Likelihood Intervals to Form Consonance,
     Surprisal, & Likelihood Functions
-Version: 2.4.0
-Date: 2019-12-09
+Version: 2.4.1
+Date: 2020-01-22
 Authors@R: 
     c(person(given = "Zad",
              family = "Rafi",
@@ -25,13 +25,12 @@ Description: Allows one to compute compatibility (confidence)
     such as 95%. Functions can also be compared to one another to see how much
     they overlap with one another and differ. Results can also be exported for 
     Word, Powerpoint, and TeX documents. The package currently supports bootstrapping,
-    linear models, generalized linear models, survival analysis, and meta-analysis. 
-    These methods are discussed by Poole C. (1987)
-    <doi:10.2105/AJPH.77.2.195>, Schweder T, Hjort NL. (2002)
+    linear models, generalized linear models, linear mixed-effects models, 
+    survival analysis, and meta-analysis. These methods are discussed by 
+    Poole C. (1987) <doi:10.2105/AJPH.77.2.195>, Schweder T, Hjort NL. (2002)
     <doi:10.1111/1467-9469.00285>, Singh K, Xie M, Strawderman WE. (2007)
     <arXiv:0708.0976>, Rothman KJ, Greenland S, Lash TL. (2008,
-    ISBN:9781451190052), Amrhein V, Trafimow D, Greenland S. (2019)
-    <doi:10.1080/00031305.2018.1543137>, Greenland S. (2019)
+    ISBN:9781451190052), Greenland S. (2019)
     <doi:10.1080/00031305.2018.1529625>, Chow ZR, Greenland S. (2019)
     <arXiv:1909.08579>, and Greenland S, Chow ZR. (2019)
     <arXiv:1909.08583>.
@@ -42,6 +41,7 @@ BugReports: https://github.com/zadrafi/concurve/issues
 Imports: 
     bcaboot,
     boot,
+    lme4,
     dplyr,
     flextable,
     ggplot2,
@@ -76,4 +76,4 @@ RoxygenNote: 7.0.2
 X-schema.org-keywords: confidence, compatibility, consonance,
     surprisal, interval, function, curve
 Depends: 
-    R (>= 3.5.0)
+    R (>= 3.6.0)

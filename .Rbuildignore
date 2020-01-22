@@ -27,3 +27,5 @@
 ^usethis\.R$
 
 ^CRAN-RELEASE$
+^references\.bib$
+^american-medical-association\.csl$

@@ -5,25 +5,25 @@
   ],
   "@type": "SoftwareSourceCode",
   "identifier": "concurve",
-  "description": "Allows one to compute consonance (confidence)\n    intervals for various statistical tests along with their corresponding\n    P-values, S-values, and likelihoods. The intervals can be plotted to\n    create consonance, surprisal, and likelihood functions allowing one to\n    see what effect sizes are compatible with the test model at various\n    consonance levels rather than being limited to one interval estimate\n    such as 95%. These methods are discussed by Poole C. (1987)\n    <doi:10.2105/AJPH.77.2.195>, Schweder T, Hjort NL. (2002)\n    <doi:10.1111/1467-9469.00285>, Singh K, Xie M, Strawderman WE. (2007)\n    <arXiv:0708.0976>, Rothman KJ, Greenland S, Lash TL. (2008,\n    ISBN:9781451190052), Amrhein V, Trafimow D, Greenland S. (2019)\n    <doi:10.1080/00031305.2018.1543137>, Greenland S. (2019)\n    <doi:10.1080/00031305.2018.1529625>, Chow ZR, Greenland S. (2019)\n    <arXiv:1909.08579>, and Greenland S, Chow ZR. (2019)\n    <arXiv:1909.08583>.",
+  "description": "Allows one to compute compatibility (confidence)\n    intervals for various statistical tests along with their corresponding\n    P-values, S-values, and likelihoods. The intervals can be plotted to\n    create consonance, surprisal, and likelihood functions allowing one to\n    see what effect sizes are compatible with the test model at various\n    compatibility levels rather than being limited to one interval estimate\n    such as 95%. Functions can also be compared to one another to see how much\n    they overlap with one another and differ. Results can also be exported for \n    Word, Powerpoint, and TeX documents. The package currently supports bootstrapping,\n    linear models, generalized linear models, linear mixed-effects models, \n    survival analysis, and meta-analysis. These methods are discussed by \n    Poole C. (1987) <doi:10.2105/AJPH.77.2.195>, Schweder T, Hjort NL. (2002)\n    <doi:10.1111/1467-9469.00285>, Singh K, Xie M, Strawderman WE. (2007)\n    <arXiv:0708.0976>, Rothman KJ, Greenland S, Lash TL. (2008,\n    ISBN:9781451190052), Greenland S. (2019)\n    <doi:10.1080/00031305.2018.1529625>, Chow ZR, Greenland S. (2019)\n    <arXiv:1909.08579>, and Greenland S, Chow ZR. (2019)\n    <arXiv:1909.08583>.",
   "name": "concurve: Computes and Plots Compatibility (Confidence) Intervals,\n    P-Values, S-Values, & Likelihood Intervals to Form Consonance,\n    Surprisal, & Likelihood Functions",
   "date": "2019-12-09",
-  "codeRepository": "https://github.com/zadchow/concurve",
+  "codeRepository": "https://github.com/zadrafi/concurve",
   "relatedLink": [
     "https://data.lesslikely.com/concurve/",
     "https://lesslikely.com/",
     "https://CRAN.R-project.org/package=concurve"
   ],
-  "issueTracker": "https://github.com/zadchow/concurve/issues",
+  "issueTracker": "https://github.com/zadrafi/concurve/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "3.6.1",
+    "version": "3.6.2",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 3.6.1 (2019-07-05)",
+  "runtimePlatform": "R version 3.6.2 (2019-12-12)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -33,8 +33,8 @@
   "author": [
     {
       "@type": "Person",
-      "givenName": "Zad R.",
-      "familyName": "Chow",
+      "givenName": "Zad",
+      "familyName": "Rafi",
       "email": "zad@lesslikely.com",
       "@id": "https://orcid.org/0000-0003-1545-8199"
     },
@@ -48,8 +48,8 @@
   "maintainer": [
     {
       "@type": "Person",
-      "givenName": "Zad R.",
-      "familyName": "Chow",
+      "givenName": "Zad",
+      "familyName": "Rafi",
       "email": "zad@lesslikely.com",
       "@id": "https://orcid.org/0000-0003-1545-8199"
     }
@@ -164,6 +164,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=boot"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "lme4",
+      "name": "lme4",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=lme4"
     },
     {
       "@type": "SoftwareApplication",
@@ -335,17 +347,17 @@
       "@type": "SoftwareApplication",
       "identifier": "R",
       "name": "R",
-      "version": ">= 3.5.0"
+      "version": ">= 3.6.0"
     }
   ],
   "keywords": ["confidence", "compatibility", "consonance", "surprisal", "interval", "function", "curve", "confidence-intervals", "cargo-cult-statistics", "compatibility-intervals", "assumptions", "stata", "confidence-distribution", "likelihood-functions", "bootstrap-method", "r", "frequentist-methods", "fiducial-distribution"],
-  "fileSize": "1864.95KB",
+  "fileSize": "5080.509KB",
   "contIntegration": [
     "https://travis-ci.org/Zadchow/concurve",
     "https://ci.appveyor.com/project/Zadchow/concurve",
     "https://codecov.io/gh/Zadchow/concurve"
   ],
-  "readme": "https://github.com/Zadchow/concurve/blob/master/README.md",
+  "readme": "https://github.com/zadrafi/concurve/blob/master/README.md",
   "contributor": {},
   "copyrightHolder": {},
   "funder": {},
@@ -356,8 +368,8 @@
       "author": [
         {
           "@type": "Person",
-          "givenName": "Zad R.",
-          "familyName": "Chow"
+          "givenName": "Zad",
+          "familyName": "Rafi"
         },
         {
           "@type": "Person",

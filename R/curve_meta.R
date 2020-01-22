@@ -12,6 +12,9 @@
 #' logarithmically transformed values and convert them back to normal values in the dataframe.
 #' This is typically a setting used for binary outcomes such as risk ratios,
 #' hazard ratios, and odds ratios.
+#' @param method Indicates which meta-analysis metafor function is being used.
+#' Currently supports rma.uni ("uni"), which is the default, rma.mh ("mh"),
+#' and rma.peto ("peto")
 #' @param steps Indicates how many consonance intervals are to be calculated at
 #' various levels. For example, setting this to 100 will produce 100 consonance
 #' intervals from 0 to 100. Setting this to 10000 will produce more consonance
@@ -82,7 +85,7 @@
 #' metaf <- curve_meta(res)
 #'
 #' tibble::tibble(metaf[[1]])
-curve_meta <- function(x, measure = "default", steps = 10000, table = TRUE) {
+curve_meta <- function(x, measure = "default", method = "uni", steps = 10000, table = TRUE) {
   if (is.list(x) != TRUE) {
     stop("Error: 'x' must be a list from 'metafor'")
   }
@@ -93,11 +96,55 @@ curve_meta <- function(x, measure = "default", steps = 10000, table = TRUE) {
     stop("Error: 'steps' must be a numeric vector")
   }
 
-  intrvls <- (0:steps) / steps
-  results <- pbmclapply(intrvls, FUN = function(i) confint.default(object = x, fixed = TRUE, random = FALSE, level = i)[], mc.cores = getOption("mc.cores", 1L))
+
+  if (method == "uni") {
+  intrvls <- (1:steps) / steps
+  results <- pbmclapply(intrvls, FUN = function(i) confint.default(object = x, level = i)[], mc.cores = getOption("mc.cores", 1L))
   df <- data.frame(do.call(rbind, results))
   intrvl.limit <- c("lower.limit", "upper.limit")
   colnames(df) <- intrvl.limit
+  df$intrvl.level <- intrvls
+  df$cdf <- (abs(df$intrvl.level / 2)) + 0.5
+  df$pvalue <- 1 - intrvls
+  df$svalue <- -log2(df$pvalue)
+
+  } else if (method == "mh") {
+    steps <-  100
+    intrvls_mh <- ((1:steps))
+    results <- (pbmclapply(intrvls_mh, FUN = function(i) unlist(confint.rma.mh(object = x, random = TRUE, level = i)[1])))
+    results <- pbmclapply((1:(length(results))), FUN = function(j) results[[j]][2:3])
+    results <- as.data.frame(results)
+    df <- data.frame(do.call(rbind, results))
+    intrvl.limit <- c("lower.limit", "upper.limit")
+    colnames(df) <- intrvl.limit
+    rows <- as.character(c(1:steps))
+    rownames(df) <- rows
+    df$intrvl.level <- ((intrvls_mh))  / 100
+    df$cdf <- (abs(df$intrvl.level / 2)) + 0.5
+    df$pvalue <- (1 - df$intrvl.level)
+    df$svalue <- -log2(df$pvalue)
+    rows <- as.character(c(1:nrow(df)))
+    rownames(df) <- rows
+
+} else if (method == "peto") {
+  steps <-  100
+  intrvls_peto <- ((1:steps))
+  results <- (pbmclapply(intrvls_peto, FUN = function(i) unlist(confint.rma.peto(object = x, random = TRUE, level = i)[1])))
+  results <- pbmclapply((1:(length(results))), FUN = function(j) results[[j]][2:3])
+  results <- as.data.frame(results)
+  df <- data.frame(do.call(rbind, results))
+  intrvl.limit <- c("lower.limit", "upper.limit")
+  colnames(df) <- intrvl.limit
+  rows <- as.character(c(1:steps))
+  rownames(df) <- rows
+  df$intrvl.level <- ((intrvls_peto))  / 100
+  df$cdf <- (abs(df$intrvl.level / 2)) + 0.5
+  df$pvalue <- (1 - df$intrvl.level)
+  df$svalue <- -log2(df$pvalue)
+  rows <- as.character(c(1:nrow(df)))
+  rownames(df) <- rows
+}
+
   if (measure == "default") {
     df$lower.limit <- df$lower.limit
     df$upper.limit <- df$upper.limit
@@ -106,10 +153,6 @@ curve_meta <- function(x, measure = "default", steps = 10000, table = TRUE) {
     df$upper.limit <- exp(df$upper.limit)
   }
   df$intrvl.width <- (abs((df$upper.limit) - (df$lower.limit)))
-  df$intrvl.level <- intrvls
-  df$cdf <- (abs(df$intrvl.level / 2)) + 0.5
-  df$pvalue <- 1 - intrvls
-  df$svalue <- -log2(df$pvalue)
   df <- head(df, -1)
   class(df) <- c("data.frame", "concurve")
   densdf <- data.frame(c(df$lower.limit, df$upper.limit))

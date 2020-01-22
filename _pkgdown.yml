@@ -3,7 +3,7 @@ url: https://data.lesslikely.com/concurve/
 title: concurve
 
 authors:
-  Zad R. Chow:
+  Zad Rafi:
     href: https://lesslikely.com/
   Andrew D. Vigotsky:
     href: https://www.researchgate.net/profile/Andrew_Vigotsky
@@ -48,4 +48,4 @@ navbar:
       href: news/index.html
     github:
       icon: fa-github fa-lg
-      href: https://github.com/zadchow/concurve
+      href: https://github.com/zadrafi/concurve
