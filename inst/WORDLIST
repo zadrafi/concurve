@@ -7,6 +7,7 @@ ANCOVA
 arXiv
 bca
 Bca
+bca’
 bcaboot
 bcapar
 Birnbaum
@@ -14,6 +15,7 @@ boostrap
 cd
 ci
 conﬁdence
+correlationscale
 CRC
 DAS
 dat
@@ -51,11 +53,13 @@ lidocaine
 Lifecycle
 Lippincott
 lm
+lme
 logarithmically
 lointerval
 mathbf
 mathST
 metafor
+mh
 Narasimhan
 NL
 nullvalue
@@ -64,6 +68,7 @@ parallelization
 paranthesis
 paro
 pearson
+peto
 postfile
 powerpoint
 Powerpoint
@@ -78,6 +83,7 @@ Rdoc
 README
 relace
 resinstalling
+rma
 Rossi
 Rothman
 Saltelli
@@ -87,6 +93,7 @@ spearman
 SSRI
 Stata
 Strawderman
+stud’
 surprisal
 Surprisal
 svalue
@@ -107,5 +114,4 @@ xaxis
 Xie
 yi
 yxis
-Zad
-zadchow
+zadrafi

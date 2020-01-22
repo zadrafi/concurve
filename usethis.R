@@ -6,6 +6,7 @@ library(concurve)
 
 # Importing other packages
 
+use_package("lme4", "Imports", min_version = NULL)
 use_package("parallel", "Imports", min_version = NULL)
 use_package("pbmcapply", "Imports", min_version = NULL)
 use_package("boot", "Imports", min_version = NULL)
@@ -24,6 +25,7 @@ use_package("survminer", "Imports", min_version = NULL)
 use_package("scales", "Imports", min_version = NULL)
 
 # Suggest other packages
+
 use_package("testthat", "Suggests", min_version = NULL)
 use_package("covr", "Suggests", min_version = NULL)
 use_package("spelling", "Suggests", min_version = NULL)

@@ -19,6 +19,7 @@ importFrom("stats", "coef", "confint", "confint.default", "confint.lm",
                 "lm", "quantile", "t.test", "cor.test", "qnorm")
   importFrom("methods", "is")
   importFrom("stats", "approxfun", "integrate")
+   importFrom("stats", "sd")
 importFrom("graphics", "axis", "par", "polygon", "text")
 importFrom("stats", "logLik", "model.frame", "model.matrix",
              "model.response", "na.fail")

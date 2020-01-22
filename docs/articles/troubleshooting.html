@@ -38,7 +38,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand"><img src="https://res.cloudinary.com/less-likely/image/upload/v1575427534/Site/Logo.svg" id="package-logo" align="left" width="35"><a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.1</span>
       </span>
     </div>
 
@@ -77,7 +77,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/zadchow/concurve">
+  <a href="https://github.com/zadrafi/concurve">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -92,7 +92,7 @@
 
       
 
-      </header><script src="troubleshooting_files/jquery-1.11.3/jquery.min.js"></script><script src="troubleshooting_files/elevate-section-attrs-2.0/elevate-section-attrs.js"></script><div class="row">
+      </header><script src="troubleshooting_files/header-attrs-2.1/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Troubleshooting</h1>
@@ -116,7 +116,7 @@
 <p>If that doesn’t work, please try installing, and resinstalling <code>R</code>, and then installing the package again.</p>
 <p>You can also try installing the developer version with</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(devtools)</span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">"zadchow/concurve"</span>)</span></code></pre></div>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">"zadrafi/concurve"</span>)</span></code></pre></div>
 </div>
 <div id="distorted-plots" class="section level1">
 <h1 class="hasAnchor">
@@ -136,16 +136,16 @@
 <p>For example, here I changed the number of steps to 100, which is the minimum needed to plot a function, and the process is now much quicker.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>(df1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/curve_rev.html">curve_rev</a></span>(<span class="dt">point =</span> <span class="fl">1.61</span>, <span class="dt">LL =</span> <span class="fl">0.997</span>, <span class="dt">UL =</span> <span class="fl">2.59</span>, <span class="dt">measure =</span> <span class="st">"ratio"</span>, <span class="dt">steps =</span> <span class="dv">100</span>))</span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="co">#&gt;    user  system elapsed </span></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="co">#&gt;   0.169   0.008   0.178</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="co">#&gt;   0.200   0.009   0.210</span></span>
 <span id="cb4-4"><a href="#cb4-4"></a></span>
 <span id="cb4-5"><a href="#cb4-5"></a><span class="kw"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>(df1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/curve_rev.html">curve_rev</a></span>(<span class="dt">point =</span> <span class="fl">1.61</span>, <span class="dt">LL =</span> <span class="fl">0.997</span>, <span class="dt">UL =</span> <span class="fl">2.59</span>, <span class="dt">measure =</span> <span class="st">"ratio"</span>, <span class="dt">steps =</span> <span class="dv">10000</span>))</span>
 <span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&gt;    user  system elapsed </span></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt;   0.025   0.002   0.027</span></span></code></pre></div>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt;   0.027   0.001   0.029</span></span></code></pre></div>
 </div>
 <div id="bugs" class="section level1">
 <h1 class="hasAnchor">
 <a href="#bugs" class="anchor"></a>Bugs</h1>
-<p>If you encounter any other bugs, please report them at <a href="https://github.com/zadchow/concurve/issues">https://github.com/zadchow/concurve/issues</a></p>
+<p>If you encounter any other bugs, please report them at <a href="https://github.com/zadrafi/concurve/issues">https://github.com/zadrafi/concurve/issues</a></p>
 </div>
 <div id="session-info" class="section level1">
 <h1 class="hasAnchor">
@@ -165,7 +165,7 @@
 #&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     
 #&gt; 
 #&gt; other attached packages:
-#&gt; [1] concurve_2.4.0
+#&gt; [1] concurve_2.4.1
 #&gt; 
 #&gt; loaded via a namespace (and not attached):
 #&gt;  [1] Rcpp_1.0.3            lattice_0.20-38       tidyr_1.0.0          
@@ -175,7 +175,7 @@
 #&gt; [13] ggplot2_3.2.1         pillar_1.4.3          gdtools_0.2.1        
 #&gt; [16] rlang_0.4.2           lazyeval_0.2.2        uuid_0.1-2           
 #&gt; [19] rstudioapi_0.10       data.table_1.12.8     Matrix_1.2-18        
-#&gt; [22] flextable_0.5.6       rmarkdown_2.0         pkgdown_1.4.1        
+#&gt; [22] flextable_0.5.6       rmarkdown_2.1         pkgdown_1.4.1        
 #&gt; [25] desc_1.2.0            splines_3.6.2         stringr_1.4.0        
 #&gt; [28] bcaboot_0.2-1         munsell_0.5.0         broom_0.5.3          
 #&gt; [31] compiler_3.6.2        xfun_0.12             pkgconfig_2.0.3      
@@ -192,7 +192,7 @@
 #&gt; [64] pbmcapply_1.5.0       tools_3.6.2           glue_1.3.1           
 #&gt; [67] officer_0.3.6         purrr_0.3.3           parallel_3.6.2       
 #&gt; [70] survival_3.1-8        yaml_2.2.0            colorspace_1.4-1     
-#&gt; [73] memoise_1.1.0         knitr_1.26</code></pre>
+#&gt; [73] memoise_1.1.0         knitr_1.27</code></pre>
 </div>
   </div>
 
@@ -216,7 +216,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Zad Rafi, <a href="https://www.researchgate.net/profile/Andrew_Vigotsky">Andrew D. Vigotsky</a>.</p>
+  <p>Developed by <a href="https://lesslikely.com/">Zad Rafi</a>, <a href="https://www.researchgate.net/profile/Andrew_Vigotsky">Andrew D. Vigotsky</a>.</p>
 </div>
 
 <div class="pkgdown">

@@ -4,7 +4,7 @@
 \alias{curve_meta}
 \title{Consonance Functions For Meta-Analytic Data}
 \usage{
-curve_meta(x, measure = "default", steps = 10000, table = TRUE)
+curve_meta(x, measure = "default", method = "uni", steps = 10000, table = TRUE)
 }
 \arguments{
 \item{x}{Object where the meta-analysis parameters are stored, typically a
@@ -15,6 +15,10 @@ The default setting is "default. If the measure is set to "ratio", it will take
 logarithmically transformed values and convert them back to normal values in the dataframe.
 This is typically a setting used for binary outcomes such as risk ratios,
 hazard ratios, and odds ratios.}
+
+\item{method}{Indicates which meta-analysis metafor function is being used.
+Currently supports rma.uni ("uni"), which is the default, rma.mh ("mh"),
+and rma.peto ("peto")}
 
 \item{steps}{Indicates how many consonance intervals are to be calculated at
 various levels. For example, setting this to 100 will produce 100 consonance

@@ -50,18 +50,21 @@
     P-Values, S-Values, &amp; Likelihood Intervals to Form Consonance,
     Surprisal, &amp; Likelihood Functions — concurve-package" />
 <meta property="og:description" content="
-Allows one to compute consonance (confidence)
+Allows one to compute compatibility (confidence)
     intervals for various statistical tests along with their corresponding
     P-values, S-values, and likelihoods. The intervals can be plotted to
     create consonance, surprisal, and likelihood functions allowing one to
     see what effect sizes are compatible with the test model at various
-    consonance levels rather than being limited to one interval estimate
+    compatibility levels rather than being limited to one interval estimate
     such as 95
-    &amp;lt;doi:10.2105/AJPH.77.2.195&amp;gt;, Schweder T, Hjort NL. (2002)
+    they overlap with one another and differ. Results can also be exported for 
+    Word, Powerpoint, and TeX documents. The package currently supports bootstrapping,
+    linear models, generalized linear models, linear mixed-effects models, 
+    survival analysis, and meta-analysis. These methods are discussed by 
+    Poole C. (1987) &amp;lt;doi:10.2105/AJPH.77.2.195&amp;gt;, Schweder T, Hjort NL. (2002)
     &amp;lt;doi:10.1111/1467-9469.00285&amp;gt;, Singh K, Xie M, Strawderman WE. (2007)
     &amp;lt;arXiv:0708.0976&amp;gt;, Rothman KJ, Greenland S, Lash TL. (2008,
-    ISBN:9781451190052), Amrhein V, Trafimow D, Greenland S. (2019)
-    &amp;lt;doi:10.1080/00031305.2018.1543137&amp;gt;, Greenland S. (2019)
+    ISBN:9781451190052), Greenland S. (2019)
     &amp;lt;doi:10.1080/00031305.2018.1529625&amp;gt;, Chow ZR, Greenland S. (2019)
     &amp;lt;arXiv:1909.08579&amp;gt;, and Greenland S, Chow ZR. (2019)
     &amp;lt;arXiv:1909.08583&amp;gt;." />
@@ -98,7 +101,7 @@ Allows one to compute consonance (confidence)
       </button>
       <span class="navbar-brand"><img src="https://res.cloudinary.com/less-likely/image/upload/v1575427534/Site/Logo.svg" id ="package-logo" align="left" width="35">
         <a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.1</span>
       </span>
     </div>
 
@@ -137,7 +140,7 @@ Allows one to compute consonance (confidence)
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/zadchow/concurve">
+  <a href="https://github.com/zadrafi/concurve">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -164,18 +167,21 @@ Allows one to compute consonance (confidence)
 
     <div class="ref-description">
     <p><img src='figures/logo.png' align='right' alt='logo' width='120' /></p>
-<p>Allows one to compute consonance (confidence)
+<p>Allows one to compute compatibility (confidence)
     intervals for various statistical tests along with their corresponding
     P-values, S-values, and likelihoods. The intervals can be plotted to
     create consonance, surprisal, and likelihood functions allowing one to
     see what effect sizes are compatible with the test model at various
-    consonance levels rather than being limited to one interval estimate
-    such as 95<!-- %. These methods are discussed by Poole C. (1987) -->
-    &lt;doi:10.2105/AJPH.77.2.195&gt;, Schweder T, Hjort NL. (2002)
+    compatibility levels rather than being limited to one interval estimate
+    such as 95<!-- %. Functions can also be compared to one another to see how much -->
+    they overlap with one another and differ. Results can also be exported for 
+    Word, Powerpoint, and TeX documents. The package currently supports bootstrapping,
+    linear models, generalized linear models, linear mixed-effects models, 
+    survival analysis, and meta-analysis. These methods are discussed by 
+    Poole C. (1987) &lt;doi:10.2105/AJPH.77.2.195&gt;, Schweder T, Hjort NL. (2002)
     &lt;doi:10.1111/1467-9469.00285&gt;, Singh K, Xie M, Strawderman WE. (2007)
     &lt;arXiv:0708.0976&gt;, Rothman KJ, Greenland S, Lash TL. (2008,
-    ISBN:9781451190052), Amrhein V, Trafimow D, Greenland S. (2019)
-    &lt;doi:10.1080/00031305.2018.1543137&gt;, Greenland S. (2019)
+    ISBN:9781451190052), Greenland S. (2019)
     &lt;doi:10.1080/00031305.2018.1529625&gt;, Chow ZR, Greenland S. (2019)
     &lt;arXiv:1909.08579&gt;, and Greenland S, Chow ZR. (2019)
     &lt;arXiv:1909.08583&gt;.</p>
@@ -187,9 +193,9 @@ Allows one to compute consonance (confidence)
 
     <div class='dont-index'><p>Useful links:</p><ul>
 <li><p><a href='https://data.lesslikely.com/concurve/'>https://data.lesslikely.com/concurve/</a></p></li>
-<li><p><a href='https://github.com/zadchow/concurve'>https://github.com/zadchow/concurve</a></p></li>
+<li><p><a href='https://github.com/zadrafi/concurve'>https://github.com/zadrafi/concurve</a></p></li>
 <li><p><a href='https://lesslikely.com/'>https://lesslikely.com/</a></p></li>
-<li><p>Report bugs at <a href='https://github.com/zadchow/concurve/issues'>https://github.com/zadchow/concurve/issues</a></p></li>
+<li><p>Report bugs at <a href='https://github.com/zadrafi/concurve/issues'>https://github.com/zadrafi/concurve/issues</a></p></li>
 </ul>
 
 </div>
@@ -202,7 +208,7 @@ Allows one to compute consonance (confidence)
     </ul>
 
     <h2>Author</h2>
-    <p><strong>Maintainer</strong>: Zad R. Chow <a href='mailto:zad@lesslikely.com'>zad@lesslikely.com</a> (<a href='https://orcid.org/0000-0003-1545-8199'>ORCID</a>)</p>
+    <p><strong>Maintainer</strong>: Zad Rafi <a href='mailto:zad@lesslikely.com'>zad@lesslikely.com</a> (<a href='https://orcid.org/0000-0003-1545-8199'>ORCID</a>)</p>
 <p>Authors:</p><ul>
 <li><p>Andrew D. Vigotsky (<a href='https://orcid.org/0000-0003-3166-0688'>ORCID</a>)</p></li>
 </ul>
@@ -214,7 +220,7 @@ Allows one to compute consonance (confidence)
 
       <footer>
       <div class="copyright">
-  <p>Developed by Zad Rafi, <a href='https://www.researchgate.net/profile/Andrew_Vigotsky'>Andrew D. Vigotsky</a>.</p>
+  <p>Developed by <a href='https://lesslikely.com/'>Zad Rafi</a>, <a href='https://www.researchgate.net/profile/Andrew_Vigotsky'>Andrew D. Vigotsky</a>.</p>
 </div>
 
 <div class="pkgdown">

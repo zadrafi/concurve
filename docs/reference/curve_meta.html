@@ -82,7 +82,7 @@ corresponding p-values and s-values." />
       </button>
       <span class="navbar-brand"><img src="https://res.cloudinary.com/less-likely/image/upload/v1575427534/Site/Logo.svg" id ="package-logo" align="left" width="35">
         <a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.1</span>
       </span>
     </div>
 
@@ -121,7 +121,7 @@ corresponding p-values and s-values." />
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/zadchow/concurve">
+  <a href="https://github.com/zadrafi/concurve">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -151,7 +151,7 @@ interval limits for each interval level into a data frame along with the
 corresponding p-values and s-values.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>curve_meta</span>(<span class='no'>x</span>, <span class='kw'>measure</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>steps</span> <span class='kw'>=</span> <span class='fl'>10000</span>, <span class='kw'>table</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>curve_meta</span>(<span class='no'>x</span>, <span class='kw'>measure</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"uni"</span>, <span class='kw'>steps</span> <span class='kw'>=</span> <span class='fl'>10000</span>, <span class='kw'>table</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -168,6 +168,12 @@ The default setting is "default. If the measure is set to "ratio", it will take
 logarithmically transformed values and convert them back to normal values in the dataframe.
 This is typically a setting used for binary outcomes such as risk ratios,
 hazard ratios, and odds ratios.</p></td>
+    </tr>
+    <tr>
+      <th>method</th>
+      <td><p>Indicates which meta-analysis metafor function is being used.
+Currently supports rma.uni ("uni"), which is the default, rma.mh ("mh"),
+and rma.peto ("peto")</p></td>
     </tr>
     <tr>
       <th>steps</th>
@@ -228,7 +234,7 @@ and the table for the values in the third if table = TRUE.</p>
 
 <span class='co'># Use metafor to calculate the standardized mean difference</span>
 
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>metafor</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: Matrix</span></div><div class='output co'>#&gt; <span class='message'>Loading 'metafor' package (version 2.1-0). For an overview </span>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>metafor</span>)</div><div class='output co'>#&gt; <span class='message'>Loading 'metafor' package (version 2.1-0). For an overview </span>
 #&gt; <span class='message'>and introduction to the package please type: help(metafor).</span></div><div class='input'>
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/metafor/man/escalc.html'>escalc</a></span>(
   <span class='kw'>measure</span> <span class='kw'>=</span> <span class='st'>"SMD"</span>, <span class='kw'>m1i</span> <span class='kw'>=</span> <span class='no'>MeanTreatment</span>, <span class='kw'>sd1i</span> <span class='kw'>=</span> <span class='no'>SDTreatment</span>,
@@ -247,20 +253,20 @@ and the table for the values in the third if table = TRUE.</p>
 
 <span class='no'>metaf</span> <span class='kw'>&lt;-</span> <span class='fu'>curve_meta</span>(<span class='no'>res</span>)
 
-<span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='no'>metaf</span><span class='kw'>[[</span><span class='fl'>1</span>]])</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 10,000 x 1</span><span>
-#&gt;    `metaf[[1]]`$lo… $upper.limit $intrvl.width $intrvl.level  $cdf $pvalue
-#&gt;               </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span>           -</span><span style='color: #BB0000;'>0.249</span><span>       -</span><span style='color: #BB0000;'>0.249</span><span>     0              0        0.5     1    
-#&gt; </span><span style='color: #555555;'> 2</span><span>           -</span><span style='color: #BB0000;'>0.249</span><span>       -</span><span style='color: #BB0000;'>0.249</span><span>     0.000</span><span style='text-decoration: underline;'>056</span><span>5      0.000</span><span style='text-decoration: underline;'>1</span><span>   0.500   1.00 
-#&gt; </span><span style='color: #555555;'> 3</span><span>           -</span><span style='color: #BB0000;'>0.249</span><span>       -</span><span style='color: #BB0000;'>0.249</span><span>     0.000</span><span style='text-decoration: underline;'>113</span><span>       0.000</span><span style='text-decoration: underline;'>2</span><span>   0.500   1.00 
-#&gt; </span><span style='color: #555555;'> 4</span><span>           -</span><span style='color: #BB0000;'>0.249</span><span>       -</span><span style='color: #BB0000;'>0.249</span><span>     0.000</span><span style='text-decoration: underline;'>170</span><span>       0.000</span><span style='text-decoration: underline;'>300</span><span> 0.500   1.00 
-#&gt; </span><span style='color: #555555;'> 5</span><span>           -</span><span style='color: #BB0000;'>0.249</span><span>       -</span><span style='color: #BB0000;'>0.249</span><span>     0.000</span><span style='text-decoration: underline;'>226</span><span>       0.000</span><span style='text-decoration: underline;'>4</span><span>   0.500   1.00 
-#&gt; </span><span style='color: #555555;'> 6</span><span>           -</span><span style='color: #BB0000;'>0.249</span><span>       -</span><span style='color: #BB0000;'>0.249</span><span>     0.000</span><span style='text-decoration: underline;'>283</span><span>       0.000</span><span style='text-decoration: underline;'>5</span><span>   0.500   1.00 
-#&gt; </span><span style='color: #555555;'> 7</span><span>           -</span><span style='color: #BB0000;'>0.249</span><span>       -</span><span style='color: #BB0000;'>0.249</span><span>     0.000</span><span style='text-decoration: underline;'>339</span><span>       0.000</span><span style='text-decoration: underline;'>600</span><span> 0.500   0.999
-#&gt; </span><span style='color: #555555;'> 8</span><span>           -</span><span style='color: #BB0000;'>0.249</span><span>       -</span><span style='color: #BB0000;'>0.249</span><span>     0.000</span><span style='text-decoration: underline;'>396</span><span>       0.000</span><span style='text-decoration: underline;'>7</span><span>   0.500   0.999
-#&gt; </span><span style='color: #555555;'> 9</span><span>           -</span><span style='color: #BB0000;'>0.249</span><span>       -</span><span style='color: #BB0000;'>0.249</span><span>     0.000</span><span style='text-decoration: underline;'>452</span><span>       0.000</span><span style='text-decoration: underline;'>8</span><span>   0.500   0.999
-#&gt; </span><span style='color: #555555;'>10</span><span>           -</span><span style='color: #BB0000;'>0.249</span><span>       -</span><span style='color: #BB0000;'>0.249</span><span>     0.000</span><span style='text-decoration: underline;'>509</span><span>       0.000</span><span style='text-decoration: underline;'>9</span><span>   0.500   0.999
-#&gt; </span><span style='color: #555555;'># … with 9,990 more rows, and 1 more variable: $svalue </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div></span></pre>
+<span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='no'>metaf</span><span class='kw'>[[</span><span class='fl'>1</span>]])</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 9,999 x 1</span><span>
+#&gt;    `metaf[[1]]`$lo… $upper.limit $intrvl.level  $cdf $pvalue $svalue
+#&gt;               </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span>           -</span><span style='color: #BB0000;'>0.124</span><span>       -</span><span style='color: #BB0000;'>0.124</span><span>      0.000</span><span style='text-decoration: underline;'>1</span><span>   0.500   1.00  1.44</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-4</span><span>
+#&gt; </span><span style='color: #555555;'> 2</span><span>           -</span><span style='color: #BB0000;'>0.124</span><span>       -</span><span style='color: #BB0000;'>0.124</span><span>      0.000</span><span style='text-decoration: underline;'>2</span><span>   0.500   1.00  2.89</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-4</span><span>
+#&gt; </span><span style='color: #555555;'> 3</span><span>           -</span><span style='color: #BB0000;'>0.124</span><span>       -</span><span style='color: #BB0000;'>0.124</span><span>      0.000</span><span style='text-decoration: underline;'>300</span><span> 0.500   1.00  4.33</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-4</span><span>
+#&gt; </span><span style='color: #555555;'> 4</span><span>           -</span><span style='color: #BB0000;'>0.124</span><span>       -</span><span style='color: #BB0000;'>0.124</span><span>      0.000</span><span style='text-decoration: underline;'>4</span><span>   0.500   1.00  5.77</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-4</span><span>
+#&gt; </span><span style='color: #555555;'> 5</span><span>           -</span><span style='color: #BB0000;'>0.124</span><span>       -</span><span style='color: #BB0000;'>0.124</span><span>      0.000</span><span style='text-decoration: underline;'>5</span><span>   0.500   1.00  7.22</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-4</span><span>
+#&gt; </span><span style='color: #555555;'> 6</span><span>           -</span><span style='color: #BB0000;'>0.124</span><span>       -</span><span style='color: #BB0000;'>0.124</span><span>      0.000</span><span style='text-decoration: underline;'>600</span><span> 0.500   0.999 8.66</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-4</span><span>
+#&gt; </span><span style='color: #555555;'> 7</span><span>           -</span><span style='color: #BB0000;'>0.124</span><span>       -</span><span style='color: #BB0000;'>0.124</span><span>      0.000</span><span style='text-decoration: underline;'>7</span><span>   0.500   0.999 1.01</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-3</span><span>
+#&gt; </span><span style='color: #555555;'> 8</span><span>           -</span><span style='color: #BB0000;'>0.124</span><span>       -</span><span style='color: #BB0000;'>0.123</span><span>      0.000</span><span style='text-decoration: underline;'>8</span><span>   0.500   0.999 1.15</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-3</span><span>
+#&gt; </span><span style='color: #555555;'> 9</span><span>           -</span><span style='color: #BB0000;'>0.124</span><span>       -</span><span style='color: #BB0000;'>0.123</span><span>      0.000</span><span style='text-decoration: underline;'>9</span><span>   0.500   0.999 1.30</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-3</span><span>
+#&gt; </span><span style='color: #555555;'>10</span><span>           -</span><span style='color: #BB0000;'>0.124</span><span>       -</span><span style='color: #BB0000;'>0.123</span><span>      0.001    0.500   0.999 1.44</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-3</span><span>
+#&gt; </span><span style='color: #555555;'># … with 9,989 more rows, and 1 more variable: $intrvl.width </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -276,7 +282,7 @@ and the table for the values in the third if table = TRUE.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Zad Rafi, <a href='https://www.researchgate.net/profile/Andrew_Vigotsky'>Andrew D. Vigotsky</a>.</p>
+  <p>Developed by <a href='https://lesslikely.com/'>Zad Rafi</a>, <a href='https://www.researchgate.net/profile/Andrew_Vigotsky'>Andrew D. Vigotsky</a>.</p>
 </div>
 
 <div class="pkgdown">
