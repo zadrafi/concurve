@@ -9,8 +9,8 @@ output: github_document
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/concurve)](https://CRAN.R-project.org/package=concurve)
-[![Travis build status](https://travis-ci.org/Zadchow/concurve.svg?branch=master)](https://travis-ci.org/Zadchow/concurve)
-[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![Travis build status](https://travis-ci.com/zadrafi/concurve.svg?branch=master)](https://travis-ci.com/zadrafi/concurve)
+[![Lifecycle: Stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 [![Monthly Downloads](https://cranlogs.r-pkg.org/badges/concurve)](https://cran.r-project.org/package=concurve)
 [![Total Downloads](https://cranlogs.r-pkg.org/badges/grand-total/concurve)](https://cran.r-project.org/package=concurve)
 [![Rdoc](http://www.rdocumentation.org/badges/version/concurve)](http://www.rdocumentation.org/packages/concurve)
@@ -58,6 +58,7 @@ install.packages("concurve", dep = TRUE)
 * `R` ≥ 3.5.0
 * [`ggplot2`](https://ggplot2.tidyverse.org/)
 * [`metafor`](http://www.metafor-project.org/doku.php/metafor)
+* [`lme4`](https://cran.r-project.org/package=lme4)
 * `parallel`
 * [`boot`](https://cran.r-project.org/package=boot)
 * [`bcaboot`](https://cran.r-project.org/package=bcaboot)

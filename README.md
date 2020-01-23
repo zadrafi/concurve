@@ -13,9 +13,9 @@
 [![CRAN
 status](https://www.r-pkg.org/badges/version/concurve)](https://CRAN.R-project.org/package=concurve)
 [![Travis build
-status](https://travis-ci.org/Zadchow/concurve.svg?branch=master)](https://travis-ci.org/Zadchow/concurve)
+status](https://travis-ci.com/zadrafi/concurve.svg?branch=master)](https://travis-ci.com/zadrafi/concurve)
 [![Lifecycle:
-maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+Stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 [![Monthly
 Downloads](https://cranlogs.r-pkg.org/badges/concurve)](https://cran.r-project.org/package=concurve)
 [![Total
@@ -67,6 +67,7 @@ Try the following if you run into any installation issues:
   - `R` ≥ 3.5.0
   - [`ggplot2`](https://ggplot2.tidyverse.org/)
   - [`metafor`](http://www.metafor-project.org/doku.php/metafor)
+  - [`lme4`](https://cran.r-project.org/package=lme4)
   - `parallel`
   - [`boot`](https://cran.r-project.org/package=boot)
   - [`bcaboot`](https://cran.r-project.org/package=bcaboot)
