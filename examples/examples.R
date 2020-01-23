@@ -306,3 +306,4 @@ tibble::tibble(metaf2[[1]])
 (curve_compare(data1 = metaf[[1]], data2 = metaf2[[1]], type = "s", plot = TRUE, measure = "default")
 )
 
+??optimal

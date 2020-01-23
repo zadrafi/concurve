@@ -2,6 +2,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^pkgdown$
+^docs$
 ^\.travis\.yml$
 ^/\.gitattributes$
 ^codecov\.yml$

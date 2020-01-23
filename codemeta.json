@@ -16,7 +16,7 @@
   ],
   "issueTracker": "https://github.com/zadrafi/concurve/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "2.4.1",
+  "version": "2.4.2",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -351,7 +351,7 @@
     }
   ],
   "keywords": ["confidence", "compatibility", "consonance", "surprisal", "interval", "function", "curve", "confidence-intervals", "cargo-cult-statistics", "compatibility-intervals", "assumptions", "stata", "confidence-distribution", "likelihood-functions", "bootstrap-method", "r", "frequentist-methods", "fiducial-distribution"],
-  "fileSize": "5080.509KB",
+  "fileSize": "5080.548KB",
   "contIntegration": [
     "https://travis-ci.org/Zadchow/concurve",
     "https://ci.appveyor.com/project/Zadchow/concurve",
