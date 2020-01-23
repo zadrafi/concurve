@@ -8,8 +8,6 @@
     P-Values, S-Values, & Likelihood Intervals to Form Consonance,
     Surprisal, & Likelihood Functions}
 \description{
-\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
-
 Allows one to compute compatibility (confidence)
     intervals for various statistical tests along with their corresponding
     P-values, S-values, and likelihoods. The intervals can be plotted to

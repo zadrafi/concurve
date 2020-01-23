@@ -9,13 +9,14 @@
 <title> concurve R Package | Less Likely </title>
 
 <!-- favicons -->
-<link rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/zadrafi/concurve/master/pkgdown/favicon/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://raw.githubusercontent.com/zadrafi/concurve/master/pkgdown/favicon/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/zadrafi/concurve/master/pkgdown/favicon/favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="https://raw.githubusercontent.com/zadrafi/concurve/master/pkgdown/favicon/apple-touch-icon.png" />
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="https://raw.githubusercontent.com/zadrafi/concurve/master/pkgdown/favicon/apple-touch-icon-120x120.png" />
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="https://raw.githubusercontent.com/zadrafi/concurve/master/pkgdown/favicon/apple-touch-icon-76x76.png" />
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="https://raw.githubusercontent.com/zadrafi/concurve/master/pkgdown/favicon/apple-touch-icon-60x60.png" />
+<link rel="shortcut icon" type="image/x-icon" href="https://github.com/zadrafi/concurve/raw/master/pkgdown/favicon/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://github.com/zadrafi/concurve/raw/master/pkgdown/favicon/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://github.com/zadrafi/concurve/raw/master/pkgdown/favicon/favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="https://github.com/zadrafi/concurve/raw/master/pkgdown/favicon/apple-touch-icon-180x180.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="https://github.com/zadrafi/concurve/raw/master/pkgdown/favicon/apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="https://github.com/zadrafi/concurve/raw/master/pkgdown/favicon/apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="https://github.com/zadrafi/concurve/raw/master/pkgdown/favicon/apple-touch-icon-60x60.png" />
+
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -42,9 +43,9 @@
 
 
 <!-- docsearch -->
-<script src="../docsearch.js"></script>
+<script src="https://raw.githubusercontent.com/zadrafi/concurve/master/inst/assets/docsearch.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
-<link href="../docsearch.css" rel="stylesheet">
+<link href="https://raw.githubusercontent.com/zadrafi/concurve/master/inst/assets/docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
@@ -176,7 +177,7 @@ the interval limits for each interval level into a data frame along
 with the corresponding p-values and s-values.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>curve_gen</span>(<span class='no'>model</span>, <span class='no'>var</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"wald"</span>, <span class='kw'>steps</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>table</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>curve_gen</span>(<span class='no'>model</span>, <span class='no'>var</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"lm"</span>, <span class='kw'>steps</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>table</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -194,14 +195,13 @@ for which the intervals are to be produced.</p></td>
     <tr>
       <th>method</th>
       <td><p>Chooses the method to be used to calculate the
-consonance intervals. There are currently four methods:
-"default", "wald", "lm", and "boot". The "default" method uses the profile
+consonance intervals. There are currently two methods:
+"lm", and "glm". The "lm" method uses the profile
 likelihood method to compute intervals and can be used for models created by
-the 'lm' function. The "wald" method is typicallywhat most people are
+the 'lm' function. It is typically what most people are
 familiar with when computing intervals based on the calculated standard error.
-The "lm" method allows this function to be used for specific scenarios like
-logistic regression and the 'glm' function. The "boot" method allows for
-bootstrapping at certain levels.</p></td>
+The "glm" method allows this function to be used for specific scenarios like
+logistic regression and the 'glm' function.</p></td>
     </tr>
     <tr>
       <th>steps</th>
