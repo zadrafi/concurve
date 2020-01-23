@@ -7,10 +7,5 @@ usethis.R
 _config.yml
 .Rbuildignore
 .gitignore
-.github/
 CRAN-RELEASE
 cran-comments.md
-concurve.Rproj
-README.Rmd
-revdep/
-Makefile
