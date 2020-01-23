@@ -11,8 +11,6 @@ _config.yml
 CRAN-RELEASE
 cran-comments.md
 concurve.Rproj
-inst/
 README.Rmd
 revdep/
 Makefile
-_pkgdown.yml

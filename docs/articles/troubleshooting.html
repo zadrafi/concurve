@@ -151,11 +151,11 @@
 <p>For example, here I changed the number of steps to 100, which is the minimum needed to plot a function, and the process is now much quicker.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>(df1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/curve_rev.html">curve_rev</a></span>(<span class="dt">point =</span> <span class="fl">1.61</span>, <span class="dt">LL =</span> <span class="fl">0.997</span>, <span class="dt">UL =</span> <span class="fl">2.59</span>, <span class="dt">measure =</span> <span class="st">"ratio"</span>, <span class="dt">steps =</span> <span class="dv">100</span>))</span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="co">#&gt;    user  system elapsed </span></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="co">#&gt;   0.168   0.006   0.175</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="co">#&gt;   0.199   0.009   0.208</span></span>
 <span id="cb4-4"><a href="#cb4-4"></a></span>
 <span id="cb4-5"><a href="#cb4-5"></a><span class="kw"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>(df1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/curve_rev.html">curve_rev</a></span>(<span class="dt">point =</span> <span class="fl">1.61</span>, <span class="dt">LL =</span> <span class="fl">0.997</span>, <span class="dt">UL =</span> <span class="fl">2.59</span>, <span class="dt">measure =</span> <span class="st">"ratio"</span>, <span class="dt">steps =</span> <span class="dv">10000</span>))</span>
 <span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&gt;    user  system elapsed </span></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt;   0.024   0.001   0.026</span></span></code></pre></div>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt;   0.037   0.003   0.039</span></span></code></pre></div>
 </div>
 <div id="bugs" class="section level1">
 <h1 class="hasAnchor">
