@@ -11,14 +11,13 @@
 #' @param var The variable of interest from the model (coefficients, intercept)
 #' for which the intervals are to be produced.
 #' @param method Chooses the method to be used to calculate the
-#' consonance intervals. There are currently four methods:
-#' "default", "wald", "lm", and "boot". The "default" method uses the profile
+#' consonance intervals. There are currently two methods:
+#' "lm", and "glm". The "lm" method uses the profile
 #' likelihood method to compute intervals and can be used for models created by
-#' the 'lm' function. The "wald" method is typicallywhat most people are
+#' the 'lm' function. It is typically what most people are
 #' familiar with when computing intervals based on the calculated standard error.
-#' The "lm" method allows this function to be used for specific scenarios like
-#' logistic regression and the 'glm' function. The "boot" method allows for
-#' bootstrapping at certain levels.
+#' The "glm" method allows this function to be used for specific scenarios like
+#' logistic regression and the 'glm' function.
 #' @param steps Indicates how many consonance intervals are to be calculated at
 #' various levels. For example, setting this to 100 will produce 100 consonance
 #' intervals from 0 to 100. Setting this to 10000 will produce more consonance
@@ -45,7 +44,7 @@
 #' tibble::tibble(bob[[1]])
 #' }
 #'
-curve_gen <- function(model, var, method = "wald", steps = 1000, table = TRUE) {
+curve_gen <- function(model, var, method = "lm", steps = 1000, table = TRUE) {
   if (is.character(method) != TRUE) {
     stop("Error: 'method' must be a character vector")
   }
@@ -55,7 +54,7 @@ curve_gen <- function(model, var, method = "wald", steps = 1000, table = TRUE) {
 
   intrvls <- (1:(steps - 1)) / steps
 
-  if (method == "wald") {
+  if (method == "lm") {
     results <- pbmclapply(intrvls, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = getOption("mc.cores", 1L))
   } else if (method == "glm") {
     results <- pbmclapply(intrvls, FUN = function(i) confint(object = model, level = i, trace = FALSE)[var, ], mc.cores = getOption("mc.cores", 1L))

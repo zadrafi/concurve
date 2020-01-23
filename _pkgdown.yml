@@ -11,25 +11,29 @@ authors:
 template:
   params:
     docsearch:
-      api_key: 06b36e3390cd325ea4ee39674fe4f9d1
+      api_key: 328a30be91979e947c28ffd52f604eda
       index_name: lesslikely-concurve
+    ganalytics: UA-116104766-1
     bootswatch: paper
   path: inst/templates
   assets: inst/assets
   default_assets: false
 
+development:
+  mode: auto
 
 navbar:
-  type: default
   structure:
-    left:
-    - home
-    - intro
-    - reference
-    - articles
-    - tutorials
-    - news
-    right: github
+    left:  [home, intro, reference, articles, tutorials, news]
+    right: [github, twitter]
+
+pkgdown:
+  as_is: true
+  extension: pdf
+
+toc:
+  depth: 2
+
   components:
     home:
       icon: fa-home fa-lg
@@ -52,3 +56,7 @@ navbar:
     github:
       icon: fa-github fa-lg
       href: https://github.com/zadrafi/concurve
+    twitter:
+      icon: fa-twitter fa-lg
+      href: https://twitter.com/avigotsky
+
