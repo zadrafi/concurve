@@ -40,6 +40,12 @@
 <script src="../pkgdown.js"></script>
 
 
+<!-- docsearch -->
+<script src="../docsearch.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+
 
   <link href="../extra.css" rel="stylesheet">
   
@@ -127,6 +133,12 @@ with the corresponding p-values and s-values." />
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right hidden-xs hidden-sm" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -235,7 +247,7 @@ and the table for the values in the third if table = TRUE.</p>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    lmList</span></div><div class='input'><span class='no'>m</span> <span class='kw'>&lt;-</span> ~ <span class='no'>x</span> + (<span class='no'>x</span> <span class='kw'>||</span> <span class='no'>g</span>)
 <span class='fu'><a href='https://rdrr.io/pkg/lme4/man/expandDoubleVerts.html'>expandDoubleVerts</a></span>(<span class='no'>m</span>)</div><div class='output co'>#&gt; ~x + ((1 | g) + (0 + x | g))
-#&gt; &lt;environment: 0x7fdabad4d148&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>101</span>)
+#&gt; &lt;environment: 0x7fa4d08b19d0&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>101</span>)
 <span class='no'>dd</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span>(<span class='kw'>f</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>]),<span class='kw'>g</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fl'>1</span>:<span class='fl'>200</span>),<span class='kw'>rep</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>3</span>)
 <span class='no'>dd</span>$<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/simulate.html'>simulate</a></span>(~<span class='no'>f</span> + (<span class='fl'>1</span><span class='kw'>|</span><span class='no'>g</span>) + (<span class='fl'>0</span>+<span class='fu'><a href='https://rdrr.io/pkg/lme4/man/dummy.html'>dummy</a></span>(<span class='no'>f</span>,<span class='st'>"b"</span>)<span class='kw'>|</span><span class='no'>g</span>) + (<span class='fl'>0</span>+<span class='fu'><a href='https://rdrr.io/pkg/lme4/man/dummy.html'>dummy</a></span>(<span class='no'>f</span>,<span class='st'>"c"</span>)<span class='kw'>|</span><span class='no'>g</span>),
                 <span class='kw'>newdata</span><span class='kw'>=</span><span class='no'>dd</span>,
@@ -283,6 +295,23 @@ and the table for the values in the third if table = TRUE.</p>
    </div>
 
   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: '328a30be91979e947c28ffd52f604eda',
+    indexName: 'lesslikely-concurve',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+
 
 
   </body>

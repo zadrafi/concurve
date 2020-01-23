@@ -67,8 +67,6 @@
 #'
 
 
-
-
 curve_lmer <- function(object, parm, method = "profile", zeta = NULL,
                        nsim = NULL, FUN = NULL, boot.type = NULL, steps = 1000, mc.cores = 1, table = FALSE) {
   if (is.numeric(steps) != TRUE) {

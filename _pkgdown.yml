@@ -10,6 +10,9 @@ authors:
 
 template:
   params:
+    docsearch:
+      api_key: 328a30be91979e947c28ffd52f604eda
+      index_name: lesslikely-concurve
     bootswatch: paper
   path: inst/templates
   assets: inst/assets
