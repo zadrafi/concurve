@@ -1,10 +1,5 @@
 
-<center>
-
-<strong> concurve | Graph Interval Functions </strong>
-<img src="man/figures/logo.svg" align="right" width="70"/>
-
-</center>
+## concurve | Graph Interval Functions </strong> <img src="man/figures/logo.svg" align="right" width="70"/>
 
 -----
 
@@ -27,10 +22,8 @@ v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org
 
 ### [Compare](https://data.lesslikely.com/concurve/reference/curve_compare.html) Functions From Different Datasets/Studies
 
-<img src = "https://res.cloudinary.com/less-likely/image/upload/v1574598684/Site/cfunctions.png" align="center" width ="200">
-<img src = "https://res.cloudinary.com/less-likely/image/upload/v1574598684/Site/sfunctions.png" align="center" width="200">
-<img src = "https://res.cloudinary.com/less-likely/image/upload/v1574598684/Site/lfunctions.png" align="center" width ="200">
-<img src = "https://res.cloudinary.com/less-likely/image/upload/v1574598684/Site/dfunctions.png" align="center" width="200">
+<img src = "https://res.cloudinary.com/less-likely/image/upload/v1574598684/Site/cfunctions.png" align="center" width ="400">
+<img src = "https://res.cloudinary.com/less-likely/image/upload/v1574598684/Site/lfunctions.png" align="center" width ="400">
 
 -----
 
@@ -64,11 +57,9 @@ Try the following if you run into any installation issues:
 
 ## Dependencies
 
-  - `R` ≥ 3.5.0
   - [`ggplot2`](https://ggplot2.tidyverse.org/)
   - [`metafor`](http://www.metafor-project.org/doku.php/metafor)
   - [`lme4`](https://cran.r-project.org/package=lme4)
-  - `parallel`
   - [`boot`](https://cran.r-project.org/package=boot)
   - [`bcaboot`](https://cran.r-project.org/package=bcaboot)
   - [`ProfileLikelihood`](https://cran.r-project.org/package=ProfileLikelihood)
@@ -82,7 +73,6 @@ Try the following if you run into any installation issues:
   - [`survival`](https://cran.r-project.org/package=survival)
   - [`survminer`](https://cran.r-project.org/package=survminer)
   - [`scales`](https://cran.r-project.org/package=scales)
-  - `methods`
 
 -----
 

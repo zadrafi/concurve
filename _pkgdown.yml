@@ -27,13 +27,6 @@ navbar:
     left:  [home, intro, reference, articles, tutorials, news]
     right: [github, twitter]
 
-pkgdown:
-  as_is: true
-  extension: pdf
-
-toc:
-  depth: 2
-
   components:
     home:
       icon: fa-home fa-lg
@@ -58,5 +51,11 @@ toc:
       href: https://github.com/zadrafi/concurve
     twitter:
       icon: fa-twitter fa-lg
-      href: https://twitter.com/avigotsky
+      href: https://twitter.com/dailyzad
 
+pkgdown:
+  as_is: true
+  extension: pdf
+
+toc:
+  depth: 2
