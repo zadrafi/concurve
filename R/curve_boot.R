@@ -62,7 +62,7 @@ curve_boot <- function(data = data, func = func, method = "bca", t0, tt, bb, rep
 
     z <- result[["lims"]]
     z <- as.data.frame(z)
-    z <- as_tibble(rownames_to_column(z))
+    z <- tibble::as_tibble(rownames_to_column(z))
     colnames(z)[1] <- "alphaperc"
     z$alphaperc <- as.numeric(z$alphaperc)
     1:length(alpha)
@@ -172,7 +172,7 @@ curve_boot <- function(data = data, func = func, method = "bca", t0, tt, bb, rep
 
     z <- result[["lims"]]
     z <- as.data.frame(z)
-    z <- as_tibble(rownames_to_column(z))
+    z <- tibble::as_tibble(rownames_to_column(z))
     colnames(z)[1] <- "alphaperc"
     z$alphaperc <- as.numeric(z$alphaperc)
     1:length(alpha)

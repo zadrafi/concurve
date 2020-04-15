@@ -1,0 +1,125 @@
+---
+title: "Meta-Analysis Examples"
+output: rmarkdown::html_vignette
+bibliography: references.bib
+link-citations: yes
+csl: american-medical-association.csl
+vignette: >
+  %\VignetteIndexEntry{Meta-Analysis Examples}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  message = TRUE,
+  warning = TRUE,
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Simple Data Structures
+
+Here, we'll use an example dataset taken from the [`metafor`](http://www.metafor-project.org/doku.php/analyses:normand1999) website, which also comes preloaded with the `metafor` package.[@Viechtbauer_2010]
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+library(metafor)
+library(concurve)
+library(ggplot2)
+dat.hine1989
+```
+
+I will quote Wolfgang here, since he explains it best,
+
+>"As described under help(dat.hine1989), variables **n1i** and **n2i** are the number of patients in the lidocaine and control group, respectively, and **ai** and **ci** are the corresponding number of deaths in the two groups. Since these are 2×2 table data, a variety of different outcome measures could be used for the meta-analysis, including the risk difference, the risk ratio (relative risk), and the odds ratio (see Table III). Normand (1999) uses risk differences for the meta-analysis, so we will proceed accordingly. We can calculate the risk differences and corresponding sampling variances with:
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+dat <- escalc(measure = "RD", n1i = n1i, n2i = n2i, ai = ai, ci = ci, data = dat.hine1989)
+dat
+```
+
+>"Note that the **yi** values are the risk differences in terms of proportions. Since Normand (1999) provides the results in terms of percentages, we can make the results directly comparable by multiplying the risk differences by 100 (and the sampling variances by $100^{2}$):
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+dat$yi <- dat$yi * 100
+dat$vi <- dat$vi * 100^2
+```
+
+We can fit a fixed-effects model with the following 
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+fe <- rma(yi, vi, data = dat, method = "FE")
+```
+
+Now that we have our metafor object, we can compute the consonance function using the `curve_meta()` function. 
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+fecurve <- curve_meta(fe)
+```
+
+Now we can graph our function. 
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+ggcurve(fecurve[[1]], nullvalue = TRUE)
+```
+
+We used a fixed-effects model here, but if we wanted to use a random-effects model, we could do so with the following, which will use a restricted maximum likelihood estimator for the random-effects model 
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+re <- rma(yi, vi, data = dat, method = "REML")
+```
+
+And then we could use `curve_meta()` to get the relevant list 
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+recurve <- curve_meta(re)
+```
+
+Now we can plot our object.
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+ggcurve(recurve[[1]], nullvalue = TRUE)
+```
+
+We could also compare our two models to see how much consonance/overlap there is 
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+curve_compare(fecurve[[1]], recurve[[1]], plot = TRUE)
+```
+
+The results are practically the same and we cannot actually see any difference, and the AUC % overlap also indicates this. 
+
+# Complex Data Structures
+
+`concurve` can also handle complex data structures from `metafor` that are clustered. 
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+
+### copy data from Berkey et al. (1998) into 'dat'
+dat <- dat.berkey1998
+
+### construct list of the variance-covariance matrices of the observed outcomes for the studies
+V <- lapply(split(dat[, c("v1i", "v2i")], dat$trial), as.matrix)
+
+### construct block diagonal matrix
+V <- bldiag(V)
+
+### fit multivariate model
+res <- rma.mv(yi, V, mods = ~ outcome - 1, random = ~ outcome | trial, struct = "UN", data = dat)
+
+### results based on sandwich method
+(a <- robust(res, cluster = dat$trial))
+
+l <- concurve::curve_meta(res, method = "uni", robust = TRUE, cluster = dat$trial, adjust = TRUE, steps = 1000)
+
+ggcurve(data = l[[1]], type = "c") +
+  theme_minimal()
+```
+
+The interval function is quite narrow because there were so many iterations that were set by us. 
+
+* * * 
+
+# References
+
+* * * 

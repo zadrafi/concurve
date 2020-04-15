@@ -4,7 +4,8 @@
 \alias{curve_meta}
 \title{Consonance Functions For Meta-Analytic Data}
 \usage{
-curve_meta(x, measure = "default", method = "uni", steps = 10000, table = TRUE)
+curve_meta(x, measure = "default", method = "uni", robust = FALSE,
+  cluster = NULL, adjust = FALSE, steps = 1000, table = TRUE)
 }
 \arguments{
 \item{x}{Object where the meta-analysis parameters are stored, typically a
@@ -19,6 +20,16 @@ hazard ratios, and odds ratios.}
 \item{method}{Indicates which meta-analysis metafor function is being used.
 Currently supports rma.uni ("uni"), which is the default, rma.mh ("mh"),
 and rma.peto ("peto")}
+
+\item{robust}{a logical indicating whether to produce cluster robust interval estimates
+Default is FALSE.}
+
+\item{cluster}{a vector specifying a clustering variable to use for
+constructing the sandwich estimator of the variance-covariance matrix.
+Default setting is NULL.}
+
+\item{adjust}{logical indicating whether a small-sample correction should
+be applied to the variance-covariance matrix. Default is FALSE.}
 
 \item{steps}{Indicates how many consonance intervals are to be calculated at
 various levels. For example, setting this to 100 will produce 100 consonance
@@ -96,6 +107,4 @@ res <- rma(yi, vi,
 # Calculate the intervals using the metainterval function
 
 metaf <- curve_meta(res)
-
-tibble::tibble(metaf[[1]])
 }

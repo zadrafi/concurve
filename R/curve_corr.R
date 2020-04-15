@@ -34,7 +34,6 @@
 #' GroupA <- rnorm(50)
 #' GroupB <- rnorm(50)
 #' joe <- curve_corr(x = GroupA, y = GroupB, alternative = "two.sided", method = "pearson")
-#' tibble::tibble(joe[[1]])
 curve_corr <- function(x, y, alternative, method, steps = 10000, table = TRUE) {
   if (is.numeric(x) != TRUE) {
     stop("Error: 'x' must be a numeric vector")

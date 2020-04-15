@@ -1,4 +1,4 @@
-#' Consonance Functions For Linear Mixed-Effects Models.
+#' Consonance Functions For Linear & Non-Linear Mixed-Effects Models.
 #'
 #' Computes thousands of consonance (confidence) intervals for
 #' the chosen parameter in the selected lme4 model and places
@@ -41,30 +41,7 @@
 #' object, the values needed to calculate the density function in the second,
 #' and the table for the values in the third if table = TRUE.
 #'
-#' @examples
-#'
-#' \donttest{
-#' library(lme4)
-#' m <- ~ x + (x || g)
-#' expandDoubleVerts(m)
-#' set.seed(101)
-#' dd <- expand.grid(f=factor(letters[1:3]),g=factor(1:200),rep=1:3)
-#' dd$y <- simulate(~f + (1|g) + (0+dummy(f,"b")|g) + (0+dummy(f,"c")|g),
-#'                 newdata=dd,
-#'                 newparams=list(beta=rep(0,3),
-#'                                theta=c(1,2,1),
-#'                                sigma=1),
-#'                 family=gaussian)[[1]]
-#' m1 <- lmer(y~f+(f|g),data=dd)
-#' VarCorr(m1)
-#' m2 <- lmer(y~f+(1|g) + (0+dummy(f,"b")|g) + (0+dummy(f,"c")|g),
-#'           data=dd)
-#' VarCorr(m2)
-#'
-#' confint.merMod(m2, parm = "fb", level = 0.95)
-#' z <- curve_lmer(object = m2, parm = "fb", steps = 1000, mc.cores = 8, table = TRUE)
-#' }
-#'
+
 
 
 curve_lmer <- function(object, parm, method = "profile", zeta = NULL,

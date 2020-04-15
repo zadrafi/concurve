@@ -52,12 +52,12 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Consonance Functions For Linear Mixed-Effects Models. — curve_lmer" />
+<meta property="og:title" content="Consonance Functions For Linear &amp; Non-Linear Mixed-Effects Models. — curve_lmer" />
 <meta property="og:description" content="Computes thousands of consonance (confidence) intervals for
 the chosen parameter in the selected lme4 model and places
 the interval limits for each interval level into a data frame along
 with the corresponding p-values and s-values." />
-<meta property="og:image" content="https://data.lesslikely.com/concurve/logo.png" />
+<meta property="og:image" content="https://data.lesslikely.com/concurve/logo.svg" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -100,7 +100,7 @@ with the corresponding p-values and s-values." />
       </button>
       <span class="navbar-brand"><img src="https://res.cloudinary.com/less-likely/image/upload/v1575427534/Site/Logo.svg" id ="package-logo" align="left" width="35">
         <a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.5.0</span>
       </span>
     </div>
 
@@ -126,15 +126,57 @@ with the corresponding p-values and s-values." />
       <a href="../articles/examples.html">Examples in R</a>
     </li>
     <li>
-      <a href="../articles/troubleshooting.html">Troubleshooting</a>
+      <a href="../articles/survival.html">Survival Modeling</a>
+    </li>
+    <li>
+      <a href="../articles/meta-analysis.html">Meta-Analysis Examples</a>
+    </li>
+    <li>
+      <a href="../articles/likelihood.html">Profile Likelihoods</a>
+    </li>
+    <li>
+      <a href="../articles/bootstrap.html">Bootstrap and Consonance Functions</a>
+    </li>
+    <li>
+      <a href="../articles/bayes.html">Comparison to Bayesian Posteriors</a>
     </li>
     <li>
       <a href="../articles/stata.html">Using Stata</a>
     </li>
+    <li>
+      <a href="../articles/customizing.html">Customizing Plots</a>
+    </li>
+    <li>
+      <a href="../articles/troubleshooting.html">Troubleshooting</a>
+    </li>
   </ul>
 </li>
-<li>
-  <a href="../news/index.html">News</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    News
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../news/index.html">Updates</a>
+    </li>
+    <li>
+      <a href="../articles/wishlist.html">Wish List</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Tools
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/svalues.html">S-value Calculator</a>
+    </li>
+  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -169,7 +211,7 @@ with the corresponding p-values and s-values." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Consonance Functions For Linear Mixed-Effects Models.</h1>
+    <h1>Consonance Functions For Linear &amp; Non-Linear Mixed-Effects Models.</h1>
     <small class="dont-index">Source: <a href='https://github.com/zadrafi/concurve/blob/master/R/curve_lmer.R'><code>R/curve_lmer.R</code></a></small>
     <div class="hidden name"><code>curve_lmer.Rd</code></div>
     </div>
@@ -257,45 +299,11 @@ which is included in the list object.</p></td>
 object, the values needed to calculate the density function in the second,
 and the table for the values in the third if table = TRUE.</p>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='co'># \donttest{</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>lme4</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: Matrix</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘lme4’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:nlme’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    lmList</span></div><div class='input'><span class='no'>m</span> <span class='kw'>&lt;-</span> ~ <span class='no'>x</span> + (<span class='no'>x</span> <span class='kw'>||</span> <span class='no'>g</span>)
-<span class='fu'><a href='https://rdrr.io/pkg/lme4/man/expandDoubleVerts.html'>expandDoubleVerts</a></span>(<span class='no'>m</span>)</div><div class='output co'>#&gt; ~x + ((1 | g) + (0 + x | g))
-#&gt; &lt;environment: 0x7fb27771a9c8&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>101</span>)
-<span class='no'>dd</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span>(<span class='kw'>f</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>]),<span class='kw'>g</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fl'>1</span>:<span class='fl'>200</span>),<span class='kw'>rep</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>3</span>)
-<span class='no'>dd</span>$<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/simulate.html'>simulate</a></span>(~<span class='no'>f</span> + (<span class='fl'>1</span><span class='kw'>|</span><span class='no'>g</span>) + (<span class='fl'>0</span>+<span class='fu'><a href='https://rdrr.io/pkg/lme4/man/dummy.html'>dummy</a></span>(<span class='no'>f</span>,<span class='st'>"b"</span>)<span class='kw'>|</span><span class='no'>g</span>) + (<span class='fl'>0</span>+<span class='fu'><a href='https://rdrr.io/pkg/lme4/man/dummy.html'>dummy</a></span>(<span class='no'>f</span>,<span class='st'>"c"</span>)<span class='kw'>|</span><span class='no'>g</span>),
-                <span class='kw'>newdata</span><span class='kw'>=</span><span class='no'>dd</span>,
-                <span class='kw'>newparams</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>beta</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>0</span>,<span class='fl'>3</span>),
-                               <span class='kw'>theta</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>1</span>),
-                               <span class='kw'>sigma</span><span class='kw'>=</span><span class='fl'>1</span>),
-                <span class='kw'>family</span><span class='kw'>=</span><span class='no'>gaussian</span>)<span class='kw'>[[</span><span class='fl'>1</span>]]</div><div class='output co'>#&gt; <span class='message'>theta parameter vector not named: assuming same order as internal vector</span></div><div class='output co'>#&gt; <span class='message'>beta parameter vector not named: assuming same order as internal vector</span></div><div class='input'><span class='no'>m1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/lme4/man/lmer.html'>lmer</a></span>(<span class='no'>y</span>~<span class='no'>f</span>+(<span class='no'>f</span><span class='kw'>|</span><span class='no'>g</span>),<span class='kw'>data</span><span class='kw'>=</span><span class='no'>dd</span>)
-<span class='fu'><a href='https://rdrr.io/pkg/lme4/man/VarCorr.html'>VarCorr</a></span>(<span class='no'>m1</span>)</div><div class='output co'>#&gt;  Groups   Name        Std.Dev. Corr         
-#&gt;  g        (Intercept) 0.95684               
-#&gt;           fb          1.97300   0.106       
-#&gt;           fc          0.96426   0.109 -0.086
-#&gt;  Residual             1.02172               </div><div class='input'><span class='no'>m2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/lme4/man/lmer.html'>lmer</a></span>(<span class='no'>y</span>~<span class='no'>f</span>+(<span class='fl'>1</span><span class='kw'>|</span><span class='no'>g</span>) + (<span class='fl'>0</span>+<span class='fu'><a href='https://rdrr.io/pkg/lme4/man/dummy.html'>dummy</a></span>(<span class='no'>f</span>,<span class='st'>"b"</span>)<span class='kw'>|</span><span class='no'>g</span>) + (<span class='fl'>0</span>+<span class='fu'><a href='https://rdrr.io/pkg/lme4/man/dummy.html'>dummy</a></span>(<span class='no'>f</span>,<span class='st'>"c"</span>)<span class='kw'>|</span><span class='no'>g</span>),
-          <span class='kw'>data</span><span class='kw'>=</span><span class='no'>dd</span>)
-<span class='fu'><a href='https://rdrr.io/pkg/lme4/man/VarCorr.html'>VarCorr</a></span>(<span class='no'>m2</span>)</div><div class='output co'>#&gt;  Groups   Name          Std.Dev.
-#&gt;  g        (Intercept)   0.98657 
-#&gt;  g.1      dummy(f, "b") 2.00643 
-#&gt;  g.2      dummy(f, "c") 0.99618 
-#&gt;  Residual               1.01770 </div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/pkg/lme4/man/confint.merMod.html'>confint.merMod</a></span>(<span class='no'>m2</span>, <span class='kw'>parm</span> <span class='kw'>=</span> <span class='st'>"fb"</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>)</div><div class='output co'>#&gt; <span class='message'>Computing profile confidence intervals ...</span></div><div class='output co'>#&gt;         2.5 %    97.5 %
-#&gt; fb -0.3041212 0.2991399</div><div class='input'><span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'>curve_lmer</span>(<span class='kw'>object</span> <span class='kw'>=</span> <span class='no'>m2</span>, <span class='kw'>parm</span> <span class='kw'>=</span> <span class='st'>"fb"</span>, <span class='kw'>steps</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>mc.cores</span> <span class='kw'>=</span> <span class='fl'>8</span>, <span class='kw'>table</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='co'># }</span></div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -306,7 +314,7 @@ and the table for the values in the third if table = TRUE.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

@@ -2,7 +2,7 @@
 % Please edit documentation in R/curve_gen.R
 \name{curve_gen}
 \alias{curve_gen}
-\title{Consonance Functions For Linear Models.}
+\title{Consonance Functions For Linear Models, Generalized Linear Models, and Robust Linear Models}
 \usage{
 curve_gen(model, var, method = "lm", steps = 1000, table = TRUE)
 }
@@ -14,11 +14,13 @@ curve_gen(model, var, method = "lm", steps = 1000, table = TRUE)
 for which the intervals are to be produced.}
 
 \item{method}{Chooses the method to be used to calculate the
-consonance intervals. There are currently two methods:
-"lm", and "glm". The "lm" method uses the profile
+consonance intervals. There are currently threo methods:
+"lm", "rlm", "glm" and "aov". The "lm" method uses the profile
 likelihood method to compute intervals and can be used for models created by
 the 'lm' function. It is typically what most people are
 familiar with when computing intervals based on the calculated standard error.
+The "rlm" method is designed for usage with the "rlm" function from the MASS
+package.
 The "glm" method allows this function to be used for specific scenarios like
 logistic regression and the 'glm' function.}
 
@@ -54,7 +56,6 @@ GroupB <- rnorm(50)
 RandomData <- data.frame(GroupA, GroupB)
 rob <- lm(GroupA ~ GroupB, data = RandomData)
 bob <- curve_gen(rob, "GroupB")
-tibble::tibble(bob[[1]])
 }
 
 }

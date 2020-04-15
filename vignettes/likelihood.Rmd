@@ -1,0 +1,64 @@
+---
+title: "Profile Likelihoods"
+output: rmarkdown::html_vignette
+bibliography: references.bib
+link-citations: yes
+csl: american-medical-association.csl
+vignette: >
+  %\VignetteIndexEntry{Profile Likelihoods}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  message = TRUE,
+  warning = TRUE,
+  collapse = TRUE,
+  comment = "#>"
+)
+library(concurve)
+```
+
+For this last example, we'll explore the `curve_lik()` function, which can help generate profile likelihood functions, and deviance statistics with the help of the [`ProfileLikelihood`](https://cran.r-project.org/package=ProfileLikelihood) package.[@Choi_2011]
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+library(ProfileLikelihood)
+```
+
+We'll use a simple example taken directly from the [`ProfileLikelihood`](https://cran.r-project.org/package=ProfileLikelihood) documentation where we'll calculate the likelihoods from a glm model 
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+data(dataglm)
+xx <- profilelike.glm(y ~ x1 + x2,
+  data = dataglm, profile.theta = "group",
+  family = binomial(link = "logit"), length = 500, round = 2
+)
+```
+
+Then, we’ll use `curve_lik()` on the object that the [`ProfileLikelihood`](https://cran.r-project.org/package=ProfileLikelihood) package created. 
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+lik <- curve_lik(xx, dataglm)
+
+```
+
+Next, we’ll plot three functions, the relative likelihood, the log-likelihood, the likelihood, and the deviance function. 
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+ggcurve(lik[[1]], type = "l1", nullvalue = TRUE)
+ggcurve(lik[[1]], type = "l2")
+ggcurve(lik[[1]], type = "l3")
+ggcurve(lik[[1]], type = "d")
+```
+
+The obvious advantage of using reduced likelihoods is that they are free of nuisance parameters
+
+$$L_{t_{n}}(\theta)=f_{n}\left(F_{n}^{-1}\left(H_{p i v}(\theta)\right)\right)\left|\frac{\partial}{\partial t} \psi\left(t_{n}, \theta\right)\right|=h_{p i v}(\theta)\left|\frac{\partial}{\partial t} \psi(t, \theta)\right| /\left.\left|\frac{\partial}{\partial \theta} \psi(t, \theta)\right|\right|_{t=t_{n}}$$
+thus, giving summaries of the data that can be incorporated into combined analyses. 
+
+* * * 
+
+# References
+
+* * * 

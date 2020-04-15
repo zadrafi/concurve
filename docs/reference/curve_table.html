@@ -55,7 +55,7 @@
 <meta property="og:title" content="Produce Tables For concurve Functions — curve_table" />
 <meta property="og:description" content="Produces publication-ready tables with relevant statistics of interest
 for functions produced from the concurve package." />
-<meta property="og:image" content="https://data.lesslikely.com/concurve/logo.png" />
+<meta property="og:image" content="https://data.lesslikely.com/concurve/logo.svg" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -98,7 +98,7 @@ for functions produced from the concurve package." />
       </button>
       <span class="navbar-brand"><img src="https://res.cloudinary.com/less-likely/image/upload/v1575427534/Site/Logo.svg" id ="package-logo" align="left" width="35">
         <a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.5.0</span>
       </span>
     </div>
 
@@ -124,15 +124,57 @@ for functions produced from the concurve package." />
       <a href="../articles/examples.html">Examples in R</a>
     </li>
     <li>
-      <a href="../articles/troubleshooting.html">Troubleshooting</a>
+      <a href="../articles/survival.html">Survival Modeling</a>
+    </li>
+    <li>
+      <a href="../articles/meta-analysis.html">Meta-Analysis Examples</a>
+    </li>
+    <li>
+      <a href="../articles/likelihood.html">Profile Likelihoods</a>
+    </li>
+    <li>
+      <a href="../articles/bootstrap.html">Bootstrap and Consonance Functions</a>
+    </li>
+    <li>
+      <a href="../articles/bayes.html">Comparison to Bayesian Posteriors</a>
     </li>
     <li>
       <a href="../articles/stata.html">Using Stata</a>
     </li>
+    <li>
+      <a href="../articles/customizing.html">Customizing Plots</a>
+    </li>
+    <li>
+      <a href="../articles/troubleshooting.html">Troubleshooting</a>
+    </li>
   </ul>
 </li>
-<li>
-  <a href="../news/index.html">News</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    News
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../news/index.html">Updates</a>
+    </li>
+    <li>
+      <a href="../articles/wishlist.html">Wish List</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Tools
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/svalues.html">S-value Calculator</a>
+    </li>
+  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -199,7 +241,7 @@ The default is set to "c" for consonance and can be switched to "l" for likeliho
     <tr>
       <th>format</th>
       <td><p>The format of the tables. The options include "data.frame" which is the
-default, "tibble", "docx" (which creates a table for a word document), "pptx" (which
+default, "docx" (which creates a table for a word document), "pptx" (which
 creates a table for powerpoint), "latex", (which creates a table for a TeX document), and
 "image", which produces an image of the table.</p></td>
     </tr>
@@ -223,15 +265,15 @@ creates a table for powerpoint), "latex", (which creates a table for a TeX docum
 <span class='no'>intervalsdf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='curve_mean.html'>curve_mean</a></span>(<span class='no'>GroupA</span>, <span class='no'>GroupB</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>RandomData</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"default"</span>)
 
 (<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'>curve_table</span>(<span class='no'>intervalsdf</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"data.frame"</span>))</div><div class='output co'>#&gt;      Lower Limit Upper Limit Interval Width Interval Level (%)   CDF P-value
-#&gt; 2501      -0.035       0.004          0.039               25.0 0.625   0.750
-#&gt; 5001      -0.057       0.026          0.083               50.0 0.750   0.500
-#&gt; 7501      -0.087       0.055          0.142               75.0 0.875   0.250
-#&gt; 8001      -0.095       0.063          0.158               80.0 0.900   0.200
-#&gt; 8501      -0.104       0.073          0.177               85.0 0.925   0.150
-#&gt; 9001      -0.117       0.085          0.202               90.0 0.950   0.100
-#&gt; 9501      -0.136       0.105          0.241               95.0 0.975   0.050
-#&gt; 9751      -0.154       0.122          0.276               97.5 0.988   0.025
-#&gt; 9901      -0.174       0.143          0.317               99.0 0.995   0.010
+#&gt; 2501      -0.015       0.025          0.039               25.0 0.625   0.750
+#&gt; 5001      -0.037       0.046          0.083               50.0 0.750   0.500
+#&gt; 7501      -0.066       0.076          0.142               75.0 0.875   0.250
+#&gt; 8001      -0.074       0.084          0.158               80.0 0.900   0.200
+#&gt; 8501      -0.084       0.094          0.177               85.0 0.925   0.150
+#&gt; 9001      -0.096       0.106          0.203               90.0 0.950   0.100
+#&gt; 9501      -0.116       0.126          0.241               95.0 0.975   0.050
+#&gt; 9751      -0.133       0.143          0.276               97.5 0.988   0.025
+#&gt; 9901      -0.154       0.164          0.318               99.0 0.995   0.010
 #&gt;      S-value (bits)
 #&gt; 2501          0.415
 #&gt; 5001          1.000
@@ -241,56 +283,40 @@ creates a table for powerpoint), "latex", (which creates a table for a TeX docum
 #&gt; 9001          3.322
 #&gt; 9501          4.322
 #&gt; 9751          5.322
-#&gt; 9901          6.644</div><div class='input'>(<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'>curve_table</span>(<span class='no'>intervalsdf</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"tibble"</span>))</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 9 x 1</span><span>
-#&gt;   subdf$`Lower Li… $`Upper Limit` $`Interval Widt… $`Interval Leve…  $CDF
-#&gt;              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>           -</span><span style='color: #BB0000;'>0.035</span><span>          0.004            0.039             25   0.625
-#&gt; </span><span style='color: #555555;'>2</span><span>           -</span><span style='color: #BB0000;'>0.057</span><span>          0.026            0.083             50   0.75 
-#&gt; </span><span style='color: #555555;'>3</span><span>           -</span><span style='color: #BB0000;'>0.087</span><span>          0.055            0.142             75   0.875
-#&gt; </span><span style='color: #555555;'>4</span><span>           -</span><span style='color: #BB0000;'>0.095</span><span>          0.063            0.158             80   0.9  
-#&gt; </span><span style='color: #555555;'>5</span><span>           -</span><span style='color: #BB0000;'>0.104</span><span>          0.073            0.177             85   0.925
-#&gt; </span><span style='color: #555555;'>6</span><span>           -</span><span style='color: #BB0000;'>0.117</span><span>          0.085            0.202             90   0.95 
-#&gt; </span><span style='color: #555555;'>7</span><span>           -</span><span style='color: #BB0000;'>0.136</span><span>          0.105            0.241             95   0.975
-#&gt; </span><span style='color: #555555;'>8</span><span>           -</span><span style='color: #BB0000;'>0.154</span><span>          0.122            0.276             97.5 0.988
-#&gt; </span><span style='color: #555555;'>9</span><span>           -</span><span style='color: #BB0000;'>0.174</span><span>          0.143            0.317             99   0.995
-#&gt; </span><span style='color: #555555;'># … with 2 more variables: $`P-value` </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, $`S-value (bits)` </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div><div class='input'>(<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'>curve_table</span>(<span class='no'>intervalsdf</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"latex"</span>))</div><div class='output co'>#&gt; 
+#&gt; 9901          6.644</div><div class='input'>(<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'>curve_table</span>(<span class='no'>intervalsdf</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"latex"</span>))</div><div class='output co'>#&gt; 
 #&gt; 
 #&gt; |     | Lower Limit| Upper Limit| Interval Width| Interval Level (%)|   CDF| P-value| S-value (bits)|
 #&gt; |:----|-----------:|-----------:|--------------:|------------------:|-----:|-------:|--------------:|
-#&gt; |2501 |      -0.035|       0.004|          0.039|               25.0| 0.625|   0.750|          0.415|
-#&gt; |5001 |      -0.057|       0.026|          0.083|               50.0| 0.750|   0.500|          1.000|
-#&gt; |7501 |      -0.087|       0.055|          0.142|               75.0| 0.875|   0.250|          2.000|
-#&gt; |8001 |      -0.095|       0.063|          0.158|               80.0| 0.900|   0.200|          2.322|
-#&gt; |8501 |      -0.104|       0.073|          0.177|               85.0| 0.925|   0.150|          2.737|
-#&gt; |9001 |      -0.117|       0.085|          0.202|               90.0| 0.950|   0.100|          3.322|
-#&gt; |9501 |      -0.136|       0.105|          0.241|               95.0| 0.975|   0.050|          4.322|
-#&gt; |9751 |      -0.154|       0.122|          0.276|               97.5| 0.988|   0.025|          5.322|
-#&gt; |9901 |      -0.174|       0.143|          0.317|               99.0| 0.995|   0.010|          6.644|</div><div class='input'>(<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'>curve_table</span>(<span class='no'>intervalsdf</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"image"</span>))</div><div class='output co'>#&gt; a flextable object.
+#&gt; |2501 |      -0.015|       0.025|          0.039|               25.0| 0.625|   0.750|          0.415|
+#&gt; |5001 |      -0.037|       0.046|          0.083|               50.0| 0.750|   0.500|          1.000|
+#&gt; |7501 |      -0.066|       0.076|          0.142|               75.0| 0.875|   0.250|          2.000|
+#&gt; |8001 |      -0.074|       0.084|          0.158|               80.0| 0.900|   0.200|          2.322|
+#&gt; |8501 |      -0.084|       0.094|          0.177|               85.0| 0.925|   0.150|          2.737|
+#&gt; |9001 |      -0.096|       0.106|          0.203|               90.0| 0.950|   0.100|          3.322|
+#&gt; |9501 |      -0.116|       0.126|          0.241|               95.0| 0.975|   0.050|          4.322|
+#&gt; |9751 |      -0.133|       0.143|          0.276|               97.5| 0.988|   0.025|          5.322|
+#&gt; |9901 |      -0.154|       0.164|          0.318|               99.0| 0.995|   0.010|          6.644|</div><div class='input'>(<span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'>curve_table</span>(<span class='no'>intervalsdf</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"image"</span>))</div><div class='output co'>#&gt; a flextable object.
 #&gt; col_keys: `Lower Limit`, `Upper Limit`, `Interval Width`, `Interval Level (%)`, `CDF`, `P-value`, `S-value (bits)` 
 #&gt; header has 1 row(s) 
 #&gt; body has 9 row(s) 
 #&gt; original dataset sample: 
 #&gt;      Lower Limit Upper Limit Interval Width Interval Level (%)   CDF P-value
-#&gt; 2501      -0.035       0.004          0.039                 25 0.625    0.75
-#&gt; 5001      -0.057       0.026          0.083                 50 0.750    0.50
-#&gt; 7501      -0.087       0.055          0.142                 75 0.875    0.25
-#&gt; 8001      -0.095       0.063          0.158                 80 0.900    0.20
-#&gt; 8501      -0.104       0.073          0.177                 85 0.925    0.15
+#&gt; 2501      -0.015       0.025          0.039                 25 0.625    0.75
+#&gt; 5001      -0.037       0.046          0.083                 50 0.750    0.50
+#&gt; 7501      -0.066       0.076          0.142                 75 0.875    0.25
+#&gt; 8001      -0.074       0.084          0.158                 80 0.900    0.20
+#&gt; 8501      -0.084       0.094          0.177                 85 0.925    0.15
 #&gt;      S-value (bits)
 #&gt; 2501          0.415
 #&gt; 5001          1.000
 #&gt; 7501          2.000
 #&gt; 8001          2.322
-#&gt; 8501          2.737</div></span></pre>
+#&gt; 8501          2.737</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -301,7 +327,7 @@ creates a table for powerpoint), "latex", (which creates a table for a TeX docum
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

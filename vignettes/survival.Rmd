@@ -1,0 +1,100 @@
+---
+title: "Survival Modeling"
+output: rmarkdown::html_vignette
+bibliography: references.bib
+link-citations: yes
+csl: american-medical-association.csl
+vignette: >
+  %\VignetteIndexEntry{Survival Modeling}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  message = TRUE,
+  warning = TRUE,
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+Here, we'll look at how to create consonance functions from the coefficients of predictors of interest in a Cox regression model.
+
+We'll use the `carData` package for this. [Fox & Weisberg, 2018](https://socialsciences.mcmaster.ca/jfox/Books/Companion/appendices/Appendix-Cox-Regression.pdf) describe the dataset elegantly in their paper,
+
+> The Rossi data set in the `carData` package contains data from an experimental study of recidivism of 432 male prisoners, who were observed for a year after being released from prison (Rossi et al., 1980). The following variables are included in the data; the variable names are those used by Allison (1995), from whom this example and variable descriptions are adapted: 
+>
+> **week**: week of first arrest after release, or censoring time. 
+>
+> **arrest**: the event indicator, equal to 1 for those arrested during the period of the study and 0 for those who were not arrested. 
+>
+> **fin**: a factor, with levels “yes” if the individual received financial aid after release from prison, and “no” if he did not; financial aid was a randomly assigned factor manipulated by the researchers. 
+>
+> **age**: in years at the time of release. 
+>
+> **race**: a factor with levels “black” and “other”. 
+>
+> **wexp**: a factor with levels “yes” if the individual had full-time work experience prior to incarceration and “no” if he did not.  
+>
+> **mar**: a factor with levels “married” if the individual was married at the time of release and “not married” if he was not. 
+> 
+> **paro**: a factor coded “yes” if the individual was released on parole and “no” if he was not. 
+>
+> **prio**: number of prior convictions.
+>
+> **educ**: education, a categorical variable coded numerically, with codes 2 (grade 6 or less), 3 (grades 6 through 9), 4 (grades 10 and 11), 5 (grade 12), or 6 (some post-secondary).
+>
+> **emp1–emp52**: factors coded “yes” if the individual was employed in the corresponding week of the study and “no” otherwise. 
+>
+> We read the data file into a data frame, and print the first few cases (omitting the variables **emp1 – emp52**, which are in columns 11–62 of the data frame):
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+library(concurve)
+library(carData)
+Rossi[1:5, 1:10]
+```
+
+> Thus, for example, the first individual was arrested in week 20 of the study, while the fourth individual was never rearrested, and hence has a censoring time of 52. Following Allison, a Cox regression of time to rearrest on the time-constant covariates is specified as follows:
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+library(survival)
+mod.allison <- coxph(Surv(week, arrest) ~
+fin + age + race + wexp + mar + paro + prio,
+data = Rossi
+)
+mod.allison
+```
+
+Now that we have our Cox model object, we can use the `curve_surv()` function to create the function.
+
+If we wanted to create a function for the coefficient of prior convictions, then we'd do so like this: 
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+z <- curve_surv(mod.allison, "prio")
+```
+
+Then we could plot our consonance curve and density and also produce a table of relevant statistics. Because we're working with ratios, we'll set the `measure` argument in `ggcurve()` to "`ratio`". 
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+ggcurve(z[[1]], measure = "ratio", nullvalue = TRUE)
+ggcurve(z[[2]], type = "cd", measure = "ratio", nullvalue = TRUE)
+curve_table(z[[1]], format = "image")
+```
+
+We could also construct a function for another predictor such as age
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+x <- curve_surv(mod.allison, "age")
+ggcurve(x[[1]], measure = "ratio")
+ggcurve(x[[2]], type = "cd", measure = "ratio")
+curve_table(x[[1]], format = "image")
+```
+
+That's a very quick look at creating functions from Cox regression models. 
+
+* * * 
+
+# References
+
+* * * 

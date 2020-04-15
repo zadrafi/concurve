@@ -1,8 +1,18 @@
+# concurve 2.5.0
+
+## Major changes 
+* `curve_meta()` can now handle complex data structures from `metafor` with clustered data.
+* `curve_gen()` can now handle ANOVAs and robust linear regressions from the `MASS` package.
+* `concurve` is now intergrated with the `cowplot` package for easier graphing. 
+* removed `tibble::tibble()` integration due to breakage in code. 
+* `expand_scale()` has been replaced with `expansion()` within the inner workings of `ggcurve()` and `plot_compare()` due to the former function (`expand_scale()`) being deprecated.
+
+
 # concurve 2.4.1
 
 ## Major changes 
 * New function `curve_lmer()` for mixed-effects models 
-* Fixed a bug where `curve_meta()` could not utilize `rma.mh()` or `rma.peto()` from `metafor`
+* Fixed a bug where `curve_meta()` could not utilize `rma.mh()` or `rma.peto()` from `metafor`.
 
 # concurve 2.4.0
 

@@ -54,7 +54,7 @@
 
 <meta property="og:title" content="Compute Profile Likelihood Functions — curve_lik" />
 <meta property="og:description" content="Compute Profile Likelihood Functions" />
-<meta property="og:image" content="https://data.lesslikely.com/concurve/logo.png" />
+<meta property="og:image" content="https://data.lesslikely.com/concurve/logo.svg" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -97,7 +97,7 @@
       </button>
       <span class="navbar-brand"><img src="https://res.cloudinary.com/less-likely/image/upload/v1575427534/Site/Logo.svg" id ="package-logo" align="left" width="35">
         <a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.5.0</span>
       </span>
     </div>
 
@@ -123,15 +123,57 @@
       <a href="../articles/examples.html">Examples in R</a>
     </li>
     <li>
-      <a href="../articles/troubleshooting.html">Troubleshooting</a>
+      <a href="../articles/survival.html">Survival Modeling</a>
+    </li>
+    <li>
+      <a href="../articles/meta-analysis.html">Meta-Analysis Examples</a>
+    </li>
+    <li>
+      <a href="../articles/likelihood.html">Profile Likelihoods</a>
+    </li>
+    <li>
+      <a href="../articles/bootstrap.html">Bootstrap and Consonance Functions</a>
+    </li>
+    <li>
+      <a href="../articles/bayes.html">Comparison to Bayesian Posteriors</a>
     </li>
     <li>
       <a href="../articles/stata.html">Using Stata</a>
     </li>
+    <li>
+      <a href="../articles/customizing.html">Customizing Plots</a>
+    </li>
+    <li>
+      <a href="../articles/troubleshooting.html">Troubleshooting</a>
+    </li>
   </ul>
 </li>
-<li>
-  <a href="../news/index.html">News</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    News
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../news/index.html">Updates</a>
+    </li>
+    <li>
+      <a href="../articles/wishlist.html">Wish List</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Tools
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/svalues.html">S-value Calculator</a>
+    </li>
+  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -205,30 +247,12 @@ object, and the table for the values in the second if table = TRUE.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>ProfileLikelihood</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: nlme</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: MASS</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>dataglm</span>)
-<span class='no'>xx</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ProfileLikelihood/man/profilelike.glm.html'>profilelike.glm</a></span>(<span class='no'>y</span> ~ <span class='no'>x1</span> + <span class='no'>x2</span>, <span class='no'>dataglm</span>, <span class='kw'>profile.theta</span> <span class='kw'>=</span> <span class='st'>"group"</span>, <span class='fu'><a href='https://rdrr.io/r/stats/family.html'>binomial</a></span>(<span class='st'>"logit"</span>))</div><div class='output co'>#&gt; Warning message: provide lo.theta and hi.theta </div><div class='input'><span class='no'>lik</span> <span class='kw'>&lt;-</span> <span class='fu'>curve_lik</span>(<span class='no'>xx</span>, <span class='no'>dataglm</span>)
-<span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='no'>lik</span><span class='kw'>[[</span><span class='fl'>1</span>]])</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 300 x 1</span><span>
-#&gt;    `lik[[1]]`$values $likelihood $loglikelihood  $support $deviancestat
-#&gt;                </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span>             -</span><span style='color: #BB0000;'>1.41</span><span>    9.26</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-21</span><span>          -</span><span style='color: #BB0000;'>9.79</span><span> 0.000</span><span style='text-decoration: underline;'>056</span><span>0          9.79
-#&gt; </span><span style='color: #555555;'> 2</span><span>             -</span><span style='color: #BB0000;'>1.39</span><span>    1.05</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-20</span><span>          -</span><span style='color: #BB0000;'>9.66</span><span> 0.000</span><span style='text-decoration: underline;'>063</span><span>8          9.66
-#&gt; </span><span style='color: #555555;'> 3</span><span>             -</span><span style='color: #BB0000;'>1.37</span><span>    1.20</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-20</span><span>          -</span><span style='color: #BB0000;'>9.53</span><span> 0.000</span><span style='text-decoration: underline;'>072</span><span>6          9.53
-#&gt; </span><span style='color: #555555;'> 4</span><span>             -</span><span style='color: #BB0000;'>1.35</span><span>    1.37</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-20</span><span>          -</span><span style='color: #BB0000;'>9.40</span><span> 0.000</span><span style='text-decoration: underline;'>082</span><span>6          9.40
-#&gt; </span><span style='color: #555555;'> 5</span><span>             -</span><span style='color: #BB0000;'>1.34</span><span>    1.55</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-20</span><span>          -</span><span style='color: #BB0000;'>9.27</span><span> 0.000</span><span style='text-decoration: underline;'>094</span><span>0          9.27
-#&gt; </span><span style='color: #555555;'> 6</span><span>             -</span><span style='color: #BB0000;'>1.32</span><span>    1.76</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-20</span><span>          -</span><span style='color: #BB0000;'>9.15</span><span> 0.000</span><span style='text-decoration: underline;'>107</span><span>           9.15
-#&gt; </span><span style='color: #555555;'> 7</span><span>             -</span><span style='color: #BB0000;'>1.30</span><span>    2.00</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-20</span><span>          -</span><span style='color: #BB0000;'>9.02</span><span> 0.000</span><span style='text-decoration: underline;'>121</span><span>           9.02
-#&gt; </span><span style='color: #555555;'> 8</span><span>             -</span><span style='color: #BB0000;'>1.28</span><span>    2.27</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-20</span><span>          -</span><span style='color: #BB0000;'>8.89</span><span> 0.000</span><span style='text-decoration: underline;'>137</span><span>           8.89
-#&gt; </span><span style='color: #555555;'> 9</span><span>             -</span><span style='color: #BB0000;'>1.26</span><span>    2.57</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-20</span><span>          -</span><span style='color: #BB0000;'>8.77</span><span> 0.000</span><span style='text-decoration: underline;'>156</span><span>           8.77
-#&gt; </span><span style='color: #555555;'>10</span><span>             -</span><span style='color: #BB0000;'>1.24</span><span>    2.92</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-20</span><span>          -</span><span style='color: #BB0000;'>8.64</span><span> 0.000</span><span style='text-decoration: underline;'>176</span><span>           8.64
-#&gt; </span><span style='color: #555555;'># … with 290 more rows</span><span></div></span></pre>
+<span class='no'>xx</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ProfileLikelihood/man/profilelike.glm.html'>profilelike.glm</a></span>(<span class='no'>y</span> ~ <span class='no'>x1</span> + <span class='no'>x2</span>, <span class='no'>dataglm</span>, <span class='kw'>profile.theta</span> <span class='kw'>=</span> <span class='st'>"group"</span>, <span class='fu'><a href='https://rdrr.io/r/stats/family.html'>binomial</a></span>(<span class='st'>"logit"</span>))</div><div class='output co'>#&gt; Warning message: provide lo.theta and hi.theta </div><div class='input'><span class='no'>lik</span> <span class='kw'>&lt;-</span> <span class='fu'>curve_lik</span>(<span class='no'>xx</span>, <span class='no'>dataglm</span>)</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -239,7 +263,7 @@ object, and the table for the values in the second if table = TRUE.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

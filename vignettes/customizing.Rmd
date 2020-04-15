@@ -1,0 +1,81 @@
+---
+title: "Customizing Plots"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+bibliography: references.bib
+link-citations: yes
+csl: american-medical-association.csl
+vignette: >
+  %\VignetteIndexEntry{Customizing Plots}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  message = TRUE,
+  warning = TRUE,
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+Because `concurve` graphs functions via `ggplot2`, it is quite easy to customize parts of the plot beyond some of the arguments that are provided in the `ggcurve()` function. For example, we are able to provide arguments to the function to give custom titles, subtitles, x-axes, y-axes, fills, and colors. However, we could also do this using the standard `ggplot2` grammar. We'll generate a quick graph to show how. 
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+library(concurve)
+set.seed(1031)
+GroupA <- rnorm(500)
+GroupB <- rnorm(500)
+RandomData <- data.frame(GroupA, GroupB)
+intervalsdf <- curve_mean(GroupA, GroupB,
+  data = RandomData, method = "default"
+)
+(function1 <- ggcurve(data = intervalsdf[[1]], type = "c", nullvalue = TRUE))
+```
+
+Those are some of the default options provided to `ggcurve()`. We could provide `ggcurve()` arguments for the title, subtitle, etc, but we could also do it like so:
+
+```{r}
+library(ggplot2)
+function1 +
+  labs(
+    title = "Random Title",
+    subtitle = "Random Subtitle",
+    x = "x-axis",
+    y = "y-axis",
+    caption = "Custom Caption"
+  )
+```
+
+If we even wanted to provide a custom theme, we could do the following.  
+
+```{r}
+library(cowplot)
+logo_file <- "https://res.cloudinary.com/less-likely/image/upload/v1575441662/Site/Logo2.jpg"
+
+function1 <- function1 +
+  theme_cowplot()
+
+function2 <- ggdraw(function1) +
+  draw_image(logo_file, x = 1, y = 1, hjust = 2, vjust = 1.75, width = 0.13, height = 0.2)
+
+function2
+```
+
+I've only tried testing this with the `cowplot` package, so I cannot say for sure that the functions won't break when applied with other themes.[@Wilke_2019]
+
+# Saving Plots
+
+The most common way useRs save plots is by going to the plots tab in an IDE like RStudio and clicking "export" and then "save as image" or by using `ggsave()`, however, `cowplot` has a superior function with far better default options built into it known as `save_plot()`. 
+
+```{r}
+save_plot("function2.pdf", function2)
+```
+
+* * * 
+
+# References
+
+* * * 
