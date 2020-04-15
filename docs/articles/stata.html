@@ -21,8 +21,8 @@
 <link href="../docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Using Stata">
-<meta property="og:description" content="">
-<meta property="og:image" content="https://data.lesslikely.com/concurve/logo.png">
+<meta property="og:description" content="concurve">
+<meta property="og:image" content="https://data.lesslikely.com/concurve/logo.svg">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -47,7 +47,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand"><img src="https://res.cloudinary.com/less-likely/image/upload/v1575427534/Site/Logo.svg" id="package-logo" align="left" width="35"><a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.5.0</span>
       </span>
     </div>
 
@@ -73,15 +73,57 @@
       <a href="../articles/examples.html">Examples in R</a>
     </li>
     <li>
-      <a href="../articles/troubleshooting.html">Troubleshooting</a>
+      <a href="../articles/survival.html">Survival Modeling</a>
+    </li>
+    <li>
+      <a href="../articles/meta-analysis.html">Meta-Analysis Examples</a>
+    </li>
+    <li>
+      <a href="../articles/likelihood.html">Profile Likelihoods</a>
+    </li>
+    <li>
+      <a href="../articles/bootstrap.html">Bootstrap and Consonance Functions</a>
+    </li>
+    <li>
+      <a href="../articles/bayes.html">Comparison to Bayesian Posteriors</a>
     </li>
     <li>
       <a href="../articles/stata.html">Using Stata</a>
     </li>
+    <li>
+      <a href="../articles/customizing.html">Customizing Plots</a>
+    </li>
+    <li>
+      <a href="../articles/troubleshooting.html">Troubleshooting</a>
+    </li>
   </ul>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    News
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
 <li>
-  <a href="../news/index.html">News</a>
+      <a href="../news/index.html">Updates</a>
+    </li>
+    <li>
+      <a href="../articles/wishlist.html">Wish List</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Tools
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="../articles/svalues.html">S-value Calculator</a>
+    </li>
+  </ul>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -116,7 +158,7 @@
       </header><script src="stata_files/header-attrs-2.1/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Using Stata</h1>
+      <h1 data-toc-skip>Using Stata</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/zadrafi/concurve/blob/master/vignettes/stata.Rmd"><code>vignettes/stata.Rmd</code></a></small>
@@ -128,16 +170,16 @@
     
 <p>Although <code>concurve</code> was originally designed to be used in <code>R</code>, it is possible to achieve very similar results in <code>Stata</code>. We can use some datasets that are built into <code>Stata</code> to show how to achieve this.</p>
 <p>First, let’s load the <em>auto2</em> dataset which contains data about cars and their characteristics.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>sysuse auto2</span></code></pre></div>
+<div class="sourceCode" id="cb1"><html><body><pre class="r">sysuse auto2</pre></body></html></div>
 <p>Browse the dataset in your databrowser to get more familiar with some of the variables. Let’s say we’re interested in the relationship between miles per gallon and price. We could fit a very simple linear model to assess that relationship.</p>
 <p>First, let’s visualize the data with a scatterplot.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">twoway</span> (scatter price mpg)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><html><body><pre class="r">twoway (scatter price mpg)</pre></body></html></div>
 <br><center>
 <img src="figures/statascatter.png" align="center" width="550">
 </center>
 <p><br> That’s what our data looks like. Clearly there seems to be an inverse relationship between miles per gallon and price.</p>
 <p>Now we could fit a very simple linear model with miles per gallon being the predictor and price being the outcome and get some estimates of the relationship.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>regress price mpg </span></code></pre></div>
+<div class="sourceCode" id="cb3"><html><body><pre class="r">regress price mpg </pre></body></html></div>
 <br><center>
 <img src="figures/stataoutput.png" align="center" width="550">
 </center>
@@ -149,26 +191,26 @@
 <p><br></p>
 <p>Unfortunately, the program only gives us one interval at 95% and we’re interested in seeing every single interval at every level, and plotting it to form a function.</p>
 <p>Here’s the code that we’ll be using to achieve that.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a></span>
-<span id="cb4-2"><a href="#cb4-2"></a>postfile topost level pvalue svalue lointerval upinterval using my_new_data, replace</span>
-<span id="cb4-3"><a href="#cb4-3"></a>     </span>
-<span id="cb4-4"><a href="#cb4-4"></a>forvalues i =<span class="st"> </span><span class="dv">10</span><span class="op">/</span><span class="fl">99.9</span> { </span>
-<span id="cb4-5"><a href="#cb4-5"></a>      quietly regress price mpg, <span class="kw">level</span>(<span class="st">`</span><span class="dt">i')</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="dt">      matrix E = r(table)</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="dt">      matrix list E</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a><span class="dt">      post topost (</span><span class="st">`</span>i<span class="st">') (1-`i'</span><span class="op">/</span><span class="dv">100</span>) ( <span class="kw">ln</span>(<span class="dv">1</span><span class="op">-</span><span class="st">`</span><span class="dt">i'/100)/ln(2) * -1) (E[5,1]) (E[6,1])</span></span>
-<span id="cb4-9"><a href="#cb4-9"></a><span class="dt">    } </span></span>
-<span id="cb4-10"><a href="#cb4-10"></a><span class="dt">    </span></span>
-<span id="cb4-11"><a href="#cb4-11"></a><span class="dt">postclose topost</span></span>
-<span id="cb4-12"><a href="#cb4-12"></a><span class="dt">use my_new_data, clear</span></span>
-<span id="cb4-13"><a href="#cb4-13"></a><span class="dt">list</span></span>
-<span id="cb4-14"><a href="#cb4-14"></a></span>
-<span id="cb4-15"><a href="#cb4-15"></a><span class="dt">twoway (pcscatter level lointerval level upinterval), </span></span>
-<span id="cb4-16"><a href="#cb4-16"></a><span class="dt">ytitle(Consonance Level (%)) xtitle(Consonance Limits) ///</span></span>
-<span id="cb4-17"><a href="#cb4-17"></a><span class="dt">title(Consonance Curve) </span></span>
-<span id="cb4-18"><a href="#cb4-18"></a><span class="dt">subtitle(A function comprised of several consonance intervals at various levels.)</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><html><body><pre class="r">
+postfile topost level pvalue svalue lointerval upinterval using my_new_data, replace
+     
+forvalues i = 10/99.9 { 
+      quietly regress price mpg, level(`i')
+      matrix E = r(table)
+      matrix list E
+      post topost (`i') (1-`i'/100) ( ln(1-`i'/100)/ln(2) * -1) (E[5,1]) (E[6,1])
+    } 
+    
+postclose topost
+use my_new_data, clear
+list
+
+twoway (pcscatter level lointerval level upinterval), 
+ytitle(Consonance Level (%)) xtitle(Consonance Limits) ///
+title(Consonance Curve) 
+subtitle(A function comprised of several consonance intervals at various levels.)</pre></body></html></div>
 <p>That’s a lot and may seem intimidating at first, but I’ll explain it line by line.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>postfile topost level pvalue svalue lointerval upinterval using my_new_data, replace</span></code></pre></div>
+<div class="sourceCode" id="cb5"><html><body><pre class="r">postfile topost level pvalue svalue lointerval upinterval using my_new_data, replace</pre></body></html></div>
 <p>“<strong>postfile</strong>” is the command that will be responsible for pasting the data from our overall loop into a new dataset. Here, we are telling <code>Stata</code> that the internal <code>Stata</code> memory used to hold these results (the post) will be named “<strong>topost</strong>” and that it will have five variables, “<strong>level</strong>”, “<strong>pvalue</strong>”, “<strong>svalue</strong>”, “<strong>lointerval</strong>”, and “<strong>upinterval</strong>.”</p>
 <ul>
 <li><p>“<strong>level</strong>” will contain the consonance level that corresponds to the limits of the interval, with “<strong>lointerval</strong>” being the lower bound of the interval and “<strong>upinterval</strong>” being the upper bound.</p></li>
@@ -178,20 +220,20 @@
 <li><p>“<strong>replace</strong>” indicates that if there is an existing filename that already exists, we’re willing to relace it.</p></li>
 </ul>
 <p>Here are the next few major lines</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>forvalues i =<span class="st"> </span><span class="dv">10</span><span class="op">/</span><span class="fl">99.9</span> { </span>
-<span id="cb6-2"><a href="#cb6-2"></a>      quietly regress price mpg, <span class="kw">level</span>(<span class="st">`</span><span class="dt">i')</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="dt">      matrix E = r(table)</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="dt">      matrix list E</span></span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="dt">      post topost (</span><span class="st">`</span>i<span class="st">') (1-`i'</span><span class="op">/</span><span class="dv">100</span>) ( <span class="kw">ln</span>(<span class="dv">1</span><span class="op">-</span><span class="st">`</span><span class="dt">i'/100)/ln(2) * -1) (E[5,1]) (E[6,1])</span></span>
-<span id="cb6-6"><a href="#cb6-6"></a><span class="dt">    } </span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><html><body><pre class="r">forvalues i = 10/99.9 { 
+      quietly regress price mpg, level(`i')
+      matrix E = r(table)
+      matrix list E
+      post topost (`i') (1-`i'/100) ( ln(1-`i'/100)/ln(2) * -1) (E[5,1]) (E[6,1])
+    } </pre></body></html></div>
 <p>The command “<strong>forvalues</strong>” is responsible for taking a set of numbers that we provide it, and running the contents within the braces through those numbers. So here, we’ve set the local macro “<strong>i</strong>” to contain numbers between 10 and 99.99 for our consonance levels. Why 10? <code>Stata</code> cannot compute consonance intervals lower than 10%.</p>
 <p>Our next line contains the actual contents of what we want to do. Here, it says that we will run a simple linear regression where mpg is the predictor and where price is the outcome, and that the outputs for each loop will be suppressed, hence the “<strong>quiet</strong>.”</p>
 <p>Then, we have the command “<strong>level</strong>” with the local macro “<strong>i</strong>” inside of it. As you may already know, “<strong>level</strong>” dictates the consonance level that <code>Stata</code> provides us. By default, this is set to 95%, but here, we’ve set it “<strong>i</strong>”, which we established via “<strong>forvalues</strong>” as being set to numbers between 10 and 99.</p>
 <p>The next line two lines</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>      matrix E =<span class="st"> </span><span class="kw">r</span>(table)</span>
-<span id="cb7-2"><a href="#cb7-2"></a>      matrix list E</span></code></pre></div>
+<div class="sourceCode" id="cb7"><html><body><pre class="r">      matrix E = r(table)
+      matrix list E</pre></body></html></div>
 <p>indicate that we will take variables of a certain class r(), (this class contains the interval bounds we need) and place them within a matrix called E. Then we will list the contents of this matrix.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>post <span class="kw">topost</span> (<span class="st">`</span><span class="dt">i') (1-</span><span class="st">`</span>i<span class="st">'/100) ( ln(1-`i'</span><span class="op">/</span><span class="dv">100</span>)<span class="op">/</span><span class="kw">ln</span>(<span class="dv">2</span>) <span class="op">*</span><span class="st"> </span><span class="dv">-1</span><span class="er">)</span> (E[<span class="dv">5</span>,<span class="dv">1</span>]) (E[<span class="dv">6</span>,<span class="dv">1</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb8"><html><body><pre class="r">post topost (`i') (1-`i'/100) ( ln(1-`i'/100)/ln(2) * -1) (E[5,1]) (E[6,1])</pre></body></html></div>
 <p>From the contents of this matrix list, we will take the estimates from the <em>fifth</em> and <em>sixth</em> rows (look at the last two paranthesis of this line of code above and then the image below) in the <em>first</em> column which contain our consonance limits, with the fifth row containing the lower bound of the interval and the sixth containing the upper bound.</p>
 <br><center>
 <img src="figures/matrix.png" align="center" width="350">
@@ -202,19 +244,19 @@
 <p>The relationships between the variables on this line and the variables we set up in the very first line are dictated by the order of the commands we have set, and therefore they correspond to the same order.</p>
 <p>“post topost” is writing the results from each loop as new observations in this data structure.</p>
 <p>With that, our loop has concluded, and we can now tell <code>Stata</code> that “post” is no longer needed</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>postclose topost</span></code></pre></div>
+<div class="sourceCode" id="cb9"><html><body><pre class="r">postclose topost</pre></body></html></div>
 <p>We then tell <code>Stata</code> to clear its memory to make room for the new dataset we just created and we can list the contents of this new dataset.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>use my_new_data, clear</span>
-<span id="cb10-2"><a href="#cb10-2"></a>list</span></code></pre></div>
+<div class="sourceCode" id="cb10"><html><body><pre class="r">use my_new_data, clear
+list</pre></body></html></div>
 <p>Now we have an actual dataset with all the consonance intervals at all the levels we wanted, ranging from 10% all the way up to 99%.</p>
 <p>In order to get a function, we’ll need to be able to graph these results, and that can be tricky since for each observation we have one y value (the consonance level), and two x values, the lower bound of the interval and the upper bound of the interval.</p>
 <p>So a typical scatterplot will not work, since <code>Stata</code> will only accept one x value. To bypass this, we’ll have to use a paired-coordinate scatterplot which will allow us to plot two different y variables and two different x variables.</p>
 <p>Of course, we don’t need two y variables, so we can set both options to the variable “<strong>level</strong>”, and then we can set our first x variable to “<strong>lointerval</strong>” and the second x variable to “<strong>upinterval</strong>.”</p>
 <p>This can all be done with the following commands, which will also allow us to set the title and subtitle of the graph, along with the titles of the axes.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">twoway</span> (pcscatter level lointerval level upinterval), </span>
-<span id="cb11-2"><a href="#cb11-2"></a><span class="kw">ytitle</span>(Consonance <span class="kw">Level</span> (%)) <span class="kw">xtitle</span>(Consonance Limits) <span class="op">/</span><span class="er">//</span></span>
-<span id="cb11-3"><a href="#cb11-3"></a><span class="kw"><a href="https://rdrr.io/r/graphics/title.html">title</a></span>(Consonance Curve) </span>
-<span id="cb11-4"><a href="#cb11-4"></a><span class="kw">subtitle</span>(A <span class="cf">function</span> comprised of several consonance intervals at various levels.)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><html><body><pre class="r">twoway (pcscatter level lointerval level upinterval), 
+ytitle(Consonance Level (%)) xtitle(Consonance Limits) ///
+title(Consonance Curve) 
+subtitle(A function comprised of several consonance intervals at various levels.)</pre></body></html></div>
 <p>However, I would recommend using the menu to customize the plots as much as possible. Simply go to the <strong>Graphics</strong> menu and select <strong>Twoway Graphs</strong>. Then create a new plot definition, and select the <strong>Advanced plots</strong> and choose a paired coordinate scatterplot and fill in the y variables, both of which will be “<strong>levels</strong>” and the x variables, which will be “<strong>lointerval</strong>” and “<strong>upinterval</strong>”.</p>
 <br><center>
 <img src="figures/graphmenu.png" align="center" width="600">
@@ -236,49 +278,49 @@
 <p>It’s clear that in both plots, we’re missing values of intervals with a consonance level of less than 10%, but unfortunately, this is the best <code>Stata</code> can do, and what we’ll have to work with. It may not look as pretty as an output from <code>R</code>, but it’s far more useful than blankly staring at a 95% interval and thinking that it is the only piece of information we have regarding compatibility of different effect estimates.</p>
 <p>The code that I have pasted above can be used for most commands in <code>Stata</code> that have an option to calculate a consonance level. Thus, if there’s an option for “<strong>level</strong>”, then the commands above will work to produce a dataset of several consonance intervals.</p>
 <p>For example, if we wished to fit a generalized linear model, here’s what our code would look like.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>postfile topost level pvalue svalue lointerval upinterval using my_new_data, replace</span>
-<span id="cb12-2"><a href="#cb12-2"></a>     </span>
-<span id="cb12-3"><a href="#cb12-3"></a>forvalues i =<span class="st"> </span><span class="dv">10</span><span class="op">/</span><span class="fl">99.9</span> { </span>
-<span id="cb12-4"><a href="#cb12-4"></a>      quietly glm price mpg, <span class="kw">level</span>(<span class="st">`</span><span class="dt">i')</span></span>
-<span id="cb12-5"><a href="#cb12-5"></a><span class="dt">      matrix E = r(table)</span></span>
-<span id="cb12-6"><a href="#cb12-6"></a><span class="dt">      matrix list E</span></span>
-<span id="cb12-7"><a href="#cb12-7"></a><span class="dt">      post topost (</span><span class="st">`</span>i<span class="st">') (1-`i'</span><span class="op">/</span><span class="dv">100</span>) ( <span class="kw">ln</span>(<span class="dv">1</span><span class="op">-</span><span class="st">`</span><span class="dt">i'/100)/ln(2) * -1) (E[5,1]) (E[6,1])</span></span>
-<span id="cb12-8"><a href="#cb12-8"></a><span class="dt">    } </span></span>
-<span id="cb12-9"><a href="#cb12-9"></a><span class="dt">    </span></span>
-<span id="cb12-10"><a href="#cb12-10"></a><span class="dt">postclose topost</span></span>
-<span id="cb12-11"><a href="#cb12-11"></a><span class="dt">use my_new_data, clear</span></span>
-<span id="cb12-12"><a href="#cb12-12"></a><span class="dt">list</span></span>
-<span id="cb12-13"><a href="#cb12-13"></a></span>
-<span id="cb12-14"><a href="#cb12-14"></a><span class="dt">twoway (pcscatter level lointerval level upinterval), </span></span>
-<span id="cb12-15"><a href="#cb12-15"></a><span class="dt">ytitle(Confidence Level (%)) xtitle(Confidence Limits) ///</span></span>
-<span id="cb12-16"><a href="#cb12-16"></a><span class="dt">title(Consonance Curve) </span></span>
-<span id="cb12-17"><a href="#cb12-17"></a><span class="dt">subtitle(A function comprised of several consonance intervals at various levels.)</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><html><body><pre class="r">postfile topost level pvalue svalue lointerval upinterval using my_new_data, replace
+     
+forvalues i = 10/99.9 { 
+      quietly glm price mpg, level(`i')
+      matrix E = r(table)
+      matrix list E
+      post topost (`i') (1-`i'/100) ( ln(1-`i'/100)/ln(2) * -1) (E[5,1]) (E[6,1])
+    } 
+    
+postclose topost
+use my_new_data, clear
+list
+
+twoway (pcscatter level lointerval level upinterval), 
+ytitle(Confidence Level (%)) xtitle(Confidence Limits) ///
+title(Consonance Curve) 
+subtitle(A function comprised of several consonance intervals at various levels.)</pre></body></html></div>
 <p>We simply replace the first line within the loop with our intended command, just as I’ve replaced</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>regress price mpg</span></code></pre></div>
+<div class="sourceCode" id="cb13"><html><body><pre class="r">regress price mpg</pre></body></html></div>
 <p>with</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>glm price mpg</span></code></pre></div>
+<div class="sourceCode" id="cb14"><html><body><pre class="r">glm price mpg</pre></body></html></div>
 <p>If we wanted fit something more complex, like a multilevel mixed model that used restricted maximum likelihood, here’s what our code would look like</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>postfile topost level pvalue svalue lointerval upinterval using my_new_data, replace</span>
-<span id="cb15-2"><a href="#cb15-2"></a>     </span>
-<span id="cb15-3"><a href="#cb15-3"></a>forvalues i =<span class="st"> </span><span class="dv">10</span><span class="op">/</span><span class="fl">99.9</span> { </span>
-<span id="cb15-4"><a href="#cb15-4"></a>      quietly mixed outcome predictor, reml <span class="kw">level</span>(<span class="st">`</span><span class="dt">i')</span></span>
-<span id="cb15-5"><a href="#cb15-5"></a><span class="dt">      matrix E = r(table)</span></span>
-<span id="cb15-6"><a href="#cb15-6"></a><span class="dt">      matrix list E</span></span>
-<span id="cb15-7"><a href="#cb15-7"></a><span class="dt">      post topost (</span><span class="st">`</span>i<span class="st">') (1-`i'</span><span class="op">/</span><span class="dv">100</span>) ( <span class="kw">ln</span>(<span class="dv">1</span><span class="op">-</span><span class="st">`</span><span class="dt">i'/100)/ln(2) * -1) (E[5,1]) (E[6,1])</span></span>
-<span id="cb15-8"><a href="#cb15-8"></a><span class="dt">    } </span></span>
-<span id="cb15-9"><a href="#cb15-9"></a><span class="dt">    </span></span>
-<span id="cb15-10"><a href="#cb15-10"></a><span class="dt">postclose topost</span></span>
-<span id="cb15-11"><a href="#cb15-11"></a><span class="dt">use my_new_data, clear</span></span>
-<span id="cb15-12"><a href="#cb15-12"></a><span class="dt">list</span></span>
-<span id="cb15-13"><a href="#cb15-13"></a></span>
-<span id="cb15-14"><a href="#cb15-14"></a><span class="dt">twoway (pcscatter level lointerval level upinterval), </span></span>
-<span id="cb15-15"><a href="#cb15-15"></a><span class="dt">ytitle(Confidence Level (%)) xtitle(Confidence Limits) ///</span></span>
-<span id="cb15-16"><a href="#cb15-16"></a><span class="dt">title(Consonance Curve) </span></span>
-<span id="cb15-17"><a href="#cb15-17"></a><span class="dt">subtitle(A function comprised of several consonance intervals at various levels.)</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><html><body><pre class="r">postfile topost level pvalue svalue lointerval upinterval using my_new_data, replace
+     
+forvalues i = 10/99.9 { 
+      quietly mixed outcome predictor, reml level(`i')
+      matrix E = r(table)
+      matrix list E
+      post topost (`i') (1-`i'/100) ( ln(1-`i'/100)/ln(2) * -1) (E[5,1]) (E[6,1])
+    } 
+    
+postclose topost
+use my_new_data, clear
+list
+
+twoway (pcscatter level lointerval level upinterval), 
+ytitle(Confidence Level (%)) xtitle(Confidence Limits) ///
+title(Consonance Curve) 
+subtitle(A function comprised of several consonance intervals at various levels.)</pre></body></html></div>
 <p>Basically, our code doesn’t really change that much and with only a few lines of it, we are able to produce graphical tools that can better help us interpret the wide range of effect sizes that are compatible with the model and its assumptions.</p>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
       </div>
 
@@ -291,7 +333,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

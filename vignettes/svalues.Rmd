@@ -1,0 +1,21 @@
+---
+title: "S-value Calculator"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{S-value Calculator}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  message = TRUE,
+  warning = TRUE,
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+<iframe src="https://zadrafi.shinyapps.io/shinyapp/" width="100%" height="1000px" allowfullscreen="allowfullscreen">
+</iframe>

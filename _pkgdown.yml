@@ -24,7 +24,7 @@ development:
 
 navbar:
   structure:
-    left:  [home, intro, reference, articles, tutorials, news]
+    left:  [home, intro, reference, articles, news, tools]
     right: [github, twitter]
 
   components:
@@ -39,13 +39,34 @@ navbar:
       menu:
       - text: Examples in R
         href: articles/examples.html
-      - text: Troubleshooting
-        href: articles/troubleshooting.html
+      - text: Survival Modeling
+        href: articles/survival.html
+      - text: Meta-Analysis Examples
+        href: articles/meta-analysis.html
+      - text: Profile Likelihoods
+        href: articles/likelihood.html
+      - text: Bootstrap and Consonance Functions
+        href: articles/bootstrap.html
+      - text: Comparison to Bayesian Posteriors
+        href: articles/bayes.html
       - text: Using Stata
         href: articles/stata.html
+      - text: Customizing Plots
+        href: articles/customizing.html
+      - text: Troubleshooting
+        href: articles/troubleshooting.html
     news:
       text: News
-      href: news/index.html
+      menu:
+      - text: Updates
+        href: news/index.html
+      - text: Wish List
+        href: articles/wishlist.html
+    tools:
+      text: Tools
+      menu:
+      - text: S-value Calculator
+        href: articles/svalues.html
     github:
       icon: fa-github fa-lg
       href: https://github.com/zadrafi/concurve
@@ -58,4 +79,4 @@ pkgdown:
   extension: pdf
 
 toc:
-  depth: 2
+  depth: 5

@@ -51,8 +51,6 @@ calculated from the approximated normal distribution.
 # lower bound of the interval is 0.997 while upper bound of the interval is 2.59.
 #
 df <- curve_rev(point = 1.61, LL = 0.997, UL = 2.59, measure = "ratio")
-
-tibble::tibble(df[[1]])
 }
 \seealso{
 \code{\link[=ggcurve]{ggcurve()}}

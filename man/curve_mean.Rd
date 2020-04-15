@@ -55,5 +55,4 @@ GroupA <- runif(100, min = 0, max = 100)
 GroupB <- runif(100, min = 0, max = 100)
 RandomData <- data.frame(GroupA, GroupB)
 bob <- curve_mean(GroupA, GroupB, RandomData)
-tibble::tibble(bob[[1]])
 }

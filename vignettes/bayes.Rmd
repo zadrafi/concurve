@@ -1,0 +1,255 @@
+---
+title: "Comparison to Bayesian Posterior Distributions"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+bibliography: references.bib
+link-citations: yes
+csl: american-medical-association.csl
+vignette: >
+  %\VignetteIndexEntry{Comparison to Bayesian Posterior Distributions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  message = TRUE,
+  warning = TRUE,
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+Unlike Bayesian posterior distributions, confidence/consonance functions do not have any distributional properties and also lack the interpretation that should be given to Bayesian posterior intervals. For example, a Bayesian 95% posterior interval has the proper interpretation of having a 95% probability of containing the true value. 
+
+This does not apply to 95% frequentist intervals, where the 95% refers to the long run coverage of these intervals containing the true parameter if the study were repeated over and over. Thus, either a 95% frequentist interval contains the true parameter or it does not. In the code below, we simulate some data where the true population parameter is 20 and we know this because we're the deities of this world. A properly behaving statistical procedure with a set alpha of 0.05 will yield _at least_ 95% intervals in the long run that will include this population parameter of 20. Those that do not are marked in red. 
+
+```{r}
+sim <- function() {
+  fake <- data.frame((x <- rnorm(100, 100, 20)), (y <- rnorm(100, 80, 20)))
+  intervals <- t.test(x = x, y = y, data = fake, conf.level = .95)$conf.int[]
+}
+
+set.seed(1031)
+
+z <- replicate(100, sim(), simplify = FALSE)
+
+df <- data.frame(do.call(rbind, z))
+df$studynumber <- (1:length(z))
+intrvl.limit <- c("lower.limit", "upper.limit", "studynumber")
+colnames(df) <- intrvl.limit
+df$point <- ((df$lower.limit + df$upper.limit) / 2)
+df$covered <- (df$lower.limit <= 20 & 20 <= df$upper.limit)
+df$coverageprob <- ((as.numeric(table(df$covered)[2]) / nrow(df) * 100))
+
+library(ggplot2)
+
+
+ggplot(data = df, aes(x = studynumber, y = point, ymin = lower.limit, ymax = upper.limit)) +
+  geom_pointrange(mapping = aes(color = covered), size = .40) +
+  geom_hline(yintercept = 20, lty = 1, color = "red", alpha = 0.5) +
+  coord_flip() +
+  labs(
+    title = "Simulated 95% Intervals",
+    x = "Study Number",
+    y = "Estimate",
+    subtitle = "Population Parameter is 20"
+  ) +
+  theme_bw() + # use a white background
+  theme(legend.position = "none") +
+  annotate(
+    geom = "text", x = 102, y = 30,
+    label = "Coverage (%) =", size = 2.5, color = "black"
+  ) +
+  annotate(
+    geom = "text", x = 102, y = 35,
+    label = df$coverageprob, size = 2.5, color = "black"
+  )
+```
+
+Although the code above demonstrates this, one of the best visualization tools to understand this long-run behavior is the D3.js visualization created by Kristoffer Magnusson, which [can be viewed here](https://rpsychologist.com/d3/CI/).
+
+However, despite these differences in interpretation, Bayesian and frequentist intervals often end up converging, especially when there are large amounts of data. They also end up converging when a Bayesian posterior distribution is computed with a flat or weakly informative prior. However, there are several problems with using flat priors, such as giving equal weight to all values in the interval including implausible ones. These sorts of priors should generally be avoided. 
+
+Here, I demonstrate with a simple example how Bayesian posterior distributions and frequentist confidence functions end up converging in some scenarios. For these first few examples, I'll be using the `brms` package.[@Burkner_2018] 
+
+```{r echo=TRUE}
+library(concurve)
+library(brms)
+library(ggplot2)
+library(cowplot)
+library(bayesplot)
+
+
+GroupA <- rnorm(50)
+GroupB <- rnorm(50)
+RandomData <- data.frame(GroupA, GroupB)
+model_freq <- lm(GroupA ~ GroupB, data = RandomData)
+```
+
+```{r, results = 'hide', message = FALSE}
+# Using default prior
+model_bayes <- brm(GroupA ~ GroupB,
+  data = RandomData,
+  iter = 2000, warmup = 1000, chains = 2, family = gaussian()
+)
+```
+
+```{r echo=TRUE}
+randomframe <- curve_gen(model_freq, "GroupB")
+
+(function1 <- ggcurve(type = "c", randomframe[[1]], levels = c(0.99), nullvalue = TRUE))
+
+color_scheme_set("teal")
+
+(function2 <- mcmc_areas(model_bayes, pars = "b_GroupB", point_est = "none", prob = 1, prob_outer = 1, area_method = "scaled height") +
+  ggtitle("Posterior Distribution") +
+  theme_minimal() +
+  labs(subtitle = "Function Displays the Full Posterior Distribution", x = "Range of Values") +
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) +
+  annotate("segment",
+    x = 0, xend = 0, y = 0.95, yend = 2,
+    color = "#990000", alpha = 0.4, size = .75, linetype = 3
+  ))
+```
+
+
+
+```{r echo=TRUE}
+plot_grid(function1, function2)
+```
+
+
+```{r echo=TRUE}
+# Informative Priors
+
+GroupA <- rnorm(500, mean = 2)
+GroupB <- rnorm(500, mean = 1)
+RandomData <- data.frame(GroupA, GroupB)
+model_freq <- lm(GroupA ~ GroupB, data = RandomData)
+```
+
+```{r, results = 'hide', message = FALSE}
+
+# Using default prior
+model_bayes <- brm(GroupA ~ GroupB,
+  data = RandomData, prior = prior("normal(0, 1)", class = "b"),
+  iter = 2000, warmup = 1000, chains = 2, family = gaussian()
+)
+```
+
+```{r echo=TRUE}
+randomframe <- curve_gen(model_freq, "GroupB")
+
+(function1 <- ggcurve(type = "c", randomframe[[1]], levels = c(0.99), nullvalue = TRUE))
+
+color_scheme_set("teal")
+
+summary(model_bayes)
+
+(function2 <- mcmc_areas(model_bayes, pars = "b_GroupB", point_est = "none", prob = 1, prob_outer = 1, area_method = "scaled height") +
+  ggtitle("Posterior Distribution") +
+  theme_minimal() +
+  labs(subtitle = "Function Displays the Full Posterior Distribution", x = "Range of Values") +
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) +
+  annotate("segment",
+    x = 0, xend = 0, y = 0.95, yend = 2,
+    color = "#990000", alpha = 0.4, size = .75, linetype = 3
+  ))
+```
+
+```{r echo=TRUE}
+plot_grid(function1, function2)
+```
+
+Here I use a simple experimental design taken from a `brms` vignette 
+
+```{r echo=TRUE}
+income_options <- c("below_20", "20_to_40", "40_to_100", "greater_100")
+income <- factor(sample(income_options, 100, TRUE),
+  levels = income_options, ordered = TRUE
+)
+mean_ls <- c(30, 60, 70, 75)
+ls <- mean_ls[income] + rnorm(100, sd = 7)
+dat <- data.frame(income, ls)
+dat$income_num <- as.numeric(dat$income)
+```
+
+
+```{r, results = 'hide', message = FALSE}
+fit1 <- brm(ls ~ income_num, data = dat)
+```
+
+```{r}
+fit2 <- lm(ls ~ income_num, data = dat)
+
+randomframe <- curve_gen(fit2, "income_num")
+
+(function3 <- ggcurve(type = "c", randomframe[[1]], levels = c(0.99), nullvalue = FALSE))
+
+
+summary(fit1)
+
+(function4 <- mcmc_areas(fit1, pars = "b_income_num", point_est = "none", prob = 1, prob_outer = 1, area_method = "scaled height") +
+  ggtitle("Posterior Distribution") +
+  theme_minimal() +
+  labs(subtitle = "Function Displays the Full Posterior Distribution", x = "Range of Values") +
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) +
+  annotate("segment",
+    x = 15, xend = 15, y = 0.95, yend = 2,
+    color = "#990000", alpha = 0.4, size = .75, linetype = 3
+  ))
+```
+
+```{r echo=TRUE}
+plot_grid(function3, function4)
+```
+
+Here we use another example from an `rstanarm` vignette.[@Goodrich_Gabry_Ali_Brilleman_2020] 
+
+```{r, results = 'hide', message = FALSE}
+library(rstanarm)
+```
+
+```{r, results = 'hide', message = FALSE}
+
+data(kidiq)
+
+post1 <- stan_glm(kid_score ~ mom_hs,
+  data = kidiq,
+  family = gaussian(link = "identity"),
+  seed = 12345
+)
+```
+
+```{r}
+post2 <- lm(kid_score ~ mom_hs, data = kidiq)
+
+df3 <- curve_gen(post2, "mom_hs")
+
+function99 <- ggcurve(df3[[1]])
+
+summary(post1)
+
+(function100 <- mcmc_areas(post1, pars = "mom_hs", point_est = "none", prob = 1, prob_outer = 1, area_method = "scaled height") +
+  ggtitle("Posterior Distribution") +
+  theme_minimal() +
+  labs(subtitle = "Function Displays the Full Posterior Distribution", x = "Range of Values") +
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) +
+  annotate("segment",
+    x = 15, xend = 15, y = 0.95, yend = 2,
+    color = "#990000", alpha = 0.4, size = .75, linetype = 3
+  ))
+```
+
+```{r echo=TRUE}
+cowplot::plot_grid(function99, function100)
+```
+
+* * * 
+
+# References
+
+* * * 

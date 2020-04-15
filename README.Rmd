@@ -21,19 +21,15 @@ output: github_document
 <img src = "https://res.cloudinary.com/less-likely/image/upload/v1574598684/Site/cfunctions.png" align="center" width ="400">
 <img src = "https://res.cloudinary.com/less-likely/image/upload/v1574598684/Site/lfunctions.png" align="center" width ="400">
 
-
 * * *
 
 ### [Export Tables](https://data.lesslikely.com/concurve/reference/curve_table.html) Easily For Word, Powerpoint, & TeX documents
 <center>
 <img src = "https://res.cloudinary.com/less-likely/image/upload/v1574628079/Site/tables.png" align="center" width="375">
 
-<img src = "https://res.cloudinary.com/less-likely/image/upload/v1575441662/Site/Logo2.jpg" align="center" width="150">
-</center>
-
 * * * 
 
-### Install the Package From [CRAN](https://cran.r-project.org/package=concurve) Below To Follow The [Examples](https://data.lesslikely.com/concurve/articles/examples.html).
+### Install the Package From [CRAN](https://cran.r-project.org/package=concurve) Below To Follow The [Examples](https://data.lesslikely.com/concurve/articles/index.html).
 (`Seriously Recommend Looking at Examples`)
 
 ``` 
@@ -43,7 +39,7 @@ install.packages("concurve")
 Try the following if you run into any installation issues:
 
 ```
-install.packages("concurve", dep = TRUE)
+install.packages("concurve", repos = "https://cloud.r-project.org/", dep = TRUE)
 ```
 
 * * * 
@@ -51,62 +47,3 @@ install.packages("concurve", dep = TRUE)
 ## Check out the [Article on Using `Stata`](https://data.lesslikely.com/concurve/articles/stata.html) for concurve.
 
 * * * 
-
-## Dependencies
-* [`ggplot2`](https://ggplot2.tidyverse.org/)
-* [`metafor`](http://www.metafor-project.org/doku.php/metafor)
-* [`lme4`](https://cran.r-project.org/package=lme4)
-* [`boot`](https://cran.r-project.org/package=boot)
-* [`bcaboot`](https://cran.r-project.org/package=bcaboot)
-* [`ProfileLikelihood`](https://cran.r-project.org/package=ProfileLikelihood)
-* [`pbmcapply`](https://cran.r-project.org/package=pbmcapply)
-* [`dplyr`](https://dplyr.tidyverse.org/)
-* [`tidyr`](https://tidyr.tidyverse.org/)
-* [`knitr`](https://yihui.org/knitr/)
-* [`flextable`](https://davidgohel.github.io/flextable/)
-* [`officer`](https://davidgohel.github.io/officer/)
-* [`tibble`](https://tibble.tidyverse.org/)
-* [`survival`](https://cran.r-project.org/package=survival)
-* [`survminer`](https://cran.r-project.org/package=survminer)
-* [`scales`](https://cran.r-project.org/package=scales)
-
-* * * 
-
-# Purpose
-
-> In particular, the usual 95% default forces the user’s focus onto parameter values that yield p > 0.05, without regard to the trivial difference between (say) p = 0.06 and p = 0.04 (a difference not even worth a coin toss). To address this problem, we first note that a 95% interval estimate is only one of a number of arbitrary dichotomization of possibilities of parameter values (into either inside or outside of an interval). A more accurate picture of uncertainty is then obtained by examining intervals using other percentiles, e.g., proportionally-spaced compatibility levels such as p 0.25, 0.05, 0.01, which correspond to 75%, 95%, 99% CIs and equally-spaced S-values of s < 2, 4.32, 6.64 bits. When a detailed picture is desired, a table or graph of all the P-values and S-values across a broad range of parameter values seems the clearest way to see how compatibility
-varies smoothly across the values.
-> 
-> Graphs of P-values or their equivalent have been promoted for decades [34, 56–59], yet their adoption has been slight. Nonetheless, P-value and S-value graphing software is now available freely through several statistical packages [60–62]. A graph of the P-values p against possible parameter values allows one to see at a glance which parameter values are most compatible with the data under the background assumptions. This graph is known as the P-value function, or compatibility, consonance, or confidence curve [34, 57, 58, 63, 64]. Transforming the corresponding P-values in the graph to S-values produces an S-value (surprisal) function.
-> 
-> Following the common (and important) warning that P-values are not hypothesis probabilities, we caution that the P-value graph is not a probability distribution: It shows compatibility of parameter values with the data, rather than plausibility or probability of those values given the data. This is not a subtle difference: compatibility is a much weaker condition than plausibility. Consider for example that complete fabrication of the data is always an explanation compatible with the data (and indeed has happened in some influential medical studies [65]), but in studies with many participants and authors involved in all aspects of data collection it becomes so implausible or improbable as to not even merit mention. We emphasize then that all the P-value ever addresses in a direct logical sense is compatibility; for hypothesis probabilities one must turn to Bayesian methods [25]. - [Chow & Greenland, 2019](https://arxiv.org/abs/1909.08579); [Greenland & Chow, 2019](https://arxiv.org/abs/1909.08583)
-
-* * * 
-
-> In addition to the overt statistical position, the p-value function also provides easily and accurately many of the familiar types of summary information: a **median estimate** of the parameter; a **one-sided test statistic** for a scalar parameter value at any chosen level; the related **power function**; a **lower confidence bound** at any level; an **upper confidence bound** at any level; and **confidence intervals** with chosen upper and lower confidence limits. The p value reports all the **common inference material**, but with **high accuracy, basic uniqueness, and wide generality**.
->
-> From a scientific perspective, the **likelihood function** and **p-value function** provide the basis for scientific judgments by an investigator, and by other investigators who might have interest. **It thus replaces a blunt yes or no decision by an opportunity for appropriate informed judgment.**” - [Fraser, 2019](https://doi.org/10.1080/00031305.2018.1556735)
-
-* * * 
-
-> *Statistical software does not help you know what to compute, nor how to interpret the result. It does not offer to explain the assumptions behind methods, nor does it flag delicate or dubious assumptions. It does not warn you about multiplicity or p-hacking. It does not check whether you picked the hypothesis or analysis after looking at the data, nor track the number of analyses you tried before arriving at the one you sought to publish – another form of multiplicity. The more “powerful” and “user-friendly” the software is, the more it invites cargo-cult statistics*." - Stark & Saltelli, 2018
-
-# References
-
-1. Chow ZR, Greenland S. Semantic and Cognitive Tools to Aid Statistical Inference: Replace Confidence and Significance by Compatibility and Surprise. [_arXiv:1909.08579 [stat.ME]_.](https://arxiv.org/abs/1909.08579) 2019
-2. Greenland S, Chow ZR. To Aid Statistical Inference, Emphasize Unconditional Descriptions of Statistics. [_arXiv:1909.08583 [stat.ME]_.](https://arxiv.org/abs/1909.08583) 2019
-3. Poole C. Beyond the confidence interval. _Am J Public Health._ 1987;77(2):195-199. 
-4. Sullivan KM, Foster DA. Use of the confidence interval function._Epidemiology._ 1990;1(1):39-42.
-5. Rothman KJ, Greenland S, Lash TL. Modern epidemiology. 2012.
-6. Singh K, Xie M, Strawderman WE. Confidence distribution (CD) -- distribution estimator of a parameter. _arXiv [mathST]_. 2007. 
-7. Schweder T, Hjort NL. Confidence and Likelihood*. _Scand J Stat._ 2002;29(2):309-332. 
-8. Amrhein V, Trafimow D, Greenland S. Inferential Statistics as Descriptive Statistics: There is No Replication Crisis if We Don't Expect Replication. _Am Stat_. 2019
-9. Greenland S. Valid P-values Behave Exactly As They Should. Some misleading criticisms of P-values and their resolution with S-values. _Am Stat_. 2019;18(136).
-10. Fraser DAS. The p-value Function and Statistical Inference. _Am Stat_. 2019
-11. Stark PB, Saltelli A. Cargo-cult statistics and scientific crisis. _Significance._ 2018;15(4):40-43. 
-
-# Session info
-
-```{r session_info, include=TRUE, echo=FALSE}
-sessionInfo()
-```

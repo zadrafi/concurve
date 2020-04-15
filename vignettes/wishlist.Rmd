@@ -1,0 +1,16 @@
+---
+title: "Wish List"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Wish List}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Here are some ideas/implementations I'm hoping to include within `concurve` at some point within the future. 
+
+* Produce consonance functions for quantile regressions from the `quantreg` package
+* Implement with the `nlme` package 
+* Possibly incorporate `Stan` via `rstantools` to produce likelihoods and posteriors
+
+If you'd like to help contribute, please see the [contributing guide](docs/CONTRIBUTING.html).

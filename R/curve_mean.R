@@ -38,7 +38,6 @@
 #' GroupB <- runif(100, min = 0, max = 100)
 #' RandomData <- data.frame(GroupA, GroupB)
 #' bob <- curve_mean(GroupA, GroupB, RandomData)
-#' tibble::tibble(bob[[1]])
 curve_mean <- function(x, y, data, paired = F, method = "default", replicates = 1000, steps = 10000, table = TRUE) {
   if (is.numeric(x) != TRUE) {
     stop("Error: 'x' must be a numeric vector")

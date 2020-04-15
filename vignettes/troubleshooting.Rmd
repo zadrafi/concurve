@@ -37,11 +37,46 @@ library(devtools)
 install_github("zadrafi/concurve")
 ```
 
+# Unable to Plot Function
+
+If you encounter an error such as "Error: 'data' must be a data frame from 'concurve'.", it is very likely that you are not providing `ggcurve()` the correct argument. If you used a function like `curve_gen()` to generate intervals and saved it to an object called 'object', you need to provide `ggcurve()` a data argument such as `object[[1]]` rather than `object` or `object[1]`. This is because although you saved your results to something called `object`, you ended up with a list with multiple components used for different purposes, usually with the first part of the list being the most commonly used part. 
+
+We can actually see these components one by one. Let's generate some example data. 
+
+```{r}
+library(concurve)
+set.seed(1031)
+GroupA <- rnorm(500)
+GroupB <- rnorm(500)
+RandomData <- data.frame(GroupA, GroupB)
+object <- curve_mean(GroupA, GroupB,
+  data = RandomData, method = "default"
+)
+```
+
+As stated, the first part of the list `object[[1]]` contains what we usually want (I'm restricting to the first 5 results using the `head()` function so that we don't print a giant list with 1000 rows.)
+
+```{r}
+head(object[[1]], 5)
+```
+
+while the second and third parts of the list contain dataframes and lists for other functions such as generating density functions or for other functions such as `curve_table()`. 
+
+```{r}
+head(object[[2]], 5)
+```
+
+```{r}
+head(object[[3]], 5)
+```
+
 # Distorted Plots
 
 If you encounter issues when plotting the functions, it is because there are a large number of points being plotted, which could lead to the graph being slightly distorted or not loading at all. The simplest solution to this is to refresh the plot and try the function again.
 
 This applies to the `ggcurve()`, `curve_compare()`, and `plot_compare()` functions.
+
+I would also recommend saving plots using the `cowplot::save_plot()` function with the actual `ggcurve()` object. It has better default settings than the `ggsave()` function.  
 
 # Slow Performance 
 
@@ -58,12 +93,18 @@ The script will detect the number of cores on your machine via the `parallel` pa
 
 However, if you would like to speed up the computations and are unable to use parallelization, then you can reduce the number of `steps` in the each of the `concurve` functions, which will drastically reduce the time it takes to complete the operation. By default, most of the `steps` arguments are set to 10000. 
 
-For example, here I changed the number of steps to 100, which is the minimum needed to plot a function, and the process is now much quicker.
+For example, here I changed the number of steps to 100, which is the minimum needed to plot a function, and the process is now much quicker. We can evaluate this using a microbenchmark. Here I use the `bench` package and the `mark()` function. Because we are using parallelization, we must also set the `memory` argument to `FALSE`.
 
 ```{r}
-system.time(df1 <- curve_rev(point = 1.61, LL = 0.997, UL = 2.59, measure = "ratio", steps = 100))
+library(bench)
+func1 <- bench::mark(df1 <- curve_rev(point = 1.61, LL = 0.997, UL = 2.59, 
+                                      measure = "ratio", steps = 100), memory = FALSE)
 
-system.time(df1 <- curve_rev(point = 1.61, LL = 0.997, UL = 2.59, measure = "ratio", steps = 10000))
+func2 <- bench::mark(df1 <- curve_rev(point = 1.61, LL = 0.997, UL = 2.59, 
+                                      measure = "ratio", steps = 10000), memory = FALSE)
+
+func1
+func2
 ```
 
 # Bugs 

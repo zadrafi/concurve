@@ -3,8 +3,8 @@ Package: concurve
 Title: Computes and Plots Compatibility (Confidence) Intervals,
     P-Values, S-Values, & Likelihood Intervals to Form Consonance,
     Surprisal, & Likelihood Functions
-Version: 2.4.2
-Date: 2020-01-22
+Version: 2.5.0
+Date: 2020-04-12
 Authors@R: 
     c(person(given = "Zad",
              family = "Rafi",
@@ -22,7 +22,7 @@ Description: Allows one to compute compatibility (confidence)
     create consonance, surprisal, and likelihood functions allowing one to
     see what effect sizes are compatible with the test model at various
     compatibility levels rather than being limited to one interval estimate
-    such as 95%. Functions can also be compared to one another to see how much
+    such as 95\%. Functions can also be compared to one another to see how much
     they overlap with one another and differ. Results can also be exported for 
     Word, Powerpoint, and TeX documents. The package currently supports bootstrapping,
     linear models, generalized linear models, linear mixed-effects models, 
@@ -38,7 +38,8 @@ License: GPL-3 | file LICENSE
 URL: https://data.lesslikely.com/concurve/,
     https://github.com/zadrafi/concurve, https://lesslikely.com/
 BugReports: https://github.com/zadrafi/concurve/issues
-Imports: 
+Imports:
+    MASS,
     bcaboot,
     boot,
     lme4,
@@ -56,7 +57,8 @@ Imports:
     survminer,
     tibble,
     tidyr,
-    methods
+    methods,
+    cowplot
 Suggests:
     covr,
     roxygen2,
@@ -64,7 +66,12 @@ Suggests:
     testthat,
     rmarkdown,
     Lock5Data,
-    carData
+    carData,
+    bench,
+    brms,
+    rstan,
+    rstanarm,
+    bayesplot
 VignetteBuilder: 
     knitr
 ByteCompile: true
@@ -72,7 +79,7 @@ Encoding: UTF-8
 Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE, old_usage = TRUE)
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
 X-schema.org-keywords: confidence, compatibility, consonance,
     surprisal, interval, function, curve
 Depends: 

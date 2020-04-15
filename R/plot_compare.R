@@ -229,7 +229,7 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
       {
         if (position == "inverted") {
           scale_y_reverse(
-            expand = expand_scale(mult = c(0.01, 0.025)),
+            expand = expansion(mult = c(0.01, 0.025)),
             breaks = seq(0, 1, 0.10),
             sec.axis = sec_axis(~ (1 - .) * 100, name = "Levels for CI (%)", breaks = seq(0, 100, 10))
           )
@@ -238,7 +238,7 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
       {
         if (position == "pyramid") {
           scale_y_continuous(
-            expand = expand_scale(mult = c(0.01, 0.025)),
+            expand = expansion(mult = c(0.01, 0.025)),
             breaks = seq(0, 1, 0.10),
             sec.axis = sec_axis(~ (1 - .) * 100, name = "Levels for CI (%)", breaks = seq(0, 100, 10))
           )
@@ -431,7 +431,7 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
       {
         if (measure == "ratio") scale_x_log10(breaks = scales::pretty_breaks(n = 10))
       } +
-      scale_y_continuous(expand = expand_scale(mult = c(0.01, 0.05)), breaks = scales::pretty_breaks(n = 10)) +
+      scale_y_continuous(expand = expansion(mult = c(0.01, 0.05)), breaks = scales::pretty_breaks(n = 10)) +
       if (nullvalue == TRUE) {
         if (measure == "default") {
           annotate("segment",
@@ -516,7 +516,7 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
       {
         if (measure == "ratio") scale_x_log10(breaks = scales::pretty_breaks(n = 10))
       } +
-      scale_y_continuous(expand = expand_scale(mult = c(0.01, 0.05)), breaks = scales::pretty_breaks(n = 10)) +
+      scale_y_continuous(expand = expansion(mult = c(0.01, 0.05)), breaks = scales::pretty_breaks(n = 10)) +
       if (nullvalue == TRUE) {
         if (measure == "default") {
           annotate("segment",
@@ -601,7 +601,7 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
       {
         if (measure == "ratio") scale_x_log10(breaks = scales::pretty_breaks(n = 10))
       } +
-      scale_y_continuous(expand = expand_scale(mult = c(0.01, 0.05)), breaks = scales::pretty_breaks(n = 10)) +
+      scale_y_continuous(expand = expansion(mult = c(0.01, 0.05)), breaks = scales::pretty_breaks(n = 10)) +
       if (nullvalue == TRUE) {
         if (measure == "default") {
           annotate("segment",

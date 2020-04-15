@@ -14,7 +14,7 @@ Allows one to compute compatibility (confidence)
     create consonance, surprisal, and likelihood functions allowing one to
     see what effect sizes are compatible with the test model at various
     compatibility levels rather than being limited to one interval estimate
-    such as 95%. Functions can also be compared to one another to see how much
+    such as 95\%. Functions can also be compared to one another to see how much
     they overlap with one another and differ. Results can also be exported for 
     Word, Powerpoint, and TeX documents. The package currently supports bootstrapping,
     linear models, generalized linear models, linear mixed-effects models, 

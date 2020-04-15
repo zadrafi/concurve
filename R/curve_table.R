@@ -9,7 +9,7 @@
 #' @param type Indicates whether the table is for a consonance function or likelihood function.
 #' The default is set to "c" for consonance and can be switched to "l" for likelihood.
 #' @param format The format of the tables. The options include "data.frame" which is the
-#' default, "tibble", "docx" (which creates a table for a word document), "pptx" (which
+#' default, "docx" (which creates a table for a word document), "pptx" (which
 #' creates a table for powerpoint), "latex", (which creates a table for a TeX document), and
 #' "image", which produces an image of the table.
 #'
@@ -25,7 +25,6 @@
 #' intervalsdf <- curve_mean(GroupA, GroupB, data = RandomData, method = "default")
 #'
 #' (z <- curve_table(intervalsdf[[1]], format = "data.frame"))
-#' (z <- curve_table(intervalsdf[[1]], format = "tibble"))
 #' (z <- curve_table(intervalsdf[[1]], format = "latex"))
 #' (z <- curve_table(intervalsdf[[1]], format = "image"))
 #' @seealso [ggcurve()]
@@ -55,9 +54,6 @@ curve_table <- function(data, levels, type = "c", format = "data.frame") {
   }
 
   if (format == "data.frame") {
-    return(subdf)
-  } else if (format == "tibble") {
-    subdf <- tibble::tibble(subdf)
     return(subdf)
   } else if (format == "docx") {
     subdf <- flextable(subdf)
