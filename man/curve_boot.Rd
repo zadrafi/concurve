@@ -53,14 +53,3 @@ the fifth object, while the Bca stats are in the sixth and seventh objects.
 Use the Bca bootstrap method and the t-boostrap method from the bcaboot and boot packages
 to generate consonance distrbutions.
 }
-\references{
-Efron, B., and Tibshirani, R. J. (1994), An Introduction to the Bootstrap, CRC Press.
-
-Efron, B., and Narasimhan, B. (2018), “The automatic construction of bootstrap conﬁdence intervals,” 17.
-
-Schweder, T., and Hjort, N. L. (2016), Confidence, Likelihood, Probability:
-Statistical Inference with Confidence Distributions, Cambridge University Press.
-
-Xie, M., and Singh, K. (2013), “Confidence Distribution, the Frequentist Distribution Estimator of a Parameter:
-A Review,” International Statistical Review, 81, 3–39.
-}

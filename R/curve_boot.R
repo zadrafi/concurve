@@ -35,18 +35,6 @@
 #' are found in the third and fourth list. The values for the density function are in
 #' the fifth object, while the Bca stats are in the sixth and seventh objects.
 #'
-#' @references
-#'
-#' Efron, B., and Tibshirani, R. J. (1994), An Introduction to the Bootstrap, CRC Press.
-#'
-#' Efron, B., and Narasimhan, B. (2018), “The automatic construction of bootstrap conﬁdence intervals,” 17.
-#'
-#' Schweder, T., and Hjort, N. L. (2016), Confidence, Likelihood, Probability:
-#' Statistical Inference with Confidence Distributions, Cambridge University Press.
-#'
-#' Xie, M., and Singh, K. (2013), “Confidence Distribution, the Frequentist Distribution Estimator of a Parameter:
-#' A Review,” International Statistical Review, 81, 3–39.
-#'
 #'
 
 curve_boot <- function(data = data, func = func, method = "bca", t0, tt, bb, replicates = 2000, steps = 1000, table = TRUE) {

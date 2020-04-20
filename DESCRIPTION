@@ -4,7 +4,7 @@ Title: Computes and Plots Compatibility (Confidence) Intervals,
     P-Values, S-Values, & Likelihood Intervals to Form Consonance,
     Surprisal, & Likelihood Functions
 Version: 2.5.0
-Date: 2020-04-12
+Date: 2020-04-19
 Authors@R: 
     c(person(given = "Zad",
              family = "Rafi",
@@ -58,7 +58,8 @@ Imports:
     tibble,
     tidyr,
     methods,
-    cowplot
+    cowplot,
+    patchwork
 Suggests:
     covr,
     roxygen2,
@@ -71,7 +72,8 @@ Suggests:
     brms,
     rstan,
     rstanarm,
-    bayesplot
+    bayesplot,
+    vdiffr
 VignetteBuilder: 
     knitr
 ByteCompile: true

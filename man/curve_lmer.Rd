@@ -33,9 +33,9 @@ likelihood cutoff (if not specified, as by default, computed from level).}
 fixed-effect parameters as well as the random-effect parameters on
 the standard deviation/correlationscale will be used.}
 
-\item{boot.type}{bootstrap confidence interval type, as described in boot.ci.
-(Methods ‘stud’ and ‘bca’ are unavailable because they
-require additional components to be calculated.)}
+\item{boot.type}{bootstrap confidence interval type, as described in boot.c i.
+Methods stud and bca are unavailable because they
+require additional components to be calculated.}
 
 \item{steps}{Indicates how many consonance intervals are to be calculated at
 various levels. For example, setting this to 100 will produce 100 consonance
