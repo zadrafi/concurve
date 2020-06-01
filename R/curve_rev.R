@@ -55,12 +55,7 @@ curve_rev <- function(point,
   if (is.numeric(point) != TRUE) {
     stop("Error: 'point' must be a numeric value")
   }
-  if (is.numeric(LL) != TRUE) {
-    stop("Error: 'LL' must be a numeric value")
-  }
-  if (is.numeric(UL) != TRUE) {
-    stop("Error: 'UL' must be a numeric value")
-  }
+
   if (is.character(measure) != TRUE) {
     stop("Error: 'measure' must be a string such as 'default' or 'ratio'")
   }
@@ -69,16 +64,36 @@ curve_rev <- function(point,
     stop("se or UL & LL must be entered")
   }
 
+  if (is.null(se)) {
+
+  if (is.numeric(LL) != TRUE) {
+    stop("Error: 'LL' must be a numeric value")
+  }
+  if (is.numeric(UL) != TRUE) {
+    stop("Error: 'UL' must be a numeric value")
+  }
+  }
+
   intrvls <- (1:steps) / steps
   z <- qnorm(1 - intrvls / 2)
   conf.level_two = conf.level+(1-conf.level)/2
   conf_range = qnorm(conf.level_two)
 
 
-  if (!is.null(se)) {
+  if (!is.null(se) ) {
     LL = point - conf_range*se
     UL = point + conf_range*se
   }
+
+  if (is.null(se) && type == "default") {
+    se <- (UL - LL) / (2*conf_range)
+  }
+
+  if (is.null(se) && type == "ratio") {
+    se <- log(UL / LL) / (2*conf_range)
+  }
+
+
 
   if (type == "c") {
 
@@ -87,10 +102,8 @@ curve_rev <- function(point,
     #conf.level_two = (1-conf.level)/2
     #conf_range = qnorm(conf.level_two)
 
-
-
     if (measure == "default") {
-      se <- (UL - LL) / (2*conf_range)
+      #se <- (UL - LL) / (2*conf_range)
       LL <- pbmclapply(z, FUN = function(i) point + (i * se), mc.cores = getOption("mc.cores", 1L))
       UL <- pbmclapply(z, FUN = function(i) point - (i * se), mc.cores = getOption("mc.cores", 1L))
       df <- data.frame(do.call(rbind, UL), do.call(rbind, LL))
@@ -99,7 +112,7 @@ curve_rev <- function(point,
     }
 
     else if (measure == "ratio") {
-      se <- log(UL / LL) / (2*conf_range)
+      #se <- log(UL / LL) / (2*conf_range)
       logpoint <- log(point)
       logLL <- pbmclapply(z, FUN = function(i) logpoint + (i * se), mc.cores = getOption("mc.cores", 1L))
       logUL <- pbmclapply(z, FUN = function(i) logpoint - (i * se), mc.cores = getOption("mc.cores", 1L))
@@ -140,7 +153,7 @@ curve_rev <- function(point,
     #z <- qnorm(1 - intrvls / 2)
 
     if (measure == "default") {
-      se <- (UL - LL) / (2*conf_range)
+      #se <- (UL - LL) / (2*conf_range)
       LL <- pbmclapply(z, FUN = function(i) point + (i * se), mc.cores = getOption("mc.cores", 1L))
       UL <- pbmclapply(z, FUN = function(i) point - (i * se), mc.cores = getOption("mc.cores", 1L))
       df <- data.frame(do.call(rbind, UL), do.call(rbind, LL))
@@ -150,7 +163,7 @@ curve_rev <- function(point,
     }
 
     else if (measure == "ratio") {
-      se <- log(UL / LL) / (2*conf_range)
+      #se <- log(UL / LL) / (2*conf_range)
       logpoint <- log(point)
       logLL <- pbmclapply(z, FUN = function(i) logpoint + (i * se), mc.cores = getOption("mc.cores", 1L))
       logUL <- pbmclapply(z, FUN = function(i) logpoint - (i * se), mc.cores = getOption("mc.cores", 1L))
@@ -169,12 +182,22 @@ curve_rev <- function(point,
     class(df) <- c("data.frame", "concurve")
 
 
-    se <- log(UL / LL) / (2*conf_range)
+    #se <- log(UL / LL) / (2*conf_range)
+    if ( measure == "ratio") {
     values <- seq(from = df[1, 1], to = df[1, 2], by = 0.01)
     zscore <- sapply(
       values,
       function(j) (log(j / point) / se)
     )
+    }
+
+    if (measure == "default") {
+      values <- seq(from = df[1, 1], to = df[1, 2], by = 0.01)
+      zscore <- sapply(
+        values,
+        function(j) ((j - point) / se)
+      )
+    }
 
     support <- exp((-zscore^2) / 2)
     deviancestat <- (zscore^2)
