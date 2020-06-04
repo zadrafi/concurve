@@ -39,6 +39,7 @@
 #' @seealso [curve_compare()]
 #' @seealso [plot_compare()]
 #'
+
 curve_rev <- function(point, LL, UL, type = "c", measure = "default", steps = 10000, table = TRUE) {
 
 
