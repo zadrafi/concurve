@@ -115,13 +115,8 @@ curve_rev <- function(point,
     else if (measure == "ratio") {
       #se <- log(UL / LL) / (2*conf_range)
       logpoint <- log(point)
-      print(logpoint)
-      print(se)
-      #print(z)
       logLL <- pbmclapply(z, FUN = function(i) logpoint + (i * se), mc.cores = getOption("mc.cores", 1L))
       logUL <- pbmclapply(z, FUN = function(i) logpoint - (i * se), mc.cores = getOption("mc.cores", 1L))
-      #print(logLL)
-      #print(logUL)
       df <- data.frame(do.call(rbind, logUL), do.call(rbind, logLL))
 
       intrvl.limit <- c("lower.limit", "upper.limit")
@@ -208,7 +203,11 @@ curve_rev <- function(point,
 
     support <- exp((-zscore^2) / 2)
     deviancestat <- (zscore^2)
+    if (measure == "ratio") {
     likelihood <- support * (log(point))
+    } else {
+      likelihood = support * point
+    }
     loglikelihood <- log(likelihood)
     likfunction <- data.frame(values, likelihood, loglikelihood, support, deviancestat)
     class(likfunction) <- c("data.frame", "concurve")
