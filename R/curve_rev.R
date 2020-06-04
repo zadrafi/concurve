@@ -76,7 +76,7 @@ curve_rev <- function(point,
 
   intrvls <- (1:steps) / steps
   z <- qnorm(1 - intrvls / 2)
-  conf.level_two = conf.level+(1-conf.level)/2
+  conf.level_two = conf.level + (1 - conf.level)/2
   conf_range = qnorm(conf.level_two)
 
 
@@ -85,12 +85,13 @@ curve_rev <- function(point,
     UL = point + conf_range*se
   }
 
-  if (is.null(se) && type == "default") {
+  if (is.null(se) && measure == "default") {
     se <- (UL - LL) / (2*conf_range)
   }
 
-  if (is.null(se) && type == "ratio") {
+  if (is.null(se) && measure == "ratio") {
     se <- log(UL / LL) / (2*conf_range)
+    print(se)
   }
 
 
@@ -114,9 +115,15 @@ curve_rev <- function(point,
     else if (measure == "ratio") {
       #se <- log(UL / LL) / (2*conf_range)
       logpoint <- log(point)
+      print(logpoint)
+      print(se)
+      #print(z)
       logLL <- pbmclapply(z, FUN = function(i) logpoint + (i * se), mc.cores = getOption("mc.cores", 1L))
       logUL <- pbmclapply(z, FUN = function(i) logpoint - (i * se), mc.cores = getOption("mc.cores", 1L))
+      #print(logLL)
+      #print(logUL)
       df <- data.frame(do.call(rbind, logUL), do.call(rbind, logLL))
+
       intrvl.limit <- c("lower.limit", "upper.limit")
       colnames(df) <- intrvl.limit
       df$lower.limit <- exp(df$lower.limit)
