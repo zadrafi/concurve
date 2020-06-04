@@ -62,7 +62,7 @@ curve_rev <- function(point, LL, UL, type = "c", measure = "default", steps = 10
     z <- qnorm(1 - intrvls / 2)
 
     if (measure == "default") {
-      se <- (UL / LL) / 3.92
+      se <- (UL - LL) / 3.92
       LL <- pbmclapply(z, FUN = function(i) point + (i * se), mc.cores = getOption("mc.cores", 1L))
       UL <- pbmclapply(z, FUN = function(i) point - (i * se), mc.cores = getOption("mc.cores", 1L))
       df <- data.frame(do.call(rbind, UL), do.call(rbind, LL))

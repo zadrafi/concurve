@@ -92,11 +92,9 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
   # Consonance Curve -----------------------------------------------------
 
   if (type == "c") {
-    if (is(data, "concurve") != TRUE) {
-      stop("Error: 'data' must be a data frame from 'concurve'.")
-    }
+
     if (ncol(data) != 7) {
-      stop("Error: 'data' must be a data frame from 'concurve'.")
+      stop("Error: 'data' or 'list' must be from 'concurve'.")
     }
     if (is.character(measure) != TRUE) {
       stop("Error: 'measure' must be a string such as 'default' or 'ratio'.")

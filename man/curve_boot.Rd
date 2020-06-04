@@ -5,7 +5,8 @@
 \title{Generate Consonance Functions via Bootstrapping}
 \usage{
 curve_boot(data = data, func = func, method = "bca", t0, tt, bb,
-  replicates = 2000, steps = 1000, table = TRUE)
+  replicates = 2000, steps = 1000, mc.cores = getOption("mc.cores", 1L),
+  table = TRUE)
 }
 \arguments{
 \item{data}{Dataset that is being used to create a consonance function.}
