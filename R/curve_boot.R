@@ -37,7 +37,8 @@
 #'
 #'
 
-curve_boot <- function(data = data, func = func, method = "bca", t0, tt, bb, replicates = 2000, steps = 1000, table = TRUE) {
+curve_boot <- function(data = data, func = func, method = "bca", t0, tt, bb,
+                       replicates = 2000, steps = 1000, mc.cores = getOption("mc.cores", 1L), table = TRUE) {
 
 
   # BCA Non-Parametric Bootstrap Method  ---------------------------------------------------
@@ -229,9 +230,9 @@ curve_boot <- function(data = data, func = func, method = "bca", t0, tt, bb, rep
     }
 
 
-    # Boot Percentile Method For Density --------------------------------------
+    # Boot t Method For Density --------------------------------------
   } else if (method == "t") {
-    t.boot <- boot(data = data, statistic = func, R = replicates, parallel = "multicore", ncpus = getOption("mc.cores", 1L))
+    t.boot <- boot(data = data, statistic = func, R = replicates, parallel = "multicore", ncpus = mc.cores)
 
     intrvls <- 1:steps / steps
 
@@ -251,7 +252,14 @@ curve_boot <- function(data = data, func = func, method = "bca", t0, tt, bb, rep
     df <- head(df, -1)
     class(df) <- c("data.frame", "concurve")
 
+    # Bootstrap Distribution
+    boot_dens <- t.boot[["t"]]
+    colnames(boot_dens) <- "x"
+    boot_dens <- as.data.frame(boot_dens)
+    boot_dens <- head(boot_dens, -1)
+    class(boot_dens) <- c("data.frame", "concurve")
 
+    # Interval Density
     densdf <- data.frame(c(df$lower.limit, df$upper.limit))
     colnames(densdf) <- "x"
     densdf <- head(densdf, -1)
@@ -262,13 +270,14 @@ curve_boot <- function(data = data, func = func, method = "bca", t0, tt, bb, rep
       levels <- c(0.25, 0.50, 0.75, 0.80, 0.85, 0.90, 0.95, 0.975, 0.99)
       (df_subintervals <- (curve_table(df, levels, type = "c", format = "data.frame")))
       class(df_subintervals) <- c("data.frame", "concurve")
-      dataframes <- list(df, densdf, df_subintervals)
-      names(dataframes) <- c("Intervals Dataframe", "Intervals Density", "Intervals Table")
+      dataframes <- list(df, boot_dens, densdf, df_subintervals)
+      names(dataframes) <- c("Intervals Dataframe", "Bootstrap Distribution", "Intervals Density", "Intervals Table")
       class(dataframes) <- "concurve"
       return(dataframes)
     } else if (table == FALSE) {
       return(list(df, densdf))
     }
+
   }
 }
 
