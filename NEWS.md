@@ -1,3 +1,12 @@
+# concurve 2.6.0
+
+## Major changes 
+* An error in `curve_rev()` was fixed where for the default measure, the computations were calculated as if measure was set to ratio.
+  - Thank you to [Aaron Caldwell](https://twitter.com/ExPhysStudent) for his generous help in fixing this bug. 
+* `curve_rev()` can now take summary statistics such as the point estimate and it's standard error to back calculate the function. 
+  - Also thanks to [Aaron Caldwell](https://twitter.com/ExPhysStudent) for this added feature.
+* `curve_boot()` now takes an option allowing users to specify the number of cores to be used. 
+
 # concurve 2.5.0
 
 ## Major changes 

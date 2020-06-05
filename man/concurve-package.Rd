@@ -42,7 +42,12 @@ Useful links:
 
 Authors:
 \itemize{
-  \item Andrew D. Vigotsky (\href{https://orcid.org/0000-0003-3166-0688}{ORCID})
+  \item Andrew D. Vigotsky \email{avigotsky@gmail.com} (\href{https://orcid.org/0000-0003-3166-0688}{ORCID})
+}
+
+Other contributors:
+\itemize{
+  \item Aaron Caldwell \email{arcaldwell49@gmail.com} (\href{https://orcid.org/0000-0002-4541-6283}{ORCID}) [contributor]
 }
 
 }

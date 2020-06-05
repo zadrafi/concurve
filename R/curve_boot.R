@@ -18,7 +18,7 @@
 #' A B by p matrix of natural sufficient vectors,
 #' where p is the dimension of the exponential family.
 #' @param replicates Indicates how many bootstrap replicates are to be performed.
-#' The defaultis currently 20000 but more may be desirable, especially to make
+#' The default is currently 20000 but more may be desirable, especially to make
 #' the functions more smooth.
 #' @param steps Indicates how many consonance intervals are to be calculated at
 #' various levels. For example, setting this to 100 will produce 100 consonance
@@ -26,6 +26,8 @@
 #' levels. By default, it is set to 1000. Increasing the number substantially
 #' is not recommended as it will take longer to produce all the intervals and
 #' store them into a dataframe.
+#' @param mc.cores Select the number of cores to use in  order to compute the intervals
+#'  The default is 1 core.
 #' @param table Indicates whether or not a table output with some relevant
 #' statistics should be generated. The default is TRUE and generates a table
 #' which is included in the list object.
@@ -277,7 +279,6 @@ curve_boot <- function(data = data, func = func, method = "bca", t0, tt, bb,
     } else if (table == FALSE) {
       return(list(df, densdf))
     }
-
   }
 }
 

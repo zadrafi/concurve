@@ -1,0 +1,28 @@
+---
+title: "Case Studies"
+output: rmarkdown::html_vignette
+bibliography: references.bib
+link-citations: yes
+csl: american-medical-association.csl
+vignette: >
+  %\VignetteIndexEntry{Case Studies}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  message = TRUE,
+  warning = TRUE,
+  collapse = TRUE,
+  comment = "#>"
+)
+library(concurve)
+```
+
+Here we list some applied papers that have utilized p-value/confidence/compatibility functions in their analyses. They do not necessarily use R to compute and graph these functions.
+
+1. [Marsh GM, Ierardi AM. Confidence interval function analysis to evaluate the risk of mesothelioma among an expanded international cohort of cosmetic talc miners and millers. Regulatory Toxicology and Pharmacology. 2020; 104696. doi:10/ggzfsj](https://doi.org/10.1016/j.yrtph.2020.104696)
+
+
+

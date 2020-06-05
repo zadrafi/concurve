@@ -92,7 +92,6 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
   # Consonance Curve -----------------------------------------------------
 
   if (type == "c") {
-
     if (ncol(data) != 7) {
       stop("Error: 'data' or 'list' must be from 'concurve'.")
     }

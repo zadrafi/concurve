@@ -7,7 +7,8 @@ authors:
     href: https://lesslikely.com/
   Andrew D. Vigotsky:
     href: https://www.researchgate.net/profile/Andrew_Vigotsky
-
+  Aaron Caldwell:
+    href: https://twitter.com/ExPhysStudent
 template:
   params:
     docsearch:
@@ -24,7 +25,7 @@ development:
 
 navbar:
   structure:
-    left:  [home, intro, reference, articles, news, tools]
+    left:  [home, intro, reference, articles, cases, tools, news]
     right: [github, twitter]
 
   components:
@@ -57,9 +58,12 @@ navbar:
         href: articles/troubleshooting.html
     cases:
       text: Case Studies
+      href: articles/casestudies.html
+    tools:
+      text: Tools
       menu:
-      - text: Rafi & Greenland (2020)
-      href: articles/script.html
+      - text: S-value Calculator
+        href: articles/svalues.html
     news:
       text: News
       menu:
@@ -67,11 +71,6 @@ navbar:
         href: news/index.html
       - text: Wish List
         href: articles/wishlist.html
-    tools:
-      text: Tools
-      menu:
-      - text: S-value Calculator
-        href: articles/svalues.html
     github:
       icon: fa-github fa-lg
       href: https://github.com/zadrafi/concurve
@@ -85,3 +84,4 @@ pkgdown:
 
 toc:
   depth: 5
+toc_float: true
