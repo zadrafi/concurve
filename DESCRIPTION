@@ -3,8 +3,8 @@ Package: concurve
 Title: Computes and Plots Compatibility (Confidence) Intervals,
     P-Values, S-Values, & Likelihood Intervals to Form Consonance,
     Surprisal, & Likelihood Functions
-Version: 2.5.0
-Date: 2020-04-19
+Version: 2.6.0
+Date: 2020-06-04
 Authors@R: 
     c(person(given = "Zad",
              family = "Rafi",
@@ -14,7 +14,13 @@ Authors@R:
       person(given = "Andrew D.",
              family = "Vigotsky",
              role = "aut",
-             comment = c(ORCID = "0000-0003-3166-0688")))
+             email = "avigotsky@gmail.com",
+             comment = c(ORCID = "0000-0003-3166-0688")),
+      person(given = "Aaron",
+		         family ="Caldwell",
+		         role = "ctb",
+		         email = "arcaldwell49@gmail.com",
+		         comment = c(ORCID = "0000-0002-4541-6283")))
 Maintainer: Zad Rafi <zad@lesslikely.com>
 Description: Allows one to compute compatibility (confidence)
     intervals for various statistical tests along with their corresponding

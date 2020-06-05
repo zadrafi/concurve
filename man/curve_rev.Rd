@@ -5,8 +5,8 @@
 \title{Reverse Engineer Consonance / Likelihood Functions Using the Point
 Estimate and Confidence Limits}
 \usage{
-curve_rev(point, LL = NULL, UL = NULL, se = NULL, conf.level = 0.95,
-  type = "c", measure = "default", steps = 10000, table = TRUE)
+curve_rev(point, LL, UL, type = "c", measure = "default", steps = 10000,
+  table = TRUE)
 }
 \arguments{
 \item{point}{The point estimate from an analysis. Ex: 1.20}
@@ -14,10 +14,6 @@ curve_rev(point, LL = NULL, UL = NULL, se = NULL, conf.level = 0.95,
 \item{LL}{The lower confidence limit from an analysis Ex: 1.0}
 
 \item{UL}{The upper confidence limit from an analysis Ex: 1.4}
-
-\item{se}{The standard error of the point estimate. Ex: 0.05}
-
-\item{conf.level}{Confidence level of the interval estimate.}
 
 \item{type}{Indicates whether the produced result should be a consonance
 function or a likelihood function. The default is "c" for consonance and

@@ -181,16 +181,16 @@ pre .img img {
 }
 
 code a, pre a {
-  color: #375f84;
+  color: #000000;
 }
 
 a.sourceLine:hover {
   text-decoration: none;
 }
 
-.fl      {color: #1514b5;}
+.fl      {color: #c76363;}
 .fu      {color: #000000;} /* function */
-.ch,.st  {color: #036a07;} /* string */
+.ch,.st  {color: #7aa864;} /* string */
 .kw      {color: #264D66;} /* keyword */
 .co      {color: #888888;} /* comment */
 
@@ -253,4 +253,83 @@ mark {
   code a:link:after, code a:visited:after {
     content: "";
   }
+}
+
+/* bootstrap-toc tweaks */
+
+/* Sidebar --------------------------*/
+
+#pkgdown-sidebar {
+  margin-top: 30px;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 70px;
+}
+
+#pkgdown-sidebar h2 {
+  font-size: 1.5em;
+  margin-top: 1em;
+}
+
+#pkgdown-sidebar h2:first-child {
+  margin-top: 0;
+}
+
+#pkgdown-sidebar .list-unstyled li {
+  margin-bottom: 0.5em;
+}
+
+/* bootstrap-toc tweaks ------------------------------------------------------*/
+
+/* All levels of nav */
+
+nav[data-toggle='toc'] .nav > li > a {
+  padding: 4px 20px 4px 6px;
+  font-size: 18px;
+  font-weight: 400;
+  color: #d46c5b;
+  position: -webkit-sticky;
+  position: sticky;
+}
+
+nav[data-toggle='toc'] .nav > li > a:hover,
+nav[data-toggle='toc'] .nav > li > a:focus {
+  padding-left: 5px;
+  color: inherit;
+  border-left: 1px solid #878787;
+}
+
+nav[data-toggle='toc'] .nav > .active > a,
+nav[data-toggle='toc'] .nav > .active:hover > a,
+nav[data-toggle='toc'] .nav > .active:focus > a {
+  padding-left: 5px;
+  font-size: 18px;
+  font-weight: 400;
+  color: #d46c5b;
+  border-left: 2px solid #878787;
+}
+
+/* Nav: second level (shown on .active) */
+
+nav[data-toggle='toc'] .nav .nav {
+  display: none; /* Hide by default, but at >768px, show it */
+  padding-bottom: 10px;
+}
+
+nav[data-toggle='toc'] .nav .nav > li > a {
+  padding-left: 16px;
+  font-size: 18px;
+}
+
+nav[data-toggle='toc'] .nav .nav > li > a:hover,
+nav[data-toggle='toc'] .nav .nav > li > a:focus {
+  padding-left: 15px;
+}
+
+nav[data-toggle='toc'] .nav .nav > .active > a,
+nav[data-toggle='toc'] .nav .nav > .active:hover > a,
+nav[data-toggle='toc'] .nav .nav > .active:focus > a {
+  padding-left: 15px;
+  font-weight: 500;
+  font-size: 18px;
 }

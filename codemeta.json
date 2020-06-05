@@ -16,14 +16,14 @@
   ],
   "issueTracker": "https://github.com/zadrafi/concurve/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "2.5.0",
+  "version": "2.6.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "3.6.3",
+    "version": "4.0.0",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 3.6.3 (2020-02-29)",
+  "runtimePlatform": "R version 4.0.0 (2020-04-24)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -42,6 +42,7 @@
       "@type": "Person",
       "givenName": "Andrew D.",
       "familyName": "Vigotsky",
+      "email": "avigotsky@gmail.com",
       "@id": "https://orcid.org/0000-0003-3166-0688"
     }
   ],
@@ -459,17 +460,25 @@
     }
   ],
   "keywords": ["confidence", "compatibility", "consonance", "surprisal", "interval", "function", "curve", "confidence-intervals", "compatibility-intervals", "stata", "confidence-distribution", "likelihood-functions", "bootstrap-method", "r", "frequentist-methods", "fiducial-distribution", "density-function", "cumulative-distribution-function", "surprisal-function", "deviance-function"],
-  "fileSize": "2780.596KB",
+  "fileSize": "2203.182KB",
   "contIntegration": [
     "https://travis-ci.org/Zadchow/concurve",
     "https://ci.appveyor.com/project/Zadchow/concurve",
     "https://codecov.io/gh/Zadchow/concurve"
   ],
   "readme": "https://github.com/zadrafi/concurve/blob/master/README.md",
-  "contributor": {},
+  "contributor": [
+    {
+      "@type": "Person",
+      "givenName": "Aaron",
+      "familyName": "Caldwell",
+      "email": "arcaldwell49@gmail.com",
+      "@id": "https://orcid.org/0000-0002-4541-6283"
+    }
+  ],
   "copyrightHolder": {},
   "funder": {},
-  "releaseNotes": "ssh://git@github.com/Zadchow/concurve/blob/master/NEWS.md",
+  "releaseNotes": "https://github.com/zadrafi/concurve/blob/master/NEWS.md",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
