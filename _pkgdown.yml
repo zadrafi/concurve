@@ -55,6 +55,11 @@ navbar:
         href: articles/customizing.html
       - text: Troubleshooting
         href: articles/troubleshooting.html
+    cases:
+      text: Case Studies
+      menu:
+      - text: Rafi & Greenland (2020)
+      href: articles/script.html
     news:
       text: News
       menu:

@@ -2,10 +2,4 @@
 .Rhistory
 .RData
 .Ruserdata
-examples/
-usethis.R
-_config.yml
-.Rbuildignore
-.gitignore
-CRAN-RELEASE
-cran-comments.md
+
