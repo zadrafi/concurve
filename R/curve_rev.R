@@ -9,6 +9,8 @@
 #' @param point The point estimate from an analysis. Ex: 1.20
 #' @param LL The lower confidence limit from an analysis Ex: 1.0
 #' @param UL The upper confidence limit from an analysis Ex: 1.4
+#' @param se The standard error of the point estimate. Ex: 0.05
+#' @param conf.level Confidence level of the interval estimate.
 #' @param type Indicates whether the produced result should be a consonance
 #' function or a likelihood function. The default is "c" for consonance and
 #' likelihood can be set via "l".
@@ -39,31 +41,70 @@
 #' @seealso [curve_compare()]
 #' @seealso [plot_compare()]
 #'
-
-curve_rev <- function(point, LL, UL, type = "c", measure = "default", steps = 10000, table = TRUE) {
+curve_rev <- function(point,
+                      LL = NULL, UL = NULL,
+                      se = NULL,
+                      conf.level = .95,
+                      type = "c", measure = "default",
+                      steps = 10000, table = TRUE) {
 
 
   # Produce Consonance / Surprisal Functions --------------------------------
 
-  if (type == "c") {
-    if (is.numeric(point) != TRUE) {
-      stop("Error: 'x' must be a numeric vector")
-    }
-    if (is.numeric(LL) != TRUE) {
-      stop("Error: 'y' must be a numeric vector")
-    }
-    if (is.numeric(UL) != TRUE) {
-      stop("Error: 'y' must be a numeric vector")
-    }
-    if (is.character(measure) != TRUE) {
-      stop("Error: 'measure' must be a string such as 'default' or 'ratio'")
-    }
+  #Moved outside the "c" conditional; otherwise skipped in "l"
+  if (is.numeric(point) != TRUE) {
+    stop("Error: 'point' must be a numeric value")
+  }
 
-    intrvls <- (1:steps) / steps
-    z <- qnorm(1 - intrvls / 2)
+  if (is.character(measure) != TRUE) {
+    stop("Error: 'measure' must be a string such as 'default' or 'ratio'")
+  }
+
+  if (is.null(se) && (is.null(LL) & is.null(UL))){
+    stop("se or UL & LL must be entered")
+  }
+
+  if (is.null(se)) {
+
+  if (is.numeric(LL) != TRUE) {
+    stop("Error: 'LL' must be a numeric value")
+  }
+  if (is.numeric(UL) != TRUE) {
+    stop("Error: 'UL' must be a numeric value")
+  }
+  }
+
+  intrvls <- (1:steps) / steps
+  z <- qnorm(1 - intrvls / 2)
+  conf.level_two = conf.level + (1 - conf.level)/2
+  conf_range = qnorm(conf.level_two)
+
+
+  if (!is.null(se) ) {
+    LL = point - conf_range*se
+    UL = point + conf_range*se
+  }
+
+  if (is.null(se) && measure == "default") {
+    se <- (UL - LL) / (2*conf_range)
+  }
+
+  if (is.null(se) && measure == "ratio") {
+    se <- log(UL / LL) / (2*conf_range)
+    print(se)
+  }
+
+
+
+  if (type == "c") {
+
+    #intrvls <- (1:steps) / steps
+    #z <- qnorm(1 - intrvls / 2)
+    #conf.level_two = (1-conf.level)/2
+    #conf_range = qnorm(conf.level_two)
 
     if (measure == "default") {
-      se <- (UL - LL) / 3.92
+      #se <- (UL - LL) / (2*conf_range)
       LL <- pbmclapply(z, FUN = function(i) point + (i * se), mc.cores = getOption("mc.cores", 1L))
       UL <- pbmclapply(z, FUN = function(i) point - (i * se), mc.cores = getOption("mc.cores", 1L))
       df <- data.frame(do.call(rbind, UL), do.call(rbind, LL))
@@ -72,11 +113,12 @@ curve_rev <- function(point, LL, UL, type = "c", measure = "default", steps = 10
     }
 
     else if (measure == "ratio") {
-      se <- log(UL / LL) / 3.92
+      #se <- log(UL / LL) / (2*conf_range)
       logpoint <- log(point)
       logLL <- pbmclapply(z, FUN = function(i) logpoint + (i * se), mc.cores = getOption("mc.cores", 1L))
       logUL <- pbmclapply(z, FUN = function(i) logpoint - (i * se), mc.cores = getOption("mc.cores", 1L))
       df <- data.frame(do.call(rbind, logUL), do.call(rbind, logLL))
+
       intrvl.limit <- c("lower.limit", "upper.limit")
       colnames(df) <- intrvl.limit
       df$lower.limit <- exp(df$lower.limit)
@@ -109,11 +151,11 @@ curve_rev <- function(point, LL, UL, type = "c", measure = "default", steps = 10
 
     # Produce Likelihood / Deviance Functions ---------------------------------
   } else if (type == "l") {
-    intrvls <- (1:steps) / steps
-    z <- qnorm(1 - intrvls / 2)
+    #intrvls <- (1:steps) / steps
+    #z <- qnorm(1 - intrvls / 2)
 
     if (measure == "default") {
-      se <- (UL / LL) / 3.92
+      #se <- (UL - LL) / (2*conf_range)
       LL <- pbmclapply(z, FUN = function(i) point + (i * se), mc.cores = getOption("mc.cores", 1L))
       UL <- pbmclapply(z, FUN = function(i) point - (i * se), mc.cores = getOption("mc.cores", 1L))
       df <- data.frame(do.call(rbind, UL), do.call(rbind, LL))
@@ -123,7 +165,7 @@ curve_rev <- function(point, LL, UL, type = "c", measure = "default", steps = 10
     }
 
     else if (measure == "ratio") {
-      se <- log(UL / LL) / 3.92
+      #se <- log(UL / LL) / (2*conf_range)
       logpoint <- log(point)
       logLL <- pbmclapply(z, FUN = function(i) logpoint + (i * se), mc.cores = getOption("mc.cores", 1L))
       logUL <- pbmclapply(z, FUN = function(i) logpoint - (i * se), mc.cores = getOption("mc.cores", 1L))
@@ -142,16 +184,30 @@ curve_rev <- function(point, LL, UL, type = "c", measure = "default", steps = 10
     class(df) <- c("data.frame", "concurve")
 
 
-    se <- log(UL / LL) / 3.92
+    #se <- log(UL / LL) / (2*conf_range)
+    if ( measure == "ratio") {
     values <- seq(from = df[1, 1], to = df[1, 2], by = 0.01)
     zscore <- sapply(
       values,
       function(j) (log(j / point) / se)
     )
+    }
+
+    if (measure == "default") {
+      values <- seq(from = df[1, 1], to = df[1, 2], by = 0.01)
+      zscore <- sapply(
+        values,
+        function(j) ((j - point) / se)
+      )
+    }
 
     support <- exp((-zscore^2) / 2)
     deviancestat <- (zscore^2)
+    if (measure == "ratio") {
     likelihood <- support * (log(point))
+    } else {
+      likelihood = support * point
+    }
     loglikelihood <- log(likelihood)
     likfunction <- data.frame(values, likelihood, loglikelihood, support, deviancestat)
     class(likfunction) <- c("data.frame", "concurve")
