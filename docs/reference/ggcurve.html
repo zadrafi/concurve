@@ -237,8 +237,8 @@ using ggplot2 graphics.</p>
   <span class='kw'>nullvalue</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"pyramid"</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Interval Function"</span>,
   <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='st'>"The function displays intervals at every level."</span>,
   <span class='kw'>xaxis</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span>(<span class='no'>Theta</span> ~ <span class='st'>"Range of Values"</span>),
-  <span class='kw'>yaxis</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='fu'><a href='https://rdrr.io/r/grDevices/plotmath.html'>italic</a></span>(<span class='no'>p</span>), <span class='st'>"-value"</span>)), <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"#000000"</span>,
-  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"#239a98"</span>)</pre>
+  <span class='kw'>yaxis1</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='fu'><a href='https://rdrr.io/r/grDevices/plotmath.html'>italic</a></span>(<span class='no'>p</span>), <span class='st'>"-value"</span>)),
+  <span class='kw'>yaxis2</span> <span class='kw'>=</span> <span class='st'>"Levels for CI (%)"</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"#000000"</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"#239a98"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -315,11 +315,18 @@ In order to set a x-axis title, it must be in quotes. For example,
 ggcurve(type = "c", data = x, xaxis = "Hazard Ratio").</p></td>
     </tr>
     <tr>
-      <th>yaxis</th>
+      <th>yaxis1</th>
       <td><p>A custom y-axis title for the graph. By default,
 it is set to "Consonance Level".
 In order to set a y-axis title, it must be in quotes. For example,
-ggcurve(type = "c", data = x, yxis = "Confidence Level").</p></td>
+ggcurve(type = "c", data = x, yxis1= "Confidence Level").</p></td>
+    </tr>
+    <tr>
+      <th>yaxis2</th>
+      <td><p>A custom y-axis title for the graph. By default,
+it is set to "Levels for CI".
+In order to set a y-axis title, it must be in quotes. For example,
+ggcurve(type = "c", data = x, yxis2= "Confidence Level").</p></td>
     </tr>
     <tr>
       <th>color</th>
