@@ -59,6 +59,7 @@ Imports:
     pbmcapply,
     ProfileLikelihood,
     scales,
+    colorspace,
     survival,
     survminer,
     tibble,
@@ -79,7 +80,8 @@ Suggests:
     rstan,
     rstanarm,
     bayesplot,
-    vdiffr
+    vdiffr,
+    ggtext
 VignetteBuilder: 
     knitr
 ByteCompile: true
@@ -91,4 +93,4 @@ RoxygenNote: 7.1.0
 X-schema.org-keywords: confidence, compatibility, consonance,
     surprisal, interval, function, curve
 Depends: 
-    R (>= 3.6.0)
+    R (>= 4.0.0)

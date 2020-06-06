@@ -21,6 +21,8 @@ knitr::opts_chunk$set(
 )
 ```
 
+# A Universal Grammar of Graphics
+
 Because `concurve` graphs functions via `ggplot2`, it is quite easy to customize parts of the plot beyond some of the arguments that are provided in the `ggcurve()` function. For example, we are able to provide arguments to the function to give custom titles, subtitles, x-axes, y-axes, fills, and colors. However, we could also do this using the standard `ggplot2` grammar. We'll generate a quick graph to show how. 
 
 ```{r echo=TRUE, fig.height=4.5, fig.width=6}
@@ -65,6 +67,67 @@ function2
 ```
 
 I've only tried testing this with the `cowplot` package, so I cannot say for sure that the functions won't break when applied with other themes.[@Wilke_2019]
+
+# More Advanced Customization
+
+Although the above shows how flexible concurve's `ggcurve()` is due to the integration with the `ggplot2` framework, we can achieve much more with a newer package called `ggtext`.[@wilkeGgtextImprovedText2020] If we wanted to fully control how the labels and titles in our graphs looked or insert textboxes with full control, we could easily do that with `ggtext.`  
+
+Before we used cowplot, here's what our plain function looked like (after regenerating it from scratch)
+```{r}
+
+(function1 <- ggcurve(data = intervalsdf[[1]], type = "c", nullvalue = TRUE))
+```
+Simple enough, eh?
+
+Okay, but if we wanted to have more fine control over how the title and axes look, we could do that. Here's how:
+
+We take our existing object function and we specify all the usual options for the titles, axes, etc
+
+```{r}
+(function1 <- ggcurve(data = intervalsdf[[1]], type = "c", nullvalue = TRUE, title = "Something Super Important", xaxis = "Theta"))
+```
+
+But now, instead of doing that above, we'll use a different style to control the size, form, and color of the text. We'll load `ggtext` and then specify the arguments. 
+
+```{r}
+
+library(ggtext)
+
+function1 <- ggcurve(data = intervalsdf[[1]], type = "c", nullvalue = TRUE, title = "Something Super Important", xaxis = "<span style = 'color:#3f8f9b;'>Theta</span> ")
+
+function1 + 
+   labs(title = "*P*-value Function / Consonance Curve<br><span style = 'font-size:9pt;'>
+The function below contains <span style = 'color:#3f8f9b;'>nested</span> confidence/compatibility intervals at <span style = 'color:#3f8f9b;'>every possible level</span> (95%, 90%, 75%, 50%)
+allowing one to see a range of estimates that are <span style = 'color:#3f8f9b;'>consistent with the model and its assumptions</span> that were used to compute
+the test statistics, *P*-values, and interval estimates. </span>",
+       subtitle = NULL) +
+  theme(
+    plot.title = element_textbox_simple(
+      size = 11, lineheight = 1.1,
+      linetype = 1, # turn on border
+      box.color = "#748696", # border color
+      fill = "white", # background fill color
+      r = grid::unit(3, "pt"),
+      padding = margin(8, 8, 8, 8), # padding around text inside the box
+      maxwidth = unit(8, "in"),# margin outside the box
+    ),
+    axis.text=element_text(size=10),
+    axis.title.y=element_text(size=11),
+    axis.title.x = element_textbox_simple(
+      size = 10,
+      width = NULL,
+      padding = margin(4, 4, 4, 4),
+      margin = margin(4, 0, 0, 0),
+      linetype = 1,
+       r = grid::unit(3, "pt"),
+      box.color = "#748696", # border color
+       fill = "white", # background fill color
+    )
+  ) 
+
+```
+
+As you might have noticed above, we can control the size of the text, the color of it, whether it's bolded, italicized, etc., and that's partially because it uses markdown. 
 
 # Saving Plots
 

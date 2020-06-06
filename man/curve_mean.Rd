@@ -20,10 +20,10 @@ statistical test comparing two independent groups.Inserting "paired" will
 change the test to a paired difference test.}
 
 \item{method}{By default this is turned off (set to "default"), but
-allows for bootstrapping if "boot" is insertedinto the function call.}
+allows for bootstrapping if "boot" is inserted into the function call.}
 
 \item{replicates}{Indicates how many bootstrap replicates are to be performed.
-The defaultis currently 20000 but more may be desirable, especially to make
+The default is currently 20000 but more may be desirable, especially to make
 the functions more smooth.}
 
 \item{steps}{Indicates how many consonance intervals are to be calculated at

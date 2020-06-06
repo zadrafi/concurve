@@ -216,7 +216,7 @@
   )</pre></body></html></div>
 <p><img src="bayes_files/figure-html/unnamed-chunk-1-1.png" width="700"></p>
 <p>Although the code above demonstrates this, one of the best visualization tools to understand this long-run behavior is the D3.js visualization created by Kristoffer Magnusson, which <a href="https://rpsychologist.com/d3/CI/">can be viewed here</a>.</p>
-<p>However, despite these differences in interpretation, Bayesian and frequentist intervals often end up converging, especially when there are large amounts of data. They also end up converging when a Bayesian posterior distribution is computed with a flat or weakly informative prior. However, there are several problems with using flat priors, such as giving equal weight to all values in the interval including implausible ones. These sorts of priors should generally be avoided.</p>
+<p>However, despite these differences in interpretation, Bayesian and frequentist intervals often end up converging, especially when there are large amounts of data. They also end up converging when a Bayesian posterior distribution is computed with a flat or weakly informative prior. However, there are several problems with using flat priors, such as giving equal weight to all values in the interval including implausible ones. These sorts of priors should generally be avoided. However, for the sake of this demonstration, we will be using flat priors.</p>
 <p>Here, I demonstrate with a simple example how Bayesian posterior distributions and frequentist confidence functions end up converging in some scenarios. For these first few examples, I’ll be using the <code>brms</code> package.<span class="citation"><sup><a href="#ref-Burkner_2018" role="doc-biblioref">1</a></sup></span></p>
 <div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">concurve</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">brms</span>)
@@ -252,8 +252,8 @@
 <span class="no">model_freq</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(<span class="no">GroupA</span> ~ <span class="no">GroupB</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">RandomData</span>)</pre></body></html></div>
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="co"># Using default prior</span>
 <span class="no">model_bayes</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/brms/man/brm.html">brm</a></span>(<span class="no">GroupA</span> ~ <span class="no">GroupB</span>,
-  <span class="kw">data</span> <span class="kw">=</span> <span class="no">RandomData</span>,
-  <span class="kw">iter</span> <span class="kw">=</span> <span class="fl">2000</span>, <span class="kw">warmup</span> <span class="kw">=</span> <span class="fl">1000</span>, <span class="kw">chains</span> <span class="kw">=</span> <span class="fl">2</span>, <span class="kw">family</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">gaussian</a></span>()
+  <span class="kw">data</span> <span class="kw">=</span> <span class="no">RandomData</span>, <span class="kw">prior</span> <span class="kw">=</span> <span class="kw">NULL</span>,
+  <span class="kw">iter</span> <span class="kw">=</span> <span class="fl">2000</span>, <span class="kw">warmup</span> <span class="kw">=</span> <span class="fl">1000</span>, <span class="kw">chains</span> <span class="kw">=</span> <span class="fl">2</span>, <span class="kw">family</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">gaussian</a></span>(), <span class="kw">cores</span> <span class="kw">=</span> <span class="fl">4</span>
 )</pre></body></html></div>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">randomframe</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/curve_gen.html">curve_gen</a></span>(<span class="no">model_freq</span>, <span class="st">"GroupB"</span>)
 
@@ -285,8 +285,8 @@
 <div class="sourceCode" id="cb8"><html><body><pre class="r">
 <span class="co"># Using default prior</span>
 <span class="no">model_bayes</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/brms/man/brm.html">brm</a></span>(<span class="no">GroupA</span> ~ <span class="no">GroupB</span>,
-  <span class="kw">data</span> <span class="kw">=</span> <span class="no">RandomData</span>, <span class="kw">prior</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/pkg/brms/man/set_prior.html">prior</a></span>(<span class="st">"normal(0, 1)"</span>, <span class="kw">class</span> <span class="kw">=</span> <span class="st">"b"</span>),
-  <span class="kw">iter</span> <span class="kw">=</span> <span class="fl">2000</span>, <span class="kw">warmup</span> <span class="kw">=</span> <span class="fl">1000</span>, <span class="kw">chains</span> <span class="kw">=</span> <span class="fl">2</span>, <span class="kw">family</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">gaussian</a></span>()
+  <span class="kw">data</span> <span class="kw">=</span> <span class="no">RandomData</span>, <span class="kw">prior</span> <span class="kw">=</span> <span class="kw">NULL</span>,
+  <span class="kw">iter</span> <span class="kw">=</span> <span class="fl">2000</span>, <span class="kw">warmup</span> <span class="kw">=</span> <span class="fl">1000</span>, <span class="kw">chains</span> <span class="kw">=</span> <span class="fl">2</span>, <span class="kw">family</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">gaussian</a></span>(), <span class="kw">cores</span> <span class="kw">=</span> <span class="fl">4</span>
 )</pre></body></html></div>
 <div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">randomframe</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/curve_gen.html">curve_gen</a></span>(<span class="no">model_freq</span>, <span class="st">"GroupB"</span>)
 
@@ -305,12 +305,12 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Population-Level Effects: </span>
 <span class="co">#&gt;           Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS</span>
-<span class="co">#&gt; Intercept     1.94      0.07     1.81     2.07 1.00     1885     1367</span>
-<span class="co">#&gt; GroupB        0.08      0.05    -0.01     0.17 1.00     2362     1781</span>
+<span class="co">#&gt; Intercept     1.97      0.06     1.85     2.08 1.00     2220     1641</span>
+<span class="co">#&gt; GroupB        0.06      0.04    -0.02     0.15 1.00     2222     1546</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Family Specific Parameters: </span>
 <span class="co">#&gt;       Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS</span>
-<span class="co">#&gt; sigma     1.02      0.03     0.96     1.09 1.00     1493     1213</span>
+<span class="co">#&gt; sigma     0.94      0.03     0.88     1.00 1.00     1967     1429</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Samples were drawn using sampling(NUTS). For each parameter, Bulk_ESS</span>
 <span class="co">#&gt; and Tail_ESS are effective sample size measures, and Rhat is the potential</span>
@@ -339,7 +339,7 @@
 <span class="no">ls</span> <span class="kw">&lt;-</span> <span class="no">mean_ls</span>[<span class="no">income</span>] + <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">100</span>, <span class="kw">sd</span> <span class="kw">=</span> <span class="fl">7</span>)
 <span class="no">dat</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="no">income</span>, <span class="no">ls</span>)
 <span class="no">dat</span>$<span class="no">income_num</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(<span class="no">dat</span>$<span class="no">income</span>)</pre></body></html></div>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">fit1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/brms/man/brm.html">brm</a></span>(<span class="no">ls</span> ~ <span class="no">income_num</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">dat</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">fit1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/brms/man/brm.html">brm</a></span>(<span class="no">ls</span> ~ <span class="no">income_num</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">dat</span>, <span class="kw">prior</span> <span class="kw">=</span> <span class="kw">NULL</span>, <span class="kw">cores</span> <span class="kw">=</span> <span class="fl">4</span>)</pre></body></html></div>
 <div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">fit2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(<span class="no">ls</span> ~ <span class="no">income_num</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">dat</span>)
 
 <span class="no">randomframe</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/curve_gen.html">curve_gen</a></span>(<span class="no">fit2</span>, <span class="st">"income_num"</span>)
@@ -358,12 +358,12 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Population-Level Effects: </span>
 <span class="co">#&gt;            Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS</span>
-<span class="co">#&gt; Intercept     21.17      2.49    16.41    25.92 1.00     4042     2721</span>
-<span class="co">#&gt; income_num    15.21      0.95    13.35    17.04 1.00     4400     3165</span>
+<span class="co">#&gt; Intercept     22.39      2.51    17.48    27.15 1.00     3799     2882</span>
+<span class="co">#&gt; income_num    14.36      0.83    12.72    15.96 1.00     3709     2817</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Family Specific Parameters: </span>
 <span class="co">#&gt;       Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS</span>
-<span class="co">#&gt; sigma    10.22      0.75     8.88    11.83 1.00     3965     3134</span>
+<span class="co">#&gt; sigma     9.68      0.69     8.46    11.12 1.00     4004     2969</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Samples were drawn using sampling(NUTS). For each parameter, Bulk_ESS</span>
 <span class="co">#&gt; and Tail_ESS are effective sample size measures, and Rhat is the potential</span>
@@ -389,9 +389,9 @@
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="no">kidiq</span>)
 
 <span class="no">post1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://mc-stan.org/rstanarm/reference/stan_glm.html">stan_glm</a></span>(<span class="no">kid_score</span> ~ <span class="no">mom_hs</span>,
-  <span class="kw">data</span> <span class="kw">=</span> <span class="no">kidiq</span>,
+  <span class="kw">data</span> <span class="kw">=</span> <span class="no">kidiq</span>, <span class="kw">prior</span> <span class="kw">=</span> <span class="kw">NULL</span>,
   <span class="kw">family</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html">gaussian</a></span>(<span class="kw">link</span> <span class="kw">=</span> <span class="st">"identity"</span>),
-  <span class="kw">seed</span> <span class="kw">=</span> <span class="fl">12345</span>
+  <span class="kw">seed</span> <span class="kw">=</span> <span class="fl">12345</span>, <span class="kw">cores</span> <span class="kw">=</span> <span class="fl">4</span>
 )</pre></body></html></div>
 <div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="no">post2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(<span class="no">kid_score</span> ~ <span class="no">mom_hs</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">kidiq</span>)
 
@@ -413,8 +413,8 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Estimates:</span>
 <span class="co">#&gt;               mean   sd   10%   50%   90%</span>
-<span class="co">#&gt; (Intercept) 77.6    2.0 75.0  77.6  80.2 </span>
-<span class="co">#&gt; mom_hs      11.7    2.3  8.8  11.8  14.7 </span>
+<span class="co">#&gt; (Intercept) 77.5    2.1 74.8  77.5  80.2 </span>
+<span class="co">#&gt; mom_hs      11.8    2.4  8.8  11.8  14.9 </span>
 <span class="co">#&gt; sigma       19.9    0.7 19.0  19.9  20.8 </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Fit Diagnostics:</span>
@@ -425,11 +425,11 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; MCMC diagnostics</span>
 <span class="co">#&gt;               mcse Rhat n_eff</span>
-<span class="co">#&gt; (Intercept)   0.0  1.0  4235 </span>
-<span class="co">#&gt; mom_hs        0.0  1.0  4448 </span>
-<span class="co">#&gt; sigma         0.0  1.0  4274 </span>
-<span class="co">#&gt; mean_PPD      0.0  1.0  3726 </span>
-<span class="co">#&gt; log-posterior 0.0  1.0  1930 </span>
+<span class="co">#&gt; (Intercept)   0.0  1.0  3764 </span>
+<span class="co">#&gt; mom_hs        0.0  1.0  3744 </span>
+<span class="co">#&gt; sigma         0.0  1.0  3336 </span>
+<span class="co">#&gt; mean_PPD      0.0  1.0  3787 </span>
+<span class="co">#&gt; log-posterior 0.0  1.0  1790 </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; For each parameter, mcse is Monte Carlo standard error, n_eff is a crude measure of effective sample size, and Rhat is the potential scale reduction factor on split chains (at convergence Rhat=1).</span>
 
@@ -452,6 +452,76 @@
 <h1 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h1>
 <hr>
+</div>
+<div id="session-info" class="section level1">
+<h1 class="hasAnchor">
+<a href="#session-info" class="anchor"></a>Session info</h1>
+<pre><code>#&gt; R version 4.0.0 (2020-04-24)
+#&gt; Platform: x86_64-apple-darwin17.0 (64-bit)
+#&gt; Running under: macOS Catalina 10.15.5
+#&gt; 
+#&gt; Matrix products: default
+#&gt; BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
+#&gt; LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
+#&gt; 
+#&gt; locale:
+#&gt; [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+#&gt; 
+#&gt; attached base packages:
+#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     
+#&gt; 
+#&gt; other attached packages:
+#&gt; [1] rstanarm_2.19.3 bayesplot_1.7.2 cowplot_1.0.0   brms_2.13.0    
+#&gt; [5] Rcpp_1.0.4.9    concurve_2.6.0  ggplot2_3.3.1  
+#&gt; 
+#&gt; loaded via a namespace (and not attached):
+#&gt;   [1] readxl_1.3.1          uuid_0.1-4            backports_1.1.7      
+#&gt;   [4] systemfonts_0.2.2     plyr_1.8.6            igraph_1.2.5         
+#&gt;   [7] splines_4.0.0         crosstalk_1.1.0.1     TH.data_1.0-10       
+#&gt;  [10] rstantools_2.1.0      inline_0.3.15         digest_0.6.25        
+#&gt;  [13] htmltools_0.4.0       rsconnect_0.8.16      fansi_0.4.1          
+#&gt;  [16] magrittr_1.5          memoise_1.1.0         openxlsx_4.1.5       
+#&gt;  [19] matrixStats_0.56.0    officer_0.3.11        xts_0.12-0           
+#&gt;  [22] sandwich_2.5-1        pkgdown_1.5.1         prettyunits_1.1.1    
+#&gt;  [25] colorspace_1.4-1      haven_2.3.1           xfun_0.14            
+#&gt;  [28] dplyr_1.0.0           callr_3.4.3           crayon_1.3.4         
+#&gt;  [31] bcaboot_0.2-1         lme4_1.1-23           survival_3.1-12      
+#&gt;  [34] zoo_1.8-8             glue_1.4.1            survminer_0.4.7      
+#&gt;  [37] gtable_0.3.0          emmeans_1.4.7         car_3.0-8            
+#&gt;  [40] pkgbuild_1.0.8        rstan_2.19.3          abind_1.4-5          
+#&gt;  [43] scales_1.1.1          mvtnorm_1.1-0         rstatix_0.5.0        
+#&gt;  [46] miniUI_0.1.1.1        xtable_1.8-4          foreign_0.8-80       
+#&gt;  [49] km.ci_0.5-2           stats4_4.0.0          StanHeaders_2.21.0-3 
+#&gt;  [52] DT_0.13               htmlwidgets_1.5.1     threejs_0.3.3        
+#&gt;  [55] ellipsis_0.3.1        pkgconfig_2.0.3       loo_2.2.0            
+#&gt;  [58] farver_2.0.3          tidyselect_1.1.0      labeling_0.3         
+#&gt;  [61] rlang_0.4.6           reshape2_1.4.4        later_1.1.0.1        
+#&gt;  [64] munsell_0.5.0         pbmcapply_1.5.0       cellranger_1.1.0     
+#&gt;  [67] tools_4.0.0           cli_2.0.2             generics_0.0.2       
+#&gt;  [70] broom_0.5.6           ggridges_0.5.2        evaluate_0.14        
+#&gt;  [73] stringr_1.4.0         fastmap_1.0.1         yaml_2.2.1           
+#&gt;  [76] processx_3.4.2        knitr_1.28            fs_1.4.1             
+#&gt;  [79] zip_2.0.4             survMisc_0.5.5        purrr_0.3.4          
+#&gt;  [82] nlme_3.1-148          mime_0.9              xml2_1.3.2           
+#&gt;  [85] compiler_4.0.0        shinythemes_1.1.2     rstudioapi_0.11      
+#&gt;  [88] curl_4.3              ggsignif_0.6.0        statmod_1.4.34       
+#&gt;  [91] tibble_3.0.1          stringi_1.4.6         ps_1.3.3             
+#&gt;  [94] desc_1.2.0            Brobdingnag_1.2-6     forcats_0.5.0        
+#&gt;  [97] gdtools_0.2.2         lattice_0.20-41       Matrix_1.2-18        
+#&gt; [100] nloptr_1.2.2.1        markdown_1.1          shinyjs_1.1          
+#&gt; [103] KMsurv_0.1-5          vctrs_0.3.1           pillar_1.4.4         
+#&gt; [106] lifecycle_0.2.0       bridgesampling_1.0-0  estimability_1.3     
+#&gt; [109] data.table_1.12.8     ProfileLikelihood_1.1 flextable_0.5.10     
+#&gt; [112] httpuv_1.5.4          R6_2.4.1              promises_1.1.0       
+#&gt; [115] gridExtra_2.3         rio_0.5.16            codetools_0.2-16     
+#&gt; [118] boot_1.3-25           colourpicker_1.0      MASS_7.3-51.6        
+#&gt; [121] gtools_3.8.2          assertthat_0.2.1      rprojroot_1.3-2      
+#&gt; [124] withr_2.2.0           metafor_2.4-0         shinystan_2.5.0      
+#&gt; [127] multcomp_1.4-13       parallel_4.0.0        hms_0.5.3            
+#&gt; [130] grid_4.0.0            minqa_1.2.4           tidyr_1.1.0          
+#&gt; [133] coda_0.19-3           rmarkdown_2.2         carData_3.0-4        
+#&gt; [136] ggpubr_0.3.0          shiny_1.4.0.2         base64enc_0.1-3      
+#&gt; [139] dygraphs_1.1.1.6</code></pre>
 <div id="refs" class="references">
 <div id="ref-Burkner_2018">
 <p>1. Burkner P-C. Advanced bayesian multilevel modeling with the r package brms. <em>The R Journal</em>. 2018;10(1):395-411. doi:<a href="https://doi.org/10/gfxzpn">10/gfxzpn</a></p>

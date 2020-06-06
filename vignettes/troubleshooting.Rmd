@@ -111,9 +111,3 @@ func2
 
 If you encounter any other bugs, please report them at 
 [https://github.com/zadrafi/concurve/issues](https://github.com/zadrafi/concurve/issues)
-
-# Session info
-
-```{r session_info, include=TRUE, echo=FALSE}
-sessionInfo()
-```

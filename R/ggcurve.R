@@ -90,8 +90,8 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
                     xaxis = expression(Theta ~ "Range of Values"),
                     yaxis1 = expression(paste(italic(p), "-value")),
                     yaxis2 = "Levels for CI (%)",
-                    color = "#000000",
-                    fill = "#239a98") {
+                    color = darken("#009E73", 0.5),
+                    fill = "#009E7350") {
 
 
   # Consonance Curve -----------------------------------------------------
@@ -298,8 +298,8 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
     }
 
     ggplot(data = data, mapping = aes(x = x)) +
-      stat_ecdf(geom = "point", color = fill, size = 0.75, shape = 5, alpha = 0.75) +
-      geom_hline(yintercept = 0.50, linetype = "dotted") +
+      stat_ecdf(geom = "point", color = darken("#e7998c", 0.2), size = 0.75, shape = 5, alpha = 0.75) +
+      geom_hline(yintercept = 0.50, linetype = "dotted", alpha = 0.5) +
       labs(
         title = "Consonance Distribution",
         subtitle = subtitle,
@@ -349,7 +349,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
     }
 
     ggplot(data = data, mapping = aes(x = x)) +
-      geom_density(fill = fill, alpha = 0.20) +
+      geom_density(fill = fill, color = color, alpha = 0.20) +
       labs(
         title = "Consonance Density",
         subtitle = subtitle,
@@ -406,7 +406,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
 
     ggplot(data = data, mapping = aes(x = values, y = support)) +
       geom_line() +
-      geom_ribbon(aes(x = values, ymin = min(support), ymax = support), fill = "#239a98", alpha = 0.20) +
+      geom_ribbon(aes(x = values, ymin = min(support), ymax = support), fill = fill, color = color, alpha = 0.20) +
       labs(
         title = "Relative Likelihood Function",
         subtitle = subtitle,
@@ -463,7 +463,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
 
     ggplot(data = data, mapping = aes(x = values, y = loglikelihood)) +
       geom_line() +
-      geom_ribbon(aes(x = values, ymin = min(loglikelihood), ymax = loglikelihood), fill = "#239a98", alpha = 0.20) +
+      geom_ribbon(aes(x = values, ymin = min(loglikelihood), ymax = loglikelihood), fill = fill, color = color, alpha = 0.20) +
       labs(
         title = "Log-Likelihood Function",
         subtitle = subtitle,
@@ -520,7 +520,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
 
     ggplot(data = data, mapping = aes(x = values, y = likelihood)) +
       geom_line() +
-      geom_ribbon(aes(x = values, ymin = min(likelihood), ymax = likelihood), fill = "#239a98", alpha = 0.20) +
+      geom_ribbon(aes(x = values, ymin = min(likelihood), ymax = likelihood), fill = fill, color = color, alpha = 0.20) +
       labs(
         title = "Likelihood Function",
         subtitle = subtitle,
@@ -577,7 +577,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
 
     ggplot(data = data, mapping = aes(x = values, y = deviancestat)) +
       geom_line() +
-      geom_ribbon(aes(x = values, ymin = deviancestat, ymax = max(deviancestat)), fill = "#239a98", alpha = 0.20) +
+      geom_ribbon(aes(x = values, ymin = deviancestat, ymax = max(deviancestat)), fill = fill, color = color, alpha = 0.20) +
       labs(
         title = "Deviance Function",
         subtitle = subtitle,
