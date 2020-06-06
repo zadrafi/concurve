@@ -49,10 +49,14 @@
 #' it is set to "Range of Values.
 #' In order to set a x-axis title, it must be in quotes. For example,
 #' ggcurve(type = "c", data = x, xaxis = "Hazard Ratio").
-#' @param yaxis A custom y-axis title for the graph. By default,
+#' @param yaxis1 A custom y-axis title for the graph. By default,
 #' it is set to "Consonance Level".
 #' In order to set a y-axis title, it must be in quotes. For example,
-#' ggcurve(type = "c", data = x, yxis = "Confidence Level").
+#' ggcurve(type = "c", data = x, yxis1= "Confidence Level").
+#' @param yaxis2 A custom y-axis title for the graph. By default,
+#' it is set to "Levels for CI".
+#' In order to set a y-axis title, it must be in quotes. For example,
+#' ggcurve(type = "c", data = x, yxis2= "Confidence Level").
 #' @param color Item that allows the user to choose the color of the points
 #' and the ribbons in the graph. By default, it is set to color = "#555555".
 #' The inputs must be in quotes.
@@ -84,7 +88,8 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
                     title = "Interval Function",
                     subtitle = "The function displays intervals at every level.",
                     xaxis = expression(Theta ~ "Range of Values"),
-                    yaxis = expression(paste(italic(p), "-value")),
+                    yaxis1 = expression(paste(italic(p), "-value")),
+                    yaxis2 = "Levels for CI (%)",
                     color = "#000000",
                     fill = "#239a98") {
 
@@ -145,7 +150,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
         title = "Consonance Curve",
         subtitle = subtitle,
         x = xaxis,
-        y = yaxis
+        y = yaxis1
       ) +
       theme_minimal() +
       theme(
@@ -166,7 +171,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
           scale_y_reverse(
             expand = expansion(mult = c(0.01, 0.025)),
             breaks = seq(0, 1, 0.10),
-            sec.axis = sec_axis(~ (1 - .) * 100, name = "Levels for CI (%)", breaks = seq(0, 100, 10))
+            sec.axis = sec_axis(~ (1 - .) * 100, name = yaxis2, breaks = seq(0, 100, 10))
           )
         }
       } +
@@ -175,7 +180,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
           scale_y_continuous(
             expand = expansion(mult = c(0.01, 0.025)),
             breaks = seq(0, 1, 0.10),
-            sec.axis = sec_axis(~ (1 - .) * 100, name = "Levels for CI (%)", breaks = seq(0, 100, 10))
+            sec.axis = sec_axis(~ (1 - .) * 100, name = yaxis2, breaks = seq(0, 100, 10))
           )
         }
       } +

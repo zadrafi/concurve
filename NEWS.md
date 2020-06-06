@@ -6,6 +6,8 @@
 * `curve_rev()` can now take summary statistics such as the point estimate and it's standard error to back calculate the function. 
   - Also thanks to [Aaron Caldwell](https://twitter.com/ExPhysStudent) for this added feature.
 * `curve_boot()` now takes an option allowing users to specify the number of cores to be used. 
+* Graphing functions such as `ggcurve()` and `plot_compare()` now have the options to customize the second y-axis.
+  - Thus, the argument `yaxis` has been replaced by `yaxis1` and `yaxis2`.
 
 # concurve 2.5.0
 

@@ -8,8 +8,8 @@ ggcurve(data, type = "c", measure = "default", levels = 0.95,
   nullvalue = FALSE, position = "pyramid", title = "Interval Function",
   subtitle = "The function displays intervals at every level.",
   xaxis = expression(Theta ~ "Range of Values"),
-  yaxis = expression(paste(italic(p), "-value")), color = "#000000",
-  fill = "#239a98")
+  yaxis1 = expression(paste(italic(p), "-value")),
+  yaxis2 = "Levels for CI (\%)", color = "#000000", fill = "#239a98")
 }
 \arguments{
 \item{data}{The dataframe produced by one of the interval functions
@@ -65,10 +65,15 @@ it is set to "Range of Values.
 In order to set a x-axis title, it must be in quotes. For example,
 ggcurve(type = "c", data = x, xaxis = "Hazard Ratio").}
 
-\item{yaxis}{A custom y-axis title for the graph. By default,
+\item{yaxis1}{A custom y-axis title for the graph. By default,
 it is set to "Consonance Level".
 In order to set a y-axis title, it must be in quotes. For example,
-ggcurve(type = "c", data = x, yxis = "Confidence Level").}
+ggcurve(type = "c", data = x, yxis1= "Confidence Level").}
+
+\item{yaxis2}{A custom y-axis title for the graph. By default,
+it is set to "Levels for CI".
+In order to set a y-axis title, it must be in quotes. For example,
+ggcurve(type = "c", data = x, yxis2= "Confidence Level").}
 
 \item{color}{Item that allows the user to choose the color of the points
 and the ribbons in the graph. By default, it is set to color = "#555555".
