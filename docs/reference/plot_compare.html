@@ -232,8 +232,9 @@
   <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='st'>"The function displays intervals at every level."</span>,
   <span class='kw'>xaxis</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span>(<span class='no'>Theta</span> ~ <span class='st'>"Range of Values"</span>),
   <span class='kw'>yaxis1</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='fu'><a href='https://rdrr.io/r/grDevices/plotmath.html'>italic</a></span>(<span class='no'>p</span>), <span class='st'>"-value"</span>)),
-  <span class='kw'>yaxis2</span> <span class='kw'>=</span> <span class='st'>"Levels for CI (%)"</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"#000000"</span>, <span class='kw'>fill1</span> <span class='kw'>=</span> <span class='st'>"#239a98"</span>,
-  <span class='kw'>fill2</span> <span class='kw'>=</span> <span class='st'>"#EE6A50"</span>)</pre>
+  <span class='kw'>yaxis2</span> <span class='kw'>=</span> <span class='st'>"Levels for CI (%)"</span>, <span class='kw'>color1</span> <span class='kw'>=</span> <span class='fu'>darken</span>(<span class='st'>"#D55E00"</span>, <span class='fl'>0.4</span>),
+  <span class='kw'>color2</span> <span class='kw'>=</span> <span class='fu'>darken</span>(<span class='st'>"#009E73"</span>, <span class='fl'>0.4</span>), <span class='kw'>fill1</span> <span class='kw'>=</span> <span class='st'>"#D55E0050"</span>,
+  <span class='kw'>fill2</span> <span class='kw'>=</span> <span class='st'>"#009E7350"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -322,9 +323,15 @@ In order to set a y-axis title, it must be in quotes. For example,
 ggcurve(type = "c", data = x, yxis2= "Confidence Level").</p></td>
     </tr>
     <tr>
-      <th>color</th>
+      <th>color1</th>
       <td><p>Item that allows the user to choose the color of the points
-and the ribbons in the graph. By default, it is set to color = "#555555".
+and the ribbons in the graph. By default, it is set to darken("#D55E00", 0.4).
+The inputs must be in quotes.</p></td>
+    </tr>
+    <tr>
+      <th>color2</th>
+      <td><p>Item that allows the user to choose the color of the points
+and the ribbons in the graph. By default, it is set to darken("#009E73", 0.4).
 The inputs must be in quotes.
 For example, plot_compare(type = "c", data = x, color = "#333333").</p></td>
     </tr>

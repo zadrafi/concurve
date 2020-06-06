@@ -13,4 +13,4 @@ Here are some ideas/implementations I'm hoping to include within `concurve` at s
 * Implement with the `nlme` package 
 * Possibly incorporate `Stan` via `rstantools` to produce likelihoods and posteriors
 
-If you'd like to help contribute, please see the [contributing guide](docs/CONTRIBUTING.html).
+If you'd like to help contribute, please see the [contributing guide](https://data.lesslikely.com/concurve/CONTRIBUTING.html).

@@ -235,8 +235,8 @@ intervals to form a consonance and surprisal function. The intervals are
 calculated from the approximated normal distribution.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>curve_rev</span>(<span class='no'>point</span>, <span class='no'>LL</span>, <span class='no'>UL</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>measure</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>steps</span> <span class='kw'>=</span> <span class='fl'>10000</span>,
-  <span class='kw'>table</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>curve_rev</span>(<span class='no'>point</span>, <span class='kw'>LL</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>UL</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>se</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
+  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"c"</span>, <span class='kw'>measure</span> <span class='kw'>=</span> <span class='st'>"default"</span>, <span class='kw'>steps</span> <span class='kw'>=</span> <span class='fl'>10000</span>, <span class='kw'>table</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -252,6 +252,14 @@ calculated from the approximated normal distribution.</p>
     <tr>
       <th>UL</th>
       <td><p>The upper confidence limit from an analysis Ex: 1.4</p></td>
+    </tr>
+    <tr>
+      <th>se</th>
+      <td><p>The standard error of the point estimate. Ex: 0.05</p></td>
+    </tr>
+    <tr>
+      <th>conf.level</th>
+      <td><p>Confidence level of the interval estimate.</p></td>
     </tr>
     <tr>
       <th>type</th>
@@ -298,7 +306,7 @@ and the table for the values in the third if table = TRUE.</p>
 <span class='co'># From a real published study. Point estimate of the result was hazard ratio of 1.61 and</span>
 <span class='co'># lower bound of the interval is 0.997 while upper bound of the interval is 2.59.</span>
 <span class='co'>#</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>curve_rev</span>(<span class='kw'>point</span> <span class='kw'>=</span> <span class='fl'>1.61</span>, <span class='kw'>LL</span> <span class='kw'>=</span> <span class='fl'>0.997</span>, <span class='kw'>UL</span> <span class='kw'>=</span> <span class='fl'>2.59</span>, <span class='kw'>measure</span> <span class='kw'>=</span> <span class='st'>"ratio"</span>)</div></pre>
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>curve_rev</span>(<span class='kw'>point</span> <span class='kw'>=</span> <span class='fl'>1.61</span>, <span class='kw'>LL</span> <span class='kw'>=</span> <span class='fl'>0.997</span>, <span class='kw'>UL</span> <span class='kw'>=</span> <span class='fl'>2.59</span>, <span class='kw'>measure</span> <span class='kw'>=</span> <span class='st'>"ratio"</span>)</div><div class='output co'>#&gt; [1] 0.2435408</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -9,8 +9,9 @@ plot_compare(data1, data2, type = "c", measure = "default",
   subtitle = "The function displays intervals at every level.",
   xaxis = expression(Theta ~ "Range of Values"),
   yaxis1 = expression(paste(italic(p), "-value")),
-  yaxis2 = "Levels for CI (\%)", color = "#000000", fill1 = "#239a98",
-  fill2 = "#EE6A50")
+  yaxis2 = "Levels for CI (\%)", color1 = darken("#D55E00", 0.4),
+  color2 = darken("#009E73", 0.4), fill1 = "#D55E0050",
+  fill2 = "#009E7350")
 }
 \arguments{
 \item{data1}{The first dataframe produced by one of the interval functions in which the
@@ -74,8 +75,12 @@ it is set to "Levels for CI".
 In order to set a y-axis title, it must be in quotes. For example,
 ggcurve(type = "c", data = x, yxis2= "Confidence Level").}
 
-\item{color}{Item that allows the user to choose the color of the points
-and the ribbons in the graph. By default, it is set to color = "#555555".
+\item{color1}{Item that allows the user to choose the color of the points
+and the ribbons in the graph. By default, it is set to darken("#D55E00", 0.4).
+The inputs must be in quotes.}
+
+\item{color2}{Item that allows the user to choose the color of the points
+and the ribbons in the graph. By default, it is set to darken("#009E73", 0.4).
 The inputs must be in quotes.
 For example, plot_compare(type = "c", data = x, color = "#333333").}
 

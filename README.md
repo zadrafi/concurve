@@ -22,8 +22,8 @@ v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org
 
 #### [Compare](https://data.lesslikely.com/concurve/reference/curve_compare.html) Functions From Different Datasets/Studies
 
-<img src = "https://res.cloudinary.com/less-likely/image/upload/v1591408266/Site/functions.png" align="center" width ="400">
-<img src = "https://res.cloudinary.com/less-likely/image/upload/v1591408266/Site/lfunctions.png" align="center" width ="400">
+<img src = "https://res.cloudinary.com/less-likely/image/upload/v1591475692/Site/functions.png" align="center" width ="400">
+<img src = "https://res.cloudinary.com/less-likely/image/upload/v1591475692/Site/lfunctions.png" align="center" width ="400">
 
 -----
 

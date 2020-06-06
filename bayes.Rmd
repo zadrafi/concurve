@@ -71,7 +71,7 @@ ggplot(data = df, aes(x = studynumber, y = point, ymin = lower.limit, ymax = upp
 
 Although the code above demonstrates this, one of the best visualization tools to understand this long-run behavior is the D3.js visualization created by Kristoffer Magnusson, which [can be viewed here](https://rpsychologist.com/d3/CI/).
 
-However, despite these differences in interpretation, Bayesian and frequentist intervals often end up converging, especially when there are large amounts of data. They also end up converging when a Bayesian posterior distribution is computed with a flat or weakly informative prior. However, there are several problems with using flat priors, such as giving equal weight to all values in the interval including implausible ones. These sorts of priors should generally be avoided. 
+However, despite these differences in interpretation, Bayesian and frequentist intervals often end up converging, especially when there are large amounts of data. They also end up converging when a Bayesian posterior distribution is computed with a flat or weakly informative prior. However, there are several problems with using flat priors, such as giving equal weight to all values in the interval including implausible ones. These sorts of priors should generally be avoided. However, for the sake of this demonstration, we will be using flat priors.
 
 Here, I demonstrate with a simple example how Bayesian posterior distributions and frequentist confidence functions end up converging in some scenarios. For these first few examples, I'll be using the `brms` package.[@Burkner_2018] 
 
@@ -92,8 +92,8 @@ model_freq <- lm(GroupA ~ GroupB, data = RandomData)
 ```{r, results = 'hide', message = FALSE}
 # Using default prior
 model_bayes <- brm(GroupA ~ GroupB,
-  data = RandomData,
-  iter = 2000, warmup = 1000, chains = 2, family = gaussian()
+  data = RandomData, prior = NULL,
+  iter = 2000, warmup = 1000, chains = 2, family = gaussian(), cores = 4
 )
 ```
 
@@ -135,8 +135,8 @@ model_freq <- lm(GroupA ~ GroupB, data = RandomData)
 
 # Using default prior
 model_bayes <- brm(GroupA ~ GroupB,
-  data = RandomData, prior = prior("normal(0, 1)", class = "b"),
-  iter = 2000, warmup = 1000, chains = 2, family = gaussian()
+  data = RandomData, prior = NULL,
+  iter = 2000, warmup = 1000, chains = 2, family = gaussian(), cores = 4
 )
 ```
 
@@ -179,7 +179,7 @@ dat$income_num <- as.numeric(dat$income)
 
 
 ```{r, results = 'hide', message = FALSE}
-fit1 <- brm(ls ~ income_num, data = dat)
+fit1 <- brm(ls ~ income_num, data = dat, prior = NULL, cores = 4)
 ```
 
 ```{r}
@@ -218,9 +218,9 @@ library(rstanarm)
 data(kidiq)
 
 post1 <- stan_glm(kid_score ~ mom_hs,
-  data = kidiq,
+  data = kidiq, prior = NULL,
   family = gaussian(link = "identity"),
-  seed = 12345
+  seed = 12345, cores = 4
 )
 ```
 
@@ -253,3 +253,9 @@ cowplot::plot_grid(function99, function100)
 # References
 
 * * * 
+
+# Session info
+
+```{r session_info, include=TRUE, echo=FALSE}
+sessionInfo()
+```
