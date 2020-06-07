@@ -1,6 +1,13 @@
 ---
 title: "Profile Likelihoods"
+description: "This vignette walks through how to construct and graph profile likelihood functions."
 output: rmarkdown::html_vignette
+opengraph:
+  image: 
+    src: "https://res.cloudinary.com/less-likely/image/upload/v1591475692/Site/lfunctions.png"
+  twitter:
+    card: summary
+    creator: "@dailyzad"
 bibliography: references.bib
 link-citations: yes
 csl: american-medical-association.csl

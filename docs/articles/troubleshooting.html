@@ -22,8 +22,8 @@
 <link href="../docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Troubleshooting">
-<meta property="og:description" content="concurve">
-<meta property="og:image" content="https://data.lesslikely.com/concurve/logo.svg">
+<meta property="og:description" content="A guide to dealing with common errors when using the concurve R package including slow loading of the graphs, warnings, and distorted plots.">
+<meta property="og:image" content="https://res.cloudinary.com/less-likely/image/upload/v1554700142/Site/Predator.jpg,concurve R package hex logo">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -418,25 +418,13 @@
 <span class="co">#&gt; [1] 0.2435408</span>
 <span class="co">#&gt; [1] 0.2435408</span>
 <span class="co">#&gt; [1] 0.2435408</span>
-<span class="co">#&gt; [1] 0.2435408</span>
-<span class="co">#&gt; [1] 0.2435408</span>
-<span class="co">#&gt; [1] 0.2435408</span>
-<span class="co">#&gt; [1] 0.2435408</span>
-<span class="co">#&gt; [1] 0.2435408</span>
-<span class="co">#&gt; [1] 0.2435408</span>
-<span class="co">#&gt; [1] 0.2435408</span>
-<span class="co">#&gt; [1] 0.2435408</span>
-<span class="co">#&gt; [1] 0.2435408</span>
-<span class="co">#&gt; [1] 0.2435408</span>
-<span class="co">#&gt; [1] 0.2435408</span>
-<span class="co">#&gt; [1] 0.2435408</span>
-<span class="co">#&gt; [1] 0.2435408</span>
-<span class="co">#&gt; [1] 0.2435408</span>
-<span class="co">#&gt; [1] 0.2435408</span>
-<span class="co">#&gt; [1] 0.2435408</span>
 
 <span class="no">func2</span> <span class="kw">&lt;-</span> <span class="kw pkg">bench</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/bench/man/mark.html">mark</a></span>(<span class="no">df1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/curve_rev.html">curve_rev</a></span>(<span class="kw">point</span> <span class="kw">=</span> <span class="fl">1.61</span>, <span class="kw">LL</span> <span class="kw">=</span> <span class="fl">0.997</span>, <span class="kw">UL</span> <span class="kw">=</span> <span class="fl">2.59</span>,
                                       <span class="kw">measure</span> <span class="kw">=</span> <span class="st">"ratio"</span>, <span class="kw">steps</span> <span class="kw">=</span> <span class="fl">10000</span>), <span class="kw">memory</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<span class="co">#&gt; [1] 0.2435408</span>
+<span class="co">#&gt; [1] 0.2435408</span>
+<span class="co">#&gt; [1] 0.2435408</span>
+<span class="co">#&gt; [1] 0.2435408</span>
 <span class="co">#&gt; [1] 0.2435408</span>
 <span class="co">#&gt; [1] 0.2435408</span>
 <span class="co">#&gt; [1] 0.2435408</span>

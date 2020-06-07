@@ -22,8 +22,8 @@
 <link href="../docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Comparison to Bayesian Posterior Distributions">
-<meta property="og:description" content="concurve">
-<meta property="og:image" content="https://data.lesslikely.com/concurve/logo.svg">
+<meta property="og:description" content="This vignette discusses how consonance distributions and Bayesian posterior distributions differ in interpretation but how they can also often converge. This is shown with several examples of how to calculate both distributions in a range of scenarios.">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/d/d4/Thomas_Bayes.gif,concurve R package hex logo">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -305,12 +305,12 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Population-Level Effects: </span>
 <span class="co">#&gt;           Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS</span>
-<span class="co">#&gt; Intercept     1.97      0.06     1.85     2.08 1.00     2220     1641</span>
-<span class="co">#&gt; GroupB        0.06      0.04    -0.02     0.15 1.00     2222     1546</span>
+<span class="co">#&gt; Intercept     1.97      0.06     1.85     2.09 1.00     2318     1656</span>
+<span class="co">#&gt; GroupB        0.06      0.04    -0.02     0.15 1.00     2130     1511</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Family Specific Parameters: </span>
 <span class="co">#&gt;       Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS</span>
-<span class="co">#&gt; sigma     0.94      0.03     0.88     1.00 1.00     1967     1429</span>
+<span class="co">#&gt; sigma     0.94      0.03     0.88     1.00 1.00     1991     1398</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Samples were drawn using sampling(NUTS). For each parameter, Bulk_ESS</span>
 <span class="co">#&gt; and Tail_ESS are effective sample size measures, and Rhat is the potential</span>
@@ -358,12 +358,12 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Population-Level Effects: </span>
 <span class="co">#&gt;            Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS</span>
-<span class="co">#&gt; Intercept     22.39      2.51    17.48    27.15 1.00     3799     2882</span>
-<span class="co">#&gt; income_num    14.36      0.83    12.72    15.96 1.00     3709     2817</span>
+<span class="co">#&gt; Intercept     22.40      2.53    17.43    27.41 1.00     4234     2566</span>
+<span class="co">#&gt; income_num    14.35      0.84    12.67    16.02 1.00     4147     2454</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Family Specific Parameters: </span>
 <span class="co">#&gt;       Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS</span>
-<span class="co">#&gt; sigma     9.68      0.69     8.46    11.12 1.00     4004     2969</span>
+<span class="co">#&gt; sigma     9.67      0.71     8.39    11.18 1.00     3587     2948</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Samples were drawn using sampling(NUTS). For each parameter, Bulk_ESS</span>
 <span class="co">#&gt; and Tail_ESS are effective sample size measures, and Rhat is the potential</span>

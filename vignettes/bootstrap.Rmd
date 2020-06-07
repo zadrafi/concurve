@@ -1,6 +1,13 @@
 ---
 title: "The Bootstrap and Consonance Functions"
+description: "This guide discusses the bootstrap resampling method and its close connection to the consonance distribution and how to use certain iterations of the bootstrap to construct a consonance distribution."
 output: rmarkdown::html_vignette
+opengraph:
+  image: 
+    src: "https://img.huffingtonpost.com/asset/5b6b3f1f2000002d00349e9d.jpeg?cache=92vfjlaeaf&ops=scalefit_720_noupscale"
+  twitter:
+    card: summary
+    creator: "@dailyzad"
 bibliography: references.bib
 link-citations: yes
 csl: american-medical-association.csl

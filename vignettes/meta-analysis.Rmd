@@ -1,6 +1,13 @@
 ---
 title: "Meta-Analysis Examples"
+description: "This guide walks through how to construct consonance functions from meta-analysis data using the metafor R package. Both simple and complex data structures are examined."
 output: rmarkdown::html_vignette
+opengraph:
+  image: 
+    src: "https://upload.wikimedia.org/wikipedia/commons/f/f0/Generic_forest_plot.png"
+  twitter:
+    card: summary
+    creator: "@dailyzad"   
 bibliography: references.bib
 link-citations: yes
 csl: american-medical-association.csl

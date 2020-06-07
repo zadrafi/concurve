@@ -1,8 +1,15 @@
 ---
 title: "Examples in R"
+description: "A simple introduction to using the concurve R package."
 output: 
   rmarkdown::html_vignette:
     toc: true
+opengraph:
+  image: 
+    src: "https://res.cloudinary.com/less-likely/image/upload/v1554700143/Site/Projects.jpg"
+  twitter:
+    card: summary
+    creator: "@dailyzad"    
 bibliography: references.bib
 link-citations: yes
 csl: american-medical-association.csl

@@ -1,6 +1,13 @@
 ---
 title: "Survival Modeling"
+description: "A vignette on how to produce consonance functions for results obtained from a survival analysis."
 output: rmarkdown::html_vignette
+opengraph:
+  image: 
+    src: "https://miro.medium.com/max/1400/1*tzKekvPamwawtm5GdGI88g.png"
+  twitter:
+    card: summary
+    creator: "@dailyzad"  
 bibliography: references.bib
 link-citations: yes
 csl: american-medical-association.csl

@@ -1,8 +1,15 @@
 ---
 title: "Customizing Plots"
+description: "A guide on how to customize the plots obtained from concurve via ggplot2 arguments and with other packages."
 output: 
   rmarkdown::html_vignette:
     toc: true
+opengraph:
+  image: 
+    src: "https://upload.wikimedia.org/wikipedia/commons/2/29/Minard.png"
+  twitter:
+    card: summary
+    creator: "@dailyzad"
 bibliography: references.bib
 link-citations: yes
 csl: american-medical-association.csl
