@@ -1,6 +1,7 @@
 url: https://data.lesslikely.com/concurve/
 
 title: concurve
+description: An R package that constructs and graphs consonance, surprisal, and likelihood functions.
 
 authors:
   Zad Rafi:
@@ -19,6 +20,13 @@ template:
   path: inst/templates
   assets: inst/assets
   default_assets: false
+  opengraph:
+    image:
+      src: man/figures/logo.svg
+      alt: "concurve R package hex logo"
+    twitter:
+      creator: "@dailyzad"
+      card: summary_large_image
 
 development:
   mode: auto
@@ -77,6 +85,31 @@ navbar:
     twitter:
       icon: fa-twitter fa-lg
       href: https://twitter.com/dailyzad
+
+reference:
+- title: Computations
+  desc: Compute consonance/confidence/compatibility intervals for a wide range of scenarios, along with likelihood intervals.
+- contents:
+  - curve_boot
+  - curve_corr
+  - curve_gen
+  - curve_lik
+  - curve_lmer
+  - curve_mean
+  - curve_meta
+  - curve_rev
+  - curve_surv
+- title: Graphics
+  desc: Plot the overall functions that were computed such as the consonance, surprisal, and likelihood functions.
+- contents:
+  - ggcurve
+  - curve_compare
+  - plot_compare
+- title: Tables
+  desc: Display the tables showing relevant statistics from the initial computations.
+- contents:
+  - curve_table
+
 
 pkgdown:
   as_is: true

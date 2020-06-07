@@ -20,14 +20,14 @@ Downloads](https://cranlogs.r-pkg.org/badges/grand-total/concurve)](https://cran
 v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 <!-- badges: end -->
 
-#### [Compare](https://data.lesslikely.com/concurve/reference/curve_compare.html) Functions From Different Datasets/Studies
+#### [Compare](reference/plot_compare.html) Functions From Different Datasets/Studies
 
 <img src = "https://res.cloudinary.com/less-likely/image/upload/v1591475692/Site/functions.png" align="center" width ="400">
 <img src = "https://res.cloudinary.com/less-likely/image/upload/v1591475692/Site/lfunctions.png" align="center" width ="400">
 
 -----
 
-#### [Export Tables](https://data.lesslikely.com/concurve/reference/curve_table.html) Easily For Word, Powerpoint, & TeX documents
+#### [Export Tables](reference/curve_table.html) Easily For Word, Powerpoint, & TeX documents
 
 <center>
 
@@ -35,18 +35,18 @@ v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org
 
 -----
 
-#### Install the Package From [CRAN](https://cran.r-project.org/package=concurve) Below To Follow The [Examples](https://data.lesslikely.com/concurve/articles/index.html).
+#### Install the package from [CRAN](https://cran.r-project.org/package=concurve) and check out the [articles](articles/index.html).
 
-(`Seriously Recommend Looking at Examples`)
+(`It is highly recommended to look at the articles.`)
 
     install.packages("concurve")
 
-Try the following if you run into any installation issues:
+Try the following script if you run into any installation issues:
 
     install.packages("concurve", repos = "https://cloud.r-project.org/", dep = TRUE)
 
 -----
 
-#### Check out the [Article on Using `Stata`](https://data.lesslikely.com/concurve/articles/stata.html) for concurve.
+#### Check out the [article on using `Stata`](articles/stata.html) to obtain similar results.
 
 -----

@@ -1,6 +1,13 @@
 ---
 title: "Case Studies"
+description: "A list of papers that have used consonance functions to analyze or reanalyze datasets."
 output: rmarkdown::html_vignette
+opengraph:
+  image: 
+    src: "https://res.cloudinary.com/less-likely/image/upload/v1554700143/Site/Publications.jpg"
+  twitter:
+    card: summary
+    creator: "@dailyzad"
 bibliography: references.bib
 link-citations: yes
 csl: american-medical-association.csl

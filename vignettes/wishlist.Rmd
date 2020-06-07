@@ -1,6 +1,13 @@
 ---
 title: "Wish List"
+description: "A list of features that could potentially be added to the package."
 output: rmarkdown::html_vignette
+opengraph:
+  image: 
+    src: "https://upload.wikimedia.org/wikipedia/commons/6/62/Gifts_xmas.jpg"
+  twitter:
+    card: summary
+    creator: "@dailyzad"  
 vignette: >
   %\VignetteIndexEntry{Wish List}
   %\VignetteEngine{knitr::rmarkdown}

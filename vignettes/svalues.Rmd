@@ -1,6 +1,13 @@
 ---
 title: "S-value Calculator"
+description: "A Shiny app that converts observed P-values to S-values."
 output: rmarkdown::html_vignette
+opengraph:
+  image: 
+    src: "https://zadrafi.shinyapps.io/shinyapp/_w_45803ac8/PandaCoin.png"
+  twitter:
+    card: summary
+    creator: "@dailyzad"
 vignette: >
   %\VignetteIndexEntry{S-value Calculator}
   %\VignetteEngine{knitr::rmarkdown}

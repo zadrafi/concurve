@@ -1,6 +1,13 @@
 ---
 title: "Using Stata"
+description: "A simple guide on how to produce consonance functions in Stata."
 output: rmarkdown::html_vignette
+opengraph:
+  image: 
+    src: "https://upload.wikimedia.org/wikipedia/commons/7/79/Stata_logo_med_blue.png"
+  twitter:
+    card: summary
+    creator: "@dailyzad"
 vignette: >
   %\VignetteIndexEntry{Using Stata}
   %\VignetteEngine{knitr::rmarkdown}

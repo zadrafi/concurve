@@ -2,6 +2,7 @@ pandoc: 2.9.2.1
 pkgdown: 1.5.1
 pkgdown_sha: ~
 articles:
+  bayes: bayes.html
   bootstrap: bootstrap.html
   casestudies: casestudies.html
   customizing: customizing.html
@@ -13,7 +14,7 @@ articles:
   svalues: svalues.html
   troubleshooting: troubleshooting.html
   wishlist: wishlist.html
-last_built: 2020-06-06T22:33Z
+last_built: 2020-06-07T00:48Z
 urls:
   reference: https://data.lesslikely.com/concurve//reference
   article: https://data.lesslikely.com/concurve//articles

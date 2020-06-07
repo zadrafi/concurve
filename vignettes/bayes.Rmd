@@ -1,8 +1,15 @@
 ---
 title: "Comparison to Bayesian Posterior Distributions"
+description: "This vignette discusses how consonance distributions and Bayesian posterior distributions differ in interpretation but how they can also often converge. This is shown with several examples of how to calculate both distributions in a range of scenarios."
 output: 
   rmarkdown::html_vignette:
     toc: true
+opengraph:
+  image: 
+    src: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Thomas_Bayes.gif"
+  twitter:
+    card: summary
+    creator: "@dailyzad"    
 bibliography: references.bib
 link-citations: yes
 csl: american-medical-association.csl

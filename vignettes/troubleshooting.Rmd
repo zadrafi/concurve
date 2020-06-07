@@ -1,6 +1,13 @@
 ---
 title: "Troubleshooting"
+description: "A guide to dealing with common errors when using the concurve R package including slow loading of the graphs, warnings, and distorted plots."
 output: rmarkdown::html_vignette
+opengraph:
+  image: 
+    src: "https://res.cloudinary.com/less-likely/image/upload/v1554700142/Site/Predator.jpg"
+  twitter:
+    card: summary
+    creator: "@dailyzad"
 vignette: >
   %\VignetteIndexEntry{Troubleshooting}
   %\VignetteEngine{knitr::rmarkdown}
