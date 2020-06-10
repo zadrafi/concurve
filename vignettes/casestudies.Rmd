@@ -30,3 +30,8 @@ library(concurve)
 Here we list some applied papers that have utilized p-value/confidence/compatibility functions in their analyses. They do not necessarily use R to compute and graph these functions. Our listing of them on this page does not indicate endorsement or praise.
 
 1. [Rothman KJ, Johnson ES, Sugano DS. Is flutamide effective in patients with bilateral orchiectomy? The Lancet. 1999;353: 1184. doi:10/cxjx5n](https://doi.org/10/cxjx5n)
+
+2. [Rothman KJ, Greenland S, Lash TL. Precision and statistics in epidemiologic studies. 3rd ed. In: Rothman KJ, Greenland S, Lash TL, editors. Modern Epidemiology. 3rd ed. Lippincott Williams & Wilkins; 2008. pp. 148–167.](https://books.google.com/books/about/Modern_Epidemiology.html?id=Z3vjT9ALxHUC)
+
+3. [Rücker G, Schwarzer G. Beyond the forest plot: The drapery plot. Research Synthesis Methods. 2020. doi:10.1002/jrsm.1410](https://doi.org/10.1002/jrsm.1410)
+
