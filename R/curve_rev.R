@@ -203,9 +203,9 @@ curve_rev <- function(point,
     support <- exp((-zscore^2) / 2)
     deviancestat <- (zscore^2)
     if (measure == "ratio") {
-      likelihood <- support * (log(point))
+      likelihood <- support * (log(point)) # potentially problematic
     } else {
-      likelihood <- support * point
+      likelihood <- support * point # potentially problematic
     }
     loglikelihood <- log(likelihood)
     likfunction <- data.frame(values, likelihood, loglikelihood, support, deviancestat)
