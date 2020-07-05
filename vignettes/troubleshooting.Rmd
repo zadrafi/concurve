@@ -104,11 +104,15 @@ For example, here I changed the number of steps to 100, which is the minimum nee
 
 ```{r}
 library(bench)
-func1 <- bench::mark(df1 <- curve_rev(point = 1.61, LL = 0.997, UL = 2.59, 
-                                      measure = "ratio", steps = 100), memory = FALSE)
+func1 <- bench::mark(df1 <- curve_rev(
+  point = 1.61, LL = 0.997, UL = 2.59,
+  measure = "ratio", steps = 100
+), memory = FALSE)
 
-func2 <- bench::mark(df1 <- curve_rev(point = 1.61, LL = 0.997, UL = 2.59, 
-                                      measure = "ratio", steps = 10000), memory = FALSE)
+func2 <- bench::mark(df1 <- curve_rev(
+  point = 1.61, LL = 0.997, UL = 2.59,
+  measure = "ratio", steps = 10000
+), memory = FALSE)
 
 func1
 func2
@@ -118,3 +122,9 @@ func2
 
 If you encounter any other bugs, please report them at 
 [https://github.com/zadrafi/concurve/issues](https://github.com/zadrafi/concurve/issues)
+
+# Session info
+
+```{r session_info, include=TRUE, echo=FALSE}
+sessionInfo()
+```

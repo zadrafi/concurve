@@ -87,7 +87,7 @@
 ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullvalue = FALSE, position = "pyramid",
                     title = "Interval Function",
                     subtitle = "The function displays intervals at every level.",
-                    xaxis = expression(Theta ~ "Range of Values"),
+                    xaxis = expression(theta == ~"Range of Values"),
                     yaxis1 = expression(paste(italic(p), "-value")),
                     yaxis2 = "Levels for CI (%)",
                     color = darken("#009E73", 0.5),

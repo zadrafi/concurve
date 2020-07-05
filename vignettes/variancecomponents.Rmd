@@ -1,0 +1,94 @@
+---
+title: "Consonance Functions for Linear Mixed-Effects Models"
+description: "This guide walks through how to construct consonance functions in the context of designing and analyzing experiments in which the analyst is interested examining the sources of variability between and within groups."
+output: rmarkdown::html_vignette
+opengraph:
+  image: 
+    src: "https://upload.wikimedia.org/wikipedia/commons/f/f0/Generic_forest_plot.png"
+  twitter:
+    card: summary
+    creator: "@dailyzad"   
+bibliography: references.bib
+link-citations: yes
+csl: american-medical-association.csl
+vignette: >
+  %\VignetteIndexEntry{Consonance Functions for Linear Mixed-Effects Models}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  message = TRUE,
+  warning = TRUE,
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r cars}
+require(concurve)
+require(lme4)
+require(daewr)
+```
+
+Here is a simple example taken from the `lme4` documentation. 
+
+```{r}
+(confint.merMod(fm1 <- lmer(Reaction ~ Days + (Days | Subject), data = sleepstudy, REML = TRUE)))
+```
+
+There's our output. Now suppose that we wanted the to see the interval estimates and functions of the variable "Days", here's how we would do it with `curve_lmer()`
+
+```{r}
+curve_lmer(object = fm1, parm = "Days", method = "profile", steps = 1000, mc.cores = 4)
+
+sample1 <- curve_lmer(object = fm1, parm = ".sig01", method = "profile", steps = 1000, mc.cores = 4)
+
+ggcurve(data = sample1[[1]], type = "c", measure = "default")
+```
+
+Suppose we wanted to study the sources of variability in an experiment, which could be used for descriptive purposes or to better understand the sources so that they could be reduced in future experiment. This is vital in areas like industrial quality control because if one cannot take accurate measurements, then they have no hope of improving quality control. 
+
+Here we look at an example presented by John Lawson presented by Davies (1949). 
+
+> A dye manufacturer wanted to know if there was an appreciable contribution to variability in dyestuff color yields owing to the quality of the intermediate acid batch used. It was a two- step process. Intermediate acid batches were produced in one step, and in a later step the acid was used to produce the dyestuff. The goal was to keep dyestuff color yields consistently high. If the majority of variation was caused by differences among the intermediate acid batches, then improvement efforts should be concentrated on the process that makes the acid batches. If the majority of variation was within preparations of the dyestuff made from the same acid batch, improvement efforts should be focused on the process step of making the dyestuff. A sampling experiment was run wherein six representative samples of H acid intermediate were taken from the step manufacturing process that produces it. From each acid sample, five preparations of the dyestuff Naphthalene 12B were made in a laboratory, and these were representative of the preparations that could be made with each sample. The data from the sampling experiment is shown in Table 5.2. The yields are given in grams of standard color.
+
+We wish to estimate the variance components from the collected data above. A typical approach to estimate the variance components is to use analysis of variance (first proposed by Fisher), which uses the method of moments. However, in certain scenarios, this method is not desirable, and the restricted maximum likelihood approach (REML) is preferable. 
+
+Here we show how to do that. 
+
+```{r}
+fm1M <- lmer( yield ~ 1 + (1| sample), data = Naph, REML = TRUE)
+
+summary(fm1M)
+
+```
+
+Now we attempt to estimate the interval estimates for variance components.
+
+```{r}
+
+sample2 <- curve_lmer(object = fm1M, parm = ".sig01", method = "profile", steps = 1000, mc.cores = 4)
+
+ggcurve(data = sample2[[1]], type = "c", measure = "default")
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+
+c1 <- c( .5, -.5)
+
+mod4 <- lmer( pl ~ 1 + Group + (1|Subject:Group) + Period + Treat, contrasts = list(Group = c1, Period = c1, Treat = c1), data = antifungal)
+
+summary(mod4)
+
+crossed <- curve_lmer(object = mod4, parm = "Period1", method = "profile")
+
+ggcurve(data = crossed[[1]], type = "c")
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

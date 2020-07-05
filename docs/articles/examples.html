@@ -339,40 +339,16 @@
 <p>Once again, we’ll plot this data with <code><a href="../reference/ggcurve.html">ggcurve()</a></code>. We can also indicate whether we want certain interval estimates to be plotted in the function with the “<code>levels</code>” argument. If we wanted to plot the <strong>50</strong>%, <strong>75</strong>%, and <strong>95</strong>% intervals, we’d provide the argument this way:</p>
 <div class="sourceCode" id="cb9"><html><body><pre class="r">(<span class="no">function2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span>(<span class="kw">type</span> <span class="kw">=</span> <span class="st">"c"</span>, <span class="no">randomframe</span><span class="kw">[[</span><span class="fl">1</span>]], <span class="kw">levels</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.50</span>, <span class="fl">0.75</span>, <span class="fl">0.95</span>), <span class="kw">nullvalue</span> <span class="kw">=</span> <span class="fl">TRUE</span>))</pre></body></html></div>
 <p><img src="examples_files/figure-html/unnamed-chunk-9-1.png" width="576"></p>
-<p>Now that we have two datasets and two functions, we can compare them using the <code><a href="../reference/curve_compare.html">curve_compare()</a></code> function.</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r">(<span class="fu"><a href="../reference/curve_compare.html">curve_compare</a></span>(
+<p>Now that we have two datasets and two functions, we can compare them using the <code><a href="../reference/plot_compare.html">plot_compare()</a></code> function.</p>
+<div class="sourceCode" id="cb10"><html><body><pre class="r">(<span class="fu"><a href="../reference/plot_compare.html">plot_compare</a></span>(
   <span class="kw">data1</span> <span class="kw">=</span> <span class="no">intervalsdf</span><span class="kw">[[</span><span class="fl">1</span>]], <span class="kw">data2</span> <span class="kw">=</span> <span class="no">randomframe</span><span class="kw">[[</span><span class="fl">1</span>]], <span class="kw">type</span> <span class="kw">=</span> <span class="st">"c"</span>,
-  <span class="kw">plot</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">measure</span> <span class="kw">=</span> <span class="st">"default"</span>, <span class="kw">nullvalue</span> <span class="kw">=</span> <span class="fl">TRUE</span>
-))
-<span class="co">#&gt; [1] "AUC = Area Under the Curve"</span>
-<span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;  AUC 1   AUC 2   Shared AUC   AUC Overlap (%)   Overlap:Non-Overlap AUC Ratio</span>
-<span class="co">#&gt; ------  ------  -----------  ----------------  ------------------------------</span>
-<span class="co">#&gt;  0.098   0.073        0.024            16.309                           0.195</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; [[2]]</span></pre></body></html></div>
+  <span class="kw">measure</span> <span class="kw">=</span> <span class="st">"default"</span>, <span class="kw">nullvalue</span> <span class="kw">=</span> <span class="fl">TRUE</span>
+))</pre></body></html></div>
 <p><img src="examples_files/figure-html/unnamed-chunk-10-1.png" width="576"></p>
 <p>This function will provide us with the area that is shared between the curve, along with a ratio of overlap to non-overlap.</p>
 <p>Another way to compare the functions is to use the <code>cowplot</code> <code>plot_grid()</code> function.</p>
 <div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="kw pkg">cowplot</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/cowplot/man/plot_grid.html">plot_grid</a></span>(<span class="no">function1</span>, <span class="no">function2</span>)</pre></body></html></div>
 <p><img src="examples_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
-<p>We can also do this for the surprisal function simply by changing <code>type</code> to “<code>s</code>”.</p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r">(<span class="fu"><a href="../reference/curve_compare.html">curve_compare</a></span>(
-  <span class="kw">data1</span> <span class="kw">=</span> <span class="no">intervalsdf</span><span class="kw">[[</span><span class="fl">1</span>]], <span class="kw">data2</span> <span class="kw">=</span> <span class="no">randomframe</span><span class="kw">[[</span><span class="fl">1</span>]], <span class="kw">type</span> <span class="kw">=</span> <span class="st">"s"</span>,
-  <span class="kw">plot</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">measure</span> <span class="kw">=</span> <span class="st">"default"</span>, <span class="kw">nullvalue</span> <span class="kw">=</span> <span class="fl">FALSE</span>
-))
-<span class="co">#&gt; [1] "AUC = Area Under the Curve"</span>
-<span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;  AUC 1   AUC 2   Shared AUC   AUC Overlap (%)   Overlap:Non-Overlap AUC Ratio</span>
-<span class="co">#&gt; ------  ------  -----------  ----------------  ------------------------------</span>
-<span class="co">#&gt;  3.947   1.531        1.531            38.801                           0.634</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; [[2]]</span></pre></body></html></div>
-<p><img src="examples_files/figure-html/unnamed-chunk-12-1.png" width="576"></p>
 <p>It’s clear that the outputs have changed and indicate far more overlap than before.</p>
 </div>
 <div id="constructing-functions-from-single-intervals" class="section level1">
@@ -381,36 +357,36 @@
 <p>We can also take a set of confidence limits and use them to construct a consonance, surprisal, likelihood or deviance function using the <code><a href="../reference/curve_rev.html">curve_rev()</a></code> function. This method is computed from the approximate normal distribution.</p>
 <p>Here, we’ll use two epidemiological studies<span class="citation"><sup><a href="#ref-brown2017j" role="doc-biblioref">16</a>,<a href="#ref-brown2017jcp" role="doc-biblioref">17</a></sup></span> that studied the impact of SSRI exposure in pregnant mothers, and the rate of autism in children.</p>
 <p>Both of these studies suggested a null effect of SSRI exposure on autism rates in children.</p>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">curve1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/curve_rev.html">curve_rev</a></span>(<span class="kw">point</span> <span class="kw">=</span> <span class="fl">1.7</span>, <span class="kw">LL</span> <span class="kw">=</span> <span class="fl">1.1</span>, <span class="kw">UL</span> <span class="kw">=</span> <span class="fl">2.6</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"c"</span>, <span class="kw">measure</span> <span class="kw">=</span> <span class="st">"ratio"</span>, <span class="kw">steps</span> <span class="kw">=</span> <span class="fl">10000</span>)
+<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">curve1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/curve_rev.html">curve_rev</a></span>(<span class="kw">point</span> <span class="kw">=</span> <span class="fl">1.7</span>, <span class="kw">LL</span> <span class="kw">=</span> <span class="fl">1.1</span>, <span class="kw">UL</span> <span class="kw">=</span> <span class="fl">2.6</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"c"</span>, <span class="kw">measure</span> <span class="kw">=</span> <span class="st">"ratio"</span>, <span class="kw">steps</span> <span class="kw">=</span> <span class="fl">10000</span>)
 <span class="co">#&gt; [1] 0.2194431</span>
 (<span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">curve1</span><span class="kw">[[</span><span class="fl">1</span>]], <span class="kw">type</span> <span class="kw">=</span> <span class="st">"c"</span>, <span class="kw">measure</span> <span class="kw">=</span> <span class="st">"ratio"</span>, <span class="kw">nullvalue</span> <span class="kw">=</span> <span class="fl">TRUE</span>))</pre></body></html></div>
-<p><img src="examples_files/figure-html/unnamed-chunk-13-1.png" width="576"></p>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">curve2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/curve_rev.html">curve_rev</a></span>(<span class="kw">point</span> <span class="kw">=</span> <span class="fl">1.61</span>, <span class="kw">LL</span> <span class="kw">=</span> <span class="fl">0.997</span>, <span class="kw">UL</span> <span class="kw">=</span> <span class="fl">2.59</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"c"</span>, <span class="kw">measure</span> <span class="kw">=</span> <span class="st">"ratio"</span>, <span class="kw">steps</span> <span class="kw">=</span> <span class="fl">10000</span>)
+<p><img src="examples_files/figure-html/unnamed-chunk-12-1.png" width="576"></p>
+<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">curve2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/curve_rev.html">curve_rev</a></span>(<span class="kw">point</span> <span class="kw">=</span> <span class="fl">1.61</span>, <span class="kw">LL</span> <span class="kw">=</span> <span class="fl">0.997</span>, <span class="kw">UL</span> <span class="kw">=</span> <span class="fl">2.59</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"c"</span>, <span class="kw">measure</span> <span class="kw">=</span> <span class="st">"ratio"</span>, <span class="kw">steps</span> <span class="kw">=</span> <span class="fl">10000</span>)
 <span class="co">#&gt; [1] 0.2435408</span>
 (<span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">curve2</span><span class="kw">[[</span><span class="fl">1</span>]], <span class="kw">type</span> <span class="kw">=</span> <span class="st">"c"</span>, <span class="kw">measure</span> <span class="kw">=</span> <span class="st">"ratio"</span>, <span class="kw">nullvalue</span> <span class="kw">=</span> <span class="fl">TRUE</span>))</pre></body></html></div>
-<p><img src="examples_files/figure-html/unnamed-chunk-13-2.png" width="576"></p>
+<p><img src="examples_files/figure-html/unnamed-chunk-12-2.png" width="576"></p>
 <p>The null value is shown via the red line and it’s clear that a large mass of the function is away from it.</p>
 <p>We can also see this by plotting the likelihood functions via the <code><a href="../reference/curve_rev.html">curve_rev()</a></code> function.</p>
-<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="no">lik1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/curve_rev.html">curve_rev</a></span>(<span class="kw">point</span> <span class="kw">=</span> <span class="fl">1.7</span>, <span class="kw">LL</span> <span class="kw">=</span> <span class="fl">1.1</span>, <span class="kw">UL</span> <span class="kw">=</span> <span class="fl">2.6</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"l"</span>, <span class="kw">measure</span> <span class="kw">=</span> <span class="st">"ratio"</span>, <span class="kw">steps</span> <span class="kw">=</span> <span class="fl">10000</span>)
+<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">lik1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/curve_rev.html">curve_rev</a></span>(<span class="kw">point</span> <span class="kw">=</span> <span class="fl">1.7</span>, <span class="kw">LL</span> <span class="kw">=</span> <span class="fl">1.1</span>, <span class="kw">UL</span> <span class="kw">=</span> <span class="fl">2.6</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"l"</span>, <span class="kw">measure</span> <span class="kw">=</span> <span class="st">"ratio"</span>, <span class="kw">steps</span> <span class="kw">=</span> <span class="fl">10000</span>)
 <span class="co">#&gt; [1] 0.2194431</span>
 (<span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">lik1</span><span class="kw">[[</span><span class="fl">1</span>]], <span class="kw">type</span> <span class="kw">=</span> <span class="st">"l1"</span>, <span class="kw">measure</span> <span class="kw">=</span> <span class="st">"ratio"</span>, <span class="kw">nullvalue</span> <span class="kw">=</span> <span class="fl">TRUE</span>))</pre></body></html></div>
-<p><img src="examples_files/figure-html/unnamed-chunk-14-1.png" width="576"></p>
-<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="no">lik2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/curve_rev.html">curve_rev</a></span>(<span class="kw">point</span> <span class="kw">=</span> <span class="fl">1.61</span>, <span class="kw">LL</span> <span class="kw">=</span> <span class="fl">0.997</span>, <span class="kw">UL</span> <span class="kw">=</span> <span class="fl">2.59</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"l"</span>, <span class="kw">measure</span> <span class="kw">=</span> <span class="st">"ratio"</span>, <span class="kw">steps</span> <span class="kw">=</span> <span class="fl">10000</span>)
+<p><img src="examples_files/figure-html/unnamed-chunk-13-1.png" width="576"></p>
+<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="no">lik2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/curve_rev.html">curve_rev</a></span>(<span class="kw">point</span> <span class="kw">=</span> <span class="fl">1.61</span>, <span class="kw">LL</span> <span class="kw">=</span> <span class="fl">0.997</span>, <span class="kw">UL</span> <span class="kw">=</span> <span class="fl">2.59</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"l"</span>, <span class="kw">measure</span> <span class="kw">=</span> <span class="st">"ratio"</span>, <span class="kw">steps</span> <span class="kw">=</span> <span class="fl">10000</span>)
 <span class="co">#&gt; [1] 0.2435408</span>
 (<span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">lik2</span><span class="kw">[[</span><span class="fl">1</span>]], <span class="kw">type</span> <span class="kw">=</span> <span class="st">"l1"</span>, <span class="kw">measure</span> <span class="kw">=</span> <span class="st">"ratio"</span>, <span class="kw">nullvalue</span> <span class="kw">=</span> <span class="fl">TRUE</span>))</pre></body></html></div>
-<p><img src="examples_files/figure-html/unnamed-chunk-14-2.png" width="576"></p>
+<p><img src="examples_files/figure-html/unnamed-chunk-13-2.png" width="576"></p>
 <p>We can also view the amount of agreement between the likelihood functions of these two studies.</p>
-<div class="sourceCode" id="cb17"><html><body><pre class="r">(<span class="fu"><a href="../reference/plot_compare.html">plot_compare</a></span>(
+<div class="sourceCode" id="cb16"><html><body><pre class="r">(<span class="fu"><a href="../reference/plot_compare.html">plot_compare</a></span>(
   <span class="kw">data1</span> <span class="kw">=</span> <span class="no">lik1</span><span class="kw">[[</span><span class="fl">1</span>]], <span class="kw">data2</span> <span class="kw">=</span> <span class="no">lik2</span><span class="kw">[[</span><span class="fl">1</span>]], <span class="kw">type</span> <span class="kw">=</span> <span class="st">"l1"</span>, <span class="kw">measure</span> <span class="kw">=</span> <span class="st">"ratio"</span>, <span class="kw">nullvalue</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Brown et al. 2017. J Clin Psychiatry. vs. \nBrown et al. 2017. JAMA."</span>,
   <span class="kw">subtitle</span> <span class="kw">=</span> <span class="st">"J Clin Psychiatry: OR = 1.7, 1/6.83 LI: LL = 1.1, UL = 2.6 \nJAMA: HR = 1.61, 1/6.83 LI: LL = 0.997, UL = 2.59"</span>, <span class="kw">xaxis</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span>(<span class="no">Theta</span> ~ <span class="st">"= Hazard Ratio / Odds Ratio"</span>)
 ))</pre></body></html></div>
-<p><img src="examples_files/figure-html/unnamed-chunk-15-1.png" width="576"></p>
+<p><img src="examples_files/figure-html/unnamed-chunk-14-1.png" width="576"></p>
 <p>and the consonance functions</p>
-<div class="sourceCode" id="cb18"><html><body><pre class="r">(<span class="fu"><a href="../reference/plot_compare.html">plot_compare</a></span>(
+<div class="sourceCode" id="cb17"><html><body><pre class="r">(<span class="fu"><a href="../reference/plot_compare.html">plot_compare</a></span>(
   <span class="kw">data1</span> <span class="kw">=</span> <span class="no">curve1</span><span class="kw">[[</span><span class="fl">1</span>]], <span class="kw">data2</span> <span class="kw">=</span> <span class="no">curve2</span><span class="kw">[[</span><span class="fl">1</span>]], <span class="kw">type</span> <span class="kw">=</span> <span class="st">"c"</span>, <span class="kw">measure</span> <span class="kw">=</span> <span class="st">"ratio"</span>, <span class="kw">nullvalue</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">title</span> <span class="kw">=</span> <span class="st">"Brown et al. 2017. J Clin Psychiatry. vs. \nBrown et al. 2017. JAMA."</span>,
   <span class="kw">subtitle</span> <span class="kw">=</span> <span class="st">"J Clin Psychiatry: OR = 1.7, 1/6.83 LI: LL = 1.1, UL = 2.6 \nJAMA: HR = 1.61, 1/6.83 LI: LL = 0.997, UL = 2.59"</span>, <span class="kw">xaxis</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span>(<span class="no">Theta</span> ~ <span class="st">"= Hazard Ratio / Odds Ratio"</span>)
 ))</pre></body></html></div>
-<p><img src="examples_files/figure-html/unnamed-chunk-16-1.png" width="576"></p>
+<p><img src="examples_files/figure-html/unnamed-chunk-15-1.png" width="576"></p>
 <hr>
 </div>
 <div id="references" class="section level1">
