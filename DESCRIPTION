@@ -89,7 +89,7 @@ Encoding: UTF-8
 Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE, old_usage = TRUE)
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 X-schema.org-keywords: confidence, compatibility, consonance,
     surprisal, interval, function, curve
 Depends: 

@@ -44,7 +44,6 @@ RandomData2 <- data.frame(GroupA2, GroupB2)
 model <- lm(GroupA2 ~ GroupB2, data = RandomData2)
 randomframe <- curve_gen(model, "GroupB2")
 curve_compare(intervalsdf[[1]], randomframe[[1]])
-curve_compare(intervalsdf[[1]], randomframe[[1]], type = "s")
 }
 
 }

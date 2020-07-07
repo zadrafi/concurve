@@ -90,7 +90,7 @@
 plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalue = FALSE, position = "pyramid",
                          title = "Interval Functions",
                          subtitle = "The function displays intervals at every level.",
-                         xaxis = expression(Theta ~ "Range of Values"),
+                         xaxis = expression(theta == ~"Range of Values"),
                          yaxis1 = expression(paste(italic(p), "-value")),
                          yaxis2 = "Levels for CI (%)",
                          color1 = darken("#D55E00", 0.4),

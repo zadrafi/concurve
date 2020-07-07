@@ -114,12 +114,12 @@ Once again, we'll plot this data with `ggcurve()`. We can also indicate whether 
 (function2 <- ggcurve(type = "c", randomframe[[1]], levels = c(0.50, 0.75, 0.95), nullvalue = TRUE))
 ```
 
-Now that we have two datasets and two functions, we can compare them using the `curve_compare()` function.
+Now that we have two datasets and two functions, we can compare them using the `plot_compare()` function.
 
 ```{r echo=TRUE, fig.height=4.5, fig.width=6}
-(curve_compare(
+(plot_compare(
   data1 = intervalsdf[[1]], data2 = randomframe[[1]], type = "c",
-  plot = TRUE, measure = "default", nullvalue = TRUE
+  measure = "default", nullvalue = TRUE
 ))
 ```
 
@@ -129,15 +129,6 @@ Another way to compare the functions is to use the `cowplot`  `plot_grid()` func
 
 ```{r echo=TRUE}
 cowplot::plot_grid(function1, function2)
-```
-
-We can also do this for the surprisal function simply by changing `type` to "`s`".
-
-```{r echo=TRUE, fig.height=4.5, fig.width=6}
-(curve_compare(
-  data1 = intervalsdf[[1]], data2 = randomframe[[1]], type = "s",
-  plot = TRUE, measure = "default", nullvalue = FALSE
-))
 ```
 
 It's clear that the outputs have changed and indicate far more overlap than before.

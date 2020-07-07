@@ -77,13 +77,14 @@ I've only tried testing this with the `cowplot` package, so I cannot say for sur
 
 # More Advanced Customization
 
-Although the above shows how flexible concurve's `ggcurve()` is due to the integration with the `ggplot2` framework, we can achieve much more with a newer package called `ggtext`.[@wilkeGgtextImprovedText2020] If we wanted to fully control how the labels and titles in our graphs looked or insert textboxes with full control, we could easily do that with `ggtext.`  
+Although the above shows how flexible `concurve`'s `ggcurve()` is due to the integration with the `ggplot2` framework, we can achieve much more with a newer package called `ggtext`.[@wilkeGgtextImprovedText2020] If we wanted to fully control how the labels and titles in our graphs looked or insert textboxes with full control, we could easily do that with `ggtext.`  
 
-Before we used cowplot, here's what our plain function looked like (after regenerating it from scratch)
+Before we used `cowplot`, here's what our plain function looked like (after regenerating it from scratch)
 ```{r}
 
 (function1 <- ggcurve(data = intervalsdf[[1]], type = "c", nullvalue = TRUE))
 ```
+
 Simple enough, eh?
 
 Okay, but if we wanted to have more fine control over how the title and axes look, we could do that. Here's how:
@@ -102,12 +103,14 @@ library(ggtext)
 
 function1 <- ggcurve(data = intervalsdf[[1]], type = "c", nullvalue = TRUE, title = "Something Super Important", xaxis = "<span style = 'color:#3f8f9b;'>Theta</span> ")
 
-function1 + 
-   labs(title = "*P*-value Function / Consonance Curve<br><span style = 'font-size:9pt;'>
+function1 +
+  labs(
+    title = "*P*-value Function / Consonance Curve<br><span style = 'font-size:9pt;'>
 The function below contains <span style = 'color:#3f8f9b;'>nested</span> confidence/compatibility intervals at <span style = 'color:#3f8f9b;'>every possible level</span> (95%, 90%, 75%, 50%)
 allowing one to see a range of estimates that are <span style = 'color:#3f8f9b;'>consistent with the model and its assumptions</span> that were used to compute
 the test statistics, *P*-values, and interval estimates. </span>",
-       subtitle = NULL) +
+    subtitle = NULL
+  ) +
   theme(
     plot.title = element_textbox_simple(
       size = 11, lineheight = 1.1,
@@ -116,22 +119,21 @@ the test statistics, *P*-values, and interval estimates. </span>",
       fill = "white", # background fill color
       r = grid::unit(3, "pt"),
       padding = margin(8, 8, 8, 8), # padding around text inside the box
-      maxwidth = unit(8, "in"),# margin outside the box
+      maxwidth = unit(8, "in"), # margin outside the box
     ),
-    axis.text=element_text(size=10),
-    axis.title.y=element_text(size=11),
+    axis.text = element_text(size = 10),
+    axis.title.y = element_text(size = 11),
     axis.title.x = element_textbox_simple(
       size = 10,
       width = NULL,
       padding = margin(4, 4, 4, 4),
       margin = margin(4, 0, 0, 0),
       linetype = 1,
-       r = grid::unit(3, "pt"),
+      r = grid::unit(3, "pt"),
       box.color = "#748696", # border color
-       fill = "white", # background fill color
+      fill = "white", # background fill color
     )
-  ) 
-
+  )
 ```
 
 As you might have noticed above, we can control the size of the text, the color of it, whether it's bolded, italicized, etc., and that's partially because it uses markdown. 
@@ -142,6 +144,19 @@ The most common way useRs save plots is by going to the plots tab in an IDE like
 
 ```{r}
 save_plot("function2.pdf", function2)
+```
+
+
+Previously, it was quite difficult to save consonance functions as .svg files or as .pdf files because there was so much information in the graphs that R would often crash. However, this is no longer the case and can easily be done with the `svglite` package. Once again, we use the same command from above. 
+
+```{r}
+library(svglite)
+library(ggplot2)
+
+res <- 144
+svglite("pvalfunc.svg", width = 720/res, height = 500/res)
+(function1 <- ggcurve(data = intervalsdf[[1]], type = "c", nullvalue = TRUE))
+dev.off()
 ```
 
 * * * 

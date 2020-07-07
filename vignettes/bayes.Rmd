@@ -90,16 +90,20 @@ library(ggplot2)
 library(cowplot)
 library(bayesplot)
 library(scales)
+```
 
+We will simulate some data (two variables) from a normal distribution with a location parameter of 0 and scale parameter of 1 (something very simple) and then regress the second variables (GroupB) on the first using the base lm function. We will take the regression coefficient and construct a consonance function for it. 
+```{r echo=TRUE}
 GroupA <- rnorm(50)
 GroupB <- rnorm(50)
 RandomData <- data.frame(GroupA, GroupB)
 model_freq <- lm(GroupA ~ GroupB, data = RandomData)
 ```
 
+Now we will do the same using Bayesian methods, but instead of specifying a prior, we will use a flat prior to show the convergence of the posterior with the consonance function.
+
 ```{r, results = 'hide', message = FALSE}
 rstan_options(auto_write = TRUE)
-
 
 # Using flat prior
 model_bayes <- stan_lm(GroupA ~ GroupB,
@@ -107,6 +111,8 @@ model_bayes <- stan_lm(GroupA ~ GroupB,
   iter = 5000, warmup = 1000, chains = 4
 )
 ```
+
+Now that we've fit the models, we can graph the functions.
 
 ```{r echo=TRUE}
 randomframe <- curve_gen(model_freq, "GroupB", steps = 10000)
@@ -118,16 +124,16 @@ color_scheme_set("teal")
 function2 <- mcmc_dens(model_bayes, pars = "GroupB") +
   ggtitle("Posterior Distribution") +
   labs(subtitle = "Function Displays the Full Posterior Distribution", x = "Range of Values", y = "Posterior Probability") +
-  scale_y_continuous(breaks = c(0, 0.30, 0.60, 0.90, 1.20, 1.50, 1.80, 2.10, 2.40, 2.70, 3.0)) 
- 
- 
-    (breaks1 <-  c(0, 0.30, 0.60, 0.90, 1.20, 1.50, 1.80, 2.10, 2.40, 2.70, 3.0)) 
+  scale_y_continuous(breaks = c(0, 0.30, 0.60, 0.90, 1.20, 1.50, 1.80, 2.10, 2.40, 2.70, 3.0))
 
-    (adjustment <- function(x) {
-      x/3
-      })
 
-    (labels <- adjustment(breaks1)) 
+(breaks1 <- c(0, 0.30, 0.60, 0.90, 1.20, 1.50, 1.80, 2.10, 2.40, 2.70, 3.0))
+
+(adjustment <- function(x) {
+  x / 3
+})
+
+(labels <- adjustment(breaks1))
 
 breaks <- labels
 labels1 <- labels
@@ -135,25 +141,27 @@ labels1 <- labels
 (function3 <- mcmc_dens(model_bayes, pars = "GroupB") +
   ggtitle("Posterior Distribution") +
   labs(subtitle = "Function Displays the Full Posterior Distribution", x = "Range of Values", y = "Posterior Probability") +
-    scale_x_continuous(expand = c(0, 0), breaks = scales::pretty_breaks(n = 10)) +
-    scale_y_continuous(expand = c(0, 0), breaks = waiver(), labels = waiver(), n.breaks = 10, limits = c(0, 3.25)) + 
-    yaxis_text(on = TRUE) + 
-    yaxis_ticks(on = TRUE) +
-    annotate("segment",
+  scale_x_continuous(expand = c(0, 0), breaks = scales::pretty_breaks(n = 10)) +
+  scale_y_continuous(expand = c(0, 0), breaks = waiver(), labels = waiver(), n.breaks = 10, limits = c(0, 3.25)) +
+  yaxis_text(on = TRUE) +
+  yaxis_ticks(on = TRUE) +
+  annotate("segment",
     x = 0, xend = 0, y = 0, yend = 3,
-    color = "#990000", alpha = 0.4, size = .75, linetype = 3))
-
+    color = "#990000", alpha = 0.4, size = .75, linetype = 3
+  ))
 ```
 
-
+I made some adjustments above to the bayesplot code so that we could more easily compare the consonance distribution to the posterior distribution. We will be using plot_grid() from cowplot to achieve this. 
 
 ```{r echo=TRUE, fig.height=9, fig.width=7}
 plot_grid(function1, function3, ncol = 1, align = "v")
 ```
 
+As you can see, the results end up being very similar. You can likely get very similar results with weakly informative priors normal(0, 100) or with much larger datasets, where the likelihood will end up swamping the prior, though this isn't always the case.
+
+Here's another example, but this time the variables we simulate have different location parameters. 
 
 ```{r echo=TRUE}
-
 
 GroupA <- rnorm(500, mean = 2)
 GroupB <- rnorm(500, mean = 1)
@@ -171,7 +179,49 @@ model_bayes <- stan_lm(GroupA ~ GroupB,
 ```
 
 
+```{r echo=TRUE}
 
+randomframe <- curve_gen(model_freq, "GroupB", steps = 10000)
+
+(function1 <- ggcurve(type = "c", randomframe[[1]], nullvalue = TRUE))
+
+color_scheme_set("teal")
+
+function2 <- mcmc_dens(model_bayes, pars = "GroupB") +
+  ggtitle("Posterior Distribution") +
+  labs(subtitle = "Function Displays the Full Posterior Distribution", x = "Range of Values", y = "Posterior Probability") +
+  scale_y_continuous(breaks = c(0, 0.30, 0.60, 0.90, 1.20, 1.50, 1.80, 2.10, 2.40, 2.70, 3.0))
+
+
+(breaks1 <- c(0, 0.30, 0.60, 0.90, 1.20, 1.50, 1.80, 2.10, 2.40, 2.70, 3.0))
+
+(adjustment <- function(x) {
+  x / 3
+})
+
+(labels <- adjustment(breaks1))
+
+breaks <- labels
+labels1 <- labels
+
+(function3 <- mcmc_dens(model_bayes, pars = "GroupB") +
+  ggtitle("Posterior Distribution") +
+  labs(subtitle = "Function Displays the Full Posterior Distribution", x = "Range of Values", y = "Posterior Probability") +
+  scale_x_continuous(expand = c(0, 0), breaks = scales::pretty_breaks(n = 10)) +
+  scale_y_continuous(expand = c(0, 0), breaks = waiver(), labels = waiver(), n.breaks = 10, limits = c(0, 9)) +
+  yaxis_text(on = TRUE) +
+  yaxis_ticks(on = TRUE) +
+  annotate("segment",
+    x = 0, xend = 0, y = 0, yend = 9,
+    color = "#990000", alpha = 0.4, size = .75, linetype = 3
+  ))
+```
+```{r echo=TRUE, fig.height=9, fig.width=7}
+plot_grid(function1, function3, ncol = 1, align = "v")
+```
+
+
+Here's another dataset, however, here we're not generating random numbers. 
 
 
 ```{r, results = 'hide', message = FALSE}
@@ -200,13 +250,15 @@ color_scheme_set("teal")
 (function101 <- mcmc_areas(post1, pars = "mom_hs", point_est = "none", prob = 1, prob_outer = 1, area_method = "equal height") +
   ggtitle("Posterior Distribution") +
   labs(subtitle = "Function Displays the Full Posterior Distribution", x = "Range of Values", y = "Posterior Probability") +
-    yaxis_text(on = TRUE) + 
-    yaxis_ticks(on = TRUE))
+  yaxis_text(on = TRUE) +
+  yaxis_ticks(on = TRUE))
 ```
 
 ```{r echo=TRUE, fig.height=9, fig.width=7}
 cowplot::plot_grid(function99, function101, ncol = 1, align = "v")
 ```
+
+Practically the same.
 
 * * * 
 

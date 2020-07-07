@@ -16,8 +16,9 @@ vignette: >
 
 Here are some ideas/implementations I'm hoping to include within `concurve` at some point within the future. 
 
+* Make `curve_rev()` more usable for a wide range of scenarios (beyond proportions, and normal approximations)
 * Produce consonance functions for quantile regressions from the `quantreg` package
-* Implement with the `nlme` package 
+* Implementation with the `nlme` package 
 * Possibly incorporate `Stan` via `rstantools` to produce likelihoods and posteriors
 
 If you'd like to help contribute, please see the [contributing guide](https://data.lesslikely.com/concurve/CONTRIBUTING.html).

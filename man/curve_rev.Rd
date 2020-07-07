@@ -6,7 +6,7 @@
 Estimate and Confidence Limits}
 \usage{
 curve_rev(point, LL = NULL, UL = NULL, se = NULL, conf.level = 0.95,
-  type = "c", measure = "default", steps = 10000, table = TRUE)
+  type = "c", measure = "ratio", steps = 10000, table = TRUE)
 }
 \arguments{
 \item{point}{The point estimate from an analysis. Ex: 1.20}
@@ -24,8 +24,10 @@ function or a likelihood function. The default is "c" for consonance and
 likelihood can be set via "l".}
 
 \item{measure}{The type of data being used. If they involve mean differences,
-then the "default" option should be used, which is also the default setting.
-If the data are ratios, then the "ratio" option should be used.}
+then the "mean" option should be used. If the data are ratios, then the "ratio"
+option should be used. "ratio" is currently the default option.
+Currently, this function is designed to be used with ratios
+and normal approximations rather than means.}
 
 \item{steps}{Indicates how many consonance intervals are to be calculated at
 various levels. For example, setting this to 100 will produce 100 consonance
@@ -46,8 +48,11 @@ and the table for the values in the third if table = TRUE.
 \description{
 Using the confidence limits and point estimates from a dataset, one can use
 these estimates to compute thousands of consonance intervals and graph the
-intervals to form a consonance and surprisal function. The intervals are
-calculated from the approximated normal distribution.
+intervals to form a consonance, surprisal, and likelihood functions. The intervals are
+calculated from the approximated normal distribution, however, users should be
+cautious as this this function is currently designed for similar situations
+(involving ratios and normal approximations), nevertheless the function also works for means
+but should be used skeptically, as it can break down in many situations and give implausible numbers.
 }
 \examples{
 

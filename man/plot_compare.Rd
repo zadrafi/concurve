@@ -7,7 +7,7 @@
 plot_compare(data1, data2, type = "c", measure = "default",
   nullvalue = FALSE, position = "pyramid", title = "Interval Functions",
   subtitle = "The function displays intervals at every level.",
-  xaxis = expression(Theta ~ "Range of Values"),
+  xaxis = expression(theta == ~"Range of Values"),
   yaxis1 = expression(paste(italic(p), "-value")),
   yaxis2 = "Levels for CI (\%)", color1 = darken("#D55E00", 0.4),
   color2 = darken("#009E73", 0.4), fill1 = "#D55E0050",
