@@ -3,8 +3,11 @@
 #'
 #' Using the confidence limits and point estimates from a dataset, one can use
 #' these estimates to compute thousands of consonance intervals and graph the
-#' intervals to form a consonance and surprisal function. The intervals are
-#' calculated from the approximated normal distribution.
+#' intervals to form a consonance, surprisal, and likelihood functions. The intervals are
+#' calculated from the approximated normal distribution, however, users should be
+#' cautious as this this function is currently designed for similar situations
+#' (involving ratios and normal approximations), nevertheless the function also works for means
+#' but should be used skeptically, as it can break down in many situations and give implausible numbers.
 #'
 #' @param point The point estimate from an analysis. Ex: 1.20
 #' @param LL The lower confidence limit from an analysis Ex: 1.0
@@ -15,8 +18,10 @@
 #' function or a likelihood function. The default is "c" for consonance and
 #' likelihood can be set via "l".
 #' @param measure The type of data being used. If they involve mean differences,
-#' then the "default" option should be used, which is also the default setting.
-#' If the data are ratios, then the "ratio" option should be used.
+#' then the "mean" option should be used. If the data are ratios, then the "ratio"
+#' option should be used. "ratio" is currently the default option.
+#' Currently, this function is designed to be used with ratios
+#' and normal approximations rather than means.
 #' @param steps Indicates how many consonance intervals are to be calculated at
 #' various levels. For example, setting this to 100 will produce 100 consonance
 #' intervals from 0 to 100. Setting this to 10000 will produce more consonance
@@ -45,7 +50,7 @@ curve_rev <- function(point,
                       LL = NULL, UL = NULL,
                       se = NULL,
                       conf.level = .95,
-                      type = "c", measure = "default",
+                      type = "c", measure = "ratio",
                       steps = 10000, table = TRUE) {
 
 
@@ -57,7 +62,7 @@ curve_rev <- function(point,
   }
 
   if (is.character(measure) != TRUE) {
-    stop("Error: 'measure' must be a string such as 'default' or 'ratio'")
+    stop("Error: 'measure' must be a string such as 'mean' or 'ratio'")
   }
 
   if (is.null(se) && (is.null(LL) & is.null(UL))) {
@@ -84,7 +89,7 @@ curve_rev <- function(point,
     UL <- point + conf_range * se
   }
 
-  if (is.null(se) && measure == "default") {
+  if (is.null(se) && measure == "mean") {
     se <- (UL - LL) / (2 * conf_range)
   }
 
@@ -102,7 +107,7 @@ curve_rev <- function(point,
     # conf.level_two = (1-conf.level)/2
     # conf_range = qnorm(conf.level_two)
 
-    if (measure == "default") {
+    if (measure == "mean") {
       # se <- (UL - LL) / (2*conf_range)
       LL <- pbmclapply(z, FUN = function(i) point + (i * se), mc.cores = getOption("mc.cores", 1L))
       UL <- pbmclapply(z, FUN = function(i) point - (i * se), mc.cores = getOption("mc.cores", 1L))
@@ -153,7 +158,7 @@ curve_rev <- function(point,
     # intrvls <- (1:steps) / steps
     # z <- qnorm(1 - intrvls / 2)
 
-    if (measure == "default") {
+    if (measure == "mean") {
       # se <- (UL - LL) / (2*conf_range)
       LL <- pbmclapply(z, FUN = function(i) point + (i * se), mc.cores = getOption("mc.cores", 1L))
       UL <- pbmclapply(z, FUN = function(i) point - (i * se), mc.cores = getOption("mc.cores", 1L))
@@ -192,7 +197,7 @@ curve_rev <- function(point,
       )
     }
 
-    if (measure == "default") {
+    if (measure == "mean") {
       values <- seq(from = df[1, 1], to = df[1, 2], by = 0.01)
       zscore <- sapply(
         values,
