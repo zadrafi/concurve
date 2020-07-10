@@ -2,7 +2,7 @@
 #'
 #' Computes thousands of consonance (confidence) intervals for
 #' the chosen parameter in the selected model
-#' (ANOVA, ANCOVA, regression, logistic regression) and places
+#' (linear models, general linear models, robust linear models, and generalized least squares and places
 #' the interval limits for each interval level into a data frame along
 #' with the corresponding p-values and s-values.
 #'
@@ -11,21 +11,26 @@
 #' @param var The variable of interest from the model (coefficients, intercept)
 #' for which the intervals are to be produced.
 #' @param method Chooses the method to be used to calculate the
-#' consonance intervals. There are currently threo methods:
-#' "lm", "rlm", "glm" and "aov". The "lm" method uses the profile
-#' likelihood method to compute intervals and can be used for models created by
+#' consonance intervals. There are currently five methods:
+#' "lm", rms::ols objects can be used with the "lm" option, "rlm", "glm" and "aov", and "gls".
+#' The "lm" method uses the profile likelihood method to compute intervals and can be used for models created by
 #' the 'lm' function. It is typically what most people are
 #' familiar with when computing intervals based on the calculated standard error.
+#' The ols function from the rms package can also be used for this option.
 #' The "rlm" method is designed for usage with the "rlm" function from the MASS
 #' package.
 #' The "glm" method allows this function to be used for specific scenarios like
-#' logistic regression and the 'glm' function.
+#' logistic regression and the 'glm' function. Similarly, the Glm function from the
+#' rms package can also be used for this option. The gls method allows objects from gls()
+#' or from Gls() from the rms package.
 #' @param steps Indicates how many consonance intervals are to be calculated at
 #' various levels. For example, setting this to 100 will produce 100 consonance
 #' intervals from 0 to 100. Setting this to 10000 will produce more consonance
 #' levels. By default, it is set to 1000. Increasing the number substantially
 #' is not recommended as it will take longer to produce all the intervals and
 #' store them into a dataframe.
+#' @param cores Select the number of cores to use in  order to compute the intervals
+#'  The default is 1 core.
 #' @param table Indicates whether or not a table output with some relevant
 #' statistics should be generated. The default is TRUE and generates a table
 #' which is included in the list object.
@@ -45,7 +50,7 @@
 #' bob <- curve_gen(rob, "GroupB")
 #' }
 #'
-curve_gen <- function(model, var, method = "lm", steps = 1000, table = TRUE) {
+curve_gen <- function(model, var, method = "lm", steps = 1000, cores = getOption("mc.cores", 1L), table = TRUE) {
   if (is.character(method) != TRUE) {
     stop("Error: 'method' must be a character vector")
   }
@@ -56,13 +61,15 @@ curve_gen <- function(model, var, method = "lm", steps = 1000, table = TRUE) {
   intrvls <- (1:(steps - 1)) / steps
 
   if (method == "lm") {
-    results <- pbmclapply(intrvls, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = getOption("mc.cores", 1L))
+    results <- pbmclapply(intrvls, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = cores)
   } else if (method == "rlm") {
-    results <- pbmclapply(intrvls, FUN = function(i) confint(object = model, level = i)[var, ], mc.cores = getOption("mc.cores", 1L))
+    results <- pbmclapply(intrvls, FUN = function(i) confint(object = model, level = i)[var, ], mc.cores = cores)
   } else if (method == "glm") {
-    results <- pbmclapply(intrvls, FUN = function(i) confint(object = model, level = i, trace = FALSE)[var, ], mc.cores = getOption("mc.cores", 1L))
+    results <- pbmclapply(intrvls, FUN = function(i) confint(object = model, level = i, trace = FALSE)[var, ], mc.cores = cores)
   } else if (method == "aov") {
-    results <- pbmclapply(intrvls, FUN = function(i) confint(object = model, level = i)[var, ], mc.cores = getOption("mc.cores", 1L))
+    results <- pbmclapply(intrvls, FUN = function(i) confint(object = model, level = i)[var, ], mc.cores = cores)
+  } else if (method == "gls") {
+    results <- pbmclapply(intrvls, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = cores)
   }
 
   df <- data.frame(do.call(rbind, results))

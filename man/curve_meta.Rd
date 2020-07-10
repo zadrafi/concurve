@@ -4,8 +4,9 @@
 \alias{curve_meta}
 \title{Consonance Functions For Meta-Analytic Data}
 \usage{
-curve_meta(x, measure = "default", method = "uni", robust = FALSE,
-  cluster = NULL, adjust = FALSE, steps = 1000, table = TRUE)
+curve_meta(x, measure = "default", method = "uni", parm = NULL,
+  robust = FALSE, cluster = NULL, adjust = FALSE, steps = 1000,
+  cores = getOption("mc.cores", 1L), table = TRUE)
 }
 \arguments{
 \item{x}{Object where the meta-analysis parameters are stored, typically a
@@ -37,6 +38,9 @@ intervals from 0 to 100. Setting this to 10000 will produce more consonance
 levels. By default, it is set to 1000. Increasing the number substantially
 is not recommended as it will take longer to produce all the intervals and
 store them into a dataframe.}
+
+\item{cores}{Select the number of cores to use in  order to compute the intervals
+The default is 1 core.}
 
 \item{table}{Indicates whether or not a table output with some relevant
 statistics should be generated. The default is TRUE and generates a table

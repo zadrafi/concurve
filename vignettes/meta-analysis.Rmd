@@ -61,7 +61,7 @@ fe <- rma(yi, vi, data = dat, method = "FE")
 
 Now that we have our metafor object, we can compute the consonance function using the `curve_meta()` function. 
 ```{r echo=TRUE, fig.height=4.5, fig.width=6}
-fecurve <- curve_meta(fe)
+fecurve <- curve_meta(fe, cores = 4L)
 ```
 
 Now we can graph our function. 
@@ -79,7 +79,7 @@ re <- rma(yi, vi, data = dat, method = "REML")
 And then we could use `curve_meta()` to get the relevant list 
 
 ```{r echo=TRUE, fig.height=4.5, fig.width=6}
-recurve <- curve_meta(re)
+recurve <- curve_meta(re, cores = 4L)
 ```
 
 Now we can plot our object.
@@ -117,13 +117,53 @@ res <- rma.mv(yi, V, mods = ~ outcome - 1, random = ~ outcome | trial, struct = 
 ### results based on sandwich method
 (a <- robust(res, cluster = dat$trial))
 
-l <- concurve::curve_meta(res, method = "uni", robust = TRUE, cluster = dat$trial, adjust = TRUE, steps = 1000)
+l <- concurve::curve_meta(res, method = "uni", robust = TRUE, cluster = dat$trial, adjust = TRUE, steps = 1000, cores = 4L)
 
 ggcurve(data = l[[1]], type = "c") +
-  theme_minimal()
+  ggplot2::theme_minimal()
 ```
 
 The interval function is quite narrow because there were so many iterations that were set by us. 
+
+
+```{r}
+library(simstudy)
+library(parallel)
+library(nlme)
+library(data.table)
+library(metafor)
+library(concurve)
+
+defS <- defData(varname = "a.k", formula = 3, variance = 2, id = "study")
+defS <- defData(defS, varname = "d.0", formula = 3, dist = "nonrandom")
+defS <- defData(defS, varname = "v.k", formula = 0, variance = 6, dist= "normal")
+defS <- defData(defS, varname = "s2.k", formula = 16, variance = .2, dist = "gamma")
+defS <- defData(defS, varname = "size.study", formula = ".3;.5;.2", dist = "categorical")
+defS <- defData(defS, varname = "n.study",
+                formula = "(size.study==1) * 20 + (size.study==2) * 40 + (size.study==3) * 60",
+                dist = "poisson")
+
+defI <- defDataAdd(varname = "y", formula = "a.k + x * (d.0 + v.k)", variance = "s2.k")
+
+RNGkind(kind = "L'Ecuyer-CMRG")
+set.seed(1031)
+
+ds <- genData(12, defS)
+ds
+
+dc <- genCluster(ds, "study", "n.study", "id", )
+dc <- trtAssign(dc, strata = "study", grpName = "x")
+dc <- addColumns(defI, dc)
+
+
+d.obs <- dc[, .(study, id,s2.k, x, y)]
+d.obs <-  as.data.frame(d.obs)
+res <- rma.mv(yi = y, V = s2.k, W = NULL, mods = ~  factor(study) + factor(x),  random = ~ factor(x) | study, struct="CS", data = d.obs, method = "REML")
+
+a <- curve_meta(x = res, measure = "default", method = "mv", parm = "factor(x)1", cores = 4L)
+ggcurve(a[[2]], type = "cdf")
+
+```
 
 * * * 
 

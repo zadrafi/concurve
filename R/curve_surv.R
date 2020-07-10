@@ -15,6 +15,8 @@
 #' levels. By default, it is set to 1000. Increasing the number substantially
 #' is not recommended as it will take longer to produce all the intervals and
 #' store them into a dataframe.
+#' @param cores Select the number of cores to use in  order to compute the intervals
+#'  The default is 1 core.
 #' @param table Indicates whether or not a table output with some relevant
 #' statistics should be generated. The default is TRUE and generates a table
 #' which is included in the list object.
@@ -36,7 +38,7 @@
 #' mod.allison
 #'
 #' z <- curve_surv(mod.allison, "prio")
-curve_surv <- function(data, x, steps = 10000, table = TRUE) {
+curve_surv <- function(data, x, steps = 10000, cores = getOption("mc.cores", 1L), table = TRUE) {
   if (is.list(data) != TRUE) {
     stop("Error: 'data' must be an object with a Cox Proportional Hazards model")
   }
@@ -45,7 +47,7 @@ curve_surv <- function(data, x, steps = 10000, table = TRUE) {
   }
 
   intrvls <- (1:steps) / steps
-  results <- pbmclapply(intrvls, FUN = function(i) summary(data, conf.int = i)$conf.int[x, ], mc.cores = getOption("mc.cores", 1L))
+  results <- pbmclapply(intrvls, FUN = function(i) summary(data, conf.int = i)$conf.int[x, ], mc.cores = cores)
 
   df <- data.frame(do.call(rbind, results))[, 3:4]
   intrvl.limit <- c("lower.limit", "upper.limit")

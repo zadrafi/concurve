@@ -23,8 +23,8 @@ Allows one to compute compatibility (confidence)
     <doi:10.1111/1467-9469.00285>, Singh K, Xie M, Strawderman WE. (2007)
     <arXiv:0708.0976>, Rothman KJ, Greenland S, Lash TL. (2008,
     ISBN:9781451190052), Greenland S. (2019)
-    <doi:10.1080/00031305.2018.1529625>, Chow ZR, Greenland S. (2019)
-    <arXiv:1909.08579>, and Greenland S, Chow ZR. (2019)
+    <doi:10.1080/00031305.2018.1529625>, Rafi Z, Greenland S. (2020)
+    <arXiv:1909.08579>, and Greenland S, Rafi Z. (2020)
     <arXiv:1909.08583>.
 }
 \seealso{

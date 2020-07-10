@@ -28,6 +28,8 @@
 #' levels. By default, it is set to 1000. Increasing the number substantially
 #' is not recommended as it will take longer to produce all the intervals and
 #' store them into a dataframe.
+#' @param cores Select the number of cores to use in  order to compute the intervals
+#'  The default is 1 core.
 #' @param table Indicates whether or not a table output with some relevant
 #' statistics should be generated. The default is TRUE and generates a table
 #' which is included in the list object.
@@ -51,7 +53,8 @@ curve_rev <- function(point,
                       se = NULL,
                       conf.level = .95,
                       type = "c", measure = "ratio",
-                      steps = 10000, table = TRUE) {
+                      steps = 10000, cores = getOption("mc.cores", 1L),
+                      table = TRUE) {
 
 
   # Produce Consonance / Surprisal Functions --------------------------------
@@ -109,8 +112,8 @@ curve_rev <- function(point,
 
     if (measure == "mean") {
       # se <- (UL - LL) / (2*conf_range)
-      LL <- pbmclapply(z, FUN = function(i) point + (i * se), mc.cores = getOption("mc.cores", 1L))
-      UL <- pbmclapply(z, FUN = function(i) point - (i * se), mc.cores = getOption("mc.cores", 1L))
+      LL <- pbmclapply(z, FUN = function(i) point + (i * se), mc.cores = cores)
+      UL <- pbmclapply(z, FUN = function(i) point - (i * se), mc.cores = cores)
       df <- data.frame(do.call(rbind, UL), do.call(rbind, LL))
       intrvl.limit <- c("lower.limit", "upper.limit")
       colnames(df) <- intrvl.limit
@@ -119,8 +122,8 @@ curve_rev <- function(point,
     else if (measure == "ratio") {
       # se <- log(UL / LL) / (2*conf_range)
       logpoint <- log(point)
-      logLL <- pbmclapply(z, FUN = function(i) logpoint + (i * se), mc.cores = getOption("mc.cores", 1L))
-      logUL <- pbmclapply(z, FUN = function(i) logpoint - (i * se), mc.cores = getOption("mc.cores", 1L))
+      logLL <- pbmclapply(z, FUN = function(i) logpoint + (i * se), mc.cores = cores)
+      logUL <- pbmclapply(z, FUN = function(i) logpoint - (i * se), mc.cores = cores)
       df <- data.frame(do.call(rbind, logUL), do.call(rbind, logLL))
 
       intrvl.limit <- c("lower.limit", "upper.limit")
@@ -158,21 +161,11 @@ curve_rev <- function(point,
     # intrvls <- (1:steps) / steps
     # z <- qnorm(1 - intrvls / 2)
 
-    if (measure == "mean") {
-      # se <- (UL - LL) / (2*conf_range)
-      LL <- pbmclapply(z, FUN = function(i) point + (i * se), mc.cores = getOption("mc.cores", 1L))
-      UL <- pbmclapply(z, FUN = function(i) point - (i * se), mc.cores = getOption("mc.cores", 1L))
-      df <- data.frame(do.call(rbind, UL), do.call(rbind, LL))
-      intrvl.limit <- c("lower.limit", "upper.limit")
-      colnames(df) <- intrvl.limit
-      class(df) <- c("data.frame", "concurve")
-    }
-
-    else if (measure == "ratio") {
+    if (measure == "ratio") {
       # se <- log(UL / LL) / (2*conf_range)
       logpoint <- log(point)
-      logLL <- pbmclapply(z, FUN = function(i) logpoint + (i * se), mc.cores = getOption("mc.cores", 1L))
-      logUL <- pbmclapply(z, FUN = function(i) logpoint - (i * se), mc.cores = getOption("mc.cores", 1L))
+      logLL <- pbmclapply(z, FUN = function(i) logpoint + (i * se), mc.cores = cores)
+      logUL <- pbmclapply(z, FUN = function(i) logpoint - (i * se), mc.cores = cores)
       df <- data.frame(do.call(rbind, logUL), do.call(rbind, logLL))
       intrvl.limit <- c("lower.limit", "upper.limit")
       colnames(df) <- intrvl.limit
@@ -180,6 +173,17 @@ curve_rev <- function(point,
       df$upper.limit <- exp(df$upper.limit)
       class(df) <- c("data.frame", "concurve")
     }
+
+
+    #    else if (measure == "mean") {
+    #      # se <- (UL - LL) / (2*conf_range)
+    #      LL <- pbmclapply(z, FUN = function(i) point + (i * se), mc.cores = cores)
+    #      UL <- pbmclapply(z, FUN = function(i) point - (i * se), mc.cores = cores)
+    #      df <- data.frame(do.call(rbind, UL), do.call(rbind, LL))
+    #      intrvl.limit <- c("lower.limit", "upper.limit")
+    #      colnames(df) <- intrvl.limit
+    #      class(df) <- c("data.frame", "concurve")
+    #    }
 
     df$intrvl.level <- 1 - intrvls
     df$pvalue <- 1 - (1 - intrvls)
@@ -197,20 +201,20 @@ curve_rev <- function(point,
       )
     }
 
-    if (measure == "mean") {
-      values <- seq(from = df[1, 1], to = df[1, 2], by = 0.01)
-      zscore <- sapply(
-        values,
-        function(j) ((j - point) / se)
-      )
-    }
+    #    if (measure == "mean") {
+    #      values <- seq(from = df[1, 1], to = df[1, 2], by = 0.01)
+    #      zscore <- sapply(
+    #        values,
+    #        function(j) ((j - point) / se)
+    #      )
+    #    }
 
     support <- exp((-zscore^2) / 2)
     deviancestat <- (zscore^2)
     if (measure == "ratio") {
       likelihood <- support * (log(point))
-    } else {
-      likelihood <- support * point
+      #    } else {
+      #      likelihood <- support * point
     }
     loglikelihood <- log(likelihood)
     likfunction <- data.frame(values, likelihood, loglikelihood, support, deviancestat)

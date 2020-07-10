@@ -21,6 +21,8 @@
 #' levels. By default, it is set to 1000. Increasing the number substantially
 #' is not recommended as it will take longer to produce all the intervals and
 #' store them into a dataframe.
+#' @param cores Select the number of cores to use in  order to compute the intervals
+#'  The default is 1 core.
 #' @param table Indicates whether or not a table output with some relevant
 #' statistics should be generated. The default is TRUE and generates a table
 #' which is included in the list object.
@@ -34,7 +36,7 @@
 #' GroupA <- rnorm(50)
 #' GroupB <- rnorm(50)
 #' joe <- curve_corr(x = GroupA, y = GroupB, alternative = "two.sided", method = "pearson")
-curve_corr <- function(x, y, alternative, method, steps = 10000, table = TRUE) {
+curve_corr <- function(x, y, alternative, method, steps = 10000, cores = getOption("mc.cores", 1L), table = TRUE) {
   if (is.numeric(x) != TRUE) {
     stop("Error: 'x' must be a numeric vector")
   }
@@ -52,7 +54,7 @@ curve_corr <- function(x, y, alternative, method, steps = 10000, table = TRUE) {
       alternative = alternative, method = method,
       exact = NULL, conf.level = i, continuity = FALSE
     )$conf.int[]
-  }, mc.cores = getOption("mc.cores", 1L))
+  }, mc.cores = cores)
   df <- data.frame(do.call(rbind, results))
   intrvl.limit <- c("lower.limit", "upper.limit")
   colnames(df) <- intrvl.limit

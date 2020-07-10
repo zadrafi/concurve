@@ -5,8 +5,8 @@
 \title{Consonance Functions For Linear & Non-Linear Mixed-Effects Models.}
 \usage{
 curve_lmer(object, parm, method = "profile", zeta = NULL, nsim = NULL,
-  FUN = NULL, boot.type = NULL, steps = 1000, mc.cores = 1,
-  table = FALSE)
+  FUN = NULL, boot.type = NULL, steps = 1000,
+  cores = getOption("mc.cores", 1L), table = FALSE)
 }
 \arguments{
 \item{object}{The statistical model of interest from lme4 is to be indicated here.}
@@ -44,7 +44,8 @@ levels. By default, it is set to 1000. Increasing the number substantially
 is not recommended as it will take longer to produce all the intervals and
 store them into a dataframe.}
 
-\item{mc.cores}{For parallel processing. Defaults to 1 core.}
+\item{cores}{Select the number of cores to use in  order to compute the intervals
+The default is 1 core.}
 
 \item{table}{Indicates whether or not a table output with some relevant
 statistics should be generated. The default is TRUE and generates a table
