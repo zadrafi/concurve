@@ -44,19 +44,13 @@ randomframe <- curve_gen(model, "GroupB2")
 (function2 <- ggcurve(type = "c", randomframe[[1]], levels = c(0.50, 0.75, 0.95), nullvalue = TRUE))
 
 ## ----echo=TRUE, fig.height=4.5, fig.width=6-----------------------------------
-(curve_compare(
+(plot_compare(
   data1 = intervalsdf[[1]], data2 = randomframe[[1]], type = "c",
-  plot = TRUE, measure = "default", nullvalue = TRUE
+  measure = "default", nullvalue = TRUE
 ))
 
 ## ----echo=TRUE----------------------------------------------------------------
 cowplot::plot_grid(function1, function2)
-
-## ----echo=TRUE, fig.height=4.5, fig.width=6-----------------------------------
-(curve_compare(
-  data1 = intervalsdf[[1]], data2 = randomframe[[1]], type = "s",
-  plot = TRUE, measure = "default", nullvalue = FALSE
-))
 
 ## ----echo=TRUE, fig.height=4.5, fig.width=6-----------------------------------
 curve1 <- curve_rev(point = 1.7, LL = 1.1, UL = 2.6, type = "c", measure = "ratio", steps = 10000)

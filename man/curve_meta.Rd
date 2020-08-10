@@ -22,6 +22,8 @@ hazard ratios, and odds ratios.}
 Currently supports rma.uni ("uni"), which is the default, rma.mh ("mh"),
 and rma.peto ("peto")}
 
+\item{parm}{Typically ignored, but needed sometimes in order to specify which variable to produce function for.}
+
 \item{robust}{a logical indicating whether to produce cluster robust interval estimates
 Default is FALSE.}
 
@@ -37,7 +39,7 @@ various levels. For example, setting this to 100 will produce 100 consonance
 intervals from 0 to 100. Setting this to 10000 will produce more consonance
 levels. By default, it is set to 1000. Increasing the number substantially
 is not recommended as it will take longer to produce all the intervals and
-store them into a dataframe.}
+store them into a dataframe}
 
 \item{cores}{Select the number of cores to use in  order to compute the intervals
 The default is 1 core.}

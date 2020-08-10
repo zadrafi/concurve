@@ -234,7 +234,7 @@ curve_boot <- function(data = data, func = func, method = "bca", t0, tt, bb,
 
     # Boot t Method For Density --------------------------------------
   } else if (method == "t") {
-    t.boot <- boot(data = data, statistic = func, R = replicates, parallel = "multicore", ncpus = mc.cores)
+    t.boot <- boot(data = data, statistic = func, R = replicates, parallel = "multicore", ncpus = cores)
 
     intrvls <- 1:steps / steps
 

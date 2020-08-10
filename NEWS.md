@@ -1,3 +1,16 @@
+# concurve 2.7.0
+
+## Major changes 
+* `curve_gen()` can now accept inputs from the `rms` package's `ols()` function. 
+   - This can be done using the same `lm` option that is typically used.
+* disabled likelihood function computations for `curve_rev()` for continuous variables due to instability
+  
+## Minor changes
+* improvements to documentation all around
+* new article on estimating variance components using `lme4`
+* [new article](https://data.lesslikely.com/concurve/articles/tables.html) on using `curve_table()` to produce outputs from the functions
+* updates to article on troubleshooting and parallel computing
+
 # concurve 2.6.0
 
 ## Major changes 

@@ -100,6 +100,12 @@ curve_table(x[[1]], format = "image")
 
 That's a very quick look at creating functions from Cox regression models. 
 
+# Session info
+
+```{r session_info, include=TRUE, echo=FALSE}
+sessionInfo()
+```
+
 * * * 
 
 # References

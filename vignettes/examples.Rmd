@@ -34,7 +34,7 @@ Here I show how to produce _P_-value, _S_-value, likelihood, and deviance functi
 
 <img src="densityfunction.png" align="center" width="750" />
 
-For a more extensive discussion of these concepts, see the following references. [@birnbaum1961ams; @chow2019asb; @fraser2017arsa; @fraser2019as; @Poole1987-nb; @poole1987ajph; @Schweder2002-vh; @schweder2016; @Singh2007-zr; @Sullivan1990-ha; @whitehead1993sm; @xie2013isr; @rothman2008me]
+For a more extensive discussion of these concepts, see the following references. [@birnbaum1961ams; @Rafi_Greenland_2020; @fraser2017arsa; @fraser2019as; @Poole1987-nb; @poole1987ajph; @Schweder2002-vh; @schweder2016; @Singh2007-zr; @Sullivan1990-ha; @whitehead1993sm; @xie2013isr; @rothman2008me]
 
 # Simple Models
 
@@ -72,7 +72,7 @@ We can see that the consonance "curve" is every interval estimate plotted, and p
 
 $$C V_{n}(\theta)=1-2\left|H_{n}(\theta)-0.5\right|=2 \min \left\{H_{n}(\theta), 1-H_{n}(\theta)\right\}$$
 
-Its information counterpart, the surprisal function, can be constructed by taking the $-log_{2}$ of the _P_-value.[@chow2019asb; @greenland2019as; @Shannon1948-uq]
+Its information counterpart, the surprisal function, can be constructed by taking the $-log_{2}$ of the _P_-value.[@Rafi_Greenland_2020; @greenland2019as; @Shannon1948-uq]
 
 To view the surprisal function, we simply change the type to "`s`". 
 
@@ -178,6 +178,12 @@ and the consonance functions
 ))
 ```
 
+
+# Session info
+
+```{r session_info, include=TRUE, echo=FALSE}
+sessionInfo()
+```
 
 * * * 
 

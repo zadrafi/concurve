@@ -27,7 +27,8 @@
 #' intervals from 0 to 100. Setting this to 10000 will produce more consonance
 #' levels. By default, it is set to 1000. Increasing the number substantially
 #' is not recommended as it will take longer to produce all the intervals and
-#' store them into a dataframe.
+#' store them into a dataframe
+#' @param parm Typically ignored, but needed sometimes in order to specify which variable to produce function for.
 #' @param cores Select the number of cores to use in  order to compute the intervals
 #'  The default is 1 core.
 #' @param table Indicates whether or not a table output with some relevant
@@ -254,3 +255,4 @@ curve_meta <- function(x, measure = "default", method = "uni", parm = NULL, robu
 
 # RMD Check
 utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.width", "intrvl.level", "cdf", "pvalue", "svalue"))
+utils::globalVariables(c("res"))

@@ -260,14 +260,14 @@ cowplot::plot_grid(function99, function101, ncol = 1, align = "v")
 
 Practically the same.
 
-* * * 
-
-# References
-
-* * * 
-
 # Session info
 
 ```{r session_info, include=TRUE, echo=FALSE}
 sessionInfo()
 ```
+
+* * * 
+
+# References
+
+* * * 

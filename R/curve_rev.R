@@ -8,6 +8,7 @@
 #' cautious as this this function is currently designed for similar situations
 #' (involving ratios and normal approximations), nevertheless the function also works for means
 #' but should be used skeptically, as it can break down in many situations and give implausible numbers.
+#' Computations of likelihood functions for means is currently not supported.
 #'
 #' @param point The point estimate from an analysis. Ex: 1.20
 #' @param LL The lower confidence limit from an analysis Ex: 1.0
@@ -175,7 +176,8 @@ curve_rev <- function(point,
     }
 
 
-    #    else if (measure == "mean") {
+        else if (measure == "mean") {
+          stop("likelihood functions for continuous measures currently not supported")
     #      # se <- (UL - LL) / (2*conf_range)
     #      LL <- pbmclapply(z, FUN = function(i) point + (i * se), mc.cores = cores)
     #      UL <- pbmclapply(z, FUN = function(i) point - (i * se), mc.cores = cores)
@@ -183,7 +185,7 @@ curve_rev <- function(point,
     #      intrvl.limit <- c("lower.limit", "upper.limit")
     #      colnames(df) <- intrvl.limit
     #      class(df) <- c("data.frame", "concurve")
-    #    }
+       }
 
     df$intrvl.level <- 1 - intrvls
     df$pvalue <- 1 - (1 - intrvls)
@@ -201,13 +203,14 @@ curve_rev <- function(point,
       )
     }
 
-    #    if (measure == "mean") {
+        if (measure == "mean") {
+          stop("likelihood functions for continuous measures currently not supported")
     #      values <- seq(from = df[1, 1], to = df[1, 2], by = 0.01)
     #      zscore <- sapply(
     #        values,
     #        function(j) ((j - point) / se)
     #      )
-    #    }
+       }
 
     support <- exp((-zscore^2) / 2)
     deviancestat <- (zscore^2)

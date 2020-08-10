@@ -27,7 +27,7 @@ knitr::opts_chunk$set(
 library(concurve)
 ```
 
-For this last example, we'll explore the `curve_lik()` function, which can help generate profile likelihood functions, and deviance statistics with the help of the [`ProfileLikelihood`](https://cran.r-project.org/package=ProfileLikelihood) package.[@Choi_2011]
+For this last example, we'll explore the `curve_lik()` function, which can help generate profile likelihood functions, and deviance statistics with the help of the [`ProfileLikelihood`](https://cran.r-project.org/package=ProfileLikelihood) package.[@Choi_2011]. For an introduction to what profile likelihoods are, [see the following paper.](https://doi.org/10.1093/aje/kwt245)[@Cole_Chu_Greenland_2013]  
 
 ```{r echo=TRUE, fig.height=4.5, fig.width=6}
 library(ProfileLikelihood)
@@ -63,6 +63,12 @@ The obvious advantage of using reduced likelihoods is that they are free of nuis
 
 $$L_{t_{n}}(\theta)=f_{n}\left(F_{n}^{-1}\left(H_{p i v}(\theta)\right)\right)\left|\frac{\partial}{\partial t} \psi\left(t_{n}, \theta\right)\right|=h_{p i v}(\theta)\left|\frac{\partial}{\partial t} \psi(t, \theta)\right| /\left.\left|\frac{\partial}{\partial \theta} \psi(t, \theta)\right|\right|_{t=t_{n}}$$
 thus, giving summaries of the data that can be incorporated into combined analyses. 
+
+# Session info
+
+```{r session_info, include=TRUE, echo=FALSE}
+sessionInfo()
+```
 
 * * * 
 

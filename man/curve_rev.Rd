@@ -57,6 +57,7 @@ calculated from the approximated normal distribution, however, users should be
 cautious as this this function is currently designed for similar situations
 (involving ratios and normal approximations), nevertheless the function also works for means
 but should be used skeptically, as it can break down in many situations and give implausible numbers.
+Computations of likelihood functions for means is currently not supported.
 }
 \examples{
 

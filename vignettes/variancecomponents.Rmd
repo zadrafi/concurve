@@ -30,6 +30,9 @@ knitr::opts_chunk$set(
 require(concurve)
 require(lme4)
 require(daewr)
+library(parallel)
+options(mc.cores = detectCores())
+getOption("mc.cores", 1L)
 ```
 
 Here is a simple example taken from the `lme4` documentation. 
@@ -41,9 +44,9 @@ Here is a simple example taken from the `lme4` documentation.
 There's our output. Now suppose that we wanted the to see the interval estimates and functions of the variable "Days", here's how we would do it with `curve_lmer()`
 
 ```{r}
-sample <- curve_lmer(object = fm1, parm = "Days", method = "profile", steps = 1000, mc.cores = 4)
+object1 <- curve_lmer(object = fm1, parm = "Days", method = "profile", steps = 1000, cores = parallel::detectCores())
 
-sample1 <- curve_lmer(object = fm1, parm = ".sig01", method = "profile", steps = 1000, mc.cores = 4)
+sample1 <- curve_lmer(object = fm1, parm = ".sig01", method = "profile", steps = 1000, cores = parallel::detectCores())
 
 ggcurve(data = sample1[[1]], type = "c", measure = "default")
 ```
@@ -69,7 +72,7 @@ Now we attempt to estimate the interval estimates for variance components.
 
 ```{r}
 
-sample2 <- curve_lmer(object = fm1M, parm = ".sig01", method = "profile", steps = 1000, mc.cores = 4)
+sample2 <- curve_lmer(object = fm1M, parm = ".sig01", method = "profile", steps = 1000, cores = parallel::detectCores())
 
 ggcurve(data = sample2[[1]], type = "c", measure = "default")
 ```
@@ -78,17 +81,31 @@ ggcurve(data = sample2[[1]], type = "c", measure = "default")
 
 You can also embed plots, for example:
 
-```{r pressure, echo=FALSE}
+```{r eval=TRUE, include=TRUE, results = FALSE}
 
 c1 <- c( .5, -.5)
 
 mod4 <- lmer( pl ~ 1 + Group + (1|Subject:Group) + Period + Treat, contrasts = list(Group = c1, Period = c1, Treat = c1), data = antifungal)
 
 summary(mod4)
+```
 
+```{r, results = FALSE}
 crossed <- curve_lmer(object = mod4, parm = "Period1", method = "profile")
 
 ggcurve(data = crossed[[1]], type = "c")
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+# Session info
+
+```{r session_info, include=TRUE, echo=FALSE}
+sessionInfo()
+```
+
+* * * 
+
+# References
+
+* * * 

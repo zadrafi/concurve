@@ -1,0 +1,72 @@
+---
+title: "Generating Tables"
+description: "This vignette walks through how to construct tables from the curve functions."
+output: rmarkdown::html_vignette
+opengraph:
+  image: 
+    src: "https://res.cloudinary.com/less-likely/image/upload/v1591475692/Site/lfunctions.png"
+  twitter:
+    card: summary
+    creator: "@dailyzad"
+bibliography: references.bib
+link-citations: yes
+csl: american-medical-association.csl
+vignette: >
+  %\VignetteIndexEntry{Generating Tables}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  message = TRUE,
+  warning = TRUE,
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+It is quite easy to generate tables of outputs for the various `concurve` functions and in different formats. Here we show how to do this with a simple example. First, we'll simulate some fake data as usual, compare the means, and then produce a confidence function of the outputs.  
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+library(concurve)
+GroupA <- rnorm(500)
+GroupB <- rnorm(500)
+RandomData <- data.frame(GroupA, GroupB)
+
+intervalsdf <- curve_mean(GroupA, GroupB,
+  data = RandomData, method = "default"
+)
+```
+
+The results are now stored in intervalsdf. Using the curve_table() function, we can now produce a high quality table with several values of interest.
+
+```{r echo=TRUE, fig.height=2, fig.width=4}
+(x <- curve_table(data = intervalsdf[[1]], format = "image"))
+```
+
+Here we specified the format as "image", which will give us just that. We can also specify other options such as 
+
+```{r echo=TRUE, fig.height=2, fig.width=4}
+(z <- curve_table(intervalsdf[[1]], format = "latex"))
+```
+
+which is useful for inserting the output into a TeX document, and we can also specify options such as 
+
+```{r echo=TRUE, fig.height=2, fig.width=4}
+(df <- curve_table(intervalsdf[[1]], format = "data.frame"))
+```
+
+The options "pptx" and "docx" can also be specified as format options, but specifying these will open those programs if they are installed. 
+
+# Session info
+
+```{r session_info, include=TRUE, echo=FALSE}
+sessionInfo()
+```
+
+* * * 
+
+# References
+
+* * * 

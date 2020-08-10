@@ -37,6 +37,7 @@ ggplot
 github
 glm
 Glm
+GLP
 gls
 Gls
 GroupB
@@ -51,6 +52,7 @@ kendall
 KJ
 Kristoffer
 leq
+lesslikely
 levelinto
 lidocaine
 Lifecycle
@@ -68,7 +70,6 @@ NL
 nullvalue
 ols
 orchiectomy
-ORCID
 parallelization
 paranthesis
 paro
@@ -121,4 +122,5 @@ xaxis
 Xie
 yi
 yxis
+zad
 zadrafi

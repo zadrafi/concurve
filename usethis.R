@@ -34,6 +34,7 @@ use_package("Lock5Data", "Suggests", min_version = NULL)
 # Other helper functions
 
 use_build_ignore("usethis.R", escape = TRUE)
+use_build_ignore("Manuscripts", escape = TRUE)
 use_build_ignore("CRAN-RELEASE", escape = TRUE)
 use_build_ignore("cran-comments.md", escape = TRUE)
 use_build_ignore("docs", escape = TRUE)
@@ -48,9 +49,14 @@ use_build_ignore("codemeta.json", escape = TRUE)
 use_build_ignore(".covrignore", escape = TRUE)
 use_build_ignore(".travis.yml", escape = TRUE)
 use_build_ignore(".circleci", escape = TRUE)
+use_build_ignore(".here", escape = TRUE)
 use_build_ignore(".github", escape = TRUE)
 use_build_ignore("references.bib", escape = TRUE)
 use_build_ignore("american-medical-association.csl", escape = TRUE)
+use_build_ignore("bayes.Rmd", escape = TRUE)
+use_build_ignore("variancecomponents.Rmd", escape = TRUE)
+use_build_ignore("casestudies.Rmd", escape = TRUE)
+use_build_ignore("wishlist.Rmd", escape = TRUE)
 
 use_spell_check(vignettes = TRUE, lang = "en-US", error = FALSE)
 use_cran_comments(open = interactive())
@@ -71,7 +77,7 @@ check(
   manual = TRUE, cran = TRUE, remote = TRUE, incoming = TRUE,
   force_suggests = TRUE, run_dont_test = TRUE, args = "--timings",
   env_vars = NULL, quiet = FALSE, check_dir = tempdir(),
-  cleanup = TRUE, error_on = c("never", "error", "warning", "note")
+  cleanup = TRUE, vignettes = FALSE, error_on = c("never", "error", "warning", "note")
 )
 
 

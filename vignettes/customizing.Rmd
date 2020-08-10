@@ -159,6 +159,12 @@ svglite("pvalfunc.svg", width = 720/res, height = 500/res)
 dev.off()
 ```
 
+# Session info
+
+```{r session_info, include=TRUE, echo=FALSE}
+sessionInfo()
+```
+
 * * * 
 
 # References

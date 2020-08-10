@@ -58,10 +58,14 @@ navbar:
         href: articles/bootstrap.html
       - text: Comparison to Bayesian Posteriors
         href: articles/bayes.html
+      - text: Estimating Variance Components
+        href: articles/variancecomponents.html  
       - text: Using Stata
         href: articles/stata.html
       - text: Customizing Plots
         href: articles/customizing.html
+      - text: Generating Tables
+        href: articles/tables.html  
       - text: Troubleshooting
         href: articles/troubleshooting.html
     cases:
@@ -87,9 +91,11 @@ navbar:
       href: https://twitter.com/dailyzad
 
 reference:
+
 - title: Computations
   desc: Compute consonance/confidence/compatibility intervals for a wide range of scenarios, along with likelihood intervals.
 - contents:
+  - concurve-package
   - curve_boot
   - curve_corr
   - curve_gen

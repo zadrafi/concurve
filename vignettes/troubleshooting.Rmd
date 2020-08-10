@@ -93,7 +93,7 @@ However, if you are able to use parallelization, you can enable it with the foll
 
 ```{r eval=FALSE}
 library(parallel)
-options(mc.cores = detectCores())
+options(mc.cores = 1)
 ```
 
 The script will detect the number of cores on your machine via the `parallel` package and use them to speed up the computations, especially for bootstrapping. 
@@ -102,21 +102,47 @@ However, if you would like to speed up the computations and are unable to use pa
 
 For example, here I changed the number of steps to 100, which is the minimum needed to plot a function, and the process is now much quicker. We can evaluate this using a microbenchmark. Here I use the `bench` package and the `mark()` function. Because we are using parallelization, we must also set the `memory` argument to `FALSE`.
 
-```{r}
+```{r eval=TRUE, include=TRUE, results = FALSE}
 library(bench)
-func1 <- bench::mark(df1 <- curve_rev(
+library(parallel)
+options(mc.cores = 1)
+getOption("mc.cores", 1L)
+set.seed(1031)
+func1 <- mark(df1 <- curve_rev(
   point = 1.61, LL = 0.997, UL = 2.59,
   measure = "ratio", steps = 100
 ), memory = FALSE)
 
-func2 <- bench::mark(df1 <- curve_rev(
+func2 <- mark(df1 <- curve_rev(
   point = 1.61, LL = 0.997, UL = 2.59,
-  measure = "ratio", steps = 10000
+  measure = "ratio", steps = 500000
+), memory = FALSE)
+```
+
+I'll now enable parallelization by setting the `mc.cores` option to detect the max number of cores available using `detectCores()`. The `mc.cores` option is the argument that almost all the curve functions in the `concurve` package use for parallel computing.
+
+```{r eval=TRUE, include=TRUE, results = FALSE}
+options(mc.cores = detectCores())
+getOption("mc.cores", 1L)
+set.seed(1031)
+func3 <- mark(df1 <- curve_rev(
+  point = 1.61, LL = 0.997, UL = 2.59,
+  measure = "ratio", steps = 100
 ), memory = FALSE)
 
-func1
-func2
+func4 <- mark(df1 <- curve_rev(
+  point = 1.61, LL = 0.997, UL = 2.59,
+  measure = "ratio", steps = 500000
+), memory = FALSE)
 ```
+
+```{r}
+func1$median
+func2$median
+func3$median
+func4$median
+```
+When setting the number of iterations to 100, utilizing parallelization doesn't seem to help much, but when setting the number of iterations to 500000 and using multiple cores, there seems to be a computational advantage.   
 
 # Bugs 
 

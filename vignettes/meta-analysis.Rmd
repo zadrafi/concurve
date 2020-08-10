@@ -61,7 +61,7 @@ fe <- rma(yi, vi, data = dat, method = "FE")
 
 Now that we have our metafor object, we can compute the consonance function using the `curve_meta()` function. 
 ```{r echo=TRUE, fig.height=4.5, fig.width=6}
-fecurve <- curve_meta(fe, cores = 4L)
+fecurve <- curve_meta(fe, cores = 1L)
 ```
 
 Now we can graph our function. 
@@ -79,7 +79,7 @@ re <- rma(yi, vi, data = dat, method = "REML")
 And then we could use `curve_meta()` to get the relevant list 
 
 ```{r echo=TRUE, fig.height=4.5, fig.width=6}
-recurve <- curve_meta(re, cores = 4L)
+recurve <- curve_meta(re, cores = 1L)
 ```
 
 Now we can plot our object.
@@ -117,7 +117,7 @@ res <- rma.mv(yi, V, mods = ~ outcome - 1, random = ~ outcome | trial, struct = 
 ### results based on sandwich method
 (a <- robust(res, cluster = dat$trial))
 
-l <- concurve::curve_meta(res, method = "uni", robust = TRUE, cluster = dat$trial, adjust = TRUE, steps = 1000, cores = 4L)
+l <- concurve::curve_meta(res, method = "uni", robust = TRUE, cluster = dat$trial, adjust = TRUE, steps = 1000, cores = 1L)
 
 ggcurve(data = l[[1]], type = "c") +
   ggplot2::theme_minimal()
@@ -160,9 +160,15 @@ d.obs <- dc[, .(study, id,s2.k, x, y)]
 d.obs <-  as.data.frame(d.obs)
 res <- rma.mv(yi = y, V = s2.k, W = NULL, mods = ~  factor(study) + factor(x),  random = ~ factor(x) | study, struct="CS", data = d.obs, method = "REML")
 
-a <- curve_meta(x = res, measure = "default", method = "mv", parm = "factor(x)1", cores = 4L)
+a <- curve_meta(x = res, measure = "default", method = "mv", parm = "factor(x)1", cores = 1L)
 ggcurve(a[[2]], type = "cdf")
 
+```
+
+# Session info
+
+```{r session_info, include=TRUE, echo=FALSE}
+sessionInfo()
 ```
 
 * * * 
