@@ -4,6 +4,13 @@ html, body {
   font-family: "PT Serif";
 }
 
+@media only screen and (max-width: 767px) {
+
+html, body  {
+  font-size: 15px;
+  }
+}
+
 .navbar-brand {
   font-size: 16px;
   font-weight: bold;

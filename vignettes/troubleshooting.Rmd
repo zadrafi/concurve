@@ -122,7 +122,7 @@ func2 <- mark(df1 <- curve_rev(
 I'll now enable parallelization by setting the `mc.cores` option to detect the max number of cores available using `detectCores()`. The `mc.cores` option is the argument that almost all the curve functions in the `concurve` package use for parallel computing.
 
 ```{r eval=TRUE, include=TRUE, results = FALSE}
-options(mc.cores = detectCores())
+
 getOption("mc.cores", 1L)
 set.seed(1031)
 func3 <- mark(df1 <- curve_rev(

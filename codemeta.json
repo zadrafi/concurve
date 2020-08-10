@@ -306,6 +306,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=patchwork"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "cowplot",
+      "name": "cowplot",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=cowplot"
     }
   ],
   "softwareRequirements": [
@@ -543,7 +555,7 @@
     }
   ],
   "keywords": ["confidence", "compatibility", "consonance", "surprisal", "interval", "function", "curve", "confidence-intervals", "compatibility-intervals", "stata", "confidence-distribution", "likelihood-functions", "bootstrap-method", "r", "frequentist-methods", "fiducial-distribution", "density-function", "cumulative-distribution-function", "surprisal-function", "deviance-function"],
-  "fileSize": "1655816.435KB",
+  "fileSize": "1654883.255KB",
   "contIntegration": "https://travis-ci.com/zadrafi/concurve",
   "readme": "https://github.com/zadrafi/concurve/blob/master/README.md",
   "contributor": [
