@@ -3,8 +3,8 @@ Package: concurve
 Title: Computes and Plots Compatibility (Confidence) Intervals,
     P-Values, S-Values, & Likelihood Intervals to Form Consonance,
     Surprisal, & Likelihood Functions
-Version: 2.6.0
-Date: 2020-06-05
+Version: 2.7.0
+Date: 2020-08-09
 Authors@R: 
     c(person(given = "Zad",
              family = "Rafi",
@@ -37,51 +37,20 @@ Description: Allows one to compute compatibility (confidence)
     <doi:10.1111/1467-9469.00285>, Singh K, Xie M, Strawderman WE. (2007)
     <arXiv:0708.0976>, Rothman KJ, Greenland S, Lash TL. (2008,
     ISBN:9781451190052), Greenland S. (2019)
-    <doi:10.1080/00031305.2018.1529625>, Chow ZR, Greenland S. (2019)
-    <arXiv:1909.08579>, and Greenland S, Chow ZR. (2019)
-    <arXiv:1909.08583>.
+    <doi:10.1080/00031305.2018.1529625>, Rafi Z, Greenland S. (2020)
+    <arXiv:1909.08579>.
 License: GPL-3 | file LICENSE
 URL: https://data.lesslikely.com/concurve/,
-    https://github.com/zadrafi/concurve, https://lesslikely.com/
+     https://github.com/zadrafi/concurve, 
+     https://lesslikely.com/
 BugReports: https://github.com/zadrafi/concurve/issues
-Imports:
-    MASS,
-    bcaboot,
-    boot,
-    lme4,
-    dplyr,
-    flextable,
-    ggplot2,
-    knitr,
-    metafor,
-    officer,
-    parallel,
-    pbmcapply,
-    ProfileLikelihood,
-    scales,
-    colorspace,
-    survival,
-    survminer,
-    tibble,
-    tidyr,
-    methods,
-    cowplot,
-    patchwork
-Suggests:
-    covr,
-    roxygen2,
-    spelling,
-    testthat,
-    rmarkdown,
-    Lock5Data,
-    carData,
-    bench,
-    brms,
-    rstan,
-    rstanarm,
-    bayesplot,
-    vdiffr,
-    ggtext
+Imports: MASS, methods, bcaboot, boot, lme4, dplyr, flextable, ggplot2,
+         knitr, metafor, officer, parallel, pbmcapply, ProfileLikelihood,
+         scales, colorspace, survival, survminer, tibble, tidyr
+Suggests: covr, roxygen2, spelling, testthat, rmarkdown, Lock5Data,
+          carData, bench, rms, brms, rstan, rstanarm, bayesplot,
+          vdiffr, ggtext, daewr, svglite, data.table, nlme,
+          simstudy, patchwork
 VignetteBuilder: 
     knitr
 ByteCompile: true

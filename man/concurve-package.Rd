@@ -2,53 +2,30 @@
 % Please edit documentation in R/concurve-package.R
 \docType{package}
 \name{concurve-package}
-\alias{concurve}
 \alias{concurve-package}
-\title{concurve: Computes and Plots Compatibility (Confidence) Intervals,
-    P-Values, S-Values, & Likelihood Intervals to Form Consonance,
-    Surprisal, & Likelihood Functions}
+\title{Consonance, Surprisal, & Likelihood Functions}
 \description{
 Allows one to compute compatibility (confidence)
-    intervals for various statistical tests along with their corresponding
-    P-values, S-values, and likelihoods. The intervals can be plotted to
-    create consonance, surprisal, and likelihood functions allowing one to
-    see what effect sizes are compatible with the test model at various
-    compatibility levels rather than being limited to one interval estimate
-    such as 95\%. Functions can also be compared to one another to see how much
-    they overlap with one another and differ. Results can also be exported for 
-    Word, Powerpoint, and TeX documents. The package currently supports bootstrapping,
-    linear models, generalized linear models, linear mixed-effects models, 
-    survival analysis, and meta-analysis. These methods are discussed by 
-    Poole C. (1987) <doi:10.2105/AJPH.77.2.195>, Schweder T, Hjort NL. (2002)
-    <doi:10.1111/1467-9469.00285>, Singh K, Xie M, Strawderman WE. (2007)
-    <arXiv:0708.0976>, Rothman KJ, Greenland S, Lash TL. (2008,
-    ISBN:9781451190052), Greenland S. (2019)
-    <doi:10.1080/00031305.2018.1529625>, Chow ZR, Greenland S. (2019)
-    <arXiv:1909.08579>, and Greenland S, Chow ZR. (2019)
-    <arXiv:1909.08583>.
+intervals for various statistical tests along with their corresponding
+P-values, S-values, and likelihoods. The intervals can be plotted to
+create consonance, surprisal, and likelihood functions allowing one to
+see what effect sizes are compatible with the test model at various
+compatibility levels rather than being limited to one interval estimate
+such as 95\\%.
 }
-\seealso{
-Useful links:
-\itemize{
-  \item \url{https://data.lesslikely.com/concurve/}
-  \item \url{https://github.com/zadrafi/concurve}
-  \item \url{https://lesslikely.com/}
-  \item Report bugs at \url{https://github.com/zadrafi/concurve/issues}
+\details{
+\tabular{ll}{ Package: \tab concurve\cr Type: \tab Package\cr Version: \tab
+2.7.0\cr Date: \tab 2020-08-09\cr License: \tab GLP-3}
+Very simple to use. Accepts most modeling functions that produce confidence intervals.
 }
-
+\references{
+Rafi, Z., and Greenland, S. (2020),
+“Semantic and Cognitive Tools to Aid Statistical Science:
+Replace Confidence and Significance by Compatibility and Surprise,
+” arXiv:1909.08579. stat.ME.
+\url{https://arxiv.org/abs/1909.08579}
 }
 \author{
-\strong{Maintainer}: Zad Rafi \email{zad@lesslikely.com} (\href{https://orcid.org/0000-0003-1545-8199}{ORCID})
-
-Authors:
-\itemize{
-  \item Andrew D. Vigotsky \email{avigotsky@gmail.com} (\href{https://orcid.org/0000-0003-3166-0688}{ORCID})
+Zad Rafi, Andrew D. Vigotsky, and Aaron Caldwell \cr Maintainer:
+Zad Rafi: \href{mailto:zad@lesslikely.com}{zad@lesslikely.com}
 }
-
-Other contributors:
-\itemize{
-  \item Aaron Caldwell \email{arcaldwell49@gmail.com} (\href{https://orcid.org/0000-0002-4541-6283}{ORCID}) [contributor]
-}
-
-}
-\keyword{internal}

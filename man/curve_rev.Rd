@@ -6,7 +6,8 @@
 Estimate and Confidence Limits}
 \usage{
 curve_rev(point, LL = NULL, UL = NULL, se = NULL, conf.level = 0.95,
-  type = "c", measure = "ratio", steps = 10000, table = TRUE)
+  type = "c", measure = "ratio", steps = 10000,
+  cores = getOption("mc.cores", 1L), table = TRUE)
 }
 \arguments{
 \item{point}{The point estimate from an analysis. Ex: 1.20}
@@ -36,6 +37,9 @@ levels. By default, it is set to 1000. Increasing the number substantially
 is not recommended as it will take longer to produce all the intervals and
 store them into a dataframe.}
 
+\item{cores}{Select the number of cores to use in  order to compute the intervals
+The default is 1 core.}
+
 \item{table}{Indicates whether or not a table output with some relevant
 statistics should be generated. The default is TRUE and generates a table
 which is included in the list object.}
@@ -53,6 +57,7 @@ calculated from the approximated normal distribution, however, users should be
 cautious as this this function is currently designed for similar situations
 (involving ratios and normal approximations), nevertheless the function also works for means
 but should be used skeptically, as it can break down in many situations and give implausible numbers.
+Computations of likelihood functions for means is currently not supported.
 }
 \examples{
 

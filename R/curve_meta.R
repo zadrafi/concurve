@@ -27,7 +27,10 @@
 #' intervals from 0 to 100. Setting this to 10000 will produce more consonance
 #' levels. By default, it is set to 1000. Increasing the number substantially
 #' is not recommended as it will take longer to produce all the intervals and
-#' store them into a dataframe.
+#' store them into a dataframe
+#' @param parm Typically ignored, but needed sometimes in order to specify which variable to produce function for.
+#' @param cores Select the number of cores to use in  order to compute the intervals
+#'  The default is 1 core.
 #' @param table Indicates whether or not a table output with some relevant
 #' statistics should be generated. The default is TRUE and generates a table
 #' which is included in the list object.
@@ -90,8 +93,8 @@
 #' # Calculate the intervals using the metainterval function
 #'
 #' metaf <- curve_meta(res)
-curve_meta <- function(x, measure = "default", method = "uni", robust = FALSE,
-                       cluster = NULL, adjust = FALSE, steps = 1000, table = TRUE) {
+curve_meta <- function(x, measure = "default", method = "uni", parm = NULL, robust = FALSE,
+                       cluster = NULL, adjust = FALSE, steps = 1000, cores = getOption("mc.cores", 1L), table = TRUE) {
   if (is.list(x) != TRUE) {
     stop("Error: 'x' must be a list from 'metafor'")
   }
@@ -107,7 +110,7 @@ curve_meta <- function(x, measure = "default", method = "uni", robust = FALSE,
     if (robust == FALSE) {
       intrvls <- (1:(steps - 1)) / steps
 
-      results <- pbmclapply(intrvls, FUN = function(i) confint.default(object = x, level = i)[], mc.cores = getOption("mc.cores", 1L))
+      results <- pbmclapply(intrvls, FUN = function(i) confint.default(object = x, level = i)[], mc.cores = cores)
       df <- data.frame(do.call(rbind, results))
       intrvl.limit <- c("lower.limit", "upper.limit")
       colnames(df) <- intrvl.limit
@@ -127,11 +130,11 @@ curve_meta <- function(x, measure = "default", method = "uni", robust = FALSE,
       results$ci.lb <- pbmclapply(intrvls, FUN = function(i) {
         x$level <- i
         (robust(x, cluster)[[6]][1])
-      }, mc.cores = getOption("mc.cores", 1L))
+      }, mc.cores = cores)
       results$ci.ub <- pbmclapply(intrvls, FUN = function(i) {
         x$level <- i
         (robust(x, cluster)[[7]][1])
-      }, mc.cores = getOption("mc.cores", 1L))
+      }, mc.cores = cores)
       df <- results
       intrvl.limit <- c("lower.limit", "upper.limit")
       colnames(df) <- intrvl.limit
@@ -146,8 +149,8 @@ curve_meta <- function(x, measure = "default", method = "uni", robust = FALSE,
     if (robust == FALSE) {
       steps <- 100
       intrvls_mh <- ((1:steps))
-      results <- (pbmclapply(intrvls_mh, FUN = function(i) unlist(confint.rma.mh(object = x, random = TRUE, level = i)[1])))
-      results <- pbmclapply((1:(length(results))), FUN = function(j) results[[j]][2:3])
+      results <- (pbmclapply(intrvls_mh, FUN = function(i) unlist(confint.rma.mh(object = x, random = TRUE, level = i)[1]), mc.cores = cores))
+      results <- pbmclapply((1:(length(results))), FUN = function(j) results[[j]][2:3], mc.cores = cores)
       results <- as.data.frame(results)
       df <- data.frame(do.call(rbind, results))
       intrvl.limit <- c("lower.limit", "upper.limit")
@@ -168,11 +171,11 @@ curve_meta <- function(x, measure = "default", method = "uni", robust = FALSE,
       results$ci.lb <- pbmclapply(intrvls_mh, FUN = function(i) {
         x$level <- i
         (robust(x, cluster)[[6]][1])
-      }, mc.cores = getOption("mc.cores", 1L))
+      }, mc.cores = cores)
       results$ci.ub <- pbmclapply(intrvls_mh, FUN = function(i) {
         x$level <- i
         (robust(x, cluster)[[7]][1])
-      }, mc.cores = getOption("mc.cores", 1L))
+      }, mc.cores = cores)
       df <- results
       intrvl.limit <- c("lower.limit", "upper.limit")
       colnames(df) <- intrvl.limit
@@ -188,8 +191,8 @@ curve_meta <- function(x, measure = "default", method = "uni", robust = FALSE,
   } else if (method == "peto") {
     steps <- 100
     intrvls_peto <- ((1:steps))
-    results <- (pbmclapply(intrvls_peto, FUN = function(i) unlist(confint.rma.peto(object = x, random = TRUE, level = i)[1])))
-    results <- pbmclapply((1:(length(results))), FUN = function(j) results[[j]][2:3])
+    results <- (pbmclapply(intrvls_peto, FUN = function(i) unlist(confint.rma.peto(object = x, random = TRUE, level = i)[1]), mc.cores = cores))
+    results <- pbmclapply((1:(length(results))), FUN = function(j) results[[j]][2:3], mc.cores = cores)
     results <- as.data.frame(results)
     df <- data.frame(do.call(rbind, results))
     intrvl.limit <- c("lower.limit", "upper.limit")
@@ -202,8 +205,24 @@ curve_meta <- function(x, measure = "default", method = "uni", robust = FALSE,
     df$svalue <- -log2(df$pvalue)
     rows <- as.character(c(1:nrow(df)))
     rownames(df) <- rows
+  } else if (method == "mv") {
+    steps <- 100
+    intrvls_mv <- ((1:steps))
+    results <- pbmclapply(intrvls_mv, FUN = function(i) (confint(object = res, fixed = TRUE, level = i))[["fixed"]], mc.cores = cores)
+    results <- pbmclapply((1:(length(results))), FUN = function(j) as.data.frame(results[[j]]), mc.cores = cores)
+    results <- pbmclapply((1:(length(results))), FUN = function(k) filter(results[[k]], rownames(results[[k]]) == parm), mc.cores = cores)
+    df <- (data.frame(do.call(rbind, results)))[, 2:3]
+    intrvl.limit <- c("lower.limit", "upper.limit")
+    colnames(df) <- intrvl.limit
+    rows <- as.character(c(1:steps))
+    rownames(df) <- rows
+    df$intrvl.level <- ((intrvls_mv)) / 100
+    df$cdf <- (abs(df$intrvl.level / 2)) + 0.5
+    df$pvalue <- (1 - df$intrvl.level)
+    df$svalue <- -log2(df$pvalue)
+    rows <- as.character(c(1:nrow(df)))
+    rownames(df) <- rows
   }
-
   if (measure == "default") {
     df$lower.limit <- df$lower.limit
     df$upper.limit <- df$upper.limit
@@ -236,3 +255,4 @@ curve_meta <- function(x, measure = "default", method = "uni", robust = FALSE,
 
 # RMD Check
 utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.width", "intrvl.level", "cdf", "pvalue", "svalue"))
+utils::globalVariables(c("res"))

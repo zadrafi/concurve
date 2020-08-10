@@ -5,7 +5,7 @@
 \title{Generate Consonance Functions via Bootstrapping}
 \usage{
 curve_boot(data = data, func = func, method = "bca", t0, tt, bb,
-  replicates = 2000, steps = 1000, mc.cores = getOption("mc.cores", 1L),
+  replicates = 2000, steps = 1000, cores = getOption("mc.cores", 1L),
   table = TRUE)
 }
 \arguments{
@@ -40,7 +40,7 @@ levels. By default, it is set to 1000. Increasing the number substantially
 is not recommended as it will take longer to produce all the intervals and
 store them into a dataframe.}
 
-\item{mc.cores}{Select the number of cores to use in  order to compute the intervals
+\item{cores}{Select the number of cores to use in  order to compute the intervals
 The default is 1 core.}
 
 \item{table}{Indicates whether or not a table output with some relevant

@@ -1,7 +1,6 @@
 exportPattern("^[[:alpha:]]+")
 import(parallel)
 import(pbmcapply)
-import(cowplot)
 import(bcaboot)
 import(colorspace)
 import(boot)
@@ -19,8 +18,8 @@ import(metafor)
 import(scales)
 importFrom("stats", "coef", "confint", "confint.default", "confint.lm",
                 "profile", "lm", "quantile", "t.test", "cor.test", "qnorm")
-  importFrom("methods", "is")
   importFrom("stats", "approxfun", "integrate")
+  importFrom("methods", "is")
    importFrom("stats", "sd")
 importFrom("graphics", "axis", "par", "polygon", "text")
 importFrom("stats", "logLik", "model.frame", "model.matrix",

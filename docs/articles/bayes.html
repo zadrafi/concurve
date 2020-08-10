@@ -48,7 +48,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand"><img src="https://data.lesslikely.com/concurve/reference/figures/logo.svg" id="package-logo" align="left" width="35"><a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.0</span>
       </span>
     </div>
 
@@ -89,10 +89,16 @@
       <a href="../articles/bayes.html">Comparison to Bayesian Posteriors</a>
     </li>
     <li>
+      <a href="../articles/variancecomponents.html">Estimating Variance Components</a>
+    </li>
+    <li>
       <a href="../articles/stata.html">Using Stata</a>
     </li>
     <li>
       <a href="../articles/customizing.html">Customizing Plots</a>
+    </li>
+    <li>
+      <a href="../articles/tables.html">Generating Tables</a>
     </li>
     <li>
       <a href="../articles/troubleshooting.html">Troubleshooting</a>
@@ -159,7 +165,7 @@
 
       
 
-      </header><script src="bayes_files/header-attrs-2.3/header-attrs.js"></script><script src="bayes_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="bayes_files/header-attrs-2.3/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Comparison to Bayesian Posterior Distributions</h1>
@@ -221,7 +227,7 @@
 <div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">concurve</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">rstan</span>)
 <span class="co">#&gt; Loading required package: StanHeaders</span>
-<span class="co">#&gt; rstan (Version 2.19.3, GitRev: 2e1f913d3ca3)</span>
+<span class="co">#&gt; rstan (Version 2.21.2, GitRev: 2e1f913d3ca3)</span>
 <span class="co">#&gt; For execution on a local, multicore CPU with excess RAM we recommend calling</span>
 <span class="co">#&gt; options(mc.cores = parallel::detectCores()).</span>
 <span class="co">#&gt; To avoid recompilation of unchanged Stan programs, we recommend calling</span>
@@ -234,14 +240,11 @@
 <span class="co">#&gt;   influence.merMod                car </span>
 <span class="co">#&gt;   dfbeta.influence.merMod         car </span>
 <span class="co">#&gt;   dfbetas.influence.merMod        car</span>
-<span class="co">#&gt; rstanarm (Version 2.19.3, packaged: 2020-02-11 05:16:41 UTC)</span>
-<span class="co">#&gt; - Do not expect the default priors to remain the same in future rstanarm versions.</span>
-<span class="co">#&gt; Thus, R scripts should specify priors explicitly, even if they are just the defaults.</span>
+<span class="co">#&gt; This is rstanarm version 2.21.1</span>
+<span class="co">#&gt; - See https://mc-stan.org/rstanarm/articles/priors for changes to default priors!</span>
+<span class="co">#&gt; - Default priors may change, so it's safest to specify priors, even if equivalent to the defaults.</span>
 <span class="co">#&gt; - For execution on a local, multicore CPU with excess RAM we recommend calling</span>
-<span class="co">#&gt; options(mc.cores = parallel::detectCores())</span>
-<span class="co">#&gt; - bayesplot theme set to bayesplot::theme_default()</span>
-<span class="co">#&gt;    * Does _not_ affect other ggplot2 plots</span>
-<span class="co">#&gt;    * See ?bayesplot_theme_set for details on theme setting</span>
+<span class="co">#&gt;   options(mc.cores = parallel::detectCores())</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Attaching package: 'rstanarm'</span>
 <span class="co">#&gt; The following object is masked from 'package:rstan':</span>
@@ -269,7 +272,7 @@
 <span class="no">RandomData</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="no">GroupA</span>, <span class="no">GroupB</span>)
 <span class="no">model_freq</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(<span class="no">GroupA</span> ~ <span class="no">GroupB</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">RandomData</span>)</pre></body></html></div>
 <p>Now we will do the same using Bayesian methods, but instead of specifying a prior, we will use a flat prior to show the convergence of the posterior with the consonance function.</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/rstan/man/rstan_options.html">rstan_options</a></span>(<span class="kw">auto_write</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="https://mc-stan.org/rstan/reference/rstan_options.html">rstan_options</a></span>(<span class="kw">auto_write</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
 
 <span class="co"># Using flat prior</span>
 <span class="no">model_bayes</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://mc-stan.org/rstanarm/reference/stan_lm.html">stan_lm</a></span>(<span class="no">GroupA</span> ~ <span class="no">GroupB</span>,
@@ -421,27 +424,27 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Estimates:</span>
 <span class="co">#&gt;                 mean   sd   10%   50%   90%</span>
-<span class="co">#&gt; (Intercept)   77.4    2.0 74.8  77.4  80.1 </span>
-<span class="co">#&gt; mom_hs        11.9    2.3  8.9  12.0  14.8 </span>
+<span class="co">#&gt; (Intercept)   77.4    2.1 74.8  77.4  80.0 </span>
+<span class="co">#&gt; mom_hs        12.0    2.3  9.0  12.0  14.9 </span>
 <span class="co">#&gt; sigma         19.9    0.7 19.0  19.8  20.7 </span>
 <span class="co">#&gt; log-fit_ratio -0.2    0.0 -0.2  -0.2  -0.1 </span>
 <span class="co">#&gt; R2             0.1    0.0  0.0   0.1   0.1 </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Fit Diagnostics:</span>
 <span class="co">#&gt;            mean   sd   10%   50%   90%</span>
-<span class="co">#&gt; mean_PPD 86.7    1.3 85.0  86.7  88.4 </span>
+<span class="co">#&gt; mean_PPD 86.8    1.3 85.1  86.8  88.5 </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; The mean_ppd is the sample average posterior predictive distribution of the outcome variable (for details see help('summary.stanreg')).</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; MCMC diagnostics</span>
 <span class="co">#&gt;               mcse Rhat n_eff</span>
-<span class="co">#&gt; (Intercept)   0.1  1.0  1250 </span>
-<span class="co">#&gt; mom_hs        0.1  1.0  1144 </span>
-<span class="co">#&gt; sigma         0.0  1.0  1987 </span>
-<span class="co">#&gt; log-fit_ratio 0.0  1.0  1272 </span>
-<span class="co">#&gt; R2            0.0  1.0  1100 </span>
-<span class="co">#&gt; mean_PPD      0.0  1.0  3958 </span>
-<span class="co">#&gt; log-posterior 0.0  1.0  1382 </span>
+<span class="co">#&gt; (Intercept)   0.1  1.0   863 </span>
+<span class="co">#&gt; mom_hs        0.1  1.0   907 </span>
+<span class="co">#&gt; sigma         0.0  1.0  1736 </span>
+<span class="co">#&gt; log-fit_ratio 0.0  1.0  1077 </span>
+<span class="co">#&gt; R2            0.0  1.0   837 </span>
+<span class="co">#&gt; mean_PPD      0.0  1.0  3663 </span>
+<span class="co">#&gt; log-posterior 0.0  1.0  1349 </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; For each parameter, mcse is Monte Carlo standard error, n_eff is a crude measure of effective sample size, and Rhat is the potential scale reduction factor on split chains (at convergence Rhat=1).</span>
 
@@ -465,9 +468,9 @@
 <div id="session-info" class="section level1">
 <h1 class="hasAnchor">
 <a href="#session-info" class="anchor"></a>Session info</h1>
-<pre><code>#&gt; R version 4.0.1 (2020-06-06)
+<pre><code>#&gt; R version 4.0.2 (2020-06-22)
 #&gt; Platform: x86_64-apple-darwin17.0 (64-bit)
-#&gt; Running under: macOS Catalina 10.15.5
+#&gt; Running under: macOS Catalina 10.15.6
 #&gt; 
 #&gt; Matrix products: default
 #&gt; BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
@@ -481,53 +484,54 @@
 #&gt; 
 #&gt; other attached packages:
 #&gt; [1] scales_1.1.1         bayesplot_1.7.2      cowplot_1.0.0       
-#&gt; [4] rstanarm_2.19.3      Rcpp_1.0.5           rstan_2.19.3        
-#&gt; [7] StanHeaders_2.21.0-5 concurve_2.6.0       ggplot2_3.3.2       
+#&gt; [4] rstanarm_2.21.1      Rcpp_1.0.5           rstan_2.21.2        
+#&gt; [7] StanHeaders_2.21.0-5 concurve_2.7.0       ggplot2_3.3.2       
 #&gt; 
 #&gt; loaded via a namespace (and not attached):
 #&gt;   [1] minqa_1.2.4           colorspace_1.4-1      ggsignif_0.6.0       
 #&gt;   [4] ellipsis_0.3.1        rio_0.5.16            ggridges_0.5.2       
 #&gt;   [7] rsconnect_0.8.16      rprojroot_1.3-2       flextable_0.5.10     
-#&gt;  [10] markdown_1.1          base64enc_0.1-3       fs_1.4.2             
+#&gt;  [10] markdown_1.1          base64enc_0.1-3       fs_1.5.0             
 #&gt;  [13] rstudioapi_0.11       ggpubr_0.4.0          farver_2.0.3         
-#&gt;  [16] DT_0.14               fansi_0.4.1           xml2_1.3.2           
-#&gt;  [19] codetools_0.2-16      splines_4.0.1         knitr_1.29           
-#&gt;  [22] shinythemes_1.1.2     nloptr_1.2.2.2        broom_0.5.6          
-#&gt;  [25] km.ci_0.5-2           bcaboot_0.2-1         shiny_1.5.0          
-#&gt;  [28] compiler_4.0.1        backports_1.1.8       fastmap_1.0.1        
-#&gt;  [31] assertthat_0.2.1      Matrix_1.2-18         cli_2.0.2            
-#&gt;  [34] later_1.1.0.1         htmltools_0.5.0       prettyunits_1.1.1    
-#&gt;  [37] tools_4.0.1           igraph_1.2.5          gtable_0.3.0         
-#&gt;  [40] glue_1.4.1            reshape2_1.4.4        dplyr_1.0.0          
-#&gt;  [43] carData_3.0-4         cellranger_1.1.0      pkgdown_1.5.1        
-#&gt;  [46] vctrs_0.3.1           nlme_3.1-148          crosstalk_1.1.0.1    
-#&gt;  [49] xfun_0.15             stringr_1.4.0         ps_1.3.3             
-#&gt;  [52] lme4_1.1-23           openxlsx_4.1.5        miniUI_0.1.1.1       
-#&gt;  [55] mime_0.9              lifecycle_0.2.0       gtools_3.8.2         
-#&gt;  [58] statmod_1.4.34        rstatix_0.6.0         MASS_7.3-51.6        
-#&gt;  [61] zoo_1.8-8             colourpicker_1.0      promises_1.1.1       
-#&gt;  [64] hms_0.5.3             ProfileLikelihood_1.1 parallel_4.0.1       
-#&gt;  [67] inline_0.3.15         shinystan_2.5.0       metafor_2.4-0        
-#&gt;  [70] yaml_2.2.1            curl_4.3              memoise_1.1.0        
-#&gt;  [73] gridExtra_2.3         KMsurv_0.1-5          gdtools_0.2.2        
-#&gt;  [76] loo_2.2.0             stringi_1.4.6         dygraphs_1.1.1.6     
-#&gt;  [79] desc_1.2.0            boot_1.3-25           pkgbuild_1.0.8       
-#&gt;  [82] zip_2.0.4             rlang_0.4.6           pkgconfig_2.0.3      
-#&gt;  [85] systemfonts_0.2.3     matrixStats_0.56.0    evaluate_0.14        
-#&gt;  [88] lattice_0.20-41       purrr_0.3.4           rstantools_2.1.1     
-#&gt;  [91] htmlwidgets_1.5.1     labeling_0.3          tidyselect_1.1.0     
-#&gt;  [94] processx_3.4.3        plyr_1.8.6            magrittr_1.5         
-#&gt;  [97] R6_2.4.1              generics_0.0.2        pillar_1.4.4         
-#&gt; [100] haven_2.3.1           foreign_0.8-80        withr_2.2.0          
-#&gt; [103] xts_0.12-0            survival_3.2-3        abind_1.4-5          
-#&gt; [106] tibble_3.0.1          crayon_1.3.4          car_3.0-8            
-#&gt; [109] survMisc_0.5.5        uuid_0.1-4            rmarkdown_2.3        
-#&gt; [112] officer_0.3.12        grid_4.0.1            readxl_1.3.1         
-#&gt; [115] data.table_1.12.8     callr_3.4.3           threejs_0.3.3        
-#&gt; [118] forcats_0.5.0         digest_0.6.25         pbmcapply_1.5.0      
-#&gt; [121] xtable_1.8-4          tidyr_1.1.0           httpuv_1.5.4         
-#&gt; [124] RcppParallel_5.0.2    stats4_4.0.1          munsell_0.5.0        
-#&gt; [127] survminer_0.4.7       shinyjs_1.1</code></pre>
+#&gt;  [16] DT_0.15               fansi_0.4.1           xml2_1.3.2           
+#&gt;  [19] codetools_0.2-16      splines_4.0.2         knitr_1.29           
+#&gt;  [22] shinythemes_1.1.2     jsonlite_1.7.0        nloptr_1.2.2.2       
+#&gt;  [25] broom_0.7.0           km.ci_0.5-2           bcaboot_0.2-1        
+#&gt;  [28] shiny_1.5.0           compiler_4.0.2        backports_1.1.8      
+#&gt;  [31] fastmap_1.0.1         assertthat_0.2.1      Matrix_1.2-18        
+#&gt;  [34] cli_2.0.2             later_1.1.0.1         htmltools_0.5.0      
+#&gt;  [37] prettyunits_1.1.1     tools_4.0.2           igraph_1.2.5         
+#&gt;  [40] gtable_0.3.0          glue_1.4.1            reshape2_1.4.4       
+#&gt;  [43] dplyr_1.0.1           V8_3.2.0              carData_3.0-4        
+#&gt;  [46] cellranger_1.1.0      pkgdown_1.5.1         vctrs_0.3.2          
+#&gt;  [49] nlme_3.1-148          crosstalk_1.1.0.1     xfun_0.16            
+#&gt;  [52] stringr_1.4.0         ps_1.3.3              lme4_1.1-23          
+#&gt;  [55] openxlsx_4.1.5        miniUI_0.1.1.1        mime_0.9             
+#&gt;  [58] lifecycle_0.2.0       gtools_3.8.2          statmod_1.4.34       
+#&gt;  [61] rstatix_0.6.0         MASS_7.3-51.6         zoo_1.8-8            
+#&gt;  [64] colourpicker_1.0      promises_1.1.1        hms_0.5.3            
+#&gt;  [67] ProfileLikelihood_1.1 parallel_4.0.2        inline_0.3.15        
+#&gt;  [70] shinystan_2.5.0       metafor_2.4-0         yaml_2.2.1           
+#&gt;  [73] curl_4.3              memoise_1.1.0         gridExtra_2.3        
+#&gt;  [76] KMsurv_0.1-5          gdtools_0.2.2         loo_2.3.1            
+#&gt;  [79] stringi_1.4.6         dygraphs_1.1.1.6      desc_1.2.0           
+#&gt;  [82] boot_1.3-25           pkgbuild_1.1.0        zip_2.0.4            
+#&gt;  [85] rlang_0.4.7           pkgconfig_2.0.3       systemfonts_0.2.3    
+#&gt;  [88] matrixStats_0.56.0    evaluate_0.14         lattice_0.20-41      
+#&gt;  [91] purrr_0.3.4           htmlwidgets_1.5.1     rstantools_2.1.1     
+#&gt;  [94] labeling_0.3          tidyselect_1.1.0      processx_3.4.3       
+#&gt;  [97] plyr_1.8.6            magrittr_1.5          R6_2.4.1             
+#&gt; [100] generics_0.0.2        pillar_1.4.6          haven_2.3.1          
+#&gt; [103] foreign_0.8-80        withr_2.2.0           xts_0.12-0           
+#&gt; [106] survival_3.2-3        abind_1.4-5           tibble_3.0.3         
+#&gt; [109] crayon_1.3.4          car_3.0-8             survMisc_0.5.5       
+#&gt; [112] uuid_0.1-4            rmarkdown_2.3         officer_0.3.12       
+#&gt; [115] grid_4.0.2            readxl_1.3.1          data.table_1.13.0    
+#&gt; [118] callr_3.4.3           threejs_0.3.3         forcats_0.5.0        
+#&gt; [121] digest_0.6.25         pbmcapply_1.5.0       xtable_1.8-4         
+#&gt; [124] httpuv_1.5.4          tidyr_1.1.1           RcppParallel_5.0.2   
+#&gt; [127] stats4_4.0.2          munsell_0.5.0         survminer_0.4.8      
+#&gt; [130] shinyjs_1.1</code></pre>
 <div id="refs" class="references">
 <div id="ref-Goodrich_Gabry_Ali_Brilleman_2020">
 <p>1. Goodrich B, Gabry J, Ali I, Brilleman S. <em>Rstanarm: Bayesian Applied Regression Modeling via Stan.</em>; 2020. <a href="https://mc-stan.org/rstanarm">https://mc-stan.org/rstanarm</a>.</p>

@@ -18,3 +18,9 @@
 ^\.travis\.yml$
 ^\.circleci$
 ^\.github$
+^Manuscripts$
+^\.here$
+^bayes\.Rmd$
+^variancecomponents\.Rmd$
+^casestudies\.Rmd$
+^wishlist\.Rmd$

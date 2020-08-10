@@ -160,6 +160,12 @@ ggcurve(df[[5]], type = "cd", nullvalue = FALSE)
 
 That concludes our demonstration of the bootstrap method to approximate consonance functions. 
 
+# Session info
+
+```{r session_info, include=TRUE, echo=FALSE}
+sessionInfo()
+```
+
 * * * 
 
 # References

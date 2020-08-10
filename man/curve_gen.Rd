@@ -4,7 +4,8 @@
 \alias{curve_gen}
 \title{Consonance Functions For Linear Models, Generalized Linear Models, and Robust Linear Models}
 \usage{
-curve_gen(model, var, method = "lm", steps = 1000, table = TRUE)
+curve_gen(model, var, method = "lm", steps = 1000,
+  cores = getOption("mc.cores", 1L), table = TRUE)
 }
 \arguments{
 \item{model}{The statistical model of interest
@@ -14,15 +15,18 @@ curve_gen(model, var, method = "lm", steps = 1000, table = TRUE)
 for which the intervals are to be produced.}
 
 \item{method}{Chooses the method to be used to calculate the
-consonance intervals. There are currently threo methods:
-"lm", "rlm", "glm" and "aov". The "lm" method uses the profile
-likelihood method to compute intervals and can be used for models created by
+consonance intervals. There are currently five methods:
+"lm", rms::ols objects can be used with the "lm" option, "rlm", "glm" and "aov", and "gls".
+The "lm" method uses the profile likelihood method to compute intervals and can be used for models created by
 the 'lm' function. It is typically what most people are
 familiar with when computing intervals based on the calculated standard error.
+The ols function from the rms package can also be used for this option.
 The "rlm" method is designed for usage with the "rlm" function from the MASS
 package.
 The "glm" method allows this function to be used for specific scenarios like
-logistic regression and the 'glm' function.}
+logistic regression and the 'glm' function. Similarly, the Glm function from the
+rms package can also be used for this option. The gls method allows objects from gls()
+or from Gls() from the rms package.}
 
 \item{steps}{Indicates how many consonance intervals are to be calculated at
 various levels. For example, setting this to 100 will produce 100 consonance
@@ -30,6 +34,9 @@ intervals from 0 to 100. Setting this to 10000 will produce more consonance
 levels. By default, it is set to 1000. Increasing the number substantially
 is not recommended as it will take longer to produce all the intervals and
 store them into a dataframe.}
+
+\item{cores}{Select the number of cores to use in  order to compute the intervals
+The default is 1 core.}
 
 \item{table}{Indicates whether or not a table output with some relevant
 statistics should be generated. The default is TRUE and generates a table
@@ -43,7 +50,7 @@ and the table for the values in the third if table = TRUE.
 \description{
 Computes thousands of consonance (confidence) intervals for
 the chosen parameter in the selected model
-(ANOVA, ANCOVA, regression, logistic regression) and places
+(linear models, general linear models, robust linear models, and generalized least squares and places
 the interval limits for each interval level into a data frame along
 with the corresponding p-values and s-values.
 }
