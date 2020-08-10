@@ -267,7 +267,7 @@
 ), <span class="kw">memory</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
 <span class="co">#&gt; Warning: Some expressions had a GC in every iteration; so filtering is disabled.</span></pre></body></html></div>
 <p>I’ll now enable parallelization by setting the <code>mc.cores</code> option to detect the max number of cores available using <code><a href="https://rdrr.io/r/parallel/detectCores.html">detectCores()</a></code>. The <code>mc.cores</code> option is the argument that almost all the curve functions in the <code>concurve</code> package use for parallel computing.</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="kw">mc.cores</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/parallel/detectCores.html">detectCores</a></span>())
+<div class="sourceCode" id="cb9"><html><body><pre class="r">
 <span class="fu"><a href="https://rdrr.io/r/base/options.html">getOption</a></span>(<span class="st">"mc.cores"</span>, <span class="fl">1L</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">1031</span>)
 <span class="no">func3</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/bench/man/mark.html">mark</a></span>(<span class="no">df1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/curve_rev.html">curve_rev</a></span>(
@@ -281,11 +281,11 @@
 ), <span class="kw">memory</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
 <span class="co">#&gt; Warning: Some expressions had a GC in every iteration; so filtering is disabled.</span></pre></body></html></div>
 <div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">func1</span>$<span class="no">median</span>
-<span class="co">#&gt; [1] 2.67ms</span>
+<span class="co">#&gt; [1] 2.75ms</span>
 <span class="no">func2</span>$<span class="no">median</span>
-<span class="co">#&gt; [1] 2.52s</span>
+<span class="co">#&gt; [1] 2.08s</span>
 <span class="no">func3</span>$<span class="no">median</span>
-<span class="co">#&gt; [1] 62.8ms</span>
+<span class="co">#&gt; [1] 2.73ms</span>
 <span class="no">func4</span>$<span class="no">median</span>
 <span class="co">#&gt; [1] 2.01s</span></pre></body></html></div>
 <p>When setting the number of iterations to 100, utilizing parallelization doesn’t seem to help much, but when setting the number of iterations to 500000 and using multiple cores, there seems to be a computational advantage.</p>

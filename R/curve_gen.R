@@ -4,7 +4,7 @@
 #' the chosen parameter in the selected model
 #' (linear models, general linear models, robust linear models, and generalized least squares and places
 #' the interval limits for each interval level into a data frame along
-#' with the corresponding p-values and s-values.
+#' with the corresponding p-values and s-values. Can also adjust for multiple comparisons.
 #'
 #' @param model The statistical model of interest
 #' (ANOVA, regression, logistic regression) is to be indicated here.
@@ -23,12 +23,17 @@
 #' logistic regression and the 'glm' function. Similarly, the Glm function from the
 #' rms package can also be used for this option. The gls method allows objects from gls()
 #' or from Gls() from the rms package.
+#' @param penalty An input to specify whether the confidence intervals should be corrected
+#' for multiple comparisons. The default is NULL, so there is no correction. Other options include
+#' "bonferroni" and "sidak".
+#' @param m Indicates how many comparisons are being done and the number that should be used to
+#' correct for multiple comparisons. The default is NULL. 
 #' @param steps Indicates how many consonance intervals are to be calculated at
 #' various levels. For example, setting this to 100 will produce 100 consonance
 #' intervals from 0 to 100. Setting this to 10000 will produce more consonance
 #' levels. By default, it is set to 1000. Increasing the number substantially
 #' is not recommended as it will take longer to produce all the intervals and
-#' store them into a dataframe.
+#' store them into a data frame.
 #' @param cores Select the number of cores to use in  order to compute the intervals
 #'  The default is 1 core.
 #' @param table Indicates whether or not a table output with some relevant
@@ -50,7 +55,8 @@
 #' bob <- curve_gen(rob, "GroupB")
 #' }
 #'
-curve_gen <- function(model, var, method = "lm", steps = 1000, cores = getOption("mc.cores", 1L), table = TRUE) {
+curve_gen <- function(model, var, method = "lm", penalty = NULL, m = NULL, 
+                      steps = 1000, cores = getOption("mc.cores", 1L), table = TRUE) {
   if (is.character(method) != TRUE) {
     stop("Error: 'method' must be a character vector")
   }
@@ -59,6 +65,10 @@ curve_gen <- function(model, var, method = "lm", steps = 1000, cores = getOption
   }
 
   intrvls <- (1:(steps - 1)) / steps
+
+# No adjustment for multiple comparisons ----------------------------------
+  
+  if (is.null(penalty) & is.null(m)) {
 
   if (method == "lm") {
     results <- pbmclapply(intrvls, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = cores)
@@ -70,6 +80,43 @@ curve_gen <- function(model, var, method = "lm", steps = 1000, cores = getOption
     results <- pbmclapply(intrvls, FUN = function(i) confint(object = model, level = i)[var, ], mc.cores = cores)
   } else if (method == "gls") {
     results <- pbmclapply(intrvls, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = cores)
+  }
+    
+# Bonferroni adjustment for multiple comparisons --------------------------
+    
+  } else if (penalty == "bonferroni" & m > 1) {
+    
+    bon.adj <- (1 - ((1 - intrvls) / m))
+    
+    if (method == "lm") {
+      results <- pbmclapply(bon.adj, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = cores)
+    } else if (method == "rlm") {
+      results <- pbmclapply(bon.adj, FUN = function(i) confint(object = model, level = i)[var, ], mc.cores = cores)
+    } else if (method == "glm") {
+      results <- pbmclapply(bon.adj, FUN = function(i) confint(object = model, level = i, trace = FALSE)[var, ], mc.cores = cores)
+    } else if (method == "aov") {
+      results <- pbmclapply(bon.adj, FUN = function(i) confint(object = model, level = i)[var, ], mc.cores = cores)
+    } else if (method == "gls") {
+      results <- pbmclapply(bon.adj, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = cores)
+    }
+    
+# Sidak adjustment for multiple comparisons -------------------------------
+
+  } else if (penalty == "sidak" & m > 1) {
+    
+    sidak.adj <- (((intrvls)^(1 / m)))
+    
+    if (method == "lm") {
+      results <- pbmclapply(sidak.adj, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = cores)
+    } else if (method == "rlm") {
+      results <- pbmclapply(sidak.adj, FUN = function(i) confint(object = model, level = i)[var, ], mc.cores = cores)
+    } else if (method == "glm") {
+      results <- pbmclapply(sidak.adj, FUN = function(i) confint(object = model, level = i, trace = FALSE)[var, ], mc.cores = cores)
+    } else if (method == "aov") {
+      results <- pbmclapply(sidak.adj, FUN = function(i) confint(object = model, level = i)[var, ], mc.cores = cores)
+    } else if (method == "gls") {
+      results <- pbmclapply(sidak.adj, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = cores)
+    }
   }
 
   df <- data.frame(do.call(rbind, results))

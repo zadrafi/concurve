@@ -4,8 +4,8 @@
 \alias{curve_gen}
 \title{Consonance Functions For Linear Models, Generalized Linear Models, and Robust Linear Models}
 \usage{
-curve_gen(model, var, method = "lm", steps = 1000,
-  cores = getOption("mc.cores", 1L), table = TRUE)
+curve_gen(model, var, method = "lm", penalty = NULL, m = NULL,
+  steps = 1000, cores = getOption("mc.cores", 1L), table = TRUE)
 }
 \arguments{
 \item{model}{The statistical model of interest
@@ -28,12 +28,19 @@ logistic regression and the 'glm' function. Similarly, the Glm function from the
 rms package can also be used for this option. The gls method allows objects from gls()
 or from Gls() from the rms package.}
 
+\item{penalty}{An input to specify whether the confidence intervals should be corrected
+for multiple comparisons. The default is NULL, so there is no correction. Other options include
+"bonferroni" and "sidak".}
+
+\item{m}{Indicates how many comparisons are being done and the number that should be used to
+correct for multiple comparisons. The default is NULL.}
+
 \item{steps}{Indicates how many consonance intervals are to be calculated at
 various levels. For example, setting this to 100 will produce 100 consonance
 intervals from 0 to 100. Setting this to 10000 will produce more consonance
 levels. By default, it is set to 1000. Increasing the number substantially
 is not recommended as it will take longer to produce all the intervals and
-store them into a dataframe.}
+store them into a data frame.}
 
 \item{cores}{Select the number of cores to use in  order to compute the intervals
 The default is 1 core.}
@@ -52,7 +59,7 @@ Computes thousands of consonance (confidence) intervals for
 the chosen parameter in the selected model
 (linear models, general linear models, robust linear models, and generalized least squares and places
 the interval limits for each interval level into a data frame along
-with the corresponding p-values and s-values.
+with the corresponding p-values and s-values. Can also adjust for multiple comparisons.
 }
 \examples{
 
