@@ -572,7 +572,7 @@
     }
   ],
   "keywords": ["confidence", "compatibility", "consonance", "curve", "informationstatistics", "surprisals", "interval", "function", "distribution", "fiducial", "confidence-intervals", "compatibility-intervals", "stata", "confidence-distribution", "likelihood-functions", "bootstrap-method", "r", "frequentist-methods", "fiducial-distribution", "density-function", "cumulative-distribution-function", "surprisal-function", "deviance-function"],
-  "fileSize": "103068.971KB",
+  "fileSize": "107648.575KB",
   "contIntegration": "https://travis-ci.com/zadrafi/concurve",
   "readme": "https://github.com/zadrafi/concurve/blob/master/README.md",
   "contributor": [
