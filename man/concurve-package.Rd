@@ -3,7 +3,8 @@
 \docType{package}
 \name{concurve-package}
 \alias{concurve-package}
-\title{Consonance, Surprisal, & Likelihood Functions}
+\alias{concurve}
+\title{A description of the concurve R package}
 \description{
 Allows one to compute compatibility (confidence)
 intervals for various statistical tests along with their corresponding
@@ -11,21 +12,84 @@ P-values, S-values, and likelihoods. The intervals can be plotted to
 create consonance, surprisal, and likelihood functions allowing one to
 see what effect sizes are compatible with the test model at various
 compatibility levels rather than being limited to one interval estimate
-such as 95\\%.
+such as 95\%.
+\tabular{ll}{ Package: \tab concurve\cr
+Logo: \tab \figure{logo.png}{options: width="50px"}\cr
+Type: \tab Package\cr Version: \tab
+2.7.5\cr Date: \tab 2020-08-09\cr License: \tab GLP-3}
 }
 \details{
-\tabular{ll}{ Package: \tab concurve\cr Type: \tab Package\cr Version: \tab
-2.7.0\cr Date: \tab 2020-08-09\cr License: \tab GLP-3}
-Very simple to use. Accepts most modeling functions that produce confidence intervals.
+Accepts most modeling functions that produce confidence intervals to construct distributions.
+Instructions are also provided on how to construct similar graphs for \href{https://data.lesslikely.com/concurve/articles/stata.html}{Stata}.
+\subsection{See the following articles:}{
+\itemize{
+\item \strong{\href{https://data.lesslikely.com/concurve/articles/bayes.html}{Comparison to Bayesian Posterior Distributions}}
+\item \strong{\href{https://data.lesslikely.com/concurve/articles/bootstrap.html}{The Bootstrap and Consonance Functions}}
+\item \strong{\href{https://data.lesslikely.com/concurve/articles/literature.html}{Background Literature}}
+\item \strong{\href{https://data.lesslikely.com/concurve/articles/customizing.html}{Customizing Plots}}
+\item \strong{\href{https://data.lesslikely.com/concurve/articles/examples.html}{Examples in R}}
+\item \strong{\href{https://data.lesslikely.com/concurve/articles/likelihood.html}{Profile Likelihoods}}
+\item \strong{\href{https://data.lesslikely.com/concurve/articles/meta-analysis.html}{Meta-Analysis Examples}}
+\item \strong{\href{https://data.lesslikely.com/concurve/articles/stata.html}{Using Stata}}
+\item \strong{\href{https://data.lesslikely.com/concurve/articles/survival.html}{Survival Modeling}}
+\item \strong{\href{https://data.lesslikely.com/concurve/articles/svalues.html}{S-values}}
+\item \strong{\href{https://data.lesslikely.com/concurve/articles/tables.html}{Generating Tables}}
+\item \strong{\href{https://data.lesslikely.com/concurve/articles/troubleshooting.html}{Troubleshooting}}
+\item \strong{\href{https://data.lesslikely.com/concurve/articles/variancecomponents.html}{Consonance Functions for Linear Mixed-Effects Models}}
+\item \strong{\href{https://data.lesslikely.com/concurve/articles/wishlist.html}{Wish List}}
+}
+}
 }
 \references{
 Rafi, Z., and Greenland, S. (2020),
 “Semantic and Cognitive Tools to Aid Statistical Science:
-Replace Confidence and Significance by Compatibility and Surprise,
-” arXiv:1909.08579. stat.ME.
+Replace Confidence and Significance by Compatibility and Surprise"
+BMC Medical Research Methodology
 \url{https://arxiv.org/abs/1909.08579}
+
+Fraser DAS. The P-value function and statistical inference. The American Statistician. 2019;73(sup1):135-147. doi:10.1080/00031305.2018.1556735
+\url{https://doi.org/10.1080/00031305.2018.1556735}
+
+Fraser DAS. P-Values: The Insight to Modern Statistical Inference. Annual Review of Statistics and Its Application. 2017;4(1):1-14.
+\url{https://doi.org/10.1146/annurev-statistics-060116-054139}
+
+Poole C. Beyond the confidence interval. American Journal of Public Health. 1987;77(2):195-199. doi:10.2105/AJPH.77.2.195
+\url{https://doi.org/10.1002/jrsm.1410}
+
+Poole C. Confidence intervals exclude nothing. American Journal of Public Health. 1987;77(4):492-493. doi:10.2105/ajph.77.4.492
+\url{https://doi.org/10.2105/ajph.77.4.492}
+
+Schweder T, Hjort NL. Confidence and Likelihood*. Scandinavian Journal of Statistics. 2002;29(2):309-332. doi:10.1111/1467-9469.00285
+\url{https://doi.org/10.1111/1467-9469.00285}
+
+Schweder T, Hjort NL. Confidence, Likelihood, Probability: Statistical Inference with Confidence Distributions. Cambridge University Press; 2016.
+\url{https://books.google.com/books/about/Confidence_Likelihood_Probability.html?id=t7KzCwAAQBAJ}
+
+Singh K, Xie M, Strawderman WE. Confidence distribution (CD) – distribution estimator of a parameter. arXiv. August 2007.
+\url{http://arxiv.org/abs/0708.0976}
+
+Sullivan KM, Foster DA. Use of the confidence interval function. Epidemiology. 1990;1(1):39-42. doi:10.1097/00001648-199001000-00009
+\url{https://doi.org/10.1097/00001648-199001000-00009}
+
+Whitehead J. The case for frequentism in clinical trials. Statistics in Medicine. 1993;12(15-16):1405-1413. doi:10.1002/sim.4780121506
+\url{https://doi.org/10.1002/sim.4780121506}
+
+Xie M-g, Singh K. Confidence Distribution, the Frequentist Distribution Estimator of a Parameter: A Review. International Statistical Review. 2013;81(1):3-39. doi:10.1111/insr.12000
+\url{https://doi.org/10.1111/insr.12000}
+
+Rothman KJ, Greenland S, Lash TL. Precision and statistics in epidemiologic studies. In: Rothman KJ, Greenland S, Lash TL, eds. Modern Epidemiology. 3rd ed. Lippincott Williams & Wilkins; 2008:148-167.
+
+Rücker G, Schwarzer G. Beyond the forest plot: The drapery plot. Research Synthesis Methods. April 2020. doi:10.1002/jrsm.1410
+\url{https://doi.org/10.1002/jrsm.1410}
+
+Cox DR. Discussion. International Statistical Review. 2013;81(1):40-41. doi:10/gg9s2f
+\url{https://onlinelibrary.wiley.com/doi/abs/10.1111/insr.12007}
+}
+\seealso{
+\code{\link{curve_gen}},
+\code{\link{ggcurve}},
+\code{\link{curve_table}}
 }
 \author{
-Zad Rafi, Andrew D. Vigotsky, and Aaron Caldwell \cr Maintainer:
-Zad Rafi: \href{mailto:zad@lesslikely.com}{zad@lesslikely.com}
+Zad Rafi, Andrew D. Vigotsky, and Aaron Caldwell
 }

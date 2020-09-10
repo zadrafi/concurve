@@ -1,10 +1,9 @@
 Type: Package
 Package: concurve
-Title: Computes and Plots Compatibility (Confidence) Intervals,
-    P-Values, S-Values, & Likelihood Intervals to Form Consonance,
-    Surprisal, & Likelihood Functions
-Version: 2.7.0
-Date: 2020-08-10
+Title: Computes & Plots Compatibility (Confidence),
+       Surprisal, & Likelihood Distributions
+Version: 2.7.5
+Date: 2020-09-06
 Authors@R: 
     c(person(given = "Zad",
              family = "Rafi",
@@ -17,49 +16,39 @@ Authors@R:
              email = "avigotsky@gmail.com",
              comment = c(ORCID = "0000-0003-3166-0688")),
       person(given = "Aaron",
-		         family ="Caldwell",
-		         role = "ctb",
-		         email = "arcaldwell49@gmail.com",
-		         comment = c(ORCID = "0000-0002-4541-6283")))
+             family = "Caldwell",
+             role = "ctb",
+             email = "arcaldwell49@gmail.com",
+             comment = c(ORCID = "0000-0002-4541-6283")))
 Maintainer: Zad Rafi <zad@lesslikely.com>
-Description: Allows one to compute compatibility (confidence)
-    intervals for various statistical tests along with their corresponding
-    P-values, S-values, and likelihoods. The intervals can be plotted to
-    create consonance, surprisal, and likelihood functions allowing one to
-    see what effect sizes are compatible with the test model at various
-    compatibility levels rather than being limited to one interval estimate
-    such as 95\%. Functions can also be compared to one another to see how much
-    they overlap with one another and differ. Results can also be exported for 
-    Word, Powerpoint, and TeX documents. The package currently supports bootstrapping,
-    linear models, generalized linear models, linear mixed-effects models, 
-    survival analysis, and meta-analysis. These methods are discussed by 
-    Poole C. (1987) <doi:10.2105/AJPH.77.2.195>, Schweder T, Hjort NL. (2002)
-    <doi:10.1111/1467-9469.00285>, Singh K, Xie M, Strawderman WE. (2007)
-    <arXiv:0708.0976>, Rothman KJ, Greenland S, Lash TL. (2008,
-    ISBN:9781451190052), Greenland S. (2019)
-    <doi:10.1080/00031305.2018.1529625>, Rafi Z, Greenland S. (2020)
-    <arXiv:1909.08579>.
+Description: Computes compatibility (confidence) distributions along with their corresponding P-values,
+    S-values, and likelihoods. The intervals can be plotted to form the distributions themselves.  
+    Functions can be compared to one another to see how much they overlap. Results can be
+    exported to Microsoft Word, Powerpoint, and TeX documents. The
+    package currently supports resampling methods, computing differences,
+    generalized linear models, mixed-effects models, survival analysis,
+    and meta-analysis. 
 License: GPL-3 | file LICENSE
 URL: https://data.lesslikely.com/concurve/,
-     https://github.com/zadrafi/concurve, 
-     https://lesslikely.com/
+     https://github.com/zadrafi/concurve
 BugReports: https://github.com/zadrafi/concurve/issues
+Depends: R (>= 4.0.0)
 Imports: MASS, methods, bcaboot, boot, lme4, dplyr, flextable, ggplot2,
          knitr, metafor, officer, parallel, pbmcapply, ProfileLikelihood,
          scales, colorspace, survival, survminer, tibble, tidyr
 Suggests: covr, roxygen2, spelling, testthat, rmarkdown, Lock5Data,
           carData, bench, rms, brms, rstan, rstanarm, bayesplot,
           vdiffr, ggtext, daewr, svglite, data.table, nlme,
-          simstudy, patchwork, cowplot
+          simstudy, patchwork, cowplot, Statamarkdown, reprex
 VignetteBuilder: 
     knitr
+Remotes: url::https://github.com/hemken/Statamarkdown/archive/master.zip
 ByteCompile: true
 Encoding: UTF-8
 Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE, old_usage = TRUE)
 RoxygenNote: 7.1.1
-X-schema.org-keywords: confidence, compatibility, consonance,
-    surprisal, interval, function, curve
-Depends: 
-    R (>= 4.0.0)
+X-schema.org-keywords: confidence, compatibility, consonance,  curve,
+    information statistics, surprisals, interval, function, distribution, fiducial
+   

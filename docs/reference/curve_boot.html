@@ -61,7 +61,7 @@
 <meta property="og:title" content="Generate Consonance Functions via Bootstrapping — curve_boot" />
 <meta property="og:description" content="Use the Bca bootstrap method and the t-boostrap method from the bcaboot and boot packages
 to generate consonance distrbutions." />
-<meta property="og:image" content="https://data.lesslikely.com/concurve/reference/figures/logo.svg,concurve R package hex logo" />
+<meta property="og:image" content="https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/reference/figures/logo.svg,concurve R package hex-logo" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -104,7 +104,7 @@ to generate consonance distrbutions." />
       </button>
       <span class="navbar-brand"><img src="https://data.lesslikely.com/concurve/reference/figures/logo.svg" id ="package-logo" align="left" width="35">
         <a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.5</span>
       </span>
     </div>
 
@@ -162,19 +162,10 @@ to generate consonance distrbutions." />
   </ul>
 </li>
 <li>
-  <a href="../articles/casestudies.html">Case Studies</a>
+  <a href="../articles/literature.html">Literature</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Tools
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/svalues.html">S-value Calculator</a>
-    </li>
-  </ul>
+<li>
+  <a href="../articles/svalues.html">S-values</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -184,10 +175,13 @@ to generate consonance distrbutions." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../news/index.html">Updates</a>
+      <a href="../news/index.html">Package Updates</a>
     </li>
     <li>
-      <a href="../articles/wishlist.html">Wish List</a>
+      <a href="../security.html">Supported Versions</a>
+    </li>
+    <li>
+      <a href="../articles/wishlist.html">Feature Wish List</a>
     </li>
   </ul>
 </li>
@@ -235,9 +229,9 @@ to generate consonance distrbutions." />
 to generate consonance distrbutions.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>curve_boot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>data</span>, <span class='kw'>func</span> <span class='kw'>=</span> <span class='no'>func</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"bca"</span>, <span class='no'>t0</span>, <span class='no'>tt</span>, <span class='no'>bb</span>,
-  <span class='kw'>replicates</span> <span class='kw'>=</span> <span class='fl'>2000</span>, <span class='kw'>steps</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>cores</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"mc.cores"</span>, <span class='fl'>1L</span>),
-  <span class='kw'>table</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>curve_boot</span>(data = <span class='kw'>data</span>, func = <span class='kw'>func</span>, method = <span class='st'>"bca"</span>, <span class='kw'>t0</span>, <span class='kw'>tt</span>, <span class='kw'>bb</span>,
+  replicates = <span class='fl'>2000</span>, steps = <span class='fl'>1000</span>, cores = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"mc.cores"</span>, <span class='fl'>1L</span>),
+  table = <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -320,11 +314,11 @@ the fifth object, while the Bca stats are in the sixth and seventh objects.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://lesslikely.com/'>Zad Rafi</a>, <a href='https://www.researchgate.net/profile/Andrew_Vigotsky'>Andrew D. Vigotsky</a>.</p>
+  <p>Developed by <a href='https://twitter.com/dailyzad'>Zad Rafi</a>, <a href='https://www.researchgate.net/profile/Andrew_Vigotsky'>Andrew D. Vigotsky</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

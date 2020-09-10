@@ -5,8 +5,8 @@
   ],
   "@type": "SoftwareSourceCode",
   "identifier": "concurve",
-  "description": "Allows one to compute compatibility (confidence)\n    intervals for various statistical tests along with their corresponding\n    P-values, S-values, and likelihoods. The intervals can be plotted to\n    create consonance, surprisal, and likelihood functions allowing one to\n    see what effect sizes are compatible with the test model at various\n    compatibility levels rather than being limited to one interval estimate\n    such as 95\\%. Functions can also be compared to one another to see how much\n    they overlap with one another and differ. Results can also be exported for \n    Word, Powerpoint, and TeX documents. The package currently supports bootstrapping,\n    linear models, generalized linear models, linear mixed-effects models, \n    survival analysis, and meta-analysis. These methods are discussed by \n    Poole C. (1987) <doi:10.2105/AJPH.77.2.195>, Schweder T, Hjort NL. (2002)\n    <doi:10.1111/1467-9469.00285>, Singh K, Xie M, Strawderman WE. (2007)\n    <arXiv:0708.0976>, Rothman KJ, Greenland S, Lash TL. (2008,\n    ISBN:9781451190052), Greenland S. (2019)\n    <doi:10.1080/00031305.2018.1529625>, Rafi Z, Greenland S. (2020)\n    <arXiv:1909.08579>.",
-  "name": "concurve: Computes and Plots Compatibility (Confidence) Intervals,\n    P-Values, S-Values, & Likelihood Intervals to Form Consonance,\n    Surprisal, & Likelihood Functions",
+  "description": "Computes compatibility (confidence) distributions along with their corresponding P-values,\n    S-values, and likelihoods. The intervals can be plotted to form the distributions themselves.  \n    Functions can be compared to one another to see how much they overlap. Results can be\n    exported to Microsoft Word, Powerpoint, and TeX documents. The\n    package currently supports resampling methods, computing differences,\n    generalized linear models, mixed-effects models, survival analysis,\n    and meta-analysis. ",
+  "name": "concurve: Computes & Plots Compatibility (Confidence),\n       Surprisal, & Likelihood Distributions",
   "date": "2019-12-09",
   "codeRepository": "https://github.com/zadrafi/concurve",
   "relatedLink": [
@@ -16,7 +16,7 @@
   ],
   "issueTracker": "https://github.com/zadrafi/concurve/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "2.7.0",
+  "version": "2.7.5",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -318,9 +318,32 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=cowplot"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "Statamarkdown",
+      "name": "Statamarkdown"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "reprex",
+      "name": "reprex",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=reprex"
     }
   ],
   "softwareRequirements": [
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "R",
+      "name": "R",
+      "version": ">= 4.0.0"
+    },
     {
       "@type": "SoftwareApplication",
       "identifier": "MASS",
@@ -546,16 +569,10 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=tidyr"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "R",
-      "name": "R",
-      "version": ">= 4.0.0"
     }
   ],
-  "keywords": ["confidence", "compatibility", "consonance", "surprisal", "interval", "function", "curve", "confidence-intervals", "compatibility-intervals", "stata", "confidence-distribution", "likelihood-functions", "bootstrap-method", "r", "frequentist-methods", "fiducial-distribution", "density-function", "cumulative-distribution-function", "surprisal-function", "deviance-function"],
-  "fileSize": "1654883.255KB",
+  "keywords": ["confidence", "compatibility", "consonance", "curve", "informationstatistics", "surprisals", "interval", "function", "distribution", "fiducial", "confidence-intervals", "compatibility-intervals", "stata", "confidence-distribution", "likelihood-functions", "bootstrap-method", "r", "frequentist-methods", "fiducial-distribution", "density-function", "cumulative-distribution-function", "surprisal-function", "deviance-function"],
+  "fileSize": "103068.971KB",
   "contIntegration": "https://travis-ci.com/zadrafi/concurve",
   "readme": "https://github.com/zadrafi/concurve/blob/master/README.md",
   "contributor": [
@@ -587,7 +604,33 @@
       ],
       "name": "{concurve}: Computes and Plots Compatibility (Confidence) Intervals, P-Values, S-Values, & Likelihood Intervals to Form Consonance, Surprisal, & Likelihood Functions",
       "url": "https://CRAN.R-project.org/package=concurve"
+    },
+    {
+      "@type": "SoftwareSourceCode",
+      "datePublished": "2020",
+      "author": [
+        {
+          "@type": "Person",
+          "givenName": "Zad",
+          "familyName": "Rafi"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Sander",
+          "familyName": "Greenland"
+        }
+      ],
+      "name": "Semantic and Cognitive Tools to Aid Statistical Science: Replace Confidence and Significance by Compatibility and Surprise",
+      "url": "https://doi.org/10.1186/s12874-020-01105-9",
+      "isPartOf": {
+        "@type": "PublicationIssue",
+        "datePublished": "2020",
+        "isPartOf": {
+          "@type": ["PublicationVolume", "Periodical"],
+          "name": "BMC Medical Research Methodology"
+        }
+      }
     }
   ],
-  "developmentStatus": "https://www.tidyverse.org/lifecycle/#stable"
+  "developmentStatus": "https://www.tidyverse.org/lifecycle/#maturing"
 }

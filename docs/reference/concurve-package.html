@@ -58,15 +58,24 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Consonance, Surprisal, &amp; Likelihood Functions — concurve-package" />
+<meta property="og:title" content="A description of the concurve R package — concurve-package" />
 <meta property="og:description" content="Allows one to compute compatibility (confidence)
 intervals for various statistical tests along with their corresponding
 P-values, S-values, and likelihoods. The intervals can be plotted to
 create consonance, surprisal, and likelihood functions allowing one to
 see what effect sizes are compatible with the test model at various
 compatibility levels rather than being limited to one interval estimate
-such as 95\" />
-<meta property="og:image" content="https://data.lesslikely.com/concurve/reference/figures/logo.svg,concurve R package hex logo" />
+such as 95%.
+Package:concurve
+Logo:
+Type:Package
+Version:2.7.5
+Date:2020-08-09
+License:GLP-3
+
+
+" />
+<meta property="og:image" content="https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/reference/figures/logo.svg,concurve R package hex-logo" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -109,7 +118,7 @@ such as 95\" />
       </button>
       <span class="navbar-brand"><img src="https://data.lesslikely.com/concurve/reference/figures/logo.svg" id ="package-logo" align="left" width="35">
         <a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.5</span>
       </span>
     </div>
 
@@ -167,19 +176,10 @@ such as 95\" />
   </ul>
 </li>
 <li>
-  <a href="../articles/casestudies.html">Case Studies</a>
+  <a href="../articles/literature.html">Literature</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Tools
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/svalues.html">S-value Calculator</a>
-    </li>
-  </ul>
+<li>
+  <a href="../articles/svalues.html">S-values</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -189,10 +189,13 @@ such as 95\" />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../news/index.html">Updates</a>
+      <a href="../news/index.html">Package Updates</a>
     </li>
     <li>
-      <a href="../articles/wishlist.html">Wish List</a>
+      <a href="../security.html">Supported Versions</a>
+    </li>
+    <li>
+      <a href="../articles/wishlist.html">Feature Wish List</a>
     </li>
   </ul>
 </li>
@@ -230,7 +233,7 @@ such as 95\" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Consonance, Surprisal, &amp; Likelihood Functions</h1>
+    <h1>A description of the concurve R package</h1>
     <small class="dont-index">Source: <a href='https://github.com/zadrafi/concurve/blob/master/R/concurve-package.R'><code>R/concurve-package.R</code></a></small>
     <div class="hidden name"><code>concurve-package.Rd</code></div>
     </div>
@@ -242,29 +245,83 @@ P-values, S-values, and likelihoods. The intervals can be plotted to
 create consonance, surprisal, and likelihood functions allowing one to
 see what effect sizes are compatible with the test model at various
 compatibility levels rather than being limited to one interval estimate
-such as 95\<!-- %. --></p>
+such as 95%.</p><table class='table'>
+<tr><td>Package:</td><td>concurve</td></tr>
+<tr><td>Logo:</td><td><img src='figures/logo.png' width="50px" /></td></tr>
+<tr><td>Type:</td><td>Package</td></tr>
+<tr><td>Version:</td><td>2.7.5</td></tr>
+<tr><td>Date:</td><td>2020-08-09</td></tr>
+<tr><td>License:</td><td>GLP-3</td></tr>
+</table>
+
+
     </div>
 
 
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    
-<table class='table'>
-<tr><td>Package:</td><td>concurve</td></tr>
-<tr><td>Type:</td><td>Package</td></tr>
-<tr><td>Version:</td><td>2.7.0</td></tr>
-<tr><td>Date:</td><td>2020-08-09</td></tr>
-<tr><td>License:</td><td>GLP-3</td></tr>
-</table>
-<p>Very simple to use. Accepts most modeling functions that produce confidence intervals.</p>
+    <p>Accepts most modeling functions that produce confidence intervals to construct distributions.
+Instructions are also provided on how to construct similar graphs for <a href='https://data.lesslikely.com/concurve/articles/stata.html'>Stata</a>.</p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>See the following articles:</h3>
+
+<ul>
+<li><p><strong><a href='https://data.lesslikely.com/concurve/articles/bayes.html'>Comparison to Bayesian Posterior Distributions</a></strong></p></li>
+<li><p><strong><a href='https://data.lesslikely.com/concurve/articles/bootstrap.html'>The Bootstrap and Consonance Functions</a></strong></p></li>
+<li><p><strong><a href='https://data.lesslikely.com/concurve/articles/literature.html'>Background Literature</a></strong></p></li>
+<li><p><strong><a href='https://data.lesslikely.com/concurve/articles/customizing.html'>Customizing Plots</a></strong></p></li>
+<li><p><strong><a href='https://data.lesslikely.com/concurve/articles/examples.html'>Examples in R</a></strong></p></li>
+<li><p><strong><a href='https://data.lesslikely.com/concurve/articles/likelihood.html'>Profile Likelihoods</a></strong></p></li>
+<li><p><strong><a href='https://data.lesslikely.com/concurve/articles/meta-analysis.html'>Meta-Analysis Examples</a></strong></p></li>
+<li><p><strong><a href='https://data.lesslikely.com/concurve/articles/stata.html'>Using Stata</a></strong></p></li>
+<li><p><strong><a href='https://data.lesslikely.com/concurve/articles/survival.html'>Survival Modeling</a></strong></p></li>
+<li><p><strong><a href='https://data.lesslikely.com/concurve/articles/svalues.html'>S-values</a></strong></p></li>
+<li><p><strong><a href='https://data.lesslikely.com/concurve/articles/tables.html'>Generating Tables</a></strong></p></li>
+<li><p><strong><a href='https://data.lesslikely.com/concurve/articles/troubleshooting.html'>Troubleshooting</a></strong></p></li>
+<li><p><strong><a href='https://data.lesslikely.com/concurve/articles/variancecomponents.html'>Consonance Functions for Linear Mixed-Effects Models</a></strong></p></li>
+<li><p><strong><a href='https://data.lesslikely.com/concurve/articles/wishlist.html'>Wish List</a></strong></p></li>
+</ul>
+
+
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Rafi, Z., and Greenland, S. (2020),
 “Semantic and Cognitive Tools to Aid Statistical Science:
-Replace Confidence and Significance by Compatibility and Surprise,
-” arXiv:1909.08579. stat.ME.
+Replace Confidence and Significance by Compatibility and Surprise"
+BMC Medical Research Methodology
 <a href='https://arxiv.org/abs/1909.08579'>https://arxiv.org/abs/1909.08579</a></p>
+<p>Fraser DAS. The P-value function and statistical inference. The American Statistician. 2019;73(sup1):135-147. doi:10.1080/00031305.2018.1556735
+<a href='https://doi.org/10.1080/00031305.2018.1556735'>https://doi.org/10.1080/00031305.2018.1556735</a></p>
+<p>Fraser DAS. P-Values: The Insight to Modern Statistical Inference. Annual Review of Statistics and Its Application. 2017;4(1):1-14.
+<a href='https://doi.org/10.1146/annurev-statistics-060116-054139'>https://doi.org/10.1146/annurev-statistics-060116-054139</a></p>
+<p>Poole C. Beyond the confidence interval. American Journal of Public Health. 1987;77(2):195-199. doi:10.2105/AJPH.77.2.195
+<a href='https://doi.org/10.1002/jrsm.1410'>https://doi.org/10.1002/jrsm.1410</a></p>
+<p>Poole C. Confidence intervals exclude nothing. American Journal of Public Health. 1987;77(4):492-493. doi:10.2105/ajph.77.4.492
+<a href='https://doi.org/10.2105/ajph.77.4.492'>https://doi.org/10.2105/ajph.77.4.492</a></p>
+<p>Schweder T, Hjort NL. Confidence and Likelihood*. Scandinavian Journal of Statistics. 2002;29(2):309-332. doi:10.1111/1467-9469.00285
+<a href='https://doi.org/10.1111/1467-9469.00285'>https://doi.org/10.1111/1467-9469.00285</a></p>
+<p>Schweder T, Hjort NL. Confidence, Likelihood, Probability: Statistical Inference with Confidence Distributions. Cambridge University Press; 2016.
+<a href='https://books.google.com/books/about/Confidence_Likelihood_Probability.html?id=t7KzCwAAQBAJ'>https://books.google.com/books/about/Confidence_Likelihood_Probability.html?id=t7KzCwAAQBAJ</a></p>
+<p>Singh K, Xie M, Strawderman WE. Confidence distribution (CD) – distribution estimator of a parameter. arXiv. August 2007.
+<a href='http://arxiv.org/abs/0708.0976'>http://arxiv.org/abs/0708.0976</a></p>
+<p>Sullivan KM, Foster DA. Use of the confidence interval function. Epidemiology. 1990;1(1):39-42. doi:10.1097/00001648-199001000-00009
+<a href='https://doi.org/10.1097/00001648-199001000-00009'>https://doi.org/10.1097/00001648-199001000-00009</a></p>
+<p>Whitehead J. The case for frequentism in clinical trials. Statistics in Medicine. 1993;12(15-16):1405-1413. doi:10.1002/sim.4780121506
+<a href='https://doi.org/10.1002/sim.4780121506'>https://doi.org/10.1002/sim.4780121506</a></p>
+<p>Xie M-g, Singh K. Confidence Distribution, the Frequentist Distribution Estimator of a Parameter: A Review. International Statistical Review. 2013;81(1):3-39. doi:10.1111/insr.12000
+<a href='https://doi.org/10.1111/insr.12000'>https://doi.org/10.1111/insr.12000</a></p>
+<p>Rothman KJ, Greenland S, Lash TL. Precision and statistics in epidemiologic studies. In: Rothman KJ, Greenland S, Lash TL, eds. Modern Epidemiology. 3rd ed. Lippincott Williams &amp; Wilkins; 2008:148-167.</p>
+<p>Rücker G, Schwarzer G. Beyond the forest plot: The drapery plot. Research Synthesis Methods. April 2020. doi:10.1002/jrsm.1410
+<a href='https://doi.org/10.1002/jrsm.1410'>https://doi.org/10.1002/jrsm.1410</a></p>
+<p>Cox DR. Discussion. International Statistical Review. 2013;81(1):40-41. doi:10/gg9s2f
+<a href='https://onlinelibrary.wiley.com/doi/abs/10.1111/insr.12007'>https://onlinelibrary.wiley.com/doi/abs/10.1111/insr.12007</a></p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='curve_gen.html'>curve_gen</a></code>,
+<code><a href='ggcurve.html'>ggcurve</a></code>,
+<code><a href='curve_table.html'>curve_table</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Zad Rafi, Andrew D. Vigotsky, and Aaron Caldwell</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -277,11 +334,11 @@ Replace Confidence and Significance by Compatibility and Surprise,
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://lesslikely.com/'>Zad Rafi</a>, <a href='https://www.researchgate.net/profile/Andrew_Vigotsky'>Andrew D. Vigotsky</a>.</p>
+  <p>Developed by <a href='https://twitter.com/dailyzad'>Zad Rafi</a>, <a href='https://www.researchgate.net/profile/Andrew_Vigotsky'>Andrew D. Vigotsky</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

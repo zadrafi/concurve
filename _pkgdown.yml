@@ -1,15 +1,16 @@
-url: https://data.lesslikely.com/concurve/
+url: https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve
 
 title: concurve
 description: An R package that constructs and graphs consonance, surprisal, and likelihood functions.
-
+  
 authors:
   Zad Rafi:
-    href: https://lesslikely.com/
+    href: https://twitter.com/dailyzad
   Andrew D. Vigotsky:
     href: https://www.researchgate.net/profile/Andrew_Vigotsky
   Aaron Caldwell:
     href: https://twitter.com/ExPhysStudent
+
 template:
   params:
     docsearch:
@@ -23,7 +24,7 @@ template:
   opengraph:
     image:
       src: man/figures/logo.svg
-      alt: "concurve R package hex logo"
+      alt: "concurve R package hex-logo"
     twitter:
       creator: "@dailyzad"
       card: summary_large_image
@@ -33,7 +34,7 @@ development:
 
 navbar:
   structure:
-    left:  [home, intro, reference, articles, cases, tools, news]
+    left:  [home, intro, reference, articles, literature, tools, news]
     right: [github, twitter]
 
   components:
@@ -68,20 +69,20 @@ navbar:
         href: articles/tables.html  
       - text: Troubleshooting
         href: articles/troubleshooting.html
-    cases:
-      text: Case Studies
-      href: articles/casestudies.html
+    literature:
+      text: Literature
+      href: articles/literature.html
     tools:
-      text: Tools
-      menu:
-      - text: S-value Calculator
-        href: articles/svalues.html
+      text: S-values
+      href: articles/svalues.html
     news:
       text: News
       menu:
-      - text: Updates
+      - text: Package Updates
         href: news/index.html
-      - text: Wish List
+      - text: Supported Versions
+        href: security.html
+      - text: Feature Wish List
         href: articles/wishlist.html
     github:
       icon: fa-github fa-lg
@@ -91,11 +92,12 @@ navbar:
       href: https://twitter.com/dailyzad
 
 reference:
-
-- title: Computations
-  desc: Compute consonance/confidence/compatibility intervals for a wide range of scenarios, along with likelihood intervals.
 - contents:
   - concurve-package
+- title: Statistical Computations
+  desc: Compute consonance and surprisal distribitions for a wide range of scenarios, 
+        along with likelihood functions.
+- contents:
   - curve_boot
   - curve_corr
   - curve_gen
@@ -105,17 +107,22 @@ reference:
   - curve_meta
   - curve_rev
   - curve_surv
-- title: Graphics
-  desc: Plot the overall functions that were computed such as the consonance, surprisal, and likelihood functions.
+- title: Statistical Graphics
+  desc: Plot the overall functions that were computed such as the consonance, 
+        surprisal, and likelihood functions.
 - contents:
   - ggcurve
   - curve_compare
   - plot_compare
-- title: Tables
+- title: Statistical Reporting
   desc: Display the tables showing relevant statistics from the initial computations.
 - contents:
   - curve_table
-
+- title: Miscellaneous Functions
+  desc: Some internal helper functions.
+- contents:
+  - RobustMin
+  - RobustMax
 
 pkgdown:
   as_is: true
@@ -123,4 +130,4 @@ pkgdown:
 
 toc:
   depth: 5
-toc_float: true
+  toc_float: true

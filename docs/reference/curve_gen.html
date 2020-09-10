@@ -64,7 +64,7 @@ the chosen parameter in the selected model
 (linear models, general linear models, robust linear models, and generalized least squares and places
 the interval limits for each interval level into a data frame along
 with the corresponding p-values and s-values. Can also adjust for multiple comparisons." />
-<meta property="og:image" content="https://data.lesslikely.com/concurve/reference/figures/logo.svg,concurve R package hex logo" />
+<meta property="og:image" content="https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/reference/figures/logo.svg,concurve R package hex-logo" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -107,7 +107,7 @@ with the corresponding p-values and s-values. Can also adjust for multiple compa
       </button>
       <span class="navbar-brand"><img src="https://data.lesslikely.com/concurve/reference/figures/logo.svg" id ="package-logo" align="left" width="35">
         <a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.5</span>
       </span>
     </div>
 
@@ -165,19 +165,10 @@ with the corresponding p-values and s-values. Can also adjust for multiple compa
   </ul>
 </li>
 <li>
-  <a href="../articles/casestudies.html">Case Studies</a>
+  <a href="../articles/literature.html">Literature</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Tools
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/svalues.html">S-value Calculator</a>
-    </li>
-  </ul>
+<li>
+  <a href="../articles/svalues.html">S-values</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -187,10 +178,13 @@ with the corresponding p-values and s-values. Can also adjust for multiple compa
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../news/index.html">Updates</a>
+      <a href="../news/index.html">Package Updates</a>
     </li>
     <li>
-      <a href="../articles/wishlist.html">Wish List</a>
+      <a href="../security.html">Supported Versions</a>
+    </li>
+    <li>
+      <a href="../articles/wishlist.html">Feature Wish List</a>
     </li>
   </ul>
 </li>
@@ -241,8 +235,8 @@ the interval limits for each interval level into a data frame along
 with the corresponding p-values and s-values. Can also adjust for multiple comparisons.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>curve_gen</span>(<span class='no'>model</span>, <span class='no'>var</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"lm"</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>m</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>steps</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>cores</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"mc.cores"</span>, <span class='fl'>1L</span>), <span class='kw'>table</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>curve_gen</span>(<span class='kw'>model</span>, <span class='kw'>var</span>, method = <span class='st'>"lm"</span>, penalty = <span class='kw'>NULL</span>, m = <span class='kw'>NULL</span>,
+  steps = <span class='fl'>1000</span>, cores = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"mc.cores"</span>, <span class='fl'>1L</span>), table = <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -316,12 +310,14 @@ and the table for the values in the third if table = TRUE.</p>
     <pre class="examples"><div class='input'>
 <span class='co'># \donttest{</span>
 <span class='co'># Simulate random data</span>
-<span class='no'>GroupA</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>50</span>)
-<span class='no'>GroupB</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>50</span>)
-<span class='no'>RandomData</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='no'>GroupA</span>, <span class='no'>GroupB</span>)
-<span class='no'>rob</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>GroupA</span> ~ <span class='no'>GroupB</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>RandomData</span>)
-<span class='no'>bob</span> <span class='kw'>&lt;-</span> <span class='fu'>curve_gen</span>(<span class='no'>rob</span>, <span class='st'>"GroupB"</span>)
-<span class='co'># }</span></div></pre>
+<span class='kw'>GroupA</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>50</span>)
+<span class='kw'>GroupB</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>50</span>)
+<span class='kw'>RandomData</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>GroupA</span>, <span class='kw'>GroupB</span>)
+<span class='kw'>rob</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='kw'>GroupA</span> <span class='op'>~</span> <span class='kw'>GroupB</span>, data = <span class='kw'>RandomData</span>)
+<span class='kw'>bob</span> <span class='op'>&lt;-</span> <span class='fu'>curve_gen</span>(<span class='kw'>rob</span>, <span class='st'>"GroupB"</span>)
+<span class='co'># }</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -333,11 +329,11 @@ and the table for the values in the third if table = TRUE.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://lesslikely.com/'>Zad Rafi</a>, <a href='https://www.researchgate.net/profile/Andrew_Vigotsky'>Andrew D. Vigotsky</a>.</p>
+  <p>Developed by <a href='https://twitter.com/dailyzad'>Zad Rafi</a>, <a href='https://www.researchgate.net/profile/Andrew_Vigotsky'>Andrew D. Vigotsky</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

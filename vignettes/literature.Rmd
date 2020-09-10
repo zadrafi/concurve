@@ -1,0 +1,42 @@
+---
+title: "Background Literature"
+description: "A list of papers discussing confidence distributions and their theory."
+output: rmarkdown::html_vignette
+opengraph:
+  image: 
+    src: "https://res.cloudinary.com/less-likely/image/upload/v1554700143/Site/Publications.jpg"
+  twitter:
+    card: summary
+    creator: "@dailyzad"
+bibliography: references.bib
+link-citations: yes
+csl: american-medical-association.csl
+vignette: >
+  %\VignetteIndexEntry{Background Literature}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  message = TRUE,
+  warning = TRUE,
+  collapse = TRUE,
+  comment = "#>"
+)
+library(concurve)
+```
+<center>
+<figure>
+<img src="confdistributions.png" align="center" width="500"/>  
+<figcaption><p style="font-size: 12px">Sample image taken from Schweder T, Hjort NL. (2016) </p></figcaption>
+</figure>
+</center>
+
+* * * 
+
+Here we list some papers that discuss the theory and applications of confidence distributions.[@birnbaumUnifiedTheoryEstimation1961; @rafiSemanticCognitiveTools2020; @fraserPvalueFunctionStatistical2019; @fraserPValuesInsightModern2017; @Poole1987-nb; @pooleConfidenceIntervalsExclude1987; @schwederConfidenceLikelihood2002; @schwederConfidenceLikelihoodProbability2016; @Singh2007-zr; @Sullivan1990-ha; @whiteheadCaseFrequentismClinical1993; @xieConfidenceDistributionFrequentist2013; @rothmanPrecisionStatisticsEpidemiologic2008; @ruckerForestPlotDrapery2020; @rothmanFlutamideEffectivePatients1999; @coxDiscussion2013]
+
+# References
+
+* * * 

@@ -7,7 +7,7 @@ html, body {
 @media only screen and (max-width: 767px) {
 
 html, body  {
-  font-size: 15px;
+  font-size: 16px;
   }
 }
 
@@ -97,6 +97,13 @@ h4.date, h4.author {
 pre code {
   font-size: 13.5px;
   white-space: pre;
+}
+
+@media only screen and (max-width: 767px) {
+  pre code {
+  font-size: 12px;
+  white-space: pre;
+}
 }
 
 .btn-primary {

@@ -23,7 +23,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Wish List">
 <meta property="og:description" content="A list of features that could potentially be added to the package.">
-<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/6/62/Gifts_xmas.jpg,concurve R package hex logo">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/6/62/Gifts_xmas.jpg,concurve R package hex-logo">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -48,7 +48,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand"><img src="https://data.lesslikely.com/concurve/reference/figures/logo.svg" id="package-logo" align="left" width="35"><a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.5</span>
       </span>
     </div>
 
@@ -106,19 +106,10 @@
   </ul>
 </li>
 <li>
-  <a href="../articles/casestudies.html">Case Studies</a>
+  <a href="../articles/literature.html">Literature</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Tools
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/svalues.html">S-value Calculator</a>
-    </li>
-  </ul>
+  <a href="../articles/svalues.html">S-values</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -128,10 +119,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../news/index.html">Updates</a>
+      <a href="../news/index.html">Package Updates</a>
     </li>
     <li>
-      <a href="../articles/wishlist.html">Wish List</a>
+      <a href="../security.html">Supported Versions</a>
+    </li>
+    <li>
+      <a href="../articles/wishlist.html">Feature Wish List</a>
     </li>
   </ul>
 </li>
@@ -178,30 +172,116 @@
 
     
     
-<p>Here are some ideas/implementations I’m hoping to include within <code>concurve</code> at some point within the future.</p>
+<p>Here are some to-dos for <code>concurve</code> in the future.</p>
 <ul>
-<li>Make <code><a href="../reference/curve_rev.html">curve_rev()</a></code> more usable for a wide range of scenarios (beyond proportions, and normal approximations)</li>
-<li>Produce consonance functions for quantile regressions from the <code>quantreg</code> package</li>
-<li>Implementation with the <code>nlme</code> package</li>
-<li>Possibly incorporate <code>Stan</code> via <code>rstantools</code> to produce likelihoods and posteriors</li>
+<li>More unit tests for various purposes as <a href="https://www.alexpghayes.com/blog/testing-statistical-software/">Alex Hayes describes in his wonderful article</a>. He classifies them into three types, which I copy and paste below:
+<ul>
+<li>“Correctness tests check whether the code calculates the quantity it is supposed to calculated.”</li>
+<li>“Parameter recovery tests check whether the implementation can recover correct parameters in well understood scenarios.”</li>
+<li>“Convergence tests check whether iterative fitting procedures have actually reached a solution.”</li>
+<li>“Identification tests check whether the solution is unique, and stable under small perturbations to the data.” * * *</li>
+</ul>
+</li>
+<li>Make <code><a href="../reference/curve_rev.html">curve_rev()</a></code> more usable for a wide range of scenarios (beyond proportions, and normal approximations). The confidence functions they produce especially break down with continuous variables, so I have completely disabled the option for now, and will implement a much more difficult, but correct way to get confidence functions mostly by working backwards from the deviance and log-likelihood functions. * * *</li>
+<li>Produce consonance/confidence functions for quantile regressions from the <code>quantreg</code> package</li>
+<li>Implementation with the <code>nlme</code> package, although that has already started with some experimental work I and the other developers have done with the generalized least squares method from <code>nlme</code>. * * *</li>
+<li>Possibly incorporate <code>rstan</code> via <code>rstantools</code> to produce likelihoods and posteriors</li>
 </ul>
 <p>If you’d like to help contribute, please see the <a href="https://data.lesslikely.com/concurve/CONTRIBUTING.html">contributing guide</a>.</p>
+<div id="r-package-citations" class="section level3">
+<h3 class="hasAnchor">
+<a href="#r-package-citations" class="anchor"></a>R Package Citations</h3>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"quantreg"</span>)
+</pre></div>
+<pre><code>## 
+## To cite package 'quantreg' in publications use:
+## 
+##   Roger Koenker (2020). quantreg: Quantile Regression. R package
+##   version 5.67. https://CRAN.R-project.org/package=quantreg
+## 
+## A BibTeX entry for LaTeX users is
+## 
+##   @Manual{,
+##     title = {quantreg: Quantile Regression},
+##     author = {Roger Koenker},
+##     year = {2020},
+##     note = {R package version 5.67},
+##     url = {https://CRAN.R-project.org/package=quantreg},
+##   }</code></pre>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"nlme"</span>)
+</pre></div>
+<pre><code>## 
+## Pinheiro J, Bates D, DebRoy S, Sarkar D, R Core Team (2020). _nlme:
+## Linear and Nonlinear Mixed Effects Models_. R package version 3.1-149,
+## &lt;URL: https://CRAN.R-project.org/package=nlme&gt;.
+## 
+## A BibTeX entry for LaTeX users is
+## 
+##   @Manual{,
+##     title = {{nlme}: Linear and Nonlinear Mixed Effects Models},
+##     author = {Jose Pinheiro and Douglas Bates and Saikat DebRoy and Deepayan Sarkar and {R Core Team}},
+##     year = {2020},
+##     note = {R package version 3.1-149},
+##     url = {https://CRAN.R-project.org/package=nlme},
+##   }</code></pre>
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"rstan"</span>)
+</pre></div>
+<pre><code>## 
+## To cite RStan in publications use:
+## 
+##   Stan Development Team (2020). RStan: the R interface to Stan. R
+##   package version 2.21.2. http://mc-stan.org/.
+## 
+## A BibTeX entry for LaTeX users is
+## 
+##   @Misc{,
+##     title = {{RStan}: the {R} interface to {Stan}},
+##     author = {{Stan Development Team}},
+##     note = {R package version 2.21.2},
+##     year = {2020},
+##     url = {http://mc-stan.org/},
+##   }</code></pre>
+<div class="sourceCode" id="cb7"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"rstantools"</span>)
+</pre></div>
+<pre><code>## 
+## To cite package 'rstantools' in publications use:
+## 
+##   Jonah Gabry, Ben Goodrich and Martin Lysy (2020). rstantools: Tools
+##   for Developing R Packages Interfacing with 'Stan'. R package version
+##   2.1.1. https://CRAN.R-project.org/package=rstantools
+## 
+## A BibTeX entry for LaTeX users is
+## 
+##   @Manual{,
+##     title = {rstantools: Tools for Developing R Packages Interfacing with 'Stan'},
+##     author = {Jonah Gabry and Ben Goodrich and Martin Lysy},
+##     year = {2020},
+##     note = {R package version 2.1.1},
+##     url = {https://CRAN.R-project.org/package=rstantools},
+##   }</code></pre>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-      </div>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
+</div>
 
 </div>
 
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://lesslikely.com/">Zad Rafi</a>, <a href="https://www.researchgate.net/profile/Andrew_Vigotsky">Andrew D. Vigotsky</a>.</p>
+  <p>Developed by <a href="https://twitter.com/dailyzad">Zad Rafi</a>, <a href="https://www.researchgate.net/profile/Andrew_Vigotsky">Andrew D. Vigotsky</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

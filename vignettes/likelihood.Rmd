@@ -27,7 +27,7 @@ knitr::opts_chunk$set(
 library(concurve)
 ```
 
-For this last example, we'll explore the `curve_lik()` function, which can help generate profile likelihood functions, and deviance statistics with the help of the [`ProfileLikelihood`](https://cran.r-project.org/package=ProfileLikelihood) package.[@Choi_2011]. For an introduction to what profile likelihoods are, [see the following paper.](https://doi.org/10.1093/aje/kwt245)[@Cole_Chu_Greenland_2013]  
+For this example, we'll explore the `curve_lik()` function, which can help generate profile likelihood functions, and deviance functions with the help of the [`ProfileLikelihood`](https://cran.r-project.org/package=ProfileLikelihood) package.[@Choi_2011]. For an introduction to what profile likelihoods are, [see the following paper.](https://doi.org/10.1093/aje/kwt245)[@coleMaximumLikelihoodProfile2013]  
 
 ```{r echo=TRUE, fig.height=4.5, fig.width=6}
 library(ProfileLikelihood)
@@ -43,14 +43,14 @@ xx <- profilelike.glm(y ~ x1 + x2,
 )
 ```
 
-Then, we’ll use `curve_lik()` on the object that the [`ProfileLikelihood`](https://cran.r-project.org/package=ProfileLikelihood) package created. 
+Then, we’ll use `curve_lik()` on the object that the [`ProfileLikelihood`](https://cran.r-project.org/package=ProfileLikelihood) package produced. 
 
 ```{r echo=TRUE, fig.height=4.5, fig.width=6}
-lik <- curve_lik(xx, dataglm)
-
+lik <- curve_lik(xx, data = dataglm)
+lik
 ```
 
-Next, we’ll plot three functions, the relative likelihood, the log-likelihood, the likelihood, and the deviance function. 
+Next, we’ll plot four functions, the relative likelihood, the log-likelihood, the likelihood, and the deviance function. 
 
 ```{r echo=TRUE, fig.height=4.5, fig.width=6}
 ggcurve(lik[[1]], type = "l1", nullvalue = TRUE)
@@ -64,13 +64,14 @@ The obvious advantage of using reduced likelihoods is that they are free of nuis
 $$L_{t_{n}}(\theta)=f_{n}\left(F_{n}^{-1}\left(H_{p i v}(\theta)\right)\right)\left|\frac{\partial}{\partial t} \psi\left(t_{n}, \theta\right)\right|=h_{p i v}(\theta)\left|\frac{\partial}{\partial t} \psi(t, \theta)\right| /\left.\left|\frac{\partial}{\partial \theta} \psi(t, \theta)\right|\right|_{t=t_{n}}$$
 thus, giving summaries of the data that can be incorporated into combined analyses. 
 
-# Session info
+# Cite R Packages
 
-```{r session_info, include=TRUE, echo=FALSE}
-sessionInfo()
+Please remember to cite the packages that you use.
+
+```{r}
+citation("concurve")
+citation("ProfileLikelihood")
 ```
-
-* * * 
 
 # References
 

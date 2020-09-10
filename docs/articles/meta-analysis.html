@@ -23,7 +23,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Meta-Analysis Examples">
 <meta property="og:description" content="This guide walks through how to construct consonance functions from meta-analysis data using the metafor R package. Both simple and complex data structures are examined.">
-<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/f/f0/Generic_forest_plot.png,concurve R package hex logo">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/f/f0/Generic_forest_plot.png,concurve R package hex-logo">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -48,7 +48,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand"><img src="https://data.lesslikely.com/concurve/reference/figures/logo.svg" id="package-logo" align="left" width="35"><a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.5</span>
       </span>
     </div>
 
@@ -106,19 +106,10 @@
   </ul>
 </li>
 <li>
-  <a href="../articles/casestudies.html">Case Studies</a>
+  <a href="../articles/literature.html">Literature</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Tools
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/svalues.html">S-value Calculator</a>
-    </li>
-  </ul>
+  <a href="../articles/svalues.html">S-values</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -128,10 +119,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../news/index.html">Updates</a>
+      <a href="../news/index.html">Package Updates</a>
     </li>
     <li>
-      <a href="../articles/wishlist.html">Wish List</a>
+      <a href="../security.html">Supported Versions</a>
+    </li>
+    <li>
+      <a href="../articles/wishlist.html">Feature Wish List</a>
     </li>
   </ul>
 </li>
@@ -181,55 +175,75 @@
 <div id="simple-data-structures" class="section level1">
 <h1 class="hasAnchor">
 <a href="#simple-data-structures" class="anchor"></a>Simple Data Structures</h1>
-<p>Here, we’ll use an example dataset taken from the <a href="http://www.metafor-project.org/doku.php/analyses:normand1999"><code>metafor</code></a> website, which also comes preloaded with the <code>metafor</code> package.<span class="citation"><sup><a href="#ref-Viechtbauer_2010" role="doc-biblioref">1</a></sup></span></p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">metafor</span>)
+<p>Here, we’ll use an example dataset taken from the <a href="http://www.metafor-project.org/doku.php/analyses:normand1999"><code>metafor</code></a> website, which also hosts the very famous <code>metafor</code> package.<span class="citation"><sup><span class="citeproc-not-found" data-reference-id="Viechtbauer2010-ss"><strong>???</strong></span></sup></span></p>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://www.metafor-project.org">metafor</a></span>)
 <span class="co">#&gt; Loading required package: Matrix</span>
 <span class="co">#&gt; Loading 'metafor' package (version 2.4-0). For an overview </span>
 <span class="co">#&gt; and introduction to the package please type: help(metafor).</span>
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">concurve</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggplot2</span>)
-<span class="no">dat.hine1989</span>
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://data.lesslikely.com/concurve">concurve</a></span>)
+<span class="co">#&gt; Please see the documentation on https://data.lesslikely.com/concurve/ or by typing `help(concurve)`</span>
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span>)
+<span class="kw">dat.hine1989</span>
 <span class="co">#&gt;   study         source n1i n2i ai ci</span>
 <span class="co">#&gt; 1     1  Chopra et al.  39  43  2  1</span>
 <span class="co">#&gt; 2     2       Mogensen  44  44  4  4</span>
 <span class="co">#&gt; 3     3    Pitt et al. 107 110  6  4</span>
 <span class="co">#&gt; 4     4   Darby et al. 103 100  7  5</span>
 <span class="co">#&gt; 5     5 Bennett et al. 110 106  7  3</span>
-<span class="co">#&gt; 6     6 O'Brien et al. 154 146 11  4</span></pre></body></html></div>
-<p>I will quote Wolfgang here, since he explains it best,</p>
+<span class="co">#&gt; 6     6 O'Brien et al. 154 146 11  4</span>
+</pre></div>
+<p>I will quote Wolfgang (the creator of the <code>metafor</code> package) here, since he explains it best,</p>
 <blockquote>
 <p>"As described under help(dat.hine1989), variables <strong>n1i</strong> and <strong>n2i</strong> are the number of patients in the lidocaine and control group, respectively, and <strong>ai</strong> and <strong>ci</strong> are the corresponding number of deaths in the two groups. Since these are 2×2 table data, a variety of different outcome measures could be used for the meta-analysis, including the risk difference, the risk ratio (relative risk), and the odds ratio (see Table III). Normand (1999) uses risk differences for the meta-analysis, so we will proceed accordingly. We can calculate the risk differences and corresponding sampling variances with:</p>
 </blockquote>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">dat</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/metafor/man/escalc.html">escalc</a></span>(<span class="kw">measure</span> <span class="kw">=</span> <span class="st">"RD"</span>, <span class="kw">n1i</span> <span class="kw">=</span> <span class="no">n1i</span>, <span class="kw">n2i</span> <span class="kw">=</span> <span class="no">n2i</span>, <span class="kw">ai</span> <span class="kw">=</span> <span class="no">ai</span>, <span class="kw">ci</span> <span class="kw">=</span> <span class="no">ci</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">dat.hine1989</span>)
-<span class="no">dat</span>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="kw">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/metafor/man/escalc.html">escalc</a></span>(measure = <span class="st">"RD"</span>, n1i = <span class="kw">n1i</span>, n2i = <span class="kw">n2i</span>, ai = <span class="kw">ai</span>, ci = <span class="kw">ci</span>, data = <span class="kw">dat.hine1989</span>)
+<span class="kw">dat</span>
 <span class="co">#&gt;   study         source n1i n2i ai ci     yi     vi </span>
 <span class="co">#&gt; 1     1  Chopra et al.  39  43  2  1 0.0280 0.0018 </span>
 <span class="co">#&gt; 2     2       Mogensen  44  44  4  4 0.0000 0.0038 </span>
 <span class="co">#&gt; 3     3    Pitt et al. 107 110  6  4 0.0197 0.0008 </span>
 <span class="co">#&gt; 4     4   Darby et al. 103 100  7  5 0.0180 0.0011 </span>
 <span class="co">#&gt; 5     5 Bennett et al. 110 106  7  3 0.0353 0.0008 </span>
-<span class="co">#&gt; 6     6 O'Brien et al. 154 146 11  4 0.0440 0.0006</span></pre></body></html></div>
+<span class="co">#&gt; 6     6 O'Brien et al. 154 146 11  4 0.0440 0.0006</span>
+</pre></div>
 <blockquote>
 <p>"Note that the <strong>yi</strong> values are the risk differences in terms of proportions. Since Normand (1999) provides the results in terms of percentages, we can make the results directly comparable by multiplying the risk differences by 100 (and the sampling variances by <span class="math inline">\(100^{2}\)</span>):</p>
 </blockquote>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">dat</span>$<span class="no">yi</span> <span class="kw">&lt;-</span> <span class="no">dat</span>$<span class="no">yi</span> * <span class="fl">100</span>
-<span class="no">dat</span>$<span class="no">vi</span> <span class="kw">&lt;-</span> <span class="no">dat</span>$<span class="no">vi</span> * <span class="fl">100</span>^<span class="fl">2</span></pre></body></html></div>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="kw">dat</span><span class="op">$</span><span class="kw">yi</span> <span class="op">&lt;-</span> <span class="kw">dat</span><span class="op">$</span><span class="kw">yi</span> <span class="op">*</span> <span class="fl">100</span>
+<span class="kw">dat</span><span class="op">$</span><span class="kw">vi</span> <span class="op">&lt;-</span> <span class="kw">dat</span><span class="op">$</span><span class="kw">vi</span> <span class="op">*</span> <span class="fl">100</span><span class="op">^</span><span class="fl">2</span>
+</pre></div>
 <p>We can fit a fixed-effects model with the following</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">fe</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/metafor/man/rma.uni.html">rma</a></span>(<span class="no">yi</span>, <span class="no">vi</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">dat</span>, <span class="kw">method</span> <span class="kw">=</span> <span class="st">"FE"</span>)</pre></body></html></div>
-<p>Now that we have our metafor object, we can compute the consonance function using the <code><a href="../reference/curve_meta.html">curve_meta()</a></code> function.</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">fecurve</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/curve_meta.html">curve_meta</a></span>(<span class="no">fe</span>, <span class="kw">cores</span> <span class="kw">=</span> <span class="fl">1L</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="kw">fe</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/metafor/man/rma.uni.html">rma</a></span>(<span class="kw">yi</span>, <span class="kw">vi</span>, data = <span class="kw">dat</span>, method = <span class="st">"FE"</span>)
+</pre></div>
+<p>Now that we have our <code>metafor</code> object, we can compute the consonance function using the <code><a href="../reference/curve_meta.html">curve_meta()</a></code> function.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="kw">fecurve</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/curve_meta.html">curve_meta</a></span>(<span class="kw">fe</span>, cores = <span class="fl">1L</span>)
+</pre></div>
 <p>Now we can graph our function.</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span>(<span class="no">fecurve</span><span class="kw">[[</span><span class="fl">1</span>]], <span class="kw">nullvalue</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb6"><pre class="downlit">
+<span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span>(<span class="kw">fecurve</span>[[<span class="fl">1</span>]], nullvalue = <span class="fl">TRUE</span>)
+</pre></div>
 <p><img src="meta-analysis_files/figure-html/unnamed-chunk-6-1.png" width="576"></p>
-<p>We used a fixed-effects model here, but if we wanted to use a random-effects model, we could do so with the following, which will use a restricted maximum likelihood estimator for the random-effects model</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">re</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/metafor/man/rma.uni.html">rma</a></span>(<span class="no">yi</span>, <span class="no">vi</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">dat</span>, <span class="kw">method</span> <span class="kw">=</span> <span class="st">"REML"</span>)</pre></body></html></div>
+<p>We used a fixed-effects model here, but if we wanted to use a random-effects model, we could do so with the following, where we can specify a restricted maximum likelihood estimator (REML) for the random-effects model</p>
+<div class="sourceCode" id="cb7"><pre class="downlit">
+<span class="kw">re</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/metafor/man/rma.uni.html">rma</a></span>(<span class="kw">yi</span>, <span class="kw">vi</span>, data = <span class="kw">dat</span>, method = <span class="st">"REML"</span>)
+</pre></div>
 <p>And then we could use <code><a href="../reference/curve_meta.html">curve_meta()</a></code> to get the relevant list</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">recurve</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/curve_meta.html">curve_meta</a></span>(<span class="no">re</span>, <span class="kw">cores</span> <span class="kw">=</span> <span class="fl">1L</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb8"><pre class="downlit">
+<span class="kw">recurve</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/curve_meta.html">curve_meta</a></span>(<span class="kw">re</span>, cores = <span class="fl">1L</span>)
+</pre></div>
 <p>Now we can plot our object.</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span>(<span class="no">recurve</span><span class="kw">[[</span><span class="fl">1</span>]], <span class="kw">nullvalue</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb9"><pre class="downlit">
+<span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span>(<span class="kw">recurve</span>[[<span class="fl">1</span>]], nullvalue = <span class="fl">TRUE</span>)
+</pre></div>
 <p><img src="meta-analysis_files/figure-html/unnamed-chunk-9-1.png" width="576"></p>
 <p>We could also compare our two models to see how much consonance/overlap there is</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="fu"><a href="../reference/curve_compare.html">curve_compare</a></span>(<span class="no">fecurve</span><span class="kw">[[</span><span class="fl">1</span>]], <span class="no">recurve</span><span class="kw">[[</span><span class="fl">1</span>]], <span class="kw">plot</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
+<div class="sourceCode" id="cb10"><pre class="downlit">
+<span class="fu"><a href="../reference/curve_compare.html">curve_compare</a></span>(<span class="kw">fecurve</span>[[<span class="fl">1</span>]], <span class="kw">recurve</span>[[<span class="fl">1</span>]], plot = <span class="fl">TRUE</span>)
 <span class="co">#&gt; [1] "AUC = Area Under the Curve"</span>
 <span class="co">#&gt; [[1]]</span>
 <span class="co">#&gt; </span>
@@ -238,29 +252,31 @@
 <span class="co">#&gt; |-----:|-----:|----------:|---------------:|-----------------------------:|</span>
 <span class="co">#&gt; | 2.084| 2.084|      2.084|             100|                           Inf|</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; [[2]]</span></pre></body></html></div>
+<span class="co">#&gt; [[2]]</span>
+</pre></div>
 <p><img src="meta-analysis_files/figure-html/unnamed-chunk-10-1.png" width="576"></p>
-<p>The results are practically the same and we cannot actually see any difference, and the AUC % overlap also indicates this.</p>
+<p>The results are practically the same and we cannot actually see any difference, and the AUC % overlap also is consisten with this.</p>
 </div>
 <div id="complex-data-structures" class="section level1">
 <h1 class="hasAnchor">
 <a href="#complex-data-structures" class="anchor"></a>Complex Data Structures</h1>
 <p><code>concurve</code> can also handle complex data structures from <code>metafor</code> that are clustered.</p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r">
+<div class="sourceCode" id="cb11"><pre class="downlit">
+
 <span class="co">### copy data from Berkey et al. (1998) into 'dat'</span>
-<span class="no">dat</span> <span class="kw">&lt;-</span> <span class="no">dat.berkey1998</span>
+<span class="kw">dat</span> <span class="op">&lt;-</span> <span class="kw">dat.berkey1998</span>
 
 <span class="co">### construct list of the variance-covariance matrices of the observed outcomes for the studies</span>
-<span class="no">V</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/split.html">split</a></span>(<span class="no">dat</span>[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"v1i"</span>, <span class="st">"v2i"</span>)], <span class="no">dat</span>$<span class="no">trial</span>), <span class="no">as.matrix</span>)
+<span class="kw">V</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/split.html">split</a></span>(<span class="kw">dat</span>[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"v1i"</span>, <span class="st">"v2i"</span>)], <span class="kw">dat</span><span class="op">$</span><span class="kw">trial</span>), <span class="kw">as.matrix</span>)
 
 <span class="co">### construct block diagonal matrix</span>
-<span class="no">V</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/metafor/man/bldiag.html">bldiag</a></span>(<span class="no">V</span>)
+<span class="kw">V</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/metafor/man/bldiag.html">bldiag</a></span>(<span class="kw">V</span>)
 
 <span class="co">### fit multivariate model</span>
-<span class="no">res</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/metafor/man/rma.mv.html">rma.mv</a></span>(<span class="no">yi</span>, <span class="no">V</span>, <span class="kw">mods</span> <span class="kw">=</span> ~ <span class="no">outcome</span> - <span class="fl">1</span>, <span class="kw">random</span> <span class="kw">=</span> ~ <span class="no">outcome</span> <span class="kw">|</span> <span class="no">trial</span>, <span class="kw">struct</span> <span class="kw">=</span> <span class="st">"UN"</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">dat</span>)
+<span class="kw">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/metafor/man/rma.mv.html">rma.mv</a></span>(<span class="kw">yi</span>, <span class="kw">V</span>, mods = <span class="op">~</span> <span class="kw">outcome</span> <span class="op">-</span> <span class="fl">1</span>, random = <span class="op">~</span> <span class="kw">outcome</span> <span class="op">|</span> <span class="kw">trial</span>, struct = <span class="st">"UN"</span>, data = <span class="kw">dat</span>)
 
 <span class="co">### results based on sandwich method</span>
-(<span class="no">a</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/metafor/man/robust.html">robust</a></span>(<span class="no">res</span>, <span class="kw">cluster</span> <span class="kw">=</span> <span class="no">dat</span>$<span class="no">trial</span>))
+(<span class="kw">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/metafor/man/robust.html">robust</a></span>(<span class="kw">res</span>, cluster = <span class="kw">dat</span><span class="op">$</span><span class="kw">trial</span>))
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Number of outcomes:   10</span>
 <span class="co">#&gt; Number of clusters:   5</span>
@@ -278,35 +294,38 @@
 <span class="co">#&gt; ---</span>
 <span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
 
-<span class="no">l</span> <span class="kw">&lt;-</span> <span class="kw pkg">concurve</span><span class="kw ns">::</span><span class="fu"><a href="../reference/curve_meta.html">curve_meta</a></span>(<span class="no">res</span>, <span class="kw">method</span> <span class="kw">=</span> <span class="st">"uni"</span>, <span class="kw">robust</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">cluster</span> <span class="kw">=</span> <span class="no">dat</span>$<span class="no">trial</span>, <span class="kw">adjust</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">steps</span> <span class="kw">=</span> <span class="fl">1000</span>, <span class="kw">cores</span> <span class="kw">=</span> <span class="fl">1L</span>)
+<span class="kw">l</span> <span class="op">&lt;-</span> <span class="kw">concurve</span>::<span class="fu"><a href="../reference/curve_meta.html">curve_meta</a></span>(<span class="kw">res</span>, method = <span class="st">"uni"</span>, robust = <span class="fl">TRUE</span>, cluster = <span class="kw">dat</span><span class="op">$</span><span class="kw">trial</span>, adjust = <span class="fl">TRUE</span>, steps = <span class="fl">1000</span>, cores = <span class="fl">1L</span>)
 
-<span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">l</span><span class="kw">[[</span><span class="fl">1</span>]], <span class="kw">type</span> <span class="kw">=</span> <span class="st">"c"</span>) +
-  <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span>()</pre></body></html></div>
+<span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span>(data = <span class="kw">l</span>[[<span class="fl">1</span>]], type = <span class="st">"c"</span>) <span class="op">+</span>
+  <span class="kw">ggplot2</span>::<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span>()
+</pre></div>
 <p><img src="meta-analysis_files/figure-html/unnamed-chunk-11-1.png" width="576"></p>
 <p>The interval function is quite narrow because there were so many iterations that were set by us.</p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">simstudy</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">parallel</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">nlme</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">data.table</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">metafor</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">concurve</span>)
+<p>Here, we simulate a more complicated set of trials using the <code>simstudy</code> package.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw">simstudy</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw">parallel</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://svn.r-project.org/R-packages/trunk/nlme">nlme</a></span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://r-datatable.com">data.table</a></span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://www.metafor-project.org">metafor</a></span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://data.lesslikely.com/concurve">concurve</a></span>)
 
-<span class="no">defS</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/simstudy/man/defData.html">defData</a></span>(<span class="kw">varname</span> <span class="kw">=</span> <span class="st">"a.k"</span>, <span class="kw">formula</span> <span class="kw">=</span> <span class="fl">3</span>, <span class="kw">variance</span> <span class="kw">=</span> <span class="fl">2</span>, <span class="kw">id</span> <span class="kw">=</span> <span class="st">"study"</span>)
-<span class="no">defS</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/simstudy/man/defData.html">defData</a></span>(<span class="no">defS</span>, <span class="kw">varname</span> <span class="kw">=</span> <span class="st">"d.0"</span>, <span class="kw">formula</span> <span class="kw">=</span> <span class="fl">3</span>, <span class="kw">dist</span> <span class="kw">=</span> <span class="st">"nonrandom"</span>)
-<span class="no">defS</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/simstudy/man/defData.html">defData</a></span>(<span class="no">defS</span>, <span class="kw">varname</span> <span class="kw">=</span> <span class="st">"v.k"</span>, <span class="kw">formula</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">variance</span> <span class="kw">=</span> <span class="fl">6</span>, <span class="kw">dist</span><span class="kw">=</span> <span class="st">"normal"</span>)
-<span class="no">defS</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/simstudy/man/defData.html">defData</a></span>(<span class="no">defS</span>, <span class="kw">varname</span> <span class="kw">=</span> <span class="st">"s2.k"</span>, <span class="kw">formula</span> <span class="kw">=</span> <span class="fl">16</span>, <span class="kw">variance</span> <span class="kw">=</span> <span class="fl">.2</span>, <span class="kw">dist</span> <span class="kw">=</span> <span class="st">"gamma"</span>)
-<span class="no">defS</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/simstudy/man/defData.html">defData</a></span>(<span class="no">defS</span>, <span class="kw">varname</span> <span class="kw">=</span> <span class="st">"size.study"</span>, <span class="kw">formula</span> <span class="kw">=</span> <span class="st">".3;.5;.2"</span>, <span class="kw">dist</span> <span class="kw">=</span> <span class="st">"categorical"</span>)
-<span class="no">defS</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/simstudy/man/defData.html">defData</a></span>(<span class="no">defS</span>, <span class="kw">varname</span> <span class="kw">=</span> <span class="st">"n.study"</span>,
-                <span class="kw">formula</span> <span class="kw">=</span> <span class="st">"(size.study==1) * 20 + (size.study==2) * 40 + (size.study==3) * 60"</span>,
-                <span class="kw">dist</span> <span class="kw">=</span> <span class="st">"poisson"</span>)
+<span class="kw">defS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/simstudy/man/defData.html">defData</a></span>(varname = <span class="st">"a.k"</span>, formula = <span class="fl">3</span>, variance = <span class="fl">2</span>, id = <span class="st">"study"</span>)
+<span class="kw">defS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/simstudy/man/defData.html">defData</a></span>(<span class="kw">defS</span>, varname = <span class="st">"d.0"</span>, formula = <span class="fl">3</span>, dist = <span class="st">"nonrandom"</span>)
+<span class="kw">defS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/simstudy/man/defData.html">defData</a></span>(<span class="kw">defS</span>, varname = <span class="st">"v.k"</span>, formula = <span class="fl">0</span>, variance = <span class="fl">6</span>, dist= <span class="st">"normal"</span>)
+<span class="kw">defS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/simstudy/man/defData.html">defData</a></span>(<span class="kw">defS</span>, varname = <span class="st">"s2.k"</span>, formula = <span class="fl">16</span>, variance = <span class="fl">.2</span>, dist = <span class="st">"gamma"</span>)
+<span class="kw">defS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/simstudy/man/defData.html">defData</a></span>(<span class="kw">defS</span>, varname = <span class="st">"size.study"</span>, formula = <span class="st">".3;.5;.2"</span>, dist = <span class="st">"categorical"</span>)
+<span class="kw">defS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/simstudy/man/defData.html">defData</a></span>(<span class="kw">defS</span>, varname = <span class="st">"n.study"</span>,
+                formula = <span class="st">"(size.study==1) * 20 + (size.study==2) * 40 + (size.study==3) * 60"</span>,
+                dist = <span class="st">"poisson"</span>)
 
-<span class="no">defI</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/simstudy/man/defDataAdd.html">defDataAdd</a></span>(<span class="kw">varname</span> <span class="kw">=</span> <span class="st">"y"</span>, <span class="kw">formula</span> <span class="kw">=</span> <span class="st">"a.k + x * (d.0 + v.k)"</span>, <span class="kw">variance</span> <span class="kw">=</span> <span class="st">"s2.k"</span>)
+<span class="kw">defI</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/simstudy/man/defDataAdd.html">defDataAdd</a></span>(varname = <span class="st">"y"</span>, formula = <span class="st">"a.k + x * (d.0 + v.k)"</span>, variance = <span class="st">"s2.k"</span>)
 
-<span class="fu"><a href="https://rdrr.io/r/base/Random.html">RNGkind</a></span>(<span class="kw">kind</span> <span class="kw">=</span> <span class="st">"L'Ecuyer-CMRG"</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">RNGkind</a></span>(kind = <span class="st">"L'Ecuyer-CMRG"</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">1031</span>)
 
-<span class="no">ds</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/simstudy/man/genData.html">genData</a></span>(<span class="fl">12</span>, <span class="no">defS</span>)
-<span class="no">ds</span>
+<span class="kw">ds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/simstudy/man/genData.html">genData</a></span>(<span class="fl">12</span>, <span class="kw">defS</span>)
+<span class="kw">ds</span>
 <span class="co">#&gt;     study      a.k d.0        v.k      s2.k size.study n.study</span>
 <span class="co">#&gt;  1:     1 4.745069   3 -5.1399796 16.275358          2      38</span>
 <span class="co">#&gt;  2:     2 1.983020   3 -3.2693291 13.976232          3      66</span>
@@ -321,86 +340,158 @@
 <span class="co">#&gt; 11:    11 1.607899   3  0.2178001  8.271145          2      48</span>
 <span class="co">#&gt; 12:    12 3.717728   3  1.8818612 11.274497          3      67</span>
 
-<span class="no">dc</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/simstudy/man/genCluster.html">genCluster</a></span>(<span class="no">ds</span>, <span class="st">"study"</span>, <span class="st">"n.study"</span>, <span class="st">"id"</span>, )
-<span class="no">dc</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/simstudy/man/trtAssign.html">trtAssign</a></span>(<span class="no">dc</span>, <span class="kw">strata</span> <span class="kw">=</span> <span class="st">"study"</span>, <span class="kw">grpName</span> <span class="kw">=</span> <span class="st">"x"</span>)
-<span class="no">dc</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/simstudy/man/addColumns.html">addColumns</a></span>(<span class="no">defI</span>, <span class="no">dc</span>)
+<span class="kw">dc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/simstudy/man/genCluster.html">genCluster</a></span>(<span class="kw">ds</span>, <span class="st">"study"</span>, <span class="st">"n.study"</span>, <span class="st">"id"</span>, )
+<span class="kw">dc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/simstudy/man/trtAssign.html">trtAssign</a></span>(<span class="kw">dc</span>, strata = <span class="st">"study"</span>, grpName = <span class="st">"x"</span>)
+<span class="kw">dc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/simstudy/man/addColumns.html">addColumns</a></span>(<span class="kw">defI</span>, <span class="kw">dc</span>)
 
 
-<span class="no">d.obs</span> <span class="kw">&lt;-</span> <span class="no">dc</span>[, <span class="fu">.</span>(<span class="no">study</span>, <span class="no">id</span>,<span class="no">s2.k</span>, <span class="no">x</span>, <span class="no">y</span>)]
-<span class="no">d.obs</span> <span class="kw">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span>(<span class="no">d.obs</span>)
-<span class="no">res</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/metafor/man/rma.mv.html">rma.mv</a></span>(<span class="kw">yi</span> <span class="kw">=</span> <span class="no">y</span>, <span class="kw">V</span> <span class="kw">=</span> <span class="no">s2.k</span>, <span class="kw">W</span> <span class="kw">=</span> <span class="kw">NULL</span>, <span class="kw">mods</span> <span class="kw">=</span> ~  <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">study</span>) + <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">x</span>),  <span class="kw">random</span> <span class="kw">=</span> ~ <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">x</span>) <span class="kw">|</span> <span class="no">study</span>, <span class="kw">struct</span><span class="kw">=</span><span class="st">"CS"</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">d.obs</span>, <span class="kw">method</span> <span class="kw">=</span> <span class="st">"REML"</span>)
+<span class="kw">d.obs</span> <span class="op">&lt;-</span> <span class="kw">dc</span>[, <span class="fu">.</span>(<span class="kw">study</span>, <span class="kw">id</span>,<span class="kw">s2.k</span>, <span class="kw">x</span>, <span class="kw">y</span>)]
+<span class="kw">d.obs</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span>(<span class="kw">d.obs</span>)
+<span class="kw">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/metafor/man/rma.mv.html">rma.mv</a></span>(yi = <span class="kw">y</span>, V = <span class="kw">s2.k</span>, W = <span class="kw">NULL</span>, mods = <span class="op">~</span>  <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="kw">study</span>) <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="kw">x</span>),  random = <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="kw">x</span>) <span class="op">|</span> <span class="kw">study</span>, struct=<span class="st">"CS"</span>, data = <span class="kw">d.obs</span>, method = <span class="st">"REML"</span>)
 
-<span class="no">a</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/curve_meta.html">curve_meta</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">res</span>, <span class="kw">measure</span> <span class="kw">=</span> <span class="st">"default"</span>, <span class="kw">method</span> <span class="kw">=</span> <span class="st">"mv"</span>, <span class="kw">parm</span> <span class="kw">=</span> <span class="st">"factor(x)1"</span>, <span class="kw">cores</span> <span class="kw">=</span> <span class="fl">1L</span>)
-<span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span>(<span class="no">a</span><span class="kw">[[</span><span class="fl">2</span>]], <span class="kw">type</span> <span class="kw">=</span> <span class="st">"cdf"</span>)</pre></body></html></div>
+<span class="kw">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/curve_meta.html">curve_meta</a></span>(x = <span class="kw">res</span>, measure = <span class="st">"default"</span>, method = <span class="st">"mv"</span>, parm = <span class="st">"factor(x)1"</span>, cores = <span class="fl">1L</span>)
+<span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span>(<span class="kw">a</span>[[<span class="fl">2</span>]], type = <span class="st">"cdf"</span>)
+</pre></div>
 <p><img src="meta-analysis_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
 </div>
-<div id="session-info" class="section level1">
+<div id="cite-r-packages" class="section level1">
 <h1 class="hasAnchor">
-<a href="#session-info" class="anchor"></a>Session info</h1>
-<pre><code>#&gt; R version 4.0.2 (2020-06-22)
-#&gt; Platform: x86_64-apple-darwin17.0 (64-bit)
-#&gt; Running under: macOS Catalina 10.15.6
-#&gt; 
-#&gt; Matrix products: default
-#&gt; BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
-#&gt; LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
-#&gt; 
-#&gt; Random number generation:
-#&gt;  RNG:     L'Ecuyer-CMRG 
-#&gt;  Normal:  Inversion 
-#&gt;  Sample:  Rejection 
-#&gt;  
-#&gt; locale:
-#&gt; [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
-#&gt; 
-#&gt; attached base packages:
-#&gt; [1] parallel  stats     graphics  grDevices utils     datasets  methods  
-#&gt; [8] base     
-#&gt; 
-#&gt; other attached packages:
-#&gt; [1] data.table_1.13.0 nlme_3.1-148      simstudy_0.1.16   ggplot2_3.3.2    
-#&gt; [5] concurve_2.7.0    metafor_2.4-0     Matrix_1.2-18    
-#&gt; 
-#&gt; loaded via a namespace (and not attached):
-#&gt;  [1] tidyr_1.1.1           splines_4.0.2         carData_3.0-4        
-#&gt;  [4] ProfileLikelihood_1.1 assertthat_0.2.1      highr_0.8            
-#&gt;  [7] cellranger_1.1.0      yaml_2.2.1            bcaboot_0.2-1        
-#&gt; [10] gdtools_0.2.2         pillar_1.4.6          backports_1.1.8      
-#&gt; [13] lattice_0.20-41       glue_1.4.1            uuid_0.1-4           
-#&gt; [16] digest_0.6.25         ggsignif_0.6.0        colorspace_1.4-1     
-#&gt; [19] htmltools_0.5.0       pkgconfig_2.0.3       broom_0.7.0          
-#&gt; [22] haven_2.3.1           xtable_1.8-4          purrr_0.3.4          
-#&gt; [25] scales_1.1.1          km.ci_0.5-2           openxlsx_4.1.5       
-#&gt; [28] officer_0.3.12        rio_0.5.16            KMsurv_0.1-5         
-#&gt; [31] tibble_3.0.3          farver_2.0.3          generics_0.0.2       
-#&gt; [34] car_3.0-8             ellipsis_0.3.1        ggpubr_0.4.0         
-#&gt; [37] withr_2.2.0           survival_3.2-3        magrittr_1.5         
-#&gt; [40] crayon_1.3.4          readxl_1.3.1          memoise_1.1.0        
-#&gt; [43] evaluate_0.14         fs_1.5.0              MASS_7.3-51.6        
-#&gt; [46] rstatix_0.6.0         forcats_0.5.0         xml2_1.3.2           
-#&gt; [49] foreign_0.8-80        tools_4.0.2           hms_0.5.3            
-#&gt; [52] lifecycle_0.2.0       stringr_1.4.0         flextable_0.5.10     
-#&gt; [55] munsell_0.5.0         zip_2.0.4             compiler_4.0.2       
-#&gt; [58] pkgdown_1.5.1         survminer_0.4.8       pbmcapply_1.5.0      
-#&gt; [61] systemfonts_0.2.3     rlang_0.4.7           grid_4.0.2           
-#&gt; [64] rstudioapi_0.11       labeling_0.3          base64enc_0.1-3      
-#&gt; [67] rmarkdown_2.3         boot_1.3-25           gtable_0.3.0         
-#&gt; [70] abind_1.4-5           curl_4.3              R6_2.4.1             
-#&gt; [73] zoo_1.8-8             gridExtra_2.3         knitr_1.29           
-#&gt; [76] dplyr_1.0.1           survMisc_0.5.5        rprojroot_1.3-2      
-#&gt; [79] desc_1.2.0            stringi_1.4.6         Rcpp_1.0.5           
-#&gt; [82] vctrs_0.3.2           tidyselect_1.1.0      xfun_0.16</code></pre>
+<a href="#cite-r-packages" class="anchor"></a>Cite R packages</h1>
+<p>Please remember to cite the packages that you use.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"concurve"</span>)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Rafi Z, Vigotsky A (2020). _concurve: Computes and Plots Compatibility</span>
+<span class="co">#&gt; (Confidence) Intervals, P-Values, S-Values, &amp; Likelihood Intervals to</span>
+<span class="co">#&gt; Form Consonance, Surprisal, &amp; Likelihood Functions_. R package version</span>
+<span class="co">#&gt; 2.7.5, &lt;URL: https://CRAN.R-project.org/package=concurve&gt;.</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Rafi Z, Greenland S (2020). _Semantic and Cognitive Tools to Aid</span>
+<span class="co">#&gt; Statistical Science: Replace Confidence and Significance by</span>
+<span class="co">#&gt; Compatibility and Surprise_, series Technical Advance. &lt;URL:</span>
+<span class="co">#&gt; https://doi.org/10.1186/s12874-020-01105-9&gt;.</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; To see these entries in BibTeX format, use 'print(&lt;citation&gt;,</span>
+<span class="co">#&gt; bibtex=TRUE)', 'toBibtex(.)', or set</span>
+<span class="co">#&gt; 'options(citation.bibtex.max=999)'.</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"ggplot2"</span>)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; To cite ggplot2 in publications, please use:</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;   H. Wickham. ggplot2: Elegant Graphics for Data Analysis.</span>
+<span class="co">#&gt;   Springer-Verlag New York, 2016.</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; A BibTeX entry for LaTeX users is</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;   @Book{,</span>
+<span class="co">#&gt;     author = {Hadley Wickham},</span>
+<span class="co">#&gt;     title = {ggplot2: Elegant Graphics for Data Analysis},</span>
+<span class="co">#&gt;     publisher = {Springer-Verlag New York},</span>
+<span class="co">#&gt;     year = {2016},</span>
+<span class="co">#&gt;     isbn = {978-3-319-24277-4},</span>
+<span class="co">#&gt;     url = {https://ggplot2.tidyverse.org},</span>
+<span class="co">#&gt;   }</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"metafor"</span>)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; To cite the metafor package in publications, please use:</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;   Viechtbauer, W. (2010). Conducting meta-analyses in R with the</span>
+<span class="co">#&gt;   metafor package. Journal of Statistical Software, 36(3), 1-48. URL:</span>
+<span class="co">#&gt;   https://www.jstatsoft.org/v36/i03/</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; A BibTeX entry for LaTeX users is</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;   @Article{,</span>
+<span class="co">#&gt;     title = {Conducting meta-analyses in {R} with the {metafor} package},</span>
+<span class="co">#&gt;     author = {Wolfgang Viechtbauer},</span>
+<span class="co">#&gt;     journal = {Journal of Statistical Software},</span>
+<span class="co">#&gt;     year = {2010},</span>
+<span class="co">#&gt;     volume = {36},</span>
+<span class="co">#&gt;     number = {3},</span>
+<span class="co">#&gt;     pages = {1--48},</span>
+<span class="co">#&gt;     url = {https://www.jstatsoft.org/v36/i03/},</span>
+<span class="co">#&gt;   }</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"simstudy"</span>)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; To cite package 'simstudy' in publications use:</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;   Keith Goldfeld (2020). simstudy: Simulation of Study Data. R package</span>
+<span class="co">#&gt;   version 0.1.16. https://CRAN.R-project.org/package=simstudy</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; A BibTeX entry for LaTeX users is</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;   @Manual{,</span>
+<span class="co">#&gt;     title = {simstudy: Simulation of Study Data},</span>
+<span class="co">#&gt;     author = {Keith Goldfeld},</span>
+<span class="co">#&gt;     year = {2020},</span>
+<span class="co">#&gt;     note = {R package version 0.1.16},</span>
+<span class="co">#&gt;     url = {https://CRAN.R-project.org/package=simstudy},</span>
+<span class="co">#&gt;   }</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; ATTENTION: This citation information has been auto-generated from the</span>
+<span class="co">#&gt; package DESCRIPTION file and may need manual editing, see</span>
+<span class="co">#&gt; 'help("citation")'.</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"nlme"</span>)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Pinheiro J, Bates D, DebRoy S, Sarkar D, R Core Team (2020). _nlme:</span>
+<span class="co">#&gt; Linear and Nonlinear Mixed Effects Models_. R package version 3.1-149,</span>
+<span class="co">#&gt; &lt;URL: https://CRAN.R-project.org/package=nlme&gt;.</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; A BibTeX entry for LaTeX users is</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;   @Manual{,</span>
+<span class="co">#&gt;     title = {{nlme}: Linear and Nonlinear Mixed Effects Models},</span>
+<span class="co">#&gt;     author = {Jose Pinheiro and Douglas Bates and Saikat DebRoy and Deepayan Sarkar and {R Core Team}},</span>
+<span class="co">#&gt;     year = {2020},</span>
+<span class="co">#&gt;     note = {R package version 3.1-149},</span>
+<span class="co">#&gt;     url = {https://CRAN.R-project.org/package=nlme},</span>
+<span class="co">#&gt;   }</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"data.table"</span>)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; To cite package 'data.table' in publications use:</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;   Matt Dowle and Arun Srinivasan (2020). data.table: Extension of</span>
+<span class="co">#&gt;   `data.frame`. R package version 1.13.0.</span>
+<span class="co">#&gt;   https://CRAN.R-project.org/package=data.table</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; A BibTeX entry for LaTeX users is</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;   @Manual{,</span>
+<span class="co">#&gt;     title = {data.table: Extension of `data.frame`},</span>
+<span class="co">#&gt;     author = {Matt Dowle and Arun Srinivasan},</span>
+<span class="co">#&gt;     year = {2020},</span>
+<span class="co">#&gt;     note = {R package version 1.13.0},</span>
+<span class="co">#&gt;     url = {https://CRAN.R-project.org/package=data.table},</span>
+<span class="co">#&gt;   }</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"parallel"</span>)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; The 'parallel' package is part of R.  To cite R in publications use:</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;   R Core Team (2020). R: A language and environment for statistical</span>
+<span class="co">#&gt;   computing. R Foundation for Statistical Computing, Vienna, Austria.</span>
+<span class="co">#&gt;   URL https://www.R-project.org/.</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; A BibTeX entry for LaTeX users is</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;   @Manual{,</span>
+<span class="co">#&gt;     title = {R: A Language and Environment for Statistical Computing},</span>
+<span class="co">#&gt;     author = {{R Core Team}},</span>
+<span class="co">#&gt;     organization = {R Foundation for Statistical Computing},</span>
+<span class="co">#&gt;     address = {Vienna, Austria},</span>
+<span class="co">#&gt;     year = {2020},</span>
+<span class="co">#&gt;     url = {https://www.R-project.org/},</span>
+<span class="co">#&gt;   }</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; We have invested a lot of time and effort in creating R, please cite it</span>
+<span class="co">#&gt; when using it for data analysis. See also 'citation("pkgname")' for</span>
+<span class="co">#&gt; citing R packages.</span>
+</pre></div>
 <hr>
 </div>
 <div id="references" class="section level1">
 <h1 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h1>
 <hr>
-<div id="refs" class="references">
-<div id="ref-Viechtbauer_2010">
-<p>1. Viechtbauer W. <em>Conducting Meta-Analyses in R with the Metafor Package</em>.; 2010. <a href="https://www.jstatsoft.org/v36/i03/">https://www.jstatsoft.org/v36/i03/</a>.</p>
-</div>
-</div>
 </div>
   </div>
 
@@ -415,11 +506,11 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://lesslikely.com/">Zad Rafi</a>, <a href="https://www.researchgate.net/profile/Andrew_Vigotsky">Andrew D. Vigotsky</a>.</p>
+  <p>Developed by <a href="https://twitter.com/dailyzad">Zad Rafi</a>, <a href="https://www.researchgate.net/profile/Andrew_Vigotsky">Andrew D. Vigotsky</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

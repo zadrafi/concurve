@@ -15,62 +15,62 @@ vignette: >
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+require(Statamarkdown)
+statapath = ("/Applications/Stata/StataIC.app/Contents/MacOS/StataIC")
+knitr::opts_chunk$set(engine.path=list(stata=statapath))
 ```
 
-Although `concurve` was originally designed to be used in `R`, it is possible to achieve very similar results in `Stata`. We can use some datasets that are built into `Stata` to show how to achieve this. 
+Although `concurve` was originally designed to be used in `R`, it is possible to achieve very similar results in `Stata`. We can use some datasets that are built into `Stata` to show how to achieve this. I'll use the `Statamarkdown` R package so that I can obtain Stata outputs using RMarkdown via my Stata 16 package. 
 
 First, let's load the _auto2_ dataset which contains data about cars and their characteristics.
 
-``` r
+```{stata, echo=FALSE, cleanlog=FALSE}
+sysuse auto2, clear
+```
+
+Browse the data set in your data browser to get more familiar with some of the variables. Let's say we're interested in the relationship between miles per gallon and price. We could fit a very simple linear model to assess that relationship. 
+
+First, let's visualize the data with a scatter plot.
+
+```{stata, cleanlog=FALSE, echo = 1}
 sysuse auto2
+scatter price mpg, mcolor(dkorange) scale( 0.70)
+graph export "scatter.svg", replace
 ```
 
-Browse the dataset in your databrowser to get more familiar with some of the variables. Let's say we're interested in the relationship between miles per gallon and price. We could fit a very simple linear model to assess that relationship. 
+![scatter](scatter.svg){width=150% height=150%}     
 
-First, let's visualize the data with a scatterplot.
-
-``` r
-twoway (scatter price mpg)
-```
-
-<br>
-<center>
-<img src="figures/statascatter.png" align="center" width="550" />
-</center>
-
-<br>
 That's what our data looks like. Clearly there seems to be an inverse relationship between miles per gallon and price.
 
-Now we could fit a very simple linear model with miles per gallon being the predictor and price being the outcome and get some estimates of the relationship.
+Now we could fit a very simple linear model with miles per gallon being the predictor and price being the outcome and get some estimates of the relationship. 
 
-``` r
+```{stata}
+sysuse auto2
 regress price mpg 
 ```
 
-<br>
-<center>
-<img src="figures/stataoutput.png" align="center" width="550" />
-</center>
-
-<br>
 That's what our output looks like. 
 
-Our output also gives us 95% consonance (confidence) intervals by default. The interval includes values as low as -344 and as high as -133. Here's what our model looks graphed.
+Our output also gives us 95% consonance (confidence) intervals by default. But suppose we wished to fit a fractional polynomial model and graph it and get the confidence bands, here's what we would do.
 
-<br>
-<center>
-<img src="figures/statareg.png" align="center" width="550" />
-</center>
+```{stata, cleanlog=FALSE}
+sysuse auto2
+mfp: glm price mpg
+twoway (fpfitci price mpg, estcmd(glm) fcolor(dkorange%20) alcolor(%40))  || scatter price mpg, mcolor(dkorange) scale(0.75)
+graph export "mfp.svg", replace 
+```
 
-<br>
+That's what our model looks graphed.
 
-Unfortunately, the program only gives us one interval at 95% and we're interested in seeing every single interval at every level, and plotting it to form a function. 
+![fractional polynomial model](mfp.svg){width=150% height=150%}    
 
-Here's the code that we'll be using to achieve that. 
+Now, was there any real purpose to fitting a multivariable fractional polynomial? No, but I am a gigantic fan of it for variable selection and transformations and wanted to do it anyway, especially if it can help people get more exposure to it. Moving on...
 
-``` r
+Now suppose we got a single estimate (point or interval) for a parameter, and we wanted all the intervals for it at every level.
 
+Here's the code that we'll be using to achieve that in Stata. 
+
+``` 
 postfile topost level pvalue svalue lointerval upinterval using my_new_data, replace
 	 
 forvalues i = 10/99.9 {	
@@ -88,12 +88,11 @@ twoway (pcscatter level lointerval level upinterval),
 ytitle(Consonance Level (%)) xtitle(Consonance Limits) ///
 title(Consonance Curve) 
 subtitle(A function comprised of several consonance intervals at various levels.)
-
 ```
 
 That's a lot and may seem intimidating at first, but I'll explain it line by line. 
 
-``` r
+``` 
 postfile topost level pvalue svalue lointerval upinterval using my_new_data, replace
 ```
 
@@ -111,7 +110,7 @@ postfile topost level pvalue svalue lointerval upinterval using my_new_data, rep
 
 Here are the next few major lines 
 
-``` r
+``` 
 forvalues i = 10/99.9 {	
 	  quietly regress price mpg, level(`i')
 	  matrix E = r(table)
@@ -128,14 +127,14 @@ Then, we have the command "**level**" with the local macro "**i**" inside of it.
 
 The next line two lines
 
-``` r
+``` 
 	  matrix E = r(table)
 	  matrix list E
 ```
 
 indicate that we will take variables of a certain class r(), (this class contains the interval bounds we need) and place them within a matrix called E. Then we will list the contents of this matrix.
 
-``` r
+``` 
 post topost (`i') (1-`i'/100) ( ln(1-`i'/100)/ln(2) * -1) (E[5,1]) (E[6,1])
 ```
 
@@ -158,13 +157,13 @@ The relationships between the variables on this line and the variables we set up
 
 With that, our loop has concluded, and we can now tell `Stata` that "post" is no longer needed
 
-``` r
+``` 
 postclose topost
 ```
 
 We then tell `Stata` to clear its memory to make room for the new dataset we just created and we can list the contents of this new dataset.
 
-``` r
+``` 
 use my_new_data, clear
 list
 ```
@@ -180,7 +179,7 @@ Of course, we don't need two y variables, so we can set both options to the vari
 This can all be done with the following commands, which will also allow us to set the title and subtitle of the graph, along with the titles of the axes. 
 
 
-``` r
+``` 
 twoway (pcscatter level lointerval level upinterval), 
 ytitle(Consonance Level (%)) xtitle(Consonance Limits) ///
 title(Consonance Curve) 
@@ -193,43 +192,65 @@ However, I would recommend using the menu to customize the plots as much as poss
 <center>
 <img src="figures/graphmenu.png" align="center" width="600" />
 </center>
-
 <br>
 
+So now, here's what our confidence/consonance function looks like. 
 
-So now, here's what our consonance function looks like. 
+```{stata, cleanlog=FALSE, results="hide"}
+clear
+sysuse auto2
+postfile topost level pvalue svalue lointerval upinterval using my_new_data, replace
+	 
+forvalues i = 10/99.9 {	
+	  quietly regress price weight, level(`i')
+	  matrix E = r(table)
+	  matrix list E
+	  post topost (`i') (1-`i'/100) ( ln(1-`i'/100)/ln(2) * -1) (E[5,1]) (E[6,1])
+	} 
+	
+postclose topost
+use my_new_data, clear
 
-<br>
-<center>
-<img src="figures/statacon.png" align="center" width="600" />
-</center>
+twoway (pcscatter pvalue lointerval pvalue upinterval, mcolor(maroon)), ytitle(Consonance Level (%)) xtitle(Consonance Limits) scale(0.75) ///
+title(Consonance Curve) subtitle(A function comprised of several consonance intervals at various levels.)
+graph export "confidence.svg", replace
+```
+![Consonance](confidence.svg){width=150% height=150%}  
 
-<br>
-And here's what our surprisal function looks like. 
+Pretty neat, eh? And below is what our surprisal function looks like, which is simply the $-\log_{2}$(_p_) transformation of the observed P-value. For a more comprehensive discussion on surprisals, [see this page]() and check out some of the references at the bottom.
 
-<br>
-<center>
-<img src="figures/statasurp.png" align="center" width="600" />
-</center>
+```{stata, cleanlog=FALSE, results="hide"}
+clear
+sysuse auto2
+postfile topost level pvalue svalue lointerval upinterval using my_new_data, replace
+	 
+forvalues i = 10/99.9 {	
+	  quietly regress price weight, level(`i')
+	  matrix E = r(table)
+	  matrix list E
+	  post topost (`i') (1-`i'/100) ( ln(1-`i'/100)/ln(2) * -1) (E[5,1]) (E[6,1])
+	} 
+	
+postclose topost
+use my_new_data, clear
 
-<br>
-It looks slighly better when the y-axis is transformed logarithmically...
+twoway (pcscatter svalue lointerval svalue upinterval, mcolor(maroon)), ytitle(Consonance Level (%)) xtitle(Consonance Limits)  scale( 0.75) ///
+title(Surprisal Curve) subtitle(A function comprised of several consonance intervals at various levels.)
+graph export "surprisal.svg", replace
+```
 
-<br>
-<center>
-<img src="figures/statasurplog.png" align="center" width="600" />
-</center>
+![Surprisal Function](surprisal.svg){width=150% height=150%}  
 
-<br>
-...but then we lose our ability to differentiate between the effects contained in intervals with higher bits of information and S-values are already logarithmically scaled. 
+It's clear that in both plots, we're missing values of intervals with a confidence/consonance level of less than 10%, but unfortunately, this is the best `Stata` can do, and what we'll have to work with. It may not look as pretty as an output from `R`, but it's far more useful than blankly staring at a 95% interval and thinking that it is the only piece of information we have regarding compatibility of different effect estimates.
 
-It's clear that in both plots, we're missing values of intervals with a consonance level of less than 10%, but unfortunately, this is the best `Stata` can do, and what we'll have to work with. It may not look as pretty as an output from `R`, but it's far more useful than blankly staring at a 95% interval and thinking that it is the only piece of information we have regarding compatibility of different effect estimates.
+The code that I have pasted above can be used for most commands in `Stata` that have an option to calculate a consonance level. Thus, if there's an option for "**level**", then the commands above will work to produce a data set of several consonance intervals. Though I am seriously hoping that a Stata expert will see this post and point out how I am wrong.
 
-The code that I have pasted above can be used for most commands in `Stata` that have an option to calculate a consonance level. Thus, if there's an option for "**level**", then the commands above will work to produce a dataset of several consonance intervals. 
+Now, suppose we wished to fit a generalized linear model, here's what our code would look like. 
 
-For example, if we wished to fit a generalized linear model, here's what our code would look like. 
+``` stata
+clear
+sysuse auto2
 
-``` r 
 postfile topost level pvalue svalue lointerval upinterval using my_new_data, replace
 	 
 forvalues i = 10/99.9 {	
@@ -251,19 +272,21 @@ subtitle(A function comprised of several consonance intervals at various levels.
 
 We simply replace the first line within the loop with our intended command, just as I've replaced 
 
-```r
+```stata
 regress price mpg
 ```
 
 with 
 
-```r
+```stata
 glm price mpg
 ```
 
-If we wanted fit something more complex, like a multilevel mixed model that used restricted maximum likelihood, here's what our code would look like 
+If we wanted fit something more complex, like a multilevel mixed model that used restricted maximum likelihood, here's what our code would look like:  
 
-``` r 
+``` stata
+clear
+sysuse auto2
 postfile topost level pvalue svalue lointerval upinterval using my_new_data, replace
 	 
 forvalues i = 10/99.9 {	
@@ -284,3 +307,18 @@ subtitle(A function comprised of several consonance intervals at various levels.
 ```
 
 Basically, our code doesn't really change that much and with only a few lines of it, we are able to produce graphical tools that can better help us interpret the wide range of effect sizes that are compatible with the model and its assumptions. 
+
+It is also important to cite the statistical packages that we have used here, as always. 
+
+# Cite R Packages
+
+```{r}
+citation("Statamarkdown")
+```
+
+
+# Session info
+
+```{r session_info, include=TRUE, echo=FALSE}
+sessionInfo()
+```
