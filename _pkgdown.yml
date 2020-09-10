@@ -81,7 +81,7 @@ navbar:
       - text: Package Updates
         href: news/index.html
       - text: Supported Versions
-        href: security.html
+        href: SECURITY.html
       - text: Feature Wish List
         href: articles/wishlist.html
     github:
