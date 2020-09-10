@@ -1,87 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://data.lesslikely.com/concurve//index.html</loc>
+    <loc>https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/index.html</loc>
   </url>
   <url>
-    <loc>https://data.lesslikely.com/concurve//reference/concurve-package.html</loc>
+    <loc>https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/reference/RobustMax.html</loc>
   </url>
   <url>
-    <loc>https://data.lesslikely.com/concurve//reference/curve_boot.html</loc>
+    <loc>https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/reference/RobustMin.html</loc>
   </url>
   <url>
-    <loc>https://data.lesslikely.com/concurve//reference/curve_compare.html</loc>
+    <loc>https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/reference/concurve-package.html</loc>
   </url>
   <url>
-    <loc>https://data.lesslikely.com/concurve//reference/curve_corr.html</loc>
+    <loc>https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/reference/curve_boot.html</loc>
   </url>
   <url>
-    <loc>https://data.lesslikely.com/concurve//reference/curve_gen.html</loc>
+    <loc>https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/reference/curve_compare.html</loc>
   </url>
   <url>
-    <loc>https://data.lesslikely.com/concurve//reference/curve_lik.html</loc>
+    <loc>https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/reference/curve_corr.html</loc>
   </url>
   <url>
-    <loc>https://data.lesslikely.com/concurve//reference/curve_lmer.html</loc>
+    <loc>https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/reference/curve_gen.html</loc>
   </url>
   <url>
-    <loc>https://data.lesslikely.com/concurve//reference/curve_mean.html</loc>
+    <loc>https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/reference/curve_lik.html</loc>
   </url>
   <url>
-    <loc>https://data.lesslikely.com/concurve//reference/curve_meta.html</loc>
+    <loc>https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/reference/curve_lmer.html</loc>
   </url>
   <url>
-    <loc>https://data.lesslikely.com/concurve//reference/curve_rev.html</loc>
+    <loc>https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/reference/curve_mean.html</loc>
   </url>
   <url>
-    <loc>https://data.lesslikely.com/concurve//reference/curve_surv.html</loc>
+    <loc>https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/reference/curve_meta.html</loc>
   </url>
   <url>
-    <loc>https://data.lesslikely.com/concurve//reference/curve_table.html</loc>
+    <loc>https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/reference/curve_rev.html</loc>
   </url>
   <url>
-    <loc>https://data.lesslikely.com/concurve//reference/defunct.html</loc>
+    <loc>https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/reference/curve_surv.html</loc>
   </url>
   <url>
-    <loc>https://data.lesslikely.com/concurve//reference/ggcurve.html</loc>
+    <loc>https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/reference/curve_table.html</loc>
   </url>
   <url>
-    <loc>https://data.lesslikely.com/concurve//reference/plot_compare.html</loc>
+    <loc>https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/reference/defunct.html</loc>
   </url>
   <url>
-    <loc>https://data.lesslikely.com/concurve//articles/bootstrap.html</loc>
+    <loc>https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/reference/ggcurve.html</loc>
   </url>
   <url>
-    <loc>https://data.lesslikely.com/concurve//articles/casestudies.html</loc>
+    <loc>https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/reference/plot_compare.html</loc>
   </url>
   <url>
-    <loc>https://data.lesslikely.com/concurve//articles/customizing.html</loc>
+    <loc>https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/reference/tidyeval.html</loc>
   </url>
   <url>
-    <loc>https://data.lesslikely.com/concurve//articles/examples.html</loc>
+    <loc>https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/articles/bayes.html</loc>
   </url>
   <url>
-    <loc>https://data.lesslikely.com/concurve//articles/likelihood.html</loc>
+    <loc>https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/articles/bootstrap.html</loc>
   </url>
   <url>
-    <loc>https://data.lesslikely.com/concurve//articles/meta-analysis.html</loc>
+    <loc>https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/articles/customizing.html</loc>
   </url>
   <url>
-    <loc>https://data.lesslikely.com/concurve//articles/stata.html</loc>
+    <loc>https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/articles/examples.html</loc>
   </url>
   <url>
-    <loc>https://data.lesslikely.com/concurve//articles/survival.html</loc>
+    <loc>https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/articles/likelihood.html</loc>
   </url>
   <url>
-    <loc>https://data.lesslikely.com/concurve//articles/svalues.html</loc>
+    <loc>https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/articles/literature.html</loc>
   </url>
   <url>
-    <loc>https://data.lesslikely.com/concurve//articles/tables.html</loc>
+    <loc>https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/articles/meta-analysis.html</loc>
   </url>
   <url>
-    <loc>https://data.lesslikely.com/concurve//articles/troubleshooting.html</loc>
+    <loc>https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/articles/stata.html</loc>
   </url>
   <url>
-    <loc>https://data.lesslikely.com/concurve//articles/wishlist.html</loc>
+    <loc>https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/articles/survival.html</loc>
+  </url>
+  <url>
+    <loc>https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/articles/svalues.html</loc>
+  </url>
+  <url>
+    <loc>https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/articles/tables.html</loc>
+  </url>
+  <url>
+    <loc>https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/articles/troubleshooting.html</loc>
+  </url>
+  <url>
+    <loc>https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/articles/variancecomponents.html</loc>
+  </url>
+  <url>
+    <loc>https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/articles/wishlist.html</loc>
   </url>
 </urlset>

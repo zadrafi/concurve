@@ -1,6 +1,6 @@
 ---
-title: "S-value Calculator"
-description: "A Shiny app that converts observed P-values to S-values."
+title: "S-values"
+description: "Background information on S-values along with a Shiny app that converts observed P-values to S-values."
 output: rmarkdown::html_vignette
 opengraph:
   image: 
@@ -8,11 +8,15 @@ opengraph:
   twitter:
     card: summary
     creator: "@dailyzad"
+bibliography: references.bib
+link-citations: yes
+csl: american-medical-association.csl
 vignette: >
-  %\VignetteIndexEntry{S-value Calculator}
+  %\VignetteIndexEntry{S-values}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+To learn more about $S$-values, otherwise known as Shannon-information values, which are the base-2 log transformation of the observed $P$-value $p$, see the following references below the calculator.[@Shannon1948-uq; @goodSurpriseIndexMultivariate1956; @goodCorrectionsSurpriseIndex1957; @bayarriQuantifyingSurpriseData1999; @Greenland2017-es; @greenlandValidPvaluesBehave2019; @coleSurprise2020; @rothmanTakenSurprise2020; @rafiSemanticCognitiveTools2020; @greenlandAidScientificInference2020] 
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
@@ -26,3 +30,8 @@ knitr::opts_chunk$set(
 
 <iframe src="https://zadrafi.shinyapps.io/shinyapp/" width="100%" height="1000px" allowfullscreen="allowfullscreen">
 </iframe>
+
+
+# References
+
+* * * 

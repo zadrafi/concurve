@@ -5,12 +5,12 @@
 \title{Plots Consonance, Surprisal, and Likelihood Functions}
 \usage{
 ggcurve(data, type = "c", measure = "default", levels = 0.95,
-  nullvalue = FALSE, position = "pyramid", title = "Interval Function",
+  nullvalue = NULL, position = "pyramid", title = "Interval Function",
   subtitle = "The function displays intervals at every level.",
   xaxis = expression(theta == ~"Range of Values"),
   yaxis1 = expression(paste(italic(p), "-value")),
   yaxis2 = "Levels for CI (\%)", color = darken("#009E73", 0.5),
-  fill = "#009E7350")
+  fill = "#239a98")
 }
 \arguments{
 \item{data}{The dataframe produced by one of the interval functions
@@ -37,12 +37,10 @@ but more levels can be plotted by using the c() function for example,
 levels = c(0.50, 0.75, 0.95).}
 
 \item{nullvalue}{Indicates whether the null value for the measure
-should be plotted. By default, it is set to FALSE, meaning it will not be
-plotted as a vertical line. Changing this to TRUE, will plot a vertical
-line at 0 when the measure is set to " default" and a vertical line at
-1 when the measure is set to "ratio". For example,
-ggcurve(type = "c", data = df, measure = "ratio", nullvalue = "present").
-This feature is not yet available for surprisal functions.}
+should be plotted. By default, it is set to NULL, meaning it will not be
+plotted as a vertical line. Changing this to a numerical vector will specify the
+region where a line should be plotted or an area that should be shaded. The input
+must be a numerical vector, for example c(-0.5, 0.5) or a single numerical vector such as 0 or 1.}
 
 \item{position}{Determines the orientation of the P-value (consonance) function.
 By default, it is set to "pyramid", meaning the p-value function will

@@ -21,27 +21,16 @@
 <script src="pkgdown.js"></script><!-- docsearch --><script src="docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
 <link href="docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><link href="extra.css" rel="stylesheet">
-<meta property="og:title" content="Computes and Plots Compatibility (Confidence) Intervals,
-    P-Values, S-Values, &amp; Likelihood Intervals to Form Consonance,
-    Surprisal, &amp; Likelihood Functions">
-<meta property="og:description" content="Allows one to compute compatibility (confidence)
-    intervals for various statistical tests along with their corresponding
-    P-values, S-values, and likelihoods. The intervals can be plotted to
-    create consonance, surprisal, and likelihood functions allowing one to
-    see what effect sizes are compatible with the test model at various
-    compatibility levels rather than being limited to one interval estimate
-    such as 95\%. Functions can also be compared to one another to see how much
-    they overlap with one another and differ. Results can also be exported for 
-    Word, Powerpoint, and TeX documents. The package currently supports bootstrapping,
-    linear models, generalized linear models, linear mixed-effects models, 
-    survival analysis, and meta-analysis. These methods are discussed by 
-    Poole C. (1987) &lt;doi:10.2105/AJPH.77.2.195&gt;, Schweder T, Hjort NL. (2002)
-    &lt;doi:10.1111/1467-9469.00285&gt;, Singh K, Xie M, Strawderman WE. (2007)
-    &lt;arXiv:0708.0976&gt;, Rothman KJ, Greenland S, Lash TL. (2008,
-    ISBN:9781451190052), Greenland S. (2019)
-    &lt;doi:10.1080/00031305.2018.1529625&gt;, Rafi Z, Greenland S. (2020)
-    &lt;arXiv:1909.08579&gt;.">
-<meta property="og:image" content="https://data.lesslikely.com/concurve/reference/figures/logo.svg,concurve R package hex logo">
+<meta property="og:title" content="Computes &amp; Plots Compatibility (Confidence),
+       Surprisal, &amp; Likelihood Distributions">
+<meta property="og:description" content="Computes compatibility (confidence) distributions along with their corresponding P-values,
+    S-values, and likelihoods. The intervals can be plotted to form the distributions themselves.  
+    Functions can be compared to one another to see how much they overlap. Results can be
+    exported to Microsoft Word, Powerpoint, and TeX documents. The
+    package currently supports resampling methods, computing differences,
+    generalized linear models, mixed-effects models, survival analysis,
+    and meta-analysis. ">
+<meta property="og:image" content="https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/reference/figures/logo.svg,concurve R package hex-logo">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -66,7 +55,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand"><img src="https://data.lesslikely.com/concurve/reference/figures/logo.svg" id="package-logo" align="left" width="35"><a class="navbar-link" href="index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.5</span>
       </span>
     </div>
 
@@ -124,19 +113,10 @@
   </ul>
 </li>
 <li>
-  <a href="articles/casestudies.html">Case Studies</a>
+  <a href="articles/literature.html">Literature</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Tools
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/svalues.html">S-value Calculator</a>
-    </li>
-  </ul>
+  <a href="articles/svalues.html">S-values</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -146,10 +126,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="news/index.html">Updates</a>
+      <a href="news/index.html">Package Updates</a>
     </li>
     <li>
-      <a href="articles/wishlist.html">Wish List</a>
+      <a href="security.html">Supported Versions</a>
+    </li>
+    <li>
+      <a href="articles/wishlist.html">Feature Wish List</a>
     </li>
   </ul>
 </li>
@@ -185,16 +168,34 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="concurve--graph-interval-functions--" class="section level2">
-<h2 class="hasAnchor">
-<a href="#concurve--graph-interval-functions--" class="anchor"></a>concurve | Graph Interval Functions  <img src="reference/figures/logo.svg" align="right" width="70">
-</h2>
+
+<div id="concurve--graph-interval-functions--" class="section level3">
+<h3 class="hasAnchor">
+<a href="#concurve--graph-interval-functions--" class="anchor"></a><span style="color:#000; font-weight: 400;">concurve</span> | Graph Interval Functions  <img src="reference/figures/logo.svg" align="right" width="70">
+</h3>
 <hr>
 <!-- badges: start -->
-<div id="compare-functions-from-different-datasetsstudies" class="section level4">
+<div id="compute--graph-confidence-distributions-and-likelihood-functions" class="section level4">
 <h4 class="hasAnchor">
-<a href="#compare-functions-from-different-datasetsstudies" class="anchor"></a><a href="https://data.lesslikely.com/concurve/reference/plot_compare.html">Compare</a> Functions From Different Datasets/Studies</h4>
-<p><img src="https://res.cloudinary.com/less-likely/image/upload/v1591475692/Site/functions.png" align="center" width="400"><img src="https://res.cloudinary.com/less-likely/image/upload/v1591475692/Site/lfunctions.png" align="center" width="400"></p>
+<a href="#compute--graph-confidence-distributions-and-likelihood-functions" class="anchor"></a><a href="https://data.lesslikely.com/concurve/reference/ggcurve.html">Compute &amp; Graph</a> Confidence Distributions and Likelihood Functions</h4>
+<center>
+<figure><img src="articles/confdistributions.png" align="center" width="550"><br><figcaption><p style="font-size: 12px">
+Sample image taken from Schweder T, Hjort NL. (2016)
+</p>
+</figcaption></figure>
+</center>
+<hr>
+</div>
+<div id="for-a-better-understanding-of-what-these-are-see-the-background-literature" class="section level4">
+<h4 class="hasAnchor">
+<a href="#for-a-better-understanding-of-what-these-are-see-the-background-literature" class="anchor"></a>For A Better Understanding of What These Are, See the <a href="https://data.lesslikely.com/concurve/articles/literature.html">Background Literature</a>
+</h4>
+<hr>
+</div>
+<div id="compare-the-functions-from-different-studies" class="section level4">
+<h4 class="hasAnchor">
+<a href="#compare-the-functions-from-different-studies" class="anchor"></a><a href="https://data.lesslikely.com/concurve/reference/plot_compare.html">Compare</a> The Functions From Different Studies</h4>
+<p><img src="https://res.cloudinary.com/less-likely/image/upload/v1591475692/Site/functions.png" align="center" width="350"><img src="https://res.cloudinary.com/less-likely/image/upload/v1591475692/Site/lfunctions.png" align="center" width="350"></p>
 <hr>
 </div>
 <div id="export-tables-easily-for-word-powerpoint--tex-documents" class="section level4">
@@ -203,23 +204,85 @@
 <center>
 <p><img src="https://res.cloudinary.com/less-likely/image/upload/v1574628079/Site/tables.png" align="center" width="500"></p>
 <hr>
-</center>
-</div>
-<div id="install-the-package-from-cran-and-check-out-the-articles" class="section level4">
-<h4 class="hasAnchor">
-<a href="#install-the-package-from-cran-and-check-out-the-articles" class="anchor"></a>Install the package from <a href="https://cran.r-project.org/package=concurve">CRAN</a> and check out the <a href="https://data.lesslikely.com/concurve/articles/index.html">articles</a>.</h4>
-<p>(<code>It is highly recommended to look at the articles.</code>)</p>
+<div id="install-the-package-from-cran-and-check-out-the-articles-which-can-also-be-found-below" class="section level5">
+<h5 class="hasAnchor">
+<a href="#install-the-package-from-cran-and-check-out-the-articles-which-can-also-be-found-below" class="anchor"></a>Install the package from <a href="https://cran.r-project.org/package=concurve">CRAN</a> and check out the <a href="https://data.lesslikely.com/concurve/articles/index.html">articles</a>, which can also be found below.</h5>
+<p>(<code>It is highly recommended that you look at the articles.</code>)</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">install.packages</span>(<span class="st">"concurve"</span>)</span></code></pre></div>
 <p>Try the following script if you run into any installation issues:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="kw">install.packages</span>(<span class="st">"concurve"</span>, <span class="dt">repos =</span> <span class="st">"https://cloud.r-project.org/"</span>, <span class="dt">dep =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <hr>
 </div>
-<div id="check-out-the-article-on-using-stata-to-obtain-similar-results" class="section level4">
+</center>
+</div>
+<div id="articles" class="section level4">
 <h4 class="hasAnchor">
-<a href="#check-out-the-article-on-using-stata-to-obtain-similar-results" class="anchor"></a>Check out the <a href="https://data.lesslikely.com/concurve/articles/stata.html">article on using <code>Stata</code></a> to obtain similar results.</h4>
+<a href="#articles" class="anchor"></a>Articles</h4>
+<div id="check-out-the-article-on-using-stata-to-obtain-similar-functions" class="section level5">
+<h5 class="hasAnchor">
+<a href="#check-out-the-article-on-using-stata-to-obtain-similar-functions" class="anchor"></a>Check out the <a href="https://data.lesslikely.com/concurve/articles/stata.html">article on using <code>Stata</code></a> to obtain similar functions.</h5>
+<hr>
+</div>
+<div id="see-the-following-articles" class="section level5">
+<h5 class="hasAnchor">
+<a href="#see-the-following-articles" class="anchor"></a>See the following articles:</h5>
+<ul>
+<li><strong><a href="https://data.lesslikely.com/concurve/articles/bayes.html">Comparison to Bayesian Posterior Distributions</a></strong></li>
+<li><strong><a href="https://data.lesslikely.com/concurve/articles/bootstrap.html">The Bootstrap and Consonance Functions</a></strong></li>
+<li><strong><a href="https://data.lesslikely.com/concurve/articles/literature.html">Background Literature</a></strong></li>
+<li><strong><a href="https://data.lesslikely.com/concurve/articles/customizing.html">Customizing Plots</a></strong></li>
+<li><strong><a href="https://data.lesslikely.com/concurve/articles/examples.html">Examples in R</a></strong></li>
+<li><strong><a href="https://data.lesslikely.com/concurve/articles/likelihood.html">Profile Likelihoods</a></strong></li>
+<li><strong><a href="https://data.lesslikely.com/concurve/articles/meta-analysis.html">Meta-Analysis Examples</a></strong></li>
+<li><strong><a href="https://data.lesslikely.com/concurve/articles/stata.html">Using Stata</a></strong></li>
+<li><strong><a href="https://data.lesslikely.com/concurve/articles/survival.html">Survival Modeling</a></strong></li>
+<li><strong><a href="https://data.lesslikely.com/concurve/articles/svalues.html">S-values</a></strong></li>
+<li><strong><a href="https://data.lesslikely.com/concurve/articles/tables.html">Generating Tables</a></strong></li>
+<li><strong><a href="https://data.lesslikely.com/concurve/articles/troubleshooting.html">Troubleshooting</a></strong></li>
+<li><strong><a href="https://data.lesslikely.com/concurve/articles/variancecomponents.html">Consonance Functions for Linear Mixed-Effects Models</a></strong></li>
+<li><strong><a href="https://data.lesslikely.com/concurve/articles/wishlist.html">Wish List</a></strong></li>
+</ul>
 <hr>
 </div>
 </div>
+</div>
+<div id="citation" class="section level3">
+<h3 class="hasAnchor">
+<a href="#citation" class="anchor"></a>Citation</h3>
+<p>To properly cite the package, please see the <a href="file:///Users/zad/Desktop/GitHub/concurve/docs/authors.html">following page</a> or run the R script below.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="kw">citation</span>(<span class="st">"concurve"</span>)</span></code></pre></div>
+<hr>
+</div>
+<div id="code-of-conduct" class="section level3">
+<h3 class="hasAnchor">
+<a href="#code-of-conduct" class="anchor"></a>Code of Conduct</h3>
+<p>Please note that the concurve project is released with a <a href="https://data.lesslikely.com/concurve//CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
+<div id="environment" class="section level5">
+<h5 class="hasAnchor">
+<a href="#environment" class="anchor"></a>Environment</h5>
+<p>The package was currently run on:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="co">## R version 4.0.2 (2020-06-22)</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="co">## Platform: x86_64-apple-darwin17.0 (64-bit)</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a><span class="co">## Running under: macOS Catalina 10.15.6</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a><span class="co">## </span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a><span class="co">## Matrix products: default</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a><span class="co">## BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a><span class="co">## LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true"></a><span class="co">## </span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true"></a><span class="co">## locale:</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true"></a><span class="co">## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true"></a><span class="co">## </span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true"></a><span class="co">## attached base packages:</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true"></a><span class="co">## [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true"></a><span class="co">## </span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true"></a><span class="co">## loaded via a namespace (and not attached):</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true"></a><span class="co">##  [1] compiler_4.0.2    magrittr_1.5      credentials_1.3.0 htmltools_0.5.0   tools_4.0.2       yaml_2.2.1        stringi_1.5.3    </span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true"></a><span class="co">##  [8] rmarkdown_2.3     knitr_1.29        stringr_1.4.0     xfun_0.17         digest_0.6.25     rlang_0.4.7       openssl_1.4.2    </span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true"></a><span class="co">## [15] sys_3.4           evaluate_0.14     askpass_1.1</span></span></code></pre></div>
+<hr>
+</div>
+</div>
+
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -246,6 +309,7 @@
 <h2>Community</h2>
 <ul class="list-unstyled">
 <li><a href="CONTRIBUTING.html">Contributing guide</a></li>
+<li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
 </ul>
 </div>
 <div class="citation">
@@ -258,7 +322,7 @@
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>
-<a href="https://lesslikely.com/">Zad Rafi</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-1545-8199" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<a href="https://twitter.com/dailyzad">Zad Rafi</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-1545-8199" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>
 <a href="https://www.researchgate.net/profile/Andrew_Vigotsky">Andrew D. Vigotsky</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-3166-0688" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li><a href="authors.html">All authors...</a></li>
@@ -269,12 +333,13 @@
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://CRAN.R-project.org/package=concurve"><img src="https://www.r-pkg.org/badges/version/concurve" alt="CRAN status"></a></li>
-<li><a href="https://travis-ci.com/zadrafi/concurve"><img src="https://travis-ci.com/zadrafi/concurve.svg?branch=master" alt="Travis build status"></a></li>
-<li><a href="https://www.tidyverse.org/lifecycle/#stable"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: Stable"></a></li>
+<li><a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing"></a></li>
 <li><a href="https://cran.r-project.org/package=concurve"><img src="https://cranlogs.r-pkg.org/badges/concurve" alt="Monthly Downloads"></a></li>
 <li><a href="https://cran.r-project.org/package=concurve"><img src="https://cranlogs.r-pkg.org/badges/grand-total/concurve" alt="Total Downloads"></a></li>
 <li><a href="http://www.rdocumentation.org/packages/concurve"><img src="http://www.rdocumentation.org/badges/version/concurve" alt="Rdoc"></a></li>
 <li><a href="https://www.gnu.org/licenses/gpl-3.0"><img src="https://img.shields.io/badge/License-GPL%20v3-blue.svg" alt="License: GPL v3"></a></li>
+<li><a href="https://github.com/zadrafi/concurve/actions"><img src="https://github.com/zadrafi/concurve/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+<li><a href="https://travis-ci.com/zadrafi/concurve"><img src="https://travis-ci.com/zadrafi/concurve.svg?branch=master" alt="Travis build status"></a></li>
 </ul>
 </div>
 </div>
@@ -282,11 +347,11 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://lesslikely.com/">Zad Rafi</a>, <a href="https://www.researchgate.net/profile/Andrew_Vigotsky">Andrew D. Vigotsky</a>.</p>
+  <p>Developed by <a href="https://twitter.com/dailyzad">Zad Rafi</a>, <a href="https://www.researchgate.net/profile/Andrew_Vigotsky">Andrew D. Vigotsky</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

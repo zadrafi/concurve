@@ -21,9 +21,9 @@
 <script src="../pkgdown.js"></script><!-- docsearch --><script src="../docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
 <link href="../docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><link href="../extra.css" rel="stylesheet">
-<meta property="og:title" content="S-value Calculator">
-<meta property="og:description" content="A Shiny app that converts observed P-values to S-values.">
-<meta property="og:image" content="https://zadrafi.shinyapps.io/shinyapp/_w_45803ac8/PandaCoin.png,concurve R package hex logo">
+<meta property="og:title" content="S-values">
+<meta property="og:description" content="Background information on S-values along with a Shiny app that converts observed P-values to S-values.">
+<meta property="og:image" content="https://zadrafi.shinyapps.io/shinyapp/_w_45803ac8/PandaCoin.png,concurve R package hex-logo">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -48,7 +48,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand"><img src="https://data.lesslikely.com/concurve/reference/figures/logo.svg" id="package-logo" align="left" width="35"><a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.5</span>
       </span>
     </div>
 
@@ -106,19 +106,10 @@
   </ul>
 </li>
 <li>
-  <a href="../articles/casestudies.html">Case Studies</a>
+  <a href="../articles/literature.html">Literature</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Tools
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/svalues.html">S-value Calculator</a>
-    </li>
-  </ul>
+  <a href="../articles/svalues.html">S-values</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -128,10 +119,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../news/index.html">Updates</a>
+      <a href="../news/index.html">Package Updates</a>
     </li>
     <li>
-      <a href="../articles/wishlist.html">Wish List</a>
+      <a href="../security.html">Supported Versions</a>
+    </li>
+    <li>
+      <a href="../articles/wishlist.html">Feature Wish List</a>
     </li>
   </ul>
 </li>
@@ -168,7 +162,7 @@
       </header><script src="svalues_files/header-attrs-2.3/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>S-value Calculator</h1>
+      <h1 data-toc-skip>S-values</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/zadrafi/concurve/blob/master/vignettes/svalues.Rmd"><code>vignettes/svalues.Rmd</code></a></small>
@@ -178,24 +172,64 @@
 
     
     
+<p>To learn more about <span class="math inline">\(S\)</span>-values, otherwise known as Shannon-information values, which are the base-2 log transformation of the observed <span class="math inline">\(P\)</span>-value <span class="math inline">\(p\)</span>, see the following references below the calculator.<span class="citation"><sup><a href="#ref-Shannon1948-uq" role="doc-biblioref">1</a>–<a href="#ref-greenlandAidScientificInference2020" role="doc-biblioref">10</a></sup></span></p>
 <iframe src="https://zadrafi.shinyapps.io/shinyapp/" width="100%" height="1000px" allowfullscreen="allowfullscreen">
 </iframe>
+<div id="references" class="section level1">
+<h1 class="hasAnchor">
+<a href="#references" class="anchor"></a>References</h1>
+<hr>
+<div id="refs" class="references">
+<div id="ref-Shannon1948-uq">
+<p>1. Shannon CE. A mathematical theory of communication. <em>The Bell System Technical Journal</em>. 1948;27(3):379-423. doi:<a href="https://doi.org/10.1002/j.1538-7305.1948.tb01338.x">10.1002/j.1538-7305.1948.tb01338.x</a></p>
+</div>
+<div id="ref-goodSurpriseIndexMultivariate1956">
+<p>2. Good IJ. The surprise index for the multivariate normal distribution. <em>The Annals of Mathematical Statistics</em>. 1956;27(4):1130-1135. doi:<a href="https://doi.org/10.1214/aoms/1177728079">10.1214/aoms/1177728079</a></p>
+</div>
+<div id="ref-goodCorrectionsSurpriseIndex1957">
+<p>3. Good IJ. Corrections to "The Surprise Index for the Multivariate Normal Distribution". <em>The Annals of Mathematical Statistics</em>. 1957;28(4):1055-1055. doi:<a href="https://doi.org/10/dsgx9q">10/dsgx9q</a></p>
+</div>
+<div id="ref-bayarriQuantifyingSurpriseData1999">
+<p>4. Bayarri MJ, Berger JO. Quantifying Surprise in the Data and Model Verification. <em>Bayesian Statistics</em>. 1999;6:53-82.</p>
+</div>
+<div id="ref-Greenland2017-es">
+<p>5. Greenland S. Invited commentary: The need for cognitive science in methodology. <em>American Journal of Epidemiology</em>. 2017;186(6):639-645. doi:<a href="https://doi.org/10.1093/aje/kwx259">10.1093/aje/kwx259</a></p>
+</div>
+<div id="ref-greenlandValidPvaluesBehave2019">
+<p>6. Greenland S. Valid P-values behave exactly as they should: Some misleading criticisms of P-values and their resolution with S-values. <em>The American Statistician</em>. 2019;73(sup1):106-114. doi:<a href="https://doi.org/10.1080/00031305.2018.1529625">10.1080/00031305.2018.1529625</a></p>
+</div>
+<div id="ref-coleSurprise2020">
+<p>7. Cole SR, Edwards JK, Greenland S. Surprise! <em>American Journal of Epidemiology</em>. July 2020. doi:<a href="https://doi.org/10/gg63md">10/gg63md</a></p>
+</div>
+<div id="ref-rothmanTakenSurprise2020">
+<p>8. Rothman KJ. Taken by Surprise. <em>American Journal of Epidemiology</em>. July 2020. doi:<a href="https://doi.org/10/gg63mf">10/gg63mf</a></p>
+</div>
+<div id="ref-rafiSemanticCognitiveTools2020">
+<p>9. Rafi Z, Greenland S. Semantic and Cognitive Tools to Aid Statistical Science: Replace Confidence and Significance by Compatibility and Surprise. <em>arXiv:190908579 [statME]</em>. 2020.</p>
+</div>
+<div id="ref-greenlandAidScientificInference2020">
+<p>10. Greenland S, Rafi Z. To Aid Scientific Inference, Emphasize Unconditional Descriptions of Statistics. <em>arXiv:190908583 [statME]</em>. 2020.</p>
+</div>
+</div>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-      </div>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
+</div>
 
 </div>
 
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://lesslikely.com/">Zad Rafi</a>, <a href="https://www.researchgate.net/profile/Andrew_Vigotsky">Andrew D. Vigotsky</a>.</p>
+  <p>Developed by <a href="https://twitter.com/dailyzad">Zad Rafi</a>, <a href="https://www.researchgate.net/profile/Andrew_Vigotsky">Andrew D. Vigotsky</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

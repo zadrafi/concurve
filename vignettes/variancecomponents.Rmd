@@ -24,16 +24,11 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+library(concurve)
+library(lme4)
+library(daewr)
 ```
 
-```{r cars}
-require(concurve)
-require(lme4)
-require(daewr)
-library(parallel)
-options(mc.cores = detectCores())
-getOption("mc.cores", 1L)
-```
 
 Here is a simple example taken from the `lme4` documentation. 
 
@@ -44,9 +39,10 @@ Here is a simple example taken from the `lme4` documentation.
 There's our output. Now suppose that we wanted the to see the interval estimates and functions of the variable "Days", here's how we would do it with `curve_lmer()`
 
 ```{r}
-object1 <- curve_lmer(object = fm1, parm = "Days", method = "profile", steps = 1000, cores = parallel::detectCores())
+library(concurve)
+object1 <- curve_lmer(object = fm1, parm = "Days", method = "profile", steps = 100)
 
-sample1 <- curve_lmer(object = fm1, parm = ".sig01", method = "profile", steps = 1000, cores = parallel::detectCores())
+sample1 <- curve_lmer(object = fm1, parm = ".sig01", method = "profile", steps = 100)
 
 ggcurve(data = sample1[[1]], type = "c", measure = "default")
 ```
@@ -72,7 +68,7 @@ Now we attempt to estimate the interval estimates for variance components.
 
 ```{r}
 
-sample2 <- curve_lmer(object = fm1M, parm = ".sig01", method = "profile", steps = 1000, cores = parallel::detectCores())
+sample2 <- curve_lmer(object = fm1M, parm = ".sig01", method = "profile", steps = 100)
 
 ggcurve(data = sample2[[1]], type = "c", measure = "default")
 ```

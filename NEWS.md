@@ -1,3 +1,14 @@
+# concurve 2.7.5
+
+## Major changes 
+ 
+* Substantial revisions to the documents and website
+* Now, far fewer dependencies to avoid potential conflicts in the future 
+* Included lots of resources for individuals to better learn the concepts 
+* Far better improvement in documentation and in continous integration
+* Added several messages that accompany functions from the program to aid researchers
+* Larger and improved tutorial on how to construct these functions using Stata
+
 # concurve 2.7.0
 
 ## Major changes 

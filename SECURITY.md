@@ -1,21 +1,20 @@
-# Security Policy
+# Supported Versions
 
-## Supported Versions
-
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+This section is a quick summary of which versions of concurve are 
+currently supported and which we will provide support with depending on the context.
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+| 2.7.5   | :white_check_mark: |
+| 2.7.0   | :white_check_mark: |
+| 2.6.0   | :white_check_mark: |
+| < 2.5.0 | :x:                |
 
 ## Reporting a Vulnerability
 
-Use this section to tell people how to report a vulnerability.
+Please [see here](https://data.lesslikely.com/concurve/CONTRIBUTING.html) to report any vulnerabilities within the package.
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+# Bugs 
+
+If you encounter any other bugs, please report them at 
+[https://github.com/zadrafi/concurve/issues](https://github.com/zadrafi/concurve/issues)

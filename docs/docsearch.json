@@ -2,21 +2,21 @@
   "index_name": "lesslikely-concurve",
   "start_urls": [
     {
-      "url": "https://data.lesslikely.com/concurve//index.html",
+      "url": "https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/index.html",
       "selectors_key": "homepage",
       "tags": [
         "homepage"
       ]
     },
     {
-      "url": "https://data.lesslikely.com/concurve//reference",
+      "url": "https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/reference",
       "selectors_key": "reference",
       "tags": [
         "reference"
       ]
     },
     {
-      "url": "https://data.lesslikely.com/concurve//articles",
+      "url": "https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/articles",
       "selectors_key": "articles",
       "tags": [
         "articles"
@@ -30,7 +30,7 @@
     "/articles/index.html"
   ],
   "sitemap_urls": [
-    "https://data.lesslikely.com/concurve//sitemap.xml"
+    "https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/sitemap.xml"
   ],
   "selectors": {
     "homepage": {

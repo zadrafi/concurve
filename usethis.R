@@ -3,6 +3,10 @@ library(roxygen2)
 library(roxygen2md)
 library(devtools)
 library(concurve)
+library(rcmdcheck)
+library(pkgdown)
+library(revdepcheck)
+library(codemetar)
 
 # Importing other packages
 
@@ -57,33 +61,51 @@ use_build_ignore("bayes.Rmd", escape = TRUE)
 use_build_ignore("variancecomponents.Rmd", escape = TRUE)
 use_build_ignore("casestudies.Rmd", escape = TRUE)
 use_build_ignore("wishlist.Rmd", escape = TRUE)
+use_build_ignore("stata", escape = TRUE)
+use_build_ignore("SECURITY.md", escape = TRUE)
+use_build_ignore("CODE_OF_CONDUCT.md", escape = TRUE)
 
 use_spell_check(vignettes = TRUE, lang = "en-US", error = FALSE)
 use_cran_comments(open = interactive())
 use_tidy_style()
 use_revdep()
+revdepcheck::revdep_check(num_workers = 4)
 codemetar::write_codemeta()
 
-build(pkg = ".", path = NULL, binary = TRUE, vignettes = TRUE,
-      manual = TRUE, args = NULL, quiet = FALSE)
+revdepcheck::revdep_reset()
 
-devtools::document()
-roxygen2md(scope = "full")
 check_man(pkg = ".")
+roxygenize(package.dir = ".", roclets = c("collate",  "rd"), load_code = NULL, clean = TRUE)
+
+
+
+
+pack <- "concurve"
+path <- find.package(pack)
+system(paste(shQuote(file.path(R.home("bin"), "R")),
+             "CMD", "Rd2pdf", shQuote(path)))
+
+rcmdcheck()
+
+chk <- rcmdcheck(path = ".", quiet = FALSE, args = character(),
+          build_args = character(), check_dir = NULL, libpath = .libPaths(),
+          repos = getOption("repos"), timeout = Inf, error_on = c("never",
+                                                                  "error", "warning", "note"))
+
+check_details(chk)[]
+
+parse_check(chk)
 
 
 check(
-  pkg = ".", document = TRUE, build_args = NULL,
+  pkg = ".", document = NA, clean_doc = TRUE, 
   manual = TRUE, cran = TRUE, remote = TRUE, incoming = TRUE,
-  force_suggests = TRUE, run_dont_test = TRUE, args = "--timings",
-  env_vars = NULL, quiet = FALSE, check_dir = tempdir(),
-  cleanup = TRUE, vignettes = FALSE, error_on = c("never", "error", "warning", "note")
+  force_suggests = FALSE, run_dont_test = FALSE, args = c('--as-cran','--timings'),
+  build_args = c('--compact-vignettes'),
+  quiet = FALSE, check_dir = tempdir(),
+  vignettes = FALSE, error_on = c("never", "error", "warning", "note")
 )
 
 
-check_rhub(
-  pkg = ".", platforms = NULL, email = NULL,
-  interactive = TRUE, build_args = NULL
-)
-
-rhub::check_for_cran(".")
+pkgdown::build_site()
+pkgdown::clean_site()

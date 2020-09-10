@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- This is a Stata 16.1 generated SVG file (http://www.stata.com) -->
+
+<svg version="1.1" width="5.50in" height="4.00in" viewBox="0 0 3960 2880" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<desc>Stata Graph - Graph</desc>
+	<rect x="0" y="0" width="3960" height="2880" style="fill:#EAF2F3;stroke:none"/>
+	<rect x="0.00" y="0.00" width="3959.88" height="2880.00" style="fill:#EAF2F3"/>
+	<rect x="2.88" y="2.88" width="3954.12" height="2874.24" style="fill:none;stroke:#EAF2F3;stroke-width:5.76"/>
+	<rect x="462.95" y="340.08" width="3396.07" height="2115.45" style="fill:#FFFFFF"/>
+	<rect x="465.25" y="342.38" width="3391.46" height="2110.84" style="fill:none;stroke:#FFFFFF;stroke-width:4.61"/>
+	<line x1="462.95" y1="2404.91" x2="3859.02" y2="2404.91" style="stroke:#EAF2F3;stroke-width:6.91"/>
+	<line x1="462.95" y1="1901.35" x2="3859.02" y2="1901.35" style="stroke:#EAF2F3;stroke-width:6.91"/>
+	<line x1="462.95" y1="1397.80" x2="3859.02" y2="1397.80" style="stroke:#EAF2F3;stroke-width:6.91"/>
+	<line x1="462.95" y1="894.37" x2="3859.02" y2="894.37" style="stroke:#EAF2F3;stroke-width:6.91"/>
+	<line x1="462.95" y1="390.81" x2="3859.02" y2="390.81" style="stroke:#EAF2F3;stroke-width:6.91"/>
+	<line x1="513.69" y1="2455.52" x2="513.69" y2="340.08" style="stroke:#EAF2F3;stroke-width:6.91"/>
+	<line x1="1172.65" y1="2455.52" x2="1172.65" y2="340.08" style="stroke:#EAF2F3;stroke-width:6.91"/>
+	<line x1="1831.50" y1="2455.52" x2="1831.50" y2="340.08" style="stroke:#EAF2F3;stroke-width:6.91"/>
+	<line x1="2490.47" y1="2455.52" x2="2490.47" y2="340.08" style="stroke:#EAF2F3;stroke-width:6.91"/>
+	<line x1="3149.44" y1="2455.52" x2="3149.44" y2="340.08" style="stroke:#EAF2F3;stroke-width:6.91"/>
+	<line x1="3808.41" y1="2455.52" x2="3808.41" y2="340.08" style="stroke:#EAF2F3;stroke-width:6.91"/>
+	<path d=" M513.56 2244.65 L843.11 2174.23 L1172.53 2094.78 L1502.08 2003.95 L1831.50 1898.14 L2160.92 1771.78 L2490.47 1615.61 L2819.89 1412.03 L3149.44 1121.33 L3478.86 616.42" stroke-linejoin="round" style="fill:none;stroke:#1A476F;stroke-width:6.91"/>
+	<circle cx="513.56" cy="2244.65" r="21.03" style="fill:#1A476F"/>
+	<circle cx="513.56" cy="2244.65" r="17.57" style="fill:none;stroke:#1A476F;stroke-width:6.91"/>
+	<circle cx="843.11" cy="2174.23" r="21.03" style="fill:#1A476F"/>
+	<circle cx="843.11" cy="2174.23" r="17.57" style="fill:none;stroke:#1A476F;stroke-width:6.91"/>
+	<circle cx="1172.53" cy="2094.78" r="21.03" style="fill:#1A476F"/>
+	<circle cx="1172.53" cy="2094.78" r="17.57" style="fill:none;stroke:#1A476F;stroke-width:6.91"/>
+	<circle cx="1502.08" cy="2003.95" r="21.03" style="fill:#1A476F"/>
+	<circle cx="1502.08" cy="2003.95" r="17.57" style="fill:none;stroke:#1A476F;stroke-width:6.91"/>
+	<circle cx="1831.50" cy="1898.14" r="21.03" style="fill:#1A476F"/>
+	<circle cx="1831.50" cy="1898.14" r="17.57" style="fill:none;stroke:#1A476F;stroke-width:6.91"/>
+	<circle cx="2160.92" cy="1771.78" r="21.03" style="fill:#1A476F"/>
+	<circle cx="2160.92" cy="1771.78" r="17.57" style="fill:none;stroke:#1A476F;stroke-width:6.91"/>
+	<circle cx="2490.47" cy="1615.61" r="21.03" style="fill:#1A476F"/>
+	<circle cx="2490.47" cy="1615.61" r="17.57" style="fill:none;stroke:#1A476F;stroke-width:6.91"/>
+	<circle cx="2819.89" cy="1412.03" r="21.03" style="fill:#1A476F"/>
+	<circle cx="2819.89" cy="1412.03" r="17.57" style="fill:none;stroke:#1A476F;stroke-width:6.91"/>
+	<circle cx="3149.44" cy="1121.33" r="21.03" style="fill:#1A476F"/>
+	<circle cx="3149.44" cy="1121.33" r="17.57" style="fill:none;stroke:#1A476F;stroke-width:6.91"/>
+	<circle cx="3478.86" cy="616.42" r="21.03" style="fill:#1A476F"/>
+	<circle cx="3478.86" cy="616.42" r="17.57" style="fill:none;stroke:#1A476F;stroke-width:6.91"/>
+	<line x1="462.95" y1="2455.52" x2="462.95" y2="340.08" style="stroke:#000000;stroke-width:4.61"/>
+	<line x1="462.95" y1="2404.91" x2="431.02" y2="2404.91" style="stroke:#000000;stroke-width:4.61"/>
+	<text x="414.93" y="2432.92" style="font-family:'Helvetica';font-size:79.94px;fill:#000000" text-anchor="end">1000</text>
+	<line x1="462.95" y1="1901.35" x2="431.02" y2="1901.35" style="stroke:#000000;stroke-width:4.61"/>
+	<text x="414.93" y="1929.37" style="font-family:'Helvetica';font-size:79.94px;fill:#000000" text-anchor="end">1500</text>
+	<line x1="462.95" y1="1397.80" x2="431.02" y2="1397.80" style="stroke:#000000;stroke-width:4.61"/>
+	<text x="414.93" y="1425.81" style="font-family:'Helvetica';font-size:79.94px;fill:#000000" text-anchor="end">2000</text>
+	<line x1="462.95" y1="894.37" x2="431.02" y2="894.37" style="stroke:#000000;stroke-width:4.61"/>
+	<text x="414.93" y="922.38" style="font-family:'Helvetica';font-size:79.94px;fill:#000000" text-anchor="end">2500</text>
+	<line x1="462.95" y1="390.81" x2="431.02" y2="390.81" style="stroke:#000000;stroke-width:4.61"/>
+	<text x="414.93" y="418.83" style="font-family:'Helvetica';font-size:79.94px;fill:#000000" text-anchor="end">3000</text>
+	<text x="172.72" y="1397.80" style="font-family:'Helvetica';font-size:79.94px;fill:#000000" transform="rotate(-90 172.72,1397.80)" text-anchor="middle">Total sample size (N)</text>
+	<line x1="462.95" y1="2455.52" x2="3859.02" y2="2455.52" style="stroke:#000000;stroke-width:4.61"/>
+	<line x1="513.69" y1="2455.52" x2="513.69" y2="2487.58" style="stroke:#000000;stroke-width:4.61"/>
+	<text x="513.69" y="2559.44" style="font-family:'Helvetica';font-size:79.94px;fill:#000000" text-anchor="middle">90</text>
+	<line x1="1172.65" y1="2455.52" x2="1172.65" y2="2487.58" style="stroke:#000000;stroke-width:4.61"/>
+	<text x="1172.65" y="2559.44" style="font-family:'Helvetica';font-size:79.94px;fill:#000000" text-anchor="middle">92</text>
+	<line x1="1831.50" y1="2455.52" x2="1831.50" y2="2487.58" style="stroke:#000000;stroke-width:4.61"/>
+	<text x="1831.50" y="2559.44" style="font-family:'Helvetica';font-size:79.94px;fill:#000000" text-anchor="middle">94</text>
+	<line x1="2490.47" y1="2455.52" x2="2490.47" y2="2487.58" style="stroke:#000000;stroke-width:4.61"/>
+	<text x="2490.47" y="2559.44" style="font-family:'Helvetica';font-size:79.94px;fill:#000000" text-anchor="middle">96</text>
+	<line x1="3149.44" y1="2455.52" x2="3149.44" y2="2487.58" style="stroke:#000000;stroke-width:4.61"/>
+	<text x="3149.44" y="2559.44" style="font-family:'Helvetica';font-size:79.94px;fill:#000000" text-anchor="middle">98</text>
+	<line x1="3808.41" y1="2455.52" x2="3808.41" y2="2487.58" style="stroke:#000000;stroke-width:4.61"/>
+	<text x="3808.41" y="2559.44" style="font-family:'Helvetica';font-size:79.94px;fill:#000000" text-anchor="middle">100</text>
+	<text x="2161.05" y="2647.55" style="font-family:'Helvetica';font-size:79.94px;fill:#000000" text-anchor="middle">Confidence level (100(1-α))</text>
+	<text x="476.81" y="2746.15" style="fill:#000000">
+		<tspan style="font-family:'Helvetica';font-size:63.98px">Parameters: p</tspan>
+		<tspan dy="9.14px" style="font-family:'Helvetica';font-size:37.30px">width</tspan>
+		<tspan dy="-9.14px" style="font-family:'Helvetica';font-size:63.98px"> = </tspan>
+		<tspan style="font-family:'Helvetica';font-size:63.98px">.95</tspan>
+		<tspan style="font-family:'Helvetica';font-size:63.98px">, w = </tspan>
+		<tspan style="font-family:'Helvetica';font-size:63.98px">.2</tspan>
+		<tspan style="font-family:'Helvetica';font-size:63.98px">, σ = </tspan>
+		<tspan style="font-family:'Helvetica';font-size:63.98px">1</tspan>
+	</text>
+	<text x="2161.05" y="299.76" style="fill:#000000" text-anchor="middle">
+		<tspan style="font-family:'Helvetica';font-size:87.99px">Student's </tspan>
+		<tspan style="font-family:'Helvetica';font-style:italic;font-size:87.99px">t</tspan>
+		<tspan style="font-family:'Helvetica';font-size:87.99px"> two-sided CI assuming σ</tspan>
+		<tspan dy="12.57px" style="font-family:'Helvetica';font-size:51.30px">1</tspan>
+		<tspan dy="-12.57px" style="font-family:'Helvetica';font-size:87.99px"> = σ</tspan>
+		<tspan dy="12.57px" style="font-family:'Helvetica';font-size:51.30px">2</tspan>
+		<tspan dy="-12.57px" style="font-family:'Helvetica';font-size:87.99px"> = σ</tspan>
+	</text>
+	<text x="2161.05" y="181.76" style="font-family:'Helvetica';font-size:96.03px;fill:#1E2D53" text-anchor="middle">Estimated total sample size for a two-means-difference CI</text>
+</svg>

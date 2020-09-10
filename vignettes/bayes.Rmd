@@ -258,15 +258,19 @@ color_scheme_set("teal")
 cowplot::plot_grid(function99, function101, ncol = 1, align = "v")
 ```
 
-Practically the same.
+# Cite R Packages
 
-# Session info
+Please remember to cite the packages that you use.
 
-```{r session_info, include=TRUE, echo=FALSE}
-sessionInfo()
+```{r}
+citation("concurve")
+citation("ggplot2")
+citation("rstan")
+citation("rstanarm")
+citation("cowplot")
+citation("scales")
+citation("bayesplot")
 ```
-
-* * * 
 
 # References
 

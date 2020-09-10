@@ -30,15 +30,15 @@ knitr::opts_chunk$set(
 
 # Introduction
 
-Here I show how to produce _P_-value, _S_-value, likelihood, and deviance functions with the `concurve` package using fake data and data from real studies. Simply put, these functions are rich sources of information for scientific inference and the image below, taken from Xie & Singh, 2013[@xie2013isr] displays why. 
+Here I show how to produce _P_-value, _S_-value, likelihood, and deviance functions with the `concurve` package using fake data and data from real studies. Simply put, these functions are rich sources of information for scientific inference and the image below, taken from Xie & Singh, 2013[@@xieConfidenceDistributionFrequentist2013;] displays why. 
 
-<img src="densityfunction.png" align="center" width="750" />
+<img src="densityfunction.png" align="center" width="750"/>
 
-For a more extensive discussion of these concepts, see the following references. [@birnbaum1961ams; @Rafi_Greenland_2020; @fraser2017arsa; @fraser2019as; @Poole1987-nb; @poole1987ajph; @Schweder2002-vh; @schweder2016; @Singh2007-zr; @Sullivan1990-ha; @whitehead1993sm; @xie2013isr; @rothman2008me]
+For a more extensive discussion of these concepts, see the following references. [@birnbaumUnifiedTheoryEstimation1961; @rafiSemanticCognitiveTools2020; @fraserPvalueFunctionStatistical2019; @fraserPValuesInsightModern2017; @Poole1987-nb; @pooleConfidenceIntervalsExclude1987; @schwederConfidenceLikelihood2002; @schwederConfidenceLikelihoodProbability2016; @Singh2007-zr; @Sullivan1990-ha; @whiteheadCaseFrequentismClinical1993; @xieConfidenceDistributionFrequentist2013; @rothmanPrecisionStatisticsEpidemiologic2008; @ruckerForestPlotDrapery2020; @rothmanFlutamideEffectivePatients1999; @coxDiscussion2013]
 
 # Simple Models
 
-To get started, we could generate some normal data and combine two vectors in a dataframe
+First, I'd like to get started with very simple scenarios, where we could generate some normal data and combine two vectors in a dataframe,
 
 ```{r echo=TRUE, fig.height=4.5, fig.width=6}
 library(concurve)
@@ -48,7 +48,7 @@ GroupB <- rnorm(500)
 RandomData <- data.frame(GroupA, GroupB)
 ```
 
-and look at the differences between the two vectors. We'll plug these vectors and the dataframe they're in inside of the `curve_mean()` function. Here, the default method involves calculating CIs using the Wald method.  
+and then look at the differences between the two vectors. We'll plug these vectors and the dataframe and now they're inside of the `curve_mean()` function. Here, the default method involves calculating CIs using the Wald method.  
 
 ``` {r}
 intervalsdf <- curve_mean(GroupA, GroupB,
@@ -56,13 +56,13 @@ intervalsdf <- curve_mean(GroupA, GroupB,
 )
 ```
 
-Each of the functions within `concurve` will generally produce a list with three items, and the first will usually contain the function of interest. 
+Each of the functions within `concurve` will generally produce a list with three items, and the first will usually contain the function of interest. Here, we are looking at the first ten results of the first list of the previous item that we constructed.
 
 ```{r echo=TRUE, fig.height=4.5, fig.width=6}
 head(intervalsdf[[1]], 10)
 ```
 
-We can view the function using the `ggcurve()` function. The two basic arguments that must be provided are the data argument and the "type" argument. To plot a consonance function, we would write "`c`". 
+That gives us a very comprehensive table, but it can be difficult to parse through, so luckily, we can view a graphical function using the `ggcurve()` function. The basic arguments that must be provided are the data argument and the "type" argument. To plot a consonance/confidence function, we would write "`c`". 
 
 ```{r echo=TRUE, fig.height=4.5, fig.width=6}
 (function1 <- ggcurve(data = intervalsdf[[1]], type = "c", nullvalue = TRUE))
@@ -72,23 +72,23 @@ We can see that the consonance "curve" is every interval estimate plotted, and p
 
 $$C V_{n}(\theta)=1-2\left|H_{n}(\theta)-0.5\right|=2 \min \left\{H_{n}(\theta), 1-H_{n}(\theta)\right\}$$
 
-Its information counterpart, the surprisal function, can be constructed by taking the $-log_{2}$ of the _P_-value.[@Rafi_Greenland_2020; @greenland2019as; @Shannon1948-uq]
+Its information transformation, the surprisal function, which closely maps to the deviance function, can be constructed by taking the $-log_{2}$ of the observed _P_-value.[@rafiSemanticCognitiveTools2020; @greenlandValidPvaluesBehave2019; @Shannon1948-uq]
 
-To view the surprisal function, we simply change the type to "`s`". 
+To view the surprisal function, we simply change the type to "`s`" in `ggcurve()`. 
 
 ```{r echo=TRUE, fig.height=4.5, fig.width=6}
 (function1 <- ggcurve(data = intervalsdf[[1]], type = "s"))
 ```
 
 
-We can also view the consonance distribution by changing the type to "`cdf`", which is a cumulative probability distribution. The point at which the curve reaches 50% is known as the "**median unbiased estimate**". It is the same estimate that is typically at the peak of the _P_-value curve from above. 
+We can also view the consonance distribution by changing the type to "`cdf`", which is a cumulative probability distribution, also more formally known as the "confidence distribution". The point at which the curve reaches 0.5/50% is known as the "**median unbiased estimate**". It is the same estimate that is typically at the peak of the confidencr curve from above, but this is not always the case. 
 
 
 ```{r echo=TRUE, fig.height=4.5, fig.width=6}
 (function1s <- ggcurve(data = intervalsdf[[2]], type = "cdf", nullvalue = TRUE))
 ```
 
-We can also get relevant statistics that show the range of values by using the `curve_table()` function. There are several formats that can be exported such as .docx, .ppt, and TeX. 
+We can also get relevant statistics that show the range of values by using the `curve_table()` function. The tables can also be exported in several formats such as .docx, .ppt, images, and TeX files. 
 
 ```{r echo=TRUE, fig.height=2, fig.width=4}
 (x <- curve_table(data = intervalsdf[[1]], format = "image"))
@@ -96,9 +96,9 @@ We can also get relevant statistics that show the range of values by using the `
 
 # Comparing Functions
 
-If we wanted to compare two studies to see the amount of "consonance", we could use the `curve_compare()` function to get a numerical output. 
+If we wanted to compare two studies or even two datasets to see the amount of "consonance/concordance", we could use the `curve_compare()` function to get a very rough numerical output. 
 
-First, we generate some more fake data
+First, we generate some more fake data, that you would be unlikely to see in the real world, but that serves as a great tutorial.
 
 ```{r echo=TRUE, fig.height=4.5, fig.width=6}
 GroupA2 <- rnorm(500)
@@ -114,7 +114,7 @@ Once again, we'll plot this data with `ggcurve()`. We can also indicate whether 
 (function2 <- ggcurve(type = "c", randomframe[[1]], levels = c(0.50, 0.75, 0.95), nullvalue = TRUE))
 ```
 
-Now that we have two datasets and two functions, we can compare them using the `plot_compare()` function.
+Now that we have two datasets, and two functions, we can compare them using the `plot_compare()` function.
 
 ```{r echo=TRUE, fig.height=4.5, fig.width=6}
 (plot_compare(
@@ -125,22 +125,23 @@ Now that we have two datasets and two functions, we can compare them using the `
 
 This function will provide us with the area that is shared between the curve, along with a ratio of overlap to non-overlap. 
 
-Another way to compare the functions is to use the `cowplot`  `plot_grid()` function. 
+Another way to compare the functions is to use the `cowplot` & `plot_grid()` functions, which I am mostly beginning to lean towards to. 
 
 ```{r echo=TRUE}
 cowplot::plot_grid(function1, function2)
 ```
 
-It's clear that the outputs have changed and indicate far more overlap than before.
-
+It's clear that the outputs have changed and indicate far more overlap than before. A very useful and easy way to spot differences or lack of them.
 
 # Constructing Functions From Single Intervals
 
-We can also take a set of confidence limits and use them to construct a consonance, surprisal, likelihood or deviance function using the `curve_rev()` function. This method is computed from the approximate normal distribution. 
+We can also take a set of confidence limits and use them to construct a consonance, surprisal, likelihood or deviance function using the `curve_rev()` function. This method is computed from the approximate normal distribution, but there are several caveats and scenarios in which it can break down, so I would recommend visiting the reference page and reading the documentation, `curve_rev()`. In general, those settings that conflict with such scenarios are not the default settings and I would feel uncomfortable to keep them that way. 
 
-Here, we'll use two epidemiological studies[@brown2017j; @brown2017jcp] that studied the impact of SSRI exposure in pregnant mothers, and the rate of autism in children. 
+For this next example, we'll use two epidemiological studies[@brownAssociationSerotonergicAntidepressant2017; @brownAssociationAntenatalExposure2017] that studied the impact of selective serotonin reuptake inhibitor exposure in pregnant mothers, and the association with the rate of autism in newborn childs. 
 
-Both of these studies suggested a null effect of SSRI exposure on autism rates in children. 
+The second of these studies suggested a null effect of SSRI exposure on autism rates in children, due to the lack of statistical significance, whereas the first one "found" an effect". The authors claimed that the two studies they conducted clear contradict one another. However, this was a complete misinterpretation of their own results.
+
+Here I take the reported effect estimates from both studies, the confidence limits, and use them to reconstruct entire confidence curves to show how much the results truly differed. 
 
 ```{r echo=TRUE, fig.height=4.5, fig.width=6}
 curve1 <- curve_rev(point = 1.7, LL = 1.1, UL = 2.6, type = "c", measure = "ratio", steps = 10000)
@@ -149,9 +150,9 @@ curve2 <- curve_rev(point = 1.61, LL = 0.997, UL = 2.59, type = "c", measure = "
 (ggcurve(data = curve2[[1]], type = "c", measure = "ratio", nullvalue = TRUE))
 ```
 
-The null value is shown via the red line and it's clear that a large mass of the function is away from it. 
+The null value is shown via the red line and a large portion of bnoth of the confidence curves are away from it. We can also see this by plotting the likelihood functions via the `curve_rev()` function. 
 
-We can also see this by plotting the likelihood functions via the `curve_rev()` function. 
+We can specify that we want a likelihood function using curve_rev() by specifying "l" for the type argument.
 
 ```{r echo=TRUE, fig.height=4.5, fig.width=6}
 lik1 <- curve_rev(point = 1.7, LL = 1.1, UL = 2.6, type = "l", measure = "ratio", steps = 10000)
@@ -160,7 +161,7 @@ lik2 <- curve_rev(point = 1.61, LL = 0.997, UL = 2.59, type = "l", measure = "ra
 (ggcurve(data = lik2[[1]], type = "l1", measure = "ratio", nullvalue = TRUE))
 ```
 
-We can also view the amount of agreement between the likelihood functions of these two studies. 
+We can also view the amount of agreement between the likelihood functions of these two studies using the plot_compare function and producing areas shared between the curves. 
 
 ```{r echo=TRUE, fig.height=4.5, fig.width=6}
 (plot_compare(
@@ -169,7 +170,7 @@ We can also view the amount of agreement between the likelihood functions of the
 ))
 ```
 
-and the consonance functions
+We can also do the same with the confidence curves.
 
 ```{r echo=TRUE, fig.height=4.5, fig.width=6}
 (plot_compare(
@@ -178,11 +179,15 @@ and the consonance functions
 ))
 ```
 
+This vignette was meant to be a very simple introduction to the concept of the confidence curve and how it relates to the likelihood function, and how both of these functions are much richer sources of information that single numerical estimates. For more detailed vignettes and explanations, please see some of the other articles listed on this [site here.](https://data.lesslikely.com/concurve/articles/index.html) 
 
-# Session info
+# Cite R Packages
 
-```{r session_info, include=TRUE, echo=FALSE}
-sessionInfo()
+Please remember to cite the R packages that you use in your work.
+
+```{r}
+citation("concurve")
+citation("cowplot")
 ```
 
 * * * 

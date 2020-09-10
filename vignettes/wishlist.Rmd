@@ -14,11 +14,28 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-Here are some ideas/implementations I'm hoping to include within `concurve` at some point within the future. 
+Here are some to-dos for `concurve` in the future. 
 
-* Make `curve_rev()` more usable for a wide range of scenarios (beyond proportions, and normal approximations)
-* Produce consonance functions for quantile regressions from the `quantreg` package
-* Implementation with the `nlme` package 
-* Possibly incorporate `Stan` via `rstantools` to produce likelihoods and posteriors
+* More unit tests for various purposes as [Alex Hayes describes in his wonderful article](https://www.alexpghayes.com/blog/testing-statistical-software/). He classifies them into three types, which I copy and paste below:
+  - "Correctness tests check whether the code calculates the quantity it is supposed to calculated."
+  - "Parameter recovery tests check whether the implementation can recover correct parameters in well understood scenarios."
+  - "Convergence tests check whether iterative fitting procedures have actually reached a solution."
+  - "Identification tests check whether the solution is unique, and stable under small perturbations to the data."
+  * * * 
+* Make `curve_rev()` more usable for a wide range of scenarios (beyond proportions, and normal approximations). The confidence functions they produce especially break down with continuous variables, so I have completely disabled the option for now, and will implement a much more difficult, but correct way to get confidence functions mostly by working backwards from the deviance and log-likelihood functions.
+* * * 
+* Produce consonance/confidence functions for quantile regressions from the `quantreg` package
+* Implementation with the `nlme` package, although that has already started with some experimental work I and the other developers have done with the generalized least squares method from `nlme`. 
+* * * 
+* Possibly incorporate `rstan` via `rstantools` to produce likelihoods and posteriors
 
 If you'd like to help contribute, please see the [contributing guide](https://data.lesslikely.com/concurve/CONTRIBUTING.html).
+
+### R Package Citations
+
+```{r}
+citation("quantreg")
+citation("nlme")
+citation("rstan")
+citation("rstantools")
+```

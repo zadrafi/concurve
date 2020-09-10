@@ -176,16 +176,16 @@ curve_rev <- function(point,
     }
 
 
-        else if (measure == "mean") {
-          stop("likelihood functions for continuous measures currently not supported")
-    #      # se <- (UL - LL) / (2*conf_range)
-    #      LL <- pbmclapply(z, FUN = function(i) point + (i * se), mc.cores = cores)
-    #      UL <- pbmclapply(z, FUN = function(i) point - (i * se), mc.cores = cores)
-    #      df <- data.frame(do.call(rbind, UL), do.call(rbind, LL))
-    #      intrvl.limit <- c("lower.limit", "upper.limit")
-    #      colnames(df) <- intrvl.limit
-    #      class(df) <- c("data.frame", "concurve")
-       }
+    else if (measure == "mean") {
+      stop("likelihood functions for continuous measures currently not supported")
+      #      # se <- (UL - LL) / (2*conf_range)
+      #      LL <- pbmclapply(z, FUN = function(i) point + (i * se), mc.cores = cores)
+      #      UL <- pbmclapply(z, FUN = function(i) point - (i * se), mc.cores = cores)
+      #      df <- data.frame(do.call(rbind, UL), do.call(rbind, LL))
+      #      intrvl.limit <- c("lower.limit", "upper.limit")
+      #      colnames(df) <- intrvl.limit
+      #      class(df) <- c("data.frame", "concurve")
+    }
 
     df$intrvl.level <- 1 - intrvls
     df$pvalue <- 1 - (1 - intrvls)
@@ -203,14 +203,14 @@ curve_rev <- function(point,
       )
     }
 
-        if (measure == "mean") {
-          stop("likelihood functions for continuous measures currently not supported")
-    #      values <- seq(from = df[1, 1], to = df[1, 2], by = 0.01)
-    #      zscore <- sapply(
-    #        values,
-    #        function(j) ((j - point) / se)
-    #      )
-       }
+    if (measure == "mean") {
+      stop("likelihood functions for continuous measures currently not supported")
+      #      values <- seq(from = df[1, 1], to = df[1, 2], by = 0.01)
+      #      zscore <- sapply(
+      #        values,
+      #        function(j) ((j - point) / se)
+      #      )
+    }
 
     support <- exp((-zscore^2) / 2)
     deviancestat <- (zscore^2)

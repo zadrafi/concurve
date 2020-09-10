@@ -27,7 +27,7 @@ knitr::opts_chunk$set(
 library(concurve)
 ```
 
-Some authors have shown that the bootstrap distribution is equal to the confidence distribution because it meets the definition of a consonance distribution.[@efron1994; @efron2018; @xie2013isr] The bootstrap distribution and the asymptotic consonance distribution would be defined as: 
+Some authors have shown that the bootstrap distribution is equal to the confidence distribution because it meets the definition of a consonance distribution.[@efronFisher21stCentury1998; @efronAutomaticConstructionBootstrap2018; @xieConfidenceDistributionFrequentist2013] The bootstrap distribution and the asymptotic consonance distribution would be defined as: 
 
 $$H_{n}(\theta)=1-P\left(\hat{\theta}-\hat{\theta}^{*} \leq \hat{\theta}-\theta | \mathbf{x}\right)=P\left(\hat{\theta}^{*} \leq \theta | \mathbf{x}\right)$$
 
@@ -160,12 +160,15 @@ ggcurve(df[[5]], type = "cd", nullvalue = FALSE)
 
 That concludes our demonstration of the bootstrap method to approximate consonance functions. 
 
-# Session info
+# Cite R Packages
 
-```{r session_info, include=TRUE, echo=FALSE}
-sessionInfo()
+Please remember to cite the packages that you use.
+
+```{r}
+citation("concurve")
+citation("boot")
+citation("bcaboot")
 ```
-
 * * * 
 
 # References

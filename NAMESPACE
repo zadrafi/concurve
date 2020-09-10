@@ -19,6 +19,7 @@ import(scales)
 importFrom("stats", "coef", "confint", "confint.default", "confint.lm",
                 "profile", "lm", "quantile", "t.test", "cor.test", "qnorm")
   importFrom("stats", "approxfun", "integrate")
+  importFrom("stats", "density")
   importFrom("methods", "is")
    importFrom("stats", "sd")
 importFrom("graphics", "axis", "par", "polygon", "text")

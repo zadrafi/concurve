@@ -27,7 +27,7 @@
 #' for multiple comparisons. The default is NULL, so there is no correction. Other options include
 #' "bonferroni" and "sidak".
 #' @param m Indicates how many comparisons are being done and the number that should be used to
-#' correct for multiple comparisons. The default is NULL. 
+#' correct for multiple comparisons. The default is NULL.
 #' @param steps Indicates how many consonance intervals are to be calculated at
 #' various levels. For example, setting this to 100 will produce 100 consonance
 #' intervals from 0 to 100. Setting this to 10000 will produce more consonance
@@ -55,7 +55,7 @@
 #' bob <- curve_gen(rob, "GroupB")
 #' }
 #'
-curve_gen <- function(model, var, method = "lm", penalty = NULL, m = NULL, 
+curve_gen <- function(model, var, method = "lm", penalty = NULL, m = NULL,
                       steps = 1000, cores = getOption("mc.cores", 1L), table = TRUE) {
   if (is.character(method) != TRUE) {
     stop("Error: 'method' must be a character vector")
@@ -66,28 +66,25 @@ curve_gen <- function(model, var, method = "lm", penalty = NULL, m = NULL,
 
   intrvls <- (1:(steps - 1)) / steps
 
-# No adjustment for multiple comparisons ----------------------------------
-  
-  if (is.null(penalty) & is.null(m)) {
+  # No adjustment for multiple comparisons ----------------------------------
 
-  if (method == "lm") {
-    results <- pbmclapply(intrvls, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = cores)
-  } else if (method == "rlm") {
-    results <- pbmclapply(intrvls, FUN = function(i) confint(object = model, level = i)[var, ], mc.cores = cores)
-  } else if (method == "glm") {
-    results <- pbmclapply(intrvls, FUN = function(i) confint(object = model, level = i, trace = FALSE)[var, ], mc.cores = cores)
-  } else if (method == "aov") {
-    results <- pbmclapply(intrvls, FUN = function(i) confint(object = model, level = i)[var, ], mc.cores = cores)
-  } else if (method == "gls") {
-    results <- pbmclapply(intrvls, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = cores)
-  }
-    
-# Bonferroni adjustment for multiple comparisons --------------------------
-    
+  if (is.null(penalty) & is.null(m)) {
+    if (method == "lm") {
+      results <- pbmclapply(intrvls, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = cores)
+    } else if (method == "rlm") {
+      results <- pbmclapply(intrvls, FUN = function(i) confint(object = model, level = i)[var, ], mc.cores = cores)
+    } else if (method == "glm") {
+      results <- pbmclapply(intrvls, FUN = function(i) confint(object = model, level = i, trace = FALSE)[var, ], mc.cores = cores)
+    } else if (method == "aov") {
+      results <- pbmclapply(intrvls, FUN = function(i) confint(object = model, level = i)[var, ], mc.cores = cores)
+    } else if (method == "gls") {
+      results <- pbmclapply(intrvls, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = cores)
+    }
+
+    # Bonferroni adjustment for multiple comparisons --------------------------
   } else if (penalty == "bonferroni" & m > 1) {
-    
     bon.adj <- (1 - ((1 - intrvls) / m))
-    
+
     if (method == "lm") {
       results <- pbmclapply(bon.adj, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = cores)
     } else if (method == "rlm") {
@@ -99,13 +96,11 @@ curve_gen <- function(model, var, method = "lm", penalty = NULL, m = NULL,
     } else if (method == "gls") {
       results <- pbmclapply(bon.adj, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = cores)
     }
-    
-# Sidak adjustment for multiple comparisons -------------------------------
 
+    # Sidak adjustment for multiple comparisons -------------------------------
   } else if (penalty == "sidak" & m > 1) {
-    
     sidak.adj <- (((intrvls)^(1 / m)))
-    
+
     if (method == "lm") {
       results <- pbmclapply(sidak.adj, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = cores)
     } else if (method == "rlm") {
