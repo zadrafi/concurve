@@ -43,7 +43,6 @@ Suggests: covr, roxygen2, spelling, testthat, rmarkdown, Lock5Data,
           simstudy, patchwork, cowplot, Statamarkdown, reprex
 VignetteBuilder: 
     knitr
-Remotes: url::https://github.com/hemken/Statamarkdown/archive/master.zip
 ByteCompile: true
 Encoding: UTF-8
 Language: en-US
