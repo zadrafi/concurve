@@ -40,7 +40,7 @@ Imports: MASS, methods, bcaboot, boot, lme4, dplyr, flextable, ggplot2,
 Suggests: covr, roxygen2, spelling, testthat, rmarkdown, Lock5Data,
           carData, bench, rms, brms, rstan, rstanarm, bayesplot,
           vdiffr, ggtext, daewr, svglite, data.table, nlme,
-          simstudy, patchwork, cowplot, Statamarkdown, reprex
+          simstudy, patchwork, cowplot, reprex
 VignetteBuilder: 
     knitr
 ByteCompile: true
