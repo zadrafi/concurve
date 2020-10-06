@@ -288,13 +288,13 @@
 <span class="co">#&gt; Warning: Some expressions had a GC in every iteration; so filtering is disabled.</span></pre></div>
 <div class="sourceCode" id="cb10"><pre class="downlit">
 <span class="va">func1</span><span class="op">$</span><span class="va">median</span>
-<span class="co">#&gt; [1] 4.04ms</span>
+<span class="co">#&gt; [1] 4ms</span>
 <span class="va">func2</span><span class="op">$</span><span class="va">median</span>
-<span class="co">#&gt; [1] 2.26s</span>
+<span class="co">#&gt; [1] 2.15s</span>
 <span class="va">func3</span><span class="op">$</span><span class="va">median</span>
-<span class="co">#&gt; [1] 4.04ms</span>
+<span class="co">#&gt; [1] 4.09ms</span>
 <span class="va">func4</span><span class="op">$</span><span class="va">median</span>
-<span class="co">#&gt; [1] 2.62s</span></pre></div>
+<span class="co">#&gt; [1] 2.56s</span></pre></div>
 <p>When setting the number of iterations to 100, utilizing parallelization doesn’t seem to help much, but when setting the number of iterations to 500000 and using multiple cores, there seems to be a computational advantage.</p>
 </div>
 <div id="bugs" class="section level1">

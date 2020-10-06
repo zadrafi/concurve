@@ -198,21 +198,23 @@
 ## glm(formula = Y ~ X, family = binomial(link = "logit"), data = mydata1)
 ## 
 ## Deviance Residuals: 
-##    Min      1Q  Median      3Q     Max  
-## -1.186  -1.130  -1.085   1.228   1.291  
+##     Min       1Q   Median       3Q      Max  
+## -1.5826  -1.1222  -0.8221   1.1590   1.5273  
 ## 
 ## Coefficients:
-##             Estimate Std. Error z value Pr(&gt;|z|)
-## (Intercept) -0.11357    0.20156  -0.563    0.573
-## X           -0.06099    0.19879  -0.307    0.759
+##             Estimate Std. Error z value Pr(&gt;|z|)  
+## (Intercept) -0.03483    0.20358  -0.171   0.8641  
+## X           -0.37074    0.20411  -1.816   0.0693 .
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 138.27  on 99  degrees of freedom
-## Residual deviance: 138.17  on 98  degrees of freedom
-## AIC: 142.17
+##     Null deviance: 138.59  on 99  degrees of freedom
+## Residual deviance: 135.10  on 98  degrees of freedom
+## AIC: 139.1
 ## 
-## Number of Fisher Scoring iterations: 3</code></pre>
+## Number of Fisher Scoring iterations: 4</code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">model2</span><span class="op">)</span></pre></div>
 <pre><code>## 
