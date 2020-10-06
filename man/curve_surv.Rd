@@ -40,8 +40,7 @@ the interval limits for each interval level into a data frame along
 with the corresponding p-value and s-value.
 }
 \examples{
-
-
+\dontrun{
 library(carData)
 Rossi[1:5, 1:10]
 library(survival)
@@ -52,4 +51,5 @@ mod.allison <- coxph(Surv(week, arrest) ~ fin + age + race + wexp + mar + paro +
 mod.allison
 
 z <- curve_surv(mod.allison, "prio")
+}
 }

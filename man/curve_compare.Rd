@@ -32,7 +32,7 @@ Computes an AUC score and returns a plot that graphs two functions.
 Compares the p-value/s-value, and likelihood functions and computes an AUC number.
 }
 \examples{
-\donttest{
+\dontrun{
 library(concurve)
 GroupA <- rnorm(50)
 GroupB <- rnorm(50)

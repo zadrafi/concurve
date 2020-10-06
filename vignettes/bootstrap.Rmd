@@ -152,12 +152,6 @@ We can compare the functions to see how well the bootstrap approximations match 
 plot_compare(df[[1]], df[[3]])
 ```
 
-We can also look at the density function 
-
-```{r echo=TRUE, fig.height=4.5, fig.width=6}
-ggcurve(df[[5]], type = "cd", nullvalue = FALSE)
-```
-
 That concludes our demonstration of the bootstrap method to approximate consonance functions. 
 
 # Cite R Packages

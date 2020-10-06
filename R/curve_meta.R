@@ -40,7 +40,7 @@
 #' and the table for the values in the third if table = TRUE.
 #'
 #' @examples
-#'
+#' \dontrun{
 #' # Simulate random data for two groups in two studies
 #' GroupAData <- runif(20, min = 0, max = 100)
 #' GroupAMean <- round(mean(GroupAData), digits = 2)
@@ -93,6 +93,7 @@
 #' # Calculate the intervals using the metainterval function
 #'
 #' metaf <- curve_meta(res)
+#' }
 curve_meta <- function(x, measure = "default", method = "uni", parm = NULL, robust = FALSE,
                        cluster = NULL, adjust = FALSE, steps = 1000, cores = getOption("mc.cores", 1L), table = TRUE) {
   if (is.list(x) != TRUE) {

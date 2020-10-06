@@ -47,8 +47,10 @@ navbar:
     articles:
       text: Articles
       menu:
-      - text: Examples in R
+      - text: Simple Examples in R
         href: articles/examples.html
+      - text: Logistic Regression    
+        href: articles/logistic.html
       - text: Survival Modeling
         href: articles/survival.html
       - text: Meta-Analysis Examples

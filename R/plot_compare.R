@@ -67,7 +67,7 @@
 #' For example, plot_compare(type = "c", data = x, fill2 = "#333333").
 #' @return A plot that compares two functions.
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' library(concurve)
 #'
 #' GroupA <- rnorm(50)

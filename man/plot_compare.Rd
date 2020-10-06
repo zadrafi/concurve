@@ -99,7 +99,7 @@ A plot that compares two functions.
 Compares the p-value/s-value, and likelihood functions using ggplot2 graphics.
 }
 \examples{
-\donttest{
+\dontrun{
 library(concurve)
 
 GroupA <- rnorm(50)

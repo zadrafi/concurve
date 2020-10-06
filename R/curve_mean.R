@@ -34,12 +34,13 @@
 #' and the table for the values in the third if table = TRUE.
 #'
 #' @examples
-#'
+#' \dontrun{
 #' # Simulate random data
 #' GroupA <- runif(100, min = 0, max = 100)
 #' GroupB <- runif(100, min = 0, max = 100)
 #' RandomData <- data.frame(GroupA, GroupB)
 #' bob <- curve_mean(GroupA, GroupB, RandomData)
+#' }
 curve_mean <- function(x, y, data, paired = F, method = "default", replicates = 1000,
                        steps = 10000, cores = getOption("mc.cores", 1L), table = TRUE) {
   if (is.numeric(x) != TRUE) {

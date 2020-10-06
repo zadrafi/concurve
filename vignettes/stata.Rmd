@@ -64,8 +64,6 @@ That's what our model looks graphed.
 
 ![fractional polynomial model](mfp.svg){width=150% height=150%}    
 
-Now, was there any real purpose to fitting a multivariable fractional polynomial? No, but I am a gigantic fan of it for variable selection and transformations and wanted to do it anyway, especially if it can help people get more exposure to it. Moving on...
-
 Now suppose we got a single estimate (point or interval) for a parameter, and we wanted all the intervals for it at every level.
 
 Here's the code that we'll be using to achieve that in Stata. 

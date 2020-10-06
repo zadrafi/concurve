@@ -1,3 +1,9 @@
+# concurve 2.7.6
+## Major changes 
+* `log` option added to `curve_gen()` to exponentiate the coefficients.
+  - Thanks to [Isabella Ghement](https://twitter.com/IsabellaGhement) for finding the issue and notifying us about it.
+* customization option for `title` fully added to `ggcurve()`
+
 # concurve 2.7.5
 
 ## Major changes 

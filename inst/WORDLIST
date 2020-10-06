@@ -18,6 +18,7 @@ boostrap
 cd
 childs
 ci
+Codecov
 confidencr
 consisten
 continous
@@ -35,6 +36,7 @@ estiate
 et
 eval
 examing
+exponentiate
 forvalues
 frac
 frequentism
@@ -42,6 +44,7 @@ functons
 gg
 ggcurve
 ggplot
+Ghement
 github
 glm
 Glm
@@ -75,7 +78,7 @@ metafor
 Metaprogramming
 mh
 microbenchmark
-multivariable
+mtcars
 NL
 nullvalue
 ols
@@ -114,6 +117,7 @@ SSRI
 Stata
 Strawderman
 summarise
+suppressMessages
 surprisal
 Surprisal
 surprisals

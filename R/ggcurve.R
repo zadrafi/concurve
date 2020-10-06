@@ -67,7 +67,7 @@
 #' p-values and compatibility levels.
 #'
 #' @examples
-#'
+#' \dontrun{
 #' # Simulate random data
 #'
 #' library(concurve)
@@ -77,14 +77,15 @@
 #'
 #' RandomData <- data.frame(GroupA, GroupB)
 #'
-#' intervalsdf <- curve_mean(GroupA, GroupB, data = RandomData, method = "default")
-#' ggcurve(type = "c", intervalsdf[[1]], nullvalue = TRUE)
+#' intervalsdf <- suppressMessages(curve_mean(GroupA, GroupB, data = RandomData, method = "default"))
+#' ggcurve(type = "c", intervalsdf[[1]], nullvalue =c(0))
+#' }
 #' @seealso [plot_compare()]
 #'
 
 ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullvalue = NULL,
                     position = "pyramid",
-                    title = "Interval Function",
+                    title = "Consonance Function",
                     subtitle = "The function displays intervals at every level.",
                     xaxis = expression(theta == ~"Range of Values"),
                     yaxis1 = expression(paste(italic(p), "-value")),
@@ -146,7 +147,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
         fill = fill, alpha = 0.20
       ) +
       labs(
-        title = "Consonance Curve",
+        title = title,
         subtitle = subtitle,
         x = xaxis,
         y = yaxis1
@@ -239,7 +240,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
         fill = fill, alpha = 0.20
       ) +
       labs(
-        title = "Surprisal Function",
+        title = title,
         subtitle = subtitle,
         x = xaxis,
         y = "S-value \n(Bits of Information)"
@@ -296,7 +297,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
       stat_ecdf(geom = "point", color = darken("#e7998c", 0.2), size = 0.75, shape = 5, alpha = 0.75) +
       geom_hline(yintercept = 0.50, linetype = "dotted", alpha = 0.5) +
       labs(
-        title = "Consonance Distribution",
+        title = title,
         subtitle = subtitle,
         x = xaxis,
         y = "Cumulative Confidence"
@@ -339,7 +340,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
     ggplot(data = data, mapping = aes(x = x)) +
       geom_density(fill = fill, color = color, alpha = 0.20) +
       labs(
-        title = "Consonance Density",
+        title = title,
         subtitle = subtitle,
         x = xaxis,
         y = "Density"
@@ -387,7 +388,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
       geom_line() +
       geom_ribbon(aes(x = values, ymin = min(support), ymax = support), fill = fill, color = color, alpha = 0.20) +
       labs(
-        title = "Relative Likelihood Function",
+        title = title,
         subtitle = subtitle,
         x = xaxis,
         y = "Relative Likelihood"
@@ -434,7 +435,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
       geom_line() +
       geom_ribbon(aes(x = values, ymin = min(loglikelihood), ymax = loglikelihood), fill = fill, color = color, alpha = 0.20) +
       labs(
-        title = "Log-Likelihood Function",
+        title = title,
         subtitle = subtitle,
         x = xaxis,
         y = "Log-Likelihood"
@@ -482,7 +483,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
       geom_line() +
       geom_ribbon(aes(x = values, ymin = min(likelihood), ymax = likelihood), fill = fill, color = color, alpha = 0.20) +
       labs(
-        title = "Likelihood Function",
+        title = title,
         subtitle = subtitle,
         x = xaxis,
         y = "Likelihood"
@@ -530,7 +531,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
       geom_line() +
       geom_ribbon(aes(x = values, ymin = deviancestat, ymax = max(deviancestat)), fill = fill, color = color, alpha = 0.20) +
       labs(
-        title = "Deviance Function",
+        title = title,
         subtitle = subtitle,
         x = xaxis,
         y = "Deviance Statistic"

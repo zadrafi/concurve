@@ -104,7 +104,7 @@ to generate consonance distrbutions." />
       </button>
       <span class="navbar-brand"><img src="https://data.lesslikely.com/concurve/reference/figures/logo.svg" id ="package-logo" align="left" width="35">
         <a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.6</span>
       </span>
     </div>
 
@@ -127,7 +127,10 @@ to generate consonance distrbutions." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/examples.html">Examples in R</a>
+      <a href="../articles/examples.html">Simple Examples in R</a>
+    </li>
+    <li>
+      <a href="../articles/logistic.html">Logistic Regression</a>
     </li>
     <li>
       <a href="../articles/survival.html">Survival Modeling</a>
@@ -178,7 +181,7 @@ to generate consonance distrbutions." />
       <a href="../news/index.html">Package Updates</a>
     </li>
     <li>
-      <a href="../security.html">Supported Versions</a>
+      <a href="../SECURITY.html">Supported Versions</a>
     </li>
     <li>
       <a href="../articles/wishlist.html">Feature Wish List</a>
@@ -229,9 +232,9 @@ to generate consonance distrbutions." />
 to generate consonance distrbutions.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>curve_boot</span>(data = <span class='kw'>data</span>, func = <span class='kw'>func</span>, method = <span class='st'>"bca"</span>, <span class='kw'>t0</span>, <span class='kw'>tt</span>, <span class='kw'>bb</span>,
-  replicates = <span class='fl'>2000</span>, steps = <span class='fl'>1000</span>, cores = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"mc.cores"</span>, <span class='fl'>1L</span>),
-  table = <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>curve_boot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>data</span>, func <span class='op'>=</span> <span class='va'>func</span>, method <span class='op'>=</span> <span class='st'>"bca"</span>, <span class='va'>t0</span>, <span class='va'>tt</span>, <span class='va'>bb</span>,
+  replicates <span class='op'>=</span> <span class='fl'>2000</span>, steps <span class='op'>=</span> <span class='fl'>1000</span>, cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"mc.cores"</span>, <span class='fl'>1L</span><span class='op'>)</span>,
+  table <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -318,7 +321,7 @@ the fifth object, while the Bca stats are in the sixth and seventh objects.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

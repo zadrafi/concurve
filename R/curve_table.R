@@ -14,7 +14,7 @@
 #' "image", which produces an image of the table.
 #'
 #' @examples
-#'
+#' \dontrun{
 #' library(concurve)
 #'
 #' GroupA <- rnorm(500)
@@ -27,6 +27,7 @@
 #' (z <- curve_table(intervalsdf[[1]], format = "data.frame"))
 #' (z <- curve_table(intervalsdf[[1]], format = "latex"))
 #' (z <- curve_table(intervalsdf[[1]], format = "image"))
+#' }
 #' @seealso [ggcurve()]
 #' @seealso [curve_compare()]
 #' @seealso [plot_compare()]

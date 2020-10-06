@@ -18,7 +18,6 @@ bibentry(
   year = 2020,
   journal = "BMC Medical Research Methodology",
   series = "Technical Advance",
-  url = "https://doi.org/10.1186/s12874-020-01105-9",
-  preprint = "https://arxiv.org/abs/1909.08579"
+  url = "https://doi.org/10.1186/s12874-020-01105-9"
 )
 
