@@ -29,7 +29,8 @@
     exported to Microsoft Word, Powerpoint, and TeX documents. The
     package currently supports resampling methods, computing differences,
     generalized linear models, mixed-effects models, survival analysis,
-    and meta-analysis. ">
+    and meta-analysis. These methods are discussed by Schweder T, Hjort NL. (2016, ISBN:9781316445051) 
+    and Rafi Z, Greenland S. (2020) &lt;doi:10.1186/s12874-020-01105-9&gt;.">
 <meta property="og:image" content="https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/reference/figures/logo.svg,concurve R package hex-logo">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -55,7 +56,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand"><img src="https://data.lesslikely.com/concurve/reference/figures/logo.svg" id="package-logo" align="left" width="35"><a class="navbar-link" href="index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.6</span>
       </span>
     </div>
 
@@ -78,7 +79,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/examples.html">Examples in R</a>
+      <a href="articles/examples.html">Simple Examples in R</a>
+    </li>
+    <li>
+      <a href="articles/logistic.html">Logistic Regression</a>
     </li>
     <li>
       <a href="articles/survival.html">Survival Modeling</a>
@@ -232,6 +236,7 @@ Sample image taken from Schweder T, Hjort NL. (2016)
 <li><strong><a href="https://data.lesslikely.com/concurve/articles/literature.html">Background Literature</a></strong></li>
 <li><strong><a href="https://data.lesslikely.com/concurve/articles/customizing.html">Customizing Plots</a></strong></li>
 <li><strong><a href="https://data.lesslikely.com/concurve/articles/examples.html">Examples in R</a></strong></li>
+<li><strong><a href="https://data.lesslikely.com/concurve/articles/logistic.html">Logistic Regression in R</a></strong></li>
 <li><strong><a href="https://data.lesslikely.com/concurve/articles/likelihood.html">Profile Likelihoods</a></strong></li>
 <li><strong><a href="https://data.lesslikely.com/concurve/articles/meta-analysis.html">Meta-Analysis Examples</a></strong></li>
 <li><strong><a href="https://data.lesslikely.com/concurve/articles/stata.html">Using Stata</a></strong></li>
@@ -276,9 +281,10 @@ Sample image taken from Schweder T, Hjort NL. (2016)
 <span id="cb4-13"><a href="#cb4-13"></a><span class="co">## [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
 <span id="cb4-14"><a href="#cb4-14"></a><span class="co">## </span></span>
 <span id="cb4-15"><a href="#cb4-15"></a><span class="co">## loaded via a namespace (and not attached):</span></span>
-<span id="cb4-16"><a href="#cb4-16"></a><span class="co">##  [1] compiler_4.0.2    magrittr_1.5      credentials_1.3.0 htmltools_0.5.0   tools_4.0.2       yaml_2.2.1        stringi_1.5.3    </span></span>
-<span id="cb4-17"><a href="#cb4-17"></a><span class="co">##  [8] rmarkdown_2.3     knitr_1.29        stringr_1.4.0     xfun_0.17         digest_0.6.25     rlang_0.4.7       openssl_1.4.2    </span></span>
-<span id="cb4-18"><a href="#cb4-18"></a><span class="co">## [15] sys_3.4           evaluate_0.14     askpass_1.1</span></span></code></pre></div>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="co">##  [1] compiler_4.0.2  magrittr_1.5    tools_4.0.2     htmltools_0.5.0</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a><span class="co">##  [5] yaml_2.2.1      stringi_1.5.3   rmarkdown_2.4   knitr_1.30     </span></span>
+<span id="cb4-18"><a href="#cb4-18"></a><span class="co">##  [9] stringr_1.4.0   xfun_0.18       digest_0.6.25   rlang_0.4.7    </span></span>
+<span id="cb4-19"><a href="#cb4-19"></a><span class="co">## [13] evaluate_0.14</span></span></code></pre></div>
 <hr>
 </div>
 </div>
@@ -338,8 +344,8 @@ Sample image taken from Schweder T, Hjort NL. (2016)
 <li><a href="https://cran.r-project.org/package=concurve"><img src="https://cranlogs.r-pkg.org/badges/grand-total/concurve" alt="Total Downloads"></a></li>
 <li><a href="http://www.rdocumentation.org/packages/concurve"><img src="http://www.rdocumentation.org/badges/version/concurve" alt="Rdoc"></a></li>
 <li><a href="https://www.gnu.org/licenses/gpl-3.0"><img src="https://img.shields.io/badge/License-GPL%20v3-blue.svg" alt="License: GPL v3"></a></li>
-<li><a href="https://github.com/zadrafi/concurve/actions"><img src="https://github.com/zadrafi/concurve/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
 <li><a href="https://travis-ci.com/zadrafi/concurve"><img src="https://travis-ci.com/zadrafi/concurve.svg?branch=master" alt="Travis build status"></a></li>
+<li><a href="https://codecov.io/gh/zadrafi/concurve?branch=master"><img src="https://codecov.io/gh/zadrafi/concurve/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
 </ul>
 </div>
 </div>
@@ -351,7 +357,7 @@ Sample image taken from Schweder T, Hjort NL. (2016)
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

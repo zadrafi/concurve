@@ -48,7 +48,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand"><img src="https://data.lesslikely.com/concurve/reference/figures/logo.svg" id="package-logo" align="left" width="35"><a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.6</span>
       </span>
     </div>
 
@@ -71,7 +71,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/examples.html">Examples in R</a>
+      <a href="../articles/examples.html">Simple Examples in R</a>
+    </li>
+    <li>
+      <a href="../articles/logistic.html">Logistic Regression</a>
     </li>
     <li>
       <a href="../articles/survival.html">Survival Modeling</a>
@@ -182,7 +185,7 @@
 <li>“Identification tests check whether the solution is unique, and stable under small perturbations to the data.” * * *</li>
 </ul>
 </li>
-<li>Make <code><a href="../reference/curve_rev.html">curve_rev()</a></code> more usable for a wide range of scenarios (beyond proportions, and normal approximations). The confidence functions they produce especially break down with continuous variables, so I have completely disabled the option for now, and will implement a much more difficult, but correct way to get confidence functions mostly by working backwards from the deviance and log-likelihood functions. * * *</li>
+<li>Make <code><a href="../reference/curve_rev.html">curve_rev()</a></code> more usable for a wide range of scenarios (beyond proportions, and normal approximations). The confidence functions they produce especially break down with continuous variables, so I have completely disabled the option for now, and will implement an approach by working backwards from the deviance and log-likelihood functions. * * *</li>
 <li>Produce consonance/confidence functions for quantile regressions from the <code>quantreg</code> package</li>
 <li>Implementation with the <code>nlme</code> package, although that has already started with some experimental work I and the other developers have done with the generalized least squares method from <code>nlme</code>. * * *</li>
 <li>Possibly incorporate <code>rstan</code> via <code>rstantools</code> to produce likelihoods and posteriors</li>
@@ -192,13 +195,12 @@
 <h3 class="hasAnchor">
 <a href="#r-package-citations" class="anchor"></a>R Package Citations</h3>
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"quantreg"</span>)
-</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span><span class="st">"quantreg"</span><span class="op">)</span></pre></div>
 <pre><code>## 
 ## To cite package 'quantreg' in publications use:
 ## 
 ##   Roger Koenker (2020). quantreg: Quantile Regression. R package
-##   version 5.67. https://CRAN.R-project.org/package=quantreg
+##   version 5.73. https://CRAN.R-project.org/package=quantreg
 ## 
 ## A BibTeX entry for LaTeX users is
 ## 
@@ -206,12 +208,11 @@
 ##     title = {quantreg: Quantile Regression},
 ##     author = {Roger Koenker},
 ##     year = {2020},
-##     note = {R package version 5.67},
+##     note = {R package version 5.73},
 ##     url = {https://CRAN.R-project.org/package=quantreg},
 ##   }</code></pre>
 <div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"nlme"</span>)
-</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span><span class="st">"nlme"</span><span class="op">)</span></pre></div>
 <pre><code>## 
 ## Pinheiro J, Bates D, DebRoy S, Sarkar D, R Core Team (2020). _nlme:
 ## Linear and Nonlinear Mixed Effects Models_. R package version 3.1-148,
@@ -227,8 +228,7 @@
 ##     url = {https://CRAN.R-project.org/package=nlme},
 ##   }</code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"rstan"</span>)
-</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span><span class="st">"rstan"</span><span class="op">)</span></pre></div>
 <pre><code>## 
 ## To cite RStan in publications use:
 ## 
@@ -245,8 +245,7 @@
 ##     url = {http://mc-stan.org/},
 ##   }</code></pre>
 <div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"rstantools"</span>)
-</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span><span class="st">"rstantools"</span><span class="op">)</span></pre></div>
 <pre><code>## 
 ## To cite package 'rstantools' in publications use:
 ## 
@@ -281,7 +280,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

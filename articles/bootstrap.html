@@ -48,7 +48,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand"><img src="https://data.lesslikely.com/concurve/reference/figures/logo.svg" id="package-logo" align="left" width="35"><a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.6</span>
       </span>
     </div>
 
@@ -71,7 +71,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/examples.html">Examples in R</a>
+      <a href="../articles/examples.html">Simple Examples in R</a>
+    </li>
+    <li>
+      <a href="../articles/logistic.html">Logistic Regression</a>
     </li>
     <li>
       <a href="../articles/survival.html">Survival Modeling</a>
@@ -183,108 +186,102 @@
 <h2 class="hasAnchor">
 <a href="#the-nonparametric-bootstrap" class="anchor"></a>The Nonparametric Bootstrap</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw">iris</span> <span class="op">&lt;-</span> <span class="kw">datasets</span>::<span class="kw"><a href="https://rdrr.io/r/datasets/iris.html">iris</a></span>
-<span class="kw">foo</span> <span class="op">&lt;-</span> <span class="fu">function</span>(<span class="kw">data</span>, <span class="kw">indices</span>) {
-  <span class="kw">dt</span> <span class="op">&lt;-</span> <span class="kw">data</span>[<span class="kw">indices</span>, ]
-  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(
-    <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span>(<span class="kw">dt</span>[, <span class="fl">1</span>], <span class="kw">dt</span>[, <span class="fl">2</span>], method = <span class="st">"p"</span>)
-  )
-}
-</pre></div>
+<span class="va">iris</span> <span class="op">&lt;-</span> <span class="fu">datasets</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/datasets/iris.html">iris</a></span>
+<span class="va">foo</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">indices</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">dt</span> <span class="op">&lt;-</span> <span class="va">data</span><span class="op">[</span><span class="va">indices</span>, <span class="op">]</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+    <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">dt</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span>, <span class="va">dt</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span>, method <span class="op">=</span> <span class="st">"p"</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">}</span></pre></div>
 <p>We can now use the <code><a href="../reference/curve_boot.html">curve_boot()</a></code> method to construct a function. The default method used for this function is the “<code>Bca</code>” method provided by the <a href="https://cran.r-project.org/package=bcaboot"><code>bcaboot</code></a> package.<span class="citation"><sup><span class="citeproc-not-found" data-reference-id="efron2018"><strong>???</strong></span></sup></span></p>
 <p>I will suppress the output of the function because it is unnecessarily long. But we’ve placed all the estimates into a list object called y.</p>
 <p>The first item in the list will be the consonance distribution constructed by typical means, while the third item will be the bootstrap approximation to the consonance distribution.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span>(data = <span class="kw">y</span>[[<span class="fl">1</span>]], nullvalue = <span class="fl">TRUE</span>)
-</pre></div>
+<span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">y</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, nullvalue <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
 <p><img src="bootstrap_files/figure-html/unnamed-chunk-3-1.png" width="576"></p>
 <div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span>(data = <span class="kw">y</span>[[<span class="fl">3</span>]], nullvalue = <span class="fl">TRUE</span>)
-</pre></div>
+<span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">y</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span>, nullvalue <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
 <p><img src="bootstrap_files/figure-html/unnamed-chunk-3-2.png" width="576"></p>
 <p>We can also print out a table for TeX documents</p>
 <div class="sourceCode" id="cb4"><pre class="downlit">
-(<span class="kw">gg</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/curve_table.html">curve_table</a></span>(data = <span class="kw">y</span>[[<span class="fl">1</span>]], format = <span class="st">"image"</span>))
-</pre></div>
+<span class="op">(</span><span class="va">gg</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/curve_table.html">curve_table</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">y</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, format <span class="op">=</span> <span class="st">"image"</span><span class="op">)</span><span class="op">)</span></pre></div>
 <div class="tabwid">
-<style>.cl-2bb10804{font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;}.cl-2bb16574{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;line-height: 1.00;background-color:transparent;}.cl-2bb1fc3c{width:58px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2bb1fca0{width:85px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2bb1fcbe{width:106px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2bb1fcd2{width:48px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2bb1fcfa{width:77px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2bb1fd18{width:88px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2bb1fd2c{width:85px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2bb1fd4a{width:48px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2bb1fd5e{width:77px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2bb1fd7c{width:106px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2bb1fd9a{width:58px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2bb1fdae{width:88px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2bb1fdcc{width:58px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2bb1fde0{width:77px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2bb1fdfe{width:48px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2bb1fe1c{width:88px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2bb1fe3a{width:106px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2bb1fe58{width:85px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2bb1fe76{width:85px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 2.00px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2bb1fe94{width:88px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 2.00px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2bb1feb2{width:106px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 2.00px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2bb1fec6{width:77px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 2.00px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2bb1feda{width:58px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 2.00px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2bb1fef8{width:48px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 2.00px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
+<style>.cl-970cff34{font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;}.cl-970d1f3c{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;line-height: 1.00;background-color:transparent;}.cl-970d5362{width:58px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-970d5380{width:85px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-970d538a{width:106px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-970d5394{width:48px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-970d539e{width:77px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-970d53a8{width:88px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-970d53b2{width:85px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-970d53bc{width:48px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-970d53c6{width:77px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-970d53d0{width:106px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-970d53da{width:58px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-970d53e4{width:88px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-970d53ee{width:58px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-970d53ef{width:77px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-970d53f8{width:48px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-970d5402{width:88px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-970d540c{width:106px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-970d5416{width:85px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-970d5420{width:85px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 2.00px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-970d542a{width:88px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 2.00px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-970d5434{width:106px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 2.00px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-970d543e{width:77px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 2.00px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-970d5448{width:58px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 2.00px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-970d5452{width:48px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 2.00px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
 <table class="table">
 <thead><tr style="overflow-wrap:break-word;">
-<td class="cl-2bb1fec6"><p class="cl-2bb16574"><span class="cl-2bb10804">Lower Limit</span></p></td>
-<td class="cl-2bb1fec6"><p class="cl-2bb16574"><span class="cl-2bb10804">Upper Limit</span></p></td>
-<td class="cl-2bb1fe94"><p class="cl-2bb16574"><span class="cl-2bb10804">Interval Width</span></p></td>
-<td class="cl-2bb1feb2"><p class="cl-2bb16574"><span class="cl-2bb10804">Interval Level (%)</span></p></td>
-<td class="cl-2bb1fef8"><p class="cl-2bb16574"><span class="cl-2bb10804">CDF</span></p></td>
-<td class="cl-2bb1feda"><p class="cl-2bb16574"><span class="cl-2bb10804">P-value</span></p></td>
-<td class="cl-2bb1fe76"><p class="cl-2bb16574"><span class="cl-2bb10804">S-value (bits)</span></p></td>
+<td class="cl-970d543e"><p class="cl-970d1f3c"><span class="cl-970cff34">Lower Limit</span></p></td>
+<td class="cl-970d543e"><p class="cl-970d1f3c"><span class="cl-970cff34">Upper Limit</span></p></td>
+<td class="cl-970d542a"><p class="cl-970d1f3c"><span class="cl-970cff34">Interval Width</span></p></td>
+<td class="cl-970d5434"><p class="cl-970d1f3c"><span class="cl-970cff34">Interval Level (%)</span></p></td>
+<td class="cl-970d5452"><p class="cl-970d1f3c"><span class="cl-970cff34">CDF</span></p></td>
+<td class="cl-970d5448"><p class="cl-970d1f3c"><span class="cl-970cff34">P-value</span></p></td>
+<td class="cl-970d5420"><p class="cl-970d1f3c"><span class="cl-970cff34">S-value (bits)</span></p></td>
 </tr></thead>
 <tbody>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-2bb1fcfa"><p class="cl-2bb16574"><span class="cl-2bb10804">-0.141</span></p></td>
-<td class="cl-2bb1fcfa"><p class="cl-2bb16574"><span class="cl-2bb10804">-0.094</span></p></td>
-<td class="cl-2bb1fd18"><p class="cl-2bb16574"><span class="cl-2bb10804">0.047</span></p></td>
-<td class="cl-2bb1fcbe"><p class="cl-2bb16574"><span class="cl-2bb10804">25</span></p></td>
-<td class="cl-2bb1fcd2"><p class="cl-2bb16574"><span class="cl-2bb10804">0.625</span></p></td>
-<td class="cl-2bb1fc3c"><p class="cl-2bb16574"><span class="cl-2bb10804">0.75</span></p></td>
-<td class="cl-2bb1fca0"><p class="cl-2bb16574"><span class="cl-2bb10804">0.415</span></p></td>
+<td class="cl-970d539e"><p class="cl-970d1f3c"><span class="cl-970cff34">-0.142</span></p></td>
+<td class="cl-970d539e"><p class="cl-970d1f3c"><span class="cl-970cff34">-0.094</span></p></td>
+<td class="cl-970d53a8"><p class="cl-970d1f3c"><span class="cl-970cff34">0.048</span></p></td>
+<td class="cl-970d538a"><p class="cl-970d1f3c"><span class="cl-970cff34">25</span></p></td>
+<td class="cl-970d5394"><p class="cl-970d1f3c"><span class="cl-970cff34">0.625</span></p></td>
+<td class="cl-970d5362"><p class="cl-970d1f3c"><span class="cl-970cff34">0.75</span></p></td>
+<td class="cl-970d5380"><p class="cl-970d1f3c"><span class="cl-970cff34">0.415</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-2bb1fcfa"><p class="cl-2bb16574"><span class="cl-2bb10804">-0.168</span></p></td>
-<td class="cl-2bb1fcfa"><p class="cl-2bb16574"><span class="cl-2bb10804">-0.067</span></p></td>
-<td class="cl-2bb1fd18"><p class="cl-2bb16574"><span class="cl-2bb10804">0.100</span></p></td>
-<td class="cl-2bb1fcbe"><p class="cl-2bb16574"><span class="cl-2bb10804">50</span></p></td>
-<td class="cl-2bb1fcd2"><p class="cl-2bb16574"><span class="cl-2bb10804">0.750</span></p></td>
-<td class="cl-2bb1fc3c"><p class="cl-2bb16574"><span class="cl-2bb10804">0.50</span></p></td>
-<td class="cl-2bb1fca0"><p class="cl-2bb16574"><span class="cl-2bb10804">1.000</span></p></td>
+<td class="cl-970d539e"><p class="cl-970d1f3c"><span class="cl-970cff34">-0.169</span></p></td>
+<td class="cl-970d539e"><p class="cl-970d1f3c"><span class="cl-970cff34">-0.067</span></p></td>
+<td class="cl-970d53a8"><p class="cl-970d1f3c"><span class="cl-970cff34">0.102</span></p></td>
+<td class="cl-970d538a"><p class="cl-970d1f3c"><span class="cl-970cff34">50</span></p></td>
+<td class="cl-970d5394"><p class="cl-970d1f3c"><span class="cl-970cff34">0.750</span></p></td>
+<td class="cl-970d5362"><p class="cl-970d1f3c"><span class="cl-970cff34">0.50</span></p></td>
+<td class="cl-970d5380"><p class="cl-970d1f3c"><span class="cl-970cff34">1.000</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-2bb1fd5e"><p class="cl-2bb16574"><span class="cl-2bb10804">-0.203</span></p></td>
-<td class="cl-2bb1fd5e"><p class="cl-2bb16574"><span class="cl-2bb10804">-0.032</span></p></td>
-<td class="cl-2bb1fdae"><p class="cl-2bb16574"><span class="cl-2bb10804">0.171</span></p></td>
-<td class="cl-2bb1fd7c"><p class="cl-2bb16574"><span class="cl-2bb10804">75</span></p></td>
-<td class="cl-2bb1fd4a"><p class="cl-2bb16574"><span class="cl-2bb10804">0.875</span></p></td>
-<td class="cl-2bb1fd9a"><p class="cl-2bb16574"><span class="cl-2bb10804">0.25</span></p></td>
-<td class="cl-2bb1fd2c"><p class="cl-2bb16574"><span class="cl-2bb10804">2.000</span></p></td>
+<td class="cl-970d53c6"><p class="cl-970d1f3c"><span class="cl-970cff34">-0.204</span></p></td>
+<td class="cl-970d53c6"><p class="cl-970d1f3c"><span class="cl-970cff34">-0.031</span></p></td>
+<td class="cl-970d53e4"><p class="cl-970d1f3c"><span class="cl-970cff34">0.174</span></p></td>
+<td class="cl-970d53d0"><p class="cl-970d1f3c"><span class="cl-970cff34">75</span></p></td>
+<td class="cl-970d53bc"><p class="cl-970d1f3c"><span class="cl-970cff34">0.875</span></p></td>
+<td class="cl-970d53da"><p class="cl-970d1f3c"><span class="cl-970cff34">0.25</span></p></td>
+<td class="cl-970d53b2"><p class="cl-970d1f3c"><span class="cl-970cff34">2.000</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-2bb1fd5e"><p class="cl-2bb16574"><span class="cl-2bb10804">-0.213</span></p></td>
-<td class="cl-2bb1fd5e"><p class="cl-2bb16574"><span class="cl-2bb10804">-0.022</span></p></td>
-<td class="cl-2bb1fdae"><p class="cl-2bb16574"><span class="cl-2bb10804">0.191</span></p></td>
-<td class="cl-2bb1fd7c"><p class="cl-2bb16574"><span class="cl-2bb10804">80</span></p></td>
-<td class="cl-2bb1fd4a"><p class="cl-2bb16574"><span class="cl-2bb10804">0.900</span></p></td>
-<td class="cl-2bb1fd9a"><p class="cl-2bb16574"><span class="cl-2bb10804">0.20</span></p></td>
-<td class="cl-2bb1fd2c"><p class="cl-2bb16574"><span class="cl-2bb10804">2.322</span></p></td>
+<td class="cl-970d53c6"><p class="cl-970d1f3c"><span class="cl-970cff34">-0.214</span></p></td>
+<td class="cl-970d53c6"><p class="cl-970d1f3c"><span class="cl-970cff34">-0.021</span></p></td>
+<td class="cl-970d53e4"><p class="cl-970d1f3c"><span class="cl-970cff34">0.194</span></p></td>
+<td class="cl-970d53d0"><p class="cl-970d1f3c"><span class="cl-970cff34">80</span></p></td>
+<td class="cl-970d53bc"><p class="cl-970d1f3c"><span class="cl-970cff34">0.900</span></p></td>
+<td class="cl-970d53da"><p class="cl-970d1f3c"><span class="cl-970cff34">0.20</span></p></td>
+<td class="cl-970d53b2"><p class="cl-970d1f3c"><span class="cl-970cff34">2.322</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-2bb1fd5e"><p class="cl-2bb16574"><span class="cl-2bb10804">-0.263</span></p></td>
-<td class="cl-2bb1fd5e"><p class="cl-2bb16574"><span class="cl-2bb10804">0.028</span></p></td>
-<td class="cl-2bb1fdae"><p class="cl-2bb16574"><span class="cl-2bb10804">0.292</span></p></td>
-<td class="cl-2bb1fd7c"><p class="cl-2bb16574"><span class="cl-2bb10804">95</span></p></td>
-<td class="cl-2bb1fd4a"><p class="cl-2bb16574"><span class="cl-2bb10804">0.975</span></p></td>
-<td class="cl-2bb1fd9a"><p class="cl-2bb16574"><span class="cl-2bb10804">0.05</span></p></td>
-<td class="cl-2bb1fd2c"><p class="cl-2bb16574"><span class="cl-2bb10804">4.322</span></p></td>
+<td class="cl-970d53c6"><p class="cl-970d1f3c"><span class="cl-970cff34">-0.266</span></p></td>
+<td class="cl-970d53c6"><p class="cl-970d1f3c"><span class="cl-970cff34">0.030</span></p></td>
+<td class="cl-970d53e4"><p class="cl-970d1f3c"><span class="cl-970cff34">0.296</span></p></td>
+<td class="cl-970d53d0"><p class="cl-970d1f3c"><span class="cl-970cff34">95</span></p></td>
+<td class="cl-970d53bc"><p class="cl-970d1f3c"><span class="cl-970cff34">0.975</span></p></td>
+<td class="cl-970d53da"><p class="cl-970d1f3c"><span class="cl-970cff34">0.05</span></p></td>
+<td class="cl-970d53b2"><p class="cl-970d1f3c"><span class="cl-970cff34">4.322</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-2bb1fde0"><p class="cl-2bb16574"><span class="cl-2bb10804">-0.309</span></p></td>
-<td class="cl-2bb1fde0"><p class="cl-2bb16574"><span class="cl-2bb10804">0.074</span></p></td>
-<td class="cl-2bb1fe1c"><p class="cl-2bb16574"><span class="cl-2bb10804">0.383</span></p></td>
-<td class="cl-2bb1fe3a"><p class="cl-2bb16574"><span class="cl-2bb10804">99</span></p></td>
-<td class="cl-2bb1fdfe"><p class="cl-2bb16574"><span class="cl-2bb10804">0.995</span></p></td>
-<td class="cl-2bb1fdcc"><p class="cl-2bb16574"><span class="cl-2bb10804">0.01</span></p></td>
-<td class="cl-2bb1fe58"><p class="cl-2bb16574"><span class="cl-2bb10804">6.644</span></p></td>
+<td class="cl-970d53ef"><p class="cl-970d1f3c"><span class="cl-970cff34">-0.312</span></p></td>
+<td class="cl-970d53ef"><p class="cl-970d1f3c"><span class="cl-970cff34">0.077</span></p></td>
+<td class="cl-970d5402"><p class="cl-970d1f3c"><span class="cl-970cff34">0.389</span></p></td>
+<td class="cl-970d540c"><p class="cl-970d1f3c"><span class="cl-970cff34">99</span></p></td>
+<td class="cl-970d53f8"><p class="cl-970d1f3c"><span class="cl-970cff34">0.995</span></p></td>
+<td class="cl-970d53ee"><p class="cl-970d1f3c"><span class="cl-970cff34">0.01</span></p></td>
+<td class="cl-970d5416"><p class="cl-970d1f3c"><span class="cl-970cff34">6.644</span></p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <p>More bootstrap replications will lead to a smoother function. But for now, we can compare these two functions to see how similar they are.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="fu"><a href="../reference/plot_compare.html">plot_compare</a></span>(<span class="kw">y</span>[[<span class="fl">1</span>]], <span class="kw">y</span>[[<span class="fl">3</span>]])
-</pre></div>
+<span class="fu"><a href="../reference/plot_compare.html">plot_compare</a></span><span class="op">(</span><span class="va">y</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="va">y</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></pre></div>
 <p><img src="bootstrap_files/figure-html/unnamed-chunk-5-1.png" width="576"></p>
 <p>If we wanted to look at the bootstrap standard errors, we could do so by loading the fifth item in the list</p>
 <div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="kw">knitr</span>::<span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="kw">y</span>[[<span class="fl">5</span>]])
-</pre></div>
+<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">y</span><span class="op">[[</span><span class="fl">5</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left"></th>
@@ -298,16 +295,16 @@
 <tr class="odd">
 <td align="left">est</td>
 <td align="right">-0.1175698</td>
-<td align="right">0.0743649</td>
-<td align="right">0.0689870</td>
+<td align="right">0.0755234</td>
+<td align="right">0.0325919</td>
 <td align="right">0.0304863</td>
 <td align="right">0.075694</td>
 </tr>
 <tr class="even">
 <td align="left">jsd</td>
 <td align="right">0.0000000</td>
-<td align="right">0.0015608</td>
-<td align="right">0.0343724</td>
+<td align="right">0.0012100</td>
+<td align="right">0.0272276</td>
 <td align="right">0.0000000</td>
 <td align="right">0.000000</td>
 </tr>
@@ -318,122 +315,118 @@
 <hr>
 <p>The densities can also be calculated accurately using the <code>t</code>-bootstrap method. Here we use a different dataset to show this</p>
 <div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw">Lock5Data</span>)
-<span class="kw">dataz</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="kw">CommuteAtlanta</span>)
-<span class="kw">func</span> <span class="op">&lt;-</span> <span class="fu">function</span>(<span class="kw">data</span>, <span class="kw">index</span>) {
-  <span class="kw">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>(<span class="kw">data</span>[<span class="fl">1</span>]))
-  <span class="kw">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>(<span class="kw">data</span>[<span class="fl">2</span>]))
-  <span class="fu"><a href="https://rdrr.io/r/base/function.html">return</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="kw">x</span>[<span class="kw">index</span>]) <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="kw">y</span>[<span class="kw">index</span>]))
-}
-</pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">Lock5Data</span><span class="op">)</span>
+<span class="va">dataz</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">CommuteAtlanta</span><span class="op">)</span>
+<span class="va">func</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">index</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="va">data</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="va">data</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>
+  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="va">index</span><span class="op">]</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">y</span><span class="op">[</span><span class="va">index</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>
+<span class="op">}</span></pre></div>
 <p>Our function is a simple mean difference. This time, we’ll set the method to “<code>t</code>” for the <code>t</code>-bootstrap method</p>
 <div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="kw">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/curve_boot.html">curve_boot</a></span>(data = <span class="kw">CommuteAtlanta</span>, func = <span class="kw">func</span>, method = <span class="st">"t"</span>, replicates = <span class="fl">2000</span>, steps = <span class="fl">1000</span>)
+<span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/curve_boot.html">curve_boot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">CommuteAtlanta</span>, func <span class="op">=</span> <span class="va">func</span>, method <span class="op">=</span> <span class="st">"t"</span>, replicates <span class="op">=</span> <span class="fl">2000</span>, steps <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span>
 <span class="co">#&gt; Warning in norm.inter(t, alpha): extreme order statistics used as endpoints</span>
-<span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span>(data = <span class="kw">z</span>[[<span class="fl">1</span>]], nullvalue = <span class="fl">FALSE</span>)
-</pre></div>
+<span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">z</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, nullvalue <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
 <p><img src="bootstrap_files/figure-html/unnamed-chunk-8-1.png" width="576"></p>
 <div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span>(data = <span class="kw">z</span>[[<span class="fl">2</span>]], type = <span class="st">"cd"</span>, nullvalue = <span class="fl">FALSE</span>)
-</pre></div>
+<span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">z</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, type <span class="op">=</span> <span class="st">"cd"</span>, nullvalue <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
 <p><img src="bootstrap_files/figure-html/unnamed-chunk-8-2.png" width="576"></p>
 <p>The consonance curve and density are nearly identical. With more bootstrap replications, they are very likely to converge.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit">
-(<span class="kw">zz</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/curve_table.html">curve_table</a></span>(data = <span class="kw">z</span>[[<span class="fl">1</span>]], format = <span class="st">"image"</span>))
-</pre></div>
+<span class="op">(</span><span class="va">zz</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/curve_table.html">curve_table</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">z</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, format <span class="op">=</span> <span class="st">"image"</span><span class="op">)</span><span class="op">)</span></pre></div>
 <div class="tabwid">
-<style>.cl-2ffe711c{font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;}.cl-2ffe8512{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;line-height: 1.00;background-color:transparent;}.cl-2ffeb2b2{width:106px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2ffeb2d0{width:77px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2ffeb2da{width:88px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2ffeb2e4{width:58px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2ffeb2ee{width:85px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2ffeb302{width:48px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2ffeb30c{width:58px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2ffeb316{width:88px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2ffeb320{width:48px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2ffeb321{width:106px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2ffeb334{width:77px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2ffeb33e{width:85px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2ffeb33f{width:48px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 2.00px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2ffeb352{width:77px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 2.00px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2ffeb353{width:88px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 2.00px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2ffeb35c{width:106px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 2.00px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2ffeb366{width:85px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 2.00px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2ffeb370{width:58px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 2.00px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
+<style>.cl-98d374f6{font-family:'Arial';font-size:11px;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(17, 17, 17, 1.00);background-color:transparent;}.cl-98d387ca{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2px;padding-top:2px;padding-left:5px;padding-right:5px;line-height: 1.00;background-color:transparent;}.cl-98d3b452{width:106px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-98d3b470{width:77px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-98d3b484{width:88px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-98d3b498{width:58px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-98d3b4a2{width:85px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-98d3b4ac{width:48px;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-98d3b4b6{width:58px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-98d3b4c0{width:88px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-98d3b4c1{width:48px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-98d3b4ca{width:106px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-98d3b4d4{width:77px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-98d3b4de{width:85px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-98d3b4e8{width:48px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 2.00px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-98d3b4f2{width:77px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 2.00px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-98d3b4fc{width:88px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 2.00px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-98d3b506{width:106px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 2.00px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-98d3b507{width:85px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 2.00px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-98d3b510{width:58px;background-color:transparent;vertical-align: middle;border-bottom: 2.00px solid rgba(0, 0, 0, 1.00);border-top: 2.00px solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
 <table class="table">
 <thead><tr style="overflow-wrap:break-word;">
-<td class="cl-2ffeb352"><p class="cl-2ffe8512"><span class="cl-2ffe711c">Lower Limit</span></p></td>
-<td class="cl-2ffeb352"><p class="cl-2ffe8512"><span class="cl-2ffe711c">Upper Limit</span></p></td>
-<td class="cl-2ffeb353"><p class="cl-2ffe8512"><span class="cl-2ffe711c">Interval Width</span></p></td>
-<td class="cl-2ffeb35c"><p class="cl-2ffe8512"><span class="cl-2ffe711c">Interval Level (%)</span></p></td>
-<td class="cl-2ffeb33f"><p class="cl-2ffe8512"><span class="cl-2ffe711c">CDF</span></p></td>
-<td class="cl-2ffeb370"><p class="cl-2ffe8512"><span class="cl-2ffe711c">P-value</span></p></td>
-<td class="cl-2ffeb366"><p class="cl-2ffe8512"><span class="cl-2ffe711c">S-value (bits)</span></p></td>
+<td class="cl-98d3b4f2"><p class="cl-98d387ca"><span class="cl-98d374f6">Lower Limit</span></p></td>
+<td class="cl-98d3b4f2"><p class="cl-98d387ca"><span class="cl-98d374f6">Upper Limit</span></p></td>
+<td class="cl-98d3b4fc"><p class="cl-98d387ca"><span class="cl-98d374f6">Interval Width</span></p></td>
+<td class="cl-98d3b506"><p class="cl-98d387ca"><span class="cl-98d374f6">Interval Level (%)</span></p></td>
+<td class="cl-98d3b4e8"><p class="cl-98d387ca"><span class="cl-98d374f6">CDF</span></p></td>
+<td class="cl-98d3b510"><p class="cl-98d387ca"><span class="cl-98d374f6">P-value</span></p></td>
+<td class="cl-98d3b507"><p class="cl-98d387ca"><span class="cl-98d374f6">S-value (bits)</span></p></td>
 </tr></thead>
 <tbody>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-2ffeb2d0"><p class="cl-2ffe8512"><span class="cl-2ffe711c">-39.412</span></p></td>
-<td class="cl-2ffeb2d0"><p class="cl-2ffe8512"><span class="cl-2ffe711c">-39.069</span></p></td>
-<td class="cl-2ffeb2da"><p class="cl-2ffe8512"><span class="cl-2ffe711c">0.343</span></p></td>
-<td class="cl-2ffeb2b2"><p class="cl-2ffe8512"><span class="cl-2ffe711c">25.0</span></p></td>
-<td class="cl-2ffeb302"><p class="cl-2ffe8512"><span class="cl-2ffe711c">0.625</span></p></td>
-<td class="cl-2ffeb2e4"><p class="cl-2ffe8512"><span class="cl-2ffe711c">0.750</span></p></td>
-<td class="cl-2ffeb2ee"><p class="cl-2ffe8512"><span class="cl-2ffe711c">0.415</span></p></td>
+<td class="cl-98d3b470"><p class="cl-98d387ca"><span class="cl-98d374f6">-39.436</span></p></td>
+<td class="cl-98d3b470"><p class="cl-98d387ca"><span class="cl-98d374f6">-39.100</span></p></td>
+<td class="cl-98d3b484"><p class="cl-98d387ca"><span class="cl-98d374f6">0.336</span></p></td>
+<td class="cl-98d3b452"><p class="cl-98d387ca"><span class="cl-98d374f6">25.0</span></p></td>
+<td class="cl-98d3b4ac"><p class="cl-98d387ca"><span class="cl-98d374f6">0.625</span></p></td>
+<td class="cl-98d3b498"><p class="cl-98d387ca"><span class="cl-98d374f6">0.750</span></p></td>
+<td class="cl-98d3b4a2"><p class="cl-98d387ca"><span class="cl-98d374f6">0.415</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-2ffeb2d0"><p class="cl-2ffe8512"><span class="cl-2ffe711c">-39.598</span></p></td>
-<td class="cl-2ffeb2d0"><p class="cl-2ffe8512"><span class="cl-2ffe711c">-38.892</span></p></td>
-<td class="cl-2ffeb2da"><p class="cl-2ffe8512"><span class="cl-2ffe711c">0.706</span></p></td>
-<td class="cl-2ffeb2b2"><p class="cl-2ffe8512"><span class="cl-2ffe711c">50.0</span></p></td>
-<td class="cl-2ffeb302"><p class="cl-2ffe8512"><span class="cl-2ffe711c">0.750</span></p></td>
-<td class="cl-2ffeb2e4"><p class="cl-2ffe8512"><span class="cl-2ffe711c">0.500</span></p></td>
-<td class="cl-2ffeb2ee"><p class="cl-2ffe8512"><span class="cl-2ffe711c">1.000</span></p></td>
+<td class="cl-98d3b470"><p class="cl-98d387ca"><span class="cl-98d374f6">-39.634</span></p></td>
+<td class="cl-98d3b470"><p class="cl-98d387ca"><span class="cl-98d374f6">-38.906</span></p></td>
+<td class="cl-98d3b484"><p class="cl-98d387ca"><span class="cl-98d374f6">0.728</span></p></td>
+<td class="cl-98d3b452"><p class="cl-98d387ca"><span class="cl-98d374f6">50.0</span></p></td>
+<td class="cl-98d3b4ac"><p class="cl-98d387ca"><span class="cl-98d374f6">0.750</span></p></td>
+<td class="cl-98d3b498"><p class="cl-98d387ca"><span class="cl-98d374f6">0.500</span></p></td>
+<td class="cl-98d3b4a2"><p class="cl-98d387ca"><span class="cl-98d374f6">1.000</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-2ffeb2d0"><p class="cl-2ffe8512"><span class="cl-2ffe711c">-39.846</span></p></td>
-<td class="cl-2ffeb2d0"><p class="cl-2ffe8512"><span class="cl-2ffe711c">-38.614</span></p></td>
-<td class="cl-2ffeb2da"><p class="cl-2ffe8512"><span class="cl-2ffe711c">1.232</span></p></td>
-<td class="cl-2ffeb2b2"><p class="cl-2ffe8512"><span class="cl-2ffe711c">75.0</span></p></td>
-<td class="cl-2ffeb302"><p class="cl-2ffe8512"><span class="cl-2ffe711c">0.875</span></p></td>
-<td class="cl-2ffeb2e4"><p class="cl-2ffe8512"><span class="cl-2ffe711c">0.250</span></p></td>
-<td class="cl-2ffeb2ee"><p class="cl-2ffe8512"><span class="cl-2ffe711c">2.000</span></p></td>
+<td class="cl-98d3b470"><p class="cl-98d387ca"><span class="cl-98d374f6">-39.892</span></p></td>
+<td class="cl-98d3b470"><p class="cl-98d387ca"><span class="cl-98d374f6">-38.644</span></p></td>
+<td class="cl-98d3b484"><p class="cl-98d387ca"><span class="cl-98d374f6">1.248</span></p></td>
+<td class="cl-98d3b452"><p class="cl-98d387ca"><span class="cl-98d374f6">75.0</span></p></td>
+<td class="cl-98d3b4ac"><p class="cl-98d387ca"><span class="cl-98d374f6">0.875</span></p></td>
+<td class="cl-98d3b498"><p class="cl-98d387ca"><span class="cl-98d374f6">0.250</span></p></td>
+<td class="cl-98d3b4a2"><p class="cl-98d387ca"><span class="cl-98d374f6">2.000</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-2ffeb2d0"><p class="cl-2ffe8512"><span class="cl-2ffe711c">-39.932</span></p></td>
-<td class="cl-2ffeb2d0"><p class="cl-2ffe8512"><span class="cl-2ffe711c">-38.548</span></p></td>
-<td class="cl-2ffeb2da"><p class="cl-2ffe8512"><span class="cl-2ffe711c">1.384</span></p></td>
-<td class="cl-2ffeb2b2"><p class="cl-2ffe8512"><span class="cl-2ffe711c">80.0</span></p></td>
-<td class="cl-2ffeb302"><p class="cl-2ffe8512"><span class="cl-2ffe711c">0.900</span></p></td>
-<td class="cl-2ffeb2e4"><p class="cl-2ffe8512"><span class="cl-2ffe711c">0.200</span></p></td>
-<td class="cl-2ffeb2ee"><p class="cl-2ffe8512"><span class="cl-2ffe711c">2.322</span></p></td>
+<td class="cl-98d3b470"><p class="cl-98d387ca"><span class="cl-98d374f6">-39.964</span></p></td>
+<td class="cl-98d3b470"><p class="cl-98d387ca"><span class="cl-98d374f6">-38.576</span></p></td>
+<td class="cl-98d3b484"><p class="cl-98d387ca"><span class="cl-98d374f6">1.388</span></p></td>
+<td class="cl-98d3b452"><p class="cl-98d387ca"><span class="cl-98d374f6">80.0</span></p></td>
+<td class="cl-98d3b4ac"><p class="cl-98d387ca"><span class="cl-98d374f6">0.900</span></p></td>
+<td class="cl-98d3b498"><p class="cl-98d387ca"><span class="cl-98d374f6">0.200</span></p></td>
+<td class="cl-98d3b4a2"><p class="cl-98d387ca"><span class="cl-98d374f6">2.322</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-2ffeb2d0"><p class="cl-2ffe8512"><span class="cl-2ffe711c">-40.038</span></p></td>
-<td class="cl-2ffeb2d0"><p class="cl-2ffe8512"><span class="cl-2ffe711c">-38.450</span></p></td>
-<td class="cl-2ffeb2da"><p class="cl-2ffe8512"><span class="cl-2ffe711c">1.588</span></p></td>
-<td class="cl-2ffeb2b2"><p class="cl-2ffe8512"><span class="cl-2ffe711c">85.0</span></p></td>
-<td class="cl-2ffeb302"><p class="cl-2ffe8512"><span class="cl-2ffe711c">0.925</span></p></td>
-<td class="cl-2ffeb2e4"><p class="cl-2ffe8512"><span class="cl-2ffe711c">0.150</span></p></td>
-<td class="cl-2ffeb2ee"><p class="cl-2ffe8512"><span class="cl-2ffe711c">2.737</span></p></td>
+<td class="cl-98d3b470"><p class="cl-98d387ca"><span class="cl-98d374f6">-40.047</span></p></td>
+<td class="cl-98d3b470"><p class="cl-98d387ca"><span class="cl-98d374f6">-38.488</span></p></td>
+<td class="cl-98d3b484"><p class="cl-98d387ca"><span class="cl-98d374f6">1.559</span></p></td>
+<td class="cl-98d3b452"><p class="cl-98d387ca"><span class="cl-98d374f6">85.0</span></p></td>
+<td class="cl-98d3b4ac"><p class="cl-98d387ca"><span class="cl-98d374f6">0.925</span></p></td>
+<td class="cl-98d3b498"><p class="cl-98d387ca"><span class="cl-98d374f6">0.150</span></p></td>
+<td class="cl-98d3b4a2"><p class="cl-98d387ca"><span class="cl-98d374f6">2.737</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-2ffeb2d0"><p class="cl-2ffe8512"><span class="cl-2ffe711c">-40.142</span></p></td>
-<td class="cl-2ffeb2d0"><p class="cl-2ffe8512"><span class="cl-2ffe711c">-38.348</span></p></td>
-<td class="cl-2ffeb2da"><p class="cl-2ffe8512"><span class="cl-2ffe711c">1.794</span></p></td>
-<td class="cl-2ffeb2b2"><p class="cl-2ffe8512"><span class="cl-2ffe711c">90.0</span></p></td>
-<td class="cl-2ffeb302"><p class="cl-2ffe8512"><span class="cl-2ffe711c">0.950</span></p></td>
-<td class="cl-2ffeb2e4"><p class="cl-2ffe8512"><span class="cl-2ffe711c">0.100</span></p></td>
-<td class="cl-2ffeb2ee"><p class="cl-2ffe8512"><span class="cl-2ffe711c">3.322</span></p></td>
+<td class="cl-98d3b470"><p class="cl-98d387ca"><span class="cl-98d374f6">-40.152</span></p></td>
+<td class="cl-98d3b470"><p class="cl-98d387ca"><span class="cl-98d374f6">-38.370</span></p></td>
+<td class="cl-98d3b484"><p class="cl-98d387ca"><span class="cl-98d374f6">1.782</span></p></td>
+<td class="cl-98d3b452"><p class="cl-98d387ca"><span class="cl-98d374f6">90.0</span></p></td>
+<td class="cl-98d3b4ac"><p class="cl-98d387ca"><span class="cl-98d374f6">0.950</span></p></td>
+<td class="cl-98d3b498"><p class="cl-98d387ca"><span class="cl-98d374f6">0.100</span></p></td>
+<td class="cl-98d3b4a2"><p class="cl-98d387ca"><span class="cl-98d374f6">3.322</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-2ffeb2d0"><p class="cl-2ffe8512"><span class="cl-2ffe711c">-40.320</span></p></td>
-<td class="cl-2ffeb2d0"><p class="cl-2ffe8512"><span class="cl-2ffe711c">-38.156</span></p></td>
-<td class="cl-2ffeb2da"><p class="cl-2ffe8512"><span class="cl-2ffe711c">2.164</span></p></td>
-<td class="cl-2ffeb2b2"><p class="cl-2ffe8512"><span class="cl-2ffe711c">95.0</span></p></td>
-<td class="cl-2ffeb302"><p class="cl-2ffe8512"><span class="cl-2ffe711c">0.975</span></p></td>
-<td class="cl-2ffeb2e4"><p class="cl-2ffe8512"><span class="cl-2ffe711c">0.050</span></p></td>
-<td class="cl-2ffeb2ee"><p class="cl-2ffe8512"><span class="cl-2ffe711c">4.322</span></p></td>
+<td class="cl-98d3b470"><p class="cl-98d387ca"><span class="cl-98d374f6">-40.318</span></p></td>
+<td class="cl-98d3b470"><p class="cl-98d387ca"><span class="cl-98d374f6">-38.186</span></p></td>
+<td class="cl-98d3b484"><p class="cl-98d387ca"><span class="cl-98d374f6">2.132</span></p></td>
+<td class="cl-98d3b452"><p class="cl-98d387ca"><span class="cl-98d374f6">95.0</span></p></td>
+<td class="cl-98d3b4ac"><p class="cl-98d387ca"><span class="cl-98d374f6">0.975</span></p></td>
+<td class="cl-98d3b498"><p class="cl-98d387ca"><span class="cl-98d374f6">0.050</span></p></td>
+<td class="cl-98d3b4a2"><p class="cl-98d387ca"><span class="cl-98d374f6">4.322</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-2ffeb2d0"><p class="cl-2ffe8512"><span class="cl-2ffe711c">-40.494</span></p></td>
-<td class="cl-2ffeb2d0"><p class="cl-2ffe8512"><span class="cl-2ffe711c">-38.012</span></p></td>
-<td class="cl-2ffeb2da"><p class="cl-2ffe8512"><span class="cl-2ffe711c">2.482</span></p></td>
-<td class="cl-2ffeb2b2"><p class="cl-2ffe8512"><span class="cl-2ffe711c">97.5</span></p></td>
-<td class="cl-2ffeb302"><p class="cl-2ffe8512"><span class="cl-2ffe711c">0.988</span></p></td>
-<td class="cl-2ffeb2e4"><p class="cl-2ffe8512"><span class="cl-2ffe711c">0.025</span></p></td>
-<td class="cl-2ffeb2ee"><p class="cl-2ffe8512"><span class="cl-2ffe711c">5.322</span></p></td>
+<td class="cl-98d3b470"><p class="cl-98d387ca"><span class="cl-98d374f6">-40.470</span></p></td>
+<td class="cl-98d3b470"><p class="cl-98d387ca"><span class="cl-98d374f6">-38.010</span></p></td>
+<td class="cl-98d3b484"><p class="cl-98d387ca"><span class="cl-98d374f6">2.460</span></p></td>
+<td class="cl-98d3b452"><p class="cl-98d387ca"><span class="cl-98d374f6">97.5</span></p></td>
+<td class="cl-98d3b4ac"><p class="cl-98d387ca"><span class="cl-98d374f6">0.988</span></p></td>
+<td class="cl-98d3b498"><p class="cl-98d387ca"><span class="cl-98d374f6">0.025</span></p></td>
+<td class="cl-98d3b4a2"><p class="cl-98d387ca"><span class="cl-98d374f6">5.322</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-2ffeb334"><p class="cl-2ffe8512"><span class="cl-2ffe711c">-40.720</span></p></td>
-<td class="cl-2ffeb334"><p class="cl-2ffe8512"><span class="cl-2ffe711c">-37.872</span></p></td>
-<td class="cl-2ffeb316"><p class="cl-2ffe8512"><span class="cl-2ffe711c">2.848</span></p></td>
-<td class="cl-2ffeb321"><p class="cl-2ffe8512"><span class="cl-2ffe711c">99.0</span></p></td>
-<td class="cl-2ffeb320"><p class="cl-2ffe8512"><span class="cl-2ffe711c">0.995</span></p></td>
-<td class="cl-2ffeb30c"><p class="cl-2ffe8512"><span class="cl-2ffe711c">0.010</span></p></td>
-<td class="cl-2ffeb33e"><p class="cl-2ffe8512"><span class="cl-2ffe711c">6.644</span></p></td>
+<td class="cl-98d3b4d4"><p class="cl-98d387ca"><span class="cl-98d374f6">-40.750</span></p></td>
+<td class="cl-98d3b4d4"><p class="cl-98d387ca"><span class="cl-98d374f6">-37.764</span></p></td>
+<td class="cl-98d3b4c0"><p class="cl-98d387ca"><span class="cl-98d374f6">2.986</span></p></td>
+<td class="cl-98d3b4ca"><p class="cl-98d387ca"><span class="cl-98d374f6">99.0</span></p></td>
+<td class="cl-98d3b4c1"><p class="cl-98d387ca"><span class="cl-98d374f6">0.995</span></p></td>
+<td class="cl-98d3b4b6"><p class="cl-98d387ca"><span class="cl-98d374f6">0.010</span></p></td>
+<td class="cl-98d3b4de"><p class="cl-98d387ca"><span class="cl-98d374f6">6.644</span></p></td>
 </tr>
 </tbody>
 </table>
@@ -445,53 +438,43 @@
 <p>For the examples above, we mainly used nonparametric bootstrap methods. Here I show an example using the parametric <code>Bca</code> bootstrap and the results it yields.</p>
 <p>First, we’ll load our data again and set our function.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="kw">diabetes</span>, package = <span class="st">"bcaboot"</span>)
-<span class="kw">X</span> <span class="op">&lt;-</span> <span class="kw">diabetes</span><span class="op">$</span><span class="kw">x</span>
-<span class="kw">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/scale.html">scale</a></span>(<span class="kw">diabetes</span><span class="op">$</span><span class="kw">y</span>, center = <span class="fl">TRUE</span>, scale = <span class="fl">FALSE</span>)
-<span class="kw">lm.model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(<span class="kw">y</span> <span class="op">~</span> <span class="kw">X</span> <span class="op">-</span> <span class="fl">1</span>)
-<span class="kw">mu.hat</span> <span class="op">&lt;-</span> <span class="kw">lm.model</span><span class="op">$</span><span class="kw">fitted.values</span>
-<span class="kw">sigma.hat</span> <span class="op">&lt;-</span> <span class="kw">stats</span>::<span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span>(<span class="kw">lm.model</span><span class="op">$</span><span class="kw">residuals</span>)
-<span class="kw">t0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="kw">lm.model</span>)<span class="op">$</span><span class="kw">adj.r.squared</span>
-<span class="kw">y.star</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span>(<span class="kw">mu.hat</span>, <span class="kw">rnorm</span>, n = <span class="fl">1000</span>, sd = <span class="kw">sigma.hat</span>)
-<span class="kw">tt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span>(<span class="kw">y.star</span>, <span class="fl">1</span>, <span class="fu">function</span>(<span class="kw">y</span>) <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(<span class="kw">y</span> <span class="op">~</span> <span class="kw">X</span> <span class="op">-</span> <span class="fl">1</span>))<span class="op">$</span><span class="kw">adj.r.squared</span>)
-<span class="kw">b.star</span> <span class="op">&lt;-</span> <span class="kw">y.star</span> <span class="op">%*%</span> <span class="kw">X</span>
-</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">diabetes</span>, package <span class="op">=</span> <span class="st">"bcaboot"</span><span class="op">)</span>
+<span class="va">X</span> <span class="op">&lt;-</span> <span class="va">diabetes</span><span class="op">$</span><span class="va">x</span>
+<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/scale.html">scale</a></span><span class="op">(</span><span class="va">diabetes</span><span class="op">$</span><span class="va">y</span>, center <span class="op">=</span> <span class="cn">TRUE</span>, scale <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="va">lm.model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">X</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span>
+<span class="va">mu.hat</span> <span class="op">&lt;-</span> <span class="va">lm.model</span><span class="op">$</span><span class="va">fitted.values</span>
+<span class="va">sigma.hat</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">lm.model</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span>
+<span class="va">t0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">lm.model</span><span class="op">)</span><span class="op">$</span><span class="va">adj.r.squared</span>
+<span class="va">y.star</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="va">mu.hat</span>, <span class="va">rnorm</span>, n <span class="op">=</span> <span class="fl">1000</span>, sd <span class="op">=</span> <span class="va">sigma.hat</span><span class="op">)</span>
+<span class="va">tt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">y.star</span>, <span class="fl">1</span>, <span class="kw">function</span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">X</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">adj.r.squared</span><span class="op">)</span>
+<span class="va">b.star</span> <span class="op">&lt;-</span> <span class="va">y.star</span> <span class="op">%*%</span> <span class="va">X</span></pre></div>
 <p>Now, we’ll use the same function, but set the method to “<code>bcapar</code>” for the parametric method.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit">
-<span class="kw">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/curve_boot.html">curve_boot</a></span>(method = <span class="st">"bcapar"</span>, t0 = <span class="kw">t0</span>, tt = <span class="kw">tt</span>, bb = <span class="kw">b.star</span>)
-</pre></div>
+<span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/curve_boot.html">curve_boot</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"bcapar"</span>, t0 <span class="op">=</span> <span class="va">t0</span>, tt <span class="op">=</span> <span class="va">tt</span>, bb <span class="op">=</span> <span class="va">b.star</span><span class="op">)</span></pre></div>
 <p>Now we can look at our outputs.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit">
-<span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span>(<span class="kw">df</span>[[<span class="fl">1</span>]], nullvalue = <span class="fl">FALSE</span>)
-</pre></div>
+<span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span><span class="va">df</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, nullvalue <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
 <p><img src="bootstrap_files/figure-html/unnamed-chunk-12-1.png" width="576"></p>
 <div class="sourceCode" id="cb14"><pre class="downlit">
-<span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span>(<span class="kw">df</span>[[<span class="fl">3</span>]], nullvalue = <span class="fl">FALSE</span>)
-</pre></div>
+<span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span><span class="va">df</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span>, nullvalue <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
 <p><img src="bootstrap_files/figure-html/unnamed-chunk-12-2.png" width="576"></p>
 <p>We can compare the functions to see how well the bootstrap approximations match up</p>
 <div class="sourceCode" id="cb15"><pre class="downlit">
-<span class="fu"><a href="../reference/plot_compare.html">plot_compare</a></span>(<span class="kw">df</span>[[<span class="fl">1</span>]], <span class="kw">df</span>[[<span class="fl">3</span>]])
-</pre></div>
+<span class="fu"><a href="../reference/plot_compare.html">plot_compare</a></span><span class="op">(</span><span class="va">df</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="va">df</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></pre></div>
 <p><img src="bootstrap_files/figure-html/unnamed-chunk-13-1.png" width="576"></p>
-<p>We can also look at the density function</p>
-<div class="sourceCode" id="cb16"><pre class="downlit">
-<span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span>(<span class="kw">df</span>[[<span class="fl">5</span>]], type = <span class="st">"cd"</span>, nullvalue = <span class="fl">FALSE</span>)
-</pre></div>
-<p><img src="bootstrap_files/figure-html/unnamed-chunk-14-1.png" width="576"></p>
 <p>That concludes our demonstration of the bootstrap method to approximate consonance functions.</p>
 </div>
 <div id="cite-r-packages" class="section level1">
 <h1 class="hasAnchor">
 <a href="#cite-r-packages" class="anchor"></a>Cite R Packages</h1>
 <p>Please remember to cite the packages that you use.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"concurve"</span>)
+<div class="sourceCode" id="cb16"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span><span class="st">"concurve"</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Rafi Z, Vigotsky A (2020). _concurve: Computes and Plots Compatibility</span>
 <span class="co">#&gt; (Confidence) Intervals, P-Values, S-Values, &amp; Likelihood Intervals to</span>
 <span class="co">#&gt; Form Consonance, Surprisal, &amp; Likelihood Functions_. R package version</span>
-<span class="co">#&gt; 2.7.5, &lt;URL: https://CRAN.R-project.org/package=concurve&gt;.</span>
+<span class="co">#&gt; 2.7.6, &lt;URL: https://CRAN.R-project.org/package=concurve&gt;.</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Rafi Z, Greenland S (2020). _Semantic and Cognitive Tools to Aid</span>
 <span class="co">#&gt; Statistical Science: Replace Confidence and Significance by</span>
@@ -501,7 +484,7 @@
 <span class="co">#&gt; To see these entries in BibTeX format, use 'print(&lt;citation&gt;,</span>
 <span class="co">#&gt; bibtex=TRUE)', 'toBibtex(.)', or set</span>
 <span class="co">#&gt; 'options(citation.bibtex.max=999)'.</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"boot"</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span><span class="st">"boot"</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; To cite the 'boot' package in publications use:</span>
 <span class="co">#&gt; </span>
@@ -515,7 +498,7 @@
 <span class="co">#&gt; To see these entries in BibTeX format, use 'print(&lt;citation&gt;,</span>
 <span class="co">#&gt; bibtex=TRUE)', 'toBibtex(.)', or set</span>
 <span class="co">#&gt; 'options(citation.bibtex.max=999)'.</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"bcaboot"</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span><span class="st">"bcaboot"</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; To cite package 'bcaboot' in publications use:</span>
 <span class="co">#&gt; </span>
@@ -531,8 +514,7 @@
 <span class="co">#&gt;     year = {2018},</span>
 <span class="co">#&gt;     note = {R package version 0.2-1},</span>
 <span class="co">#&gt;     url = {https://CRAN.R-project.org/package=bcaboot},</span>
-<span class="co">#&gt;   }</span>
-</pre></div>
+<span class="co">#&gt;   }</span></pre></div>
 <hr>
 </div>
 <div id="references" class="section level1">
@@ -568,7 +550,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

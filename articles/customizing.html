@@ -48,7 +48,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand"><img src="https://data.lesslikely.com/concurve/reference/figures/logo.svg" id="package-logo" align="left" width="35"><a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.6</span>
       </span>
     </div>
 
@@ -71,7 +71,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/examples.html">Examples in R</a>
+      <a href="../articles/examples.html">Simple Examples in R</a>
+    </li>
+    <li>
+      <a href="../articles/logistic.html">Logistic Regression</a>
     </li>
     <li>
       <a href="../articles/survival.html">Survival Modeling</a>
@@ -177,45 +180,42 @@
 <a href="#a-universal-grammar-of-graphics" class="anchor"></a>A Universal Grammar of Graphics</h1>
 <p>Because <code>concurve</code> graphs functions via <code>ggplot2</code>, it is quite easy to customize parts of the plot beyond some of the arguments that are provided in the <code><a href="../reference/ggcurve.html">ggcurve()</a></code> function. For example, we are able to provide arguments to the function to give custom titles, subtitles, x-axes, y-axes, fills, and colors. However, we could also do this using the standard <code>ggplot2</code> grammar. We’ll generate a quick graph to show how.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://data.lesslikely.com/concurve">concurve</a></span>)
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://data.lesslikely.com/concurve/">concurve</a></span><span class="op">)</span>
 <span class="co">#&gt; Please see the documentation on https://data.lesslikely.com/concurve/ or by typing `help(concurve)`</span>
-<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">1031</span>)
-<span class="kw">GroupA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">500</span>)
-<span class="kw">GroupB</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">500</span>)
-<span class="kw">RandomData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">GroupA</span>, <span class="kw">GroupB</span>)
-<span class="kw">intervalsdf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/curve_mean.html">curve_mean</a></span>(<span class="kw">GroupA</span>, <span class="kw">GroupB</span>,
-  data = <span class="kw">RandomData</span>, method = <span class="st">"default"</span>
-)
-(<span class="kw">function1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span>(data = <span class="kw">intervalsdf</span>[[<span class="fl">1</span>]], type = <span class="st">"c"</span>, nullvalue = <span class="fl">TRUE</span>))
-</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1031</span><span class="op">)</span>
+<span class="va">GroupA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">500</span><span class="op">)</span>
+<span class="va">GroupB</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">500</span><span class="op">)</span>
+<span class="va">RandomData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">GroupA</span>, <span class="va">GroupB</span><span class="op">)</span>
+<span class="va">intervalsdf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/curve_mean.html">curve_mean</a></span><span class="op">(</span><span class="va">GroupA</span>, <span class="va">GroupB</span>,
+  data <span class="op">=</span> <span class="va">RandomData</span>, method <span class="op">=</span> <span class="st">"default"</span>
+<span class="op">)</span>
+<span class="op">(</span><span class="va">function1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">intervalsdf</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, type <span class="op">=</span> <span class="st">"c"</span>, nullvalue <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></pre></div>
 <p><img src="customizing_files/figure-html/unnamed-chunk-1-1.png" width="576"></p>
 <p>Those are some of the default options provided to <code><a href="../reference/ggcurve.html">ggcurve()</a></code>. We could provide <code><a href="../reference/ggcurve.html">ggcurve()</a></code> arguments for the title, subtitle, etc, but we could also do it like so:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span>)
-<span class="kw">function1</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(
-    title = <span class="st">"Random Title"</span>,
-    subtitle = <span class="st">"Random Subtitle"</span>,
-    x = <span class="st">"x-axis"</span>,
-    y = <span class="st">"y-axis"</span>,
-    caption = <span class="st">"Custom Caption"</span>
-  )
-</pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
+<span class="va">function1</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>
+    title <span class="op">=</span> <span class="st">"Random Title"</span>,
+    subtitle <span class="op">=</span> <span class="st">"Random Subtitle"</span>,
+    x <span class="op">=</span> <span class="st">"x-axis"</span>,
+    y <span class="op">=</span> <span class="st">"y-axis"</span>,
+    caption <span class="op">=</span> <span class="st">"Custom Caption"</span>
+  <span class="op">)</span></pre></div>
 <p><img src="customizing_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
 <p>If we even wanted to provide a custom theme, we could do the following.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://wilkelab.org/cowplot">cowplot</a></span>)
-<span class="kw">logo_file</span> <span class="op">&lt;-</span> <span class="st">"https://res.cloudinary.com/less-likely/image/upload/v1575441662/Site/Logo2.jpg"</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/cowplot/">cowplot</a></span><span class="op">)</span>
+<span class="va">logo_file</span> <span class="op">&lt;-</span> <span class="st">"https://res.cloudinary.com/less-likely/image/upload/v1575441662/Site/Logo2.jpg"</span>
 
-<span class="kw">function1</span> <span class="op">&lt;-</span> <span class="kw">function1</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/cowplot/man/theme_cowplot.html">theme_cowplot</a></span>()
+<span class="va">function1</span> <span class="op">&lt;-</span> <span class="va">function1</span> <span class="op">+</span>
+  <span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span>
 
-<span class="kw">function2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/cowplot/man/ggdraw.html">ggdraw</a></span>(<span class="kw">function1</span>) <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/cowplot/man/draw_image.html">draw_image</a></span>(<span class="kw">logo_file</span>, x = <span class="fl">1</span>, y = <span class="fl">1</span>, hjust = <span class="fl">2</span>, vjust = <span class="fl">1.75</span>, width = <span class="fl">0.13</span>, height = <span class="fl">0.2</span>)
+<span class="va">function2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://wilkelab.org/cowplot/reference/ggdraw.html">ggdraw</a></span><span class="op">(</span><span class="va">function1</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://wilkelab.org/cowplot/reference/draw_image.html">draw_image</a></span><span class="op">(</span><span class="va">logo_file</span>, x <span class="op">=</span> <span class="fl">1</span>, y <span class="op">=</span> <span class="fl">1</span>, hjust <span class="op">=</span> <span class="fl">2</span>, vjust <span class="op">=</span> <span class="fl">1.75</span>, width <span class="op">=</span> <span class="fl">0.13</span>, height <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span>
 <span class="co">#&gt; Warning: Package `magick` is required to draw images. Image not drawn.</span>
 
-<span class="kw">function2</span>
-</pre></div>
+<span class="va">function2</span></pre></div>
 <p><img src="customizing_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 <p>I’ve only tried testing this with the <code>cowplot</code> package, so I cannot say for sure that the functions won’t break when applied with other themes.<span class="citation"><sup><span class="citeproc-not-found" data-reference-id="Wilke_2019"><strong>???</strong></span></sup></span></p>
 </div>
@@ -226,89 +226,84 @@
 <p>Before we used <code>cowplot</code>, here’s what our plain function looked like (after regenerating it from scratch)</p>
 <div class="sourceCode" id="cb4"><pre class="downlit">
 
-(<span class="kw">function1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span>(data = <span class="kw">intervalsdf</span>[[<span class="fl">1</span>]], type = <span class="st">"c"</span>, nullvalue = <span class="fl">TRUE</span>))
-</pre></div>
+<span class="op">(</span><span class="va">function1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">intervalsdf</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, type <span class="op">=</span> <span class="st">"c"</span>, nullvalue <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></pre></div>
 <p><img src="customizing_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 <p>Simple enough, eh?</p>
 <p>Okay, but if we wanted to have more fine control over how the title and axes look, we could do that. Here’s how:</p>
 <p>We take our existing object function and we specify all the usual options for the titles, axes, etc</p>
 <div class="sourceCode" id="cb5"><pre class="downlit">
-(<span class="kw">function1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span>(data = <span class="kw">intervalsdf</span>[[<span class="fl">1</span>]], type = <span class="st">"c"</span>, nullvalue = <span class="fl">TRUE</span>, title = <span class="st">"Something Super Important"</span>, xaxis = <span class="st">"Theta"</span>))
-</pre></div>
+<span class="op">(</span><span class="va">function1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">intervalsdf</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, type <span class="op">=</span> <span class="st">"c"</span>, nullvalue <span class="op">=</span> <span class="cn">TRUE</span>, title <span class="op">=</span> <span class="st">"Something Super Important"</span>, xaxis <span class="op">=</span> <span class="st">"Theta"</span><span class="op">)</span><span class="op">)</span></pre></div>
 <p><img src="customizing_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 <p>But now, instead of doing that above, we’ll use a different style to control the size, form, and color of the text. We’ll load <code>ggtext</code> and then specify the arguments.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit">
 
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://wilkelab.org/ggtext">ggtext</a></span>)
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/ggtext">ggtext</a></span><span class="op">)</span>
 
-<span class="kw">function1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span>(data = <span class="kw">intervalsdf</span>[[<span class="fl">1</span>]], type = <span class="st">"c"</span>, nullvalue = <span class="fl">TRUE</span>, title = <span class="st">"Something Super Important"</span>, xaxis = <span class="st">"&lt;span style = 'color:#3f8f9b;'&gt;Theta&lt;/span&gt; "</span>)
+<span class="va">function1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">intervalsdf</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, type <span class="op">=</span> <span class="st">"c"</span>, nullvalue <span class="op">=</span> <span class="cn">TRUE</span>, title <span class="op">=</span> <span class="st">"Something Super Important"</span>, xaxis <span class="op">=</span> <span class="st">"&lt;span style = 'color:#3f8f9b;'&gt;Theta&lt;/span&gt; "</span><span class="op">)</span>
 
-<span class="kw">function1</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(
-    title = <span class="st">"*P*-value Function / Consonance Curve&lt;br&gt;&lt;span style = 'font-size:9pt;'&gt;
+<span class="va">function1</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>
+    title <span class="op">=</span> <span class="st">"*P*-value Function / Consonance Curve&lt;br&gt;&lt;span style = 'font-size:9pt;'&gt;
 The function below contains &lt;span style = 'color:#3f8f9b;'&gt;nested&lt;/span&gt; confidence/compatibility intervals at &lt;span style = 'color:#3f8f9b;'&gt;every possible level&lt;/span&gt; (95%, 90%, 75%, 50%)
 allowing one to see a range of estimates that are &lt;span style = 'color:#3f8f9b;'&gt;consistent with the model and its assumptions&lt;/span&gt; that were used to compute
 the test statistics, *P*-values, and interval estimates. &lt;/span&gt;"</span>,
-    subtitle = <span class="kw">NULL</span>
-  ) <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(
-    plot.title = <span class="fu"><a href="https://rdrr.io/pkg/ggtext/man/element_textbox.html">element_textbox_simple</a></span>(
-      size = <span class="fl">11</span>, lineheight = <span class="fl">1.1</span>,
-      linetype = <span class="fl">1</span>, <span class="co"># turn on border</span>
-      box.color = <span class="st">"#748696"</span>, <span class="co"># border color</span>
-      fill = <span class="st">"white"</span>, <span class="co"># background fill color</span>
-      r = <span class="kw">grid</span>::<span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span>(<span class="fl">3</span>, <span class="st">"pt"</span>),
-      padding = <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">margin</a></span>(<span class="fl">8</span>, <span class="fl">8</span>, <span class="fl">8</span>, <span class="fl">8</span>), <span class="co"># padding around text inside the box</span>
-      maxwidth = <span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span>(<span class="fl">8</span>, <span class="st">"in"</span>), <span class="co"># margin outside the box</span>
-    ),
-    axis.text = <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span>(size = <span class="fl">10</span>),
-    axis.title.y = <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span>(size = <span class="fl">11</span>),
-    axis.title.x = <span class="fu"><a href="https://rdrr.io/pkg/ggtext/man/element_textbox.html">element_textbox_simple</a></span>(
-      size = <span class="fl">10</span>,
-      width = <span class="kw">NULL</span>,
-      padding = <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">margin</a></span>(<span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">4</span>),
-      margin = <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">margin</a></span>(<span class="fl">4</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>),
-      linetype = <span class="fl">1</span>,
-      r = <span class="kw">grid</span>::<span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span>(<span class="fl">3</span>, <span class="st">"pt"</span>),
-      box.color = <span class="st">"#748696"</span>, <span class="co"># border color</span>
-      fill = <span class="st">"white"</span>, <span class="co"># background fill color</span>
-    )
-  )
-</pre></div>
+    subtitle <span class="op">=</span> <span class="cn">NULL</span>
+  <span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>
+    plot.title <span class="op">=</span> <span class="fu"><a href="https://wilkelab.org/ggtext/reference/element_textbox.html">element_textbox_simple</a></span><span class="op">(</span>
+      size <span class="op">=</span> <span class="fl">11</span>, lineheight <span class="op">=</span> <span class="fl">1.1</span>,
+      linetype <span class="op">=</span> <span class="fl">1</span>, <span class="co"># turn on border</span>
+      box.color <span class="op">=</span> <span class="st">"#748696"</span>, <span class="co"># border color</span>
+      fill <span class="op">=</span> <span class="st">"white"</span>, <span class="co"># background fill color</span>
+      r <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span><span class="op">(</span><span class="fl">3</span>, <span class="st">"pt"</span><span class="op">)</span>,
+      padding <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">margin</a></span><span class="op">(</span><span class="fl">8</span>, <span class="fl">8</span>, <span class="fl">8</span>, <span class="fl">8</span><span class="op">)</span>, <span class="co"># padding around text inside the box</span>
+      maxwidth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span><span class="op">(</span><span class="fl">8</span>, <span class="st">"in"</span><span class="op">)</span>, <span class="co"># margin outside the box</span>
+    <span class="op">)</span>,
+    axis.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,
+    axis.title.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">11</span><span class="op">)</span>,
+    axis.title.x <span class="op">=</span> <span class="fu"><a href="https://wilkelab.org/ggtext/reference/element_textbox.html">element_textbox_simple</a></span><span class="op">(</span>
+      size <span class="op">=</span> <span class="fl">10</span>,
+      width <span class="op">=</span> <span class="cn">NULL</span>,
+      padding <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">margin</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">4</span><span class="op">)</span>,
+      margin <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">margin</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,
+      linetype <span class="op">=</span> <span class="fl">1</span>,
+      r <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/unit.html">unit</a></span><span class="op">(</span><span class="fl">3</span>, <span class="st">"pt"</span><span class="op">)</span>,
+      box.color <span class="op">=</span> <span class="st">"#748696"</span>, <span class="co"># border color</span>
+      fill <span class="op">=</span> <span class="st">"white"</span>, <span class="co"># background fill color</span>
+    <span class="op">)</span>
+  <span class="op">)</span></pre></div>
 <p><img src="customizing_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 <p>As you might have noticed above, we can control the size of the text, the color of it, whether it’s bolded, italicized, etc., and that’s partially because it uses markdown.</p>
 </div>
 <div id="saving-plots" class="section level1">
 <h1 class="hasAnchor">
 <a href="#saving-plots" class="anchor"></a>Saving Plots</h1>
-<p>The most common way useRs save plots is by going to the plots tab in an IDE like RStudio and clicking “export” and then “save as image” or by using <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave()</a></code>, however, <code>cowplot</code> has a superior function with far better default options built into it known as <code><a href="https://rdrr.io/pkg/cowplot/man/save_plot.html">save_plot()</a></code>.</p>
+<p>The most common way useRs save plots is by going to the plots tab in an IDE like RStudio and clicking “export” and then “save as image” or by using <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave()</a></code>, however, <code>cowplot</code> has a superior function with far better default options built into it known as <code><a href="https://wilkelab.org/cowplot/reference/save_plot.html">save_plot()</a></code>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/pkg/cowplot/man/save_plot.html">save_plot</a></span>(<span class="st">"function2.pdf"</span>, <span class="kw">function2</span>)
-</pre></div>
+<span class="fu"><a href="https://wilkelab.org/cowplot/reference/save_plot.html">save_plot</a></span><span class="op">(</span><span class="st">"function2.pdf"</span>, <span class="va">function2</span><span class="op">)</span></pre></div>
 <p>Previously, it was quite difficult to save consonance functions as .svg files or as .pdf files because there was so much information in the graphs that R would often crash. However, this is no longer the case and can easily be done with the <code>svglite</code> package. Once again, we use the same command from above.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/r-lib/svglite">svglite</a></span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span>)
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-lib/svglite">svglite</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
 
-<span class="kw">res</span> <span class="op">&lt;-</span> <span class="fl">144</span>
-<span class="fu"><a href="https://rdrr.io/pkg/svglite/man/svglite.html">svglite</a></span>(<span class="st">"pvalfunc.svg"</span>, width = <span class="fl">720</span><span class="op">/</span><span class="kw">res</span>, height = <span class="fl">500</span><span class="op">/</span><span class="kw">res</span>)
-(<span class="kw">function1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span>(data = <span class="kw">intervalsdf</span>[[<span class="fl">1</span>]], type = <span class="st">"c"</span>, nullvalue = <span class="fl">TRUE</span>))
-<span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span>()
+<span class="va">res</span> <span class="op">&lt;-</span> <span class="fl">144</span>
+<span class="fu"><a href="https://rdrr.io/pkg/svglite/man/svglite.html">svglite</a></span><span class="op">(</span><span class="st">"pvalfunc.svg"</span>, width <span class="op">=</span> <span class="fl">720</span><span class="op">/</span><span class="va">res</span>, height <span class="op">=</span> <span class="fl">500</span><span class="op">/</span><span class="va">res</span><span class="op">)</span>
+<span class="op">(</span><span class="va">function1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">intervalsdf</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, type <span class="op">=</span> <span class="st">"c"</span>, nullvalue <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; agg_png </span>
-<span class="co">#&gt;       2</span>
-</pre></div>
+<span class="co">#&gt;       2</span></pre></div>
 </div>
 <div id="cite-r-packages" class="section level1">
 <h1 class="hasAnchor">
 <a href="#cite-r-packages" class="anchor"></a>Cite R packages</h1>
 <p>Please remember to cite the packages that you use.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"concurve"</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span><span class="st">"concurve"</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Rafi Z, Vigotsky A (2020). _concurve: Computes and Plots Compatibility</span>
 <span class="co">#&gt; (Confidence) Intervals, P-Values, S-Values, &amp; Likelihood Intervals to</span>
 <span class="co">#&gt; Form Consonance, Surprisal, &amp; Likelihood Functions_. R package version</span>
-<span class="co">#&gt; 2.7.5, &lt;URL: https://CRAN.R-project.org/package=concurve&gt;.</span>
+<span class="co">#&gt; 2.7.6, &lt;URL: https://CRAN.R-project.org/package=concurve&gt;.</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Rafi Z, Greenland S (2020). _Semantic and Cognitive Tools to Aid</span>
 <span class="co">#&gt; Statistical Science: Replace Confidence and Significance by</span>
@@ -318,7 +313,7 @@ the test statistics, *P*-values, and interval estimates. &lt;/span&gt;"</span>,
 <span class="co">#&gt; To see these entries in BibTeX format, use 'print(&lt;citation&gt;,</span>
 <span class="co">#&gt; bibtex=TRUE)', 'toBibtex(.)', or set</span>
 <span class="co">#&gt; 'options(citation.bibtex.max=999)'.</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"ggplot2"</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span><span class="st">"ggplot2"</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; To cite ggplot2 in publications, please use:</span>
 <span class="co">#&gt; </span>
@@ -335,7 +330,7 @@ the test statistics, *P*-values, and interval estimates. &lt;/span&gt;"</span>,
 <span class="co">#&gt;     isbn = {978-3-319-24277-4},</span>
 <span class="co">#&gt;     url = {https://ggplot2.tidyverse.org},</span>
 <span class="co">#&gt;   }</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"ggtext"</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span><span class="st">"ggtext"</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; To cite package 'ggtext' in publications use:</span>
 <span class="co">#&gt; </span>
@@ -352,7 +347,7 @@ the test statistics, *P*-values, and interval estimates. &lt;/span&gt;"</span>,
 <span class="co">#&gt;     note = {R package version 0.1.0},</span>
 <span class="co">#&gt;     url = {https://CRAN.R-project.org/package=ggtext},</span>
 <span class="co">#&gt;   }</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"cowplot"</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span><span class="st">"cowplot"</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; To cite package 'cowplot' in publications use:</span>
 <span class="co">#&gt; </span>
@@ -368,8 +363,7 @@ the test statistics, *P*-values, and interval estimates. &lt;/span&gt;"</span>,
 <span class="co">#&gt;     year = {2020},</span>
 <span class="co">#&gt;     note = {R package version 1.1.0},</span>
 <span class="co">#&gt;     url = {https://CRAN.R-project.org/package=cowplot},</span>
-<span class="co">#&gt;   }</span>
-</pre></div>
+<span class="co">#&gt;   }</span></pre></div>
 </div>
   </div>
 
@@ -388,7 +382,7 @@ the test statistics, *P*-values, and interval estimates. &lt;/span&gt;"</span>,
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

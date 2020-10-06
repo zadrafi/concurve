@@ -48,7 +48,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand"><img src="https://data.lesslikely.com/concurve/reference/figures/logo.svg" id="package-logo" align="left" width="35"><a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.6</span>
       </span>
     </div>
 
@@ -71,7 +71,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/examples.html">Examples in R</a>
+      <a href="../articles/examples.html">Simple Examples in R</a>
+    </li>
+    <li>
+      <a href="../articles/logistic.html">Logistic Regression</a>
     </li>
     <li>
       <a href="../articles/survival.html">Survival Modeling</a>
@@ -180,14 +183,12 @@
 <a href="#installation" class="anchor"></a>Installation</h1>
 <p>If you encounter any issues with installation, try the following script to see if it resolves your issue, as this will also install the other packages that are necessary for <code>concurve</code> to function.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"concurve"</span>, dep = <span class="fl">TRUE</span>)
-</pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"concurve"</span>, dep <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
 <p>If that doesn’t work, please try installing, and resinstalling <code>R</code>, and then installing the package again.</p>
 <p>You can also try installing the developer version with</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://devtools.r-lib.org">devtools</a></span>)
-<span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"zadrafi/concurve"</span>)
-</pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/">devtools</a></span><span class="op">)</span>
+<span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"zadrafi/concurve"</span><span class="op">)</span></pre></div>
 </div>
 <div id="unable-to-plot-function" class="section level1">
 <h1 class="hasAnchor">
@@ -195,37 +196,34 @@
 <p>If you encounter an error such as “Error: ‘data’ must be a data frame from ‘concurve’.”, it is very likely that you are not providing <code><a href="../reference/ggcurve.html">ggcurve()</a></code> the correct argument. If you used a function like <code><a href="../reference/curve_gen.html">curve_gen()</a></code> to generate intervals and saved it to an object called ‘object’, you need to provide <code><a href="../reference/ggcurve.html">ggcurve()</a></code> a data argument such as <code>object[[1]]</code> rather than <code>object</code> or <code>object[1]</code>. This is because although you saved your results to something called <code>object</code>, you ended up with a list with multiple components used for different purposes, usually with the first part of the list being the most commonly used part.</p>
 <p>We can actually see these components one by one. Let’s generate some example data.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://data.lesslikely.com/concurve">concurve</a></span>)
-<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">1031</span>)
-<span class="kw">GroupA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">500</span>)
-<span class="kw">GroupB</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">500</span>)
-<span class="kw">RandomData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">GroupA</span>, <span class="kw">GroupB</span>)
-<span class="kw">object</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/curve_mean.html">curve_mean</a></span>(<span class="kw">GroupA</span>, <span class="kw">GroupB</span>,
-  data = <span class="kw">RandomData</span>, method = <span class="st">"default"</span>
-)
-</pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://data.lesslikely.com/concurve/">concurve</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1031</span><span class="op">)</span>
+<span class="va">GroupA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">500</span><span class="op">)</span>
+<span class="va">GroupB</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">500</span><span class="op">)</span>
+<span class="va">RandomData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">GroupA</span>, <span class="va">GroupB</span><span class="op">)</span>
+<span class="va">object</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/curve_mean.html">curve_mean</a></span><span class="op">(</span><span class="va">GroupA</span>, <span class="va">GroupB</span>,
+  data <span class="op">=</span> <span class="va">RandomData</span>, method <span class="op">=</span> <span class="st">"default"</span>
+<span class="op">)</span></pre></div>
 <p>As stated, the first part of the list <code>object[[1]]</code> contains what we usually want (I’m restricting to the first 5 results using the <code><a href="https://rdrr.io/r/utils/head.html">head()</a></code> function so that we don’t print a giant list with 1000 rows.)</p>
 <div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw">object</span>[[<span class="fl">1</span>]], <span class="fl">5</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">object</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="fl">5</span><span class="op">)</span>
 <span class="co">#&gt;   lower.limit upper.limit intrvl.width intrvl.level     cdf pvalue       svalue</span>
 <span class="co">#&gt; 1  -0.1125581  -0.1125581 0.000000e+00        0e+00 0.50000 1.0000 0.0000000000</span>
 <span class="co">#&gt; 2  -0.1125658  -0.1125504 1.543412e-05        1e-04 0.50005 0.9999 0.0001442767</span>
 <span class="co">#&gt; 3  -0.1125736  -0.1125427 3.086824e-05        2e-04 0.50010 0.9998 0.0002885679</span>
 <span class="co">#&gt; 4  -0.1125813  -0.1125350 4.630236e-05        3e-04 0.50015 0.9997 0.0004328734</span>
-<span class="co">#&gt; 5  -0.1125890  -0.1125273 6.173649e-05        4e-04 0.50020 0.9996 0.0005771935</span>
-</pre></div>
+<span class="co">#&gt; 5  -0.1125890  -0.1125273 6.173649e-05        4e-04 0.50020 0.9996 0.0005771935</span></pre></div>
 <p>while the second and third parts of the list contain dataframes and lists for other functions such as generating density functions or for other functions such as <code><a href="../reference/curve_table.html">curve_table()</a></code>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw">object</span>[[<span class="fl">2</span>]], <span class="fl">5</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">object</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>, <span class="fl">5</span><span class="op">)</span>
 <span class="co">#&gt;            x</span>
 <span class="co">#&gt; 1 -0.1125581</span>
 <span class="co">#&gt; 2 -0.1125658</span>
 <span class="co">#&gt; 3 -0.1125736</span>
 <span class="co">#&gt; 4 -0.1125813</span>
-<span class="co">#&gt; 5 -0.1125890</span>
-</pre></div>
+<span class="co">#&gt; 5 -0.1125890</span></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw">object</span>[[<span class="fl">3</span>]], <span class="fl">5</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">object</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span>, <span class="fl">5</span><span class="op">)</span>
 <span class="co">#&gt;      Lower Limit Upper Limit Interval Width Interval Level (%)   CDF P-value</span>
 <span class="co">#&gt; 2501      -0.132      -0.093          0.039                 25 0.625    0.75</span>
 <span class="co">#&gt; 5001      -0.154      -0.071          0.083                 50 0.750    0.50</span>
@@ -237,15 +235,14 @@
 <span class="co">#&gt; 5001          1.000</span>
 <span class="co">#&gt; 7501          2.000</span>
 <span class="co">#&gt; 8001          2.322</span>
-<span class="co">#&gt; 8501          2.737</span>
-</pre></div>
+<span class="co">#&gt; 8501          2.737</span></pre></div>
 </div>
 <div id="distorted-plots" class="section level1">
 <h1 class="hasAnchor">
 <a href="#distorted-plots" class="anchor"></a>Distorted Plots</h1>
 <p>If you encounter issues when plotting the functions, it is because there are a large number of points being plotted, which could lead to the graph being slightly distorted or not loading at all. The simplest solution to this is to refresh the plot and try the function again.</p>
 <p>This applies to the <code><a href="../reference/ggcurve.html">ggcurve()</a></code>, <code><a href="../reference/curve_compare.html">curve_compare()</a></code>, and <code><a href="../reference/plot_compare.html">plot_compare()</a></code> functions.</p>
-<p>I would also recommend saving plots using the <code><a href="https://rdrr.io/pkg/cowplot/man/save_plot.html">cowplot::save_plot()</a></code> function with the actual <code><a href="../reference/ggcurve.html">ggcurve()</a></code> object. It has better default settings than the <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave()</a></code> function.</p>
+<p>I would also recommend saving plots using the <code><a href="https://wilkelab.org/cowplot/reference/save_plot.html">cowplot::save_plot()</a></code> function with the actual <code><a href="../reference/ggcurve.html">ggcurve()</a></code> object. It has better default settings than the <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave()</a></code> function.</p>
 </div>
 <div id="slow-performance" class="section level1">
 <h1 class="hasAnchor">
@@ -253,55 +250,51 @@
 <p>Because this package is computing thousands of interval estimates via iterations and bootstrapping, it requires a lot of computational power. Luckily, <code>concurve</code> supports parallelization, although it is disabled by default because some users, such as those who use Windows, are unable to use it.</p>
 <p>However, if you are able to use parallelization, you can enable it with the following script</p>
 <div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw">parallel</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span>(mc.cores = <span class="fl">1</span>)
-</pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">parallel</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>mc.cores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></pre></div>
 <p>The script will detect the number of cores on your machine via the <code>parallel</code> package and use them to speed up the computations, especially for bootstrapping.</p>
 <p>However, if you would like to speed up the computations and are unable to use parallelization, then you can reduce the number of <code>steps</code> in the each of the <code>concurve</code> functions, which will drastically reduce the time it takes to complete the operation. By default, most of the <code>steps</code> arguments are set to 10000.</p>
 <p>For example, here I changed the number of steps to 100, which is the minimum needed to plot a function, and the process is now much quicker. We can evaluate this using a microbenchmark. Here I use the <code>bench</code> package and the <code><a href="https://rdrr.io/pkg/bench/man/mark.html">mark()</a></code> function. Because we are using parallelization, we must also set the <code>memory</code> argument to <code>FALSE</code>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/r-lib/bench">bench</a></span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw">parallel</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span>(mc.cores = <span class="fl">1</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/options.html">getOption</a></span>(<span class="st">"mc.cores"</span>, <span class="fl">1L</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">1031</span>)
-<span class="kw">func1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/bench/man/mark.html">mark</a></span>(<span class="kw">df1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/curve_rev.html">curve_rev</a></span>(
-  point = <span class="fl">1.61</span>, LL = <span class="fl">0.997</span>, UL = <span class="fl">2.59</span>,
-  measure = <span class="st">"ratio"</span>, steps = <span class="fl">100</span>
-), memory = <span class="fl">FALSE</span>)
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-lib/bench">bench</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">parallel</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>mc.cores <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/options.html">getOption</a></span><span class="op">(</span><span class="st">"mc.cores"</span>, <span class="fl">1L</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1031</span><span class="op">)</span>
+<span class="va">func1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/bench/man/mark.html">mark</a></span><span class="op">(</span><span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/curve_rev.html">curve_rev</a></span><span class="op">(</span>
+  point <span class="op">=</span> <span class="fl">1.61</span>, LL <span class="op">=</span> <span class="fl">0.997</span>, UL <span class="op">=</span> <span class="fl">2.59</span>,
+  measure <span class="op">=</span> <span class="st">"ratio"</span>, steps <span class="op">=</span> <span class="fl">100</span>
+<span class="op">)</span>, memory <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 
-<span class="kw">func2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/bench/man/mark.html">mark</a></span>(<span class="kw">df1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/curve_rev.html">curve_rev</a></span>(
-  point = <span class="fl">1.61</span>, LL = <span class="fl">0.997</span>, UL = <span class="fl">2.59</span>,
-  measure = <span class="st">"ratio"</span>, steps = <span class="fl">500000</span>
-), memory = <span class="fl">FALSE</span>)
-<span class="co">#&gt; Warning: Some expressions had a GC in every iteration; so filtering is disabled.</span>
-</pre></div>
+<span class="va">func2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/bench/man/mark.html">mark</a></span><span class="op">(</span><span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/curve_rev.html">curve_rev</a></span><span class="op">(</span>
+  point <span class="op">=</span> <span class="fl">1.61</span>, LL <span class="op">=</span> <span class="fl">0.997</span>, UL <span class="op">=</span> <span class="fl">2.59</span>,
+  measure <span class="op">=</span> <span class="st">"ratio"</span>, steps <span class="op">=</span> <span class="fl">500000</span>
+<span class="op">)</span>, memory <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="co">#&gt; Warning: Some expressions had a GC in every iteration; so filtering is disabled.</span></pre></div>
 <p>I’ll now enable parallelization by setting the <code>mc.cores</code> option to detect the max number of cores available using <code><a href="https://rdrr.io/r/parallel/detectCores.html">detectCores()</a></code>. The <code>mc.cores</code> option is the argument that almost all the curve functions in the <code>concurve</code> package use for parallel computing.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit">
 
-<span class="fu"><a href="https://rdrr.io/r/base/options.html">getOption</a></span>(<span class="st">"mc.cores"</span>, <span class="fl">1L</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">1031</span>)
-<span class="kw">func3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/bench/man/mark.html">mark</a></span>(<span class="kw">df1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/curve_rev.html">curve_rev</a></span>(
-  point = <span class="fl">1.61</span>, LL = <span class="fl">0.997</span>, UL = <span class="fl">2.59</span>,
-  measure = <span class="st">"ratio"</span>, steps = <span class="fl">100</span>
-), memory = <span class="fl">FALSE</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/options.html">getOption</a></span><span class="op">(</span><span class="st">"mc.cores"</span>, <span class="fl">1L</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1031</span><span class="op">)</span>
+<span class="va">func3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/bench/man/mark.html">mark</a></span><span class="op">(</span><span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/curve_rev.html">curve_rev</a></span><span class="op">(</span>
+  point <span class="op">=</span> <span class="fl">1.61</span>, LL <span class="op">=</span> <span class="fl">0.997</span>, UL <span class="op">=</span> <span class="fl">2.59</span>,
+  measure <span class="op">=</span> <span class="st">"ratio"</span>, steps <span class="op">=</span> <span class="fl">100</span>
+<span class="op">)</span>, memory <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 
-<span class="kw">func4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/bench/man/mark.html">mark</a></span>(<span class="kw">df1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/curve_rev.html">curve_rev</a></span>(
-  point = <span class="fl">1.61</span>, LL = <span class="fl">0.997</span>, UL = <span class="fl">2.59</span>,
-  measure = <span class="st">"ratio"</span>, steps = <span class="fl">500000</span>
-), memory = <span class="fl">FALSE</span>)
-<span class="co">#&gt; Warning: Some expressions had a GC in every iteration; so filtering is disabled.</span>
-</pre></div>
+<span class="va">func4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/bench/man/mark.html">mark</a></span><span class="op">(</span><span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/curve_rev.html">curve_rev</a></span><span class="op">(</span>
+  point <span class="op">=</span> <span class="fl">1.61</span>, LL <span class="op">=</span> <span class="fl">0.997</span>, UL <span class="op">=</span> <span class="fl">2.59</span>,
+  measure <span class="op">=</span> <span class="st">"ratio"</span>, steps <span class="op">=</span> <span class="fl">500000</span>
+<span class="op">)</span>, memory <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="co">#&gt; Warning: Some expressions had a GC in every iteration; so filtering is disabled.</span></pre></div>
 <div class="sourceCode" id="cb10"><pre class="downlit">
-<span class="kw">func1</span><span class="op">$</span><span class="kw">median</span>
-<span class="co">#&gt; [1] 5.04ms</span>
-<span class="kw">func2</span><span class="op">$</span><span class="kw">median</span>
-<span class="co">#&gt; [1] 6.12s</span>
-<span class="kw">func3</span><span class="op">$</span><span class="kw">median</span>
-<span class="co">#&gt; [1] 4.63ms</span>
-<span class="kw">func4</span><span class="op">$</span><span class="kw">median</span>
-<span class="co">#&gt; [1] 5.7s</span>
-</pre></div>
+<span class="va">func1</span><span class="op">$</span><span class="va">median</span>
+<span class="co">#&gt; [1] 4.04ms</span>
+<span class="va">func2</span><span class="op">$</span><span class="va">median</span>
+<span class="co">#&gt; [1] 2.26s</span>
+<span class="va">func3</span><span class="op">$</span><span class="va">median</span>
+<span class="co">#&gt; [1] 4.04ms</span>
+<span class="va">func4</span><span class="op">$</span><span class="va">median</span>
+<span class="co">#&gt; [1] 2.62s</span></pre></div>
 <p>When setting the number of iterations to 100, utilizing parallelization doesn’t seem to help much, but when setting the number of iterations to 500000 and using multiple cores, there seems to be a computational advantage.</p>
 </div>
 <div id="bugs" class="section level1">
@@ -314,7 +307,7 @@
 <a href="#session-info" class="anchor"></a>Session info</h1>
 <pre><code>#&gt; R version 4.0.2 (2020-06-22)
 #&gt; Platform: x86_64-apple-darwin17.0 (64-bit)
-#&gt; Running under: macOS Catalina 10.15.6
+#&gt; Running under: macOS Catalina 10.15.7
 #&gt; 
 #&gt; Matrix products: default
 #&gt; BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
@@ -328,38 +321,38 @@
 #&gt; [8] base     
 #&gt; 
 #&gt; other attached packages:
-#&gt; [1] bench_1.1.1    concurve_2.7.5
+#&gt; [1] bench_1.1.1    concurve_2.7.6
 #&gt; 
 #&gt; loaded via a namespace (and not attached):
 #&gt;  [1] tidyr_1.1.2           splines_4.0.2         carData_3.0-4        
 #&gt;  [4] ProfileLikelihood_1.1 assertthat_0.2.1      metafor_2.4-0        
 #&gt;  [7] cellranger_1.1.0      yaml_2.2.1            bcaboot_0.2-1        
-#&gt; [10] gdtools_0.2.2         pillar_1.4.6          backports_1.1.9      
+#&gt; [10] gdtools_0.2.2         pillar_1.4.6          backports_1.1.10     
 #&gt; [13] lattice_0.20-41       glue_1.4.2            uuid_0.1-4           
 #&gt; [16] digest_0.6.25         ggsignif_0.6.0        colorspace_1.4-1     
 #&gt; [19] htmltools_0.5.0       Matrix_1.2-18         pkgconfig_2.0.3      
-#&gt; [22] broom_0.7.0           haven_2.3.1           xtable_1.8-4         
+#&gt; [22] broom_0.7.1           haven_2.3.1           xtable_1.8-4         
 #&gt; [25] purrr_0.3.4           scales_1.1.1          km.ci_0.5-2          
-#&gt; [28] openxlsx_4.1.5        officer_0.3.14        rio_0.5.16           
-#&gt; [31] cpp11_0.2.1           KMsurv_0.1-5          tibble_3.0.3         
-#&gt; [34] generics_0.0.2        car_3.0-9             ggplot2_3.3.2        
-#&gt; [37] ellipsis_0.3.1        ggpubr_0.4.0          survival_3.1-12      
-#&gt; [40] magrittr_1.5          crayon_1.3.4          readxl_1.3.1         
-#&gt; [43] memoise_1.1.0         evaluate_0.14         fs_1.5.0             
-#&gt; [46] nlme_3.1-148          rstatix_0.6.0         forcats_0.5.0        
-#&gt; [49] xml2_1.3.2            foreign_0.8-80        tools_4.0.2          
+#&gt; [28] openxlsx_4.2.2        officer_0.3.14        rio_0.5.16           
+#&gt; [31] KMsurv_0.1-5          tibble_3.0.3          generics_0.0.2       
+#&gt; [34] car_3.0-10            ggplot2_3.3.2         ellipsis_0.3.1       
+#&gt; [37] ggpubr_0.4.0          survival_3.1-12       magrittr_1.5         
+#&gt; [40] crayon_1.3.4          readxl_1.3.1          memoise_1.1.0        
+#&gt; [43] evaluate_0.14         fs_1.5.0              nlme_3.1-148         
+#&gt; [46] rstatix_0.6.0         forcats_0.5.0         xml2_1.3.2           
+#&gt; [49] foreign_0.8-80        textshaping_0.1.1     tools_4.0.2          
 #&gt; [52] data.table_1.13.0     hms_0.5.3             lifecycle_0.2.0      
 #&gt; [55] stringr_1.4.0         flextable_0.5.11      munsell_0.5.0        
-#&gt; [58] zip_2.1.1             compiler_4.0.2        pkgdown_1.6.0        
-#&gt; [61] survminer_0.4.8       pbmcapply_1.5.0       systemfonts_0.3.1    
+#&gt; [58] zip_2.1.1             compiler_4.0.2        pkgdown_1.6.1        
+#&gt; [61] survminer_0.4.8       pbmcapply_1.5.0       systemfonts_0.3.2    
 #&gt; [64] rlang_0.4.7           grid_4.0.2            base64enc_0.1-3      
-#&gt; [67] rmarkdown_2.3         boot_1.3-25           gtable_0.3.0         
+#&gt; [67] rmarkdown_2.4         boot_1.3-25           gtable_0.3.0         
 #&gt; [70] abind_1.4-5           curl_4.3              R6_2.4.1             
-#&gt; [73] zoo_1.8-8             gridExtra_2.3         knitr_1.29           
+#&gt; [73] zoo_1.8-8             gridExtra_2.3         knitr_1.30           
 #&gt; [76] dplyr_1.0.2           survMisc_0.5.5        rprojroot_1.3-2      
-#&gt; [79] ragg_0.3.1            desc_1.2.0            stringi_1.5.3        
+#&gt; [79] ragg_0.4.0            desc_1.2.0            stringi_1.5.3        
 #&gt; [82] Rcpp_1.0.5            vctrs_0.3.4           tidyselect_1.1.0     
-#&gt; [85] xfun_0.17</code></pre>
+#&gt; [85] xfun_0.18</code></pre>
 </div>
   </div>
 
@@ -378,7 +371,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

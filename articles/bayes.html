@@ -48,7 +48,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand"><img src="https://data.lesslikely.com/concurve/reference/figures/logo.svg" id="package-logo" align="left" width="35"><a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.6</span>
       </span>
     </div>
 
@@ -71,7 +71,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/examples.html">Examples in R</a>
+      <a href="../articles/examples.html">Simple Examples in R</a>
+    </li>
+    <li>
+      <a href="../articles/logistic.html">Logistic Regression</a>
     </li>
     <li>
       <a href="../articles/survival.html">Survival Modeling</a>
@@ -175,62 +178,61 @@
 <p>Unlike Bayesian posterior distributions, confidence/consonance functions do not have any distributional properties and also lack the interpretation that should be given to Bayesian posterior intervals. For example, a Bayesian 95% posterior interval has the proper interpretation of having a 95% probability of containing the true value.</p>
 <p>This does not apply to 95% frequentist intervals, where the 95% refers to the long run coverage of these intervals containing the true parameter if the study were repeated over and over. Thus, either a 95% frequentist interval contains the true parameter or it does not. In the code below, we simulate some data where the true population parameter is 20 and we know this because we’re the deities of this world. A properly behaving statistical procedure with a set alpha of 0.05 will yield <em>at least</em> 95% intervals in the long run that will include this population parameter of 20. Those that do not are marked in red.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw">sim</span> <span class="op">&lt;-</span> <span class="fu">function</span>() {
-  <span class="kw">fake</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>((<span class="kw">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">100</span>, <span class="fl">100</span>, <span class="fl">20</span>)), (<span class="kw">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">100</span>, <span class="fl">80</span>, <span class="fl">20</span>)))
-  <span class="kw">intervals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span>(x = <span class="kw">x</span>, y = <span class="kw">y</span>, data = <span class="kw">fake</span>, conf.level = <span class="fl">.95</span>)<span class="op">$</span><span class="kw">conf.int</span>[]
-}
+<span class="va">sim</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">fake</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="op">(</span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">100</span>, <span class="fl">20</span><span class="op">)</span><span class="op">)</span>, <span class="op">(</span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">80</span>, <span class="fl">20</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">intervals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, data <span class="op">=</span> <span class="va">fake</span>, conf.level <span class="op">=</span> <span class="fl">.95</span><span class="op">)</span><span class="op">$</span><span class="va">conf.int</span><span class="op">[</span><span class="op">]</span>
+<span class="op">}</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">1031</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1031</span><span class="op">)</span>
 
-<span class="kw">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">replicate</a></span>(<span class="fl">100</span>, <span class="fu">sim</span>(), simplify = <span class="fl">FALSE</span>)
+<span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">replicate</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fu">sim</span><span class="op">(</span><span class="op">)</span>, simplify <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 
-<span class="kw">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(<span class="kw">rbind</span>, <span class="kw">z</span>))
-<span class="kw">df</span><span class="op">$</span><span class="kw">studynumber</span> <span class="op">&lt;-</span> (<span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="kw">z</span>))
-<span class="kw">intrvl.limit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"lower.limit"</span>, <span class="st">"upper.limit"</span>, <span class="st">"studynumber"</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="kw">df</span>) <span class="op">&lt;-</span> <span class="kw">intrvl.limit</span>
-<span class="kw">df</span><span class="op">$</span><span class="kw">point</span> <span class="op">&lt;-</span> ((<span class="kw">df</span><span class="op">$</span><span class="kw">lower.limit</span> <span class="op">+</span> <span class="kw">df</span><span class="op">$</span><span class="kw">upper.limit</span>) <span class="op">/</span> <span class="fl">2</span>)
-<span class="kw">df</span><span class="op">$</span><span class="kw">covered</span> <span class="op">&lt;-</span> (<span class="kw">df</span><span class="op">$</span><span class="kw">lower.limit</span> <span class="op">&lt;=</span> <span class="fl">20</span> <span class="op">&amp;</span> <span class="fl">20</span> <span class="op">&lt;=</span> <span class="kw">df</span><span class="op">$</span><span class="kw">upper.limit</span>)
-<span class="kw">df</span><span class="op">$</span><span class="kw">coverageprob</span> <span class="op">&lt;-</span> ((<span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span>(<span class="kw">df</span><span class="op">$</span><span class="kw">covered</span>)[<span class="fl">2</span>]) <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="kw">df</span>) <span class="op">*</span> <span class="fl">100</span>))
+<span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span><span class="va">rbind</span>, <span class="va">z</span><span class="op">)</span><span class="op">)</span>
+<span class="va">df</span><span class="op">$</span><span class="va">studynumber</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span><span class="op">)</span>
+<span class="va">intrvl.limit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"lower.limit"</span>, <span class="st">"upper.limit"</span>, <span class="st">"studynumber"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">intrvl.limit</span>
+<span class="va">df</span><span class="op">$</span><span class="va">point</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">lower.limit</span> <span class="op">+</span> <span class="va">df</span><span class="op">$</span><span class="va">upper.limit</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span>
+<span class="va">df</span><span class="op">$</span><span class="va">covered</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">lower.limit</span> <span class="op">&lt;=</span> <span class="fl">20</span> <span class="op">&amp;</span> <span class="fl">20</span> <span class="op">&lt;=</span> <span class="va">df</span><span class="op">$</span><span class="va">upper.limit</span><span class="op">)</span>
+<span class="va">df</span><span class="op">$</span><span class="va">coverageprob</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">covered</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span>)
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
 
 
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(data = <span class="kw">df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(x = <span class="kw">studynumber</span>, y = <span class="kw">point</span>, ymin = <span class="kw">lower.limit</span>, ymax = <span class="kw">upper.limit</span>)) <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_pointrange</a></span>(mapping = <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(color = <span class="kw">covered</span>), size = <span class="fl">.40</span>) <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span>(yintercept = <span class="fl">20</span>, lty = <span class="fl">1</span>, color = <span class="st">"red"</span>, alpha = <span class="fl">0.5</span>) <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip</a></span>() <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(
-    title = <span class="st">"Simulated 95% Intervals"</span>,
-    x = <span class="st">"Study Number"</span>,
-    y = <span class="st">"Estimate"</span>,
-    subtitle = <span class="st">"Population Parameter is 20"</span>
-  ) <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span>() <span class="op">+</span> <span class="co"># use a white background</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(legend.position = <span class="st">"none"</span>) <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span>(
-    geom = <span class="st">"text"</span>, x = <span class="fl">102</span>, y = <span class="fl">30</span>,
-    label = <span class="st">"Coverage (%) ="</span>, size = <span class="fl">2.5</span>, color = <span class="st">"black"</span>
-  ) <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span>(
-    geom = <span class="st">"text"</span>, x = <span class="fl">102</span>, y = <span class="fl">35</span>,
-    label = <span class="kw">df</span><span class="op">$</span><span class="kw">coverageprob</span>, size = <span class="fl">2.5</span>, color = <span class="st">"black"</span>
-  )
-</pre></div>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">studynumber</span>, y <span class="op">=</span> <span class="va">point</span>, ymin <span class="op">=</span> <span class="va">lower.limit</span>, ymax <span class="op">=</span> <span class="va">upper.limit</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_pointrange</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">covered</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">.40</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">20</span>, lty <span class="op">=</span> <span class="fl">1</span>, color <span class="op">=</span> <span class="st">"red"</span>, alpha <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>
+    title <span class="op">=</span> <span class="st">"Simulated 95% Intervals"</span>,
+    x <span class="op">=</span> <span class="st">"Study Number"</span>,
+    y <span class="op">=</span> <span class="st">"Estimate"</span>,
+    subtitle <span class="op">=</span> <span class="st">"Population Parameter is 20"</span>
+  <span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="co"># use a white background</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span>
+    geom <span class="op">=</span> <span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">102</span>, y <span class="op">=</span> <span class="fl">30</span>,
+    label <span class="op">=</span> <span class="st">"Coverage (%) ="</span>, size <span class="op">=</span> <span class="fl">2.5</span>, color <span class="op">=</span> <span class="st">"black"</span>
+  <span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span>
+    geom <span class="op">=</span> <span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">102</span>, y <span class="op">=</span> <span class="fl">35</span>,
+    label <span class="op">=</span> <span class="va">df</span><span class="op">$</span><span class="va">coverageprob</span>, size <span class="op">=</span> <span class="fl">2.5</span>, color <span class="op">=</span> <span class="st">"black"</span>
+  <span class="op">)</span></pre></div>
 <p><img src="bayes_files/figure-html/unnamed-chunk-1-1.png" width="700"></p>
 <p>Although the code above demonstrates this, one of the best visualization tools to understand this long-run behavior is the D3.js visualization created by Kristoffer Magnusson, which <a href="https://rpsychologist.com/d3/CI/">can be viewed here</a>.</p>
 <p>However, despite these differences in interpretation, Bayesian and frequentist intervals often end up converging, especially when there are large amounts of data. They also end up converging when a Bayesian posterior distribution is computed with a flat or weakly informative prior. However, there are several problems with using flat priors, such as giving equal weight to all values in the interval including implausible ones. These sorts of priors should generally be avoided. However, for the sake of this demonstration, we will be using flat priors.</p>
-<p>Here, I demonstrate with a simple example how Bayesian posterior distributions and frequentist confidence functions end up converging in some scenarios. For these first few examples, I’ll be using the <code>rstanarm</code> package.<span class="citation"><sup><span class="citeproc-not-found" data-reference-id="Goodrich_Gabry_Ali_Brilleman_2020"><strong>???</strong></span></sup></span></p>
+<p>Here, I demonstrate with a simple example how Bayesian posterior distributions and frequentist confidence functions end up converging in some scenarios. For these first few examples, I’ll be using the <code>rstanarm</code> package.<span class="citation"><sup><a href="#ref-goodrichRstanarmBayesianApplied2020" role="doc-biblioref">1</a></sup></span></p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://data.lesslikely.com/concurve">concurve</a></span>)
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://data.lesslikely.com/concurve/">concurve</a></span><span class="op">)</span>
 <span class="co">#&gt; Please see the documentation on https://data.lesslikely.com/concurve/ or by typing `help(concurve)`</span>
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://mc-stan.org/rstan">rstan</a></span>)
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mc-stan.org/rstan">rstan</a></span><span class="op">)</span>
 <span class="co">#&gt; Loading required package: StanHeaders</span>
 <span class="co">#&gt; rstan (Version 2.21.2, GitRev: 2e1f913d3ca3)</span>
 <span class="co">#&gt; For execution on a local, multicore CPU with excess RAM we recommend calling</span>
 <span class="co">#&gt; options(mc.cores = parallel::detectCores()).</span>
 <span class="co">#&gt; To avoid recompilation of unchanged Stan programs, we recommend calling</span>
 <span class="co">#&gt; rstan_options(auto_write = TRUE)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://mc-stan.org/rstanarm">rstanarm</a></span>)
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mc-stan.org/rstanarm/">rstanarm</a></span><span class="op">)</span>
 <span class="co">#&gt; Loading required package: Rcpp</span>
 <span class="co">#&gt; Registered S3 methods overwritten by 'lme4':</span>
 <span class="co">#&gt;   method                          from</span>
@@ -248,186 +250,173 @@
 <span class="co">#&gt; The following object is masked from 'package:rstan':</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;     loo</span>
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://wilkelab.org/cowplot">cowplot</a></span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://mc-stan.org/bayesplot">bayesplot</a></span>)
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/cowplot/">cowplot</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mc-stan.org/bayesplot">bayesplot</a></span><span class="op">)</span>
 <span class="co">#&gt; This is bayesplot version 1.7.2</span>
 <span class="co">#&gt; - Online documentation and vignettes at mc-stan.org/bayesplot</span>
 <span class="co">#&gt; - bayesplot theme set to bayesplot::theme_default()</span>
 <span class="co">#&gt;    * Does _not_ affect other ggplot2 plots</span>
 <span class="co">#&gt;    * See ?bayesplot_theme_set for details on theme setting</span>
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://scales.r-lib.org">scales</a></span>)
-</pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://scales.r-lib.org">scales</a></span><span class="op">)</span></pre></div>
 <p>We will simulate some data (two variables) from a normal distribution with a location parameter of 0 and scale parameter of 1 (something very simple) and then regress the second variables (GroupB) on the first using the base lm function. We will take the regression coefficient and construct a consonance function for it.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="kw">GroupA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">50</span>)
-<span class="kw">GroupB</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">50</span>)
-<span class="kw">RandomData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">GroupA</span>, <span class="kw">GroupB</span>)
-<span class="kw">model_freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(<span class="kw">GroupA</span> <span class="op">~</span> <span class="kw">GroupB</span>, data = <span class="kw">RandomData</span>)
-</pre></div>
+<span class="va">GroupA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span>
+<span class="va">GroupB</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span>
+<span class="va">RandomData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">GroupA</span>, <span class="va">GroupB</span><span class="op">)</span>
+<span class="va">model_freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">GroupA</span> <span class="op">~</span> <span class="va">GroupB</span>, data <span class="op">=</span> <span class="va">RandomData</span><span class="op">)</span></pre></div>
 <p>Now we will do the same using Bayesian methods, but instead of specifying a prior, we will use a flat prior to show the convergence of the posterior with the consonance function.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="fu"><a href="https://mc-stan.org/rstan/reference/rstan_options.html">rstan_options</a></span>(auto_write = <span class="fl">TRUE</span>)
+<span class="fu"><a href="https://mc-stan.org/rstan/reference/rstan_options.html">rstan_options</a></span><span class="op">(</span>auto_write <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
 <span class="co"># Using flat prior</span>
-<span class="kw">model_bayes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mc-stan.org/rstanarm/reference/stan_lm.html">stan_lm</a></span>(<span class="kw">GroupA</span> <span class="op">~</span> <span class="kw">GroupB</span>,
-  data = <span class="kw">RandomData</span>, prior = <span class="kw">NULL</span>,
-  iter = <span class="fl">5000</span>, warmup = <span class="fl">1000</span>, chains = <span class="fl">4</span>
-)
-</pre></div>
+<span class="va">model_bayes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mc-stan.org/rstanarm/reference/stan_lm.html">stan_lm</a></span><span class="op">(</span><span class="va">GroupA</span> <span class="op">~</span> <span class="va">GroupB</span>,
+  data <span class="op">=</span> <span class="va">RandomData</span>, prior <span class="op">=</span> <span class="cn">NULL</span>,
+  iter <span class="op">=</span> <span class="fl">5000</span>, warmup <span class="op">=</span> <span class="fl">1000</span>, chains <span class="op">=</span> <span class="fl">4</span>
+<span class="op">)</span></pre></div>
 <p>Now that we’ve fit the models, we can graph the functions.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="kw">randomframe</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/curve_gen.html">curve_gen</a></span>(<span class="kw">model_freq</span>, <span class="st">"GroupB"</span>, steps = <span class="fl">10000</span>)
+<span class="va">randomframe</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/curve_gen.html">curve_gen</a></span><span class="op">(</span><span class="va">model_freq</span>, <span class="st">"GroupB"</span>, steps <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span>
 
-(<span class="kw">function1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span>(type = <span class="st">"c"</span>, <span class="kw">randomframe</span>[[<span class="fl">1</span>]], nullvalue = <span class="fl">TRUE</span>))
-</pre></div>
+<span class="op">(</span><span class="va">function1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"c"</span>, <span class="va">randomframe</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, nullvalue <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></pre></div>
 <p><img src="bayes_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 <div class="sourceCode" id="cb6"><pre class="downlit">
 
-<span class="fu"><a href="https://mc-stan.org/bayesplot/reference/bayesplot-colors.html">color_scheme_set</a></span>(<span class="st">"teal"</span>)
+<span class="fu"><a href="https://mc-stan.org/bayesplot/reference/bayesplot-colors.html">color_scheme_set</a></span><span class="op">(</span><span class="st">"teal"</span><span class="op">)</span>
 
-<span class="kw">function2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mc-stan.org/bayesplot/reference/MCMC-distributions.html">mcmc_dens</a></span>(<span class="kw">model_bayes</span>, pars = <span class="st">"GroupB"</span>) <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span>(<span class="st">"Posterior Distribution"</span>) <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(subtitle = <span class="st">"Function Displays the Full Posterior Distribution"</span>, x = <span class="st">"Range of Values"</span>, y = <span class="st">"Posterior Probability"</span>) <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span>(breaks = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0.30</span>, <span class="fl">0.60</span>, <span class="fl">0.90</span>, <span class="fl">1.20</span>, <span class="fl">1.50</span>, <span class="fl">1.80</span>, <span class="fl">2.10</span>, <span class="fl">2.40</span>, <span class="fl">2.70</span>, <span class="fl">3.0</span>))
+<span class="va">function2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mc-stan.org/bayesplot/reference/MCMC-distributions.html">mcmc_dens</a></span><span class="op">(</span><span class="va">model_bayes</span>, pars <span class="op">=</span> <span class="st">"GroupB"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Posterior Distribution"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>subtitle <span class="op">=</span> <span class="st">"Function Displays the Full Posterior Distribution"</span>, x <span class="op">=</span> <span class="st">"Range of Values"</span>, y <span class="op">=</span> <span class="st">"Posterior Probability"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.30</span>, <span class="fl">0.60</span>, <span class="fl">0.90</span>, <span class="fl">1.20</span>, <span class="fl">1.50</span>, <span class="fl">1.80</span>, <span class="fl">2.10</span>, <span class="fl">2.40</span>, <span class="fl">2.70</span>, <span class="fl">3.0</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; Scale for 'y' is already present. Adding another scale for 'y', which will</span>
 <span class="co">#&gt; replace the existing scale.</span>
 
 
-(<span class="kw">breaks1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0.30</span>, <span class="fl">0.60</span>, <span class="fl">0.90</span>, <span class="fl">1.20</span>, <span class="fl">1.50</span>, <span class="fl">1.80</span>, <span class="fl">2.10</span>, <span class="fl">2.40</span>, <span class="fl">2.70</span>, <span class="fl">3.0</span>))
+<span class="op">(</span><span class="va">breaks1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.30</span>, <span class="fl">0.60</span>, <span class="fl">0.90</span>, <span class="fl">1.20</span>, <span class="fl">1.50</span>, <span class="fl">1.80</span>, <span class="fl">2.10</span>, <span class="fl">2.40</span>, <span class="fl">2.70</span>, <span class="fl">3.0</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;  [1] 0.0 0.3 0.6 0.9 1.2 1.5 1.8 2.1 2.4 2.7 3.0</span>
 
-(<span class="kw">adjustment</span> <span class="op">&lt;-</span> <span class="fu">function</span>(<span class="kw">x</span>) {
-  <span class="kw">x</span> <span class="op">/</span> <span class="fl">3</span>
-})
+<span class="op">(</span><span class="va">adjustment</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">x</span> <span class="op">/</span> <span class="fl">3</span>
+<span class="op">}</span><span class="op">)</span>
 <span class="co">#&gt; function(x) {</span>
 <span class="co">#&gt;   x / 3</span>
 <span class="co">#&gt; }</span>
 
-(<span class="kw">labels</span> <span class="op">&lt;-</span> <span class="fu">adjustment</span>(<span class="kw">breaks1</span>))
+<span class="op">(</span><span class="va">labels</span> <span class="op">&lt;-</span> <span class="fu">adjustment</span><span class="op">(</span><span class="va">breaks1</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;  [1] 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0</span>
 
-<span class="kw">breaks</span> <span class="op">&lt;-</span> <span class="kw">labels</span>
-<span class="kw">labels1</span> <span class="op">&lt;-</span> <span class="kw">labels</span>
+<span class="va">breaks</span> <span class="op">&lt;-</span> <span class="va">labels</span>
+<span class="va">labels1</span> <span class="op">&lt;-</span> <span class="va">labels</span>
 
-(<span class="kw">function3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mc-stan.org/bayesplot/reference/MCMC-distributions.html">mcmc_dens</a></span>(<span class="kw">model_bayes</span>, pars = <span class="st">"GroupB"</span>) <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span>(<span class="st">"Posterior Distribution"</span>) <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(subtitle = <span class="st">"Function Displays the Full Posterior Distribution"</span>, x = <span class="st">"Range of Values"</span>, y = <span class="st">"Posterior Probability"</span>) <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span>(expand = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0</span>), breaks = <span class="kw">scales</span>::<span class="fu"><a href="https://scales.r-lib.org//reference/breaks_pretty.html">pretty_breaks</a></span>(n = <span class="fl">10</span>)) <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span>(expand = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0</span>), breaks = <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html">waiver</a></span>(), labels = <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html">waiver</a></span>(), n.breaks = <span class="fl">10</span>, limits = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">3.25</span>)) <span class="op">+</span>
-  <span class="fu"><a href="https://mc-stan.org/bayesplot/reference/bayesplot-helpers.html">yaxis_text</a></span>(on = <span class="fl">TRUE</span>) <span class="op">+</span>
-  <span class="fu"><a href="https://mc-stan.org/bayesplot/reference/bayesplot-helpers.html">yaxis_ticks</a></span>(on = <span class="fl">TRUE</span>) <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span>(<span class="st">"segment"</span>,
-    x = <span class="fl">0</span>, xend = <span class="fl">0</span>, y = <span class="fl">0</span>, yend = <span class="fl">3</span>,
-    color = <span class="st">"#990000"</span>, alpha = <span class="fl">0.4</span>, size = <span class="fl">.75</span>, linetype = <span class="fl">3</span>
-  ))
+<span class="op">(</span><span class="va">function3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mc-stan.org/bayesplot/reference/MCMC-distributions.html">mcmc_dens</a></span><span class="op">(</span><span class="va">model_bayes</span>, pars <span class="op">=</span> <span class="st">"GroupB"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Posterior Distribution"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>subtitle <span class="op">=</span> <span class="st">"Function Displays the Full Posterior Distribution"</span>, x <span class="op">=</span> <span class="st">"Range of Values"</span>, y <span class="op">=</span> <span class="st">"Posterior Probability"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>, breaks <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org//reference/breaks_pretty.html">pretty_breaks</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>, breaks <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>, labels <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>, n.breaks <span class="op">=</span> <span class="fl">10</span>, limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">3.25</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://mc-stan.org/bayesplot/reference/bayesplot-helpers.html">yaxis_text</a></span><span class="op">(</span>on <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://mc-stan.org/bayesplot/reference/bayesplot-helpers.html">yaxis_ticks</a></span><span class="op">(</span>on <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span><span class="st">"segment"</span>,
+    x <span class="op">=</span> <span class="fl">0</span>, xend <span class="op">=</span> <span class="fl">0</span>, y <span class="op">=</span> <span class="fl">0</span>, yend <span class="op">=</span> <span class="fl">3</span>,
+    color <span class="op">=</span> <span class="st">"#990000"</span>, alpha <span class="op">=</span> <span class="fl">0.4</span>, size <span class="op">=</span> <span class="fl">.75</span>, linetype <span class="op">=</span> <span class="fl">3</span>
+  <span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; Scale for 'x' is already present. Adding another scale for 'x', which will</span>
 <span class="co">#&gt; replace the existing scale.</span>
 <span class="co">#&gt; Scale for 'y' is already present. Adding another scale for 'y', which will</span>
-<span class="co">#&gt; replace the existing scale.</span>
-</pre></div>
+<span class="co">#&gt; replace the existing scale.</span></pre></div>
 <p><img src="bayes_files/figure-html/unnamed-chunk-5-2.png" width="700"></p>
 <p>I made some adjustments above to the bayesplot code so that we could more easily compare the consonance distribution to the posterior distribution. We will be using plot_grid() from cowplot to achieve this.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/pkg/cowplot/man/plot_grid.html">plot_grid</a></span>(<span class="kw">function1</span>, <span class="kw">function3</span>, ncol = <span class="fl">1</span>, align = <span class="st">"v"</span>)
-</pre></div>
+<span class="fu"><a href="https://wilkelab.org/cowplot/reference/plot_grid.html">plot_grid</a></span><span class="op">(</span><span class="va">function1</span>, <span class="va">function3</span>, ncol <span class="op">=</span> <span class="fl">1</span>, align <span class="op">=</span> <span class="st">"v"</span><span class="op">)</span></pre></div>
 <p><img src="bayes_files/figure-html/unnamed-chunk-6-1.png" width="672"></p>
 <p>As you can see, the results end up being very similar. You can likely get very similar results with weakly informative priors normal(0, 100) or with much larger datasets, where the likelihood will end up swamping the prior, though this isn’t always the case.</p>
 <p>Here’s another example, but this time the variables we simulate have different location parameters.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit">
 
-<span class="kw">GroupA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">500</span>, mean = <span class="fl">2</span>)
-<span class="kw">GroupB</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">500</span>, mean = <span class="fl">1</span>)
-<span class="kw">RandomData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">GroupA</span>, <span class="kw">GroupB</span>)
-<span class="kw">model_freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(<span class="kw">GroupA</span> <span class="op">~</span> <span class="kw">GroupB</span>, data = <span class="kw">RandomData</span>)
-</pre></div>
+<span class="va">GroupA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">500</span>, mean <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
+<span class="va">GroupB</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">500</span>, mean <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+<span class="va">RandomData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">GroupA</span>, <span class="va">GroupB</span><span class="op">)</span>
+<span class="va">model_freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">GroupA</span> <span class="op">~</span> <span class="va">GroupB</span>, data <span class="op">=</span> <span class="va">RandomData</span><span class="op">)</span></pre></div>
 <div class="sourceCode" id="cb9"><pre class="downlit">
 
 <span class="co"># Using flat prior</span>
-<span class="kw">model_bayes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mc-stan.org/rstanarm/reference/stan_lm.html">stan_lm</a></span>(<span class="kw">GroupA</span> <span class="op">~</span> <span class="kw">GroupB</span>,
-  data = <span class="kw">RandomData</span>, prior = <span class="kw">NULL</span>,
-  iter = <span class="fl">5000</span>, warmup = <span class="fl">1000</span>, chains = <span class="fl">4</span>
-)
-</pre></div>
+<span class="va">model_bayes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mc-stan.org/rstanarm/reference/stan_lm.html">stan_lm</a></span><span class="op">(</span><span class="va">GroupA</span> <span class="op">~</span> <span class="va">GroupB</span>,
+  data <span class="op">=</span> <span class="va">RandomData</span>, prior <span class="op">=</span> <span class="cn">NULL</span>,
+  iter <span class="op">=</span> <span class="fl">5000</span>, warmup <span class="op">=</span> <span class="fl">1000</span>, chains <span class="op">=</span> <span class="fl">4</span>
+<span class="op">)</span></pre></div>
 <div class="sourceCode" id="cb10"><pre class="downlit">
 
-<span class="kw">randomframe</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/curve_gen.html">curve_gen</a></span>(<span class="kw">model_freq</span>, <span class="st">"GroupB"</span>, steps = <span class="fl">10000</span>)
+<span class="va">randomframe</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/curve_gen.html">curve_gen</a></span><span class="op">(</span><span class="va">model_freq</span>, <span class="st">"GroupB"</span>, steps <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span>
 
-(<span class="kw">function1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span>(type = <span class="st">"c"</span>, <span class="kw">randomframe</span>[[<span class="fl">1</span>]], nullvalue = <span class="fl">TRUE</span>))
-</pre></div>
+<span class="op">(</span><span class="va">function1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"c"</span>, <span class="va">randomframe</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, nullvalue <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></pre></div>
 <p><img src="bayes_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
 <div class="sourceCode" id="cb11"><pre class="downlit">
 
-<span class="fu"><a href="https://mc-stan.org/bayesplot/reference/bayesplot-colors.html">color_scheme_set</a></span>(<span class="st">"teal"</span>)
+<span class="fu"><a href="https://mc-stan.org/bayesplot/reference/bayesplot-colors.html">color_scheme_set</a></span><span class="op">(</span><span class="st">"teal"</span><span class="op">)</span>
 
-<span class="kw">function2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mc-stan.org/bayesplot/reference/MCMC-distributions.html">mcmc_dens</a></span>(<span class="kw">model_bayes</span>, pars = <span class="st">"GroupB"</span>) <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span>(<span class="st">"Posterior Distribution"</span>) <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(subtitle = <span class="st">"Function Displays the Full Posterior Distribution"</span>, x = <span class="st">"Range of Values"</span>, y = <span class="st">"Posterior Probability"</span>) <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span>(breaks = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0.30</span>, <span class="fl">0.60</span>, <span class="fl">0.90</span>, <span class="fl">1.20</span>, <span class="fl">1.50</span>, <span class="fl">1.80</span>, <span class="fl">2.10</span>, <span class="fl">2.40</span>, <span class="fl">2.70</span>, <span class="fl">3.0</span>))
+<span class="va">function2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mc-stan.org/bayesplot/reference/MCMC-distributions.html">mcmc_dens</a></span><span class="op">(</span><span class="va">model_bayes</span>, pars <span class="op">=</span> <span class="st">"GroupB"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Posterior Distribution"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>subtitle <span class="op">=</span> <span class="st">"Function Displays the Full Posterior Distribution"</span>, x <span class="op">=</span> <span class="st">"Range of Values"</span>, y <span class="op">=</span> <span class="st">"Posterior Probability"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.30</span>, <span class="fl">0.60</span>, <span class="fl">0.90</span>, <span class="fl">1.20</span>, <span class="fl">1.50</span>, <span class="fl">1.80</span>, <span class="fl">2.10</span>, <span class="fl">2.40</span>, <span class="fl">2.70</span>, <span class="fl">3.0</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; Scale for 'y' is already present. Adding another scale for 'y', which will</span>
 <span class="co">#&gt; replace the existing scale.</span>
 
 
-(<span class="kw">breaks1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0.30</span>, <span class="fl">0.60</span>, <span class="fl">0.90</span>, <span class="fl">1.20</span>, <span class="fl">1.50</span>, <span class="fl">1.80</span>, <span class="fl">2.10</span>, <span class="fl">2.40</span>, <span class="fl">2.70</span>, <span class="fl">3.0</span>))
+<span class="op">(</span><span class="va">breaks1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.30</span>, <span class="fl">0.60</span>, <span class="fl">0.90</span>, <span class="fl">1.20</span>, <span class="fl">1.50</span>, <span class="fl">1.80</span>, <span class="fl">2.10</span>, <span class="fl">2.40</span>, <span class="fl">2.70</span>, <span class="fl">3.0</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;  [1] 0.0 0.3 0.6 0.9 1.2 1.5 1.8 2.1 2.4 2.7 3.0</span>
 
-(<span class="kw">adjustment</span> <span class="op">&lt;-</span> <span class="fu">function</span>(<span class="kw">x</span>) {
-  <span class="kw">x</span> <span class="op">/</span> <span class="fl">3</span>
-})
+<span class="op">(</span><span class="va">adjustment</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">x</span> <span class="op">/</span> <span class="fl">3</span>
+<span class="op">}</span><span class="op">)</span>
 <span class="co">#&gt; function(x) {</span>
 <span class="co">#&gt;   x / 3</span>
 <span class="co">#&gt; }</span>
 
-(<span class="kw">labels</span> <span class="op">&lt;-</span> <span class="fu">adjustment</span>(<span class="kw">breaks1</span>))
+<span class="op">(</span><span class="va">labels</span> <span class="op">&lt;-</span> <span class="fu">adjustment</span><span class="op">(</span><span class="va">breaks1</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;  [1] 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0</span>
 
-<span class="kw">breaks</span> <span class="op">&lt;-</span> <span class="kw">labels</span>
-<span class="kw">labels1</span> <span class="op">&lt;-</span> <span class="kw">labels</span>
+<span class="va">breaks</span> <span class="op">&lt;-</span> <span class="va">labels</span>
+<span class="va">labels1</span> <span class="op">&lt;-</span> <span class="va">labels</span>
 
-(<span class="kw">function3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mc-stan.org/bayesplot/reference/MCMC-distributions.html">mcmc_dens</a></span>(<span class="kw">model_bayes</span>, pars = <span class="st">"GroupB"</span>) <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span>(<span class="st">"Posterior Distribution"</span>) <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(subtitle = <span class="st">"Function Displays the Full Posterior Distribution"</span>, x = <span class="st">"Range of Values"</span>, y = <span class="st">"Posterior Probability"</span>) <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span>(expand = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0</span>), breaks = <span class="kw">scales</span>::<span class="fu"><a href="https://scales.r-lib.org//reference/breaks_pretty.html">pretty_breaks</a></span>(n = <span class="fl">10</span>)) <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span>(expand = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0</span>), breaks = <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html">waiver</a></span>(), labels = <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html">waiver</a></span>(), n.breaks = <span class="fl">10</span>, limits = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">9</span>)) <span class="op">+</span>
-  <span class="fu"><a href="https://mc-stan.org/bayesplot/reference/bayesplot-helpers.html">yaxis_text</a></span>(on = <span class="fl">TRUE</span>) <span class="op">+</span>
-  <span class="fu"><a href="https://mc-stan.org/bayesplot/reference/bayesplot-helpers.html">yaxis_ticks</a></span>(on = <span class="fl">TRUE</span>) <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span>(<span class="st">"segment"</span>,
-    x = <span class="fl">0</span>, xend = <span class="fl">0</span>, y = <span class="fl">0</span>, yend = <span class="fl">9</span>,
-    color = <span class="st">"#990000"</span>, alpha = <span class="fl">0.4</span>, size = <span class="fl">.75</span>, linetype = <span class="fl">3</span>
-  ))
+<span class="op">(</span><span class="va">function3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mc-stan.org/bayesplot/reference/MCMC-distributions.html">mcmc_dens</a></span><span class="op">(</span><span class="va">model_bayes</span>, pars <span class="op">=</span> <span class="st">"GroupB"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Posterior Distribution"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>subtitle <span class="op">=</span> <span class="st">"Function Displays the Full Posterior Distribution"</span>, x <span class="op">=</span> <span class="st">"Range of Values"</span>, y <span class="op">=</span> <span class="st">"Posterior Probability"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>, breaks <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org//reference/breaks_pretty.html">pretty_breaks</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>, breaks <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>, labels <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html">waiver</a></span><span class="op">(</span><span class="op">)</span>, n.breaks <span class="op">=</span> <span class="fl">10</span>, limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">9</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://mc-stan.org/bayesplot/reference/bayesplot-helpers.html">yaxis_text</a></span><span class="op">(</span>on <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://mc-stan.org/bayesplot/reference/bayesplot-helpers.html">yaxis_ticks</a></span><span class="op">(</span>on <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span><span class="st">"segment"</span>,
+    x <span class="op">=</span> <span class="fl">0</span>, xend <span class="op">=</span> <span class="fl">0</span>, y <span class="op">=</span> <span class="fl">0</span>, yend <span class="op">=</span> <span class="fl">9</span>,
+    color <span class="op">=</span> <span class="st">"#990000"</span>, alpha <span class="op">=</span> <span class="fl">0.4</span>, size <span class="op">=</span> <span class="fl">.75</span>, linetype <span class="op">=</span> <span class="fl">3</span>
+  <span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; Scale for 'x' is already present. Adding another scale for 'x', which will</span>
 <span class="co">#&gt; replace the existing scale.</span>
 <span class="co">#&gt; Scale for 'y' is already present. Adding another scale for 'y', which will</span>
-<span class="co">#&gt; replace the existing scale.</span>
-</pre></div>
+<span class="co">#&gt; replace the existing scale.</span></pre></div>
 <p><img src="bayes_files/figure-html/unnamed-chunk-9-2.png" width="700"></p>
 <div class="sourceCode" id="cb12"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/pkg/cowplot/man/plot_grid.html">plot_grid</a></span>(<span class="kw">function1</span>, <span class="kw">function3</span>, ncol = <span class="fl">1</span>, align = <span class="st">"v"</span>)
-</pre></div>
+<span class="fu"><a href="https://wilkelab.org/cowplot/reference/plot_grid.html">plot_grid</a></span><span class="op">(</span><span class="va">function1</span>, <span class="va">function3</span>, ncol <span class="op">=</span> <span class="fl">1</span>, align <span class="op">=</span> <span class="st">"v"</span><span class="op">)</span></pre></div>
 <p><img src="bayes_files/figure-html/unnamed-chunk-10-1.png" width="672"></p>
 <p>Here’s another dataset, however, here we’re not generating random numbers.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit">
 
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="kw">kidiq</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">kidiq</span><span class="op">)</span>
 
 <span class="co"># flat prior</span>
 
-<span class="kw">post1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mc-stan.org/rstanarm/reference/stan_lm.html">stan_lm</a></span>(<span class="kw">kid_score</span> <span class="op">~</span> <span class="kw">mom_hs</span>,
-  data = <span class="kw">kidiq</span>, prior = <span class="kw">NULL</span>,
-  seed = <span class="fl">12345</span>
-)
-</pre></div>
+<span class="va">post1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mc-stan.org/rstanarm/reference/stan_lm.html">stan_lm</a></span><span class="op">(</span><span class="va">kid_score</span> <span class="op">~</span> <span class="va">mom_hs</span>,
+  data <span class="op">=</span> <span class="va">kidiq</span>, prior <span class="op">=</span> <span class="cn">NULL</span>,
+  seed <span class="op">=</span> <span class="fl">12345</span>
+<span class="op">)</span></pre></div>
 <div class="sourceCode" id="cb14"><pre class="downlit">
-<span class="kw">post2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(<span class="kw">kid_score</span> <span class="op">~</span> <span class="kw">mom_hs</span>, data = <span class="kw">kidiq</span>)
+<span class="va">post2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">kid_score</span> <span class="op">~</span> <span class="va">mom_hs</span>, data <span class="op">=</span> <span class="va">kidiq</span><span class="op">)</span>
 
-<span class="kw">df3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/curve_gen.html">curve_gen</a></span>(<span class="kw">post2</span>, <span class="st">"mom_hs"</span>)
+<span class="va">df3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/curve_gen.html">curve_gen</a></span><span class="op">(</span><span class="va">post2</span>, <span class="st">"mom_hs"</span><span class="op">)</span>
 
-(<span class="kw">function99</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span>(<span class="kw">df3</span>[[<span class="fl">1</span>]]))
-</pre></div>
+<span class="op">(</span><span class="va">function99</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span><span class="va">df3</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></pre></div>
 <p><img src="bayes_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
 <div class="sourceCode" id="cb15"><pre class="downlit">
 
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="kw">post1</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">post1</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Model Info:</span>
 <span class="co">#&gt;  function:     stan_lm</span>
@@ -465,30 +454,28 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; For each parameter, mcse is Monte Carlo standard error, n_eff is a crude measure of effective sample size, and Rhat is the potential scale reduction factor on split chains (at convergence Rhat=1).</span>
 
-<span class="fu"><a href="https://mc-stan.org/bayesplot/reference/bayesplot-colors.html">color_scheme_set</a></span>(<span class="st">"teal"</span>)
+<span class="fu"><a href="https://mc-stan.org/bayesplot/reference/bayesplot-colors.html">color_scheme_set</a></span><span class="op">(</span><span class="st">"teal"</span><span class="op">)</span>
 
-(<span class="kw">function101</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mc-stan.org/bayesplot/reference/MCMC-intervals.html">mcmc_areas</a></span>(<span class="kw">post1</span>, pars = <span class="st">"mom_hs"</span>, point_est = <span class="st">"none"</span>, prob = <span class="fl">1</span>, prob_outer = <span class="fl">1</span>, area_method = <span class="st">"equal height"</span>) <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span>(<span class="st">"Posterior Distribution"</span>) <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(subtitle = <span class="st">"Function Displays the Full Posterior Distribution"</span>, x = <span class="st">"Range of Values"</span>, y = <span class="st">"Posterior Probability"</span>) <span class="op">+</span>
-  <span class="fu"><a href="https://mc-stan.org/bayesplot/reference/bayesplot-helpers.html">yaxis_text</a></span>(on = <span class="fl">TRUE</span>) <span class="op">+</span>
-  <span class="fu"><a href="https://mc-stan.org/bayesplot/reference/bayesplot-helpers.html">yaxis_ticks</a></span>(on = <span class="fl">TRUE</span>))
-</pre></div>
+<span class="op">(</span><span class="va">function101</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mc-stan.org/bayesplot/reference/MCMC-intervals.html">mcmc_areas</a></span><span class="op">(</span><span class="va">post1</span>, pars <span class="op">=</span> <span class="st">"mom_hs"</span>, point_est <span class="op">=</span> <span class="st">"none"</span>, prob <span class="op">=</span> <span class="fl">1</span>, prob_outer <span class="op">=</span> <span class="fl">1</span>, area_method <span class="op">=</span> <span class="st">"equal height"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Posterior Distribution"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>subtitle <span class="op">=</span> <span class="st">"Function Displays the Full Posterior Distribution"</span>, x <span class="op">=</span> <span class="st">"Range of Values"</span>, y <span class="op">=</span> <span class="st">"Posterior Probability"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://mc-stan.org/bayesplot/reference/bayesplot-helpers.html">yaxis_text</a></span><span class="op">(</span>on <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://mc-stan.org/bayesplot/reference/bayesplot-helpers.html">yaxis_ticks</a></span><span class="op">(</span>on <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></pre></div>
 <p><img src="bayes_files/figure-html/unnamed-chunk-12-2.png" width="700"></p>
 <div class="sourceCode" id="cb16"><pre class="downlit">
-<span class="kw">cowplot</span>::<span class="fu"><a href="https://rdrr.io/pkg/cowplot/man/plot_grid.html">plot_grid</a></span>(<span class="kw">function99</span>, <span class="kw">function101</span>, ncol = <span class="fl">1</span>, align = <span class="st">"v"</span>)
-</pre></div>
+<span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/plot_grid.html">plot_grid</a></span><span class="op">(</span><span class="va">function99</span>, <span class="va">function101</span>, ncol <span class="op">=</span> <span class="fl">1</span>, align <span class="op">=</span> <span class="st">"v"</span><span class="op">)</span></pre></div>
 <p><img src="bayes_files/figure-html/unnamed-chunk-13-1.png" width="672"></p>
 <div id="cite-r-packages" class="section level1">
 <h1 class="hasAnchor">
 <a href="#cite-r-packages" class="anchor"></a>Cite R Packages</h1>
 <p>Please remember to cite the packages that you use.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"concurve"</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span><span class="st">"concurve"</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Rafi Z, Vigotsky A (2020). _concurve: Computes and Plots Compatibility</span>
 <span class="co">#&gt; (Confidence) Intervals, P-Values, S-Values, &amp; Likelihood Intervals to</span>
 <span class="co">#&gt; Form Consonance, Surprisal, &amp; Likelihood Functions_. R package version</span>
-<span class="co">#&gt; 2.7.5, &lt;URL: https://CRAN.R-project.org/package=concurve&gt;.</span>
+<span class="co">#&gt; 2.7.6, &lt;URL: https://CRAN.R-project.org/package=concurve&gt;.</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Rafi Z, Greenland S (2020). _Semantic and Cognitive Tools to Aid</span>
 <span class="co">#&gt; Statistical Science: Replace Confidence and Significance by</span>
@@ -498,7 +485,7 @@
 <span class="co">#&gt; To see these entries in BibTeX format, use 'print(&lt;citation&gt;,</span>
 <span class="co">#&gt; bibtex=TRUE)', 'toBibtex(.)', or set</span>
 <span class="co">#&gt; 'options(citation.bibtex.max=999)'.</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"ggplot2"</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span><span class="st">"ggplot2"</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; To cite ggplot2 in publications, please use:</span>
 <span class="co">#&gt; </span>
@@ -515,7 +502,7 @@
 <span class="co">#&gt;     isbn = {978-3-319-24277-4},</span>
 <span class="co">#&gt;     url = {https://ggplot2.tidyverse.org},</span>
 <span class="co">#&gt;   }</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"rstan"</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span><span class="st">"rstan"</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; To cite RStan in publications use:</span>
 <span class="co">#&gt; </span>
@@ -531,7 +518,7 @@
 <span class="co">#&gt;     year = {2020},</span>
 <span class="co">#&gt;     url = {http://mc-stan.org/},</span>
 <span class="co">#&gt;   }</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"rstanarm"</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span><span class="st">"rstanarm"</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; To cite rstanarm in publications please use the first citation entry.</span>
 <span class="co">#&gt; If you were using the 'stan_jm' modelling function then, where</span>
@@ -549,7 +536,7 @@
 <span class="co">#&gt; To see these entries in BibTeX format, use 'print(&lt;citation&gt;,</span>
 <span class="co">#&gt; bibtex=TRUE)', 'toBibtex(.)', or set</span>
 <span class="co">#&gt; 'options(citation.bibtex.max=999)'.</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"cowplot"</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span><span class="st">"cowplot"</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; To cite package 'cowplot' in publications use:</span>
 <span class="co">#&gt; </span>
@@ -566,7 +553,7 @@
 <span class="co">#&gt;     note = {R package version 1.1.0},</span>
 <span class="co">#&gt;     url = {https://CRAN.R-project.org/package=cowplot},</span>
 <span class="co">#&gt;   }</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"scales"</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span><span class="st">"scales"</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; To cite package 'scales' in publications use:</span>
 <span class="co">#&gt; </span>
@@ -583,7 +570,7 @@
 <span class="co">#&gt;     note = {R package version 1.1.1},</span>
 <span class="co">#&gt;     url = {https://CRAN.R-project.org/package=scales},</span>
 <span class="co">#&gt;   }</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"bayesplot"</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span><span class="st">"bayesplot"</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; To cite the bayesplot R package:</span>
 <span class="co">#&gt; </span>
@@ -599,13 +586,17 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; To see these entries in BibTeX format, use 'print(&lt;citation&gt;,</span>
 <span class="co">#&gt; bibtex=TRUE)', 'toBibtex(.)', or set</span>
-<span class="co">#&gt; 'options(citation.bibtex.max=999)'.</span>
-</pre></div>
+<span class="co">#&gt; 'options(citation.bibtex.max=999)'.</span></pre></div>
 </div>
 <div id="references" class="section level1">
 <h1 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h1>
 <hr>
+<div id="refs" class="references">
+<div id="ref-goodrichRstanarmBayesianApplied2020">
+<p>1. Goodrich B, Gabry J, Ali I, Brilleman S. Rstanarm: Bayesian applied regression modeling via Stan. 2020.</p>
+</div>
+</div>
 </div>
   </div>
 
@@ -624,7 +615,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

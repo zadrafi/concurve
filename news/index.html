@@ -102,7 +102,7 @@
       </button>
       <span class="navbar-brand"><img src="https://data.lesslikely.com/concurve/reference/figures/logo.svg" id ="package-logo" align="left" width="35">
         <a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.6</span>
       </span>
     </div>
 
@@ -125,7 +125,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/examples.html">Examples in R</a>
+      <a href="../articles/examples.html">Simple Examples in R</a>
+    </li>
+    <li>
+      <a href="../articles/logistic.html">Logistic Regression</a>
     </li>
     <li>
       <a href="../articles/survival.html">Survival Modeling</a>
@@ -221,13 +224,32 @@
       <small>Source: <a href='https://github.com/zadrafi/concurve/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="concurve-275" class="section level1">
-<h1 class="page-header" data-toc-text="2.7.5">
-<a href="#concurve-275" class="anchor"></a>concurve 2.7.5<small> Unreleased </small>
+    <div id="concurve-276" class="section level1">
+<h1 class="page-header" data-toc-text="2.7.6">
+<a href="#concurve-276" class="anchor"></a>concurve 2.7.6<small> Unreleased </small>
 </h1>
 <div id="major-changes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#major-changes" class="anchor"></a>Major changes</h2>
+<ul>
+<li>
+<code>log</code> option added to <code><a href="../reference/curve_gen.html">curve_gen()</a></code> to exponentiate the coefficients.
+<ul>
+<li>Thanks to <a href="https://twitter.com/IsabellaGhement">Isabella Ghement</a> for finding the issue and notifying us about it.</li>
+</ul>
+</li>
+<li>customization option for <code>title</code> fully added to <code><a href="../reference/ggcurve.html">ggcurve()</a></code>
+</li>
+</ul>
+</div>
+</div>
+    <div id="concurve-275" class="section level1">
+<h1 class="page-header" data-toc-text="2.7.5">
+<a href="#concurve-275" class="anchor"></a>concurve 2.7.5<small> Unreleased </small>
+</h1>
+<div id="major-changes-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#major-changes-1" class="anchor"></a>Major changes</h2>
 <ul>
 <li>Substantial revisions to the documents and website</li>
 <li>Now, far fewer dependencies to avoid potential conflicts in the future</li>
@@ -242,9 +264,9 @@
 <h1 class="page-header" data-toc-text="2.7.0">
 <a href="#concurve-270" class="anchor"></a>concurve 2.7.0<small> Unreleased </small>
 </h1>
-<div id="major-changes-1" class="section level2">
+<div id="major-changes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-changes-1" class="anchor"></a>Major changes</h2>
+<a href="#major-changes-2" class="anchor"></a>Major changes</h2>
 <ul>
 <li>
 <code><a href="../reference/curve_gen.html">curve_gen()</a></code> now includes options to adjust CIs and P-values for multiple comparisons.</li>
@@ -273,9 +295,9 @@
 <h1 class="page-header" data-toc-text="2.6.0">
 <a href="#concurve-260" class="anchor"></a>concurve 2.6.0<small> Unreleased </small>
 </h1>
-<div id="major-changes-2" class="section level2">
+<div id="major-changes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-changes-2" class="anchor"></a>Major changes</h2>
+<a href="#major-changes-3" class="anchor"></a>Major changes</h2>
 <ul>
 <li>An error in <code><a href="../reference/curve_rev.html">curve_rev()</a></code> was fixed where for the default measure, the computations were calculated as if measure was set to ratio.
 <ul>
@@ -304,9 +326,9 @@
 <h1 class="page-header" data-toc-text="2.5.0">
 <a href="#concurve-250" class="anchor"></a>concurve 2.5.0<small> 2020-04-20 </small>
 </h1>
-<div id="major-changes-3" class="section level2">
+<div id="major-changes-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-changes-3" class="anchor"></a>Major changes</h2>
+<a href="#major-changes-4" class="anchor"></a>Major changes</h2>
 <ul>
 <li>
 <code><a href="../reference/curve_meta.html">curve_meta()</a></code> can now handle complex data structures from <code>metafor</code> with clustered data.</li>
@@ -324,12 +346,12 @@
 <h1 class="page-header" data-toc-text="2.4.1">
 <a href="#concurve-241" class="anchor"></a>concurve 2.4.1<small> Unreleased </small>
 </h1>
-<div id="major-changes-4" class="section level2">
+<div id="major-changes-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-changes-4" class="anchor"></a>Major changes</h2>
+<a href="#major-changes-5" class="anchor"></a>Major changes</h2>
 <ul>
 <li>New function <code><a href="../reference/curve_lmer.html">curve_lmer()</a></code> for mixed-effects models</li>
-<li>Fixed a bug where <code><a href="../reference/curve_meta.html">curve_meta()</a></code> could not utilize <code><a href="https://rdrr.io/pkg/metafor/man/rma.mh.html">rma.mh()</a></code> or <code><a href="https://rdrr.io/pkg/metafor/man/rma.peto.html">rma.peto()</a></code> from <code>metafor</code>.</li>
+<li>Fixed a bug where <code><a href="../reference/curve_meta.html">curve_meta()</a></code> could not utilize <code><a href="https://wviechtb.github.io/metafor/reference/rma.mh.html">rma.mh()</a></code> or <code><a href="https://wviechtb.github.io/metafor/reference/rma.peto.html">rma.peto()</a></code> from <code>metafor</code>.</li>
 </ul>
 </div>
 </div>
@@ -337,9 +359,9 @@
 <h1 class="page-header" data-toc-text="2.4.0">
 <a href="#concurve-240" class="anchor"></a>concurve 2.4.0<small> Unreleased </small>
 </h1>
-<div id="major-changes-5" class="section level2">
+<div id="major-changes-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-changes-5" class="anchor"></a>Major changes</h2>
+<a href="#major-changes-6" class="anchor"></a>Major changes</h2>
 <ul>
 <li>
 <code><a href="../reference/curve_boot.html">curve_boot()</a></code> can utilize parametric Bca bootstrap methods to compute functions.</li>
@@ -365,9 +387,9 @@
 <h1 class="page-header" data-toc-text="2.3.0">
 <a href="#concurve-230" class="anchor"></a>concurve 2.3.0<small> 2019-12-04 </small>
 </h1>
-<div id="major-changes-6" class="section level2">
+<div id="major-changes-7" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-changes-6" class="anchor"></a>Major changes</h2>
+<a href="#major-changes-7" class="anchor"></a>Major changes</h2>
 <ul>
 <li>
 <code><a href="../reference/defunct.html">ggconcurve()</a></code> is now <code><a href="../reference/ggcurve.html">ggcurve()</a></code>.</li>
@@ -400,9 +422,9 @@
 <h1 class="page-header" data-toc-text="2.1.0">
 <a href="#concurve-210" class="anchor"></a>concurve 2.1.0<small> 2019-09-19 </small>
 </h1>
-<div id="major-changes-7" class="section level2">
+<div id="major-changes-8" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-changes-7" class="anchor"></a>Major changes</h2>
+<a href="#major-changes-8" class="anchor"></a>Major changes</h2>
 <ul>
 <li>
 <code><a href="../reference/defunct.html">ggconcurve()</a></code> now plots both the P-values and CI level using both y-axes when the type = “consonance”. Previously, this was only possible via <code><a href="../reference/defunct.html">plot_concurve()</a></code> (which uses base R graphics) because <code>ggplot2</code> had a bug in its last few versions, which inhibited proper transformations in the y-axis.</li>
@@ -413,9 +435,9 @@
 <h1 class="page-header" data-toc-text="2.0.1">
 <a href="#concurve-201" class="anchor"></a>concurve 2.0.1<small> Unreleased </small>
 </h1>
-<div id="major-changes-8" class="section level2">
+<div id="major-changes-9" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-changes-8" class="anchor"></a>Major changes</h2>
+<a href="#major-changes-9" class="anchor"></a>Major changes</h2>
 <ul>
 <li>
 <code><a href="../reference/defunct.html">plot_concurve()</a></code> now has “measure” as an item which allows for ratio measures to be logarithmically scaled on the x axis. There are two options, “default”, which is set as the default option and is for mean differences, and “ratio”, which will result in the axis being logarithmically scaled.</li>
@@ -428,9 +450,9 @@
 <h1 class="page-header" data-toc-text="2.0">
 <a href="#concurve-20" class="anchor"></a>concurve 2.0<small> 2019-07-10 </small>
 </h1>
-<div id="major-changes-9" class="section level2">
+<div id="major-changes-10" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-changes-9" class="anchor"></a>Major changes</h2>
+<a href="#major-changes-10" class="anchor"></a>Major changes</h2>
 <ul>
 <li>The <code><a href="../reference/defunct.html">plotpint()</a></code> function which plotted consonance functions has been repackaged into <code><a href="../reference/defunct.html">ggconcurve()</a></code>.</li>
 <li>The <code><a href="../reference/defunct.html">plotsint()</a></code> function which plotted surprisal functions has been repackaged into <code><a href="../reference/defunct.html">ggconcurve()</a></code>.</li>
@@ -446,9 +468,9 @@
 <h1 class="page-header" data-toc-text="1.08">
 <a href="#concurve-108" class="anchor"></a>concurve 1.08<small> Unreleased </small>
 </h1>
-<div id="major-changes-10" class="section level2">
+<div id="major-changes-11" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-changes-10" class="anchor"></a>Major changes</h2>
+<a href="#major-changes-11" class="anchor"></a>Major changes</h2>
 <ul>
 <li>Can produce consonance and surprisal functions for correlations via the <code><a href="../reference/defunct.html">corrintervals()</a></code> function.</li>
 <li>Now able to construct consonance and surprisal functions from the point estiate, and confidence limits via the <code><a href="../reference/defunct.html">rev_eng()</a></code> function.</li>
@@ -460,9 +482,9 @@
 <h1 class="page-header" data-toc-text="1.07">
 <a href="#concurve-107" class="anchor"></a>concurve 1.07<small> Unreleased </small>
 </h1>
-<div id="major-changes-11" class="section level2">
+<div id="major-changes-12" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-changes-11" class="anchor"></a>Major changes</h2>
+<a href="#major-changes-12" class="anchor"></a>Major changes</h2>
 <ul>
 <li>Can now produce consonance and surprisal functions for survival data produced with the <code>survival</code> package.</li>
 </ul>
@@ -472,9 +494,9 @@
 <h1 class="page-header" data-toc-text="1.06">
 <a href="#concurve-106" class="anchor"></a>concurve 1.06<small> Unreleased </small>
 </h1>
-<div id="major-changes-12" class="section level2">
+<div id="major-changes-13" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-changes-12" class="anchor"></a>Major changes</h2>
+<a href="#major-changes-13" class="anchor"></a>Major changes</h2>
 <ul>
 <li>Now contains <a href="https://data.lesslikely.com/concurve/articles/stata.html">documentation</a> for producing interval functons in <code>Stata</code>.</li>
 </ul>
@@ -505,7 +527,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

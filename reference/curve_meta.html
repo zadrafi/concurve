@@ -106,7 +106,7 @@ corresponding p-values and s-values." />
       </button>
       <span class="navbar-brand"><img src="https://data.lesslikely.com/concurve/reference/figures/logo.svg" id ="package-logo" align="left" width="35">
         <a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.6</span>
       </span>
     </div>
 
@@ -129,7 +129,10 @@ corresponding p-values and s-values." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/examples.html">Examples in R</a>
+      <a href="../articles/examples.html">Simple Examples in R</a>
+    </li>
+    <li>
+      <a href="../articles/logistic.html">Logistic Regression</a>
     </li>
     <li>
       <a href="../articles/survival.html">Survival Modeling</a>
@@ -233,9 +236,9 @@ interval limits for each interval level into a data frame along with the
 corresponding p-values and s-values.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>curve_meta</span>(<span class='kw'>x</span>, measure = <span class='st'>"default"</span>, method = <span class='st'>"uni"</span>, parm = <span class='kw'>NULL</span>,
-  robust = <span class='fl'>FALSE</span>, cluster = <span class='kw'>NULL</span>, adjust = <span class='fl'>FALSE</span>, steps = <span class='fl'>1000</span>,
-  cores = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"mc.cores"</span>, <span class='fl'>1L</span>), table = <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>curve_meta</span><span class='op'>(</span><span class='va'>x</span>, measure <span class='op'>=</span> <span class='st'>"default"</span>, method <span class='op'>=</span> <span class='st'>"uni"</span>, parm <span class='op'>=</span> <span class='cn'>NULL</span>,
+  robust <span class='op'>=</span> <span class='cn'>FALSE</span>, cluster <span class='op'>=</span> <span class='cn'>NULL</span>, adjust <span class='op'>=</span> <span class='cn'>FALSE</span>, steps <span class='op'>=</span> <span class='fl'>1000</span>,
+  cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"mc.cores"</span>, <span class='fl'>1L</span><span class='op'>)</span>, table <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -308,60 +311,60 @@ object, the values needed to calculate the density function in the second,
 and the table for the values in the third if table = TRUE.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># Simulate random data for two groups in two studies</span>
-<span class='kw'>GroupAData</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>20</span>, min = <span class='fl'>0</span>, max = <span class='fl'>100</span>)
-<span class='kw'>GroupAMean</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='kw'>GroupAData</span>), digits = <span class='fl'>2</span>)
-<span class='kw'>GroupASD</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span>(<span class='kw'>GroupAData</span>), digits = <span class='fl'>2</span>)
+<span class='va'>GroupAData</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>20</span>, min <span class='op'>=</span> <span class='fl'>0</span>, max <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>
+<span class='va'>GroupAMean</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>GroupAData</span><span class='op'>)</span>, digits <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+<span class='va'>GroupASD</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span><span class='op'>(</span><span class='va'>GroupAData</span><span class='op'>)</span>, digits <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
 
-<span class='kw'>GroupBData</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>20</span>, min = <span class='fl'>0</span>, max = <span class='fl'>100</span>)
-<span class='kw'>GroupBMean</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='kw'>GroupBData</span>), digits = <span class='fl'>2</span>)
-<span class='kw'>GroupBSD</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span>(<span class='kw'>GroupBData</span>), digits = <span class='fl'>2</span>)
+<span class='va'>GroupBData</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>20</span>, min <span class='op'>=</span> <span class='fl'>0</span>, max <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>
+<span class='va'>GroupBMean</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>GroupBData</span><span class='op'>)</span>, digits <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+<span class='va'>GroupBSD</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span><span class='op'>(</span><span class='va'>GroupBData</span><span class='op'>)</span>, digits <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
 
-<span class='kw'>GroupCData</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>20</span>, min = <span class='fl'>0</span>, max = <span class='fl'>100</span>)
-<span class='kw'>GroupCMean</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='kw'>GroupCData</span>), digits = <span class='fl'>2</span>)
-<span class='kw'>GroupCSD</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span>(<span class='kw'>GroupCData</span>), digits = <span class='fl'>2</span>)
+<span class='va'>GroupCData</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>20</span>, min <span class='op'>=</span> <span class='fl'>0</span>, max <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>
+<span class='va'>GroupCMean</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>GroupCData</span><span class='op'>)</span>, digits <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+<span class='va'>GroupCSD</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span><span class='op'>(</span><span class='va'>GroupCData</span><span class='op'>)</span>, digits <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
 
-<span class='kw'>GroupDData</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>20</span>, min = <span class='fl'>0</span>, max = <span class='fl'>100</span>)
-<span class='kw'>GroupDMean</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='kw'>GroupDData</span>), digits = <span class='fl'>2</span>)
-<span class='kw'>GroupDSD</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span>(<span class='kw'>GroupDData</span>), digits = <span class='fl'>2</span>)
+<span class='va'>GroupDData</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>20</span>, min <span class='op'>=</span> <span class='fl'>0</span>, max <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>
+<span class='va'>GroupDMean</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>GroupDData</span><span class='op'>)</span>, digits <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+<span class='va'>GroupDSD</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span><span class='op'>(</span><span class='va'>GroupDData</span><span class='op'>)</span>, digits <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
 
 <span class='co'># Combine the data</span>
 
-<span class='kw'>StudyName</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Study1"</span>, <span class='st'>"Study2"</span>)
-<span class='kw'>MeanTreatment</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>GroupAMean</span>, <span class='kw'>GroupCMean</span>)
-<span class='kw'>MeanControl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>GroupBMean</span>, <span class='kw'>GroupDMean</span>)
-<span class='kw'>SDTreatment</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>GroupASD</span>, <span class='kw'>GroupCSD</span>)
-<span class='kw'>SDControl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>GroupBSD</span>, <span class='kw'>GroupDSD</span>)
-<span class='kw'>NTreatment</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>20</span>, <span class='fl'>20</span>)
-<span class='kw'>NControl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>20</span>, <span class='fl'>20</span>)
+<span class='va'>StudyName</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Study1"</span>, <span class='st'>"Study2"</span><span class='op'>)</span>
+<span class='va'>MeanTreatment</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>GroupAMean</span>, <span class='va'>GroupCMean</span><span class='op'>)</span>
+<span class='va'>MeanControl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>GroupBMean</span>, <span class='va'>GroupDMean</span><span class='op'>)</span>
+<span class='va'>SDTreatment</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>GroupASD</span>, <span class='va'>GroupCSD</span><span class='op'>)</span>
+<span class='va'>SDControl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>GroupBSD</span>, <span class='va'>GroupDSD</span><span class='op'>)</span>
+<span class='va'>NTreatment</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>20</span><span class='op'>)</span>
+<span class='va'>NControl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>20</span><span class='op'>)</span>
 
-<span class='kw'>metadf</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
-  <span class='kw'>StudyName</span>, <span class='kw'>MeanTreatment</span>, <span class='kw'>MeanControl</span>,
-  <span class='kw'>SDTreatment</span>, <span class='kw'>SDControl</span>, <span class='kw'>NTreatment</span>, <span class='kw'>NControl</span>
-)
+<span class='va'>metadf</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
+  <span class='va'>StudyName</span>, <span class='va'>MeanTreatment</span>, <span class='va'>MeanControl</span>,
+  <span class='va'>SDTreatment</span>, <span class='va'>SDControl</span>, <span class='va'>NTreatment</span>, <span class='va'>NControl</span>
+<span class='op'>)</span>
 
 <span class='co'># Use metafor to calculate the standardized mean difference</span>
 
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='http://www.metafor-project.org'>metafor</a></span>)
-</div><div class='output co'>#&gt; <span class='message'>Loading required package: Matrix</span></div><div class='output co'>#&gt; <span class='message'>Loading 'metafor' package (version 2.4-0). For an overview </span>
-#&gt; <span class='message'>and introduction to the package please type: help(metafor).</span></div><div class='input'>
-<span class='kw'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/metafor/man/escalc.html'>escalc</a></span>(
-  measure = <span class='st'>"SMD"</span>, m1i = <span class='kw'>MeanTreatment</span>, sd1i = <span class='kw'>SDTreatment</span>,
-  n1i = <span class='kw'>NTreatment</span>, m2i = <span class='kw'>MeanControl</span>, sd2i = <span class='kw'>SDControl</span>,
-  n2i = <span class='kw'>NControl</span>, data = <span class='kw'>metadf</span>
-)
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://www.metafor-project.org'>metafor</a></span><span class='op'>)</span>
+
+<span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://wviechtb.github.io/metafor/reference/escalc.html'>escalc</a></span><span class='op'>(</span>
+  measure <span class='op'>=</span> <span class='st'>"SMD"</span>, m1i <span class='op'>=</span> <span class='va'>MeanTreatment</span>, sd1i <span class='op'>=</span> <span class='va'>SDTreatment</span>,
+  n1i <span class='op'>=</span> <span class='va'>NTreatment</span>, m2i <span class='op'>=</span> <span class='va'>MeanControl</span>, sd2i <span class='op'>=</span> <span class='va'>SDControl</span>,
+  n2i <span class='op'>=</span> <span class='va'>NControl</span>, data <span class='op'>=</span> <span class='va'>metadf</span>
+<span class='op'>)</span>
 
 <span class='co'># Pool the data using a particular method. Here "FE" is the fixed-effects model</span>
 
-<span class='kw'>res</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/metafor/man/rma.uni.html'>rma</a></span>(<span class='kw'>yi</span>, <span class='kw'>vi</span>,
-  data = <span class='kw'>dat</span>, slab = <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='kw'>StudyName</span>, sep = <span class='st'>", "</span>),
-  method = <span class='st'>"FE"</span>, digits = <span class='fl'>2</span>
-)
+<span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://wviechtb.github.io/metafor/reference/rma.uni.html'>rma</a></span><span class='op'>(</span><span class='va'>yi</span>, <span class='va'>vi</span>,
+  data <span class='op'>=</span> <span class='va'>dat</span>, slab <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='va'>StudyName</span>, sep <span class='op'>=</span> <span class='st'>", "</span><span class='op'>)</span>,
+  method <span class='op'>=</span> <span class='st'>"FE"</span>, digits <span class='op'>=</span> <span class='fl'>2</span>
+<span class='op'>)</span>
 
 <span class='co'># Calculate the intervals using the metainterval function</span>
 
-<span class='kw'>metaf</span> <span class='op'>&lt;-</span> <span class='fu'>curve_meta</span>(<span class='kw'>res</span>)
+<span class='va'>metaf</span> <span class='op'>&lt;-</span> <span class='fu'>curve_meta</span><span class='op'>(</span><span class='va'>res</span><span class='op'>)</span>
+<span class='op'>}</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -378,7 +381,7 @@ and the table for the values in the third if table = TRUE.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
