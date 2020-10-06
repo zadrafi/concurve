@@ -40,11 +40,12 @@
 #' and the table for the values in the third if table = TRUE.
 #'
 #' @examples
-#'
+#' \dontrun{
 #' # From a real published study. Point estimate of the result was hazard ratio of 1.61 and
 #' # lower bound of the interval is 0.997 while upper bound of the interval is 2.59.
 #' #
 #' df <- curve_rev(point = 1.61, LL = 0.997, UL = 2.59, measure = "ratio")
+#' }
 #' @seealso [ggcurve()]
 #' @seealso [curve_compare()]
 #' @seealso [plot_compare()]

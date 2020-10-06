@@ -22,7 +22,7 @@ Here are some to-dos for `concurve` in the future.
   - "Convergence tests check whether iterative fitting procedures have actually reached a solution."
   - "Identification tests check whether the solution is unique, and stable under small perturbations to the data."
   * * * 
-* Make `curve_rev()` more usable for a wide range of scenarios (beyond proportions, and normal approximations). The confidence functions they produce especially break down with continuous variables, so I have completely disabled the option for now, and will implement a much more difficult, but correct way to get confidence functions mostly by working backwards from the deviance and log-likelihood functions.
+* Make `curve_rev()` more usable for a wide range of scenarios (beyond proportions, and normal approximations). The confidence functions they produce especially break down with continuous variables, so I have completely disabled the option for now, and will implement an approach by working backwards from the deviance and log-likelihood functions.
 * * * 
 * Produce consonance/confidence functions for quantile regressions from the `quantreg` package
 * Implementation with the `nlme` package, although that has already started with some experimental work I and the other developers have done with the generalized least squares method from `nlme`. 

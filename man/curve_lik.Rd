@@ -24,7 +24,6 @@ object, and the table for the values in the second if table = TRUE.
 Compute Profile Likelihood Functions
 }
 \examples{
-
 library(ProfileLikelihood)
 data(dataglm)
 xx <- profilelike.glm(y ~ x1 + x2, dataglm, profile.theta = "group", binomial("logit"))

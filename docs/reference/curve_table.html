@@ -104,7 +104,7 @@ for functions produced from the concurve package." />
       </button>
       <span class="navbar-brand"><img src="https://data.lesslikely.com/concurve/reference/figures/logo.svg" id ="package-logo" align="left" width="35">
         <a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.6</span>
       </span>
     </div>
 
@@ -127,7 +127,10 @@ for functions produced from the concurve package." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/examples.html">Examples in R</a>
+      <a href="../articles/examples.html">Simple Examples in R</a>
+    </li>
+    <li>
+      <a href="../articles/logistic.html">Logistic Regression</a>
     </li>
     <li>
       <a href="../articles/survival.html">Survival Modeling</a>
@@ -178,7 +181,7 @@ for functions produced from the concurve package." />
       <a href="../news/index.html">Package Updates</a>
     </li>
     <li>
-      <a href="../security.html">Supported Versions</a>
+      <a href="../SECURITY.html">Supported Versions</a>
     </li>
     <li>
       <a href="../articles/wishlist.html">Feature Wish List</a>
@@ -229,7 +232,7 @@ for functions produced from the concurve package." />
 for functions produced from the concurve package.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>curve_table</span>(<span class='kw'>data</span>, <span class='kw'>levels</span>, type = <span class='st'>"c"</span>, format = <span class='st'>"data.frame"</span>)</pre>
+    <pre class="usage"><span class='fu'>curve_table</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>levels</span>, type <span class='op'>=</span> <span class='st'>"c"</span>, format <span class='op'>=</span> <span class='st'>"data.frame"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -264,67 +267,21 @@ creates a table for powerpoint), "latex", (which creates a table for a TeX docum
 <p><code><a href='plot_compare.html'>plot_compare()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://data.lesslikely.com/concurve'>concurve</a></span>)
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://data.lesslikely.com/concurve/'>concurve</a></span><span class='op'>)</span>
 
-<span class='kw'>GroupA</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>500</span>)
-<span class='kw'>GroupB</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>500</span>)
+<span class='va'>GroupA</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>500</span><span class='op'>)</span>
+<span class='va'>GroupB</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>500</span><span class='op'>)</span>
 
-<span class='kw'>RandomData</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>GroupA</span>, <span class='kw'>GroupB</span>)
+<span class='va'>RandomData</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='va'>GroupA</span>, <span class='va'>GroupB</span><span class='op'>)</span>
 
-<span class='kw'>intervalsdf</span> <span class='op'>&lt;-</span> <span class='fu'><a href='curve_mean.html'>curve_mean</a></span>(<span class='kw'>GroupA</span>, <span class='kw'>GroupB</span>, data = <span class='kw'>RandomData</span>, method = <span class='st'>"default"</span>)
+<span class='va'>intervalsdf</span> <span class='op'>&lt;-</span> <span class='fu'><a href='curve_mean.html'>curve_mean</a></span><span class='op'>(</span><span class='va'>GroupA</span>, <span class='va'>GroupB</span>, data <span class='op'>=</span> <span class='va'>RandomData</span>, method <span class='op'>=</span> <span class='st'>"default"</span><span class='op'>)</span>
 
-(<span class='kw'>z</span> <span class='op'>&lt;-</span> <span class='fu'>curve_table</span>(<span class='kw'>intervalsdf</span>[[<span class='fl'>1</span>]], format = <span class='st'>"data.frame"</span>))
-</div><div class='output co'>#&gt;      Lower Limit Upper Limit Interval Width Interval Level (%)   CDF P-value
-#&gt; 2501      -0.015       0.025          0.039               25.0 0.625   0.750
-#&gt; 5001      -0.037       0.046          0.083               50.0 0.750   0.500
-#&gt; 7501      -0.066       0.076          0.142               75.0 0.875   0.250
-#&gt; 8001      -0.074       0.084          0.158               80.0 0.900   0.200
-#&gt; 8501      -0.084       0.094          0.177               85.0 0.925   0.150
-#&gt; 9001      -0.096       0.106          0.203               90.0 0.950   0.100
-#&gt; 9501      -0.116       0.126          0.241               95.0 0.975   0.050
-#&gt; 9751      -0.133       0.143          0.276               97.5 0.988   0.025
-#&gt; 9901      -0.154       0.164          0.318               99.0 0.995   0.010
-#&gt;      S-value (bits)
-#&gt; 2501          0.415
-#&gt; 5001          1.000
-#&gt; 7501          2.000
-#&gt; 8001          2.322
-#&gt; 8501          2.737
-#&gt; 9001          3.322
-#&gt; 9501          4.322
-#&gt; 9751          5.322
-#&gt; 9901          6.644</div><div class='input'>(<span class='kw'>z</span> <span class='op'>&lt;-</span> <span class='fu'>curve_table</span>(<span class='kw'>intervalsdf</span>[[<span class='fl'>1</span>]], format = <span class='st'>"latex"</span>))
-</div><div class='output co'>#&gt; 
-#&gt; 
-#&gt; |     | Lower Limit| Upper Limit| Interval Width| Interval Level (%)|   CDF| P-value| S-value (bits)|
-#&gt; |:----|-----------:|-----------:|--------------:|------------------:|-----:|-------:|--------------:|
-#&gt; |2501 |      -0.015|       0.025|          0.039|               25.0| 0.625|   0.750|          0.415|
-#&gt; |5001 |      -0.037|       0.046|          0.083|               50.0| 0.750|   0.500|          1.000|
-#&gt; |7501 |      -0.066|       0.076|          0.142|               75.0| 0.875|   0.250|          2.000|
-#&gt; |8001 |      -0.074|       0.084|          0.158|               80.0| 0.900|   0.200|          2.322|
-#&gt; |8501 |      -0.084|       0.094|          0.177|               85.0| 0.925|   0.150|          2.737|
-#&gt; |9001 |      -0.096|       0.106|          0.203|               90.0| 0.950|   0.100|          3.322|
-#&gt; |9501 |      -0.116|       0.126|          0.241|               95.0| 0.975|   0.050|          4.322|
-#&gt; |9751 |      -0.133|       0.143|          0.276|               97.5| 0.988|   0.025|          5.322|
-#&gt; |9901 |      -0.154|       0.164|          0.318|               99.0| 0.995|   0.010|          6.644|</div><div class='input'>(<span class='kw'>z</span> <span class='op'>&lt;-</span> <span class='fu'>curve_table</span>(<span class='kw'>intervalsdf</span>[[<span class='fl'>1</span>]], format = <span class='st'>"image"</span>))
-</div><div class='output co'>#&gt; a flextable object.
-#&gt; col_keys: `Lower Limit`, `Upper Limit`, `Interval Width`, `Interval Level (%)`, `CDF`, `P-value`, `S-value (bits)` 
-#&gt; header has 1 row(s) 
-#&gt; body has 9 row(s) 
-#&gt; original dataset sample: 
-#&gt;      Lower Limit Upper Limit Interval Width Interval Level (%)   CDF P-value
-#&gt; 2501      -0.015       0.025          0.039                 25 0.625    0.75
-#&gt; 5001      -0.037       0.046          0.083                 50 0.750    0.50
-#&gt; 7501      -0.066       0.076          0.142                 75 0.875    0.25
-#&gt; 8001      -0.074       0.084          0.158                 80 0.900    0.20
-#&gt; 8501      -0.084       0.094          0.177                 85 0.925    0.15
-#&gt;      S-value (bits)
-#&gt; 2501          0.415
-#&gt; 5001          1.000
-#&gt; 7501          2.000
-#&gt; 8001          2.322
-#&gt; 8501          2.737</div></pre>
+<span class='op'>(</span><span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'>curve_table</span><span class='op'>(</span><span class='va'>intervalsdf</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>, format <span class='op'>=</span> <span class='st'>"data.frame"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>(</span><span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'>curve_table</span><span class='op'>(</span><span class='va'>intervalsdf</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>, format <span class='op'>=</span> <span class='st'>"latex"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>(</span><span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'>curve_table</span><span class='op'>(</span><span class='va'>intervalsdf</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>, format <span class='op'>=</span> <span class='st'>"image"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -340,7 +297,7 @@ creates a table for powerpoint), "latex", (which creates a table for a TeX docum
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

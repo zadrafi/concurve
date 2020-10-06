@@ -3,7 +3,8 @@
 #' Computes thousands of consonance (confidence) intervals for
 #' the chosen parameter in the selected lme4 model and places
 #' the interval limits for each interval level into a data frame along
-#' with the corresponding p-values and s-values.
+#' with the corresponding p-values and s-values.. It is generally
+#' recommended to wrap this function using suppressMessages() due to the long list of profiling messages
 #'
 #' @param object The statistical model of interest from lme4 is to be indicated here.
 #' @param parm The variable of interest from the model (coefficients, intercept)

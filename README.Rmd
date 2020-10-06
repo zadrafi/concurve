@@ -13,8 +13,8 @@ output: github_document
 [![Total Downloads](https://cranlogs.r-pkg.org/badges/grand-total/concurve)](https://cran.r-project.org/package=concurve)
 [![Rdoc](http://www.rdocumentation.org/badges/version/concurve)](http://www.rdocumentation.org/packages/concurve)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![R build status](https://github.com/zadrafi/concurve/workflows/R-CMD-check/badge.svg)](https://github.com/zadrafi/concurve/actions)
 [![Travis build status](https://travis-ci.com/zadrafi/concurve.svg?branch=master)](https://travis-ci.com/zadrafi/concurve)
+[![Codecov test coverage](https://codecov.io/gh/zadrafi/concurve/branch/master/graph/badge.svg)](https://codecov.io/gh/zadrafi/concurve?branch=master)
 <!-- badges: end -->
 
 #### [Compute & Graph](https://data.lesslikely.com/concurve/reference/ggcurve.html)  Confidence Distributions and Likelihood Functions
@@ -73,6 +73,7 @@ install.packages("concurve", repos = "https://cloud.r-project.org/", dep = TRUE)
 * **[Background Literature](https://data.lesslikely.com/concurve/articles/literature.html)**
 * **[Customizing Plots](https://data.lesslikely.com/concurve/articles/customizing.html)**
 * **[Examples in R](https://data.lesslikely.com/concurve/articles/examples.html)**
+* **[Logistic Regression in R](https://data.lesslikely.com/concurve/articles/logistic.html)**
 * **[Profile Likelihoods](https://data.lesslikely.com/concurve/articles/likelihood.html)**
 * **[Meta-Analysis Examples](https://data.lesslikely.com/concurve/articles/meta-analysis.html)**
 * **[Using Stata](https://data.lesslikely.com/concurve/articles/stata.html)**

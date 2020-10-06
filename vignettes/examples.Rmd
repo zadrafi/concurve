@@ -65,7 +65,7 @@ head(intervalsdf[[1]], 10)
 That gives us a very comprehensive table, but it can be difficult to parse through, so luckily, we can view a graphical function using the `ggcurve()` function. The basic arguments that must be provided are the data argument and the "type" argument. To plot a consonance/confidence function, we would write "`c`". 
 
 ```{r echo=TRUE, fig.height=4.5, fig.width=6}
-(function1 <- ggcurve(data = intervalsdf[[1]], type = "c", nullvalue = TRUE))
+(function1 <- ggcurve(data = intervalsdf[[1]], type = "c", nullvalue = NULL))
 ```
 
 We can see that the consonance "curve" is every interval estimate plotted, and provides the _P_-values, CIs, along with the **median unbiased estimate** It can be defined as such,
@@ -85,7 +85,7 @@ We can also view the consonance distribution by changing the type to "`cdf`", wh
 
 
 ```{r echo=TRUE, fig.height=4.5, fig.width=6}
-(function1s <- ggcurve(data = intervalsdf[[2]], type = "cdf", nullvalue = TRUE))
+(function1s <- ggcurve(data = intervalsdf[[2]], type = "cdf", nullvalue = NULL))
 ```
 
 We can also get relevant statistics that show the range of values by using the `curve_table()` function. The tables can also be exported in several formats such as .docx, .ppt, images, and TeX files. 
@@ -111,7 +111,7 @@ randomframe <- curve_gen(model, "GroupB2")
 Once again, we'll plot this data with `ggcurve()`. We can also indicate whether we want certain interval estimates to be plotted in the function with the "`levels`" argument. If we wanted to plot the **50**%, **75**%, and **95**% intervals, we'd provide the argument this way: 
 
 ```{r echo=TRUE, fig.height=4.5, fig.width=6}
-(function2 <- ggcurve(type = "c", randomframe[[1]], levels = c(0.50, 0.75, 0.95), nullvalue = TRUE))
+(function2 <- ggcurve(type = "c", randomframe[[1]], levels = c(0.50, 0.75, 0.95), nullvalue = NULL))
 ```
 
 Now that we have two datasets, and two functions, we can compare them using the `plot_compare()` function.
@@ -145,9 +145,9 @@ Here I take the reported effect estimates from both studies, the confidence limi
 
 ```{r echo=TRUE, fig.height=4.5, fig.width=6}
 curve1 <- curve_rev(point = 1.7, LL = 1.1, UL = 2.6, type = "c", measure = "ratio", steps = 10000)
-(ggcurve(data = curve1[[1]], type = "c", measure = "ratio", nullvalue = TRUE))
+(ggcurve(data = curve1[[1]], type = "c", measure = "ratio", nullvalue = c(1)))
 curve2 <- curve_rev(point = 1.61, LL = 0.997, UL = 2.59, type = "c", measure = "ratio", steps = 10000)
-(ggcurve(data = curve2[[1]], type = "c", measure = "ratio", nullvalue = TRUE))
+(ggcurve(data = curve2[[1]], type = "c", measure = "ratio", nullvalue = c(1)))
 ```
 
 The null value is shown via the red line and a large portion of bnoth of the confidence curves are away from it. We can also see this by plotting the likelihood functions via the `curve_rev()` function. 
@@ -156,9 +156,9 @@ We can specify that we want a likelihood function using curve_rev() by specifyin
 
 ```{r echo=TRUE, fig.height=4.5, fig.width=6}
 lik1 <- curve_rev(point = 1.7, LL = 1.1, UL = 2.6, type = "l", measure = "ratio", steps = 10000)
-(ggcurve(data = lik1[[1]], type = "l1", measure = "ratio", nullvalue = TRUE))
+(ggcurve(data = lik1[[1]], type = "l1", measure = "ratio", nullvalue = c(1)))
 lik2 <- curve_rev(point = 1.61, LL = 0.997, UL = 2.59, type = "l", measure = "ratio", steps = 10000)
-(ggcurve(data = lik2[[1]], type = "l1", measure = "ratio", nullvalue = TRUE))
+(ggcurve(data = lik2[[1]], type = "l1", measure = "ratio", nullvalue = c(1)))
 ```
 
 We can also view the amount of agreement between the likelihood functions of these two studies using the plot_compare function and producing areas shared between the curves. 

@@ -62,7 +62,8 @@
 <meta property="og:description" content="Computes thousands of consonance (confidence) intervals for
 the chosen parameter in the selected lme4 model and places
 the interval limits for each interval level into a data frame along
-with the corresponding p-values and s-values." />
+with the corresponding p-values and s-values.. It is generally
+recommended to wrap this function using suppressMessages() due to the long list of profiling messages" />
 <meta property="og:image" content="https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/reference/figures/logo.svg,concurve R package hex-logo" />
 <meta name="twitter:card" content="summary" />
 
@@ -106,7 +107,7 @@ with the corresponding p-values and s-values." />
       </button>
       <span class="navbar-brand"><img src="https://data.lesslikely.com/concurve/reference/figures/logo.svg" id ="package-logo" align="left" width="35">
         <a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.6</span>
       </span>
     </div>
 
@@ -129,7 +130,10 @@ with the corresponding p-values and s-values." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/examples.html">Examples in R</a>
+      <a href="../articles/examples.html">Simple Examples in R</a>
+    </li>
+    <li>
+      <a href="../articles/logistic.html">Logistic Regression</a>
     </li>
     <li>
       <a href="../articles/survival.html">Survival Modeling</a>
@@ -180,7 +184,7 @@ with the corresponding p-values and s-values." />
       <a href="../news/index.html">Package Updates</a>
     </li>
     <li>
-      <a href="../security.html">Supported Versions</a>
+      <a href="../SECURITY.html">Supported Versions</a>
     </li>
     <li>
       <a href="../articles/wishlist.html">Feature Wish List</a>
@@ -230,12 +234,13 @@ with the corresponding p-values and s-values." />
     <p>Computes thousands of consonance (confidence) intervals for
 the chosen parameter in the selected lme4 model and places
 the interval limits for each interval level into a data frame along
-with the corresponding p-values and s-values.</p>
+with the corresponding p-values and s-values.. It is generally
+recommended to wrap this function using suppressMessages() due to the long list of profiling messages</p>
     </div>
 
-    <pre class="usage"><span class='fu'>curve_lmer</span>(<span class='kw'>object</span>, <span class='kw'>parm</span>, method = <span class='st'>"profile"</span>, zeta = <span class='kw'>NULL</span>, nsim = <span class='kw'>NULL</span>,
-  FUN = <span class='kw'>NULL</span>, boot.type = <span class='kw'>NULL</span>, steps = <span class='fl'>1000</span>,
-  cores = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"mc.cores"</span>, <span class='fl'>1L</span>), table = <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>curve_lmer</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>parm</span>, method <span class='op'>=</span> <span class='st'>"profile"</span>, zeta <span class='op'>=</span> <span class='cn'>NULL</span>, nsim <span class='op'>=</span> <span class='cn'>NULL</span>,
+  FUN <span class='op'>=</span> <span class='cn'>NULL</span>, boot.type <span class='op'>=</span> <span class='cn'>NULL</span>, steps <span class='op'>=</span> <span class='fl'>1000</span>,
+  cores <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"mc.cores"</span>, <span class='fl'>1L</span><span class='op'>)</span>, table <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -325,7 +330,7 @@ and the table for the values in the third if table = TRUE.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

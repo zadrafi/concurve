@@ -5,7 +5,7 @@
 \title{Plots Consonance, Surprisal, and Likelihood Functions}
 \usage{
 ggcurve(data, type = "c", measure = "default", levels = 0.95,
-  nullvalue = NULL, position = "pyramid", title = "Interval Function",
+  nullvalue = NULL, position = "pyramid", title = "Consonance Function",
   subtitle = "The function displays intervals at every level.",
   xaxis = expression(theta == ~"Range of Values"),
   yaxis1 = expression(paste(italic(p), "-value")),
@@ -94,7 +94,7 @@ the interval estimates to produce a p-value/s-value function
 using ggplot2 graphics.
 }
 \examples{
-
+\dontrun{
 # Simulate random data
 
 library(concurve)
@@ -104,8 +104,9 @@ GroupB <- rnorm(500)
 
 RandomData <- data.frame(GroupA, GroupB)
 
-intervalsdf <- curve_mean(GroupA, GroupB, data = RandomData, method = "default")
-ggcurve(type = "c", intervalsdf[[1]], nullvalue = TRUE)
+intervalsdf <- suppressMessages(curve_mean(GroupA, GroupB, data = RandomData, method = "default"))
+ggcurve(type = "c", intervalsdf[[1]], nullvalue =c(0))
+}
 }
 \seealso{
 \code{\link[=plot_compare]{plot_compare()}}

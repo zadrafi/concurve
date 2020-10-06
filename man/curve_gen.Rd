@@ -4,8 +4,9 @@
 \alias{curve_gen}
 \title{Consonance Functions For Linear Models, Generalized Linear Models, and Robust Linear Models}
 \usage{
-curve_gen(model, var, method = "lm", penalty = NULL, m = NULL,
-  steps = 1000, cores = getOption("mc.cores", 1L), table = TRUE)
+curve_gen(model, var, method = "lm", log = FALSE, penalty = NULL,
+  m = NULL, steps = 1000, cores = getOption("mc.cores", 1L),
+  table = TRUE)
 }
 \arguments{
 \item{model}{The statistical model of interest
@@ -27,6 +28,11 @@ The "glm" method allows this function to be used for specific scenarios like
 logistic regression and the 'glm' function. Similarly, the Glm function from the
 rms package can also be used for this option. The gls method allows objects from gls()
 or from Gls() from the rms package.}
+
+\item{log}{Determines whether the coefficients will be exponentiated or not. By default,
+it is off and set to FALSE or F, but changing this to TRUE or T, will exponentiate the results
+which may be useful if trying to view the results from a logistic regression on a scale that is not
+logarithmic.}
 
 \item{penalty}{An input to specify whether the confidence intervals should be corrected
 for multiple comparisons. The default is NULL, so there is no correction. Other options include
@@ -59,11 +65,11 @@ Computes thousands of consonance (confidence) intervals for
 the chosen parameter in the selected model
 (linear models, general linear models, robust linear models, and generalized least squares and places
 the interval limits for each interval level into a data frame along
-with the corresponding p-values and s-values. Can also adjust for multiple comparisons.
+with the corresponding p-values and s-values. Can also adjust for multiple comparisons. It is generally
+recommended to wrap this function using suppressMessages() due to the long list of profiling messages.
 }
 \examples{
-
-\donttest{
+\dontrun{
 # Simulate random data
 GroupA <- rnorm(50)
 GroupB <- rnorm(50)

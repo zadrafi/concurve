@@ -60,7 +60,7 @@ interval limits for each interval level into a data frame along with the
 corresponding p-values and s-values.
 }
 \examples{
-
+\dontrun{
 # Simulate random data for two groups in two studies
 GroupAData <- runif(20, min = 0, max = 100)
 GroupAMean <- round(mean(GroupAData), digits = 2)
@@ -113,4 +113,5 @@ res <- rma(yi, vi,
 # Calculate the intervals using the metainterval function
 
 metaf <- curve_meta(res)
+}
 }

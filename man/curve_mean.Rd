@@ -52,10 +52,11 @@ limits for each interval level into a data frame along with the corresponding
 p-values and s-values.
 }
 \examples{
-
+\dontrun{
 # Simulate random data
 GroupA <- runif(100, min = 0, max = 100)
 GroupB <- runif(100, min = 0, max = 100)
 RandomData <- data.frame(GroupA, GroupB)
 bob <- curve_mean(GroupA, GroupB, RandomData)
+}
 }

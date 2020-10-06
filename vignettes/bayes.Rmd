@@ -80,7 +80,7 @@ Although the code above demonstrates this, one of the best visualization tools t
 
 However, despite these differences in interpretation, Bayesian and frequentist intervals often end up converging, especially when there are large amounts of data. They also end up converging when a Bayesian posterior distribution is computed with a flat or weakly informative prior. However, there are several problems with using flat priors, such as giving equal weight to all values in the interval including implausible ones. These sorts of priors should generally be avoided. However, for the sake of this demonstration, we will be using flat priors.
 
-Here, I demonstrate with a simple example how Bayesian posterior distributions and frequentist confidence functions end up converging in some scenarios. For these first few examples, I'll be using the `rstanarm` package.[@Goodrich_Gabry_Ali_Brilleman_2020] 
+Here, I demonstrate with a simple example how Bayesian posterior distributions and frequentist confidence functions end up converging in some scenarios. For these first few examples, I'll be using the `rstanarm` package.[@goodrichRstanarmBayesianApplied2020] 
 
 ```{r echo=TRUE}
 library(concurve)

@@ -14,7 +14,7 @@
 #' \tabular{ll}{ Package: \tab concurve\cr
 #'  Logo: \tab \figure{logo.png}{options: width="50px"}\cr
 #'   Type: \tab Package\cr Version: \tab
-#' 2.7.5\cr Date: \tab 2020-08-09\cr License: \tab GLP-3}
+#' 2.7.6\cr Date: \tab 2020-10-05\cr License: \tab GLP-3}
 #' @details
 #' Accepts most modeling functions that produce confidence intervals to construct distributions.
 #' Instructions are also provided on how to construct similar graphs for [Stata](https://data.lesslikely.com/concurve/articles/stata.html).
@@ -24,6 +24,7 @@
 #'  * **[Background Literature](https://data.lesslikely.com/concurve/articles/literature.html)**
 #'  * **[Customizing Plots](https://data.lesslikely.com/concurve/articles/customizing.html)**
 #'  * **[Examples in R](https://data.lesslikely.com/concurve/articles/examples.html)**
+#'  * **[Logistic Regression in R](https://data.lesslikely.com/concurve/articles/logistic.html)**
 #'  * **[Profile Likelihoods](https://data.lesslikely.com/concurve/articles/likelihood.html)**
 #'  * **[Meta-Analysis Examples](https://data.lesslikely.com/concurve/articles/meta-analysis.html)**
 #'  * **[Using Stata](https://data.lesslikely.com/concurve/articles/stata.html)**
@@ -37,7 +38,7 @@
 #' “Semantic and Cognitive Tools to Aid Statistical Science:
 #' Replace Confidence and Significance by Compatibility and Surprise"
 #' BMC Medical Research Methodology
-#' <https://arxiv.org/abs/1909.08579>
+#' <https://doi.org/10.1186/s12874-020-01105-9>
 #' @references Fraser DAS. The P-value function and statistical inference. The American Statistician. 2019;73(sup1):135-147. doi:10.1080/00031305.2018.1556735
 #' <https://doi.org/10.1080/00031305.2018.1556735>
 #' @references Fraser DAS. P-Values: The Insight to Modern Statistical Inference. Annual Review of Statistics and Its Application. 2017;4(1):1-14.

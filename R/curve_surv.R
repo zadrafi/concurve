@@ -26,8 +26,7 @@
 #' and the table for the values in the third if table = TRUE.
 #'
 #' @examples
-#'
-#'
+#' \dontrun{
 #' library(carData)
 #' Rossi[1:5, 1:10]
 #' library(survival)
@@ -38,6 +37,7 @@
 #' mod.allison
 #'
 #' z <- curve_surv(mod.allison, "prio")
+#' }
 curve_surv <- function(data, x, steps = 10000, cores = getOption("mc.cores", 1L), table = TRUE) {
   if (is.list(data) != TRUE) {
     stop("Error: 'data' must be an object with a Cox Proportional Hazards model")

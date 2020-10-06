@@ -25,7 +25,7 @@ Produces publication-ready tables with relevant statistics of interest
 for functions produced from the concurve package.
 }
 \examples{
-
+\dontrun{
 library(concurve)
 
 GroupA <- rnorm(500)
@@ -38,6 +38,7 @@ intervalsdf <- curve_mean(GroupA, GroupB, data = RandomData, method = "default")
 (z <- curve_table(intervalsdf[[1]], format = "data.frame"))
 (z <- curve_table(intervalsdf[[1]], format = "latex"))
 (z <- curve_table(intervalsdf[[1]], format = "image"))
+}
 }
 \seealso{
 \code{\link[=ggcurve]{ggcurve()}}

@@ -64,6 +64,7 @@ use_build_ignore("wishlist.Rmd", escape = TRUE)
 use_build_ignore("stata", escape = TRUE)
 use_build_ignore("SECURITY.md", escape = TRUE)
 use_build_ignore("CODE_OF_CONDUCT.md", escape = TRUE)
+use_build_ignore("concurve.pdf", escape = TRUE)
 
 use_spell_check(vignettes = TRUE, lang = "en-US", error = FALSE)
 use_cran_comments(open = interactive())
@@ -103,9 +104,10 @@ check(
   force_suggests = FALSE, run_dont_test = FALSE, args = c('--as-cran','--timings'),
   build_args = c('--compact-vignettes'),
   quiet = FALSE, check_dir = tempdir(),
-  vignettes = FALSE, error_on = c("never", "error", "warning", "note")
+  vignettes = TRUE, error_on = c("never", "error", "warning", "note")
 )
 
 
-pkgdown::build_site()
 pkgdown::clean_site()
+pkgdown::build_site()
+

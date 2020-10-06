@@ -16,7 +16,7 @@ such as 95\%.
 \tabular{ll}{ Package: \tab concurve\cr
 Logo: \tab \figure{logo.png}{options: width="50px"}\cr
 Type: \tab Package\cr Version: \tab
-2.7.5\cr Date: \tab 2020-08-09\cr License: \tab GLP-3}
+2.7.6\cr Date: \tab 2020-10-05\cr License: \tab GLP-3}
 }
 \details{
 Accepts most modeling functions that produce confidence intervals to construct distributions.
@@ -28,6 +28,7 @@ Instructions are also provided on how to construct similar graphs for \href{http
 \item \strong{\href{https://data.lesslikely.com/concurve/articles/literature.html}{Background Literature}}
 \item \strong{\href{https://data.lesslikely.com/concurve/articles/customizing.html}{Customizing Plots}}
 \item \strong{\href{https://data.lesslikely.com/concurve/articles/examples.html}{Examples in R}}
+\item \strong{\href{https://data.lesslikely.com/concurve/articles/logistic.html}{Logistic Regression in R}}
 \item \strong{\href{https://data.lesslikely.com/concurve/articles/likelihood.html}{Profile Likelihoods}}
 \item \strong{\href{https://data.lesslikely.com/concurve/articles/meta-analysis.html}{Meta-Analysis Examples}}
 \item \strong{\href{https://data.lesslikely.com/concurve/articles/stata.html}{Using Stata}}
@@ -45,7 +46,7 @@ Rafi, Z., and Greenland, S. (2020),
 “Semantic and Cognitive Tools to Aid Statistical Science:
 Replace Confidence and Significance by Compatibility and Surprise"
 BMC Medical Research Methodology
-\url{https://arxiv.org/abs/1909.08579}
+\url{https://doi.org/10.1186/s12874-020-01105-9}
 
 Fraser DAS. The P-value function and statistical inference. The American Statistician. 2019;73(sup1):135-147. doi:10.1080/00031305.2018.1556735
 \url{https://doi.org/10.1080/00031305.2018.1556735}

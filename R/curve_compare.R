@@ -17,7 +17,7 @@
 #' @param ... Can be used to pass further arguments to plot_compare().
 #' @return Computes an AUC score and returns a plot that graphs two functions.
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' library(concurve)
 #' GroupA <- rnorm(50)
 #' GroupB <- rnorm(50)

@@ -16,10 +16,10 @@ Downloads](https://cranlogs.r-pkg.org/badges/grand-total/concurve)](https://cran
 [![Rdoc](http://www.rdocumentation.org/badges/version/concurve)](http://www.rdocumentation.org/packages/concurve)
 [![License: GPL
 v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![R build
-status](https://github.com/zadrafi/concurve/workflows/R-CMD-check/badge.svg)](https://github.com/zadrafi/concurve/actions)
 [![Travis build
 status](https://travis-ci.com/zadrafi/concurve.svg?branch=master)](https://travis-ci.com/zadrafi/concurve)
+[![Codecov test
+coverage](https://codecov.io/gh/zadrafi/concurve/branch/master/graph/badge.svg)](https://codecov.io/gh/zadrafi/concurve?branch=master)
 <!-- badges: end -->
 
 #### [Compute & Graph](https://data.lesslikely.com/concurve/reference/ggcurve.html) Confidence Distributions and Likelihood Functions
@@ -86,6 +86,8 @@ Try the following script if you run into any installation issues:
     Plots](https://data.lesslikely.com/concurve/articles/customizing.html)**
 -   **[Examples in
     R](https://data.lesslikely.com/concurve/articles/examples.html)**
+-   **[Logistic Regression in
+    R](https://data.lesslikely.com/concurve/articles/logistic.html)**
 -   **[Profile
     Likelihoods](https://data.lesslikely.com/concurve/articles/likelihood.html)**
 -   **[Meta-Analysis
@@ -141,8 +143,9 @@ The package was currently run on:
     ## [1] stats     graphics  grDevices utils     datasets  methods   base     
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] compiler_4.0.2    magrittr_1.5      credentials_1.3.0 htmltools_0.5.0   tools_4.0.2       yaml_2.2.1        stringi_1.5.3    
-    ##  [8] rmarkdown_2.3     knitr_1.29        stringr_1.4.0     xfun_0.17         digest_0.6.25     rlang_0.4.7       openssl_1.4.2    
-    ## [15] sys_3.4           evaluate_0.14     askpass_1.1
+    ##  [1] compiler_4.0.2  magrittr_1.5    tools_4.0.2     htmltools_0.5.0
+    ##  [5] yaml_2.2.1      stringi_1.5.3   rmarkdown_2.4   knitr_1.30     
+    ##  [9] stringr_1.4.0   xfun_0.18       digest_0.6.25   rlang_0.4.7    
+    ## [13] evaluate_0.14
 
 ------------------------------------------------------------------------

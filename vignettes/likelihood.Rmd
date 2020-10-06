@@ -27,7 +27,7 @@ knitr::opts_chunk$set(
 library(concurve)
 ```
 
-For this example, we'll explore the `curve_lik()` function, which can help generate profile likelihood functions, and deviance functions with the help of the [`ProfileLikelihood`](https://cran.r-project.org/package=ProfileLikelihood) package.[@Choi_2011]. For an introduction to what profile likelihoods are, [see the following paper.](https://doi.org/10.1093/aje/kwt245)[@coleMaximumLikelihoodProfile2013]  
+For this example, we'll explore the `curve_lik()` function, which can help generate profile likelihood functions, and deviance functions with the help of the [`ProfileLikelihood`](https://cran.r-project.org/package=ProfileLikelihood) package.[@choiProfileLikelihoodProfileLikelihood2011]. For an introduction to what profile likelihoods are, [see the following paper.](https://doi.org/10.1093/aje/kwt245)[@coleMaximumLikelihoodProfile2013]  
 
 ```{r echo=TRUE, fig.height=4.5, fig.width=6}
 library(ProfileLikelihood)
@@ -47,7 +47,6 @@ Then, we’ll use `curve_lik()` on the object that the [`ProfileLikelihood`](htt
 
 ```{r echo=TRUE, fig.height=4.5, fig.width=6}
 lik <- curve_lik(xx, data = dataglm)
-lik
 ```
 
 Next, we’ll plot four functions, the relative likelihood, the log-likelihood, the likelihood, and the deviance function. 
