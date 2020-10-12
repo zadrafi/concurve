@@ -1,5 +1,5 @@
 
-### <span style="color:#000; font-weight: 400;">concurve</span> \| Graph Interval Functions </strong> <img src="man/figures/logo.svg" align="right" width="70"/>
+### <span style="color:#000; font-weight: 400;">`concurve`</span> \| Graph Frequentist Distributions of Parameters </strong> <img src="man/figures/logo.svg" align="right" width="70"/>
 
 ------------------------------------------------------------------------
 
@@ -65,6 +65,14 @@ Sample image taken from Schweder T, Hjort NL. (2016)
 Try the following script if you run into any installation issues:
 
     install.packages("concurve", repos = "https://cloud.r-project.org/", dep = TRUE)
+
+Install the developer version from
+[GitHub](https://github.com/zadrafi/concurve/) using the following:
+
+    remotes::install_github("zadrafi/concurve@master", dependencies = TRUE)
+
+See which versions of the package are currently [supported
+here](articles/supported.html).
 
 ------------------------------------------------------------------------
 
@@ -143,9 +151,8 @@ The package was currently run on:
     ## [1] stats     graphics  grDevices utils     datasets  methods   base     
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] compiler_4.0.2  magrittr_1.5    tools_4.0.2     htmltools_0.5.0
-    ##  [5] yaml_2.2.1      stringi_1.5.3   rmarkdown_2.4   knitr_1.30     
-    ##  [9] stringr_1.4.0   xfun_0.18       digest_0.6.25   rlang_0.4.7    
-    ## [13] evaluate_0.14
+    ##  [1] compiler_4.0.2    magrittr_1.5      credentials_1.3.0 htmltools_0.5.0   tools_4.0.2       yaml_2.2.1        stringi_1.5.3    
+    ##  [8] rmarkdown_2.4     knitr_1.30        stringr_1.4.0     xfun_0.18         digest_0.6.25     rlang_0.4.7       openssl_1.4.3    
+    ## [15] sys_3.4           evaluate_0.14     askpass_1.1
 
 ------------------------------------------------------------------------

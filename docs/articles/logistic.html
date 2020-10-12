@@ -48,7 +48,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand"><img src="https://data.lesslikely.com/concurve/reference/figures/logo.svg" id="package-logo" align="left" width="35"><a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.7</span>
       </span>
     </div>
 
@@ -108,11 +108,20 @@
     </li>
   </ul>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Misc
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
 <li>
-  <a href="../articles/literature.html">Literature</a>
+      <a href="../articles/svalues.html">Surprisal values</a>
+    </li>
+  </ul>
 </li>
 <li>
-  <a href="../articles/svalues.html">S-values</a>
+  <a href="../articles/literature.html">Literature</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -125,7 +134,7 @@
       <a href="../news/index.html">Package Updates</a>
     </li>
     <li>
-      <a href="../SECURITY.html">Supported Versions</a>
+      <a href="../articles/supported.html">Supported Versions</a>
     </li>
     <li>
       <a href="../articles/wishlist.html">Feature Wish List</a>
@@ -198,19 +207,19 @@
 ## glm(formula = Y ~ X, family = binomial(link = "logit"), data = mydata1)
 ## 
 ## Deviance Residuals: 
-##     Min       1Q   Median       3Q      Max  
-## -1.2226  -1.0519  -0.9969   1.2794   1.4169  
+##    Min      1Q  Median      3Q     Max  
+## -1.459  -1.136  -0.889   1.167   1.497  
 ## 
 ## Coefficients:
 ##             Estimate Std. Error z value Pr(&gt;|z|)
-## (Intercept)  -0.2906     0.2030  -1.432    0.152
-## X             0.1370     0.1999   0.686    0.493
+## (Intercept) -0.02064    0.20301  -0.102    0.919
+## X            0.35394    0.22524   1.571    0.116
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 136.66  on 99  degrees of freedom
-## Residual deviance: 136.19  on 98  degrees of freedom
-## AIC: 140.19
+##     Null deviance: 138.59  on 99  degrees of freedom
+## Residual deviance: 136.02  on 98  degrees of freedom
+## AIC: 140.02
 ## 
 ## Number of Fisher Scoring iterations: 4</code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit">
@@ -336,11 +345,13 @@
 ## Rafi Z, Vigotsky A (2020). _concurve: Computes and Plots Compatibility
 ## (Confidence) Intervals, P-Values, S-Values, &amp; Likelihood Intervals to
 ## Form Consonance, Surprisal, &amp; Likelihood Functions_. R package version
-## 2.7.6, &lt;URL: https://CRAN.R-project.org/package=concurve&gt;.
+## 2.7.7, &lt;URL: https://CRAN.R-project.org/package=concurve&gt;.
 ## 
-## Rafi Z, Greenland S (2020). _Semantic and Cognitive Tools to Aid
+## Rafi Z, Greenland S (2020). "Semantic and Cognitive Tools to Aid
 ## Statistical Science: Replace Confidence and Significance by
-## Compatibility and Surprise_, series Technical Advance. &lt;URL:
+## Compatibility and Surprise." _BMC Medical Research Methodology_, *20*,
+## 244. ISSN 1471-2288, doi: 10.1186/s12874-020-01105-9 (URL:
+## https://doi.org/10.1186/s12874-020-01105-9), &lt;URL:
 ## https://doi.org/10.1186/s12874-020-01105-9&gt;.
 ## 
 ## To see these entries in BibTeX format, use 'print(&lt;citation&gt;,

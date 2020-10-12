@@ -26,11 +26,11 @@
 <meta property="og:description" content="Computes compatibility (confidence) distributions along with their corresponding P-values,
     S-values, and likelihoods. The intervals can be plotted to form the distributions themselves.  
     Functions can be compared to one another to see how much they overlap. Results can be
-    exported to Microsoft Word, Powerpoint, and TeX documents. The
-    package currently supports resampling methods, computing differences,
-    generalized linear models, mixed-effects models, survival analysis,
-    and meta-analysis. These methods are discussed by Schweder T, Hjort NL. (2016, ISBN:9781316445051) 
-    and Rafi Z, Greenland S. (2020) &lt;doi:10.1186/s12874-020-01105-9&gt;.">
+    exported to Microsoft Word, Powerpoint, and TeX documents. The package currently supports 
+    resampling methods, computing differences, generalized linear models, mixed-effects models, 
+    survival analysis, and meta-analysis. These methods are discussed 
+    by Schweder T, Hjort NL. (2016, ISBN:9781316445051) and 
+    Rafi Z, Greenland S. (2020) &lt;doi:10.1186/s12874-020-01105-9&gt;.">
 <meta property="og:image" content="https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/reference/figures/logo.svg,concurve R package hex-logo">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -56,7 +56,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand"><img src="https://data.lesslikely.com/concurve/reference/figures/logo.svg" id="package-logo" align="left" width="35"><a class="navbar-link" href="index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.7</span>
       </span>
     </div>
 
@@ -116,11 +116,20 @@
     </li>
   </ul>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Misc
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
 <li>
-  <a href="articles/literature.html">Literature</a>
+      <a href="articles/svalues.html">Surprisal values</a>
+    </li>
+  </ul>
 </li>
 <li>
-  <a href="articles/svalues.html">S-values</a>
+  <a href="articles/literature.html">Literature</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -133,7 +142,7 @@
       <a href="news/index.html">Package Updates</a>
     </li>
     <li>
-      <a href="SECURITY.html">Supported Versions</a>
+      <a href="articles/supported.html">Supported Versions</a>
     </li>
     <li>
       <a href="articles/wishlist.html">Feature Wish List</a>
@@ -173,9 +182,9 @@
       </header><div class="row">
   <div class="contents col-md-9">
 
-<div id="concurve--graph-interval-functions--" class="section level3">
+<div id="concurve--graph-frequentist-distributions-of-parameters--" class="section level3">
 <h3 class="hasAnchor">
-<a href="#concurve--graph-interval-functions--" class="anchor"></a><span style="color:#000; font-weight: 400;">concurve</span> | Graph Interval Functions  <img src="reference/figures/logo.svg" align="right" width="70">
+<a href="#concurve--graph-frequentist-distributions-of-parameters--" class="anchor"></a><span style="color:#000; font-weight: 400;"><code>concurve</code></span> | Graph Frequentist Distributions of Parameters  <img src="reference/figures/logo.svg" align="right" width="70">
 </h3>
 <hr>
 <!-- badges: start -->
@@ -215,6 +224,9 @@ Sample image taken from Schweder T, Hjort NL. (2016)
 <div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">install.packages</span>(<span class="st">"concurve"</span>)</span></code></pre></div>
 <p>Try the following script if you run into any installation issues:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="kw">install.packages</span>(<span class="st">"concurve"</span>, <span class="dt">repos =</span> <span class="st">"https://cloud.r-project.org/"</span>, <span class="dt">dep =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p>Install the developer version from <a href="https://github.com/zadrafi/concurve/">GitHub</a> using the following:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"zadrafi/concurve@master"</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p>See which versions of the package are currently <a href="articles/supported.html">supported here</a>.</p>
 <hr>
 </div>
 </center>
@@ -255,7 +267,7 @@ Sample image taken from Schweder T, Hjort NL. (2016)
 <h3 class="hasAnchor">
 <a href="#citation" class="anchor"></a>Citation</h3>
 <p>To properly cite the package, please see the <a href="file:///Users/zad/Desktop/GitHub/concurve/docs/authors.html">following page</a> or run the R script below.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="kw">citation</span>(<span class="st">"concurve"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="kw">citation</span>(<span class="st">"concurve"</span>)</span></code></pre></div>
 <hr>
 </div>
 <div id="code-of-conduct" class="section level3">
@@ -266,25 +278,24 @@ Sample image taken from Schweder T, Hjort NL. (2016)
 <h5 class="hasAnchor">
 <a href="#environment" class="anchor"></a>Environment</h5>
 <p>The package was currently run on:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="co">## R version 4.0.2 (2020-06-22)</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="co">## Platform: x86_64-apple-darwin17.0 (64-bit)</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a><span class="co">## Running under: macOS Catalina 10.15.6</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a><span class="co">## </span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a><span class="co">## Matrix products: default</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a><span class="co">## BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a><span class="co">## LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true"></a><span class="co">## </span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true"></a><span class="co">## locale:</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true"></a><span class="co">## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true"></a><span class="co">## </span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true"></a><span class="co">## attached base packages:</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true"></a><span class="co">## [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true"></a><span class="co">## </span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true"></a><span class="co">## loaded via a namespace (and not attached):</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true"></a><span class="co">##  [1] compiler_4.0.2  magrittr_1.5    tools_4.0.2     htmltools_0.5.0</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true"></a><span class="co">##  [5] yaml_2.2.1      stringi_1.5.3   rmarkdown_2.4   knitr_1.30     </span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true"></a><span class="co">##  [9] stringr_1.4.0   xfun_0.18       digest_0.6.25   rlang_0.4.7    </span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true"></a><span class="co">## [13] evaluate_0.14</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="co">## R version 4.0.2 (2020-06-22)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="co">## Platform: x86_64-apple-darwin17.0 (64-bit)</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a><span class="co">## Running under: macOS Catalina 10.15.6</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a><span class="co">## </span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a><span class="co">## Matrix products: default</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a><span class="co">## BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a><span class="co">## LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a><span class="co">## </span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true"></a><span class="co">## locale:</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true"></a><span class="co">## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true"></a><span class="co">## </span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true"></a><span class="co">## attached base packages:</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true"></a><span class="co">## [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true"></a><span class="co">## </span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true"></a><span class="co">## loaded via a namespace (and not attached):</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true"></a><span class="co">##  [1] compiler_4.0.2    magrittr_1.5      credentials_1.3.0 htmltools_0.5.0   tools_4.0.2       yaml_2.2.1        stringi_1.5.3    </span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true"></a><span class="co">##  [8] rmarkdown_2.4     knitr_1.30        stringr_1.4.0     xfun_0.18         digest_0.6.25     rlang_0.4.7       openssl_1.4.3    </span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true"></a><span class="co">## [15] sys_3.4           evaluate_0.14     askpass_1.1</span></span></code></pre></div>
 <hr>
 </div>
 </div>

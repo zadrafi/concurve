@@ -5,7 +5,7 @@
   ],
   "@type": "SoftwareSourceCode",
   "identifier": "concurve",
-  "description": "Computes compatibility (confidence) distributions along with their corresponding P-values,\n    S-values, and likelihoods. The intervals can be plotted to form the distributions themselves.  \n    Functions can be compared to one another to see how much they overlap. Results can be\n    exported to Microsoft Word, Powerpoint, and TeX documents. The\n    package currently supports resampling methods, computing differences,\n    generalized linear models, mixed-effects models, survival analysis,\n    and meta-analysis. These methods are discussed by Schweder T, Hjort NL. (2016, ISBN:9781316445051) \n    and Rafi Z, Greenland S. (2020) <doi:10.1186/s12874-020-01105-9>.",
+  "description": "Computes compatibility (confidence) distributions along with their corresponding P-values,\n    S-values, and likelihoods. The intervals can be plotted to form the distributions themselves.  \n    Functions can be compared to one another to see how much they overlap. Results can be\n    exported to Microsoft Word, Powerpoint, and TeX documents. The package currently supports \n    resampling methods, computing differences, generalized linear models, mixed-effects models, \n    survival analysis, and meta-analysis. These methods are discussed \n    by Schweder T, Hjort NL. (2016, ISBN:9781316445051) and \n    Rafi Z, Greenland S. (2020) <doi:10.1186/s12874-020-01105-9>.",
   "name": "concurve: Computes & Plots Compatibility (Confidence),\n       Surprisal, & Likelihood Distributions",
   "date": "2019-12-09",
   "codeRepository": "https://github.com/zadrafi/concurve",
@@ -16,13 +16,13 @@
   ],
   "issueTracker": "https://github.com/zadrafi/concurve/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "2.7.6",
+  "version": "2.7.7",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.0.2 (2020-06-22)",
+  "runtimePlatform": "R version 4.0.3 (2020-10-10)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -321,11 +321,6 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "Statamarkdown",
-      "name": "Statamarkdown"
-    },
-    {
-      "@type": "SoftwareApplication",
       "identifier": "reprex",
       "name": "reprex",
       "provider": {
@@ -572,7 +567,7 @@
     }
   ],
   "keywords": ["confidence", "compatibility", "consonance", "curve", "informationstatistics", "surprisals", "interval", "function", "distribution", "fiducial", "confidence-intervals", "compatibility-intervals", "stata", "confidence-distribution", "likelihood-functions", "bootstrap-method", "r", "frequentist-methods", "fiducial-distribution", "density-function", "cumulative-distribution-function", "surprisal-function", "deviance-function"],
-  "fileSize": "95669.861KB",
+  "fileSize": "99399.821KB",
   "contIntegration": ["https://travis-ci.com/zadrafi/concurve", "https://codecov.io/gh/zadrafi/concurve?branch=master"],
   "readme": "https://github.com/zadrafi/concurve/blob/master/README.md",
   "contributor": [
@@ -606,7 +601,7 @@
       "url": "https://CRAN.R-project.org/package=concurve"
     },
     {
-      "@type": "SoftwareSourceCode",
+      "@type": "ScholarlyArticle",
       "datePublished": "2020",
       "author": [
         {
@@ -621,12 +616,17 @@
         }
       ],
       "name": "Semantic and Cognitive Tools to Aid Statistical Science: Replace Confidence and Significance by Compatibility and Surprise",
+      "identifier": "10.1186/s12874-020-01105-9",
       "url": "https://doi.org/10.1186/s12874-020-01105-9",
+      "pagination": "244",
+      "@id": "https://doi.org/10.1186/s12874-020-01105-9",
+      "sameAs": "https://doi.org/10.1186/s12874-020-01105-9",
       "isPartOf": {
         "@type": "PublicationIssue",
         "datePublished": "2020",
         "isPartOf": {
           "@type": ["PublicationVolume", "Periodical"],
+          "volumeNumber": "20",
           "name": "BMC Medical Research Methodology"
         }
       }

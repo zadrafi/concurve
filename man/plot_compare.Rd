@@ -9,9 +9,8 @@ plot_compare(data1, data2, type = "c", measure = "default",
   subtitle = "The function displays intervals at every level.",
   xaxis = expression(theta == ~"Range of Values"),
   yaxis1 = expression(paste(italic(p), "-value")),
-  yaxis2 = "Levels for CI (\%)", color1 = darken("#D55E00", 0.4),
-  color2 = darken("#009E73", 0.4), fill1 = "#D55E0050",
-  fill2 = "#009E7350")
+  yaxis2 = "Levels for CI (\%)", color1 = darken("#D55E00", 0.2),
+  color2 = darken("#009E73", 0.2), fill1 = "#99c7c7", fill2 = "#d46c5b")
 }
 \arguments{
 \item{data1}{The first dataframe produced by one of the interval functions in which the

@@ -48,7 +48,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand"><img src="https://data.lesslikely.com/concurve/reference/figures/logo.svg" id="package-logo" align="left" width="35"><a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.7</span>
       </span>
     </div>
 
@@ -108,11 +108,20 @@
     </li>
   </ul>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Misc
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
 <li>
-  <a href="../articles/literature.html">Literature</a>
+      <a href="../articles/svalues.html">Surprisal values</a>
+    </li>
+  </ul>
 </li>
 <li>
-  <a href="../articles/svalues.html">S-values</a>
+  <a href="../articles/literature.html">Literature</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -125,7 +134,7 @@
       <a href="../news/index.html">Package Updates</a>
     </li>
     <li>
-      <a href="../SECURITY.html">Supported Versions</a>
+      <a href="../articles/supported.html">Supported Versions</a>
     </li>
     <li>
       <a href="../articles/wishlist.html">Feature Wish List</a>
@@ -260,8 +269,8 @@ Log likelihood   = -678.4632599                   BIC             =   3.98e+08
 ------------------------------------------------------------------------------
 Deviance: 1356.927.
 
-. twoway (fpfitci price mpg, estcmd(glm) fcolor(dkorange%20) alcolor(%40))  || scatter pri
-&gt; ce mpg, mcolor(dkorange) scale(0.75)
+. twoway (fpfitci price mpg, estcmd(glm) fcolor(dkorange%20) alcolor(%40))  || scatter price mpg, mcolor(dkorange) sca
+&gt; le(0.75)
 
 . graph export "mfp.svg", replace 
 (file mfp.svg written in SVG format)</code></pre>
@@ -455,7 +464,7 @@ A BibTeX entry for LaTeX users is
 <div id="session-info" class="section level1">
 <h1 class="hasAnchor">
 <a href="#session-info" class="anchor"></a>Session info</h1>
-<pre><code>R version 4.0.2 (2020-06-22)
+<pre><code>R version 4.0.3 (2020-10-10)
 Platform: x86_64-apple-darwin17.0 (64-bit)
 Running under: macOS Catalina 10.15.6
 
@@ -475,11 +484,11 @@ other attached packages:
 loaded via a namespace (and not attached):
  [1] rprojroot_1.3-2   digest_0.6.25     crayon_1.3.4.9000 assertthat_0.2.1 
  [5] R6_2.4.1          backports_1.1.10  magrittr_1.5      evaluate_0.14    
- [9] stringi_1.5.3     rlang_0.4.7       rstudioapi_0.11   fs_1.5.0         
-[13] ragg_0.3.1        rmarkdown_2.4     pkgdown_1.6.1     desc_1.2.0       
-[17] tools_4.0.2       stringr_1.4.0     yaml_2.2.1        xfun_0.18        
-[21] compiler_4.0.2    systemfonts_0.3.2 memoise_1.1.0     htmltools_0.5.0  
-[25] knitr_1.30       </code></pre>
+ [9] stringi_1.5.3     rlang_0.4.8       rstudioapi_0.11   fs_1.5.0         
+[13] ragg_0.4.0        rmarkdown_2.4     pkgdown_1.6.1     textshaping_0.1.2
+[17] desc_1.2.0        tools_4.0.3       stringr_1.4.0     yaml_2.2.1       
+[21] xfun_0.18         compiler_4.0.3    systemfonts_0.3.2 memoise_1.1.0    
+[25] htmltools_0.5.0   knitr_1.30       </code></pre>
 </div>
   </div>
 

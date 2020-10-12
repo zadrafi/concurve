@@ -34,7 +34,7 @@ development:
 
 navbar:
   structure:
-    left:  [home, intro, reference, articles, literature, tools, news]
+    left:  [home, intro, reference, articles, misc, literature, tools, news]
     right: [github, twitter]
 
   components:
@@ -71,19 +71,21 @@ navbar:
         href: articles/tables.html  
       - text: Troubleshooting
         href: articles/troubleshooting.html
+    misc:
+      text: Misc
+      menu:
+      - text: Surprisal values
+        href: articles/svalues.html  
     literature:
       text: Literature
       href: articles/literature.html
-    tools:
-      text: S-values
-      href: articles/svalues.html
     news:
       text: News
       menu:
       - text: Package Updates
         href: news/index.html
       - text: Supported Versions
-        href: SECURITY.html
+        href: articles/supported.html
       - text: Feature Wish List
         href: articles/wishlist.html
     github:
