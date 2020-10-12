@@ -2,7 +2,7 @@
 output: github_document
 ---
 
-### <span style="color:#000; font-weight: 400;">concurve</span> | Graph Interval Functions </strong> <img src="man/figures/logo.svg" align="right" width="70"/>
+### <span style="color:#000; font-weight: 400;">`concurve`</span> | Graph Frequentist Distributions of Parameters </strong> <img src="man/figures/logo.svg" align="right" width="70"/>
 
 * * * 
 
@@ -57,6 +57,14 @@ Try the following script if you run into any installation issues:
 ```{r eval=FALSE}
 install.packages("concurve", repos = "https://cloud.r-project.org/", dep = TRUE)
 ```
+
+Install the developer version from [GitHub](https://github.com/zadrafi/concurve/) using the following: 
+
+```{r eval=FALSE}
+remotes::install_github("zadrafi/concurve@master", dependencies = TRUE)
+```
+
+See which versions of the package are currently [supported here](articles/supported.html). 
 
 * * * 
 

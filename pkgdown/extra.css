@@ -54,8 +54,8 @@ a:focus {
 }
 
 h1, .h1 {
-  font-size: 25px;
-  font-weight: 900;
+  font-size: 27px;
+  
 }
 
 h1 small, .h1 small {
@@ -90,7 +90,7 @@ h4, .h4 {
 
 h4.date, h4.author {
   font-size: 1em;
-  color: #bbb;
+  color: #99c7c7;
   display: inline;
   padding-right: 0.5em;
 }

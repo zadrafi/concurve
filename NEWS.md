@@ -1,4 +1,4 @@
-# concurve 2.7.6
+# concurve 2.7.7
 ## Major changes 
 * `log` option added to `curve_gen()` to exponentiate the coefficients.
   - Thanks to [Isabella Ghement](https://twitter.com/IsabellaGhement) for finding the issue and notifying us about it.

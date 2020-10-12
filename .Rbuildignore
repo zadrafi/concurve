@@ -30,3 +30,6 @@
 ^\.github$
 ^Makefile$
 ^concurve\.pdf$
+^R&G2020\.Rmd$
+^supported\.Rmd$
+^~/concurve/vignettes/supported\.Rmd$

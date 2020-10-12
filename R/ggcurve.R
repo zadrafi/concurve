@@ -141,10 +141,10 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
       geom_point(data = interval, mapping = aes(x = limits, y = 1 - levels), size = 1.75, shape = 18) +
       geom_line(data = interval, mapping = aes(x = limits, y = 1 - levels, group = levels), size = .30) +
       geom_ribbon(aes(x = lower.limit, ymin = min(pvalue), ymax = pvalue),
-        fill = fill, alpha = 0.20
+        fill = fill, alpha = 0.10
       ) +
       geom_ribbon(aes(x = upper.limit, ymin = min(pvalue), ymax = pvalue),
-        fill = fill, alpha = 0.20
+        fill = fill, alpha = 0.10
       ) +
       labs(
         title = title,
@@ -234,10 +234,10 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
       geom_point(data = interval, mapping = aes(x = limits, y = (-log2(1 - levels))), size = 1.75, shape = 18) +
       geom_line(data = interval, mapping = aes(x = limits, y = (-log2(1 - levels)), group = levels), size = .30) +
       geom_ribbon(aes(x = lower.limit, ymin = max(svalue), ymax = svalue),
-        fill = fill, alpha = 0.20
+        fill = fill, alpha = 0.10
       ) +
       geom_ribbon(aes(x = upper.limit, ymin = max(svalue), ymax = svalue),
-        fill = fill, alpha = 0.20
+        fill = fill, alpha = 0.10
       ) +
       labs(
         title = title,
@@ -386,7 +386,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
 
     ggplot(data = data, mapping = aes(x = values, y = support)) +
       geom_line() +
-      geom_ribbon(aes(x = values, ymin = min(support), ymax = support), fill = fill, color = color, alpha = 0.20) +
+      geom_ribbon(aes(x = values, ymin = min(support), ymax = support), fill = fill, color = color, alpha = 0.10) +
       labs(
         title = title,
         subtitle = subtitle,
@@ -433,7 +433,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
 
     ggplot(data = data, mapping = aes(x = values, y = loglikelihood)) +
       geom_line() +
-      geom_ribbon(aes(x = values, ymin = min(loglikelihood), ymax = loglikelihood), fill = fill, color = color, alpha = 0.20) +
+      geom_ribbon(aes(x = values, ymin = min(loglikelihood), ymax = loglikelihood), fill = fill, color = color, alpha = 0.10) +
       labs(
         title = title,
         subtitle = subtitle,
@@ -481,7 +481,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
 
     ggplot(data = data, mapping = aes(x = values, y = likelihood)) +
       geom_line() +
-      geom_ribbon(aes(x = values, ymin = min(likelihood), ymax = likelihood), fill = fill, color = color, alpha = 0.20) +
+      geom_ribbon(aes(x = values, ymin = min(likelihood), ymax = likelihood), fill = fill, color = color, alpha = 0.10) +
       labs(
         title = title,
         subtitle = subtitle,
@@ -529,7 +529,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
 
     ggplot(data = data, mapping = aes(x = values, y = deviancestat)) +
       geom_line() +
-      geom_ribbon(aes(x = values, ymin = deviancestat, ymax = max(deviancestat)), fill = fill, color = color, alpha = 0.20) +
+      geom_ribbon(aes(x = values, ymin = deviancestat, ymax = max(deviancestat)), fill = fill, color = color, alpha = 0.10) +
       labs(
         title = title,
         subtitle = subtitle,

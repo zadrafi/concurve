@@ -1,8 +1,8 @@
-#' @title A description of the concurve R package
+#' @title A description of the `concurve` `R` package
 #' @name concurve-package
 #' @aliases concurve
 #' @docType package
-#' @author Zad Rafi, Andrew D. Vigotsky, and Aaron Caldwell
+#' @author [Zad Rafi](<https://twitter.com/dailyzad>), [Andrew D. Vigotsky](<https://www.researchgate.net/profile/Andrew_Vigotsky>)
 #' @description
 #' Allows one to compute compatibility (confidence)
 #' intervals for various statistical tests along with their corresponding
@@ -14,7 +14,7 @@
 #' \tabular{ll}{ Package: \tab concurve\cr
 #'  Logo: \tab \figure{logo.png}{options: width="50px"}\cr
 #'   Type: \tab Package\cr Version: \tab
-#' 2.7.6\cr Date: \tab 2020-10-05\cr License: \tab GLP-3}
+#' 2.7.7\cr Date: \tab 2020-10-07\cr License: \tab GLP-3}
 #' @details
 #' Accepts most modeling functions that produce confidence intervals to construct distributions.
 #' Instructions are also provided on how to construct similar graphs for [Stata](https://data.lesslikely.com/concurve/articles/stata.html).

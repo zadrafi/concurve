@@ -2,8 +2,8 @@ Type: Package
 Package: concurve
 Title: Computes & Plots Compatibility (Confidence),
        Surprisal, & Likelihood Distributions
-Version: 2.7.6
-Date: 2020-10-06
+Version: 2.7.7
+Date: 2020-10-12
 Authors@R: 
     c(person(given = "Zad",
              family = "Rafi",
@@ -24,11 +24,11 @@ Maintainer: Zad Rafi <zad@lesslikely.com>
 Description: Computes compatibility (confidence) distributions along with their corresponding P-values,
     S-values, and likelihoods. The intervals can be plotted to form the distributions themselves.  
     Functions can be compared to one another to see how much they overlap. Results can be
-    exported to Microsoft Word, Powerpoint, and TeX documents. The
-    package currently supports resampling methods, computing differences,
-    generalized linear models, mixed-effects models, survival analysis,
-    and meta-analysis. These methods are discussed by Schweder T, Hjort NL. (2016, ISBN:9781316445051) 
-    and Rafi Z, Greenland S. (2020) <doi:10.1186/s12874-020-01105-9>.
+    exported to Microsoft Word, Powerpoint, and TeX documents. The package currently supports 
+    resampling methods, computing differences, generalized linear models, mixed-effects models, 
+    survival analysis, and meta-analysis. These methods are discussed 
+    by Schweder T, Hjort NL. (2016, ISBN:9781316445051) and 
+    Rafi Z, Greenland S. (2020) <doi:10.1186/s12874-020-01105-9>.
 License: GPL-3 | file LICENSE
 URL: https://data.lesslikely.com/concurve/,
      https://github.com/zadrafi/concurve

@@ -48,7 +48,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand"><img src="https://data.lesslikely.com/concurve/reference/figures/logo.svg" id="package-logo" align="left" width="35"><a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.7.7</span>
       </span>
     </div>
 
@@ -108,11 +108,20 @@
     </li>
   </ul>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Misc
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
 <li>
-  <a href="../articles/literature.html">Literature</a>
+      <a href="../articles/svalues.html">Surprisal values</a>
+    </li>
+  </ul>
 </li>
 <li>
-  <a href="../articles/svalues.html">S-values</a>
+  <a href="../articles/literature.html">Literature</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -125,7 +134,7 @@
       <a href="../news/index.html">Package Updates</a>
     </li>
     <li>
-      <a href="../SECURITY.html">Supported Versions</a>
+      <a href="../articles/supported.html">Supported Versions</a>
     </li>
     <li>
       <a href="../articles/wishlist.html">Feature Wish List</a>
@@ -295,28 +304,28 @@
 <p>The interval function is quite narrow because there were so many iterations that were set by us.</p>
 <p>Here, we simulate a more complicated set of trials using the <code>simstudy</code> package.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">simstudy</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/kgoldfeld/simstudy">simstudy</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">parallel</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://svn.r-project.org/R-packages/trunk/nlme/">nlme</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://r-datatable.com">data.table</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://www.metafor-project.org">metafor</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://data.lesslikely.com/concurve/">concurve</a></span><span class="op">)</span>
 
-<span class="va">defS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/simstudy/man/defData.html">defData</a></span><span class="op">(</span>varname <span class="op">=</span> <span class="st">"a.k"</span>, formula <span class="op">=</span> <span class="fl">3</span>, variance <span class="op">=</span> <span class="fl">2</span>, id <span class="op">=</span> <span class="st">"study"</span><span class="op">)</span>
-<span class="va">defS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/simstudy/man/defData.html">defData</a></span><span class="op">(</span><span class="va">defS</span>, varname <span class="op">=</span> <span class="st">"d.0"</span>, formula <span class="op">=</span> <span class="fl">3</span>, dist <span class="op">=</span> <span class="st">"nonrandom"</span><span class="op">)</span>
-<span class="va">defS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/simstudy/man/defData.html">defData</a></span><span class="op">(</span><span class="va">defS</span>, varname <span class="op">=</span> <span class="st">"v.k"</span>, formula <span class="op">=</span> <span class="fl">0</span>, variance <span class="op">=</span> <span class="fl">6</span>, dist<span class="op">=</span> <span class="st">"normal"</span><span class="op">)</span>
-<span class="va">defS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/simstudy/man/defData.html">defData</a></span><span class="op">(</span><span class="va">defS</span>, varname <span class="op">=</span> <span class="st">"s2.k"</span>, formula <span class="op">=</span> <span class="fl">16</span>, variance <span class="op">=</span> <span class="fl">.2</span>, dist <span class="op">=</span> <span class="st">"gamma"</span><span class="op">)</span>
-<span class="va">defS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/simstudy/man/defData.html">defData</a></span><span class="op">(</span><span class="va">defS</span>, varname <span class="op">=</span> <span class="st">"size.study"</span>, formula <span class="op">=</span> <span class="st">".3;.5;.2"</span>, dist <span class="op">=</span> <span class="st">"categorical"</span><span class="op">)</span>
-<span class="va">defS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/simstudy/man/defData.html">defData</a></span><span class="op">(</span><span class="va">defS</span>, varname <span class="op">=</span> <span class="st">"n.study"</span>,
+<span class="va">defS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://kgoldfeld.github.io/simstudy/reference/defData.html">defData</a></span><span class="op">(</span>varname <span class="op">=</span> <span class="st">"a.k"</span>, formula <span class="op">=</span> <span class="fl">3</span>, variance <span class="op">=</span> <span class="fl">2</span>, id <span class="op">=</span> <span class="st">"study"</span><span class="op">)</span>
+<span class="va">defS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://kgoldfeld.github.io/simstudy/reference/defData.html">defData</a></span><span class="op">(</span><span class="va">defS</span>, varname <span class="op">=</span> <span class="st">"d.0"</span>, formula <span class="op">=</span> <span class="fl">3</span>, dist <span class="op">=</span> <span class="st">"nonrandom"</span><span class="op">)</span>
+<span class="va">defS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://kgoldfeld.github.io/simstudy/reference/defData.html">defData</a></span><span class="op">(</span><span class="va">defS</span>, varname <span class="op">=</span> <span class="st">"v.k"</span>, formula <span class="op">=</span> <span class="fl">0</span>, variance <span class="op">=</span> <span class="fl">6</span>, dist<span class="op">=</span> <span class="st">"normal"</span><span class="op">)</span>
+<span class="va">defS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://kgoldfeld.github.io/simstudy/reference/defData.html">defData</a></span><span class="op">(</span><span class="va">defS</span>, varname <span class="op">=</span> <span class="st">"s2.k"</span>, formula <span class="op">=</span> <span class="fl">16</span>, variance <span class="op">=</span> <span class="fl">.2</span>, dist <span class="op">=</span> <span class="st">"gamma"</span><span class="op">)</span>
+<span class="va">defS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://kgoldfeld.github.io/simstudy/reference/defData.html">defData</a></span><span class="op">(</span><span class="va">defS</span>, varname <span class="op">=</span> <span class="st">"size.study"</span>, formula <span class="op">=</span> <span class="st">".3;.5;.2"</span>, dist <span class="op">=</span> <span class="st">"categorical"</span><span class="op">)</span>
+<span class="va">defS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://kgoldfeld.github.io/simstudy/reference/defData.html">defData</a></span><span class="op">(</span><span class="va">defS</span>, varname <span class="op">=</span> <span class="st">"n.study"</span>,
                 formula <span class="op">=</span> <span class="st">"(size.study==1) * 20 + (size.study==2) * 40 + (size.study==3) * 60"</span>,
                 dist <span class="op">=</span> <span class="st">"poisson"</span><span class="op">)</span>
 
-<span class="va">defI</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/simstudy/man/defDataAdd.html">defDataAdd</a></span><span class="op">(</span>varname <span class="op">=</span> <span class="st">"y"</span>, formula <span class="op">=</span> <span class="st">"a.k + x * (d.0 + v.k)"</span>, variance <span class="op">=</span> <span class="st">"s2.k"</span><span class="op">)</span>
+<span class="va">defI</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://kgoldfeld.github.io/simstudy/reference/defDataAdd.html">defDataAdd</a></span><span class="op">(</span>varname <span class="op">=</span> <span class="st">"y"</span>, formula <span class="op">=</span> <span class="st">"a.k + x * (d.0 + v.k)"</span>, variance <span class="op">=</span> <span class="st">"s2.k"</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">RNGkind</a></span><span class="op">(</span>kind <span class="op">=</span> <span class="st">"L'Ecuyer-CMRG"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1031</span><span class="op">)</span>
 
-<span class="va">ds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/simstudy/man/genData.html">genData</a></span><span class="op">(</span><span class="fl">12</span>, <span class="va">defS</span><span class="op">)</span>
+<span class="va">ds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://kgoldfeld.github.io/simstudy/reference/genData.html">genData</a></span><span class="op">(</span><span class="fl">12</span>, <span class="va">defS</span><span class="op">)</span>
 <span class="va">ds</span>
 <span class="co">#&gt;     study      a.k d.0        v.k      s2.k size.study n.study</span>
 <span class="co">#&gt;  1:     1 4.745069   3 -5.1399796 16.275358          2      38</span>
@@ -332,9 +341,9 @@
 <span class="co">#&gt; 11:    11 1.607899   3  0.2178001  8.271145          2      48</span>
 <span class="co">#&gt; 12:    12 3.717728   3  1.8818612 11.274497          3      67</span>
 
-<span class="va">dc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/simstudy/man/genCluster.html">genCluster</a></span><span class="op">(</span><span class="va">ds</span>, <span class="st">"study"</span>, <span class="st">"n.study"</span>, <span class="st">"id"</span>, <span class="op">)</span>
-<span class="va">dc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/simstudy/man/trtAssign.html">trtAssign</a></span><span class="op">(</span><span class="va">dc</span>, strata <span class="op">=</span> <span class="st">"study"</span>, grpName <span class="op">=</span> <span class="st">"x"</span><span class="op">)</span>
-<span class="va">dc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/simstudy/man/addColumns.html">addColumns</a></span><span class="op">(</span><span class="va">defI</span>, <span class="va">dc</span><span class="op">)</span>
+<span class="va">dc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://kgoldfeld.github.io/simstudy/reference/genCluster.html">genCluster</a></span><span class="op">(</span><span class="va">ds</span>, <span class="st">"study"</span>, <span class="st">"n.study"</span>, <span class="st">"id"</span>, <span class="op">)</span>
+<span class="va">dc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://kgoldfeld.github.io/simstudy/reference/trtAssign.html">trtAssign</a></span><span class="op">(</span><span class="va">dc</span>, strata <span class="op">=</span> <span class="st">"study"</span>, grpName <span class="op">=</span> <span class="st">"x"</span><span class="op">)</span>
+<span class="va">dc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://kgoldfeld.github.io/simstudy/reference/addColumns.html">addColumns</a></span><span class="op">(</span><span class="va">defI</span>, <span class="va">dc</span><span class="op">)</span>
 
 
 <span class="va">d.obs</span> <span class="op">&lt;-</span> <span class="va">dc</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span><span class="va">study</span>, <span class="va">id</span>,<span class="va">s2.k</span>, <span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">]</span>
@@ -355,11 +364,13 @@
 <span class="co">#&gt; Rafi Z, Vigotsky A (2020). _concurve: Computes and Plots Compatibility</span>
 <span class="co">#&gt; (Confidence) Intervals, P-Values, S-Values, &amp; Likelihood Intervals to</span>
 <span class="co">#&gt; Form Consonance, Surprisal, &amp; Likelihood Functions_. R package version</span>
-<span class="co">#&gt; 2.7.6, &lt;URL: https://CRAN.R-project.org/package=concurve&gt;.</span>
+<span class="co">#&gt; 2.7.7, &lt;URL: https://CRAN.R-project.org/package=concurve&gt;.</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; Rafi Z, Greenland S (2020). _Semantic and Cognitive Tools to Aid</span>
+<span class="co">#&gt; Rafi Z, Greenland S (2020). "Semantic and Cognitive Tools to Aid</span>
 <span class="co">#&gt; Statistical Science: Replace Confidence and Significance by</span>
-<span class="co">#&gt; Compatibility and Surprise_, series Technical Advance. &lt;URL:</span>
+<span class="co">#&gt; Compatibility and Surprise." _BMC Medical Research Methodology_, *20*,</span>
+<span class="co">#&gt; 244. ISSN 1471-2288, doi: 10.1186/s12874-020-01105-9 (URL:</span>
+<span class="co">#&gt; https://doi.org/10.1186/s12874-020-01105-9), &lt;URL:</span>
 <span class="co">#&gt; https://doi.org/10.1186/s12874-020-01105-9&gt;.</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; To see these entries in BibTeX format, use 'print(&lt;citation&gt;,</span>
@@ -406,22 +417,19 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; To cite package 'simstudy' in publications use:</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;   Keith Goldfeld (2020). simstudy: Simulation of Study Data. R package</span>
-<span class="co">#&gt;   version 0.1.16. https://CRAN.R-project.org/package=simstudy</span>
+<span class="co">#&gt;   Keith Goldfeld and Jacob Wujciak-Jens (2020). simstudy: Simulation of</span>
+<span class="co">#&gt;   Study Data. R package version 0.2.1.</span>
+<span class="co">#&gt;   https://CRAN.R-project.org/package=simstudy</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; A BibTeX entry for LaTeX users is</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;   @Manual{,</span>
 <span class="co">#&gt;     title = {simstudy: Simulation of Study Data},</span>
-<span class="co">#&gt;     author = {Keith Goldfeld},</span>
+<span class="co">#&gt;     author = {Keith Goldfeld and Jacob Wujciak-Jens},</span>
 <span class="co">#&gt;     year = {2020},</span>
-<span class="co">#&gt;     note = {R package version 0.1.16},</span>
+<span class="co">#&gt;     note = {R package version 0.2.1},</span>
 <span class="co">#&gt;     url = {https://CRAN.R-project.org/package=simstudy},</span>
 <span class="co">#&gt;   }</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; ATTENTION: This citation information has been auto-generated from the</span>
-<span class="co">#&gt; package DESCRIPTION file and may need manual editing, see</span>
-<span class="co">#&gt; 'help("citation")'.</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span><span class="st">"nlme"</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Pinheiro J, Bates D, DebRoy S, Sarkar D, R Core Team (2020). _nlme:</span>

@@ -12,12 +12,16 @@ bibentry(
 
 
 bibentry(
-  bibtype = "Manual",
+  bibtype = "Article",
   title = "Semantic and Cognitive Tools to Aid Statistical Science: Replace Confidence and Significance by Compatibility and Surprise",
   author = c(person("Zad", "Rafi"), person("Sander", "Greenland")),
-  year = 2020,
+  year = "2020",
   journal = "BMC Medical Research Methodology",
   series = "Technical Advance",
+  volume= "20",
+  pages= "244",
+  issn = "1471-2288",
+  doi = "10.1186/s12874-020-01105-9",
   url = "https://doi.org/10.1186/s12874-020-01105-9"
 )
 
