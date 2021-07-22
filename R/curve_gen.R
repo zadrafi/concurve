@@ -24,7 +24,7 @@
 #' logistic regression and the 'glm' function. Similarly, the Glm function from the
 #' rms package can also be used for this option. The gls method allows objects from gls()
 #' or from Gls() from the rms package.
-#' @param log Determines whether the coefficients will be exponentiated or not. By default, 
+#' @param log Determines whether the coefficients will be exponentiated or not. By default,
 #' it is off and set to FALSE or F, but changing this to TRUE or T, will exponentiate the results
 #' which may be useful if trying to view the results from a logistic regression on a scale that is not
 #' logarithmic.
@@ -59,6 +59,111 @@
 #' bob <- curve_gen(rob, "GroupB")
 #' }
 #'
+#'
+
+if ((Sys.info()["sysname"]) == "Windows") {
+
+
+curve_gen <- function(model, var, method = "lm", log = FALSE, penalty = NULL, m = NULL,
+                      steps = 1000,  table = TRUE) {
+  if (is.character(method) != TRUE) {
+    stop("Error: 'method' must be a character vector")
+  }
+  if (is.numeric(steps) != TRUE) {
+    stop("Error: 'steps' must be a numeric vector")
+  }
+
+  intrvls <- (1:(steps - 1)) / steps
+
+  # No adjustment for multiple comparisons ----------------------------------
+
+  if (is.null(penalty) & is.null(m)) {
+    if (method == "lm") {
+      results <- lapply(intrvls, FUN = function(i) confint.default(object = model, level = i)[var, ])
+    } else if (method == "rlm") {
+      results <- lapply(intrvls, FUN = function(i) confint(object = model, level = i)[var, ])
+    } else if (method == "glm") {
+      results <- lapply(intrvls, FUN = function(i) confint(object = model, level = i, trace = FALSE)[var, ])
+    } else if (method == "aov") {
+      results <- lapply(intrvls, FUN = function(i) confint(object = model, level = i)[var, ])
+    } else if (method == "gls") {
+      results <- lapply(intrvls, FUN = function(i) confint.default(object = model, level = i)[var, ])
+    }
+
+    # Bonferroni adjustment for multiple comparisons --------------------------
+  } else if (penalty == "bonferroni" & m > 1) {
+    bon.adj <- (1 - ((1 - intrvls) / m))
+
+    if (method == "lm") {
+      results <- lapply(bon.adj, FUN = function(i) confint.default(object = model, level = i)[var, ])
+    } else if (method == "rlm") {
+      results <- lapply(bon.adj, FUN = function(i) confint(object = model, level = i)[var, ])
+    } else if (method == "glm") {
+      results <- lapply(bon.adj, FUN = function(i) confint(object = model, level = i, trace = FALSE)[var, ])
+    } else if (method == "aov") {
+      results <- lapply(bon.adj, FUN = function(i) confint(object = model, level = i)[var, ])
+    } else if (method == "gls") {
+      results <- lapply(bon.adj, FUN = function(i) confint.default(object = model, level = i)[var, ])
+    }
+
+    # Sidak adjustment for multiple comparisons -------------------------------
+  } else if (penalty == "sidak" & m > 1) {
+    sidak.adj <- (((intrvls)^(1 / m)))
+
+    if (method == "lm") {
+      results <- lapply(sidak.adj, FUN = function(i) confint.default(object = model, level = i)[var, ])
+    } else if (method == "rlm") {
+      results <- lapply(sidak.adj, FUN = function(i) confint(object = model, level = i)[var, ])
+    } else if (method == "glm") {
+      results <- lapply(sidak.adj, FUN = function(i) confint(object = model, level = i, trace = FALSE)[var, ])
+    } else if (method == "aov") {
+      results <- lapply(sidak.adj, FUN = function(i) confint(object = model, level = i)[var, ])
+    } else if (method == "gls") {
+      results <- lapply(sidak.adj, FUN = function(i) confint.default(object = model, level = i)[var, ])
+    }
+  }
+
+
+
+  df <- data.frame(do.call(rbind, results))
+
+  if (log == FALSE) {
+    df <- (df)
+  } else if (log == TRUE) {
+    df <- exp(df)
+  }
+
+  intrvl.limit <- c("lower.limit", "upper.limit")
+  colnames(df) <- intrvl.limit
+  df$intrvl.width <- (abs((df$upper.limit) - (df$lower.limit)))
+  df$intrvl.level <- intrvls
+  df$cdf <- (abs(df$intrvl.level / 2)) + 0.5
+  df$pvalue <- 1 - intrvls
+  df$svalue <- -log2(df$pvalue)
+  df <- head(df, -1)
+  class(df) <- c("data.frame", "concurve")
+  densdf <- data.frame(c(df$lower.limit, df$upper.limit))
+  colnames(densdf) <- "x"
+  densdf <- head(densdf, -1)
+  class(densdf) <- c("data.frame", "concurve")
+
+
+  if (table == TRUE) {
+    levels <- c(0.25, 0.50, 0.75, 0.80, 0.85, 0.90, 0.95, 0.975, 0.99)
+    (df_subintervals <- (curve_table(df, levels, type = "c", format = "data.frame")))
+    class(df_subintervals) <- c("data.frame", "concurve")
+    dataframes <- list(df, densdf, df_subintervals)
+    names(dataframes) <- c("Intervals Dataframe", "Intervals Density", "Intervals Table")
+    class(dataframes) <- "concurve"
+    return(dataframes)
+  } else if (table == FALSE) {
+    return(list(df, densdf))
+  }
+}
+
+} else if ((Sys.info()["sysname"]) == "Darwin") {
+
+
 curve_gen <- function(model, var, method = "lm", log = FALSE, penalty = NULL, m = NULL,
                       steps = 1000, cores = getOption("mc.cores", 1L), table = TRUE) {
   if (is.character(method) != TRUE) {
@@ -117,17 +222,17 @@ curve_gen <- function(model, var, method = "lm", log = FALSE, penalty = NULL, m 
       results <- pbmclapply(sidak.adj, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = cores)
     }
   }
-  
+
 
 
   df <- data.frame(do.call(rbind, results))
-  
+
   if (log == FALSE) {
     df <- (df)
   } else if (log == TRUE) {
     df <- exp(df)
   }
-  
+
   intrvl.limit <- c("lower.limit", "upper.limit")
   colnames(df) <- intrvl.limit
   df$intrvl.width <- (abs((df$upper.limit) - (df$lower.limit)))
@@ -154,6 +259,8 @@ curve_gen <- function(model, var, method = "lm", log = FALSE, penalty = NULL, m 
   } else if (table == FALSE) {
     return(list(df, densdf))
   }
+}
+
 }
 
 # RMD Check
