@@ -1,5 +1,5 @@
 
-### <span style="color:#000; font-weight: 400;">`concurve`</span> \| Graph Frequentist Distributions of Parameters </strong> <img src="man/figures/logo.svg" align="right" width="70"/>
+### <span style="color:#000; font-weight: 400;">`concurve`</span> \| Graph Frequentist Distributions of Parameters </strong> <img src="https://raw.githubusercontent.com/zadrafi/concurve/master/man/figures/logo.svg" align="right" width="70"/>
 
 ------------------------------------------------------------------------
 
