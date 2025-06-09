@@ -1,5 +1,5 @@
 
-### <span style="color:#000; font-weight: 400;">`concurve`</span> \| Graph Frequentist Distributions of Parameters </strong> <img src="https://raw.githubusercontent.com/zadrafi/concurve/master/man/figures/logo.svg" align="right" width="70"/>
+# `concurve` \| Graph Frequentist Distributions of Parameters <img src="man/figures/logo.svg" align="right" width="70"/>
 
 ------------------------------------------------------------------------
 
@@ -16,8 +16,7 @@ Downloads](https://cranlogs.r-pkg.org/badges/grand-total/concurve)](https://cran
 [![Rdoc](http://www.rdocumentation.org/badges/version/concurve)](http://www.rdocumentation.org/packages/concurve)
 [![License: GPL
 v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Travis build
-status](https://travis-ci.com/zadrafi/concurve.svg?branch=master)](https://travis-ci.com/zadrafi/concurve)
+[![R-CMD-check](https://github.com/zadrafi/concurve/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/zadrafi/concurve/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/zadrafi/concurve/branch/master/graph/badge.svg)](https://codecov.io/gh/zadrafi/concurve?branch=master)
 <!-- badges: end -->
@@ -118,7 +117,7 @@ here](articles/supported.html).
 ### Citation
 
 To properly cite the package, please see the [following
-page](file:///Users/zad/Desktop/GitHub/concurve/docs/authors.html) or
+page](https://data.lesslikely.com/concurve/authors.html) or
 run the R script below.
 
     citation("concurve")
@@ -129,30 +128,6 @@ run the R script below.
 
 Please note that the concurve project is released with a [Contributor
 Code of
-Conduct](https://data.lesslikely.com/concurve//CODE_OF_CONDUCT.html). By
+Conduct](https://data.lesslikely.com/concurve/CODE_OF_CONDUCT.html). By
 contributing to this project, you agree to abide by its terms.
 
-##### Environment
-
-The package was currently run on:
-
-    ## R version 4.0.2 (2020-06-22)
-    ## Platform: x86_64-apple-darwin17.0 (64-bit)
-    ## Running under: macOS Catalina 10.15.6
-    ## 
-    ## Matrix products: default
-    ## BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
-    ## LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
-    ## 
-    ## locale:
-    ## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
-    ## 
-    ## attached base packages:
-    ## [1] stats     graphics  grDevices utils     datasets  methods   base     
-    ## 
-    ## loaded via a namespace (and not attached):
-    ##  [1] compiler_4.0.2    magrittr_1.5      credentials_1.3.0 htmltools_0.5.0   tools_4.0.2       yaml_2.2.1        stringi_1.5.3    
-    ##  [8] rmarkdown_2.4     knitr_1.30        stringr_1.4.0     xfun_0.18         digest_0.6.25     rlang_0.4.7       openssl_1.4.3    
-    ## [15] sys_3.4           evaluate_0.14     askpass_1.1
-
-------------------------------------------------------------------------
