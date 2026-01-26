@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Generating Tables</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+<style type="text/css">.tabwid {
+font-size: initial;
+padding-bottom: 1em;
+}
+.tabwid table{
+border-spacing:0px !important;
+border-collapse:collapse;
+line-height:1;
+margin-left:auto;
+margin-right:auto;
+border-width: 0;
+border-color: transparent;
+caption-side: top;
+}
+.tabwid-caption-bottom table{
+caption-side: bottom;
+}
+.tabwid_left table{
+margin-left:0;
+}
+.tabwid_right table{
+margin-right:0;
+}
+.tabwid td, .tabwid th {
+padding: 0;
+}
+.tabwid a {
+text-decoration: none;
+}
+.tabwid thead {
+background-color: transparent;
+}
+.tabwid tfoot {
+background-color: transparent;
+}
+.tabwid table tr {
+background-color: transparent;
+}
+.katex-display {
+margin: 0 0 !important;
+}
+</style>
+<script>document.addEventListener("DOMContentLoaded", function(event) {
+  var els = document.querySelectorAll(".tabwid");
+  var tabwid_link = document.querySelector('link[href*="tabwid.css"]')
+  if (tabwid_link === null) {
+    const tabwid_styles = document.evaluate("//style[contains(., 'tabwid')]", document, null, XPathResult.ANY_TYPE, null );
+    tabwid_link = tabwid_styles.iterateNext();
+  }
+
+  Array.prototype.forEach.call(els, function(template) {
+      const dest = document.createElement("div");
+      template.parentNode.insertBefore(dest, template.nextSibling)
+      dest.setAttribute("class", "flextable-shadow-host");
+      const fantome = dest.attachShadow({mode: 'open'});
+      fantome.appendChild(template);
+      if (tabwid_link !== null) {
+        fantome.appendChild(tabwid_link.cloneNode(true));
+      }
+  });
+
+  const shadowHosts = document.querySelectorAll('.flextable-shadow-host:not(:has(div > table.no-shadow-dom))');
+  shadowHosts.forEach(host => {
+    if (host.shadowRoot) {
+      const spanElements = host.shadowRoot.querySelector('div > table > caption > span[id]');
+      if (spanElements) {
+        const id = spanElements.getAttribute("id");
+        host.setAttribute("id", id);
+      }
+    }
+  });
+
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Generating Tables</h1>
+
+
+
+<p>It is quite easy to generate tables of outputs for the various
+<code>concurve</code> functions and in different formats. Here we show
+how to do this with a simple example. First, we’ll simulate some fake
+data as usual, compare the means, and then produce a confidence function
+of the outputs.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(concurve)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>GroupA <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">500</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>GroupB <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">500</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>RandomData <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(GroupA, GroupB)</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>intervalsdf <span class="ot">&lt;-</span> <span class="fu">curve_mean</span>(GroupA, GroupB,</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>  <span class="at">data =</span> RandomData, <span class="at">method =</span> <span class="st">&quot;default&quot;</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>)</span></code></pre></div>
+<p>The results are now stored in <code>intervalsdf</code>. Using the
+<code>curve_table()</code> function, we can now produce a high quality
+table with several values of interest.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>(x <span class="ot">&lt;-</span> <span class="fu">curve_table</span>(<span class="at">data =</span> intervalsdf[[<span class="dv">1</span>]], <span class="at">format =</span> <span class="st">&quot;image&quot;</span>))</span></code></pre></div>
+<div class="tabwid"><style>.cl-ab630e1c{}.cl-ab5f47d2{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-ab6168aa{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-ab617b10{width:1.066in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ab617b11{width:1.219in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ab617b1a{width:1.474in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ab617b1b{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ab617b1c{width:0.803in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ab617b1d{width:1.185in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ab617b24{width:1.066in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ab617b25{width:1.219in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ab617b26{width:1.474in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ab617b27{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ab617b28{width:0.803in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ab617b2e{width:1.185in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ab617b2f{width:1.066in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ab617b30{width:1.219in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ab617b31{width:1.474in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ab617b38{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ab617b39{width:0.803in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ab617b3a{width:1.185in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ab617b42{width:1.066in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ab617b43{width:1.219in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ab617b44{width:1.474in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ab617b45{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ab617b46{width:0.803in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-ab617b4c{width:1.185in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-ab630e1c"><thead><tr style="overflow-wrap:break-word;"><th class="cl-ab617b10"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">Lower Limit</span></p></th><th class="cl-ab617b10"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">Upper Limit</span></p></th><th class="cl-ab617b11"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">Interval Width</span></p></th><th class="cl-ab617b1a"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">Interval Level (%)</span></p></th><th class="cl-ab617b1b"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">CDF</span></p></th><th class="cl-ab617b1c"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">P-value</span></p></th><th class="cl-ab617b1d"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">S-value (bits)</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-ab617b24"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">0.036</span></p></td><td class="cl-ab617b24"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">0.077</span></p></td><td class="cl-ab617b25"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">0.041</span></p></td><td class="cl-ab617b26"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">25.0</span></p></td><td class="cl-ab617b27"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">0.625</span></p></td><td class="cl-ab617b28"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">0.750</span></p></td><td class="cl-ab617b2e"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">0.415</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-ab617b2f"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">0.014</span></p></td><td class="cl-ab617b2f"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">0.100</span></p></td><td class="cl-ab617b30"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">0.086</span></p></td><td class="cl-ab617b31"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">50.0</span></p></td><td class="cl-ab617b38"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">0.750</span></p></td><td class="cl-ab617b39"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">0.500</span></p></td><td class="cl-ab617b3a"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">1.000</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-ab617b24"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">-0.016</span></p></td><td class="cl-ab617b24"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">0.130</span></p></td><td class="cl-ab617b25"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">0.146</span></p></td><td class="cl-ab617b26"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">75.0</span></p></td><td class="cl-ab617b27"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">0.875</span></p></td><td class="cl-ab617b28"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">0.250</span></p></td><td class="cl-ab617b2e"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">2.000</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-ab617b24"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">-0.025</span></p></td><td class="cl-ab617b24"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">0.138</span></p></td><td class="cl-ab617b25"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">0.163</span></p></td><td class="cl-ab617b26"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">80.0</span></p></td><td class="cl-ab617b27"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">0.900</span></p></td><td class="cl-ab617b28"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">0.200</span></p></td><td class="cl-ab617b2e"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">2.322</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-ab617b24"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">-0.035</span></p></td><td class="cl-ab617b24"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">0.148</span></p></td><td class="cl-ab617b25"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">0.183</span></p></td><td class="cl-ab617b26"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">85.0</span></p></td><td class="cl-ab617b27"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">0.925</span></p></td><td class="cl-ab617b28"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">0.150</span></p></td><td class="cl-ab617b2e"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">2.737</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-ab617b24"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">-0.048</span></p></td><td class="cl-ab617b24"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">0.161</span></p></td><td class="cl-ab617b25"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">0.209</span></p></td><td class="cl-ab617b26"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">90.0</span></p></td><td class="cl-ab617b27"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">0.950</span></p></td><td class="cl-ab617b28"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">0.100</span></p></td><td class="cl-ab617b2e"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">3.322</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-ab617b2f"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">-0.068</span></p></td><td class="cl-ab617b2f"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">0.181</span></p></td><td class="cl-ab617b30"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">0.249</span></p></td><td class="cl-ab617b31"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">95.0</span></p></td><td class="cl-ab617b38"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">0.975</span></p></td><td class="cl-ab617b39"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">0.050</span></p></td><td class="cl-ab617b3a"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">4.322</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-ab617b2f"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">-0.086</span></p></td><td class="cl-ab617b2f"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">0.199</span></p></td><td class="cl-ab617b30"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">0.285</span></p></td><td class="cl-ab617b31"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">97.5</span></p></td><td class="cl-ab617b38"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">0.988</span></p></td><td class="cl-ab617b39"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">0.025</span></p></td><td class="cl-ab617b3a"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">5.322</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-ab617b42"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">-0.107</span></p></td><td class="cl-ab617b42"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">0.221</span></p></td><td class="cl-ab617b43"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">0.328</span></p></td><td class="cl-ab617b44"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">99.0</span></p></td><td class="cl-ab617b45"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">0.995</span></p></td><td class="cl-ab617b46"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">0.010</span></p></td><td class="cl-ab617b4c"><p class="cl-ab6168aa"><span class="cl-ab5f47d2">6.644</span></p></td></tr></tbody></table></div>
+<p>Here we specified the format as “image”, which will give us just
+that. We can also specify other options such as</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>(z <span class="ot">&lt;-</span> <span class="fu">curve_table</span>(intervalsdf[[<span class="dv">1</span>]], <span class="at">format =</span> <span class="st">&quot;latex&quot;</span>))</span></code></pre></div>
+<table>
+<colgroup>
+<col width="5%" />
+<col width="13%" />
+<col width="13%" />
+<col width="16%" />
+<col width="20%" />
+<col width="6%" />
+<col width="8%" />
+<col width="16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Lower Limit</th>
+<th align="right">Upper Limit</th>
+<th align="right">Interval Width</th>
+<th align="right">Interval Level (%)</th>
+<th align="right">CDF</th>
+<th align="right">P-value</th>
+<th align="right">S-value (bits)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">2501</td>
+<td align="right">0.036</td>
+<td align="right">0.077</td>
+<td align="right">0.041</td>
+<td align="right">25.0</td>
+<td align="right">0.625</td>
+<td align="right">0.750</td>
+<td align="right">0.415</td>
+</tr>
+<tr class="even">
+<td align="left">5001</td>
+<td align="right">0.014</td>
+<td align="right">0.100</td>
+<td align="right">0.086</td>
+<td align="right">50.0</td>
+<td align="right">0.750</td>
+<td align="right">0.500</td>
+<td align="right">1.000</td>
+</tr>
+<tr class="odd">
+<td align="left">7501</td>
+<td align="right">-0.016</td>
+<td align="right">0.130</td>
+<td align="right">0.146</td>
+<td align="right">75.0</td>
+<td align="right">0.875</td>
+<td align="right">0.250</td>
+<td align="right">2.000</td>
+</tr>
+<tr class="even">
+<td align="left">8001</td>
+<td align="right">-0.025</td>
+<td align="right">0.138</td>
+<td align="right">0.163</td>
+<td align="right">80.0</td>
+<td align="right">0.900</td>
+<td align="right">0.200</td>
+<td align="right">2.322</td>
+</tr>
+<tr class="odd">
+<td align="left">8501</td>
+<td align="right">-0.035</td>
+<td align="right">0.148</td>
+<td align="right">0.183</td>
+<td align="right">85.0</td>
+<td align="right">0.925</td>
+<td align="right">0.150</td>
+<td align="right">2.737</td>
+</tr>
+<tr class="even">
+<td align="left">9001</td>
+<td align="right">-0.048</td>
+<td align="right">0.161</td>
+<td align="right">0.209</td>
+<td align="right">90.0</td>
+<td align="right">0.950</td>
+<td align="right">0.100</td>
+<td align="right">3.322</td>
+</tr>
+<tr class="odd">
+<td align="left">9501</td>
+<td align="right">-0.068</td>
+<td align="right">0.181</td>
+<td align="right">0.249</td>
+<td align="right">95.0</td>
+<td align="right">0.975</td>
+<td align="right">0.050</td>
+<td align="right">4.322</td>
+</tr>
+<tr class="even">
+<td align="left">9751</td>
+<td align="right">-0.086</td>
+<td align="right">0.199</td>
+<td align="right">0.285</td>
+<td align="right">97.5</td>
+<td align="right">0.988</td>
+<td align="right">0.025</td>
+<td align="right">5.322</td>
+</tr>
+<tr class="odd">
+<td align="left">9901</td>
+<td align="right">-0.107</td>
+<td align="right">0.221</td>
+<td align="right">0.328</td>
+<td align="right">99.0</td>
+<td align="right">0.995</td>
+<td align="right">0.010</td>
+<td align="right">6.644</td>
+</tr>
+</tbody>
+</table>
+<p>which is useful for inserting the output into a TeX document, and we
+can also specify options such as</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>(df <span class="ot">&lt;-</span> <span class="fu">curve_table</span>(intervalsdf[[<span class="dv">1</span>]], <span class="at">format =</span> <span class="st">&quot;data.frame&quot;</span>))</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="co">#&gt;      Lower Limit Upper Limit Interval Width Interval Level (%)   CDF P-value</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co">#&gt; 2501       0.036       0.077          0.041               25.0 0.625   0.750</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co">#&gt; 5001       0.014       0.100          0.086               50.0 0.750   0.500</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="co">#&gt; 7501      -0.016       0.130          0.146               75.0 0.875   0.250</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="co">#&gt; 8001      -0.025       0.138          0.163               80.0 0.900   0.200</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="co">#&gt; 8501      -0.035       0.148          0.183               85.0 0.925   0.150</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="co">#&gt; 9001      -0.048       0.161          0.209               90.0 0.950   0.100</span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="co">#&gt; 9501      -0.068       0.181          0.249               95.0 0.975   0.050</span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="co">#&gt; 9751      -0.086       0.199          0.285               97.5 0.988   0.025</span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="co">#&gt; 9901      -0.107       0.221          0.328               99.0 0.995   0.010</span></span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="co">#&gt;      S-value (bits)</span></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="co">#&gt; 2501          0.415</span></span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a><span class="co">#&gt; 5001          1.000</span></span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a><span class="co">#&gt; 7501          2.000</span></span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a><span class="co">#&gt; 8001          2.322</span></span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a><span class="co">#&gt; 8501          2.737</span></span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a><span class="co">#&gt; 9001          3.322</span></span>
+<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a><span class="co">#&gt; 9501          4.322</span></span>
+<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a><span class="co">#&gt; 9751          5.322</span></span>
+<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a><span class="co">#&gt; 9901          6.644</span></span></code></pre></div>
+<p>The options “pptx” and “docx” can also be specified as format
+options, but specifying these will open those programs if they are
+installed, which may not be ideal for all because no everyone has
+access.</p>
+<div id="cite-r-packages" class="section level1">
+<h1>Cite R Packages</h1>
+<p>Please remember to cite the packages that you use.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">citation</span>(<span class="st">&quot;concurve&quot;</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="co">#&gt; To cite package &#39;concurve&#39; in publications use:</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co">#&gt;   Rafi Z, Vigotsky A (????). _concurve: Computes and Plots</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt;   Compatibility (Confidence) Intervals, P-Values, S-Values, &amp;</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co">#&gt;   Likelihood Intervals to Form Consonance, Surprisal, &amp; Likelihood</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">#&gt;   Functions_. R package version 2.8.0,</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="co">#&gt;   &lt;https://CRAN.R-project.org/package=concurve&gt;.</span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="co">#&gt;   Rafi Z, Greenland S (2020). &quot;Semantic and Cognitive Tools to Aid</span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co">#&gt;   Statistical Science: Replace Confidence and Significance by</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="co">#&gt;   Compatibility and Surprise.&quot; _BMC Medical Research Methodology_,</span></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co">#&gt;   *20*, 244. ISSN 1471-2288, doi:10.1186/s12874-020-01105-9</span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="co">#&gt;   &lt;https://doi.org/10.1186/s12874-020-01105-9&gt;,</span></span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="co">#&gt;   &lt;https://doi.org/10.1186/s12874-020-01105-9&gt;.</span></span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a><span class="co">#&gt; To see these entries in BibTeX format, use &#39;print(&lt;citation&gt;,</span></span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a><span class="co">#&gt; bibtex=TRUE)&#39;, &#39;toBibtex(.)&#39;, or set</span></span>
+<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a><span class="co">#&gt; &#39;options(citation.bibtex.max=999)&#39;.</span></span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a><span class="fu">citation</span>(<span class="st">&quot;flextable&quot;</span>)</span>
+<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a><span class="co">#&gt; To cite package &#39;flextable&#39; in publications use:</span></span>
+<span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-23"><a href="#cb5-23" tabindex="-1"></a><span class="co">#&gt;   Gohel D, Skintzos P (2025). _flextable: Functions for Tabular</span></span>
+<span id="cb5-24"><a href="#cb5-24" tabindex="-1"></a><span class="co">#&gt;   Reporting_. doi:10.32614/CRAN.package.flextable</span></span>
+<span id="cb5-25"><a href="#cb5-25" tabindex="-1"></a><span class="co">#&gt;   &lt;https://doi.org/10.32614/CRAN.package.flextable&gt;, R package version</span></span>
+<span id="cb5-26"><a href="#cb5-26" tabindex="-1"></a><span class="co">#&gt;   0.9.10, &lt;https://CRAN.R-project.org/package=flextable&gt;.</span></span>
+<span id="cb5-27"><a href="#cb5-27" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-28"><a href="#cb5-28" tabindex="-1"></a><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
+<span id="cb5-29"><a href="#cb5-29" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-30"><a href="#cb5-30" tabindex="-1"></a><span class="co">#&gt;   @Manual{,</span></span>
+<span id="cb5-31"><a href="#cb5-31" tabindex="-1"></a><span class="co">#&gt;     title = {flextable: Functions for Tabular Reporting},</span></span>
+<span id="cb5-32"><a href="#cb5-32" tabindex="-1"></a><span class="co">#&gt;     author = {David Gohel and Panagiotis Skintzos},</span></span>
+<span id="cb5-33"><a href="#cb5-33" tabindex="-1"></a><span class="co">#&gt;     year = {2025},</span></span>
+<span id="cb5-34"><a href="#cb5-34" tabindex="-1"></a><span class="co">#&gt;     note = {R package version 0.9.10},</span></span>
+<span id="cb5-35"><a href="#cb5-35" tabindex="-1"></a><span class="co">#&gt;     url = {https://CRAN.R-project.org/package=flextable},</span></span>
+<span id="cb5-36"><a href="#cb5-36" tabindex="-1"></a><span class="co">#&gt;     doi = {10.32614/CRAN.package.flextable},</span></span>
+<span id="cb5-37"><a href="#cb5-37" tabindex="-1"></a><span class="co">#&gt;   }</span></span>
+<span id="cb5-38"><a href="#cb5-38" tabindex="-1"></a><span class="fu">citation</span>(<span class="st">&quot;officer&quot;</span>)</span>
+<span id="cb5-39"><a href="#cb5-39" tabindex="-1"></a><span class="co">#&gt; To cite package &#39;officer&#39; in publications use:</span></span>
+<span id="cb5-40"><a href="#cb5-40" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-41"><a href="#cb5-41" tabindex="-1"></a><span class="co">#&gt;   Gohel D, Moog S, Heckmann M (2026). _officer: Manipulation of</span></span>
+<span id="cb5-42"><a href="#cb5-42" tabindex="-1"></a><span class="co">#&gt;   Microsoft Word and PowerPoint Documents_.</span></span>
+<span id="cb5-43"><a href="#cb5-43" tabindex="-1"></a><span class="co">#&gt;   doi:10.32614/CRAN.package.officer</span></span>
+<span id="cb5-44"><a href="#cb5-44" tabindex="-1"></a><span class="co">#&gt;   &lt;https://doi.org/10.32614/CRAN.package.officer&gt;, R package version</span></span>
+<span id="cb5-45"><a href="#cb5-45" tabindex="-1"></a><span class="co">#&gt;   0.7.3, &lt;https://CRAN.R-project.org/package=officer&gt;.</span></span>
+<span id="cb5-46"><a href="#cb5-46" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-47"><a href="#cb5-47" tabindex="-1"></a><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
+<span id="cb5-48"><a href="#cb5-48" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-49"><a href="#cb5-49" tabindex="-1"></a><span class="co">#&gt;   @Manual{,</span></span>
+<span id="cb5-50"><a href="#cb5-50" tabindex="-1"></a><span class="co">#&gt;     title = {officer: Manipulation of Microsoft Word and PowerPoint Documents},</span></span>
+<span id="cb5-51"><a href="#cb5-51" tabindex="-1"></a><span class="co">#&gt;     author = {David Gohel and Stefan Moog and Mark Heckmann},</span></span>
+<span id="cb5-52"><a href="#cb5-52" tabindex="-1"></a><span class="co">#&gt;     year = {2026},</span></span>
+<span id="cb5-53"><a href="#cb5-53" tabindex="-1"></a><span class="co">#&gt;     note = {R package version 0.7.3},</span></span>
+<span id="cb5-54"><a href="#cb5-54" tabindex="-1"></a><span class="co">#&gt;     url = {https://CRAN.R-project.org/package=officer},</span></span>
+<span id="cb5-55"><a href="#cb5-55" tabindex="-1"></a><span class="co">#&gt;     doi = {10.32614/CRAN.package.officer},</span></span>
+<span id="cb5-56"><a href="#cb5-56" tabindex="-1"></a><span class="co">#&gt;   }</span></span></code></pre></div>
+<hr />
+</div>
+<div id="references" class="section level1">
+<h1>References</h1>
+<hr />
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
