@@ -27,19 +27,19 @@ knitr::opts_chunk$set(
 library(concurve)
 ```
 
-Some authors have shown that the bootstrap distribution is equal to the confidence distribution because it meets the definition of a consonance distribution.[@efronFisher21stCentury1998; @efronAutomaticConstructionBootstrap2018; @xieConfidenceDistributionFrequentist2013] The bootstrap distribution and the asymptotic consonance distribution would be defined as: 
+Some authors have shown that the bootstrap distribution is equal to the confidence distribution because it meets the definition of a consonance distribution.[@efronFisher21stCentury1998; @efronAutomaticConstructionBootstrap2018; @xieConfidenceDistributionFrequentist2013] The bootstrap distribution and the asymptotic consonance distribution would be defined as:
 
 $$H_{n}(\theta)=1-P\left(\hat{\theta}-\hat{\theta}^{*} \leq \hat{\theta}-\theta | \mathbf{x}\right)=P\left(\hat{\theta}^{*} \leq \theta | \mathbf{x}\right)$$
 
-Certain bootstrap methods such as the `BCa` method and `t`-bootstrap method also yield second order accuracy of consonance distributions. 
+Certain bootstrap methods such as the `BCa` method and `t`-bootstrap method also yield second order accuracy of consonance distributions.
 
 $$H_{n}(\theta)=1-P\left(\frac{\hat{\theta}^{*}-\hat{\theta}}{\widehat{S E}^{*}\left(\hat{\theta}^{*}\right)} \leq \frac{\hat{\theta}-\theta}{\widehat{S E}(\hat{\theta})} | \mathbf{x}\right)$$
 
-Here, I demonstrate how to use these particular bootstrap methods to arrive at consonance curves and densities. 
+Here, I demonstrate how to use these particular bootstrap methods to arrive at consonance curves and densities.
 
 We'll use the `Iris` dataset and construct a function that'll yield a parameter of interest.
 
-## The Nonparametric Bootstrap 
+## The Nonparametric Bootstrap
 
 ```{r echo=TRUE, fig.height=4.5, fig.width=6}
 iris <- datasets::iris
@@ -51,15 +51,15 @@ foo <- function(data, indices) {
 }
 ```
 
-We can now use the `curve_boot()` method to construct a function. The default method used for this function is the "`Bca`" method provided by the [`bcaboot`](https://cran.r-project.org/package=bcaboot) package.[@efron2018] 
+We can now use the `curve_boot()` method to construct a function. The default method used for this function is the "`Bca`" method provided by the [`bcaboot`](https://cran.r-project.org/package=bcaboot) package.[@efron2018]
 
 ```{r include=FALSE}
 y <- curve_boot(data = iris, func = foo, method = "bca", replicates = 2000, steps = 1000)
 ```
 
-I will suppress the output of the function because it is unnecessarily long. But we've placed all the estimates into a list object called y. 
+I will suppress the output of the function because it is unnecessarily long. But we've placed all the estimates into a list object called y.
 
-The first item in the list will be the consonance distribution constructed by typical means, while the third item will be the bootstrap approximation to the consonance distribution. 
+The first item in the list will be the consonance distribution constructed by typical means, while the third item will be the bootstrap approximation to the consonance distribution.
 
 ```{r echo=TRUE, fig.height=4.5, fig.width=6}
 ggcurve(data = y[[1]], nullvalue = TRUE)
@@ -72,22 +72,23 @@ We can also print out a table for TeX documents
 (gg <- curve_table(data = y[[1]], format = "image"))
 ```
 
-More bootstrap replications will lead to a smoother function. But for now, we can compare these two functions to see how similar they are. 
+More bootstrap replications will lead to a smoother function. But for now, we can compare these two functions to see how similar they are.
 
 ```{r echo=TRUE, fig.height=4.5, fig.width=6}
 plot_compare(y[[1]], y[[3]])
 ```
 
-If we wanted to look at the bootstrap standard errors, we could do so by loading the fifth item in the list 
+If we wanted to look at the bootstrap standard errors, we could do so by loading the fifth item in the list
+
 ```{r echo=TRUE, fig.height=4.5, fig.width=6}
 knitr::kable(y[[5]])
 ```
 
-where in the top row, `theta` is the point estimate, and `sdboot` is the bootstrap estimate of the standard error, `sdjack` is the jacknife estimate of the standard error. `z0` is the bias correction value and `a` is the acceleration constant. 
+where in the top row, `theta` is the point estimate, and `sdboot` is the bootstrap estimate of the standard error, `sdjack` is the jacknife estimate of the standard error. `z0` is the bias correction value and `a` is the acceleration constant.
 
-The values in the second row are essentially the internal standard errors of the estimates in the top row. 
+The values in the second row are essentially the internal standard errors of the estimates in the top row.
 
-* * * 
+------------------------------------------------------------------------
 
 The densities can also be calculated accurately using the `t`-bootstrap method. Here we use a different dataset to show this
 
@@ -106,10 +107,10 @@ Our function is a simple mean difference. This time, we'll set the method to "`t
 ```{r echo=TRUE, fig.height=4.5, fig.width=6}
 z <- curve_boot(data = CommuteAtlanta, func = func, method = "t", replicates = 2000, steps = 1000)
 ggcurve(data = z[[1]], nullvalue = FALSE)
-ggcurve(data = z[[2]], type = "cd", nullvalue = FALSE)
+ggcurve(data = z[["Intervals Density"]], type = "cd", nullvalue = FALSE)
 ```
 
-The consonance curve and density are nearly identical. With more bootstrap replications, they are very likely to converge. 
+The consonance curve and density are nearly identical. With more bootstrap replications, they are very likely to converge.
 
 ```{r echo=TRUE, fig.height=2, fig.width=4}
 (zz <- curve_table(data = z[[1]], format = "image"))
@@ -134,25 +135,26 @@ tt <- apply(y.star, 1, function(y) summary(lm(y ~ X - 1))$adj.r.squared)
 b.star <- y.star %*% X
 ```
 
-Now, we'll use the same function, but set the method to "`bcapar`" for the parametric method. 
+Now, we'll use the same function, but set the method to "`bcapar`" for the parametric method.
 
 ```{r echo=TRUE, fig.height=4.5, fig.width=6}
 df <- curve_boot(method = "bcapar", t0 = t0, tt = tt, bb = b.star)
 ```
 
-Now we can look at our outputs. 
+Now we can look at our outputs.
 
 ```{r echo=TRUE, fig.height=4.5, fig.width=6}
 ggcurve(df[[1]], nullvalue = FALSE)
 ggcurve(df[[3]], nullvalue = FALSE)
 ```
 
-We can compare the functions to see how well the bootstrap approximations match up 
+We can compare the functions to see how well the bootstrap approximations match up
+
 ```{r echo=TRUE, fig.height=4.5, fig.width=6}
 plot_compare(df[[1]], df[[3]])
 ```
 
-That concludes our demonstration of the bootstrap method to approximate consonance functions. 
+That concludes our demonstration of the bootstrap method to approximate consonance functions.
 
 # Cite R Packages
 
@@ -163,8 +165,9 @@ citation("concurve")
 citation("boot")
 citation("bcaboot")
 ```
-* * * 
+
+------------------------------------------------------------------------
 
 # References
 
-* * * 
+------------------------------------------------------------------------

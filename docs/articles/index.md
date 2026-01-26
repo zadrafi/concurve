@@ -2,6 +2,13 @@
 
 ### All vignettes
 
+- [Comparison to Bayesian Posterior Distributions](articles/bayes.md):
+
+  This vignette discusses how consonance distributions and Bayesian
+  posterior distributions differ in interpretation but how they can also
+  often converge. This is shown with several examples of how to
+  calculate both distributions in a range of scenarios.
+
 - [The Bootstrap and Consonance Functions](articles/bootstrap.md):
 
   This guide discusses the bootstrap resampling method and its close
@@ -30,8 +37,6 @@
 
   A simple introduction to using the concurve R package for logistic
   regression.
-
-- [Snowflake Integration](articles/Snowflake.md):
 
 - [Using Stata](articles/stata.md):
 

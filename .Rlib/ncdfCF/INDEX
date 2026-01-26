@@ -1,0 +1,49 @@
+CFAuxiliaryLongLat      CF auxiliary longitude-latitude variable
+CFAxis                  CF axis object
+CFAxisCharacter         CF character axis object
+CFAxisDiscrete          CF discrete axis object
+CFAxisLatitude          Latitude CF axis object
+CFAxisLongitude         Longitude CF axis object
+CFAxisNumeric           Numeric CF axis object
+CFAxisTime              Time axis object
+CFAxisVertical          Vertical CF axis object
+CFBounds                CF boundary variable
+CFCellMeasure           CF cell measure variable
+CFData                  CF data object
+CFDataset               CF data set
+CFGridMapping           CF grid mapping object
+CFGroup                 Group for CF objects
+CFLabel                 CF label object
+CFObject                CF base object
+CFStandardNames         CF Standard names table
+CFVariable              CF data variable
+CFVariableL3b           CF data variable for the NASA L3b format
+CFVerticalParametricTerm
+                        Parametric formula term for a vertical CF axis
+                        object
+NCDimension             NetCDF dimension object
+NCGroup                 NetCDF group
+NCObject                NetCDF base object
+NCResource              NetCDF resource object
+NCVariable              NetCDF variable
+Ops.CFVariable          Operations on CFVariable objects
+[.CFVariable            Extract data for a variable
+[.CFVariableL3b         Extract data for a variable
+[[.CFDataset            Get a CF object from a data set
+aoi                     Area of Interest
+as_CF                   Create a 'CFDataset' or 'CFVariable' instance
+                        from an R object
+create_ncdf             Create a new data set
+dim.AOI                 The dimensions of the grid of an AOI
+dim.CFAxis              Axis length
+groups                  List the groups in the CF object, recursively.
+makeAxis                Create an axis
+makeCharacterAxis       Create a character axis
+makeDiscreteAxis        Create a discrete axis
+makeLatitudeAxis        Create a latitude axis
+makeLongitudeAxis       Create a longitude axis
+makeTimeAxis            Create a time axis
+makeVerticalAxis        Create a vertical axis
+names.CFDataset         Names or axis values of an CF object
+open_ncdf               Open a netCDF resource
+peek_ncdf               Examine a netCDF resource

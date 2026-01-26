@@ -61,7 +61,7 @@ curve_mean <- function(x, y, data, paired = F, method = "default", replicates = 
 
   intrvls <- (0:steps) / steps
   if (method == "default") {
-    results <- pbmclapply(intrvls, FUN = function(i) t.test(x, y, data = data, paired = paired, conf.level = i)$conf.int[], mc.cores = cores)
+    results <- parallel::mclapply(intrvls, FUN = function(i) t.test(x, y, data = data, paired = paired, conf.level = i)$conf.int[], mc.cores = cores)
   } else if (method == "boot") {
     diff <- mean(x) - mean(y)
     if (paired) {
@@ -75,7 +75,7 @@ curve_mean <- function(x, y, data, paired = F, method = "default", replicates = 
           mean(sample(y, length(y), replace = T))
       ) - diff
     }
-    results <- pbmclapply(intrvls, FUN = function(i) diff - quantile(boot_dist, probs = (1 + c(i, -i)) / 2), mc.cores = cores)
+    results <- parallel::mclapply(intrvls, FUN = function(i) diff - quantile(boot_dist, probs = (1 + c(i, -i)) / 2), mc.cores = cores)
   }
   df <- data.frame(do.call(rbind, results))
   intrvl.limit <- c("lower.limit", "upper.limit")

@@ -1,62 +1,66 @@
-# Generate Summary Statistics for Multiple Curves
+# Generate Summary Statistics for Consonance Objects
 
-Creates a comparison table with point estimates, confidence intervals,
-and S-values at a specified null hypothesis for multiple consonance
-functions.
+Produces a summary of key statistics from a consonance function.
 
 ## Usage
 
 ``` r
-curve_summary(curves_list, nullvalue = 0, ci_levels = 0.95)
+curve_summary(data, levels = c(0.5, 0.9, 0.95, 0.99), null_value = NULL,
+  digits = 4)
 ```
 
 ## Arguments
 
-- curves_list:
+- data:
 
-  A named list of concurve dataframes.
+  A concurve object or intervals data frame.
 
-- nullvalue:
+- levels:
 
-  Numeric. The null hypothesis value for S-value calculation. Default is
-  0.
+  Confidence levels to include in summary. Default is c(0.50, 0.90,
+  0.95, 0.99).
 
-- ci_levels:
+- null_value:
 
-  Numeric vector. Confidence levels to include in summary. Default is
-  0.95.
+  Reference value for compatibility assessment. Default is 0 for
+  differences, 1 for ratios.
+
+- digits:
+
+  Number of decimal places in output. Default is 4.
 
 ## Value
 
-A data frame with columns:
+A data frame with summary statistics.
 
-- Group: Name of the curve
+## Details
 
-- Estimate: Point estimate (midpoint of narrowest interval)
+This function provides a summary of a consonance function including:
 
-- CI_Lower, CI_Upper: Bounds at requested confidence level(s)
+- Point estimate (value at maximum consonance)
 
-- CI_Width: Width of interval
+- Confidence intervals at specified levels
 
-- Svalue_at_Null: S-value at the null hypothesis
+- P-value and S-value at the null hypothesis
 
-- Evidence: Plain-language interpretation of evidence strength
+- Interval width as a measure of precision
 
 ## See also
 
-[`plot_multi()`](reference/plot_multi.md),
-[`curve_overlap()`](reference/curve_overlap.md),
-[`curve_table()`](reference/curve_table.md)
+[`curve_table()`](reference/curve_table.md) for formatted interval
+tables
 
 ## Examples
 
 ``` r
 if (FALSE) { # \dontrun{
-curves <- list(
-  "Group A" = curve_from_se(1.2, 0.3)[[1]],
-  "Group B" = curve_from_se(0.8, 0.4)[[1]],
-  "Group C" = curve_from_se(1.5, 0.2)[[1]]
-)
-curve_summary(curves, nullvalue = 0)
+model <- lm(mpg ~ wt, data = mtcars)
+result <- curve_gen(model, "wt")
+
+# Get summary
+curve_summary(result[[1]])
+
+# Custom levels
+curve_summary(result[[1]], levels = c(0.80, 0.95))
 } # }
 ```

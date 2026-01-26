@@ -1,44 +1,41 @@
-# Construct Consonance Function for Ratio Measures
+# Construct Consonance Function from Ratio Estimate
 
-Builds a consonance distribution for ratio measures (odds ratios, risk
-ratios, hazard ratios) from a point estimate and confidence interval
-bounds. Computations are performed on the log scale internally.
+Convenience function to construct consonance functions from ratio
+measures (odds ratios, hazard ratios, risk ratios) given a point
+estimate and confidence interval bounds.
 
 ## Usage
 
 ``` r
-curve_from_ratio(point, lower_ci, upper_ci, ci_level = 0.95, steps = 1000,
+curve_from_ratio(ratio, lower, upper, conf.level = 0.95, steps = 1000,
   cores = getOption("mc.cores", 1L), table = TRUE)
 ```
 
 ## Arguments
 
-- point:
+- ratio:
 
-  Numeric. The point estimate (e.g., OR = 1.5, HR = 2.1).
+  Point estimate of the ratio.
 
-- lower_ci:
+- lower:
 
-  Numeric. Lower bound of a reference confidence interval.
+  Lower bound of the confidence interval.
 
-- upper_ci:
+- upper:
 
-  Numeric. Upper bound of a reference confidence interval.
+  Upper bound of the confidence interval.
 
-- ci_level:
+- conf.level:
 
-  Numeric. The confidence level of the provided interval. Default is
-  0.95.
+  Confidence level of the provided interval. Default is 0.95.
 
 - steps:
 
-  Indicates how many consonance intervals are to be calculated. By
-  default, it is set to 1000.
+  Number of consonance levels to compute. Default is 1000.
 
 - cores:
 
-  Number of cores for parallel computation. Default is
-  `getOption("mc.cores", 1L)`.
+  Number of cores for parallel computation.
 
 - table:
 
@@ -47,41 +44,32 @@ curve_from_ratio(point, lower_ci, upper_ci, ci_level = 0.95, steps = 1000,
 ## Value
 
 A list with class "concurve" containing the intervals dataframe, density
-dataframe, and optionally a summary table. Values are on the original
-(exponentiated) scale.
+dataframe, and optionally a summary table.
 
 ## Details
 
-The function back-calculates the standard error on the log scale:
-\$\$SE\_{log} = \frac{\log(upper) - \log(lower)}{2 \times
-z\_{1-\alpha/2}}\$\$
-
-Then computes intervals at all levels and exponentiates the results.
+This is a convenience wrapper around
+[`curve_rev`](reference/curve_rev.md) specifically for ratio measures.
+It automatically handles the log transformation and sets appropriate
+measure type.
 
 ## See also
 
-[`curve_from_se()`](reference/curve_from_se.md),
-[`curve_rev()`](reference/curve_rev.md),
-[`ggcurve()`](reference/ggcurve.md)
+[`curve_from_se()`](reference/curve_from_se.md) for constructing from
+standard error
+
+[`curve_rev()`](reference/curve_rev.md) for the underlying function
 
 ## Examples
 
 ``` r
 if (FALSE) { # \dontrun{
-# From a published odds ratio: OR = 1.61, 95% CI [0.997, 2.59]
-result <- curve_from_ratio(point = 1.61, lower_ci = 0.997, upper_ci = 2.59)
-ggcurve(result[[1]], measure = "ratio", nullvalue = 1)
+# From a published odds ratio: OR = 1.5, 95% CI [1.1, 2.0]
+result <- curve_from_ratio(ratio = 1.5, lower = 1.1, upper = 2.0)
+ggcurve(result[[1]], type = "c", nullvalue = TRUE)
 
-# Hazard ratio with 90% CI
-result <- curve_from_ratio(
-  point = 0.72,
-  lower_ci = 0.58,
-  upper_ci = 0.89,
-  ci_level = 0.90
-)
-ggcurve(result[[1]],
-  measure = "ratio", nullvalue = 1,
-  title = "Hazard Ratio for Treatment Effect"
-)
+# Hazard ratio from survival analysis: HR = 0.75, 95% CI [0.60, 0.95]
+result <- curve_from_ratio(ratio = 0.75, lower = 0.60, upper = 0.95)
+ggcurve(result[[1]], type = "c", nullvalue = TRUE)
 } # }
 ```

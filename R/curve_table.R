@@ -36,7 +36,7 @@ curve_table <- function(data, levels, type = "c", format = "data.frame") {
   if (type == "c") {
     levels <- c(0.25, 0.50, 0.75, 0.80, 0.85, 0.90, 0.95, 0.975, 0.99)
 
-    subdf <- pbmclapply(levels, FUN = function(i) (subset(data, intrvl.level == i)), mc.cores = getOption("mc.cores", 1L))
+    subdf <- parallel::mclapply(levels, FUN = function(i) (data[data$intrvl.level == i, ]), mc.cores = getOption("mc.cores", 1L))
     subdf <- data.frame(do.call(rbind, subdf))
     class(subdf) <- c("data.frame", "concurve")
     subdf$intrvl.level <- (subdf$intrvl.level * 100)
@@ -46,7 +46,7 @@ curve_table <- function(data, levels, type = "c", format = "data.frame") {
   } else if (type == "l") {
     levels <- c(0.03, 0.05, 0.12, 0.14)
 
-    subdf <- pbmclapply(levels, FUN = function(i) (subset(data, round(support, 2) == i)), mc.cores = getOption("mc.cores", 1L))
+    subdf <- parallel::mclapply(levels, FUN = function(i) (data[round(data$support, 2) == i, ]), mc.cores = getOption("mc.cores", 1L))
     subdf <- data.frame(do.call(rbind, subdf))
     class(subdf) <- c("data.frame", "concurve")
     subcolnames <- c("Theta", "Likelihood", "Log Likelihood", "Relative Likelihood", "Deviance Statistic")

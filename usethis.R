@@ -5,7 +5,6 @@ library(devtools)
 library(concurve)
 library(rcmdcheck)
 library(pkgdown)
-library(revdepcheck)
 library(codemetar)
 
 # Importing other packages
@@ -72,11 +71,8 @@ use_build_ignore("~/concurve/vignettes/supported.Rmd", escape = TRUE)
 use_spell_check(vignettes = TRUE, lang = "en-US", error = FALSE)
 use_cran_comments(open = interactive())
 use_tidy_style()
-use_revdep()
-revdepcheck::revdep_check(num_workers = 4)
 codemetar::write_codemeta()
 
-revdepcheck::revdep_reset()
 
 check_man(pkg = ".")
 roxygenize(package.dir = ".", roclets = c("collate",  "rd"), load_code = NULL, clean = TRUE)
@@ -113,4 +109,4 @@ check(
 
 pkgdown::clean_site()
 pkgdown::build_site()
-
+pkgdown::preview_site()

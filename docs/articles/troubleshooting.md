@@ -29,8 +29,8 @@ install_github("zadrafi/concurve")
 If you encounter an error such as “Error: ‘data’ must be a data frame
 from ‘concurve’.”, it is very likely that you are not providing
 [`ggcurve()`](reference/ggcurve.md) the correct argument. If you used a
-function like [`curve_gen()`](reference/curve_gen.md) to generate
-intervals and saved it to an object called ‘object’, you need to provide
+function like `curve_gen()` to generate intervals and saved it to an
+object called ‘object’, you need to provide
 [`ggcurve()`](reference/ggcurve.md) a data argument such as
 `object[[1]]` rather than `object` or `object[1]`. This is because
 although you saved your results to something called `object`, you ended
@@ -181,6 +181,7 @@ the `concurve` package use for parallel computing.
 
 ``` r
 
+
 getOption("mc.cores", 1L)
 set.seed(1031)
 func3 <- mark(df1 <- curve_rev(
@@ -199,13 +200,13 @@ func4 <- mark(df1 <- curve_rev(
 ``` r
 
 func1$median
-#> [1] 713µs
+#> [1] 748µs
 func2$median
-#> [1] 1.11s
+#> [1] 1.35s
 func3$median
-#> [1] 784µs
+#> [1] 788µs
 func4$median
-#> [1] 968ms
+#> [1] 980ms
 ```
 
 When setting the number of iterations to 100, utilizing parallelization
@@ -239,7 +240,7 @@ If you encounter any other bugs, please report them at
     #> [8] base     
     #> 
     #> other attached packages:
-    #> [1] bench_1.1.4  concurve_3.0
+    #> [1] bench_1.1.4    concurve_3.0.0
     #> 
     #> loaded via a namespace (and not attached):
     #>  [1] tidyselect_1.2.1        dplyr_1.1.4             farver_2.1.2           
@@ -261,15 +262,14 @@ If you encounter any other bugs, please report them at
     #> [49] metadat_1.4-0           survMisc_0.5.6          vctrs_0.7.1            
     #> [52] boot_1.3-32             Matrix_1.7-4            jsonlite_2.0.0         
     #> [55] fontBitstreamVera_0.1.1 carData_3.0-5           car_3.1-3              
-    #> [58] rstatix_0.7.3           pbmcapply_1.5.1         Formula_1.2-5          
-    #> [61] systemfonts_1.3.1       tidyr_1.3.2             jquerylib_0.1.4        
-    #> [64] glue_1.8.0              pkgdown_2.2.0           flextable_0.9.10       
-    #> [67] gtable_0.3.6            tibble_3.3.1            pillar_1.11.1          
-    #> [70] htmltools_0.5.9         openssl_2.3.4           ProfileLikelihood_1.3  
-    #> [73] R6_2.6.1                KMsurv_0.1-6            textshaping_1.0.4      
-    #> [76] evaluate_1.0.5          lattice_0.22-7          backports_1.5.0        
-    #> [79] broom_1.0.11            fontLiberation_0.1.0    bslib_0.9.0            
-    #> [82] Rcpp_1.1.1              zip_2.3.3               uuid_1.2-2             
-    #> [85] gridExtra_2.3           nlme_3.1-168            officer_0.7.3          
-    #> [88] xfun_0.56               fs_1.6.6                zoo_1.8-15             
-    #> [91] pkgconfig_2.0.3
+    #> [58] rstatix_0.7.3           Formula_1.2-5           systemfonts_1.3.1      
+    #> [61] tidyr_1.3.2             jquerylib_0.1.4         glue_1.8.0             
+    #> [64] pkgdown_2.2.0           flextable_0.9.10        gtable_0.3.6           
+    #> [67] tibble_3.3.1            pillar_1.11.1           htmltools_0.5.9        
+    #> [70] openssl_2.3.4           ProfileLikelihood_1.3   R6_2.6.1               
+    #> [73] KMsurv_0.1-6            textshaping_1.0.4       evaluate_1.0.5         
+    #> [76] lattice_0.22-7          backports_1.5.0         broom_1.0.11           
+    #> [79] fontLiberation_0.1.0    bslib_0.9.0             Rcpp_1.1.1             
+    #> [82] zip_2.3.3               uuid_1.2-2              gridExtra_2.3          
+    #> [85] nlme_3.1-168            officer_0.7.3           xfun_0.56              
+    #> [88] fs_1.6.6                zoo_1.8-15              pkgconfig_2.0.3

@@ -72,10 +72,9 @@ Rossi[1:5, 1:10]
 ``` r
 
 library(survival)
-mod.allison <- coxph(
-  Surv(week, arrest) ~
-    fin + age + race + wexp + mar + paro + prio,
-  data = Rossi
+mod.allison <- coxph(Surv(week, arrest) ~
+fin + age + race + wexp + mar + paro + prio,
+data = Rossi
 )
 mod.allison
 #> Call:
@@ -196,10 +195,10 @@ Please remember to cite the packages that you use.
 citation("concurve")
 #> To cite package 'concurve' in publications use:
 #> 
-#>   Rafi Z, Vigotsky A (????). _concurve: Computes and Plots
+#>   Rafi Z, Vigotsky A (2026). _concurve: Computes and Plots
 #>   Compatibility (Confidence) Intervals, P-Values, S-Values, &
 #>   Likelihood Intervals to Form Consonance, Surprisal, & Likelihood
-#>   Functions_. R package version 3.0,
+#>   Functions_. R package version 3.0.0,
 #>   <https://CRAN.R-project.org/package=concurve>.
 #> 
 #>   Rafi Z, Greenland S (2020). "Semantic and Cognitive Tools to Aid

@@ -50,7 +50,7 @@ curve_corr <- function(x, y, alternative, method, steps = 10000, cores = getOpti
 
 
   intrvls <- (0:steps) / steps
-  results <- pbmclapply(intrvls, FUN = function(i) {
+  results <- parallel::mclapply(intrvls, FUN = function(i) {
     cor.test(x, y,
       alternative = alternative, method = method,
       exact = NULL, conf.level = i, continuity = FALSE

@@ -1,18 +1,34 @@
-{{#yaml}}{{#docsearch}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/css/bootstrap.min.css" rel="stylesheet">
+<input type="search" id="search" class="form-control" placeholder="Search…">
+
+<script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@algolia/autocomplete-js"></script>
 <script>
-  docsearch({
-    {{#app_id}}appId: '{{.}}',{{/app_id}}
-    {{#debug}}debug: {{{.}}},{{/debug}}
-    apiKey: '{{api_key}}',
-    indexName: '{{index_name}}',
-    inputSelector: 'input#search-input.form-control',
-    transformData: function(hits) {
-      return hits.map(function (hit) {
-        hit.url = updateHitURL(hit);
-        return hit;
-      });
+  const client = algoliasearch('YOUR_APP_ID', 'YOUR_SEARCH_ONLY_KEY');
+  const search = autocomplete({
+    container: '#search',
+    placeholder: 'Search...',
+    getSources() {
+      return [{
+        sourceId: 'products',
+        getItems({ query }) {
+          return client.initIndex('YOUR_INDEX').search(query).then(res => res.hits);
+        },
+        templates: {
+          item({ item }) {
+            return `<div>${item.name}</div>`;
+          }
+        }
+      }];
     }
   });
 </script>
-{{/docsearch}}{{/yaml}}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script>
+  docsearch({
+    apiKey: 'YOUR_API_KEY',
+    indexName: 'YOUR_INDEX_NAME',
+    inputSelector: '#search-input',   // only works with v2
+  });
+</script>

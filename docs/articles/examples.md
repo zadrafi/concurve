@@ -97,12 +97,13 @@ We can see that the consonance “curve” is every interval estimate
 plotted, and provides the *P*-values, CIs, along with the **median
 unbiased estimate** It can be defined as such,
 
-\\C V\_{n}(\theta)=1-2\left\|H\_{n}(\theta)-0.5\right\|=2 \min
-\left\\H\_{n}(\theta), 1-H\_{n}(\theta)\right\\\\
+``` math
+C V_{n}(\theta)=1-2\left|H_{n}(\theta)-0.5\right|=2 \min \left\{H_{n}(\theta), 1-H_{n}(\theta)\right\}
+```
 
 Its information transformation, the surprisal function, which closely
 maps to the deviance function, can be constructed by taking the
-\\-log\_{2}\\ of the observed
+$`-log_{2}`$ of the observed
 *P*-value.^([3](#ref-rafiSemanticCognitiveTools2020),[17](#ref-greenlandValidPvaluesBehave2019),[18](#ref-Shannon1948-uq))
 
 To view the surprisal function, we simply change the type to “`s`” in
@@ -176,8 +177,25 @@ want certain interval estimates to be plotted in the function with the
 “`levels`” argument. If we wanted to plot the **50**%, **75**%, and
 **95**% intervals, we’d provide the argument this way:
 
+``` r
+
+(function2 <- ggcurve(type = "c", randomframe[[1]], levels = c(0.50, 0.75, 0.95), nullvalue = NULL))
+```
+
+![](examples_files/figure-html/unnamed-chunk-9-1.png)
+
 Now that we have two datasets, and two functions, we can compare them
 using the [`plot_compare()`](reference/plot_compare.md) function.
+
+``` r
+
+(plot_compare(
+  data1 = intervalsdf[[1]], data2 = randomframe[[1]], type = "c",
+  measure = "default", nullvalue = TRUE
+))
+```
+
+![](examples_files/figure-html/unnamed-chunk-10-1.png)
 
 This function will provide us with the area that is shared between the
 curve, along with a ratio of overlap to non-overlap.
@@ -185,6 +203,13 @@ curve, along with a ratio of overlap to non-overlap.
 Another way to compare the functions is to use the `cowplot` &
 [`plot_grid()`](https://wilkelab.org/cowplot/reference/plot_grid.html)
 functions, which I am mostly beginning to lean towards to.
+
+``` r
+
+cowplot::plot_grid(function1, function2)
+```
+
+![](examples_files/figure-html/unnamed-chunk-11-1.png)
 
 It’s clear that the outputs have changed and indicate far more overlap
 than before. A very useful and easy way to spot differences or lack of
@@ -304,10 +329,10 @@ Please remember to cite the R packages that you use in your work.
 citation("concurve")
 #> To cite package 'concurve' in publications use:
 #> 
-#>   Rafi Z, Vigotsky A (????). _concurve: Computes and Plots
+#>   Rafi Z, Vigotsky A (2026). _concurve: Computes and Plots
 #>   Compatibility (Confidence) Intervals, P-Values, S-Values, &
 #>   Likelihood Intervals to Form Consonance, Surprisal, & Likelihood
-#>   Functions_. R package version 3.0,
+#>   Functions_. R package version 3.0.0,
 #>   <https://CRAN.R-project.org/package=concurve>.
 #> 
 #>   Rafi Z, Greenland S (2020). "Semantic and Cognitive Tools to Aid

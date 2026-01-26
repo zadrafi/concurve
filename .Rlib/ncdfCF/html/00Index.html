@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head><title>R: Easy Access to NetCDF Files with CF Metadata Conventions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="stylesheet" type="text/css" href="R.css">
+</head><body><div class="container">
+<h1> Easy Access to NetCDF Files with CF Metadata Conventions
+<img class="toplogo" src="../../../doc/html/Rlogo.svg" alt="[R logo]">
+</h1>
+<hr>
+<div style="text-align: center;">
+<a href="../../../doc/html/packages.html"><img class="arrow" src="../../../doc/html/left.jpg" alt="[Up]"></a>
+<a href="../../../doc/html/index.html"><img class="arrow" src="../../../doc/html/up.jpg" alt="[Top]"></a>
+</div><h2>Documentation for package &lsquo;ncdfCF&rsquo; version 0.8.0</h2>
+
+<ul><li><a href="../DESCRIPTION" type="text/plain; charset=utf-8">DESCRIPTION file</a>.</li>
+<li><a href="../doc/index.html">User guides, package vignettes and other documentation.</a></li>
+<li><a href="../NEWS.md">Package NEWS</a>.</li>
+</ul>
+
+<h2>Help Pages</h2>
+
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="aoi.html">aoi</a></td>
+<td>Area of Interest</td></tr>
+<tr><td style="width: 25%;"><a href="as_CF.html">as_CF</a></td>
+<td>Create a 'CFDataset' or 'CFVariable' instance from an R object</td></tr>
+<tr><td style="width: 25%;"><a href="as_CF.html">as_CF.default</a></td>
+<td>Create a 'CFDataset' or 'CFVariable' instance from an R object</td></tr>
+<tr><td style="width: 25%;"><a href="as_CF.html">as_CF.SpatRaster</a></td>
+<td>Create a 'CFDataset' or 'CFVariable' instance from an R object</td></tr>
+<tr><td style="width: 25%;"><a href="sub-.CFVariable.html">bracket_select</a></td>
+<td>Extract data for a variable</td></tr>
+<tr><td style="width: 25%;"><a href="sub-.CFVariableL3b.html">bracket_select_l3b</a></td>
+<td>Extract data for a variable</td></tr>
+<tr><td style="width: 25%;"><a href="CFAuxiliaryLongLat.html">CFAuxiliaryLongLat</a></td>
+<td>CF auxiliary longitude-latitude variable</td></tr>
+<tr><td style="width: 25%;"><a href="CFAxis.html">CFAxis</a></td>
+<td>CF axis object</td></tr>
+<tr><td style="width: 25%;"><a href="CFAxisCharacter.html">CFAxisCharacter</a></td>
+<td>CF character axis object</td></tr>
+<tr><td style="width: 25%;"><a href="CFAxisDiscrete.html">CFAxisDiscrete</a></td>
+<td>CF discrete axis object</td></tr>
+<tr><td style="width: 25%;"><a href="CFAxisLatitude.html">CFAxisLatitude</a></td>
+<td>Latitude CF axis object</td></tr>
+<tr><td style="width: 25%;"><a href="CFAxisLongitude.html">CFAxisLongitude</a></td>
+<td>Longitude CF axis object</td></tr>
+<tr><td style="width: 25%;"><a href="CFAxisNumeric.html">CFAxisNumeric</a></td>
+<td>Numeric CF axis object</td></tr>
+<tr><td style="width: 25%;"><a href="CFAxisTime.html">CFAxisTime</a></td>
+<td>Time axis object</td></tr>
+<tr><td style="width: 25%;"><a href="CFAxisVertical.html">CFAxisVertical</a></td>
+<td>Vertical CF axis object</td></tr>
+<tr><td style="width: 25%;"><a href="CFBounds.html">CFBounds</a></td>
+<td>CF boundary variable</td></tr>
+<tr><td style="width: 25%;"><a href="CFCellMeasure.html">CFCellMeasure</a></td>
+<td>CF cell measure variable</td></tr>
+<tr><td style="width: 25%;"><a href="CFData.html">CFData</a></td>
+<td>CF data object</td></tr>
+<tr><td style="width: 25%;"><a href="CFDataset.html">CFDataset</a></td>
+<td>CF data set</td></tr>
+<tr><td style="width: 25%;"><a href="CFGridMapping.html">CFGridMapping</a></td>
+<td>CF grid mapping object</td></tr>
+<tr><td style="width: 25%;"><a href="CFGroup.html">CFGroup</a></td>
+<td>Group for CF objects</td></tr>
+<tr><td style="width: 25%;"><a href="CFLabel.html">CFLabel</a></td>
+<td>CF label object</td></tr>
+<tr><td style="width: 25%;"><a href="CFObject.html">CFObject</a></td>
+<td>CF base object</td></tr>
+<tr><td style="width: 25%;"><a href="CFStandardNames.html">CFStandardNames</a></td>
+<td>CF Standard names table</td></tr>
+<tr><td style="width: 25%;"><a href="CFVariable.html">CFVariable</a></td>
+<td>CF data variable</td></tr>
+<tr><td style="width: 25%;"><a href="CFVariableL3b.html">CFVariableL3b</a></td>
+<td>CF data variable for the NASA L3b format</td></tr>
+<tr><td style="width: 25%;"><a href="CFVerticalParametricTerm.html">CFVerticalParametricTerm</a></td>
+<td>Parametric formula term for a vertical CF axis object</td></tr>
+<tr><td style="width: 25%;"><a href="create_ncdf.html">create_ncdf</a></td>
+<td>Create a new data set</td></tr>
+<tr><td style="width: 25%;"><a href="dim.AOI.html">dim.AOI</a></td>
+<td>The dimensions of the grid of an AOI</td></tr>
+<tr><td style="width: 25%;"><a href="dim.CFAxis.html">dim.CFAxis</a></td>
+<td>Axis length</td></tr>
+<tr><td style="width: 25%;"><a href="dimnames.html">dimnames</a></td>
+<td>Names or axis values of an CF object</td></tr>
+<tr><td style="width: 25%;"><a href="groups.html">groups</a></td>
+<td>List the groups in the CF object, recursively.</td></tr>
+<tr><td style="width: 25%;"><a href="groups.html">groups.CFDataset</a></td>
+<td>List the groups in the CF object, recursively.</td></tr>
+<tr><td style="width: 25%;"><a href="makeAxis.html">makeAxis</a></td>
+<td>Create an axis</td></tr>
+<tr><td style="width: 25%;"><a href="makeCharacterAxis.html">makeCharacterAxis</a></td>
+<td>Create a character axis</td></tr>
+<tr><td style="width: 25%;"><a href="makeDiscreteAxis.html">makeDiscreteAxis</a></td>
+<td>Create a discrete axis</td></tr>
+<tr><td style="width: 25%;"><a href="makeLatitudeAxis.html">makeLatitudeAxis</a></td>
+<td>Create a latitude axis</td></tr>
+<tr><td style="width: 25%;"><a href="makeLongitudeAxis.html">makeLongitudeAxis</a></td>
+<td>Create a longitude axis</td></tr>
+<tr><td style="width: 25%;"><a href="makeTimeAxis.html">makeTimeAxis</a></td>
+<td>Create a time axis</td></tr>
+<tr><td style="width: 25%;"><a href="makeVerticalAxis.html">makeVerticalAxis</a></td>
+<td>Create a vertical axis</td></tr>
+<tr><td style="width: 25%;"><a href="arrayOps.html">Math.CFVariable</a></td>
+<td>Operations on CFVariable objects</td></tr>
+<tr><td style="width: 25%;"><a href="dimnames.html">names.CFDataset</a></td>
+<td>Names or axis values of an CF object</td></tr>
+<tr><td style="width: 25%;"><a href="NCDimension.html">NCDimension</a></td>
+<td>NetCDF dimension object</td></tr>
+<tr><td style="width: 25%;"><a href="NCGroup.html">NCGroup</a></td>
+<td>NetCDF group</td></tr>
+<tr><td style="width: 25%;"><a href="NCObject.html">NCObject</a></td>
+<td>NetCDF base object</td></tr>
+<tr><td style="width: 25%;"><a href="NCResource.html">NCResource</a></td>
+<td>NetCDF resource object</td></tr>
+<tr><td style="width: 25%;"><a href="NCVariable.html">NCVariable</a></td>
+<td>NetCDF variable</td></tr>
+<tr><td style="width: 25%;"><a href="open_ncdf.html">open_ncdf</a></td>
+<td>Open a netCDF resource</td></tr>
+<tr><td style="width: 25%;"><a href="arrayOps.html">Ops.CFVariable</a></td>
+<td>Operations on CFVariable objects</td></tr>
+<tr><td style="width: 25%;"><a href="peek_ncdf.html">peek_ncdf</a></td>
+<td>Examine a netCDF resource</td></tr>
+<tr><td style="width: 25%;"><a href="sub-.CFVariable.html">[.CFVariable</a></td>
+<td>Extract data for a variable</td></tr>
+<tr><td style="width: 25%;"><a href="sub-.CFVariableL3b.html">[.CFVariableL3b</a></td>
+<td>Extract data for a variable</td></tr>
+<tr><td style="width: 25%;"><a href="sub-sub-.CFDataset.html">[[-method</a></td>
+<td>Get a CF object from a data set</td></tr>
+<tr><td style="width: 25%;"><a href="sub-sub-.CFDataset.html">[[.CFDataset</a></td>
+<td>Get a CF object from a data set</td></tr>
+</table>
+</div></body></html>

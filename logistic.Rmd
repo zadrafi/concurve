@@ -1,0 +1,138 @@
+---
+title: "Logistic Regression in R"
+description: "A simple introduction to using the concurve R package for logistic regression."
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+opengraph:
+  image: 
+    src: "https://res.cloudinary.com/less-likely/image/upload/v1554700143/Site/Projects.jpg"
+  twitter:
+    card: summary
+    creator: "@dailyzad"    
+bibliography: references.bib
+link-citations: yes
+csl: american-medical-association.csl
+vignette: >
+  %\VignetteIndexEntry{Logistic Regression in R}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Suppose we wanted to produce confidence distributions for data with binary outcomes and where we employ a logistic regression, we would do the following. Here, I use the mtcars dataset for the example and also simulate some very simple binary data. We use `suppressMessages()` to avoid seeing the long list of profiling messages.
+
+```{r}
+library(concurve)
+
+X <- rnorm(100, mean = 0, sd = 1)
+Y <- rbinom(n = 100, size = 1, prob = 0.5)
+
+mydata1 <- data.frame(X, Y)
+
+
+model1 <- glm(Y ~ X,
+  data = mydata1,
+  family = binomial(link = "logit"))
+
+model2 <- glm(am ~ mpg, family = binomial(link = "logit"), data = mtcars)
+
+summary(model1)
+summary(model2)
+
+
+
+model_pro <- suppressMessages(curve_gen(
+  model = model1,
+  var = "X",
+  method = "glm",
+  log = T,
+  steps = 1000,
+  table = TRUE))
+
+model_con <- suppressMessages(curve_gen(
+  model = model2,
+  var = "mpg",
+  method = "glm",
+  log = T,
+  steps = 1000,
+  table = TRUE))
+
+head(model_con[[1]], 10)
+
+
+(ggcurve(model_con[[1]],
+    measure = "ratio",
+    type = "c",
+    nullvalue = c(0.8, 1.2), title = "Confidence Curve",
+    subtitle = "The function displays intervals at every level.",
+    xaxis = expression(theta == ~"Range of Values"),
+    yaxis1 = expression(paste(italic(p), "-value")),
+    yaxis2 = "Levels for CI (%)"))
+
+
+(ggcurve(model_pro[[1]],
+    measure = "ratio",
+    type = "c",
+    nullvalue = c(0.8, 1.2), title = "Confidence Curve",
+    subtitle = "The function displays intervals at every level.",
+    xaxis = expression(theta == ~"Range of Values"),
+    yaxis1 = expression(paste(italic(p), "-value")),
+    yaxis2 = "Levels for CI (%)"))
+
+(ggcurve(model_con[[2]],
+    measure = "ratio",
+    type = "cdf",
+    nullvalue = c(0.8, 1.2), title = "Confidence Distribution",
+    subtitle = "The function displays intervals at every level.",
+    xaxis = expression(theta == ~"Range of Values"),
+    yaxis1 = expression(paste(italic(p), "-value")),
+    yaxis2 = "Levels for CI (%)"))
+
+(ggcurve(model_pro[[2]],
+    measure = "ratio",
+    type = "cdf",
+    nullvalue = c(0.8, 1.2), title = "Confidence Distribution",
+    subtitle = "The function displays intervals at every level.",
+    xaxis = expression(theta == ~"Range of Values"),
+    yaxis1 = expression(paste(italic(p), "-value")),
+    yaxis2 = "Levels for CI (%)"))
+
+
+(ggcurve(model_con[[2]],
+    measure = "ratio",
+    type = "cd",
+    nullvalue = NULL, title = "Confidence Density",
+    subtitle = "The function displays intervals at every level.",
+    xaxis = expression(theta == ~"Range of Values"),
+    yaxis1 = expression(paste(italic(p), "-value")),
+    yaxis2 = "Levels for CI (%)"))
+
+(ggcurve(model_pro[[2]],
+    measure = "ratio",
+    type = "cd",
+    nullvalue = NULL, title = "Confidence Density",
+    subtitle = "The function displays intervals at every level.",
+    xaxis = expression(theta == ~"Range of Values"),
+    yaxis1 = expression(paste(italic(p), "-value")),
+    yaxis2 = "Levels for CI (%)"))
+
+```
+
+# Cite R Packages
+
+Please remember to cite the R packages that you use in your work.
+
+```{r}
+citation("concurve")
+citation("cowplot")
+```
+
+* * * 
+
+# References
+
+* * * 

@@ -1,0 +1,217 @@
+---
+title: "Using ncdfCF"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Using ncdfCF}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## What is netCDF?
+
+*"NetCDF (Network Common Data Form) is a set of software libraries and machine-independent data formats that support the creation, access, and sharing of array-oriented scientific data. It is also a community standard for sharing scientific data."*
+
+NetCDF is [developed by UCAR/Unidata](https://www.unidata.ucar.edu/software/netcdf) and is widely used for climate and weather data as well as for other environmental data sets. The `netcdf` library is ported to a wide variety of operating systems and platforms, from laptop computers to large mainframes. Data sets are typically large arrays with axes for longitude, latitude and time, with other axes, such as depth, added according to the nature of the data. Other types of data are also commonly found.
+
+Importantly, *"a netCDF file includes information about the data it contains"*. This comes in two flavours:
+
+ * **Structural metadata** are part of the `netcdf` library. These describe the basic building blocks of the data set, its variables, and the dimensions of the variables and how the pieces fit together. With just this information one can read the data from the resource.
+ * **Descriptive metadata** are contained in attributes attached to the basic building blocks. They inform the user on what the building blocks represent. This includes crucial details like how dimensions in the resource map to the axes of the variables, but also more general items like the owners or producers of the data and the production history.
+ 
+Both types of metadata are necessary to "understand" the netCDF resource.
+
+### Conventions
+
+The descriptive metadata are not defined by the `netcdf` library. To ensure interoperability, [several "conventions"](https://archive.unidata.ucar.edu/software/netcdf/conventions.html) have been developed over the years such that users of netCDF data can correctly interpret what data developers have put in the resource. The most important of these conventions is the [CF Metadata Conventions](https://cfconventions.org). These conventions define a large number of standards that help interpret netCDF resources.
+
+Other common conventions are related to climate prediction data, such as CMIP-5 and CMIP-6, but these typically extend the CF Metadata Conventions.
+
+## Using netCDF resources in R
+
+### Low-level access
+
+The `RNetCDF` package is developed and maintained by the same team that developed and maintains the `netcdf` library. It provides an interface to the `netcdf` library that stays very close to the API of the C library. As a result, it lacks an intuitive user experience and workflow that R users would be familiar with. 
+
+Package `ncdf4`, the most widely used package to access netCDF resources, does one better by performing the tedious task of reading the structural metadata from the resource that is needed for a basic understanding of the contents, such as dimension and variable details, but the library API concept remains with functions that fairly directly map to the `netcdf` library functions.
+
+One would really need to understand the netCDF data model and implementation details to effectively use these packages. For instance, most data describing a *dimension* is stored as a *variable*. So to read the `dimnames()` of a dimension you'd have to call `var.get.nc()` or `ncvar_get()`. Neither package loads the attributes of the dimensions, variables and the data set ("global" variables), which is essential to *understand* what the dimensions and variables represent.
+
+While both packages are very good at what they do, it is clearly not enough.
+
+### Extending the base packages
+
+Several packages have been developed to address some of these issues and make access to the data easier. Unfortunately, none of these packages provide a comprehensive *R-style* solution to accessing and interpreting netCDF resources in an intuitive way.
+
+### ncdfCF
+
+Package `ncdfCF` provides a high-level interface using functions and methods that are familiar to the R user. It reads the structural metadata and also the attributes upon opening the resource. In the process, the `ncdfCF` package also applies CF Metadata Conventions to interpret the data. This currently applies to:
+
+ * **Groups** are a feature of the newer `netcdf4` format, allowing for a directory-like structure in the netCDF resource. The specific scoping rules to find related objects distributed over multiple groups are supported.
+ * The **axis designation**. The three mechanisms to identify the axis each dimension represents are applied until an axis is determined.
+ * The **time axis**. Time is usually encoded as an offset from an origin. Using the [`CFtime` package](https://cran.r-project.org/web//packages//CFtime/index.html) these offsets can be turned into intelligible dates and times, for all defined calendars.
+ * **Bounds** information defines the size of grid cells in data variables. When present, bounds are read and used in analyses.
+ * **Discrete dimensions**, possibly with character labels.
+ * **Auxiliary coordinate variables** which describe **scalar axes** and **auxiliary longitude-latitude grids**. The latter can be used by `ncdfCF` to automatically align data variables that are not on a Cartesian grid to a longitude-latitude grid.
+ * The **cell measure variables** are read and linked to any data variables referencing them. Cell measure variables that are external to the netCDF resource with the referring data variable can be linked to the data set and then they are immediately available to the referring data variables.
+ * **Labels**, as separate variables identified through the `coordinates` attribute of axes, are read, including when multiple sets of labels are defined for a single axis. Users can select which set of labels to make active for display, selection and processing.
+ * The **grid_mapping variables**, providing the coordinate reference system (CRS) of the data, with support for all defined objects in the latest EPSG database as well as "manual" construction of CRSs.
+ 
+More details on how package `ncdfCF` implements the CF Metadata Conventions, including a feature matrix of supported sections, can be found in the "R-CF" vignette.
+
+## Basic usage
+
+Opening and inspecting the contents of a netCDF resource is very straightforward:
+
+```{r basic_example}
+library(ncdfCF)
+  
+# Get a netCDF file, here hourly data for 2016-01-01 over Rwanda
+fn <- system.file("extdata", "ERA5land_Rwanda_20160101.nc", package = "ncdfCF")
+  
+# Open the file, all metadata is read
+(ds <- open_ncdf(fn))
+  
+# Variables can be accessed through standard list-type extraction syntax
+(t2m <- ds[["t2m"]])
+  
+# Same with axes, but now without first assigning the object to a symbol
+ds[["longitude"]]
+  
+# Regular base R operations simplify life further
+dimnames(ds[["pev"]]) # A data variable: list of axis names
+  
+dimnames(ds[["longitude"]]) # An axis: vector of axis coordinate values
+  
+# Access attributes
+ds[["pev"]]$attribute("long_name")
+```
+
+In the last command you noted the list-like syntax with the `$` operator. The base objects in the package are based on the `R6` object-oriented model. `R6` is a light-weight but powerful and efficient framework to build object models. Access to the public fields and functions is provided through the `$` operator. Common base R operators and functions, such as shown above, are supported to facilitate integration of `ncdfCF` in frameworks built on base R or S3.
+
+## Extracting data
+
+One of the perpetual headaches of users of netCDF files is to extract the data. If you want to get all the data for a variable then neither `RNetCDF` nor `ncdf4` are particularly troublesome:
+
+``` r
+library(ncdf4)
+nc <- nc_open(fn)
+vars <- names(nc$var)
+d <- ncvar_get(nc, vars[[1]])
+```
+
+But what if you are interested in only a small area or a month of data while the resource has global data spanning multiple years? In both `RNetCDF` and `ncdf4` packages you'd have to work out how your real-world boundaries translate to indices into the variable array of interest and then populate `start` and `count` arguments to pass on to `var.get.nc()` or `ncvar_get()`. That may be feasible for longitude and latitude axes, but for a time axis this becomes more complicated (reading and parsing the "units" attribute of the axis) or nigh-on impossible when non-standard calendars are used for the axis. Many R users default to simply reading the entire array and then extracting the area of interest using standard R tools. That is wasteful at best (lots of I/O, RAM usage, CPU cycles) and practically impossible with some larger netCDF resources that have variables upwards of 1GB in size.
+
+Enter `ncdfCF`. With `ncdfCF` you have several options to extract data for a variable:
+
+ * **`[]`**: Using R's standard extraction operator `[` you work directly with the index values into the array dimensions: `d <- t2m[3:5, 1:4, 1:10]`. You can leave out dimensions to extract everything from that dimension (but you have to indicate the position, just like in regular arrays). So to get the first 5 "time" slices from `t2m`: `d <- t2m[, , 1:5]`. This works for any number of dimensions, you simply have to adjust the number of positions that you specify, including any degenerate dimensions. Effectively, you need to indicate as many positions as the data variable has axes. You still need to know the indices into the arrays but `ncdfCF` has some helper functions to get you those. Not specifying anything gets you the whole array: `d <- t2m[]`.
+ * **`subset()`**: The `subset()` method is more flexible than `[]` because it requires less knowledge of how the data in the variable is structured, particularly the order of the axes. While many netCDF resources "behave" in their dimension order, there is no guarantee. With `subset()` you supply each axis you want to subset (by axis orientation or name, in any order) and each item containing a vector of real-world coordinates to extract. As an example, to extract values of a variable `x` for Australia for the year 2020 you call `x$subset(X = 112:154, Y = -9:-44, T = c("2020-01-01", "2021-01-01"))`. The result is returned as a new `CFVariable` object.
+ * **`summarise()`**: The `summarise()` method summarises the temporal dimension of a data variable to a lower resolution and returns a `CFVariable` object with the results. For instance, you can summarise daily data to monthly summaries, which greatly reduces the size of the data variable. The periods to which data can be summarised are "day", "dekad" (10-day periods), "month", "quarter" (i.e. JFM, AMJ, JAS, OND), "season" (the meteorological seasons: DJF, MAM, JJA, SON), and "year". The function to summarise on is user-supplied and can be a simple built-in function, like `mean()`, a function that results multiple results, like `range()`, or a custom function. A new `CFVariable` instance is returned for every result returned from the function.
+  
+
+```{r extract}
+# Extract a time series for a specific location
+# As can be seen above, the `t2m` data variable has 3 axes
+ts <- t2m[5, 4, ]
+str(ts)
+  
+# Extract the full spatial extent for one time step
+ts <- t2m[, , 12]
+str(ts)
+```
+
+Note that the results contain degenerate dimensions (of length 1). This by design because it allows attributes to be attached and then inspected by the user in a consistent manner.
+
+```{r subset}
+# Extract a specific region, full time dimension
+(ts <- t2m$subset(X = 29:30, Y = -1:-2))
+
+# Extract specific time slices for a specific region
+# Note that the axes are specified out of order and using alternative
+# specifications: only the extreme values are used.
+(ts <- t2m$subset(T = c("2016-01-01 09:00", "2016-01-01 15:00"),
+                  X = c(29.6, 28.8),
+                  Y = seq(-2, -1, by = 0.05)))
+```
+
+These methods will read data from the netCDF resource, but only as much as is requested.
+
+The approaches lend themselves well to the `apply()` family of functions for processing. Importantly, these functions give access to data from the netCDF resource so you can tweak the size of your request to the capacity of the computer, without exhausting RAM.
+
+## Working with the data
+
+The `subset()` and `summarise()` methods return data from a variable as a new `CFVariable` instance, including all important metadata of the data, such as its axes, the coordinate reference system, and the attributes, among others.
+
+### Processing data
+
+When working with netCDF data, you usually want to manipulate the data to implement a certain analysis. The basic R functions can operate directly on the `CFVariable` instance, returning a new `CFVariable` instance for further processing (more specifically: the functions in the S3 Ops and Math generic groups). Returning to the previous example, the temperature in units of Kelvin can be converted to degrees Celsius in the usual way:
+
+```{r KtoC}
+tsC <- ts - 273.15
+tsC$set_attribute("units", "NC_CHAR", "degrees_Celsius")
+tsC
+```
+
+You can also apply logical and comparison operators:
+
+```{r hot}
+# This produces a "logical" CFVariable: all values are 0 (FALSE) or 1 (TRUE)
+tsHot <- tsC > 20
+tsHot$set_attribute("units", "NC_CHAR", "1")
+tsHot
+```
+
+It is also possible to chain operations and functions together. The above two statements could also be executed as `tsHot <- (ts - 273.15) > 20`.
+
+After processing `CFVariable` data like this, you should update the attributes of the final result, as was done with the "units" attribute in the examples above. The "name" attribute will have a value that *somewhat creatively* describes the process chain (look at the example of `tsHot`) but you likely have a better description (like, `tsHot$name <- "toasty_places"`).
+
+### Orienting the data
+
+The `CFVariable` instance also lets you manipulate the data in a way that is informed by the metadata. This overcomes a typical issue when working with netCDF data that adheres to the CF Metadata Conventions. The ordering of the axes in a typical netCDF resource is different from the way that R orders its data. That leads to surprising results if you are not aware of this issue:
+
+```{r orienting}
+# Open a file and read the data from a variable into a CFVariable instance
+fn <- system.file("extdata", "tasmax_NAM-44_day_20410701-vncdfCF.nc", package = "ncdfCF")
+ds <- open_ncdf(fn)
+tx <- ds[["tasmax"]]
+
+# Use the terra package for plotting
+# install.packages("terra")
+library(terra)
+
+# Get the data in exactly the way it is stored in the file, using `raw()`
+tx_raw <- tx$raw()
+str(tx_raw)
+
+# Plot the data
+(r <- rast(tx_raw))
+plot(r)
+```
+
+North America is lying on its side. This is because the data is stored differently in the netCDF resource than R expects. There is, in fact, not a single way of storing data in a netCDF resources, the dimensions may be stored in any order. The CF Metadata Conventions add metadata to interpret the file storage. The `array()` method uses that to produce an array in the familiar R storage arrangement:
+
+```{r array}
+tx_array <- tx$array()
+str(tx_array)
+r <- rast(tx_array)
+plot(r)
+```
+
+Ok, so now we got North America looking pretty ok again. The data has been oriented in the right way. Behind the scenes that may have involved transposing and flipping the data, depending on the data storage arrangement in the netCDF resource.
+
+But the coordinate system is still not right. These are just ordinal values along both axes. The `terra::SpatRaster` object also does not show a CRS. All of the above steps can be fixed by simply calling the `terra()` method on the data object. This will return a `terra::SpatRaster` for a data object with three axes and a `terra::SpatRasterDataset` for a data object with four axes:
+
+```{r terra}
+(r <- tx$terra())
+plot(r[[1]])
+```
+
+So that's a fully specified `terra::SpatRaster` from netCDF data.
+
+(**Disclaimer:** Package `terra` can do this too with simply `terra::rast(fn)` and then selecting a layer to plot (which is not always trivial if you are looking for a specific layer; e.g. what does "lyr.1" represent?). The whole point of the above examples is to demonstrate the different steps in processing netCDF data. There are also some subtle differences such as the names of the layers. Furthermore, `ncdfCF` doesn't insert the attributes of the variable into the `SpatRaster`. `terra` can only handle netCDF resources that "behave" properly (especially the axis order) and it has no particular consideration for the different calendars that can be used with CF data.)

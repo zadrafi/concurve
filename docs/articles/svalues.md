@@ -1,8 +1,8 @@
 # S-values
 
-To learn more about \\S\\-values, otherwise known as Shannon-information
+To learn more about $`S`$-values, otherwise known as Shannon-information
 values, which are the base-2 log transformation of the observed
-\\P\\-value \\p\\, see the following references below the
+$`P`$-value $`p`$, see the following references below the
 calculator.^([1](#ref-Shannon1948-uq)–[10](#ref-greenlandAidScientificInference2020))
 
 ## Convert P-values to S-values
@@ -16,7 +16,7 @@ tosses?
 
 Number of Coin Tosses
 
-![](_w_c02fe0380b3740dab53a53c048a11f2a/PandaCoin.png)  
+![](_w_550036c80b5e4f85951a859c0cbdb72a/PandaCoin.png)  
   
 
 To learn about S-values, check out [this blog

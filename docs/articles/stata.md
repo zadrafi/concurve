@@ -96,7 +96,7 @@ post) will be named “**topost**” and that it will have five variables,
 
 - “**pvalue**”is computed by taking 1 - “**level**”, which is alpha.
 
-- “**svalue**”is computed by taking the \\-log\_{2}\\ of the computed
+- “**svalue**”is computed by taking the $`-log_{2}`$ of the computed
   P-value, and this column will be used to plot the surprisal function.
 
 - “**my_new_data**” is the filename that we’ve assigned to our new
@@ -165,7 +165,7 @@ done that here by subtracting “**level**” from 1 and then dividing the
 whole equation by 100, so that our P-value can be on the proper scale.
 Our third variable, which is the longest, computes the “**Svalue**” by
 using the previous variable, the “**Pvalue**” and taking the
-\\-log\_{2}\\ of it.
+$`-log_{2}`$ of it.
 
 The relationships between the variables on this line and the variables
 we set up in the very first line are dictated by the order of the
@@ -252,7 +252,7 @@ graph export "confidence.svg", replace
 Consonance
 
 Pretty neat, eh? And below is what our surprisal function looks like,
-which is simply the \\-\log\_{2}\\(*p*) transformation of the observed
+which is simply the $`-\log_{2}`$(*p*) transformation of the observed
 P-value. For a more comprehensive discussion on surprisals, [see this
 page](articles/) and check out some of the references at the bottom.
 

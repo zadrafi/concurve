@@ -18,10 +18,10 @@ citation("concurve")
 
     ## To cite package 'concurve' in publications use:
     ## 
-    ##   Rafi Z, Vigotsky A (????). _concurve: Computes and Plots
+    ##   Rafi Z, Vigotsky A (2026). _concurve: Computes and Plots
     ##   Compatibility (Confidence) Intervals, P-Values, S-Values, &
     ##   Likelihood Intervals to Form Consonance, Surprisal, & Likelihood
-    ##   Functions_. R package version 3.0,
+    ##   Functions_. R package version 3.0.0,
     ##   <https://CRAN.R-project.org/package=concurve>.
     ## 
     ##   Rafi Z, Greenland S (2020). "Semantic and Cognitive Tools to Aid

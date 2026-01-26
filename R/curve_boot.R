@@ -71,14 +71,14 @@ curve_boot <- function(data = data, func = func, method = "bca", t0, tt, bb,
 
     # Data Frame with BCA Intervals ------------------------------
 
-    bca <- pbmclapply(1:length(alpha), FUN = function(i) c(nth(z$bca, i), nth(z$bca, -i)), mc.cores = cores)
+    bca <- parallel::mclapply(1:length(alpha), FUN = function(i) c(nth(z$bca, i), nth(z$bca, -i)), mc.cores = cores)
     bcaintervals <- data.frame(do.call(rbind, bca))
     intrvl.limit <- c("lower.limit", "upper.limit")
     colnames(bcaintervals) <- intrvl.limit
-    news <- pbmclapply(1:length(alpha), FUN = function(i) nth(z$bca, -i) - nth(z$bca, i), mc.cores = cores)
+    news <- parallel::mclapply(1:length(alpha), FUN = function(i) nth(z$bca, -i) - nth(z$bca, i), mc.cores = cores)
     width <- data.frame(do.call(rbind, news))
     colnames(width) <- "intrvl.width"
-    bews <- pbmclapply(1:length(alpha), FUN = function(i) nth(z$alphaperc, -i) - nth(z$alphaperc, i), mc.cores = cores)
+    bews <- parallel::mclapply(1:length(alpha), FUN = function(i) nth(z$alphaperc, -i) - nth(z$alphaperc, i), mc.cores = cores)
     levels <- data.frame(do.call(rbind, bews))
     colnames(levels) <- "intrvl.level"
 
@@ -94,14 +94,14 @@ curve_boot <- function(data = data, func = func, method = "bca", t0, tt, bb,
 
     # Data Frame with Standard Intervals ------------------------------
 
-    std <- pbmclapply(1:length(alpha), FUN = function(i) c(nth(z$std, i), nth(z$std, -i)), mc.cores = cores)
+    std <- parallel::mclapply(1:length(alpha), FUN = function(i) c(nth(z$std, i), nth(z$std, -i)), mc.cores = cores)
     stdintervals <- data.frame(do.call(rbind, std))
     intrvl.limit <- c("lower.limit", "upper.limit")
     colnames(stdintervals) <- intrvl.limit
-    news <- pbmclapply(1:length(alpha), FUN = function(i) nth(z$std, -i) - nth(z$std, i), mc.cores = cores)
+    news <- parallel::mclapply(1:length(alpha), FUN = function(i) nth(z$std, -i) - nth(z$std, i), mc.cores = cores)
     width <- data.frame(do.call(rbind, news))
     colnames(width) <- "intrvl.width"
-    bews <- pbmclapply(1:length(alpha), FUN = function(i) nth(z$alphaperc, -i) - nth(z$alphaperc, i), mc.cores = cores)
+    bews <- parallel::mclapply(1:length(alpha), FUN = function(i) nth(z$alphaperc, -i) - nth(z$alphaperc, i), mc.cores = cores)
     levels <- data.frame(do.call(rbind, bews))
     colnames(levels) <- "intrvl.level"
 
@@ -168,14 +168,14 @@ curve_boot <- function(data = data, func = func, method = "bca", t0, tt, bb,
     z$alphaperc <- as.numeric(z$alphaperc)
     1:length(alpha)
 
-    bca <- pbmclapply(1:length(alpha), FUN = function(i) c(nth(z$bca, i), nth(z$bca, -i)), mc.cores = cores)
+    bca <- parallel::mclapply(1:length(alpha), FUN = function(i) c(nth(z$bca, i), nth(z$bca, -i)), mc.cores = cores)
     bcaintervals <- data.frame(do.call(rbind, bca))
     intrvl.limit <- c("lower.limit", "upper.limit")
     colnames(bcaintervals) <- intrvl.limit
-    news <- pbmclapply(1:length(alpha), FUN = function(i) nth(z$bca, -i) - nth(z$bca, i), mc.cores = cores)
+    news <- parallel::mclapply(1:length(alpha), FUN = function(i) nth(z$bca, -i) - nth(z$bca, i), mc.cores = cores)
     width <- data.frame(do.call(rbind, news))
     colnames(width) <- "intrvl.width"
-    bews <- pbmclapply(1:length(alpha), FUN = function(i) nth(z$alphaperc, -i) - nth(z$alphaperc, i), mc.cores = cores)
+    bews <- parallel::mclapply(1:length(alpha), FUN = function(i) nth(z$alphaperc, -i) - nth(z$alphaperc, i), mc.cores = cores)
     levels <- data.frame(do.call(rbind, bews))
     colnames(levels) <- "intrvl.level"
 
@@ -191,14 +191,14 @@ curve_boot <- function(data = data, func = func, method = "bca", t0, tt, bb,
 
     # Data Frame with Standard Intervals ------------------------------
 
-    std <- pbmclapply(1:length(alpha), FUN = function(i) c(nth(z$std, i), nth(z$std, -i)), mc.cores = cores)
+    std <- parallel::mclapply(1:length(alpha), FUN = function(i) c(nth(z$std, i), nth(z$std, -i)), mc.cores = cores)
     stdintervals <- data.frame(do.call(rbind, std))
     intrvl.limit <- c("lower.limit", "upper.limit")
     colnames(stdintervals) <- intrvl.limit
-    news <- pbmclapply(1:length(alpha), FUN = function(i) nth(z$std, -i) - nth(z$std, i), mc.cores = cores)
+    news <- parallel::mclapply(1:length(alpha), FUN = function(i) nth(z$std, -i) - nth(z$std, i), mc.cores = cores)
     width <- data.frame(do.call(rbind, news))
     colnames(width) <- "intrvl.width"
-    bews <- pbmclapply(1:length(alpha), FUN = function(i) nth(z$alphaperc, -i) - nth(z$alphaperc, i), mc.cores = cores)
+    bews <- parallel::mclapply(1:length(alpha), FUN = function(i) nth(z$alphaperc, -i) - nth(z$alphaperc, i), mc.cores = cores)
     levels <- data.frame(do.call(rbind, bews))
     colnames(levels) <- "intrvl.level"
 
@@ -238,7 +238,7 @@ curve_boot <- function(data = data, func = func, method = "bca", t0, tt, bb,
 
     intrvls <- 1:steps / steps
 
-    t <- pbmclapply(intrvls,
+    t <- parallel::mclapply(intrvls,
       FUN = function(i) boot.ci(t.boot, conf = i, type = "perc")$perc[4:5],
       mc.cores = cores
     )

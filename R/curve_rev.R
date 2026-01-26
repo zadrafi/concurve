@@ -114,8 +114,8 @@ curve_rev <- function(point,
 
     if (measure == "mean") {
       # se <- (UL - LL) / (2*conf_range)
-      LL <- pbmclapply(z, FUN = function(i) point + (i * se), mc.cores = cores)
-      UL <- pbmclapply(z, FUN = function(i) point - (i * se), mc.cores = cores)
+      LL <- parallel::mclapply(z, FUN = function(i) point + (i * se), mc.cores = cores)
+      UL <- parallel::mclapply(z, FUN = function(i) point - (i * se), mc.cores = cores)
       df <- data.frame(do.call(rbind, UL), do.call(rbind, LL))
       intrvl.limit <- c("lower.limit", "upper.limit")
       colnames(df) <- intrvl.limit
@@ -124,8 +124,8 @@ curve_rev <- function(point,
     else if (measure == "ratio") {
       # se <- log(UL / LL) / (2*conf_range)
       logpoint <- log(point)
-      logLL <- pbmclapply(z, FUN = function(i) logpoint + (i * se), mc.cores = cores)
-      logUL <- pbmclapply(z, FUN = function(i) logpoint - (i * se), mc.cores = cores)
+      logLL <- parallel::mclapply(z, FUN = function(i) logpoint + (i * se), mc.cores = cores)
+      logUL <- parallel::mclapply(z, FUN = function(i) logpoint - (i * se), mc.cores = cores)
       df <- data.frame(do.call(rbind, logUL), do.call(rbind, logLL))
 
       intrvl.limit <- c("lower.limit", "upper.limit")
@@ -166,8 +166,8 @@ curve_rev <- function(point,
     if (measure == "ratio") {
       # se <- log(UL / LL) / (2*conf_range)
       logpoint <- log(point)
-      logLL <- pbmclapply(z, FUN = function(i) logpoint + (i * se), mc.cores = cores)
-      logUL <- pbmclapply(z, FUN = function(i) logpoint - (i * se), mc.cores = cores)
+      logLL <- parallel::mclapply(z, FUN = function(i) logpoint + (i * se), mc.cores = cores)
+      logUL <- parallel::mclapply(z, FUN = function(i) logpoint - (i * se), mc.cores = cores)
       df <- data.frame(do.call(rbind, logUL), do.call(rbind, logLL))
       intrvl.limit <- c("lower.limit", "upper.limit")
       colnames(df) <- intrvl.limit
@@ -180,8 +180,8 @@ curve_rev <- function(point,
     else if (measure == "mean") {
       stop("likelihood functions for continuous measures currently not supported")
       #      # se <- (UL - LL) / (2*conf_range)
-      #      LL <- pbmclapply(z, FUN = function(i) point + (i * se), mc.cores = cores)
-      #      UL <- pbmclapply(z, FUN = function(i) point - (i * se), mc.cores = cores)
+      #      LL <- parallel::mclapply(z, FUN = function(i) point + (i * se), mc.cores = cores)
+      #      UL <- parallel::mclapply(z, FUN = function(i) point - (i * se), mc.cores = cores)
       #      df <- data.frame(do.call(rbind, UL), do.call(rbind, LL))
       #      intrvl.limit <- c("lower.limit", "upper.limit")
       #      colnames(df) <- intrvl.limit

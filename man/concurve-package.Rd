@@ -16,28 +16,28 @@ such as 95\%.
 \tabular{ll}{ Package: \tab concurve\cr
 Logo: \tab \figure{logo.png}{options: width="50px"}\cr
 Type: \tab Package\cr Version: \tab
-2.7.7\cr Date: \tab 2020-10-07\cr License: \tab GLP-3}
+3.0.0\cr Date: \tab 2026-10-07\cr License: \tab GLP-3}
 }
 \details{
 Accepts most modeling functions that produce confidence intervals to construct distributions.
-Instructions are also provided on how to construct similar graphs for \href{https://data.lesslikely.com/concurve/articles/stata.html}{Stata}.
+Instructions are also provided on how to construct similar graphs for \href{https://stat.lesslikely.com/concurve/articles/stata.html}{Stata}.
 \subsection{See the following articles:}{
 \itemize{
-\item \strong{\href{https://data.lesslikely.com/concurve/articles/bayes.html}{Comparison to Bayesian Posterior Distributions}}
-\item \strong{\href{https://data.lesslikely.com/concurve/articles/bootstrap.html}{The Bootstrap and Consonance Functions}}
-\item \strong{\href{https://data.lesslikely.com/concurve/articles/literature.html}{Background Literature}}
-\item \strong{\href{https://data.lesslikely.com/concurve/articles/customizing.html}{Customizing Plots}}
-\item \strong{\href{https://data.lesslikely.com/concurve/articles/examples.html}{Examples in R}}
-\item \strong{\href{https://data.lesslikely.com/concurve/articles/logistic.html}{Logistic Regression in R}}
-\item \strong{\href{https://data.lesslikely.com/concurve/articles/likelihood.html}{Profile Likelihoods}}
-\item \strong{\href{https://data.lesslikely.com/concurve/articles/meta-analysis.html}{Meta-Analysis Examples}}
-\item \strong{\href{https://data.lesslikely.com/concurve/articles/stata.html}{Using Stata}}
-\item \strong{\href{https://data.lesslikely.com/concurve/articles/survival.html}{Survival Modeling}}
-\item \strong{\href{https://data.lesslikely.com/concurve/articles/svalues.html}{S-values}}
-\item \strong{\href{https://data.lesslikely.com/concurve/articles/tables.html}{Generating Tables}}
-\item \strong{\href{https://data.lesslikely.com/concurve/articles/troubleshooting.html}{Troubleshooting}}
-\item \strong{\href{https://data.lesslikely.com/concurve/articles/variancecomponents.html}{Consonance Functions for Linear Mixed-Effects Models}}
-\item \strong{\href{https://data.lesslikely.com/concurve/articles/wishlist.html}{Wish List}}
+\item \strong{\href{https://stat.lesslikely.com/concurve/articles/bayes.html}{Comparison to Bayesian Posterior Distributions}}
+\item \strong{\href{https://stat.lesslikely.com/concurve/articles/bootstrap.html}{The Bootstrap and Consonance Functions}}
+\item \strong{\href{https://stat.lesslikely.com/concurve/articles/literature.html}{Background Literature}}
+\item \strong{\href{https://stat.lesslikely.com/concurve/articles/customizing.html}{Customizing Plots}}
+\item \strong{\href{https://stat.lesslikely.com/concurve/articles/examples.html}{Examples in R}}
+\item \strong{\href{https://stat.lesslikely.com/concurve/articles/logistic.html}{Logistic Regression in R}}
+\item \strong{\href{https://stat.lesslikely.com/concurve/articles/likelihood.html}{Profile Likelihoods}}
+\item \strong{\href{https://stat.lesslikely.com/concurve/articles/meta-analysis.html}{Meta-Analysis Examples}}
+\item \strong{\href{https://stat.lesslikely.com/concurve/articles/stata.html}{Using Stata}}
+\item \strong{\href{https://stat.lesslikely.com/concurve/articles/survival.html}{Survival Modeling}}
+\item \strong{\href{https://stat.lesslikely.com/concurve/articles/svalues.html}{S-values}}
+\item \strong{\href{https://stat.lesslikely.com/concurve/articles/tables.html}{Generating Tables}}
+\item \strong{\href{https://stat.lesslikely.com/concurve/articles/troubleshooting.html}{Troubleshooting}}
+\item \strong{\href{https://stat.lesslikely.com/concurve/articles/variancecomponents.html}{Consonance Functions for Linear Mixed-Effects Models}}
+\item \strong{\href{https://stat.lesslikely.com/concurve/articles/wishlist.html}{Wish List}}
 }
 }
 }

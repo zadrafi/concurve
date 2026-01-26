@@ -12,8 +12,8 @@ rather than being limited to one interval estimate such as 95%.
 | Package: | concurve   |
 | Logo:    |            |
 | Type:    | Package    |
-| Version: | 3.0        |
-| Date:    | 2020-10-07 |
+| Version: | 3.0.0      |
+| Date:    | 2026-10-07 |
 | License: | GLP-3      |
 
 ## Details
@@ -21,52 +21,52 @@ rather than being limited to one interval estimate such as 95%.
 Accepts most modeling functions that produce confidence intervals to
 construct distributions. Instructions are also provided on how to
 construct similar graphs for
-[Stata](https://data.lesslikely.com/concurve/articles/stata.html).
+[Stata](https://stat.lesslikely.com/concurve/articles/stata.html).
 
 ### See the following articles:
 
 - **[Comparison to Bayesian Posterior
-  Distributions](https://data.lesslikely.com/concurve/articles/bayes.html)**
+  Distributions](https://stat.lesslikely.com/concurve/articles/bayes.html)**
 
 - **[The Bootstrap and Consonance
-  Functions](https://data.lesslikely.com/concurve/articles/bootstrap.html)**
+  Functions](https://stat.lesslikely.com/concurve/articles/bootstrap.html)**
 
 - **[Background
-  Literature](https://data.lesslikely.com/concurve/articles/literature.html)**
+  Literature](https://stat.lesslikely.com/concurve/articles/literature.html)**
 
 - **[Customizing
-  Plots](https://data.lesslikely.com/concurve/articles/customizing.html)**
+  Plots](https://stat.lesslikely.com/concurve/articles/customizing.html)**
 
 - **[Examples in
-  R](https://data.lesslikely.com/concurve/articles/examples.html)**
+  R](https://stat.lesslikely.com/concurve/articles/examples.html)**
 
 - **[Logistic Regression in
-  R](https://data.lesslikely.com/concurve/articles/logistic.html)**
+  R](https://stat.lesslikely.com/concurve/articles/logistic.html)**
 
 - **[Profile
-  Likelihoods](https://data.lesslikely.com/concurve/articles/likelihood.html)**
+  Likelihoods](https://stat.lesslikely.com/concurve/articles/likelihood.html)**
 
 - **[Meta-Analysis
-  Examples](https://data.lesslikely.com/concurve/articles/meta-analysis.html)**
+  Examples](https://stat.lesslikely.com/concurve/articles/meta-analysis.html)**
 
 - **[Using
-  Stata](https://data.lesslikely.com/concurve/articles/stata.html)**
+  Stata](https://stat.lesslikely.com/concurve/articles/stata.html)**
 
 - **[Survival
-  Modeling](https://data.lesslikely.com/concurve/articles/survival.html)**
+  Modeling](https://stat.lesslikely.com/concurve/articles/survival.html)**
 
-- **[S-values](https://data.lesslikely.com/concurve/articles/svalues.html)**
+- **[S-values](https://stat.lesslikely.com/concurve/articles/svalues.html)**
 
 - **[Generating
-  Tables](https://data.lesslikely.com/concurve/articles/tables.html)**
+  Tables](https://stat.lesslikely.com/concurve/articles/tables.html)**
 
-- **[Troubleshooting](https://data.lesslikely.com/concurve/articles/troubleshooting.html)**
+- **[Troubleshooting](https://stat.lesslikely.com/concurve/articles/troubleshooting.html)**
 
 - **[Consonance Functions for Linear Mixed-Effects
-  Models](https://data.lesslikely.com/concurve/articles/variancecomponents.html)**
+  Models](https://stat.lesslikely.com/concurve/articles/variancecomponents.html)**
 
 - **[Wish
-  List](https://data.lesslikely.com/concurve/articles/wishlist.html)**
+  List](https://stat.lesslikely.com/concurve/articles/wishlist.html)**
 
 ## References
 
@@ -131,8 +131,7 @@ doi:10/gg9s2f
 
 ## See also
 
-[`curve_gen`](reference/curve_gen.md),
-[`ggcurve`](reference/ggcurve.md),
+`curve_gen`, [`ggcurve`](reference/ggcurve.md),
 [`curve_table`](reference/curve_table.md)
 
 ## Author

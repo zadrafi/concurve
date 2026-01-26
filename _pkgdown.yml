@@ -1,4 +1,4 @@
-url: https://data.lesslikely.com/concurve/, https://github.com/zadrafi/concurve
+url: https://stat.lesslikely.com/concurve/, https://github.com/zadrafi/concurve
 
 title: concurve
 description: An R package that constructs and graphs consonance, surprisal, and likelihood functions.
@@ -14,13 +14,14 @@ authors:
 template:
   params:
     docsearch:
-      api_key: 328a30be91979e947c28ffd52f604eda
-      index_name: lesslikely-concurve
+      app_id: VMM13662FC
+      api_key: f19ae0e3ba80c69747114868874b5f4d
+      index_name: concurveconcurve
     ganalytics: UA-116104766-1
-    bootswatch: paper
-  path: inst/templates
   assets: inst/assets
-  default_assets: false
+  bootstrap: 5
+  light-switch: true
+  default_assets: true
   opengraph:
     image:
       src: man/figures/logo.svg
@@ -35,7 +36,7 @@ development:
 navbar:
   structure:
     left:  [home, intro, reference, articles, misc, literature, tools, news]
-    right: [github, twitter]
+    right: [search, lightswitch, github, twitter]
 
   components:
     home:
@@ -99,18 +100,26 @@ reference:
 - contents:
   - concurve-package
 - title: Statistical Computations
-  desc: Compute consonance and surprisal distribitions for a wide range of scenarios, 
+  desc: Compute consonance and surprisal distributions for a wide range of scenarios, 
         along with likelihood functions.
 - contents:
   - curve_boot
   - curve_corr
-  - curve_gen
   - curve_lik
   - curve_lmer
   - curve_mean
   - curve_meta
+  - curve_model
   - curve_rev
   - curve_surv
+  - curve_wrap
+  - curve_from_ratio
+  - curve_from_se
+- title: Database Integration
+  desc: Connect to databases and construct consonance functions from query results.
+- contents:
+  - curve_snowflake
+  - curve_snowflake_batch
 - title: Statistical Graphics
   desc: Plot the overall functions that were computed such as the consonance, 
         surprisal, and likelihood functions.
@@ -118,10 +127,17 @@ reference:
   - ggcurve
   - curve_compare
   - plot_compare
+  - curve_overlap
+  - plot_multi
 - title: Statistical Reporting
   desc: Display the tables showing relevant statistics from the initial computations.
 - contents:
   - curve_table
+  - curve_summary
+- title: Data Export
+  desc: Export consonance data to other tools and formats.
+- contents:
+  - export_for_powerbi
 - title: Miscellaneous Functions
   desc: Some internal helper functions.
 - contents:
