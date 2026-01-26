@@ -1,0 +1,197 @@
+---
+title: "Examples in R"
+description: "A simple introduction to using the concurve R package."
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+opengraph:
+  image: 
+    src: "https://res.cloudinary.com/less-likely/image/upload/v1554700143/Site/Projects.jpg"
+  twitter:
+    card: summary
+    creator: "@dailyzad"    
+bibliography: references.bib
+link-citations: yes
+csl: american-medical-association.csl
+vignette: >
+  %\VignetteIndexEntry{Examples in R}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  message = TRUE,
+  warning = TRUE,
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Introduction
+
+Here I show how to produce _P_-value, _S_-value, likelihood, and deviance functions with the `concurve` package using fake data and data from real studies. Simply put, these functions are rich sources of information for scientific inference and the image below, taken from Xie & Singh, 2013[@@xieConfidenceDistributionFrequentist2013;] displays why. 
+
+<img src="densityfunction.png" align="center" width="750"/>
+
+For a more extensive discussion of these concepts, see the following references. [@birnbaumUnifiedTheoryEstimation1961; @rafiSemanticCognitiveTools2020; @fraserPvalueFunctionStatistical2019; @fraserPValuesInsightModern2017; @Poole1987-nb; @pooleConfidenceIntervalsExclude1987; @schwederConfidenceLikelihood2002; @schwederConfidenceLikelihoodProbability2016; @Singh2007-zr; @Sullivan1990-ha; @whiteheadCaseFrequentismClinical1993; @xieConfidenceDistributionFrequentist2013; @rothmanPrecisionStatisticsEpidemiologic2008; @ruckerForestPlotDrapery2020; @rothmanFlutamideEffectivePatients1999; @coxDiscussion2013]
+
+# Simple Models
+
+First, I'd like to get started with very simple scenarios, where we could generate some normal data and combine two vectors in a dataframe,
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+library(concurve)
+set.seed(1031)
+GroupA <- rnorm(500)
+GroupB <- rnorm(500)
+RandomData <- data.frame(GroupA, GroupB)
+```
+
+and then look at the differences between the two vectors. We'll plug these vectors and the dataframe and now they're inside of the `curve_mean()` function. Here, the default method involves calculating CIs using the Wald method.  
+
+``` {r}
+intervalsdf <- curve_mean(GroupA, GroupB,
+  data = RandomData, method = "default"
+)
+```
+
+Each of the functions within `concurve` will generally produce a list with three items, and the first will usually contain the function of interest. Here, we are looking at the first ten results of the first list of the previous item that we constructed.
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+head(intervalsdf[[1]], 10)
+```
+
+That gives us a very comprehensive table, but it can be difficult to parse through, so luckily, we can view a graphical function using the `ggcurve()` function. The basic arguments that must be provided are the data argument and the "type" argument. To plot a consonance/confidence function, we would write "`c`". 
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+(function1 <- ggcurve(data = intervalsdf[[1]], type = "c", nullvalue = NULL))
+```
+
+We can see that the consonance "curve" is every interval estimate plotted, and provides the _P_-values, CIs, along with the **median unbiased estimate** It can be defined as such,
+
+$$C V_{n}(\theta)=1-2\left|H_{n}(\theta)-0.5\right|=2 \min \left\{H_{n}(\theta), 1-H_{n}(\theta)\right\}$$
+
+Its information transformation, the surprisal function, which closely maps to the deviance function, can be constructed by taking the $-log_{2}$ of the observed _P_-value.[@rafiSemanticCognitiveTools2020; @greenlandValidPvaluesBehave2019; @Shannon1948-uq]
+
+To view the surprisal function, we simply change the type to "`s`" in `ggcurve()`. 
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+(function1 <- ggcurve(data = intervalsdf[[1]], type = "s"))
+```
+
+
+We can also view the consonance distribution by changing the type to "`cdf`", which is a cumulative probability distribution, also more formally known as the "confidence distribution". The point at which the curve reaches 0.5/50% is known as the "**median unbiased estimate**". It is the same estimate that is typically at the peak of the confidencr curve from above, but this is not always the case. 
+
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+(function1s <- ggcurve(data = intervalsdf[[2]], type = "cdf", nullvalue = NULL))
+```
+
+We can also get relevant statistics that show the range of values by using the `curve_table()` function. The tables can also be exported in several formats such as .docx, .ppt, images, and TeX files. 
+
+```{r echo=TRUE, fig.height=2, fig.width=4}
+(x <- curve_table(data = intervalsdf[[1]], format = "image"))
+```
+
+# Comparing Functions
+
+If we wanted to compare two studies or even two datasets to see the amount of "consonance/concordance", we could use the `curve_compare()` function to get a very rough numerical output. 
+
+First, we generate some more fake data, that you would be unlikely to see in the real world, but that serves as a great tutorial.
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+GroupA2 <- rnorm(500)
+GroupB2 <- rnorm(500)
+RandomData2 <- data.frame(GroupA2, GroupB2)
+model <- lm(GroupA2 ~ GroupB2, data = RandomData2)
+randomframe <- curve_gen(model, "GroupB2")
+```
+
+Once again, we'll plot this data with `ggcurve()`. We can also indicate whether we want certain interval estimates to be plotted in the function with the "`levels`" argument. If we wanted to plot the **50**%, **75**%, and **95**% intervals, we'd provide the argument this way: 
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+(function2 <- ggcurve(type = "c", randomframe[[1]], levels = c(0.50, 0.75, 0.95), nullvalue = NULL))
+```
+
+Now that we have two datasets, and two functions, we can compare them using the `plot_compare()` function.
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+(plot_compare(
+  data1 = intervalsdf[[1]], data2 = randomframe[[1]], type = "c",
+  measure = "default", nullvalue = TRUE
+))
+```
+
+This function will provide us with the area that is shared between the curve, along with a ratio of overlap to non-overlap. 
+
+Another way to compare the functions is to use the `cowplot` & `plot_grid()` functions, which I am mostly beginning to lean towards to. 
+
+```{r echo=TRUE}
+cowplot::plot_grid(function1, function2)
+```
+
+It's clear that the outputs have changed and indicate far more overlap than before. A very useful and easy way to spot differences or lack of them.
+
+# Constructing Functions From Single Intervals
+
+We can also take a set of confidence limits and use them to construct a consonance, surprisal, likelihood or deviance function using the `curve_rev()` function. This method is computed from the approximate normal distribution, but there are several caveats and scenarios in which it can break down, so I would recommend visiting the reference page and reading the documentation, `curve_rev()`. In general, those settings that conflict with such scenarios are not the default settings and I would feel uncomfortable to keep them that way. 
+
+For this next example, we'll use two epidemiological studies[@brownAssociationSerotonergicAntidepressant2017; @brownAssociationAntenatalExposure2017] that studied the impact of selective serotonin reuptake inhibitor exposure in pregnant mothers, and the association with the rate of autism in newborn childs. 
+
+The second of these studies suggested a null effect of SSRI exposure on autism rates in children, due to the lack of statistical significance, whereas the first one "found" an effect". The authors claimed that the two studies they conducted clear contradict one another. However, this was a complete misinterpretation of their own results.
+
+Here I take the reported effect estimates from both studies, the confidence limits, and use them to reconstruct entire confidence curves to show how much the results truly differed. 
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+curve1 <- curve_rev(point = 1.7, LL = 1.1, UL = 2.6, type = "c", measure = "ratio", steps = 10000)
+(ggcurve(data = curve1[[1]], type = "c", measure = "ratio", nullvalue = c(1)))
+curve2 <- curve_rev(point = 1.61, LL = 0.997, UL = 2.59, type = "c", measure = "ratio", steps = 10000)
+(ggcurve(data = curve2[[1]], type = "c", measure = "ratio", nullvalue = c(1)))
+```
+
+The null value is shown via the red line and a large portion of bnoth of the confidence curves are away from it. We can also see this by plotting the likelihood functions via the `curve_rev()` function. 
+
+We can specify that we want a likelihood function using curve_rev() by specifying "l" for the type argument.
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+lik1 <- curve_rev(point = 1.7, LL = 1.1, UL = 2.6, type = "l", measure = "ratio", steps = 10000)
+(ggcurve(data = lik1[[1]], type = "l1", measure = "ratio", nullvalue = c(1)))
+lik2 <- curve_rev(point = 1.61, LL = 0.997, UL = 2.59, type = "l", measure = "ratio", steps = 10000)
+(ggcurve(data = lik2[[1]], type = "l1", measure = "ratio", nullvalue = c(1)))
+```
+
+We can also view the amount of agreement between the likelihood functions of these two studies using the plot_compare function and producing areas shared between the curves. 
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+(plot_compare(
+  data1 = lik1[[1]], data2 = lik2[[1]], type = "l1", measure = "ratio", nullvalue = TRUE, title = "Brown et al. 2017. J Clin Psychiatry. vs. \nBrown et al. 2017. JAMA.",
+  subtitle = "J Clin Psychiatry: OR = 1.7, 1/6.83 LI: LL = 1.1, UL = 2.6 \nJAMA: HR = 1.61, 1/6.83 LI: LL = 0.997, UL = 2.59", xaxis = expression(Theta ~ "= Hazard Ratio / Odds Ratio")
+))
+```
+
+We can also do the same with the confidence curves.
+
+```{r echo=TRUE, fig.height=4.5, fig.width=6}
+(plot_compare(
+  data1 = curve1[[1]], data2 = curve2[[1]], type = "c", measure = "ratio", nullvalue = TRUE, title = "Brown et al. 2017. J Clin Psychiatry. vs. \nBrown et al. 2017. JAMA.",
+  subtitle = "J Clin Psychiatry: OR = 1.7, 1/6.83 LI: LL = 1.1, UL = 2.6 \nJAMA: HR = 1.61, 1/6.83 LI: LL = 0.997, UL = 2.59", xaxis = expression(Theta ~ "= Hazard Ratio / Odds Ratio")
+))
+```
+
+This vignette was meant to be a very simple introduction to the concept of the confidence curve and how it relates to the likelihood function, and how both of these functions are much richer sources of information that single numerical estimates. For more detailed vignettes and explanations, please see some of the other articles listed on this [site here.](https://data.lesslikely.com/concurve/articles/index.html) 
+
+# Cite R Packages
+
+Please remember to cite the R packages that you use in your work.
+
+```{r}
+citation("concurve")
+citation("cowplot")
+```
+
+* * * 
+
+# References
+
+* * * 

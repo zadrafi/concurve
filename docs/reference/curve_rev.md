@@ -1,0 +1,101 @@
+# Reverse Engineer Consonance / Likelihood Functions Using the Point Estimate and Confidence Limits
+
+Using the confidence limits and point estimates from a dataset, one can
+use these estimates to compute thousands of consonance intervals and
+graph the intervals to form a consonance, surprisal, and likelihood
+functions. The intervals are calculated from the approximated normal
+distribution, however, users should be cautious as this this function is
+currently designed for similar situations (involving ratios and normal
+approximations), nevertheless the function also works for means but
+should be used skeptically, as it can break down in many situations and
+give implausible numbers. Computations of likelihood functions for means
+is currently not supported.
+
+## Usage
+
+``` r
+curve_rev(point, LL = NULL, UL = NULL, se = NULL, conf.level = 0.95,
+  type = "c", measure = "ratio", steps = 10000,
+  cores = getOption("mc.cores", 1L), table = TRUE)
+```
+
+## Arguments
+
+- point:
+
+  The point estimate from an analysis. Ex: 1.20
+
+- LL:
+
+  The lower confidence limit from an analysis Ex: 1.0
+
+- UL:
+
+  The upper confidence limit from an analysis Ex: 1.4
+
+- se:
+
+  The standard error of the point estimate. Ex: 0.05
+
+- conf.level:
+
+  Confidence level of the interval estimate.
+
+- type:
+
+  Indicates whether the produced result should be a consonance function
+  or a likelihood function. The default is "c" for consonance and
+  likelihood can be set via "l".
+
+- measure:
+
+  The type of data being used. If they involve mean differences, then
+  the "mean" option should be used. If the data are ratios, then the
+  "ratio" option should be used. "ratio" is currently the default
+  option. Currently, this function is designed to be used with ratios
+  and normal approximations rather than means.
+
+- steps:
+
+  Indicates how many consonance intervals are to be calculated at
+  various levels. For example, setting this to 100 will produce 100
+  consonance intervals from 0 to 100. Setting this to 10000 will produce
+  more consonance levels. By default, it is set to 1000. Increasing the
+  number substantially is not recommended as it will take longer to
+  produce all the intervals and store them into a dataframe.
+
+- cores:
+
+  Select the number of cores to use in order to compute the intervals
+  The default is 1 core.
+
+- table:
+
+  Indicates whether or not a table output with some relevant statistics
+  should be generated. The default is TRUE and generates a table which
+  is included in the list object.
+
+## Value
+
+A list with 3 items where the dataframe of values is in the first
+object, the values needed to calculate the density function in the
+second, and the table for the values in the third if table = TRUE.
+
+## See also
+
+[`ggcurve()`](reference/ggcurve.md)
+
+[`curve_compare()`](reference/curve_compare.md)
+
+[`plot_compare()`](reference/plot_compare.md)
+
+## Examples
+
+``` r
+if (FALSE) { # \dontrun{
+# From a real published study. Point estimate of the result was hazard ratio of 1.61 and
+# lower bound of the interval is 0.997 while upper bound of the interval is 2.59.
+#
+df <- curve_rev(point = 1.61, LL = 0.997, UL = 2.59, measure = "ratio")
+} # }
+```

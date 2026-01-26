@@ -1,0 +1,156 @@
+---
+title: "Supported Versions"
+output: rmarkdown::html_vignette
+opengraph:
+  image: 
+    src: "https://res.cloudinary.com/less-likely/image/upload/v1554700142/Site/Predator.jpg"
+  twitter:
+    card: summary
+    creator: "@dailyzad"
+vignette: >
+  %\VignetteIndexEntry{Supported Versions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+<center>
+<img src = "https://res.cloudinary.com/less-likely/image/upload/v1575441662/Site/Logo2.jpg" align="right" width="100">
+</center>
+
+```{r setup, include=FALSE}
+library(knitr)
+knitr::opts_chunk$set(
+  message = TRUE,
+  warning = TRUE,
+  collapse = TRUE,
+  comment = "#>")
+library(magrittr)
+library(kableExtra)
+library(magick)
+```
+
+## Staying Up to Date
+ 
+* * * 
+
+This page is a summary of which versions of [`concurve`](https://cran.r-project.org/package=concurve) are currently supported and which we will provide support with depending on the context. 
+We will mostly be supporting the most recent versions of the package, as these versions will also be using the latest version of `R` and other dependencies that are necessary. As such, those who continue to use older versions of the package may be out of the loop on new changes in arguments to functions, along with new functions. We urge users to consult and stay up to date with the documentation, and update their `R` packages as frequently as possible. An easy way to remain updated is to visit the [package website](https://data.lesslikely.com/concurve/), as the newest version of the package number will always be on the top left. 
+
+## Previous Versions
+
+However, we'd still like users to be able to access old versions of concurve for whatever, reason, and in addition to using GitHub, those can also be found on the [CRAN archive](https://cloud.r-project.org/web/checks/check_results_concurve.html). A page with the test results for the most recent package on CRAN can also be [found here](https://cloud.r-project.org/web/checks/check_results_concurve.html).  
+
+Another useful link will be the [NEWS](https://data.lesslikely.com/concurve/news/index.html) section, which will inform users of bugs that have been patched and new changes to old functions. However, checking `CRAN` is less than desirable, due to the fact that new changes (that may even be very important), will often quickly be pushed to `GitHub`, rather than `CRAN`. Thus, installing or upgrading to the newest version of `concurve` via the script, 
+
+```{r eval=FALSE}
+install_github("zadrafi/concurve@master", dependencies = TRUE)
+```
+
+may be useful.
+
+You can also directly download a tarball or zip of the most recent package version using the [following link](https://github.com/zadrafi/concurve/releases/tag/2.4.1). 
+ 
+* * * 
+
+## Supported Versions
+ 
+* * * 
+
+```{r echo=FALSE}
+versions <-  c(2.77, 2.76, 2.75, 2.70, 2.60)
+support <- c(rep("-", 5))
+information <- c(
+  "[Updates and Information about version 2.7.7](https://data.lesslikely.com/concurve/news/index.html#concurve-2-7-7-unreleased)",
+  "[Updates and Information about version 2.7.6](https://data.lesslikely.com/concurve/news/index.html#concurve-2-7-6-unreleased)",
+  "[Updates and Information about version 2.7.5](https://data.lesslikely.com/concurve/news/index.html#concurve-2-7-5-unreleased)",
+  "[Updates and Information about version 2.7.0](https://data.lesslikely.com/concurve/news/index.html#concurve-2-7-0-unreleased)",
+  "[Updates and Information about version 2.6.0](https://data.lesslikely.com/concurve/news/index.html#concurve-2-6-0-unreleased)"
+)
+
+check <- ("https://res.cloudinary.com/less-likely/image/upload/v1602195577/Site/checkmark.png")
+cross <- ("https://res.cloudinary.com/less-likely/image/upload/v1602195577/Site/crossmark.png")
+
+df <- data.frame(versions, support, information)
+colnames(df) <- c("Package Version", "Currently Supported", "Information About Version")
+
+kable(df, booktabs = F, format = "html", col.names = colnames(df), table.attr = "class=\"striped\"") %>%
+  column_spec(2, width = "20em", bold = TRUE, image = spec_image(c(rep(check, 4), cross), width = 150, height = 150, res = 300)) %>%
+  column_spec(1, width = "15em", bold = TRUE) %>%
+  column_spec(3, width = "40em", bold = TRUE) %>%
+  kable_styling(full_width = TRUE, "striped", font_size = 20, position = "right", html_font = "helvetica")
+```
+* * * 
+
+## Dependencies
+ 
+* * * 
+
+The package constructs interval estimates using a wide variety of functions that already exist within the R ecosystem, whether that is from base R or from community-contributed packages that are on CRAN. Here is a list of those packages. Those that are necessary to produce distributions of parameters are specified as `Imports`, while those that are optional and not necessary are specified as `Suggests`. 
+
+Those that are listed in the Suggests section are typically used for additional function
+ 
+* * * 
+
+### Package Imports 
+ 
+* * * 
+
+```{r echo=FALSE}
+packinfo <- installed.packages(fields = c("Package", "Version"))
+
+
+# Package imports
+Imports <- c(
+  "MASS", "methods", "bcaboot", "boot", "lme4", "dplyr", "flextable", "ggplot2",
+  "knitr", "metafor", "officer", "parallel", "pbmcapply", "ProfileLikelihood",
+  "scales", "colorspace", "survival", "survminer", "tibble", "tidyr"
+)
+
+Imports <- packinfo[Imports, c("Package", "Version")]
+
+colnames(Imports) <- c("Package", "Package Version")
+
+kable(Imports, booktabs = T, format = "html", col.names = colnames(Imports), table.attr = "class=\"striped\"", 
+caption = "Package Imports") %>%
+  kable_styling(full_width = TRUE, "striped", font_size = 10, position = "center", html_font = "helvetica")
+
+```
+
+* * * 
+### Package Suggestions 
+ 
+* * * 
+
+```{r echo=FALSE}
+# Package suggests
+suggests <- c(
+  "covr", "roxygen2", "spelling", "testthat", "rmarkdown", "Lock5Data",
+  "carData", "bench", "rms", "brms", "rstanarm", "bayesplot",
+  "vdiffr", "ggtext", "daewr", "svglite", "data.table", "nlme",
+  "simstudy"
+)
+
+suggests_df <- packinfo[suggests, c("Package", "Version")]
+
+colnames(suggests_df) <- c("Package", "Package Version")
+
+kable(suggests_df, booktabs = T, format = "html", col.names = colnames(suggests_df), table.attr = "class=\"striped\"", 
+caption = "Package Suggestions") %>%
+  kable_styling(full_width = TRUE, "striped", font_size = 10, position = "center", html_font = "helvetica")
+
+```
+ 
+* * * 
+
+## Reporting Bugs, Vulnerabilities, and Issues
+ 
+* * * 
+
+Please [see here](https://data.lesslikely.com/concurve/CONTRIBUTING.html) to report any vulnerabilities within the package, and to follow best practices for reporting any bugs, issues, or concerns. When submitting an issue, please try to submit a REPREX, so that the developers may quickly see the issue.
+
+* * * 
+
+## Session info
+
+```{r session_info, include=TRUE, echo=FALSE}
+sessionInfo()
+```
