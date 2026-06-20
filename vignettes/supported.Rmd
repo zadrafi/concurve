@@ -22,7 +22,8 @@ knitr::opts_chunk$set(
   message = TRUE,
   warning = TRUE,
   collapse = TRUE,
-  comment = "#>")
+  comment = "#>"
+)
 library(magrittr)
 library(kableExtra)
 library(magick)
@@ -47,7 +48,7 @@ install_github("zadrafi/concurve@master", dependencies = TRUE)
 
 may be useful.
 
-You can also directly download a tarball or zip of the most recent package version using the [following link](https://github.com/zadrafi/concurve/releases/tag/2.4.1). 
+You can also directly download a tarball or zip of the most recent package version using the [following link](https://github.com/zadrafi/concurve/releases). 
  
 * * * 
 
@@ -56,14 +57,14 @@ You can also directly download a tarball or zip of the most recent package versi
 * * * 
 
 ```{r echo=FALSE}
-versions <-  c(2.77, 2.76, 2.75, 2.70, 2.60)
+versions <- c(3.00, 2.77, 2.76, 2.75, 2.70)
 support <- c(rep("-", 5))
 information <- c(
+"[Updates and Information about version 3.0.0](https://data.lesslikely.com/concurve/news/index.html#concurve-3-0-0)",
   "[Updates and Information about version 2.7.7](https://data.lesslikely.com/concurve/news/index.html#concurve-2-7-7-unreleased)",
   "[Updates and Information about version 2.7.6](https://data.lesslikely.com/concurve/news/index.html#concurve-2-7-6-unreleased)",
   "[Updates and Information about version 2.7.5](https://data.lesslikely.com/concurve/news/index.html#concurve-2-7-5-unreleased)",
-  "[Updates and Information about version 2.7.0](https://data.lesslikely.com/concurve/news/index.html#concurve-2-7-0-unreleased)",
-  "[Updates and Information about version 2.6.0](https://data.lesslikely.com/concurve/news/index.html#concurve-2-6-0-unreleased)"
+  "[Updates and Information about version 2.7.0](https://data.lesslikely.com/concurve/news/index.html#concurve-2-7-0-unreleased)"
 )
 
 check <- ("https://res.cloudinary.com/less-likely/image/upload/v1602195577/Site/checkmark.png")
@@ -78,6 +79,39 @@ kable(df, booktabs = F, format = "html", col.names = colnames(df), table.attr = 
   column_spec(3, width = "40em", bold = TRUE) %>%
   kable_styling(full_width = TRUE, "striped", font_size = 20, position = "right", html_font = "helvetica")
 ```
+
+* * * 
+
+## What's New in Version 3.0
+ 
+* * * 
+
+Version 3.0 is a major update that includes new functionality, reduced dependencies, and improved compatibility.
+
+### New Functions
+
+- **`curve_wrap()`** - Generic wrapper for any CI-producing function
+- **`curve_model()`** - Convenience wrapper for model objects
+- **`curve_snowflake()`** - Construct consonance distributions directly from Snowflake database query results
+- **`curve_snowflake_batch()`** - Batch processing for multiple Snowflake analyses
+- **`export_for_powerbi()`** - Export consonance data in Power BI-ready format
+- **`curve_from_ratio()`** - Construct curves from ratio estimates
+- **`curve_from_se()`** - Construct curves from standard error estimates
+- **`curve_overlap()`** - Calculate overlap between consonance functions
+- **`curve_summary()`** - Generate summary statistics for consonance objects
+- **`plot_multi()`** - Plot multiple consonance functions simultaneously
+
+### Dependency Changes
+
+- **Removed `pbmcapply` dependency** - Replaced with base R `parallel::mclapply()` for parallel processing, reducing the package's dependency footprint
+- **Optional database dependencies** - `DBI` and `odbc` are now in Suggests for Snowflake integration (install only if needed)
+
+### Bug Fixes and Improvements
+- Fixed scoping issues with `subset()` inside parallel processing calls
+- Improved roxygen2 documentation across all functions
+- Enhanced error messages and input validation
+- Updated vignettes with corrected examples
+
 * * * 
 
 ## Dependencies
@@ -86,7 +120,7 @@ kable(df, booktabs = F, format = "html", col.names = colnames(df), table.attr = 
 
 The package constructs interval estimates using a wide variety of functions that already exist within the R ecosystem, whether that is from base R or from community-contributed packages that are on CRAN. Here is a list of those packages. Those that are necessary to produce distributions of parameters are specified as `Imports`, while those that are optional and not necessary are specified as `Suggests`. 
 
-Those that are listed in the Suggests section are typically used for additional function
+Those that are listed in the Suggests section are typically used for additional functionality such as database connectivity or testing.
  
 * * * 
 
@@ -98,10 +132,10 @@ Those that are listed in the Suggests section are typically used for additional 
 packinfo <- installed.packages(fields = c("Package", "Version"))
 
 
-# Package imports
+# Package imports (updated for v3.0 - removed pbmcapply)
 Imports <- c(
-  "MASS", "methods", "bcaboot", "boot", "lme4", "dplyr", "flextable", "ggplot2",
-  "knitr", "metafor", "officer", "parallel", "pbmcapply", "ProfileLikelihood",
+  "methods", "bcaboot", "boot", "lme4", "dplyr", "flextable", "ggplot2",
+  "knitr", "metafor", "officer", "parallel", "ProfileLikelihood",
   "scales", "colorspace", "survival", "survminer", "tibble", "tidyr"
 )
 
@@ -109,10 +143,11 @@ Imports <- packinfo[Imports, c("Package", "Version")]
 
 colnames(Imports) <- c("Package", "Package Version")
 
-kable(Imports, booktabs = T, format = "html", col.names = colnames(Imports), table.attr = "class=\"striped\"", 
-caption = "Package Imports") %>%
+kable(Imports,
+  booktabs = T, format = "html", col.names = colnames(Imports), table.attr = "class=\"striped\"",
+  caption = "Package Imports"
+) %>%
   kable_styling(full_width = TRUE, "striped", font_size = 10, position = "center", html_font = "helvetica")
-
 ```
 
 * * * 
@@ -121,22 +156,23 @@ caption = "Package Imports") %>%
 * * * 
 
 ```{r echo=FALSE}
-# Package suggests
+# Package suggests (updated for v3.0 - added DBI, odbc for Snowflake)
 suggests <- c(
-  "covr", "roxygen2", "spelling", "testthat", "rmarkdown", "Lock5Data",
-  "carData", "bench", "rms", "brms", "rstanarm", "bayesplot",
+  "DBI", "odbc", "MASS", "covr", "roxygen2", "spelling", "testthat", "rmarkdown", "Lock5Data",
+  "carData", "bench", "rms", "brms", "rstan", "rstanarm", "bayesplot",
   "vdiffr", "ggtext", "daewr", "svglite", "data.table", "nlme",
-  "simstudy"
+  "simstudy", "patchwork", "cowplot", "reprex"
 )
 
 suggests_df <- packinfo[suggests, c("Package", "Version")]
 
 colnames(suggests_df) <- c("Package", "Package Version")
 
-kable(suggests_df, booktabs = T, format = "html", col.names = colnames(suggests_df), table.attr = "class=\"striped\"", 
-caption = "Package Suggestions") %>%
+kable(suggests_df,
+  booktabs = T, format = "html", col.names = colnames(suggests_df), table.attr = "class=\"striped\"",
+  caption = "Package Suggestions"
+) %>%
   kable_styling(full_width = TRUE, "striped", font_size = 10, position = "center", html_font = "helvetica")
-
 ```
  
 * * * 

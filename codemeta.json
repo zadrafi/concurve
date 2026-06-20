@@ -1,34 +1,20 @@
 {
-  "@context": [
-    "https://doi.org/10.5063/schema/codemeta-2.0",
-    "http://schema.org"
-  ],
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
   "identifier": "concurve",
-  "description": "Computes compatibility (confidence) distributions along with their corresponding P-values,\n    S-values, and likelihoods. The intervals can be plotted to form the distributions themselves.  \n    Functions can be compared to one another to see how much they overlap. Results can be\n    exported to Microsoft Word, Powerpoint, and TeX documents. The package currently supports \n    resampling methods, computing differences, generalized linear models, mixed-effects models, \n    survival analysis, and meta-analysis. These methods are discussed \n    by Schweder T, Hjort NL. (2016, ISBN:9781316445051) and \n    Rafi Z, Greenland S. (2020) <doi:10.1186/s12874-020-01105-9>.",
+  "description": "Computes compatibility (confidence) distributions along with their corresponding P-values, S-values, and likelihoods. The intervals can be plotted to form the distributions themselves. Functions can be compared to one another to see how much they overlap. Results can be exported to Microsoft Word, Powerpoint, and TeX documents. The package currently supports resampling methods, computing differences, generalized linear models, mixed-effects models, survival analysis, and meta-analysis. These methods are discussed by Schweder T, Hjort NL. (2016, ISBN:9781316445051) and Rafi Z, Greenland S. (2020) <doi:10.1186/s12874-020-01105-9>.",
   "name": "concurve: Computes & Plots Compatibility (Confidence),\n       Surprisal, & Likelihood Distributions",
-  "date": "2019-12-09",
+  "relatedLink": "https://stat.lesslikely.com/concurve/",
   "codeRepository": "https://github.com/zadrafi/concurve",
-  "relatedLink": [
-    "https://data.lesslikely.com/concurve/",
-    "https://lesslikely.com/",
-    "https://CRAN.R-project.org/package=concurve"
-  ],
   "issueTracker": "https://github.com/zadrafi/concurve/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "2.7.7",
+  "version": "3.0.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.0.3 (2020-10-10)",
-  "provider": {
-    "@id": "https://cran.r-project.org",
-    "@type": "Organization",
-    "name": "Comprehensive R Archive Network (CRAN)",
-    "url": "https://cran.r-project.org"
-  },
+  "runtimePlatform": "R version 4.5.2 (2025-10-31)",
   "author": [
     {
       "@type": "Person",
@@ -45,6 +31,15 @@
       "@id": "https://orcid.org/0000-0003-3166-0688"
     }
   ],
+  "contributor": [
+    {
+      "@type": "Person",
+      "givenName": "Aaron",
+      "familyName": "Caldwell",
+      "email": "arcaldwell49@gmail.com",
+      "@id": "https://orcid.org/0000-0002-4541-6283"
+    }
+  ],
   "maintainer": [
     {
       "@type": "Person",
@@ -55,6 +50,42 @@
     }
   ],
   "softwareSuggestions": [
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "DBI",
+      "name": "DBI",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=DBI"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "odbc",
+      "name": "odbc",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=odbc"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "MASS",
+      "name": "MASS",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=MASS"
+    },
     {
       "@type": "SoftwareApplication",
       "identifier": "covr",
@@ -332,31 +363,19 @@
       "sameAs": "https://CRAN.R-project.org/package=reprex"
     }
   ],
-  "softwareRequirements": [
-    {
+  "softwareRequirements": {
+    "1": {
       "@type": "SoftwareApplication",
       "identifier": "R",
       "name": "R",
       "version": ">= 4.0.0"
     },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "MASS",
-      "name": "MASS",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=MASS"
-    },
-    {
+    "2": {
       "@type": "SoftwareApplication",
       "identifier": "methods",
       "name": "methods"
     },
-    {
+    "3": {
       "@type": "SoftwareApplication",
       "identifier": "bcaboot",
       "name": "bcaboot",
@@ -368,7 +387,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=bcaboot"
     },
-    {
+    "4": {
       "@type": "SoftwareApplication",
       "identifier": "boot",
       "name": "boot",
@@ -380,7 +399,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=boot"
     },
-    {
+    "5": {
       "@type": "SoftwareApplication",
       "identifier": "lme4",
       "name": "lme4",
@@ -392,7 +411,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=lme4"
     },
-    {
+    "6": {
       "@type": "SoftwareApplication",
       "identifier": "dplyr",
       "name": "dplyr",
@@ -404,7 +423,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=dplyr"
     },
-    {
+    "7": {
       "@type": "SoftwareApplication",
       "identifier": "flextable",
       "name": "flextable",
@@ -416,7 +435,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=flextable"
     },
-    {
+    "8": {
       "@type": "SoftwareApplication",
       "identifier": "ggplot2",
       "name": "ggplot2",
@@ -428,7 +447,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=ggplot2"
     },
-    {
+    "9": {
       "@type": "SoftwareApplication",
       "identifier": "knitr",
       "name": "knitr",
@@ -440,7 +459,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=knitr"
     },
-    {
+    "10": {
       "@type": "SoftwareApplication",
       "identifier": "metafor",
       "name": "metafor",
@@ -452,7 +471,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=metafor"
     },
-    {
+    "11": {
       "@type": "SoftwareApplication",
       "identifier": "officer",
       "name": "officer",
@@ -464,24 +483,12 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=officer"
     },
-    {
+    "12": {
       "@type": "SoftwareApplication",
       "identifier": "parallel",
       "name": "parallel"
     },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "pbmcapply",
-      "name": "pbmcapply",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=pbmcapply"
-    },
-    {
+    "13": {
       "@type": "SoftwareApplication",
       "identifier": "ProfileLikelihood",
       "name": "ProfileLikelihood",
@@ -493,7 +500,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=ProfileLikelihood"
     },
-    {
+    "14": {
       "@type": "SoftwareApplication",
       "identifier": "scales",
       "name": "scales",
@@ -505,7 +512,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=scales"
     },
-    {
+    "15": {
       "@type": "SoftwareApplication",
       "identifier": "colorspace",
       "name": "colorspace",
@@ -517,7 +524,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=colorspace"
     },
-    {
+    "16": {
       "@type": "SoftwareApplication",
       "identifier": "survival",
       "name": "survival",
@@ -529,7 +536,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=survival"
     },
-    {
+    "17": {
       "@type": "SoftwareApplication",
       "identifier": "survminer",
       "name": "survminer",
@@ -541,7 +548,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=survminer"
     },
-    {
+    "18": {
       "@type": "SoftwareApplication",
       "identifier": "tibble",
       "name": "tibble",
@@ -553,7 +560,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=tibble"
     },
-    {
+    "19": {
       "@type": "SoftwareApplication",
       "identifier": "tidyr",
       "name": "tidyr",
@@ -564,27 +571,27 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=tidyr"
-    }
-  ],
+    },
+    "20": {
+      "@type": "SoftwareApplication",
+      "identifier": "pbmcapply",
+      "name": "pbmcapply",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=pbmcapply"
+    },
+    "SystemRequirements": null
+  },
   "keywords": ["confidence", "compatibility", "consonance", "curve", "informationstatistics", "surprisals", "interval", "function", "distribution", "fiducial", "confidence-intervals", "compatibility-intervals", "stata", "confidence-distribution", "likelihood-functions", "bootstrap-method", "r", "frequentist-methods", "fiducial-distribution", "density-function", "cumulative-distribution-function", "surprisal-function", "deviance-function"],
-  "fileSize": "99399.821KB",
-  "contIntegration": ["https://travis-ci.com/zadrafi/concurve", "https://codecov.io/gh/zadrafi/concurve?branch=master"],
-  "readme": "https://github.com/zadrafi/concurve/blob/master/README.md",
-  "contributor": [
-    {
-      "@type": "Person",
-      "givenName": "Aaron",
-      "familyName": "Caldwell",
-      "email": "arcaldwell49@gmail.com",
-      "@id": "https://orcid.org/0000-0002-4541-6283"
-    }
-  ],
-  "copyrightHolder": {},
-  "funder": {},
-  "releaseNotes": "https://github.com/zadrafi/concurve/blob/master/NEWS.md",
+  "fileSize": "17339.39KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
+      "datePublished": "2026",
       "author": [
         {
           "@type": "Person",
@@ -598,7 +605,8 @@
         }
       ],
       "name": "{concurve}: Computes and Plots Compatibility (Confidence) Intervals, P-Values, S-Values, & Likelihood Intervals to Form Consonance, Surprisal, & Likelihood Functions",
-      "url": "https://CRAN.R-project.org/package=concurve"
+      "url": "https://CRAN.R-project.org/package=concurve",
+      "description": "R package version 3.0.0"
     },
     {
       "@type": "ScholarlyArticle",
@@ -632,5 +640,8 @@
       }
     }
   ],
+  "releaseNotes": "https://github.com/zadrafi/concurve/blob/main/NEWS.md",
+  "readme": "https://github.com/zadrafi/concurve/blob/master/README.md",
+  "contIntegration": ["https://travis-ci.com/zadrafi/concurve", "https://codecov.io/gh/zadrafi/concurve?branch=master"],
   "developmentStatus": "https://www.tidyverse.org/lifecycle/#maturing"
 }

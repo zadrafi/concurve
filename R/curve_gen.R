@@ -179,15 +179,15 @@ curve_gen <- function(model, var, method = "lm", log = FALSE, penalty = NULL, m 
 
   if (is.null(penalty) & is.null(m)) {
     if (method == "lm") {
-      results <- pbmclapply(intrvls, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = cores)
+      results <- parallel::mclapply(intrvls, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = cores)
     } else if (method == "rlm") {
-      results <- pbmclapply(intrvls, FUN = function(i) confint(object = model, level = i)[var, ], mc.cores = cores)
+      results <- parallel::mclapply(intrvls, FUN = function(i) confint(object = model, level = i)[var, ], mc.cores = cores)
     } else if (method == "glm") {
-      results <- pbmclapply(intrvls, FUN = function(i) confint(object = model, level = i, trace = FALSE)[var, ], mc.cores = cores)
+      results <- parallel::mclapply(intrvls, FUN = function(i) confint(object = model, level = i, trace = FALSE)[var, ], mc.cores = cores)
     } else if (method == "aov") {
-      results <- pbmclapply(intrvls, FUN = function(i) confint(object = model, level = i)[var, ], mc.cores = cores)
+      results <- parallel::mclapply(intrvls, FUN = function(i) confint(object = model, level = i)[var, ], mc.cores = cores)
     } else if (method == "gls") {
-      results <- pbmclapply(intrvls, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = cores)
+      results <- parallel::mclapply(intrvls, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = cores)
     }
 
     # Bonferroni adjustment for multiple comparisons --------------------------
@@ -195,15 +195,15 @@ curve_gen <- function(model, var, method = "lm", log = FALSE, penalty = NULL, m 
     bon.adj <- (1 - ((1 - intrvls) / m))
 
     if (method == "lm") {
-      results <- pbmclapply(bon.adj, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = cores)
+      results <- parallel::mclapply(bon.adj, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = cores)
     } else if (method == "rlm") {
-      results <- pbmclapply(bon.adj, FUN = function(i) confint(object = model, level = i)[var, ], mc.cores = cores)
+      results <- parallel::mclapply(bon.adj, FUN = function(i) confint(object = model, level = i)[var, ], mc.cores = cores)
     } else if (method == "glm") {
-      results <- pbmclapply(bon.adj, FUN = function(i) confint(object = model, level = i, trace = FALSE)[var, ], mc.cores = cores)
+      results <- parallel::mclapply(bon.adj, FUN = function(i) confint(object = model, level = i, trace = FALSE)[var, ], mc.cores = cores)
     } else if (method == "aov") {
-      results <- pbmclapply(bon.adj, FUN = function(i) confint(object = model, level = i)[var, ], mc.cores = cores)
+      results <- parallel::mclapply(bon.adj, FUN = function(i) confint(object = model, level = i)[var, ], mc.cores = cores)
     } else if (method == "gls") {
-      results <- pbmclapply(bon.adj, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = cores)
+      results <- parallel::mclapply(bon.adj, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = cores)
     }
 
     # Sidak adjustment for multiple comparisons -------------------------------
@@ -211,15 +211,15 @@ curve_gen <- function(model, var, method = "lm", log = FALSE, penalty = NULL, m 
     sidak.adj <- (((intrvls)^(1 / m)))
 
     if (method == "lm") {
-      results <- pbmclapply(sidak.adj, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = cores)
+      results <- parallel::mclapply(sidak.adj, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = cores)
     } else if (method == "rlm") {
-      results <- pbmclapply(sidak.adj, FUN = function(i) confint(object = model, level = i)[var, ], mc.cores = cores)
+      results <- parallel::mclapply(sidak.adj, FUN = function(i) confint(object = model, level = i)[var, ], mc.cores = cores)
     } else if (method == "glm") {
-      results <- pbmclapply(sidak.adj, FUN = function(i) confint(object = model, level = i, trace = FALSE)[var, ], mc.cores = cores)
+      results <- parallel::mclapply(sidak.adj, FUN = function(i) confint(object = model, level = i, trace = FALSE)[var, ], mc.cores = cores)
     } else if (method == "aov") {
-      results <- pbmclapply(sidak.adj, FUN = function(i) confint(object = model, level = i)[var, ], mc.cores = cores)
+      results <- parallel::mclapply(sidak.adj, FUN = function(i) confint(object = model, level = i)[var, ], mc.cores = cores)
     } else if (method == "gls") {
-      results <- pbmclapply(sidak.adj, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = cores)
+      results <- parallel::mclapply(sidak.adj, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = cores)
     }
   }
 

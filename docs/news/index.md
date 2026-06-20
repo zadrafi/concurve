@@ -1,45 +1,12 @@
 # Changelog
 
-## concurve 3.0
-
-### Major changes
-
-- **[`curve_wrap()`](reference/curve_wrap.md)** - Generic wrapper for
-  any CI-producing function
-- **[`curve_from_ratio()`](reference/curve_from_ratio.md)** - Construct
-  curves from ratio estimates
-- **[`curve_from_se()`](reference/curve_from_se.md)** - Construct curves
-  from standard error estimates
-- **[`curve_overlap()`](reference/curve_overlap.md)** - Calculate
-  overlap between consonance functions
-- **[`curve_summary()`](reference/curve_summary.md)** - Generate summary
-  statistics for consonance objects
-- **[`plot_multi()`](reference/plot_multi.md)** - Plot multiple
-  consonance functions simultaneously
-
-#### Dependency Changes
-
-- **Removed `pbmcapply`** - Replaced with base R
-  [`parallel::mclapply()`](https://rdrr.io/r/parallel/mclapply.html) for
-  parallel processing, reducing external dependencies
-- **Optional Snowflake support** - `DBI` and `odbc` packages moved to
-  Suggests for optional database connectivity
-
-#### Bug Fixes
-
-- Fixed scoping issues with
-  [`subset()`](https://rdrr.io/r/base/subset.html) inside parallel
-  operations
-- Improved compatibility with newer versions of R and tidyverse packages
-
 ## concurve 2.7.7
 
 CRAN release: 2020-10-12
 
 ### Major changes
 
-- `log` option added to [`curve_gen()`](reference/curve_gen.md) to
-  exponentiate the coefficients.
+- `log` option added to `curve_gen()` to exponentiate the coefficients.
   - Thanks to [Isabella Ghement](https://twitter.com/IsabellaGhement)
     for finding the issue and notifying us about it.
 - customization option for `title` fully added to
@@ -63,10 +30,10 @@ CRAN release: 2020-10-12
 
 ### Major changes
 
-- [`curve_gen()`](reference/curve_gen.md) now includes options to adjust
-  CIs and P-values for multiple comparisons.
-- [`curve_gen()`](reference/curve_gen.md) can now accept inputs from the
-  `rms` package’s `ols()` function.
+- `curve_gen()` now includes options to adjust CIs and P-values for
+  multiple comparisons.
+- `curve_gen()` can now accept inputs from the `rms` package’s `ols()`
+  function.
   - This can be done using the same `lm` option that is typically used.
 - disabled likelihood function computations for
   [`curve_rev()`](reference/curve_rev.md) for continuous variables due
@@ -115,8 +82,8 @@ CRAN release: 2020-04-20
 
 - [`curve_meta()`](reference/curve_meta.md) can now handle complex data
   structures from `metafor` with clustered data.
-- [`curve_gen()`](reference/curve_gen.md) can now handle ANOVAs and
-  robust linear regressions from the `MASS` package.
+- `curve_gen()` can now handle ANOVAs and robust linear regressions from
+  the `MASS` package.
 - `concurve` is now intergrated with the `cowplot` package for easier
   graphing.
 - removed

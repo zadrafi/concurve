@@ -1,0 +1,45 @@
+Package: ncdfCF
+Type: Package
+Title: Easy Access to NetCDF Files with CF Metadata Conventions
+Version: 0.8.0
+Authors@R: person("Patrick", "Van Laake", , "patrick@vanlaake.net", role = c("aut", "cre", "cph"))
+Description: Network Common Data Form ('netCDF') files are widely used for 
+    scientific data. Library-level access in R is provided through packages 
+    'RNetCDF' and 'ncdf4'. Package 'ncdfCF' is built on top of 'RNetCDF' and 
+    makes the data and its attributes available as a set of R6 classes that are 
+    informed by the Climate and Forecasting Metadata Conventions. Access to the 
+    data uses standard R subsetting operators and common function forms.
+License: MIT + file LICENSE
+Encoding: UTF-8
+RoxygenNote: 7.3.3
+Imports: abind, CFtime, methods, R6, RNetCDF, stringr
+Collate: 'AOI.R' 'AOImethod.R' 'CFAuxiliaryLongLat.R' 'CFAxis.R'
+        'CFAxisCharacter.R' 'CFAxisDiscrete.R' 'CFAxisLatitude.R'
+        'CFAxisLongitude.R' 'CFAxisNumeric.R' 'CFAxisTime.R'
+        'CFAxisVertical.R' 'CFBounds.R' 'CFCellMeasure.R' 'CFData.R'
+        'CFDataset.R' 'CFGridMapping.R' 'CFGroup.R' 'CFLabel.R'
+        'NCObject.R' 'CFObject.R' 'CFStandardNames.R' 'CFVariable.R'
+        'CFVariableL3b.R' 'CFVerticalParametricTerm.R' 'NCDimension.R'
+        'NCGroup.R' 'NCResource.R' 'NCVariable.R' 'makeCFObjects.R'
+        'ncdfCF-package.R' 'ops.R' 'readCF.R' 'utils.R' 'wkt2.R'
+        'zzz.R'
+Suggests: data.table, knitr, rmarkdown, terra, testthat (>= 3.0.0),
+        units
+VignetteBuilder: knitr
+Depends: R (>= 4.0)
+URL: https://github.com/R-CF/ncdfCF, https://r-cf.github.io/ncdfCF/
+BugReports: https://github.com/R-CF/ncdfCF/issues
+Config/testthat/edition: 3
+Config/Needs/website: rmarkdown
+NeedsCompilation: no
+Packaged: 2026-01-23 20:14:31 UTC; patrickvanlaake
+Author: Patrick Van Laake [aut, cre, cph]
+Maintainer: Patrick Van Laake <patrick@vanlaake.net>
+Repository: CRAN
+Date/Publication: 2026-01-23 20:30:13 UTC
+Built: R 4.5.2; ; 2026-01-23 22:38:12 UTC; unix
+RemoteType: standard
+RemotePkgRef: ncdfCF
+RemoteRef: ncdfCF
+RemoteRepos: https://cran.rstudio.com
+RemoteSha: 0.8.0

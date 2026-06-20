@@ -9,7 +9,7 @@ UseSpacesForTab: Yes
 NumSpacesForTab: 2
 Encoding: UTF-8
 
-RnwWeave: Sweave
+RnwWeave: knitr
 LaTeX: pdfLaTeX
 
 BuildType: Package
@@ -17,3 +17,11 @@ PackageUseDevtools: Yes
 PackageRoxygenize: rd,collate,namespace,vignette
 
 QuitChildProcessesOnExit: Yes
+
+MarkdownWrap: Sentence
+MarkdownReferences: Document
+MarkdownCanonical: Yes
+
+ZoteroLibraries: "My Library"
+
+SpellingDictionary: en_US

@@ -136,6 +136,6 @@ GroupB <- rnorm(500)
 RandomData <- data.frame(GroupA, GroupB)
 
 intervalsdf <- suppressMessages(curve_mean(GroupA, GroupB, data = RandomData, method = "default"))
-ggcurve(type = "c", intervalsdf[[1]], nullvalue = c(0))
+ggcurve(type = "c", intervalsdf[[1]], nullvalue =c(0))
 } # }
 ```

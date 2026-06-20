@@ -91,6 +91,7 @@ Before we used `cowplot`, here’s what our plain function looked like
 
 ``` r
 
+
 (function1 <- ggcurve(data = intervalsdf[[1]], type = "c", nullvalue = TRUE))
 ```
 
@@ -116,6 +117,7 @@ control the size, form, and color of the text. We’ll load `ggtext` and
 then specify the arguments.
 
 ``` r
+
 
 library(ggtext)
 
@@ -186,7 +188,7 @@ library(svglite)
 library(ggplot2)
 
 res <- 144
-svglite("pvalfunc.svg", width = 720 / res, height = 500 / res)
+svglite("pvalfunc.svg", width = 720/res, height = 500/res)
 (function1 <- ggcurve(data = intervalsdf[[1]], type = "c", nullvalue = TRUE))
 dev.off()
 #> agg_png 
@@ -202,10 +204,10 @@ Please remember to cite the packages that you use.
 citation("concurve")
 #> To cite package 'concurve' in publications use:
 #> 
-#>   Rafi Z, Vigotsky A (????). _concurve: Computes and Plots
+#>   Rafi Z, Vigotsky A (2026). _concurve: Computes and Plots
 #>   Compatibility (Confidence) Intervals, P-Values, S-Values, &
 #>   Likelihood Intervals to Form Consonance, Surprisal, & Likelihood
-#>   Functions_. R package version 3.0,
+#>   Functions_. R package version 3.0.0,
 #>   <https://CRAN.R-project.org/package=concurve>.
 #> 
 #>   Rafi Z, Greenland S (2020). "Semantic and Cognitive Tools to Aid

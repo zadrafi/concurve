@@ -2,8 +2,8 @@ Type: Package
 Package: concurve
 Title: Computes & Plots Compatibility (Confidence),
        Surprisal, & Likelihood Distributions
-Version: 2.7.7
-Date: 2020-10-12
+Version: 3.0.0
+Date: 2026-01-26
 Authors@R: 
     c(person(given = "Zad",
              family = "Rafi",
@@ -30,15 +30,32 @@ Description: Computes compatibility (confidence) distributions along with their 
     by Schweder T, Hjort NL. (2016, ISBN:9781316445051) and 
     Rafi Z, Greenland S. (2020) <doi:10.1186/s12874-020-01105-9>.
 License: GPL-3 | file LICENSE
-URL: https://data.lesslikely.com/concurve/,
+URL: https://stat.lesslikely.com/concurve/,
      https://github.com/zadrafi/concurve
 BugReports: https://github.com/zadrafi/concurve/issues
 Depends: R (>= 4.0.0)
-Imports: MASS, methods, bcaboot, boot, lme4, dplyr, flextable, ggplot2,
-         knitr, metafor, officer, parallel, pbmcapply, ProfileLikelihood,
-         scales, colorspace, survival, survminer, tibble, tidyr
-Suggests: covr, roxygen2, spelling, testthat, rmarkdown, Lock5Data,
-          carData, bench, rms, brms, rstan, rstanarm, bayesplot,
+Imports: 
+    methods,
+    bcaboot,
+    boot,
+    lme4,
+    dplyr,
+    flextable,
+    ggplot2,
+    knitr,
+    metafor,
+    officer,
+    parallel,
+    ProfileLikelihood,
+    scales,
+    colorspace,
+    survival,
+    survminer,
+    tibble,
+    tidyr,
+    pbmcapply
+Suggests: DBI, odbc, MASS, covr, roxygen2, spelling, testthat, rmarkdown, 
+          Lock5Data, carData, bench, rms, brms, rstan, rstanarm, bayesplot,
           vdiffr, ggtext, daewr, svglite, data.table, nlme,
           simstudy, patchwork, cowplot, reprex
 VignetteBuilder: 
@@ -48,7 +65,6 @@ Encoding: UTF-8
 Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE, old_usage = TRUE)
-RoxygenNote: 7.1.1
-X-schema.org-keywords: confidence, compatibility, consonance,  curve,
+RoxygenNote: 7.3.3
+X-schema.org-keywords: confidence, compatibility, consonance, curve,
     information statistics, surprisals, interval, function, distribution, fiducial
-   

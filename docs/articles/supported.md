@@ -23,9 +23,12 @@ of the package number will always be on the top left.
 ## Previous Versions
 
 However, we’d still like users to be able to access old versions of
-concurve for whatever reason, and in addition to using GitHub, those can
-also be found on the [CRAN
-archive](https://cloud.r-project.org/src/contrib/Archive/concurve/).
+concurve for whatever, reason, and in addition to using GitHub, those
+can also be found on the [CRAN
+archive](https://cloud.r-project.org/web/checks/check_results_concurve.html).
+A page with the test results for the most recent package on CRAN can
+also be [found
+here](https://cloud.r-project.org/web/checks/check_results_concurve.html).
 
 Another useful link will be the
 [NEWS](https://data.lesslikely.com/concurve/news/index.html) section,
@@ -38,7 +41,7 @@ script,
 
 ``` r
 
-remotes::install_github("zadrafi/concurve@master", dependencies = TRUE)
+install_github("zadrafi/concurve@master", dependencies = TRUE)
 ```
 
 may be useful.
@@ -61,12 +64,22 @@ link](https://github.com/zadrafi/concurve/releases).
 
 ------------------------------------------------------------------------
 
-Version 3.0 introduces several significant updates:
+Version 3.0 is a major update that includes new functionality, reduced
+dependencies, and improved compatibility.
 
 ### New Functions
 
 - **[`curve_wrap()`](reference/curve_wrap.md)** - Generic wrapper for
   any CI-producing function
+- **[`curve_model()`](reference/curve_model.md)** - Convenience wrapper
+  for model objects
+- **[`curve_snowflake()`](reference/curve_snowflake.md)** - Construct
+  consonance distributions directly from Snowflake database query
+  results
+- **[`curve_snowflake_batch()`](reference/curve_snowflake_batch.md)** -
+  Batch processing for multiple Snowflake analyses
+- **[`export_for_powerbi()`](reference/export_for_powerbi.md)** - Export
+  consonance data in Power BI-ready format
 - **[`curve_from_ratio()`](reference/curve_from_ratio.md)** - Construct
   curves from ratio estimates
 - **[`curve_from_se()`](reference/curve_from_se.md)** - Construct curves
@@ -80,18 +93,20 @@ Version 3.0 introduces several significant updates:
 
 ### Dependency Changes
 
-- **Removed `pbmcapply`** - Replaced with base R
+- **Removed `pbmcapply` dependency** - Replaced with base R
   [`parallel::mclapply()`](https://rdrr.io/r/parallel/mclapply.html) for
-  parallel processing, reducing external dependencies
-- **Optional Snowflake support** - `DBI` and `odbc` packages moved to
-  Suggests for optional database connectivity
+  parallel processing, reducing the package’s dependency footprint
+- **Optional database dependencies** - `DBI` and `odbc` are now in
+  Suggests for Snowflake integration (install only if needed)
 
-### Bug Fixes
+### Bug Fixes and Improvements
 
 - Fixed scoping issues with
   [`subset()`](https://rdrr.io/r/base/subset.html) inside parallel
-  operations
-- Improved compatibility with newer versions of R and tidyverse packages
+  processing calls
+- Improved roxygen2 documentation across all functions
+- Enhanced error messages and input validation
+- Updated vignettes with corrected examples
 
 ------------------------------------------------------------------------
 
@@ -107,8 +122,7 @@ distributions of parameters are specified as `Imports`, while those that
 are optional and not necessary are specified as `Suggests`.
 
 Those that are listed in the Suggests section are typically used for
-additional functionality such as database connectivity (Snowflake) or
-testing.
+additional functionality such as database connectivity or testing.
 
 ------------------------------------------------------------------------
 
@@ -136,7 +150,6 @@ testing.
 | survminer         | survminer         | 0.5.1           |
 | tibble            | tibble            | 3.3.1           |
 | tidyr             | tidyr             | 1.3.2           |
-| rlang             | rlang             | 1.1.7           |
 
 Package Imports {.table .striped .table .table-striped
 style="font-size: 10px; font-family: helvetica; margin-left: auto; margin-right: auto;"}
@@ -151,6 +164,7 @@ style="font-size: 10px; font-family: helvetica; margin-left: auto; margin-right:
 |:-----------|:-----------|:----------------|
 | DBI        | DBI        | 1.2.3           |
 | odbc       | odbc       | 1.6.4.1         |
+| MASS       | MASS       | 7.3-65          |
 | covr       | covr       | 3.6.5           |
 | roxygen2   | roxygen2   | 7.3.3           |
 | spelling   | spelling   | 2.3.2           |
@@ -161,6 +175,7 @@ style="font-size: 10px; font-family: helvetica; margin-left: auto; margin-right:
 | bench      | bench      | 1.1.4           |
 | rms        | rms        | 8.1-0           |
 | brms       | brms       | 2.23.0          |
+| rstan      | rstan      | 2.32.7          |
 | rstanarm   | rstanarm   | 2.32.2          |
 | bayesplot  | bayesplot  | 1.15.0          |
 | vdiffr     | vdiffr     | 1.0.8           |
@@ -170,7 +185,9 @@ style="font-size: 10px; font-family: helvetica; margin-left: auto; margin-right:
 | data.table | data.table | 1.18.0          |
 | nlme       | nlme       | 3.1-168         |
 | simstudy   | simstudy   | 0.9.1           |
-| MASS       | MASS       | 7.3-65          |
+| patchwork  | patchwork  | 1.3.2           |
+| cowplot    | cowplot    | 1.2.0           |
+| reprex     | reprex     | 2.1.1           |
 
 Package Suggestions {.table .striped .table .table-striped
 style="font-size: 10px; font-family: helvetica; margin-left: auto; margin-right: auto;"}

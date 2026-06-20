@@ -111,7 +111,7 @@ curve_meta <- function(x, measure = "default", method = "uni", parm = NULL, robu
     if (robust == FALSE) {
       intrvls <- (1:(steps - 1)) / steps
 
-      results <- pbmclapply(intrvls, FUN = function(i) confint.default(object = x, level = i)[], mc.cores = cores)
+      results <- parallel::mclapply(intrvls, FUN = function(i) confint.default(object = x, level = i)[], mc.cores = cores)
       df <- data.frame(do.call(rbind, results))
       intrvl.limit <- c("lower.limit", "upper.limit")
       colnames(df) <- intrvl.limit
@@ -128,11 +128,11 @@ curve_meta <- function(x, measure = "default", method = "uni", parm = NULL, robu
       intrvls <- intrvls[which(intrvls > 1)]
       results <- data.frame(rep(NA, length(intrvls)), rep(NA, length(intrvls)))
       colnames(results) <- c("ci.lb", "ci.ub")
-      results$ci.lb <- pbmclapply(intrvls, FUN = function(i) {
+      results$ci.lb <- parallel::mclapply(intrvls, FUN = function(i) {
         x$level <- i
         (robust(x, cluster)[[6]][1])
       }, mc.cores = cores)
-      results$ci.ub <- pbmclapply(intrvls, FUN = function(i) {
+      results$ci.ub <- parallel::mclapply(intrvls, FUN = function(i) {
         x$level <- i
         (robust(x, cluster)[[7]][1])
       }, mc.cores = cores)
@@ -150,8 +150,8 @@ curve_meta <- function(x, measure = "default", method = "uni", parm = NULL, robu
     if (robust == FALSE) {
       steps <- 100
       intrvls_mh <- ((1:steps))
-      results <- (pbmclapply(intrvls_mh, FUN = function(i) unlist(confint.rma.mh(object = x, random = TRUE, level = i)[1]), mc.cores = cores))
-      results <- pbmclapply((1:(length(results))), FUN = function(j) results[[j]][2:3], mc.cores = cores)
+      results <- (parallel::mclapply(intrvls_mh, FUN = function(i) unlist(confint.rma.mh(object = x, random = TRUE, level = i)[1]), mc.cores = cores))
+      results <- parallel::mclapply((1:(length(results))), FUN = function(j) results[[j]][2:3], mc.cores = cores)
       results <- as.data.frame(results)
       df <- data.frame(do.call(rbind, results))
       intrvl.limit <- c("lower.limit", "upper.limit")
@@ -169,11 +169,11 @@ curve_meta <- function(x, measure = "default", method = "uni", parm = NULL, robu
       intrvls_mh <- intrvls_mh[which(intrvls_mh > 1)]
       results <- data.frame(rep(NA, length(intrvls_mh)), rep(NA, length(intrvls_mh)))
       colnames(results) <- c("ci.lb", "ci.ub")
-      results$ci.lb <- pbmclapply(intrvls_mh, FUN = function(i) {
+      results$ci.lb <- parallel::mclapply(intrvls_mh, FUN = function(i) {
         x$level <- i
         (robust(x, cluster)[[6]][1])
       }, mc.cores = cores)
-      results$ci.ub <- pbmclapply(intrvls_mh, FUN = function(i) {
+      results$ci.ub <- parallel::mclapply(intrvls_mh, FUN = function(i) {
         x$level <- i
         (robust(x, cluster)[[7]][1])
       }, mc.cores = cores)
@@ -192,8 +192,8 @@ curve_meta <- function(x, measure = "default", method = "uni", parm = NULL, robu
   } else if (method == "peto") {
     steps <- 100
     intrvls_peto <- ((1:steps))
-    results <- (pbmclapply(intrvls_peto, FUN = function(i) unlist(confint.rma.peto(object = x, random = TRUE, level = i)[1]), mc.cores = cores))
-    results <- pbmclapply((1:(length(results))), FUN = function(j) results[[j]][2:3], mc.cores = cores)
+    results <- (parallel::mclapply(intrvls_peto, FUN = function(i) unlist(confint.rma.peto(object = x, random = TRUE, level = i)[1]), mc.cores = cores))
+    results <- parallel::mclapply((1:(length(results))), FUN = function(j) results[[j]][2:3], mc.cores = cores)
     results <- as.data.frame(results)
     df <- data.frame(do.call(rbind, results))
     intrvl.limit <- c("lower.limit", "upper.limit")
@@ -209,9 +209,9 @@ curve_meta <- function(x, measure = "default", method = "uni", parm = NULL, robu
   } else if (method == "mv") {
     steps <- 100
     intrvls_mv <- ((1:steps))
-    results <- pbmclapply(intrvls_mv, FUN = function(i) (confint(object = res, fixed = TRUE, level = i))[["fixed"]], mc.cores = cores)
-    results <- pbmclapply((1:(length(results))), FUN = function(j) as.data.frame(results[[j]]), mc.cores = cores)
-    results <- pbmclapply((1:(length(results))), FUN = function(k) filter(results[[k]], rownames(results[[k]]) == parm), mc.cores = cores)
+    results <- parallel::mclapply(intrvls_mv, FUN = function(i) (confint(object = res, fixed = TRUE, level = i))[["fixed"]], mc.cores = cores)
+    results <- parallel::mclapply((1:(length(results))), FUN = function(j) as.data.frame(results[[j]]), mc.cores = cores)
+    results <- parallel::mclapply((1:(length(results))), FUN = function(k) filter(results[[k]], rownames(results[[k]]) == parm), mc.cores = cores)
     df <- (data.frame(do.call(rbind, results)))[, 2:3]
     intrvl.limit <- c("lower.limit", "upper.limit")
     colnames(df) <- intrvl.limit

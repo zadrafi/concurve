@@ -1,4 +1,7 @@
-# Plot Multiple Consonance Functions for Comparison
+# Plot Multiple Consonance Functions
+
+Creates a combined plot showing multiple consonance functions for
+comparison.
 
 Overlays multiple consonance or surprisal functions on a single plot for
 direct visual comparison of effect estimates across groups, time
@@ -7,6 +10,14 @@ periods, or studies.
 ## Usage
 
 ``` r
+plot_multi(..., type = "c", measure = "default", nullvalue = NULL,
+  position = "pyramid", title = "Comparison of Consonance Functions",
+  subtitle = "Functions display intervals at every level.",
+  xaxis = expression(theta == ~"Effect Size"),
+  yaxis1 = expression(paste(italic(p), "-value")),
+  yaxis2 = "Confidence Level (%)", colors = NULL, alpha = 0.15,
+  legend.position = "bottom")
+
 plot_multi(..., type = "c", measure = "default", nullvalue = NULL,
   position = "pyramid", title = "Comparison of Consonance Functions",
   subtitle = "Functions display intervals at every level.",
@@ -76,11 +87,27 @@ plot_multi(..., type = "c", measure = "default", nullvalue = NULL,
 
   Character or numeric vector. Legend position. Default is "bottom".
 
+- labels:
+
+  Character vector of labels for each curve. If NULL, uses names from
+  input or generates sequential labels.
+
 ## Value
+
+A ggplot object.
 
 A ggplot2 object.
 
+## Details
+
+This function overlays multiple consonance or surprisal functions on a
+single plot for easy comparison. Each curve is distinguished by color.
+
 ## See also
+
+[`ggcurve()`](reference/ggcurve.md) for single curve plotting
+
+[`curve_overlap()`](reference/curve_overlap.md) for quantifying overlap
 
 [`ggcurve()`](reference/ggcurve.md),
 [`plot_compare()`](reference/plot_compare.md),
@@ -89,6 +116,19 @@ A ggplot2 object.
 ## Examples
 
 ``` r
+if (FALSE) { # \dontrun{
+# Compare three analyses
+result1 <- curve_from_ratio(1.5, 1.1, 2.0)
+result2 <- curve_from_ratio(1.3, 0.9, 1.8)
+result3 <- curve_from_ratio(1.8, 1.2, 2.5)
+
+plot_multi(result1[[1]], result2[[1]], result3[[1]],
+  labels = c("Study A", "Study B", "Study C"),
+  nullvalue = 1,
+  title = "Comparison of Odds Ratios"
+)
+} # }
+
 if (FALSE) { # \dontrun{
 # Compare two studies
 study1 <- curve_from_se(point = 0.5, se = 0.2, df = 50)

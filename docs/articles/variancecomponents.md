@@ -79,7 +79,7 @@ Here we show how to do that.
 
 ``` r
 
-fm1M <- lmer(yield ~ 1 + (1 | sample), data = Naph, REML = TRUE)
+fm1M <- lmer( yield ~ 1 + (1| sample), data = Naph, REML = TRUE)
 
 summary(fm1M)
 #> Linear mixed model fit by REML ['lmerMod']
@@ -121,9 +121,9 @@ You can also embed plots, for example:
 
 ``` r
 
-c1 <- c(.5, -.5)
+c1 <- c( .5, -.5)
 
-mod4 <- lmer(pl ~ 1 + Group + (1 | Subject:Group) + Period + Treat, contrasts = list(Group = c1, Period = c1, Treat = c1), data = antifungal)
+mod4 <- lmer( pl ~ 1 + Group + (1|Subject:Group) + Period + Treat, contrasts = list(Group = c1, Period = c1, Treat = c1), data = antifungal)
 
 summary(mod4)
 #> Linear mixed model fit by REML ['lmerMod']
@@ -188,7 +188,7 @@ prevent printing of the R code that generated the plot.
     #> [1] stats     graphics  grDevices utils     datasets  methods   base     
     #> 
     #> other attached packages:
-    #> [1] daewr_1.2-11 lme4_1.1-38  Matrix_1.7-4 concurve_3.0
+    #> [1] daewr_1.2-11   lme4_1.1-38    Matrix_1.7-4   concurve_3.0.0
     #> 
     #> loaded via a namespace (and not attached):
     #>  [1] tidyselect_1.2.1        dplyr_1.1.4             farver_2.1.2           
@@ -211,19 +211,18 @@ prevent printing of the R code that generated the plot.
     #> [52] metadat_1.4-0           parallel_4.5.2          survMisc_0.5.6         
     #> [55] vctrs_0.7.1             boot_1.3-32             jsonlite_2.0.0         
     #> [58] fontBitstreamVera_0.1.1 carData_3.0-5           car_3.1-3              
-    #> [61] rstatix_0.7.3           pbmcapply_1.5.1         Formula_1.2-5          
-    #> [64] systemfonts_1.3.1       tidyr_1.3.2             jquerylib_0.1.4        
-    #> [67] glue_1.8.0              nloptr_2.2.1            pkgdown_2.2.0          
-    #> [70] flextable_0.9.10        gtable_0.3.6            tibble_3.3.1           
-    #> [73] pillar_1.11.1           htmltools_0.5.9         openssl_2.3.4          
-    #> [76] ProfileLikelihood_1.3   R6_2.6.1                KMsurv_0.1-6           
-    #> [79] Rdpack_2.6.5            textshaping_1.0.4       evaluate_1.0.5         
-    #> [82] lattice_0.22-7          rbibutils_2.4.1         backports_1.5.0        
-    #> [85] broom_1.0.11            fontLiberation_0.1.0    bslib_0.9.0            
-    #> [88] Rcpp_1.1.1              zip_2.3.3               uuid_1.2-2             
-    #> [91] gridExtra_2.3           nlme_3.1-168            officer_0.7.3          
-    #> [94] xfun_0.56               fs_1.6.6                zoo_1.8-15             
-    #> [97] pkgconfig_2.0.3
+    #> [61] rstatix_0.7.3           Formula_1.2-5           systemfonts_1.3.1      
+    #> [64] tidyr_1.3.2             jquerylib_0.1.4         glue_1.8.0             
+    #> [67] nloptr_2.2.1            pkgdown_2.2.0           flextable_0.9.10       
+    #> [70] gtable_0.3.6            tibble_3.3.1            pillar_1.11.1          
+    #> [73] htmltools_0.5.9         openssl_2.3.4           ProfileLikelihood_1.3  
+    #> [76] R6_2.6.1                KMsurv_0.1-6            Rdpack_2.6.5           
+    #> [79] textshaping_1.0.4       evaluate_1.0.5          lattice_0.22-7         
+    #> [82] rbibutils_2.4.1         backports_1.5.0         broom_1.0.11           
+    #> [85] fontLiberation_0.1.0    bslib_0.9.0             Rcpp_1.1.1             
+    #> [88] zip_2.3.3               uuid_1.2-2              gridExtra_2.3          
+    #> [91] nlme_3.1-168            officer_0.7.3           xfun_0.56              
+    #> [94] fs_1.6.6                zoo_1.8-15              pkgconfig_2.0.3
 
 ------------------------------------------------------------------------
 

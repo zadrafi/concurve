@@ -47,7 +47,7 @@ curve_surv <- function(data, x, steps = 10000, cores = getOption("mc.cores", 1L)
   }
 
   intrvls <- (1:steps) / steps
-  results <- pbmclapply(intrvls, FUN = function(i) summary(data, conf.int = i)$conf.int[x, ], mc.cores = cores)
+  results <- parallel::mclapply(intrvls, FUN = function(i) summary(data, conf.int = i)$conf.int[x, ], mc.cores = cores)
 
   df <- data.frame(do.call(rbind, results))[, 3:4]
   intrvl.limit <- c("lower.limit", "upper.limit")

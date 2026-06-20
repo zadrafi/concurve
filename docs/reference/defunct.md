@@ -53,7 +53,7 @@ For `metaintervals`, use [`curve_meta`](reference/curve_meta.md)
 
 ## `genintervals`
 
-For `genintervals`, use [`curve_gen`](reference/curve_gen.md)
+For `genintervals`, use `curve_gen`
 
 ## `corrintervals`
 

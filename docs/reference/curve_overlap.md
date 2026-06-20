@@ -1,62 +1,82 @@
-# Compute Overlap Statistics Between Two Consonance Functions
+# Calculate Overlap Between Consonance Functions
 
-Calculates the area under the curve (AUC) overlap between two consonance
-or surprisal functions, providing a quantitative measure of how similar
-two estimates are.
+Quantifies the area of overlap between two consonance functions,
+providing a measure of compatibility between two estimates.
 
 ## Usage
 
 ``` r
-curve_overlap(curve1, curve2, type = "c")
+curve_overlap(data1, data2, type = "c", plot = TRUE,
+  title = "Consonance Function Overlap")
 ```
 
 ## Arguments
 
-- curve1:
+- data1:
 
-  A concurve dataframe (first curve).
+  First concurve object or intervals data frame.
 
-- curve2:
+- data2:
 
-  A concurve dataframe (second curve).
+  Second concurve object or intervals data frame.
 
 - type:
 
-  Character. Type of function: "c" for consonance (default), "s" for
+  Function type for comparison: "c" for consonance (default), "s" for
   surprisal.
+
+- plot:
+
+  Logical. If TRUE (default), displays overlap visualization.
+
+- title:
+
+  Plot title.
 
 ## Value
 
 A list containing:
 
-- auc1: Area under curve 1
+- overlap_area:
 
-- auc2: Area under curve 2
+  Estimated area of overlap
 
-- auc_shared: Shared (overlapping) area
+- total_area:
 
-- overlap_pct: Overlap as percentage (Jaccard-style)
+  Total combined area
 
-- overlap_ratio: Ratio of shared to non-shared area
+- overlap_ratio:
 
-- interpretation: Plain-language interpretation
+  Ratio of overlap to total area
+
+- max_shared_level:
+
+  Maximum confidence level where intervals overlap
+
+## Details
+
+This function computes the overlap between two consonance functions,
+which provides a measure of how compatible two estimates are with each
+other. Higher overlap indicates greater compatibility.
+
+The overlap is calculated by finding the intersection of intervals at
+each confidence level and integrating over the shared region.
 
 ## See also
 
-[`curve_compare()`](reference/curve_compare.md),
-[`plot_multi()`](reference/plot_multi.md)
+[`curve_compare()`](reference/curve_compare.md) for graphical comparison
+
+[`plot_compare()`](reference/plot_compare.md) for visualization
 
 ## Examples
 
 ``` r
 if (FALSE) { # \dontrun{
 # Compare two study results
-study1 <- curve_from_se(point = 0.5, se = 0.15, df = 100)
-study2 <- curve_from_se(point = 0.7, se = 0.18, df = 80)
+study1 <- curve_from_ratio(1.5, 1.1, 2.0)
+study2 <- curve_from_ratio(1.3, 0.9, 1.8)
 
 overlap <- curve_overlap(study1[[1]], study2[[1]])
 print(overlap)
-# $overlap_pct: 68.2
-# $interpretation: "Moderate overlap - effects may differ"
 } # }
 ```

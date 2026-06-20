@@ -53,7 +53,7 @@ curve_lmer <- function(object, parm, method = "profile", zeta = NULL,
   }
 
   intrvls <- (1:steps) / steps
-  results <- pbmclapply(intrvls, FUN = function(i) {
+  results <- parallel::mclapply(intrvls, FUN = function(i) {
     confint.merMod(
       object = object, parm = parm, level = i,
       method = method,

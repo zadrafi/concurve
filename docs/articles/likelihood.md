@@ -72,13 +72,11 @@ ggcurve(lik[[1]], type = "d")
 The obvious advantage of using reduced likelihoods is that they are free
 of nuisance parameters
 
-\\L\_{t\_{n}}(\theta)=f\_{n}\left(F\_{n}^{-1}\left(H\_{p i
-v}(\theta)\right)\right)\left\|\frac{\partial}{\partial t}
-\psi\left(t\_{n}, \theta\right)\right\|=h\_{p i
-v}(\theta)\left\|\frac{\partial}{\partial t} \psi(t, \theta)\right\|
-/\left.\left\|\frac{\partial}{\partial \theta} \psi(t,
-\theta)\right\|\right\|\_{t=t\_{n}}\\ thus, giving summaries of the data
-that can be incorporated into combined analyses.
+``` math
+L_{t_{n}}(\theta)=f_{n}\left(F_{n}^{-1}\left(H_{p i v}(\theta)\right)\right)\left|\frac{\partial}{\partial t} \psi\left(t_{n}, \theta\right)\right|=h_{p i v}(\theta)\left|\frac{\partial}{\partial t} \psi(t, \theta)\right| /\left.\left|\frac{\partial}{\partial \theta} \psi(t, \theta)\right|\right|_{t=t_{n}}
+```
+thus, giving summaries of the data that can be incorporated into
+combined analyses.
 
 ## Cite R Packages
 
@@ -89,10 +87,10 @@ Please remember to cite the packages that you use.
 citation("concurve")
 #> To cite package 'concurve' in publications use:
 #> 
-#>   Rafi Z, Vigotsky A (????). _concurve: Computes and Plots
+#>   Rafi Z, Vigotsky A (2026). _concurve: Computes and Plots
 #>   Compatibility (Confidence) Intervals, P-Values, S-Values, &
 #>   Likelihood Intervals to Form Consonance, Surprisal, & Likelihood
-#>   Functions_. R package version 3.0,
+#>   Functions_. R package version 3.0.0,
 #>   <https://CRAN.R-project.org/package=concurve>.
 #> 
 #>   Rafi Z, Greenland S (2020). "Semantic and Cognitive Tools to Aid

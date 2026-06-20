@@ -1,40 +1,37 @@
-# Construct Consonance Function from Point Estimate and Standard Error
+# Construct Consonance Function from Standard Error
 
-Builds a consonance distribution when you only have a point estimate and
-its standard error. Common when working with database query results,
-published statistics, or external model outputs.
+Convenience function to construct consonance functions given a point
+estimate and its standard error.
 
 ## Usage
 
 ``` r
-curve_from_se(point, se, df = Inf, steps = 1000,
+curve_from_se(estimate, se, measure = "mean", steps = 1000,
   cores = getOption("mc.cores", 1L), table = TRUE)
 ```
 
 ## Arguments
 
-- point:
+- estimate:
 
-  Numeric. The point estimate (e.g., mean difference, coefficient).
+  Point estimate.
 
 - se:
 
-  Numeric. The standard error of the point estimate.
+  Standard error of the estimate.
 
-- df:
+- measure:
 
-  Numeric. Degrees of freedom for t-distribution. Use `Inf` for z-based
-  (normal) intervals. Default is `Inf`.
+  Type of measure: "mean" for differences (default), "ratio" for ratio
+  measures (estimate should be on original scale).
 
 - steps:
 
-  Indicates how many consonance intervals are to be calculated. By
-  default, it is set to 1000.
+  Number of consonance levels to compute. Default is 1000.
 
 - cores:
 
-  Number of cores for parallel computation. Default is
-  `getOption("mc.cores", 1L)`.
+  Number of cores for parallel computation.
 
 - table:
 
@@ -47,37 +44,30 @@ dataframe, and optionally a summary table.
 
 ## Details
 
-The function computes confidence intervals using: \$\$CI = \hat{\theta}
-\pm t\_{1-\alpha/2, df} \times SE\$\$
+This function constructs consonance intervals using the normal
+approximation: `estimate +/- z * se` where z varies across confidence
+levels.
 
-where \\t\\ is the critical value from the t-distribution (or z if df =
-Inf).
-
-This is useful when:
-
-- Working with regression outputs from databases (Snowflake, SQL Server)
-
-- Reconstructing curves from published point estimates and CIs
-
-- Building curves from custom estimators
+For ratio measures, the function handles the log transformation
+internally.
 
 ## See also
 
-[`curve_from_ratio()`](reference/curve_from_ratio.md),
-[`curve_rev()`](reference/curve_rev.md),
-[`curve_wrap()`](reference/curve_wrap.md)
+[`curve_from_ratio()`](reference/curve_from_ratio.md) for constructing
+from CI bounds
+
+[`curve_rev()`](reference/curve_rev.md) for the underlying function
 
 ## Examples
 
 ``` r
 if (FALSE) { # \dontrun{
-# From a regression coefficient
-result <- curve_from_se(point = 2.5, se = 0.8, df = 98)
-ggcurve(result[[1]], nullvalue = 0)
+# Mean difference with SE
+result <- curve_from_se(estimate = 2.5, se = 0.8, measure = "mean")
+ggcurve(result[[1]], type = "c", nullvalue = TRUE)
 
-# From published study: effect = 0.35, 95% CI [0.12, 0.58]
-# Back-calculate SE: (0.58 - 0.12) / (2 * 1.96) = 0.117
-result <- curve_from_se(point = 0.35, se = 0.117)
-ggcurve(result[[1]], type = "s", nullvalue = 0)
+# Odds ratio with SE (on log scale internally)
+result <- curve_from_se(estimate = 1.5, se = 0.2, measure = "ratio")
+ggcurve(result[[1]], type = "c", nullvalue = TRUE)
 } # }
 ```
