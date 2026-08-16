@@ -53,8 +53,10 @@ Imports:
     survminer,
     tibble,
     tidyr,
-    pbmcapply
+    pbmcapply,
+    numDeriv
 Suggests: 
+    plotly,
     DBI,
     odbc,
     MASS,
