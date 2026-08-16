@@ -53,3 +53,5 @@
 ^meta-analysis\.Rmd$
 ^quack\.db$
 ^last\.dump\.rda$
+^\.posit/assistant$
+^tools$
