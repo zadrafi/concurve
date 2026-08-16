@@ -3,6 +3,11 @@
 \name{curve_gen}
 \alias{curve_gen}
 \title{Consonance Functions For Linear Models, Generalized Linear Models, and Robust Linear Models}
+\usage{
+curve_gen(model, var, method = "lm", log = FALSE, penalty = NULL,
+  m = NULL, steps = 1000, cores = getOption("mc.cores", 1L),
+  table = TRUE)
+}
 \arguments{
 \item{model}{The statistical model of interest
 (ANOVA, regression, logistic regression) is to be indicated here.}
@@ -44,7 +49,9 @@ is not recommended as it will take longer to produce all the intervals and
 store them into a data frame.}
 
 \item{cores}{Select the number of cores to use in  order to compute the intervals
-The default is 1 core.}
+The default is 1 core. Parallel computation uses forking via
+\code{parallel::mclapply()}, which is unavailable on Windows; on that
+platform the intervals are computed sequentially regardless of this value.}
 
 \item{table}{Indicates whether or not a table output with some relevant
 statistics should be generated. The default is TRUE and generates a table
