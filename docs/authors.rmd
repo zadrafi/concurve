@@ -35,6 +35,7 @@ Rafi Z, Vigotsky A (????). *concurve: Computes and Plots Compatibility
 Form Consonance, Surprisal, & Likelihood Functions*. R package version
 3.0, <https://CRAN.R-project.org/package=concurve>.
 
+{% raw %}
 ```         
 @Manual{,
   title = {{concurve}: Computes and Plots Compatibility (Confidence) Intervals, P-Values, S-Values, & Likelihood Intervals to Form Consonance, Surprisal, & Likelihood Functions},
@@ -43,6 +44,7 @@ Form Consonance, Surprisal, & Likelihood Functions*. R package version
   url = {https://CRAN.R-project.org/package=concurve},
 }
 ```
+{% endraw %}
 
 Rafi Z, Greenland S (2020). “Semantic and Cognitive Tools to Aid
 Statistical Science: Replace Confidence and Significance by
