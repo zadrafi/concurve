@@ -43,9 +43,7 @@
 #' object, the values needed to calculate the density function in the second,
 #' and the table for the values in the third if table = TRUE.
 #'
-
-
-
+#' @export
 curve_lmer <- function(object, parm, method = "profile", zeta = NULL,
                        nsim = NULL, FUN = NULL, boot.type = NULL, steps = 1000, cores = getOption("mc.cores", 1L), table = FALSE) {
   if (is.numeric(steps) != TRUE) {
@@ -54,7 +52,7 @@ curve_lmer <- function(object, parm, method = "profile", zeta = NULL,
 
   intrvls <- (1:steps) / steps
   results <- parallel::mclapply(intrvls, FUN = function(i) {
-    confint.merMod(
+    lme4::confint.merMod(
       object = object, parm = parm, level = i,
       method = method,
       nsim = nsim, boot.type = boot.type,

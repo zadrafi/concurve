@@ -94,6 +94,7 @@
 #'
 #' metaf <- curve_meta(res)
 #' }
+#' @export
 curve_meta <- function(x, measure = "default", method = "uni", parm = NULL, robust = FALSE,
                        cluster = NULL, adjust = FALSE, steps = 1000, cores = getOption("mc.cores", 1L), table = TRUE) {
   if (is.list(x) != TRUE) {
@@ -130,11 +131,11 @@ curve_meta <- function(x, measure = "default", method = "uni", parm = NULL, robu
       colnames(results) <- c("ci.lb", "ci.ub")
       results$ci.lb <- parallel::mclapply(intrvls, FUN = function(i) {
         x$level <- i
-        (robust(x, cluster)[[6]][1])
+        (metafor::robust(x, cluster)[[6]][1])
       }, mc.cores = cores)
       results$ci.ub <- parallel::mclapply(intrvls, FUN = function(i) {
         x$level <- i
-        (robust(x, cluster)[[7]][1])
+        (metafor::robust(x, cluster)[[7]][1])
       }, mc.cores = cores)
       df <- results
       intrvl.limit <- c("lower.limit", "upper.limit")
@@ -150,7 +151,7 @@ curve_meta <- function(x, measure = "default", method = "uni", parm = NULL, robu
     if (robust == FALSE) {
       steps <- 100
       intrvls_mh <- ((1:steps))
-      results <- (parallel::mclapply(intrvls_mh, FUN = function(i) unlist(confint.rma.mh(object = x, random = TRUE, level = i)[1]), mc.cores = cores))
+      results <- (parallel::mclapply(intrvls_mh, FUN = function(i) unlist(metafor::confint.rma.mh(object = x, random = TRUE, level = i)[1]), mc.cores = cores))
       results <- parallel::mclapply((1:(length(results))), FUN = function(j) results[[j]][2:3], mc.cores = cores)
       results <- as.data.frame(results)
       df <- data.frame(do.call(rbind, results))
@@ -171,11 +172,11 @@ curve_meta <- function(x, measure = "default", method = "uni", parm = NULL, robu
       colnames(results) <- c("ci.lb", "ci.ub")
       results$ci.lb <- parallel::mclapply(intrvls_mh, FUN = function(i) {
         x$level <- i
-        (robust(x, cluster)[[6]][1])
+        (metafor::robust(x, cluster)[[6]][1])
       }, mc.cores = cores)
       results$ci.ub <- parallel::mclapply(intrvls_mh, FUN = function(i) {
         x$level <- i
-        (robust(x, cluster)[[7]][1])
+        (metafor::robust(x, cluster)[[7]][1])
       }, mc.cores = cores)
       df <- results
       intrvl.limit <- c("lower.limit", "upper.limit")
@@ -192,7 +193,7 @@ curve_meta <- function(x, measure = "default", method = "uni", parm = NULL, robu
   } else if (method == "peto") {
     steps <- 100
     intrvls_peto <- ((1:steps))
-    results <- (parallel::mclapply(intrvls_peto, FUN = function(i) unlist(confint.rma.peto(object = x, random = TRUE, level = i)[1]), mc.cores = cores))
+    results <- (parallel::mclapply(intrvls_peto, FUN = function(i) unlist(metafor::confint.rma.peto(object = x, random = TRUE, level = i)[1]), mc.cores = cores))
     results <- parallel::mclapply((1:(length(results))), FUN = function(j) results[[j]][2:3], mc.cores = cores)
     results <- as.data.frame(results)
     df <- data.frame(do.call(rbind, results))
@@ -211,7 +212,7 @@ curve_meta <- function(x, measure = "default", method = "uni", parm = NULL, robu
     intrvls_mv <- ((1:steps))
     results <- parallel::mclapply(intrvls_mv, FUN = function(i) (confint(object = res, fixed = TRUE, level = i))[["fixed"]], mc.cores = cores)
     results <- parallel::mclapply((1:(length(results))), FUN = function(j) as.data.frame(results[[j]]), mc.cores = cores)
-    results <- parallel::mclapply((1:(length(results))), FUN = function(k) filter(results[[k]], rownames(results[[k]]) == parm), mc.cores = cores)
+    results <- parallel::mclapply((1:(length(results))), FUN = function(k) dplyr::filter(results[[k]], rownames(results[[k]]) == parm), mc.cores = cores)
     df <- (data.frame(do.call(rbind, results)))[, 2:3]
     intrvl.limit <- c("lower.limit", "upper.limit")
     colnames(df) <- intrvl.limit

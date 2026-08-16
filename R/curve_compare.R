@@ -35,18 +35,18 @@
 #' @seealso [ggcurve()]
 #' @seealso [curve_table()]
 #'
+#' @export
 curve_compare <- function(data1, data2, type = "c", plot = TRUE, ...) {
-
   # Consonance Function -----------------------------------------------------
 
   if (type == "c") {
-    if (is(data1, "concurve") != TRUE) {
+    if (methods::is(data1, "concurve") != TRUE) {
       stop("Error: 'data1' must be a data frame from 'concurve'.")
     }
     if (ncol(data1) != 7) {
       stop("Error: 'x' must be a data frame from 'concurve'.")
     }
-    if (is(data2, "concurve") != TRUE) {
+    if (methods::is(data2, "concurve") != TRUE) {
       stop("Error: 'data2' must be a data frame from 'concurve'.")
     }
     if (ncol(data2) != 7) {
@@ -54,9 +54,7 @@ curve_compare <- function(data1, data2, type = "c", plot = TRUE, ...) {
     }
     if (plot == TRUE) {
       plot_comparison <- (plot_compare(data1, data2, type = "c", ...))
-    } else if (plot == FALSE) {
-
-    }
+    } else if (plot == FALSE) {}
 
     class(data1) <- "data.frame"
     df1 <- pivot_longer(data1, lower.limit:upper.limit, names_to = "limit.bound", values_to = "Limit")
@@ -107,13 +105,13 @@ curve_compare <- function(data1, data2, type = "c", plot = TRUE, ...) {
 
     # Surprisal Function ------------------------------------------------------
   } else if (type == "s") {
-    if (is(data1, "concurve") != TRUE) {
+    if (methods::is(data1, "concurve") != TRUE) {
       stop("Error: 'data1' must be a data frame from 'concurve'.")
     }
     if (ncol(data1) != 7) {
       stop("Error: 'x' must be a data frame from 'concurve'.")
     }
-    if (is(data2, "concurve") != TRUE) {
+    if (methods::is(data2, "concurve") != TRUE) {
       stop("Error: 'data2' must be a data frame from 'concurve'.")
     }
     if (ncol(data2) != 7) {
@@ -122,9 +120,7 @@ curve_compare <- function(data1, data2, type = "c", plot = TRUE, ...) {
 
     if (plot == TRUE) {
       plot_comparison <- (plot_compare(data1, data2, type = "s", ...))
-    } else if (plot == FALSE) {
-
-    }
+    } else if (plot == FALSE) {}
 
     class(data1) <- "data.frame"
     df1 <- pivot_longer(data1, lower.limit:upper.limit, names_to = "limit.bound", values_to = "Limit")

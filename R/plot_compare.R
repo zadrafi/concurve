@@ -102,13 +102,13 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
   # Consonance Curve -----------------------------------------------------
 
   if (type == "c") {
-    if (is(data1, "concurve") != TRUE) {
+    if (methods::is(data1, "concurve") != TRUE) {
       stop("Error: 'data1' must be a data frame from 'concurve'.")
     }
     if (ncol(data1) != 7) {
       stop("Error: 'x' must be a data frame from 'concurve'.")
     }
-    if (is(data2, "concurve") != TRUE) {
+    if (methods::is(data2, "concurve") != TRUE) {
       stop("Error: 'data2' must be a data frame from 'concurve'.")
     }
     if (ncol(data2) != 7) {
@@ -177,18 +177,18 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
         axis.title.x = element_text(size = 12),
         axis.title.y = element_text(size = 12),
         text = element_text(size = 11),
-        legend.background = element_blank(),
+        legend.background = ggplot2::element_blank(),
         legend.position = c(.998, .95),
         legend.justification = c("right", "top"),
-        legend.key = element_rect(linetype = 1, color = alpha(cols, 0.20)),
-        legend.key.size = unit(0.495, "cm")
+        legend.key = ggplot2::element_rect(linetype = 1, color = scales::alpha(cols, 0.20)),
+        legend.key.size = ggplot2::unit(0.495, "cm")
       ) +
       scale_fill_manual(
         aesthetics = "fill",
         values = cols,
         labels = c("Study 1", "Study 2")
       ) +
-      guides(fill = guide_legend(
+      ggplot2::guides(fill = guide_legend(
         title = "Identity",
         title.theme = element_text(
           size = 8
@@ -234,20 +234,18 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
             color = "#990000", alpha = 0.4, size = .75, linetype = 3
           )
         }
-      }
-      else if (nullvalue == FALSE) {
-      }
+      } else if (nullvalue == FALSE) {}
 
 
     # Surprisal Curve ------------------------------------------------------
   } else if (type == "s") {
-    if (is(data1, "concurve") != TRUE) {
+    if (methods::is(data1, "concurve") != TRUE) {
       stop("Error: 'data1' must be a data frame from 'concurve'.")
     }
     if (ncol(data1) != 7) {
       stop("Error: 'x' must be a data frame from 'concurve'.")
     }
-    if (is(data2, "concurve") != TRUE) {
+    if (methods::is(data2, "concurve") != TRUE) {
       stop("Error: 'data2' must be a data frame from 'concurve'.")
     }
     if (ncol(data2) != 7) {
@@ -310,18 +308,18 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
         axis.title.x = element_text(size = 12),
         axis.title.y = element_text(size = 12),
         text = element_text(size = 11),
-        legend.background = element_blank(),
+        legend.background = ggplot2::element_blank(),
         legend.position = c(.998, .25),
         legend.justification = c("right", "top"),
-        legend.key = element_rect(linetype = 1, color = alpha(cols, 0.20)),
-        legend.key.size = unit(0.495, "cm")
+        legend.key = ggplot2::element_rect(linetype = 1, color = scales::alpha(cols, 0.20)),
+        legend.key.size = ggplot2::unit(0.495, "cm")
       ) +
       scale_fill_manual(
         aesthetics = "fill",
         values = cols,
         labels = c("Study 1", "Study 2")
       ) +
-      guides(fill = guide_legend(
+      ggplot2::guides(fill = guide_legend(
         title = "Identity",
         title.theme = element_text(
           size = 8
@@ -385,18 +383,18 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
         axis.title.x = element_text(size = 12),
         axis.title.y = element_text(size = 12),
         text = element_text(size = 11),
-        legend.background = element_blank(),
+        legend.background = ggplot2::element_blank(),
         legend.position = c(.998, .95),
         legend.justification = c("right", "top"),
-        legend.key = element_rect(linetype = 1, color = alpha(cols, 0.20)),
-        legend.key.size = unit(0.495, "cm")
+        legend.key = ggplot2::element_rect(linetype = 1, color = scales::alpha(cols, 0.20)),
+        legend.key.size = ggplot2::unit(0.495, "cm")
       ) +
       scale_fill_manual(
         aesthetics = "fill",
         values = cols,
         labels = c("Study 1", "Study 2")
       ) +
-      guides(fill = guide_legend(
+      ggplot2::guides(fill = guide_legend(
         title = "Identity",
         title.theme = element_text(
           size = 8
@@ -470,18 +468,18 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
         axis.title.x = element_text(size = 12),
         axis.title.y = element_text(size = 12),
         text = element_text(size = 11),
-        legend.background = element_blank(),
+        legend.background = ggplot2::element_blank(),
         legend.position = c(.998, .95),
         legend.justification = c("right", "top"),
-        legend.key = element_rect(linetype = 1, color = alpha(cols, 0.20)),
-        legend.key.size = unit(0.495, "cm")
+        legend.key = ggplot2::element_rect(linetype = 1, color = scales::alpha(cols, 0.20)),
+        legend.key.size = ggplot2::unit(0.495, "cm")
       ) +
       scale_fill_manual(
         aesthetics = "fill",
         values = cols,
         labels = c("Study 1", "Study 2")
       ) +
-      guides(fill = guide_legend(
+      ggplot2::guides(fill = guide_legend(
         title = "Identity",
         title.theme = element_text(
           size = 8
@@ -555,18 +553,18 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
         axis.title.x = element_text(size = 12),
         axis.title.y = element_text(size = 12),
         text = element_text(size = 11),
-        legend.background = element_blank(),
+        legend.background = ggplot2::element_blank(),
         legend.position = c(.998, .95),
         legend.justification = c("right", "top"),
-        legend.key = element_rect(linetype = 1, color = alpha(cols, 0.20)),
-        legend.key.size = unit(0.495, "cm")
+        legend.key = ggplot2::element_rect(linetype = 1, color = scales::alpha(cols, 0.20)),
+        legend.key.size = ggplot2::unit(0.495, "cm")
       ) +
       scale_fill_manual(
         aesthetics = "fill",
         values = cols,
         labels = c("Study 1", "Study 2")
       ) +
-      guides(fill = guide_legend(
+      ggplot2::guides(fill = guide_legend(
         title = "Identity",
         title.theme = element_text(
           size = 8
@@ -639,18 +637,18 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
         axis.title.x = element_text(size = 12),
         axis.title.y = element_text(size = 12),
         text = element_text(size = 11),
-        legend.background = element_blank(),
+        legend.background = ggplot2::element_blank(),
         legend.position = c(.998, .35),
         legend.justification = c("right", "top"),
-        legend.key = element_rect(linetype = 1, color = alpha(cols, 0.20)),
-        legend.key.size = unit(0.495, "cm")
+        legend.key = ggplot2::element_rect(linetype = 1, color = scales::alpha(cols, 0.20)),
+        legend.key.size = ggplot2::unit(0.495, "cm")
       ) +
       scale_fill_manual(
         aesthetics = "fill",
         values = cols,
         labels = c("Study 1", "Study 2")
       ) +
-      guides(fill = guide_legend(
+      ggplot2::guides(fill = guide_legend(
         title = "Identity",
         title.theme = element_text(
           size = 8

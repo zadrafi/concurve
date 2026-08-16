@@ -78,10 +78,12 @@
 #' RandomData <- data.frame(GroupA, GroupB)
 #'
 #' intervalsdf <- suppressMessages(curve_mean(GroupA, GroupB, data = RandomData, method = "default"))
-#' ggcurve(type = "c", intervalsdf[[1]], nullvalue =c(0))
+#' ggcurve(type = "c", intervalsdf[[1]], nullvalue = c(0))
 #' }
 #' @seealso [plot_compare()]
-#'
+#' @importFrom colorspace darken
+#' @importFrom ggplot2 expansion
+#' @export
 
 ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullvalue = NULL,
                     position = "pyramid",
@@ -90,10 +92,8 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
                     xaxis = expression(theta == ~"Range of Values"),
                     yaxis1 = expression(paste(italic(p), "-value")),
                     yaxis2 = "Levels for CI (%)",
-                    color = darken("#009E73", 0.5),
+                    color = colorspace::darken("#009E73", 0.5),
                     fill = "#239a98") {
-
-
   # Consonance Curve -----------------------------------------------------
 
   if (type == "c") {
@@ -138,7 +138,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
       geom_line(aes(x = upper.limit, y = pvalue),
         color = color
       ) +
-      geom_point(data = interval, mapping = aes(x = limits, y = 1 - levels), size = 1.75, shape = 18) +
+      ggplot2::geom_point(data = interval, mapping = aes(x = limits, y = 1 - levels), size = 1.75, shape = 18) +
       geom_line(data = interval, mapping = aes(x = limits, y = 1 - levels, group = levels), size = .30) +
       geom_ribbon(aes(x = lower.limit, ymin = min(pvalue), ymax = pvalue),
         fill = fill, alpha = 0.10
@@ -169,7 +169,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
       {
         if (position == "inverted") {
           scale_y_reverse(
-            expand = expansion(mult = c(0.01, 0.025)),
+            expand = ggplot2::expansion(mult = c(0.01, 0.025)),
             breaks = seq(0, 1, 0.10),
             sec.axis = sec_axis(~ (1 - .) * 100, name = yaxis2, breaks = seq(0, 100, 10))
           )
@@ -178,7 +178,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
       {
         if (position == "pyramid") {
           scale_y_continuous(
-            expand = expansion(mult = c(0.01, 0.025)),
+            expand = ggplot2::expansion(mult = c(0.01, 0.025)),
             breaks = seq(0, 1, 0.10),
             sec.axis = sec_axis(~ (1 - .) * 100, name = yaxis2, breaks = seq(0, 100, 10))
           )
@@ -195,7 +195,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
 
     # Surprisal Curve ------------------------------------------------------
   } else if (type == "s") {
-    if (is(data, "concurve") != TRUE) {
+    if (methods::is(data, "concurve") != TRUE) {
       stop("Error: 'data' must be a data frame from 'concurve'.")
     }
     if (ncol(data) != 7) {
@@ -219,7 +219,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
 
     interval <- parallel::mclapply(levels, FUN = function(i) (c(i, data[data$intrvl.level == i, ][, 1], data[data$intrvl.level == i, ][, 2])), mc.cores = getOption("mc.cores", 1L))
     interval <- data.frame(do.call(rbind, interval))
-    interval <- gather(interval, key = "levels", value = "limits", X2:X3)
+    interval <- tidyr::pivot_longer(interval, X2:X3, names_to = "levels", values_to = "limits")
     interval <- interval[, -2]
     colum_names <- c("levels", "limits")
     colnames(interval) <- colum_names
@@ -231,7 +231,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
       geom_line(aes(x = upper.limit, y = svalue),
         color = color
       ) +
-      geom_point(data = interval, mapping = aes(x = limits, y = (-log2(1 - levels))), size = 1.75, shape = 18) +
+      ggplot2::geom_point(data = interval, mapping = aes(x = limits, y = (-log2(1 - levels))), size = 1.75, shape = 18) +
       geom_line(data = interval, mapping = aes(x = limits, y = (-log2(1 - levels)), group = levels), size = .30) +
       geom_ribbon(aes(x = lower.limit, ymin = max(svalue), ymax = svalue),
         fill = fill, alpha = 0.10
@@ -267,11 +267,9 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
       }
 
 
-
-
     # Consonance Distribution -----------------------------------------------------
   } else if (type == "cdf") {
-    if (is(data, "concurve") != TRUE) {
+    if (methods::is(data, "concurve") != TRUE) {
       stop("Error: 'data' must be a data frame from 'concurve'.")
     }
     if (ncol(data) != 1) {
@@ -294,8 +292,8 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
     }
 
     ggplot(data = data, mapping = aes(x = x)) +
-      stat_ecdf(geom = "point", color = darken("#e7998c", 0.2), size = 0.75, shape = 5, alpha = 0.75) +
-      geom_hline(yintercept = 0.50, linetype = "dotted", alpha = 0.5) +
+      ggplot2::stat_ecdf(geom = "point", color = colorspace::darken("#e7998c", 0.2), size = 0.75, shape = 5, alpha = 0.75) +
+      ggplot2::geom_hline(yintercept = 0.50, linetype = "dotted", alpha = 0.5) +
       labs(
         title = title,
         subtitle = subtitle,
@@ -314,7 +312,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
       {
         if (measure == "ratio") scale_x_log10(breaks = scales::pretty_breaks(n = 10))
       } +
-      scale_y_continuous(expand = expansion(mult = c(0.01, 0.05)), breaks = scales::pretty_breaks(n = 10)) +
+      scale_y_continuous(expand = ggplot2::expansion(mult = c(0.01, 0.05)), breaks = scales::pretty_breaks(n = 10)) +
       if (is.numeric(nullvalue) == TRUE) {
         annotate("rect",
           xmin = min(nullvalue), xmax = max(nullvalue), ymin = 0, ymax = 1,
@@ -338,7 +336,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
     }
 
     ggplot(data = data, mapping = aes(x = x)) +
-      geom_density(fill = fill, color = color, alpha = 0.20) +
+      ggplot2::geom_density(fill = fill, color = color, alpha = 0.20) +
       labs(
         title = title,
         subtitle = subtitle,
@@ -357,7 +355,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
       {
         if (measure == "ratio") scale_x_log10(breaks = scales::pretty_breaks(n = 10))
       } +
-      scale_y_continuous(expand = expansion(mult = c(0.01, 0.05)), breaks = scales::pretty_breaks(n = 10)) +
+      scale_y_continuous(expand = ggplot2::expansion(mult = c(0.01, 0.05)), breaks = scales::pretty_breaks(n = 10)) +
       if (is.numeric(nullvalue) == TRUE) {
         annotate("rect",
           xmin = min(nullvalue), xmax = max(nullvalue), ymin = min(density(data$x)[["y"]]), ymax = max(density(data$x)[["y"]]),
@@ -405,7 +403,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
       {
         if (measure == "ratio") scale_x_log10(breaks = scales::pretty_breaks(n = 10))
       } +
-      scale_y_continuous(expand = expansion(mult = c(0.01, 0.05)), breaks = scales::pretty_breaks(n = 10)) +
+      scale_y_continuous(expand = ggplot2::expansion(mult = c(0.01, 0.05)), breaks = scales::pretty_breaks(n = 10)) +
       if (is.numeric(nullvalue) == TRUE) {
         annotate("rect",
           xmin = min(nullvalue), xmax = max(nullvalue), ymin = 0, ymax = 1,
@@ -452,7 +450,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
       {
         if (measure == "ratio") scale_x_log10(breaks = scales::pretty_breaks(n = 10))
       } +
-      scale_y_continuous(expand = expansion(mult = c(0.01, 0.05)), breaks = scales::pretty_breaks(n = 10)) +
+      scale_y_continuous(expand = ggplot2::expansion(mult = c(0.01, 0.05)), breaks = scales::pretty_breaks(n = 10)) +
       if (is.numeric(nullvalue) == TRUE) {
         annotate("rect",
           xmin = min(nullvalue), xmax = max(nullvalue), ymin = RobustMin(data$loglikelihood), ymax = RobustMax(data$loglikelihood),
@@ -500,7 +498,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
       {
         if (measure == "ratio") scale_x_log10(breaks = scales::pretty_breaks(n = 10))
       } +
-      scale_y_continuous(expand = expansion(mult = c(0.01, 0.05)), breaks = scales::pretty_breaks(n = 10)) +
+      scale_y_continuous(expand = ggplot2::expansion(mult = c(0.01, 0.05)), breaks = scales::pretty_breaks(n = 10)) +
       if (is.numeric(nullvalue) == TRUE) {
         annotate("rect",
           xmin = min(nullvalue), xmax = max(nullvalue), ymin = 0, ymax = RobustMax(data$likelihood),

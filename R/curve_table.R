@@ -32,6 +32,7 @@
 #' @seealso [curve_compare()]
 #' @seealso [plot_compare()]
 #'
+#' @export
 curve_table <- function(data, levels, type = "c", format = "data.frame") {
   if (type == "c") {
     levels <- c(0.25, 0.50, 0.75, 0.80, 0.85, 0.90, 0.95, 0.975, 0.99)
@@ -57,13 +58,13 @@ curve_table <- function(data, levels, type = "c", format = "data.frame") {
   if (format == "data.frame") {
     return(subdf)
   } else if (format == "docx") {
-    subdf <- flextable(subdf)
-    subdf <- autofit(subdf)
+    subdf <- flextable::flextable(subdf)
+    subdf <- flextable::autofit(subdf)
     subdf
     return(print(subdf, preview = "docx"))
   } else if (format == "pptx") {
-    subdf <- flextable(subdf)
-    subdf <- autofit(subdf)
+    subdf <- flextable::flextable(subdf)
+    subdf <- flextable::autofit(subdf)
     subdf
     return(print(subdf, preview = "pptx"))
   } else if (format == "latex") {
@@ -74,8 +75,8 @@ curve_table <- function(data, levels, type = "c", format = "data.frame") {
     )
     return(subdf)
   } else if (format == "image") {
-    subdf <- flextable(subdf)
-    subdf <- autofit(subdf)
+    subdf <- flextable::flextable(subdf)
+    subdf <- flextable::autofit(subdf)
     subdf
     return(subdf)
   }
