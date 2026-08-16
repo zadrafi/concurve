@@ -5,8 +5,12 @@ Produces a summary of key statistics from a consonance function.
 ## Usage
 
 ``` r
-curve_summary(data, levels = c(0.5, 0.9, 0.95, 0.99), null_value = NULL,
-  digits = 4)
+curve_summary(
+  data,
+  levels = c(0.5, 0.9, 0.95, 0.99),
+  null_value = NULL,
+  digits = 4
+)
 ```
 
 ## Arguments
@@ -47,8 +51,8 @@ This function provides a summary of a consonance function including:
 
 ## See also
 
-[`curve_table()`](reference/curve_table.md) for formatted interval
-tables
+[`curve_table()`](https://github.com/zadrafi/concurve/reference/curve_table.md)
+for formatted interval tables
 
 ## Examples
 

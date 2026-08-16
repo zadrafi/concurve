@@ -3,7 +3,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title> concurve R Package | Less Likely </title>
-
+const logo = document.querySelector('a.navbar-link img');
+if (logo) {
+  logo.style.height = '40px';
+  logo.style.width = 'auto';
+  data = {
+    success: true,
+    inlineStyleHeight: logo.style.height,
+    computedHeight: window.getComputedStyle(logo).height
+  };
+} else {
+  data = { success: false, message: 'Logo element not found' };
+}
 {{#has_favicons}}
 <!-- favicons -->
 <link rel="shortcut icon" type="image/x-icon" href="https://github.com/zadrafi/concurve/raw/master/pkgdown/favicon/favicon.ico">

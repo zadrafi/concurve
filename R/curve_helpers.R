@@ -36,11 +36,10 @@
 #'
 #' @export
 curve_from_ratio <- function(ratio, lower, upper,
-                              conf.level = 0.95,
-                              steps = 1000,
-                              cores = getOption("mc.cores", 1L),
-                              table = TRUE) {
-
+                             conf.level = 0.95,
+                             steps = 1000,
+                             cores = getOption("mc.cores", 1L),
+                             table = TRUE) {
   # Validate inputs
   if (ratio <= 0 || lower <= 0 || upper <= 0) {
     stop("Ratio and confidence bounds must be positive")
@@ -107,11 +106,10 @@ curve_from_ratio <- function(ratio, lower, upper,
 #'
 #' @export
 curve_from_se <- function(estimate, se,
-                           measure = "mean",
-                           steps = 1000,
-                           cores = getOption("mc.cores", 1L),
-                           table = TRUE) {
-
+                          measure = "mean",
+                          steps = 1000,
+                          cores = getOption("mc.cores", 1L),
+                          table = TRUE) {
   # Validate inputs
   if (!is.numeric(estimate) || !is.numeric(se)) {
     stop("'estimate' and 'se' must be numeric")
@@ -131,7 +129,7 @@ curve_from_se <- function(estimate, se,
   if (measure == "ratio") {
     # Work on log scale
     log_est <- log(estimate)
-    log_se <- se / estimate  # Delta method approximation
+    log_se <- se / estimate # Delta method approximation
     lower <- exp(log_est - z * log_se)
     upper <- exp(log_est + z * log_se)
   } else {
@@ -197,10 +195,9 @@ curve_from_se <- function(estimate, se,
 #'
 #' @export
 curve_overlap <- function(data1, data2,
-                           type = "c",
-                           plot = TRUE,
-                           title = "Consonance Function Overlap") {
-
+                          type = "c",
+                          plot = TRUE,
+                          title = "Consonance Function Overlap") {
   # Extract data frames if concurve objects
   if (is.list(data1) && !is.data.frame(data1)) {
     df1 <- data1[[1]]
@@ -321,13 +318,12 @@ curve_overlap <- function(data1, data2,
 #'
 #' @export
 plot_multi <- function(...,
-                        type = "c",
-                        labels = NULL,
-                        colors = NULL,
-                        nullvalue = NULL,
-                        title = "Consonance Functions Comparison",
-                        alpha = 0.7) {
-
+                       type = "c",
+                       labels = NULL,
+                       colors = NULL,
+                       nullvalue = NULL,
+                       title = "Consonance Functions Comparison",
+                       alpha = 0.7) {
   # Capture all curve arguments
   curves <- list(...)
 
@@ -455,7 +451,6 @@ curve_summary <- function(data,
                           levels = c(0.50, 0.90, 0.95, 0.99),
                           null_value = NULL,
                           digits = 4) {
-
   # Extract data frame
   if (is.list(data) && !is.data.frame(data)) {
     df <- data[[1]]

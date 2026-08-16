@@ -87,7 +87,6 @@
 #'
 #' @export
 curve_wrap <- function(ci_func, steps = 1000, cores = getOption("mc.cores", 1L), table = TRUE) {
-
   # Input validation
   if (!is.function(ci_func)) {
     stop("Error: 'ci_func' must be a function that takes a confidence level and returns c(lower, upper)")
@@ -209,7 +208,6 @@ curve_wrap <- function(ci_func, steps = 1000, cores = getOption("mc.cores", 1L),
 #' @export
 curve_model <- function(model, param, method = "default", steps = 1000,
                         cores = getOption("mc.cores", 1L), table = TRUE) {
-
   # Input validation
   if (missing(param) || !is.character(param)) {
     stop("Error: 'param' must be a character string specifying the parameter name")
@@ -227,8 +225,10 @@ curve_model <- function(model, param, method = "default", steps = 1000,
   )
 
   if (!is.null(model_coefs) && !param %in% model_coefs) {
-    stop("Error: '", param, "' not found in model coefficients. Available: ",
-         paste(model_coefs, collapse = ", "))
+    stop(
+      "Error: '", param, "' not found in model coefficients. Available: ",
+      paste(model_coefs, collapse = ", ")
+    )
   }
 
   # Construct ci_func based on method
@@ -250,5 +250,7 @@ curve_model <- function(model, param, method = "default", steps = 1000,
 
 
 # R CMD check
-utils::globalVariables(c("lower.limit", "upper.limit", "intrvl.width",
-                         "intrvl.level", "cdf", "pvalue", "svalue"))
+utils::globalVariables(c(
+  "lower.limit", "upper.limit", "intrvl.width",
+  "intrvl.level", "cdf", "pvalue", "svalue"
+))

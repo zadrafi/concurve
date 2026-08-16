@@ -10,9 +10,18 @@ messages
 ## Usage
 
 ``` r
-curve_lmer(object, parm, method = "profile", zeta = NULL, nsim = NULL,
-  FUN = NULL, boot.type = NULL, steps = 1000,
-  cores = getOption("mc.cores", 1L), table = FALSE)
+curve_lmer(
+  object,
+  parm,
+  method = "profile",
+  zeta = NULL,
+  nsim = NULL,
+  FUN = NULL,
+  boot.type = NULL,
+  steps = 1000,
+  cores = getOption("mc.cores", 1L),
+  table = FALSE
+)
 ```
 
 ## Arguments

@@ -1,8 +1,5 @@
-
-
 context("Dataframe Structure")
 test_that("curve_mean", {
-
   # Produce random sample data
   GroupA <- runif(100, min = 0, max = 100)
   GroupB <- runif(100, min = 0, max = 100)
@@ -30,7 +27,6 @@ test_that("curve_mean", {
 })
 
 test_that("curve_gen", {
-
   # Produce random sample data
   GroupA <- rnorm(50)
   GroupB <- rnorm(50)

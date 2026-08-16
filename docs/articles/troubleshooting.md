@@ -28,15 +28,16 @@ install_github("zadrafi/concurve")
 
 If you encounter an error such as “Error: ‘data’ must be a data frame
 from ‘concurve’.”, it is very likely that you are not providing
-[`ggcurve()`](reference/ggcurve.md) the correct argument. If you used a
-function like `curve_gen()` to generate intervals and saved it to an
-object called ‘object’, you need to provide
-[`ggcurve()`](reference/ggcurve.md) a data argument such as
-`object[[1]]` rather than `object` or `object[1]`. This is because
-although you saved your results to something called `object`, you ended
-up with a list with multiple components used for different purposes,
-usually with the first part of the list being the most commonly used
-part.
+[`ggcurve()`](https://github.com/zadrafi/concurve/reference/ggcurve.md)
+the correct argument. If you used a function like `curve_gen()` to
+generate intervals and saved it to an object called ‘object’, you need
+to provide
+[`ggcurve()`](https://github.com/zadrafi/concurve/reference/ggcurve.md)
+a data argument such as `object[[1]]` rather than `object` or
+`object[1]`. This is because although you saved your results to
+something called `object`, you ended up with a list with multiple
+components used for different purposes, usually with the first part of
+the list being the most commonly used part.
 
 We can actually see these components one by one. Let’s generate some
 example data.
@@ -71,7 +72,8 @@ head(object[[1]], 5)
 
 while the second and third parts of the list contain dataframes and
 lists for other functions such as generating density functions or for
-other functions such as [`curve_table()`](reference/curve_table.md).
+other functions such as
+[`curve_table()`](https://github.com/zadrafi/concurve/reference/curve_table.md).
 
 ``` r
 
@@ -108,14 +110,18 @@ are a large number of points being plotted, which could lead to the
 graph being slightly distorted or not loading at all. The simplest
 solution to this is to refresh the plot and try the function again.
 
-This applies to the [`ggcurve()`](reference/ggcurve.md),
-[`curve_compare()`](reference/curve_compare.md), and
-[`plot_compare()`](reference/plot_compare.md) functions.
+This applies to the
+[`ggcurve()`](https://github.com/zadrafi/concurve/reference/ggcurve.md),
+[`curve_compare()`](https://github.com/zadrafi/concurve/reference/curve_compare.md),
+and
+[`plot_compare()`](https://github.com/zadrafi/concurve/reference/plot_compare.md)
+functions.
 
 I would also recommend saving plots using the
 [`cowplot::save_plot()`](https://wilkelab.org/cowplot/reference/save_plot.html)
-function with the actual [`ggcurve()`](reference/ggcurve.md) object. It
-has better default settings than the
+function with the actual
+[`ggcurve()`](https://github.com/zadrafi/concurve/reference/ggcurve.md)
+object. It has better default settings than the
 [`ggsave()`](https://ggplot2.tidyverse.org/reference/ggsave.html)
 function.
 
@@ -181,7 +187,6 @@ the `concurve` package use for parallel computing.
 
 ``` r
 
-
 getOption("mc.cores", 1L)
 set.seed(1031)
 func3 <- mark(df1 <- curve_rev(
@@ -200,13 +205,13 @@ func4 <- mark(df1 <- curve_rev(
 ``` r
 
 func1$median
-#> [1] 748µs
+#> [1] 783µs
 func2$median
-#> [1] 1.35s
+#> [1] 1.26s
 func3$median
-#> [1] 788µs
+#> [1] 868µs
 func4$median
-#> [1] 980ms
+#> [1] 1.25s
 ```
 
 When setting the number of iterations to 100, utilizing parallelization
@@ -221,13 +226,13 @@ If you encounter any other bugs, please report them at
 
 ## Session info
 
-    #> R version 4.5.2 (2025-10-31)
-    #> Platform: aarch64-apple-darwin20
-    #> Running under: macOS Tahoe 26.3
+    #> R version 4.6.0 (2026-04-24)
+    #> Platform: aarch64-apple-darwin25.4.0
+    #> Running under: macOS Tahoe 26.5.1
     #> 
     #> Matrix products: default
-    #> BLAS:   /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib 
-    #> LAPACK: /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.1
+    #> BLAS:   /opt/homebrew/Cellar/openblas/0.3.33/lib/libopenblasp-r0.3.33.dylib 
+    #> LAPACK: /opt/homebrew/Cellar/r/4.6.0/lib/R/lib/libRlapack.dylib;  LAPACK version 3.12.1
     #> 
     #> locale:
     #> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
@@ -243,33 +248,32 @@ If you encounter any other bugs, please report them at
     #> [1] bench_1.1.4    concurve_3.0.0
     #> 
     #> loaded via a namespace (and not attached):
-    #>  [1] tidyselect_1.2.1        dplyr_1.1.4             farver_2.1.2           
-    #>  [4] S7_0.2.1                fastmap_1.2.0           fontquiver_0.2.1       
-    #>  [7] mathjaxr_2.0-0          digest_0.6.39           lifecycle_1.0.5        
-    #> [10] survival_3.8-6          magrittr_2.0.4          compiler_4.5.2         
-    #> [13] rlang_1.1.7             sass_0.4.10             tools_4.5.2            
-    #> [16] yaml_2.3.12             data.table_1.18.0       knitr_1.51             
-    #> [19] ggsignif_0.6.4          askpass_1.2.1           htmlwidgets_1.6.4      
-    #> [22] xml2_1.5.2              RColorBrewer_1.1-3      abind_1.4-8            
-    #> [25] purrr_1.2.1             numDeriv_2016.8-1.1     desc_1.4.3             
-    #> [28] bcaboot_0.2-3           grid_4.5.2              ggpubr_0.6.2           
-    #> [31] gdtools_0.4.4           xtable_1.8-4            colorspace_2.1-2       
-    #> [34] ggplot2_4.0.1           scales_1.4.0            MASS_7.3-65            
-    #> [37] dichromat_2.0-0.1       cli_3.6.5               rmarkdown_2.30         
-    #> [40] metafor_4.8-0           ragg_1.5.0              generics_0.1.4         
-    #> [43] otel_0.2.0              rstudioapi_0.18.0       km.ci_0.5-6            
-    #> [46] survminer_0.5.1         cachem_1.1.0            splines_4.5.2          
-    #> [49] metadat_1.4-0           survMisc_0.5.6          vctrs_0.7.1            
-    #> [52] boot_1.3-32             Matrix_1.7-4            jsonlite_2.0.0         
-    #> [55] fontBitstreamVera_0.1.1 carData_3.0-5           car_3.1-3              
-    #> [58] rstatix_0.7.3           Formula_1.2-5           systemfonts_1.3.1      
-    #> [61] tidyr_1.3.2             jquerylib_0.1.4         glue_1.8.0             
-    #> [64] pkgdown_2.2.0           flextable_0.9.10        gtable_0.3.6           
-    #> [67] tibble_3.3.1            pillar_1.11.1           htmltools_0.5.9        
-    #> [70] openssl_2.3.4           ProfileLikelihood_1.3   R6_2.6.1               
-    #> [73] KMsurv_0.1-6            textshaping_1.0.4       evaluate_1.0.5         
-    #> [76] lattice_0.22-7          backports_1.5.0         broom_1.0.11           
-    #> [79] fontLiberation_0.1.0    bslib_0.9.0             Rcpp_1.1.1             
-    #> [82] zip_2.3.3               uuid_1.2-2              gridExtra_2.3          
-    #> [85] nlme_3.1-168            officer_0.7.3           xfun_0.56              
-    #> [88] fs_1.6.6                zoo_1.8-15              pkgconfig_2.0.3
+    #>  [1] gtable_0.3.6            xfun_0.58               bslib_0.11.0           
+    #>  [4] ggplot2_4.0.3           htmlwidgets_1.6.4       rstatix_0.7.3          
+    #>  [7] lattice_0.22-9          numDeriv_2016.8-1.1     mathjaxr_2.0-0         
+    #> [10] vctrs_0.7.3             tools_4.6.0             generics_0.1.4         
+    #> [13] tibble_3.3.1            pbmcapply_1.5.1         pkgconfig_2.0.3        
+    #> [16] Matrix_1.7-5            data.table_1.18.4       RColorBrewer_1.1-3     
+    #> [19] S7_0.2.2                desc_1.4.3              ProfileLikelihood_1.3  
+    #> [22] uuid_1.2-2              lifecycle_1.0.5         flextable_0.9.12       
+    #> [25] compiler_4.6.0          farver_2.1.2            textshaping_1.0.5      
+    #> [28] carData_3.0-6           fontquiver_0.2.1        fontLiberation_0.1.0   
+    #> [31] htmltools_0.5.9         sass_0.4.10             yaml_2.3.12            
+    #> [34] Formula_1.2-5           car_3.1-5               ggpubr_0.6.3           
+    #> [37] pillar_1.11.1           pkgdown_2.2.0           jquerylib_0.1.4        
+    #> [40] tidyr_1.3.2             MASS_7.3-65             openssl_2.4.1          
+    #> [43] cachem_1.1.0            survminer_0.5.2         metadat_1.6-0          
+    #> [46] abind_1.4-8             boot_1.3-32             nlme_3.1-169           
+    #> [49] fontBitstreamVera_0.1.1 tidyselect_1.2.1        zip_2.3.3              
+    #> [52] digest_0.6.39           dplyr_1.2.1             purrr_1.2.2            
+    #> [55] splines_4.6.0           fastmap_1.2.0           grid_4.6.0             
+    #> [58] colorspace_2.1-2        cli_3.6.6               metafor_5.0-1          
+    #> [61] magrittr_2.0.5          patchwork_1.3.2         dichromat_2.0-0.1      
+    #> [64] survival_3.8-6          broom_1.0.13            backports_1.5.1        
+    #> [67] gdtools_0.5.1           scales_1.4.0            rmarkdown_2.31         
+    #> [70] officer_0.7.5           otel_0.2.0              bcaboot_0.2-3          
+    #> [73] gridExtra_2.3           ggsignif_0.6.4          askpass_1.2.1          
+    #> [76] ragg_1.5.2              evaluate_1.0.5          knitr_1.51             
+    #> [79] rlang_1.2.0             Rcpp_1.1.1-1.1          glue_1.8.1             
+    #> [82] xml2_1.5.2              rstudioapi_0.18.0       jsonlite_2.0.0         
+    #> [85] R6_2.6.1                systemfonts_1.3.2       fs_2.1.0

@@ -7,13 +7,21 @@ estimates to produce a p-value/s-value function using ggplot2 graphics.
 ## Usage
 
 ``` r
-ggcurve(data, type = "c", measure = "default", levels = 0.95,
-  nullvalue = NULL, position = "pyramid", title = "Consonance Function",
+ggcurve(
+  data,
+  type = "c",
+  measure = "default",
+  levels = 0.95,
+  nullvalue = NULL,
+  position = "pyramid",
+  title = "Consonance Function",
   subtitle = "The function displays intervals at every level.",
   xaxis = expression(theta == ~"Range of Values"),
   yaxis1 = expression(paste(italic(p), "-value")),
-  yaxis2 = "Levels for CI (%)", color = darken("#009E73", 0.5),
-  fill = "#239a98")
+  yaxis2 = "Levels for CI (%)",
+  color = darken("#009E73", 0.5),
+  fill = "#239a98"
+)
 ```
 
 ## Arguments
@@ -120,7 +128,7 @@ corresponding p-values and compatibility levels.
 
 ## See also
 
-[`plot_compare()`](reference/plot_compare.md)
+[`plot_compare()`](https://github.com/zadrafi/concurve/reference/plot_compare.md)
 
 ## Examples
 
@@ -136,6 +144,6 @@ GroupB <- rnorm(500)
 RandomData <- data.frame(GroupA, GroupB)
 
 intervalsdf <- suppressMessages(curve_mean(GroupA, GroupB, data = RandomData, method = "default"))
-ggcurve(type = "c", intervalsdf[[1]], nullvalue =c(0))
+ggcurve(type = "c", intervalsdf[[1]], nullvalue = c(0))
 } # }
 ```

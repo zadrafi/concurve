@@ -6,13 +6,23 @@ graphics.
 ## Usage
 
 ``` r
-plot_compare(data1, data2, type = "c", measure = "default",
-  nullvalue = FALSE, position = "pyramid", title = "Interval Functions",
+plot_compare(
+  data1,
+  data2,
+  type = "c",
+  measure = "default",
+  nullvalue = FALSE,
+  position = "pyramid",
+  title = "Interval Functions",
   subtitle = "The function displays intervals at every level.",
   xaxis = expression(theta == ~"Range of Values"),
   yaxis1 = expression(paste(italic(p), "-value")),
-  yaxis2 = "Levels for CI (%)", color1 = darken("#D55E00", 0.2),
-  color2 = darken("#009E73", 0.2), fill1 = "#99c7c7", fill2 = "#d46c5b")
+  yaxis2 = "Levels for CI (%)",
+  color1 = darken("#D55E00", 0.2),
+  color2 = darken("#009E73", 0.2),
+  fill1 = "#99c7c7",
+  fill2 = "#d46c5b"
+)
 ```
 
 ## Arguments
@@ -131,9 +141,9 @@ A plot that compares two functions.
 
 ## See also
 
-[`ggcurve()`](reference/ggcurve.md)
+[`ggcurve()`](https://github.com/zadrafi/concurve/reference/ggcurve.md)
 
-[`curve_compare()`](reference/curve_compare.md)
+[`curve_compare()`](https://github.com/zadrafi/concurve/reference/curve_compare.md)
 
 ## Examples
 

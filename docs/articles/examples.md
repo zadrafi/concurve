@@ -31,8 +31,9 @@ RandomData <- data.frame(GroupA, GroupB)
 
 and then look at the differences between the two vectors. We’ll plug
 these vectors and the dataframe and now they’re inside of the
-[`curve_mean()`](reference/curve_mean.md) function. Here, the default
-method involves calculating CIs using the Wald method.
+[`curve_mean()`](https://github.com/zadrafi/concurve/reference/curve_mean.md)
+function. Here, the default method involves calculating CIs using the
+Wald method.
 
 ``` r
 
@@ -75,9 +76,10 @@ head(intervalsdf[[1]], 10)
 
 That gives us a very comprehensive table, but it can be difficult to
 parse through, so luckily, we can view a graphical function using the
-[`ggcurve()`](reference/ggcurve.md) function. The basic arguments that
-must be provided are the data argument and the “type” argument. To plot
-a consonance/confidence function, we would write “`c`”.
+[`ggcurve()`](https://github.com/zadrafi/concurve/reference/ggcurve.md)
+function. The basic arguments that must be provided are the data
+argument and the “type” argument. To plot a consonance/confidence
+function, we would write “`c`”.
 
 ``` r
 
@@ -107,7 +109,7 @@ $`-log_{2}`$ of the observed
 *P*-value.^([3](#ref-rafiSemanticCognitiveTools2020),[17](#ref-greenlandValidPvaluesBehave2019),[18](#ref-Shannon1948-uq))
 
 To view the surprisal function, we simply change the type to “`s`” in
-[`ggcurve()`](reference/ggcurve.md).
+[`ggcurve()`](https://github.com/zadrafi/concurve/reference/ggcurve.md).
 
 ``` r
 
@@ -131,9 +133,10 @@ curve from above, but this is not always the case.
 ![](examples_files/figure-html/unnamed-chunk-6-1.png)
 
 We can also get relevant statistics that show the range of values by
-using the [`curve_table()`](reference/curve_table.md) function. The
-tables can also be exported in several formats such as .docx, .ppt,
-images, and TeX files.
+using the
+[`curve_table()`](https://github.com/zadrafi/concurve/reference/curve_table.md)
+function. The tables can also be exported in several formats such as
+.docx, .ppt, images, and TeX files.
 
 ``` r
 
@@ -156,8 +159,8 @@ images, and TeX files.
 
 If we wanted to compare two studies or even two datasets to see the
 amount of “consonance/concordance”, we could use the
-[`curve_compare()`](reference/curve_compare.md) function to get a very
-rough numerical output.
+[`curve_compare()`](https://github.com/zadrafi/concurve/reference/curve_compare.md)
+function to get a very rough numerical output.
 
 First, we generate some more fake data, that you would be unlikely to
 see in the real world, but that serves as a great tutorial.
@@ -172,10 +175,11 @@ randomframe <- curve_gen(model, "GroupB2")
 ```
 
 Once again, we’ll plot this data with
-[`ggcurve()`](reference/ggcurve.md). We can also indicate whether we
-want certain interval estimates to be plotted in the function with the
-“`levels`” argument. If we wanted to plot the **50**%, **75**%, and
-**95**% intervals, we’d provide the argument this way:
+[`ggcurve()`](https://github.com/zadrafi/concurve/reference/ggcurve.md).
+We can also indicate whether we want certain interval estimates to be
+plotted in the function with the “`levels`” argument. If we wanted to
+plot the **50**%, **75**%, and **95**% intervals, we’d provide the
+argument this way:
 
 ``` r
 
@@ -185,7 +189,9 @@ want certain interval estimates to be plotted in the function with the
 ![](examples_files/figure-html/unnamed-chunk-9-1.png)
 
 Now that we have two datasets, and two functions, we can compare them
-using the [`plot_compare()`](reference/plot_compare.md) function.
+using the
+[`plot_compare()`](https://github.com/zadrafi/concurve/reference/plot_compare.md)
+function.
 
 ``` r
 
@@ -219,13 +225,14 @@ them.
 
 We can also take a set of confidence limits and use them to construct a
 consonance, surprisal, likelihood or deviance function using the
-[`curve_rev()`](reference/curve_rev.md) function. This method is
-computed from the approximate normal distribution, but there are several
-caveats and scenarios in which it can break down, so I would recommend
-visiting the reference page and reading the documentation,
-[`curve_rev()`](reference/curve_rev.md). In general, those settings that
-conflict with such scenarios are not the default settings and I would
-feel uncomfortable to keep them that way.
+[`curve_rev()`](https://github.com/zadrafi/concurve/reference/curve_rev.md)
+function. This method is computed from the approximate normal
+distribution, but there are several caveats and scenarios in which it
+can break down, so I would recommend visiting the reference page and
+reading the documentation,
+[`curve_rev()`](https://github.com/zadrafi/concurve/reference/curve_rev.md).
+In general, those settings that conflict with such scenarios are not the
+default settings and I would feel uncomfortable to keep them that way.
 
 For this next example, we’ll use two epidemiological
 studies^([19](#ref-brownAssociationSerotonergicAntidepressant2017),[20](#ref-brownAssociationAntenatalExposure2017))
@@ -263,7 +270,8 @@ curve2 <- curve_rev(point = 1.61, LL = 0.997, UL = 2.59, type = "c", measure = "
 
 The null value is shown via the red line and a large portion of bnoth of
 the confidence curves are away from it. We can also see this by plotting
-the likelihood functions via the [`curve_rev()`](reference/curve_rev.md)
+the likelihood functions via the
+[`curve_rev()`](https://github.com/zadrafi/concurve/reference/curve_rev.md)
 function.
 
 We can specify that we want a likelihood function using curve_rev() by
@@ -338,8 +346,8 @@ citation("concurve")
 #>   Rafi Z, Greenland S (2020). "Semantic and Cognitive Tools to Aid
 #>   Statistical Science: Replace Confidence and Significance by
 #>   Compatibility and Surprise." _BMC Medical Research Methodology_,
-#>   *20*, 244. ISSN 1471-2288, doi:10.1186/s12874-020-01105-9
-#>   <https://doi.org/10.1186/s12874-020-01105-9>,
+#>   *20*, 244. ISSN 1471-2288. doi:10.1186/s12874-020-01105-9
+#>   <https://doi.org/10.1186/s12874-020-01105-9>.
 #>   <https://doi.org/10.1186/s12874-020-01105-9>.
 #> 
 #> To see these entries in BibTeX format, use 'print(<citation>,
@@ -350,7 +358,7 @@ citation("cowplot")
 #> 
 #>   Wilke C (2025). _cowplot: Streamlined Plot Theme and Plot Annotations
 #>   for 'ggplot2'_. doi:10.32614/CRAN.package.cowplot
-#>   <https://doi.org/10.32614/CRAN.package.cowplot>, R package version
+#>   <https://doi.org/10.32614/CRAN.package.cowplot>. R package version
 #>   1.2.0, <https://CRAN.R-project.org/package=cowplot>.
 #> 
 #> A BibTeX entry for LaTeX users is

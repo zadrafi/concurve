@@ -24,9 +24,18 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-library(magrittr)
-library(kableExtra)
-library(magick)
+
+# kableExtra, magick, and magrittr are optional; chunks using them are skipped
+# when the packages are not installed.
+has_kable <- requireNamespace("kableExtra", quietly = TRUE) &&
+  requireNamespace("magick", quietly = TRUE) &&
+  requireNamespace("magrittr", quietly = TRUE)
+
+if (has_kable) {
+  library(magrittr)
+  library(kableExtra)
+  library(magick)
+}
 ```
 
 ## Staying Up to Date
@@ -56,11 +65,11 @@ You can also directly download a tarball or zip of the most recent package versi
  
 * * * 
 
-```{r echo=FALSE}
+```{r echo=FALSE, eval=has_kable}
 versions <- c(3.00, 2.77, 2.76, 2.75, 2.70)
 support <- c(rep("-", 5))
 information <- c(
-"[Updates and Information about version 3.0.0](https://data.lesslikely.com/concurve/news/index.html#concurve-3-0-0)",
+  "[Updates and Information about version 3.0.0](https://data.lesslikely.com/concurve/news/index.html#concurve-3-0-0)",
   "[Updates and Information about version 2.7.7](https://data.lesslikely.com/concurve/news/index.html#concurve-2-7-7-unreleased)",
   "[Updates and Information about version 2.7.6](https://data.lesslikely.com/concurve/news/index.html#concurve-2-7-6-unreleased)",
   "[Updates and Information about version 2.7.5](https://data.lesslikely.com/concurve/news/index.html#concurve-2-7-5-unreleased)",
@@ -128,7 +137,7 @@ Those that are listed in the Suggests section are typically used for additional 
  
 * * * 
 
-```{r echo=FALSE}
+```{r echo=FALSE, eval=has_kable}
 packinfo <- installed.packages(fields = c("Package", "Version"))
 
 
@@ -155,7 +164,7 @@ kable(Imports,
  
 * * * 
 
-```{r echo=FALSE}
+```{r echo=FALSE, eval=has_kable}
 # Package suggests (updated for v3.0 - added DBI, odbc for Snowflake)
 suggests <- c(
   "DBI", "odbc", "MASS", "covr", "roxygen2", "spelling", "testthat", "rmarkdown", "Lock5Data",

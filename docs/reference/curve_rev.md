@@ -14,9 +14,18 @@ is currently not supported.
 ## Usage
 
 ``` r
-curve_rev(point, LL = NULL, UL = NULL, se = NULL, conf.level = 0.95,
-  type = "c", measure = "ratio", steps = 10000,
-  cores = getOption("mc.cores", 1L), table = TRUE)
+curve_rev(
+  point,
+  LL = NULL,
+  UL = NULL,
+  se = NULL,
+  conf.level = 0.95,
+  type = "c",
+  measure = "ratio",
+  steps = 10000,
+  cores = getOption("mc.cores", 1L),
+  table = TRUE
+)
 ```
 
 ## Arguments
@@ -83,11 +92,11 @@ second, and the table for the values in the third if table = TRUE.
 
 ## See also
 
-[`ggcurve()`](reference/ggcurve.md)
+[`ggcurve()`](https://github.com/zadrafi/concurve/reference/ggcurve.md)
 
-[`curve_compare()`](reference/curve_compare.md)
+[`curve_compare()`](https://github.com/zadrafi/concurve/reference/curve_compare.md)
 
-[`plot_compare()`](reference/plot_compare.md)
+[`plot_compare()`](https://github.com/zadrafi/concurve/reference/plot_compare.md)
 
 ## Examples
 

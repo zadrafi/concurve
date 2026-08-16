@@ -41,6 +41,7 @@
 #' RandomData <- data.frame(GroupA, GroupB)
 #' bob <- curve_mean(GroupA, GroupB, RandomData)
 #' }
+#' @export
 curve_mean <- function(x, y, data, paired = F, method = "default", replicates = 1000,
                        steps = 10000, cores = getOption("mc.cores", 1L), table = TRUE) {
   if (is.numeric(x) != TRUE) {

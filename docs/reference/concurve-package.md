@@ -131,10 +131,13 @@ doi:10/gg9s2f
 
 ## See also
 
-`curve_gen`, [`ggcurve`](reference/ggcurve.md),
-[`curve_table`](reference/curve_table.md)
+`curve_gen`,
+[`ggcurve`](https://github.com/zadrafi/concurve/reference/ggcurve.md),
+[`curve_table`](https://github.com/zadrafi/concurve/reference/curve_table.md)
 
 ## Author
 
 [Zad Rafi](https://twitter.com/dailyzad), [Andrew D.
-Vigotsky](https://www.researchgate.net/profile/Andrew_Vigotsky)
+Vigotsky](https://www.researchgate.net/profile/Andrew_Vigotsky), [Aaron
+Caldwel](https://www.researchgate.net/profile/Aaron-Caldwell-7), and
+[Sander Greenland](https://www.sandergreenland.com/)

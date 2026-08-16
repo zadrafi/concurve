@@ -37,6 +37,7 @@
 #' GroupB <- rnorm(50)
 #' joe <- curve_corr(x = GroupA, y = GroupB, alternative = "two.sided", method = "pearson")
 #' }
+#' @export
 curve_corr <- function(x, y, alternative, method, steps = 10000, cores = getOption("mc.cores", 1L), table = TRUE) {
   if (is.numeric(x) != TRUE) {
     stop("Error: 'x' must be a numeric vector")

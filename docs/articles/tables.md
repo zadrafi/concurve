@@ -20,8 +20,9 @@ intervalsdf <- curve_mean(GroupA, GroupB,
 ```
 
 The results are now stored in `intervalsdf`. Using the
-[`curve_table()`](reference/curve_table.md) function, we can now produce
-a high quality table with several values of interest.
+[`curve_table()`](https://github.com/zadrafi/concurve/reference/curve_table.md)
+function, we can now produce a high quality table with several values of
+interest.
 
 ``` r
 
@@ -110,8 +111,8 @@ citation("concurve")
 #>   Rafi Z, Greenland S (2020). "Semantic and Cognitive Tools to Aid
 #>   Statistical Science: Replace Confidence and Significance by
 #>   Compatibility and Surprise." _BMC Medical Research Methodology_,
-#>   *20*, 244. ISSN 1471-2288, doi:10.1186/s12874-020-01105-9
-#>   <https://doi.org/10.1186/s12874-020-01105-9>,
+#>   *20*, 244. ISSN 1471-2288. doi:10.1186/s12874-020-01105-9
+#>   <https://doi.org/10.1186/s12874-020-01105-9>.
 #>   <https://doi.org/10.1186/s12874-020-01105-9>.
 #> 
 #> To see these entries in BibTeX format, use 'print(<citation>,
@@ -120,18 +121,18 @@ citation("concurve")
 citation("flextable")
 #> To cite package 'flextable' in publications use:
 #> 
-#>   Gohel D, Skintzos P (2025). _flextable: Functions for Tabular
+#>   Gohel D, Skintzos P (2026). _flextable: Functions for Tabular
 #>   Reporting_. doi:10.32614/CRAN.package.flextable
-#>   <https://doi.org/10.32614/CRAN.package.flextable>, R package version
-#>   0.9.10, <https://CRAN.R-project.org/package=flextable>.
+#>   <https://doi.org/10.32614/CRAN.package.flextable>. R package version
+#>   0.9.12, <https://CRAN.R-project.org/package=flextable>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
 #>   @Manual{,
 #>     title = {flextable: Functions for Tabular Reporting},
 #>     author = {David Gohel and Panagiotis Skintzos},
-#>     year = {2025},
-#>     note = {R package version 0.9.10},
+#>     year = {2026},
+#>     note = {R package version 0.9.12},
 #>     url = {https://CRAN.R-project.org/package=flextable},
 #>     doi = {10.32614/CRAN.package.flextable},
 #>   }
@@ -141,8 +142,8 @@ citation("officer")
 #>   Gohel D, Moog S, Heckmann M (2026). _officer: Manipulation of
 #>   Microsoft Word and PowerPoint Documents_.
 #>   doi:10.32614/CRAN.package.officer
-#>   <https://doi.org/10.32614/CRAN.package.officer>, R package version
-#>   0.7.3, <https://CRAN.R-project.org/package=officer>.
+#>   <https://doi.org/10.32614/CRAN.package.officer>. R package version
+#>   0.7.5, <https://CRAN.R-project.org/package=officer>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
@@ -150,7 +151,7 @@ citation("officer")
 #>     title = {officer: Manipulation of Microsoft Word and PowerPoint Documents},
 #>     author = {David Gohel and Stefan Moog and Mark Heckmann},
 #>     year = {2026},
-#>     note = {R package version 0.7.3},
+#>     note = {R package version 0.7.5},
 #>     url = {https://CRAN.R-project.org/package=officer},
 #>     doi = {10.32614/CRAN.package.officer},
 #>   }

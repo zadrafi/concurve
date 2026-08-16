@@ -72,9 +72,10 @@ Rossi[1:5, 1:10]
 ``` r
 
 library(survival)
-mod.allison <- coxph(Surv(week, arrest) ~
-fin + age + race + wexp + mar + paro + prio,
-data = Rossi
+mod.allison <- coxph(
+  Surv(week, arrest) ~
+    fin + age + race + wexp + mar + paro + prio,
+  data = Rossi
 )
 mod.allison
 #> Call:
@@ -95,8 +96,8 @@ mod.allison
 ```
 
 Now that we have our Cox model object, we can use the
-[`curve_surv()`](reference/curve_surv.md) function to create the
-function.
+[`curve_surv()`](https://github.com/zadrafi/concurve/reference/curve_surv.md)
+function to create the function.
 
 If we wanted to create a function for the coefficient of prior
 convictions, then we’d do so like this:
@@ -108,8 +109,9 @@ z <- curve_surv(mod.allison, "prio")
 
 Then we could plot our consonance curve and density and also produce a
 table of relevant statistics. Because we’re working with ratios, we’ll
-set the `measure` argument in [`ggcurve()`](reference/ggcurve.md) to
-“`ratio`”.
+set the `measure` argument in
+[`ggcurve()`](https://github.com/zadrafi/concurve/reference/ggcurve.md)
+to “`ratio`”.
 
 ``` r
 
@@ -204,8 +206,8 @@ citation("concurve")
 #>   Rafi Z, Greenland S (2020). "Semantic and Cognitive Tools to Aid
 #>   Statistical Science: Replace Confidence and Significance by
 #>   Compatibility and Surprise." _BMC Medical Research Methodology_,
-#>   *20*, 244. ISSN 1471-2288, doi:10.1186/s12874-020-01105-9
-#>   <https://doi.org/10.1186/s12874-020-01105-9>,
+#>   *20*, 244. ISSN 1471-2288. doi:10.1186/s12874-020-01105-9
+#>   <https://doi.org/10.1186/s12874-020-01105-9>.
 #>   <https://doi.org/10.1186/s12874-020-01105-9>.
 #> 
 #> To see these entries in BibTeX format, use 'print(<citation>,
@@ -227,36 +229,36 @@ citation("survival")
 citation("carData")
 #> To cite package 'carData' in publications use:
 #> 
-#>   Fox J, Weisberg S, Price B (2022). _carData: Companion to Applied
+#>   Fox J, Weisberg S, Price B (2026). _carData: Companion to Applied
 #>   Regression Data Sets_. doi:10.32614/CRAN.package.carData
-#>   <https://doi.org/10.32614/CRAN.package.carData>, R package version
-#>   3.0-5, <https://CRAN.R-project.org/package=carData>.
+#>   <https://doi.org/10.32614/CRAN.package.carData>. R package version
+#>   3.0-6, <https://CRAN.R-project.org/package=carData>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
 #>   @Manual{,
 #>     title = {carData: Companion to Applied Regression Data Sets},
 #>     author = {John Fox and Sanford Weisberg and Brad Price},
-#>     year = {2022},
-#>     note = {R package version 3.0-5},
+#>     year = {2026},
+#>     note = {R package version 3.0-6},
 #>     url = {https://CRAN.R-project.org/package=carData},
 #>     doi = {10.32614/CRAN.package.carData},
 #>   }
 citation("survminer")
 #> To cite package 'survminer' in publications use:
 #> 
-#>   Kassambara A, Kosinski M, Biecek P (2025). _survminer: Drawing
+#>   Kassambara A, Kosinski M, Biecek P (2026). _survminer: Drawing
 #>   Survival Curves using 'ggplot2'_. doi:10.32614/CRAN.package.survminer
-#>   <https://doi.org/10.32614/CRAN.package.survminer>, R package version
-#>   0.5.1, <https://CRAN.R-project.org/package=survminer>.
+#>   <https://doi.org/10.32614/CRAN.package.survminer>. R package version
+#>   0.5.2, <https://CRAN.R-project.org/package=survminer>.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
 #>   @Manual{,
 #>     title = {survminer: Drawing Survival Curves using 'ggplot2'},
 #>     author = {Alboukadel Kassambara and Marcin Kosinski and Przemyslaw Biecek},
-#>     year = {2025},
-#>     note = {R package version 0.5.1},
+#>     year = {2026},
+#>     note = {R package version 0.5.2},
 #>     url = {https://CRAN.R-project.org/package=survminer},
 #>     doi = {10.32614/CRAN.package.survminer},
 #>   }

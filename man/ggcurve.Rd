@@ -9,8 +9,8 @@ ggcurve(data, type = "c", measure = "default", levels = 0.95,
   subtitle = "The function displays intervals at every level.",
   xaxis = expression(theta == ~"Range of Values"),
   yaxis1 = expression(paste(italic(p), "-value")),
-  yaxis2 = "Levels for CI (\%)", color = darken("#009E73", 0.5),
-  fill = "#239a98")
+  yaxis2 = "Levels for CI (\%)", color = colorspace::darken("#009E73",
+  0.5), fill = "#239a98")
 }
 \arguments{
 \item{data}{The dataframe produced by one of the interval functions
@@ -105,7 +105,7 @@ GroupB <- rnorm(500)
 RandomData <- data.frame(GroupA, GroupB)
 
 intervalsdf <- suppressMessages(curve_mean(GroupA, GroupB, data = RandomData, method = "default"))
-ggcurve(type = "c", intervalsdf[[1]], nullvalue =c(0))
+ggcurve(type = "c", intervalsdf[[1]], nullvalue = c(0))
 }
 }
 \seealso{

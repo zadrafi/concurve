@@ -7,8 +7,15 @@ estimate and confidence interval bounds.
 ## Usage
 
 ``` r
-curve_from_ratio(ratio, lower, upper, conf.level = 0.95, steps = 1000,
-  cores = getOption("mc.cores", 1L), table = TRUE)
+curve_from_ratio(
+  ratio,
+  lower,
+  upper,
+  conf.level = 0.95,
+  steps = 1000,
+  cores = getOption("mc.cores", 1L),
+  table = TRUE
+)
 ```
 
 ## Arguments
@@ -49,16 +56,17 @@ dataframe, and optionally a summary table.
 ## Details
 
 This is a convenience wrapper around
-[`curve_rev`](reference/curve_rev.md) specifically for ratio measures.
-It automatically handles the log transformation and sets appropriate
-measure type.
+[`curve_rev`](https://github.com/zadrafi/concurve/reference/curve_rev.md)
+specifically for ratio measures. It automatically handles the log
+transformation and sets appropriate measure type.
 
 ## See also
 
-[`curve_from_se()`](reference/curve_from_se.md) for constructing from
-standard error
+[`curve_from_se()`](https://github.com/zadrafi/concurve/reference/curve_from_se.md)
+for constructing from standard error
 
-[`curve_rev()`](reference/curve_rev.md) for the underlying function
+[`curve_rev()`](https://github.com/zadrafi/concurve/reference/curve_rev.md)
+for the underlying function
 
 ## Examples
 

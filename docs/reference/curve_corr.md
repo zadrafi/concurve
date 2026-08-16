@@ -8,8 +8,15 @@ the corresponding p-values and s-values.
 ## Usage
 
 ``` r
-curve_corr(x, y, alternative, method, steps = 10000,
-  cores = getOption("mc.cores", 1L), table = TRUE)
+curve_corr(
+  x,
+  y,
+  alternative,
+  method,
+  steps = 10000,
+  cores = getOption("mc.cores", 1L),
+  table = TRUE
+)
 ```
 
 ## Arguments

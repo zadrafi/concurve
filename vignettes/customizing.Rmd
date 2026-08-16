@@ -81,7 +81,6 @@ Although the above shows how flexible `concurve`'s `ggcurve()` is due to the int
 
 Before we used `cowplot`, here's what our plain function looked like (after regenerating it from scratch)
 ```{r}
-
 (function1 <- ggcurve(data = intervalsdf[[1]], type = "c", nullvalue = TRUE))
 ```
 
@@ -98,7 +97,6 @@ We take our existing object function and we specify all the usual options for th
 But now, instead of doing that above, we'll use a different style to control the size, form, and color of the text. We'll load `ggtext` and then specify the arguments. 
 
 ```{r}
-
 library(ggtext)
 
 function1 <- ggcurve(data = intervalsdf[[1]], type = "c", nullvalue = TRUE, title = "Something Super Important", xaxis = "<span style = 'color:#3f8f9b;'>Theta</span> ")
@@ -154,7 +152,7 @@ library(svglite)
 library(ggplot2)
 
 res <- 144
-svglite("pvalfunc.svg", width = 720/res, height = 500/res)
+svglite("pvalfunc.svg", width = 720 / res, height = 500 / res)
 (function1 <- ggcurve(data = intervalsdf[[1]], type = "c", nullvalue = TRUE))
 dev.off()
 ```

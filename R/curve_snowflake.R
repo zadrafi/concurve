@@ -62,19 +62,18 @@ curve_snowflake <- function(conn, query,
                             steps = 1000,
                             cores = getOption("mc.cores", 1L),
                             table = TRUE) {
-
- # Check for required packages
- if (!requireNamespace("DBI", quietly = TRUE)) {
+  # Check for required packages
+  if (!requireNamespace("DBI", quietly = TRUE)) {
     stop("Package 'DBI' is required for Snowflake connectivity. Please install it.")
   }
   if (!requireNamespace("odbc", quietly = TRUE)) {
     stop("Package 'odbc' is required for Snowflake connectivity. Please install it.")
   }
 
- # Validate connection
+  # Validate connection
   if (!DBI::dbIsValid(conn)) {
     stop("Error: Invalid database connection")
- }
+  }
 
   # Execute query
   result <- tryCatch(
@@ -92,7 +91,7 @@ curve_snowflake <- function(conn, query,
   }
 
   # Extract values
- point <- result[[estimate_col]][1]
+  point <- result[[estimate_col]][1]
   LL <- result[[lower_col]][1]
   UL <- result[[upper_col]][1]
 
@@ -150,14 +149,13 @@ curve_snowflake <- function(conn, query,
 #'
 #' @export
 curve_snowflake_batch <- function(conn, queries,
-                                   estimate_col = "estimate",
-                                   lower_col = "lower",
-                                   upper_col = "upper",
-                                   conf.level = 0.95,
-                                   steps = 1000,
-                                   cores = getOption("mc.cores", 1L),
-                                   table = TRUE) {
-
+                                  estimate_col = "estimate",
+                                  lower_col = "lower",
+                                  upper_col = "upper",
+                                  conf.level = 0.95,
+                                  steps = 1000,
+                                  cores = getOption("mc.cores", 1L),
+                                  table = TRUE) {
   if (!is.list(queries)) {
     stop("Error: 'queries' must be a named list of SQL query strings")
   }

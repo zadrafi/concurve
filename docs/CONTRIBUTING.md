@@ -47,8 +47,9 @@ with a minimal [reprex](https://www.tidyverse.org/help/#reprex).
 ### Code of Conduct
 
 Please note that the concurve project is released with a [Contributor
-Code of Conduct](CODE_OF_CONDUCT.md). By contributing to this project
-you agree to abide by its terms.
+Code of
+Conduct](https://github.com/zadrafi/concurve/CODE_OF_CONDUCT.md). By
+contributing to this project you agree to abide by its terms.
 
 ### See tidyverse [development contributing guide](https://rstd.io/tidy-contrib)
 

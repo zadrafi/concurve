@@ -6,9 +6,17 @@ from query results containing point estimates and confidence intervals.
 ## Usage
 
 ``` r
-curve_snowflake(conn, query, estimate_col = "estimate",
-  lower_col = "lower", upper_col = "upper", conf.level = 0.95,
-  steps = 1000, cores = getOption("mc.cores", 1L), table = TRUE)
+curve_snowflake(
+  conn,
+  query,
+  estimate_col = "estimate",
+  lower_col = "lower",
+  upper_col = "upper",
+  conf.level = 0.95,
+  steps = 1000,
+  cores = getOption("mc.cores", 1L),
+  table = TRUE
+)
 ```
 
 ## Arguments
@@ -63,14 +71,14 @@ consonance functions from the results.
 
 ## See also
 
-[`curve_snowflake_batch()`](reference/curve_snowflake_batch.md) for
-batch processing
+[`curve_snowflake_batch()`](https://github.com/zadrafi/concurve/reference/curve_snowflake_batch.md)
+for batch processing
 
-[`curve_rev()`](reference/curve_rev.md) for constructing curves from
-published intervals
+[`curve_rev()`](https://github.com/zadrafi/concurve/reference/curve_rev.md)
+for constructing curves from published intervals
 
-[`export_for_powerbi()`](reference/export_for_powerbi.md) for exporting
-results
+[`export_for_powerbi()`](https://github.com/zadrafi/concurve/reference/export_for_powerbi.md)
+for exporting results
 
 ## Examples
 

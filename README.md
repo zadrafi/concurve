@@ -1,5 +1,5 @@
 
-# `concurve` \| Graph Frequentist Distributions of Parameters <img src="https://raw.githubusercontent.com/zadrafi/concurve/master/man/figures/logo.svg" align="right" width="70"/>
+### <span style="color:#000; font-weight: 400;">`concurve`</span> \| Graph Frequentist Distributions of Parameters </strong> <img src="man/figures/logo.svg" align="right" width="70"/>
 
 ------------------------------------------------------------------------
 
@@ -16,22 +16,33 @@ Downloads](https://cranlogs.r-pkg.org/badges/grand-total/concurve)](https://cran
 [![Rdoc](http://www.rdocumentation.org/badges/version/concurve)](http://www.rdocumentation.org/packages/concurve)
 [![License: GPL
 v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![R-CMD-check](https://github.com/zadrafi/concurve/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/zadrafi/concurve/actions/workflows/R-CMD-check.yaml)
+[![Travis build
+status](https://travis-ci.com/zadrafi/concurve.svg?branch=master)](https://travis-ci.com/zadrafi/concurve)
 [![Codecov test
 coverage](https://codecov.io/gh/zadrafi/concurve/branch/master/graph/badge.svg)](https://codecov.io/gh/zadrafi/concurve?branch=master)
+
 <!-- badges: end -->
 
 #### [Compute & Graph](https://data.lesslikely.com/concurve/reference/ggcurve.html) Confidence Distributions and Likelihood Functions
 
 <center>
+
 <figure>
+
 <img src="vignettes/confdistributions.png" align="center" width="550"/>  
+
 <figcaption>
+
 <p style="font-size: 12px">
+
 Sample image taken from Schweder T, Hjort NL. (2016)
+
 </p>
+
 </figcaption>
+
 </figure>
+
 </center>
 
 ------------------------------------------------------------------------
@@ -42,8 +53,8 @@ Sample image taken from Schweder T, Hjort NL. (2016)
 
 #### [Compare](https://data.lesslikely.com/concurve/reference/plot_compare.html) The Functions From Different Studies
 
-<img src = "https://res.cloudinary.com/less-likely/image/upload/v1591475692/Site/functions.png" align="center" width ="350">
-<img src = "https://res.cloudinary.com/less-likely/image/upload/v1591475692/Site/lfunctions.png" align="center" width ="350">
+<img src="https://res.cloudinary.com/less-likely/image/upload/v1591475692/Site/functions.png" align="center" width="350"/>
+<img src="https://res.cloudinary.com/less-likely/image/upload/v1591475692/Site/lfunctions.png" align="center" width="350"/>
 
 ------------------------------------------------------------------------
 
@@ -51,7 +62,7 @@ Sample image taken from Schweder T, Hjort NL. (2016)
 
 <center>
 
-<img src = "https://res.cloudinary.com/less-likely/image/upload/v1574628079/Site/tables.png" align="center" width="500">
+<img src="https://res.cloudinary.com/less-likely/image/upload/v1574628079/Site/tables.png" align="center" width="500"/>
 
 ------------------------------------------------------------------------
 
@@ -59,16 +70,22 @@ Sample image taken from Schweder T, Hjort NL. (2016)
 
 (`It is highly recommended that you look at the articles.`)
 
-    install.packages("concurve")
+``` r
+install.packages("concurve")
+```
 
 Try the following script if you run into any installation issues:
 
-    install.packages("concurve", repos = "https://cloud.r-project.org/", dep = TRUE)
+``` r
+install.packages("concurve", repos = "https://cloud.r-project.org/", dep = TRUE)
+```
 
 Install the developer version from
 [GitHub](https://github.com/zadrafi/concurve/) using the following:
 
-    remotes::install_github("zadrafi/concurve@master", dependencies = TRUE)
+``` r
+remotes::install_github("zadrafi/concurve@master", dependencies = TRUE)
+```
 
 See which versions of the package are currently [supported
 here](articles/supported.html).
@@ -83,44 +100,46 @@ here](articles/supported.html).
 
 ##### See the following articles:
 
--   **[Comparison to Bayesian Posterior
-    Distributions](https://data.lesslikely.com/concurve/articles/bayes.html)**
--   **[The Bootstrap and Consonance
-    Functions](https://data.lesslikely.com/concurve/articles/bootstrap.html)**
--   **[Background
-    Literature](https://data.lesslikely.com/concurve/articles/literature.html)**
--   **[Customizing
-    Plots](https://data.lesslikely.com/concurve/articles/customizing.html)**
--   **[Examples in
-    R](https://data.lesslikely.com/concurve/articles/examples.html)**
--   **[Logistic Regression in
-    R](https://data.lesslikely.com/concurve/articles/logistic.html)**
--   **[Profile
-    Likelihoods](https://data.lesslikely.com/concurve/articles/likelihood.html)**
--   **[Meta-Analysis
-    Examples](https://data.lesslikely.com/concurve/articles/meta-analysis.html)**
--   **[Using
-    Stata](https://data.lesslikely.com/concurve/articles/stata.html)**
--   **[Survival
-    Modeling](https://data.lesslikely.com/concurve/articles/survival.html)**
--   **[S-values](https://data.lesslikely.com/concurve/articles/svalues.html)**
--   **[Generating
-    Tables](https://data.lesslikely.com/concurve/articles/tables.html)**
--   **[Troubleshooting](https://data.lesslikely.com/concurve/articles/troubleshooting.html)**
--   **[Consonance Functions for Linear Mixed-Effects
-    Models](https://data.lesslikely.com/concurve/articles/variancecomponents.html)**
--   **[Wish
-    List](https://data.lesslikely.com/concurve/articles/wishlist.html)**
+- [**Comparison to Bayesian Posterior
+  Distributions**](https://data.lesslikely.com/concurve/articles/bayes.html)
+- [**The Bootstrap and Consonance
+  Functions**](https://data.lesslikely.com/concurve/articles/bootstrap.html)
+- [**Background
+  Literature**](https://data.lesslikely.com/concurve/articles/literature.html)
+- [**Customizing
+  Plots**](https://data.lesslikely.com/concurve/articles/customizing.html)
+- [**Examples in
+  R**](https://data.lesslikely.com/concurve/articles/examples.html)
+- [**Logistic Regression in
+  R**](https://data.lesslikely.com/concurve/articles/logistic.html)
+- [**Profile
+  Likelihoods**](https://data.lesslikely.com/concurve/articles/likelihood.html)
+- [**Meta-Analysis
+  Examples**](https://data.lesslikely.com/concurve/articles/meta-analysis.html)
+- [**Using
+  Stata**](https://data.lesslikely.com/concurve/articles/stata.html)
+- [**Survival
+  Modeling**](https://data.lesslikely.com/concurve/articles/survival.html)
+- [**S-values**](https://data.lesslikely.com/concurve/articles/svalues.html)
+- [**Generating
+  Tables**](https://data.lesslikely.com/concurve/articles/tables.html)
+- [**Troubleshooting**](https://data.lesslikely.com/concurve/articles/troubleshooting.html)
+- [**Consonance Functions for Linear Mixed-Effects
+  Models**](https://data.lesslikely.com/concurve/articles/variancecomponents.html)
+- [**Wish
+  List**](https://data.lesslikely.com/concurve/articles/wishlist.html)
 
 ------------------------------------------------------------------------
 
 ### Citation
 
 To properly cite the package, please see the [following
-page](https://data.lesslikely.com/concurve/authors.html) or
+page](file:///Users/zad/Desktop/GitHub/concurve/docs/authors.html) or
 run the R script below.
 
-    citation("concurve")
+``` r
+citation("concurve")
+```
 
 ------------------------------------------------------------------------
 
@@ -128,6 +147,33 @@ run the R script below.
 
 Please note that the concurve project is released with a [Contributor
 Code of
-Conduct](https://data.lesslikely.com/concurve/CODE_OF_CONDUCT.html). By
+Conduct](https://data.lesslikely.com/concurve//CODE_OF_CONDUCT.html). By
 contributing to this project, you agree to abide by its terms.
 
+##### Environment
+
+The package was currently run on:
+
+    ## R version 4.6.0 (2026-04-24)
+    ## Platform: aarch64-apple-darwin25.4.0
+    ## Running under: macOS Tahoe 26.5.1
+    ## 
+    ## Matrix products: default
+    ## BLAS:   /opt/homebrew/Cellar/openblas/0.3.33/lib/libopenblasp-r0.3.33.dylib 
+    ## LAPACK: /opt/homebrew/Cellar/r/4.6.0/lib/R/lib/libRlapack.dylib;  LAPACK version 3.12.1
+    ## 
+    ## locale:
+    ## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+    ## 
+    ## time zone: America/New_York
+    ## tzcode source: internal
+    ## 
+    ## attached base packages:
+    ## [1] stats     graphics  grDevices utils     datasets  methods   base     
+    ## 
+    ## loaded via a namespace (and not attached):
+    ##  [1] compiler_4.6.0    here_1.0.2        fastmap_1.2.0     cli_3.6.6         rprojroot_2.1.1   htmltools_0.5.9   tools_4.6.0      
+    ##  [8] parallel_4.6.0    otel_0.2.0        rstudioapi_0.19.0 yaml_2.3.12       rmarkdown_2.31    knitr_1.51        xfun_0.59        
+    ## [15] digest_0.6.39     rlang_1.2.0       evaluate_1.0.5
+
+------------------------------------------------------------------------

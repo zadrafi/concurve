@@ -5,22 +5,9 @@ values, which are the base-2 log transformation of the observed
 $`P`$-value $`p`$, see the following references below the
 calculator.^([1](#ref-Shannon1948-uq)–[10](#ref-greenlandAidScientificInference2020))
 
-## Convert P-values to S-values
+### Please Wait
 
-Observed P-value
-
-  
-
-What is the probability of seeing **all heads** in this many fair coin
-tosses?
-
-Number of Coin Tosses
-
-![](_w_550036c80b5e4f85951a859c0cbdb72a/PandaCoin.png)  
-  
-
-To learn about S-values, check out [this blog
-post.](https://lesslikely.com/statistics/s-values/)
+![loading](/__static__/frontend/images/spinner.gif?v=ce6bcde20b2f6c562913c06be83f9e7c8a19b008017407a3094b76fa82bbd6b7f4048e032e07e534d4ab5442b9105294d612863735077ab13a47653a14c5866e)
 
 ## References
 

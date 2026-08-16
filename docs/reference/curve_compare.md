@@ -46,11 +46,11 @@ Computes an AUC score and returns a plot that graphs two functions.
 
 ## See also
 
-[`plot_compare()`](reference/plot_compare.md)
+[`plot_compare()`](https://github.com/zadrafi/concurve/reference/plot_compare.md)
 
-[`ggcurve()`](reference/ggcurve.md)
+[`ggcurve()`](https://github.com/zadrafi/concurve/reference/ggcurve.md)
 
-[`curve_table()`](reference/curve_table.md)
+[`curve_table()`](https://github.com/zadrafi/concurve/reference/curve_table.md)
 
 ## Examples
 

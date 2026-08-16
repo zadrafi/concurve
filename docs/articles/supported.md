@@ -69,27 +69,27 @@ dependencies, and improved compatibility.
 
 ### New Functions
 
-- **[`curve_wrap()`](reference/curve_wrap.md)** - Generic wrapper for
-  any CI-producing function
-- **[`curve_model()`](reference/curve_model.md)** - Convenience wrapper
-  for model objects
-- **[`curve_snowflake()`](reference/curve_snowflake.md)** - Construct
-  consonance distributions directly from Snowflake database query
-  results
-- **[`curve_snowflake_batch()`](reference/curve_snowflake_batch.md)** -
+- **[`curve_wrap()`](https://github.com/zadrafi/concurve/reference/curve_wrap.md)** -
+  Generic wrapper for any CI-producing function
+- **[`curve_model()`](https://github.com/zadrafi/concurve/reference/curve_model.md)** -
+  Convenience wrapper for model objects
+- **[`curve_snowflake()`](https://github.com/zadrafi/concurve/reference/curve_snowflake.md)** -
+  Construct consonance distributions directly from Snowflake database
+  query results
+- **[`curve_snowflake_batch()`](https://github.com/zadrafi/concurve/reference/curve_snowflake_batch.md)** -
   Batch processing for multiple Snowflake analyses
-- **[`export_for_powerbi()`](reference/export_for_powerbi.md)** - Export
-  consonance data in Power BI-ready format
-- **[`curve_from_ratio()`](reference/curve_from_ratio.md)** - Construct
-  curves from ratio estimates
-- **[`curve_from_se()`](reference/curve_from_se.md)** - Construct curves
-  from standard error estimates
-- **[`curve_overlap()`](reference/curve_overlap.md)** - Calculate
-  overlap between consonance functions
-- **[`curve_summary()`](reference/curve_summary.md)** - Generate summary
-  statistics for consonance objects
-- **[`plot_multi()`](reference/plot_multi.md)** - Plot multiple
-  consonance functions simultaneously
+- **[`export_for_powerbi()`](https://github.com/zadrafi/concurve/reference/export_for_powerbi.md)** -
+  Export consonance data in Power BI-ready format
+- **[`curve_from_ratio()`](https://github.com/zadrafi/concurve/reference/curve_from_ratio.md)** -
+  Construct curves from ratio estimates
+- **[`curve_from_se()`](https://github.com/zadrafi/concurve/reference/curve_from_se.md)** -
+  Construct curves from standard error estimates
+- **[`curve_overlap()`](https://github.com/zadrafi/concurve/reference/curve_overlap.md)** -
+  Calculate overlap between consonance functions
+- **[`curve_summary()`](https://github.com/zadrafi/concurve/reference/curve_summary.md)** -
+  Generate summary statistics for consonance objects
+- **[`plot_multi()`](https://github.com/zadrafi/concurve/reference/plot_multi.md)** -
+  Plot multiple consonance functions simultaneously
 
 ### Dependency Changes
 
@@ -132,22 +132,22 @@ additional functionality such as database connectivity or testing.
 
 |                   | Package           | Package Version |
 |:------------------|:------------------|:----------------|
-| methods           | methods           | 4.5.2           |
+| methods           | methods           | 4.6.0           |
 | bcaboot           | bcaboot           | 0.2-3           |
 | boot              | boot              | 1.3-32          |
-| lme4              | lme4              | 1.1-38          |
-| dplyr             | dplyr             | 1.1.4           |
-| flextable         | flextable         | 0.9.10          |
-| ggplot2           | ggplot2           | 4.0.1           |
+| lme4              | lme4              | 2.0-1           |
+| dplyr             | dplyr             | 1.2.1           |
+| flextable         | flextable         | 0.9.12          |
+| ggplot2           | ggplot2           | 4.0.3           |
 | knitr             | knitr             | 1.51            |
-| metafor           | metafor           | 4.8-0           |
-| officer           | officer           | 0.7.3           |
-| parallel          | parallel          | 4.5.2           |
+| metafor           | metafor           | 5.0-1           |
+| officer           | officer           | 0.7.5           |
+| parallel          | parallel          | 4.6.0           |
 | ProfileLikelihood | ProfileLikelihood | 1.3             |
 | scales            | scales            | 1.4.0           |
 | colorspace        | colorspace        | 2.1-2           |
 | survival          | survival          | 3.8-6           |
-| survminer         | survminer         | 0.5.1           |
+| survminer         | survminer         | 0.5.2           |
 | tibble            | tibble            | 3.3.1           |
 | tidyr             | tidyr             | 1.3.2           |
 
@@ -162,29 +162,29 @@ style="font-size: 10px; font-family: helvetica; margin-left: auto; margin-right:
 
 |            | Package    | Package Version |
 |:-----------|:-----------|:----------------|
-| DBI        | DBI        | 1.2.3           |
-| odbc       | odbc       | 1.6.4.1         |
+| DBI        | DBI        | 1.3.0           |
+| odbc       | odbc       | 1.7.0           |
 | MASS       | MASS       | 7.3-65          |
 | covr       | covr       | 3.6.5           |
-| roxygen2   | roxygen2   | 7.3.3           |
+| roxygen2   | roxygen2   | 8.0.0           |
 | spelling   | spelling   | 2.3.2           |
 | testthat   | testthat   | 3.3.2           |
-| rmarkdown  | rmarkdown  | 2.30            |
+| rmarkdown  | rmarkdown  | 2.31            |
 | Lock5Data  | Lock5Data  | 4.0.1           |
-| carData    | carData    | 3.0-5           |
+| carData    | carData    | 3.0-6           |
 | bench      | bench      | 1.1.4           |
-| rms        | rms        | 8.1-0           |
+| rms        | rms        | 8.1-1           |
 | brms       | brms       | 2.23.0          |
 | rstan      | rstan      | 2.32.7          |
 | rstanarm   | rstanarm   | 2.32.2          |
 | bayesplot  | bayesplot  | 1.15.0          |
-| vdiffr     | vdiffr     | 1.0.8           |
+| vdiffr     | vdiffr     | 1.0.9           |
 | ggtext     | ggtext     | 0.1.2           |
 | daewr      | daewr      | 1.2-11          |
 | svglite    | svglite    | 2.2.2           |
-| data.table | data.table | 1.18.0          |
-| nlme       | nlme       | 3.1-168         |
-| simstudy   | simstudy   | 0.9.1           |
+| data.table | data.table | 1.18.4          |
+| nlme       | nlme       | 3.1-169         |
+| simstudy   | simstudy   | 0.9.2           |
 | patchwork  | patchwork  | 1.3.2           |
 | cowplot    | cowplot    | 1.2.0           |
 | reprex     | reprex     | 2.1.1           |
@@ -209,13 +209,13 @@ the issue.
 
 ## Session info
 
-    #> R version 4.5.2 (2025-10-31)
-    #> Platform: aarch64-apple-darwin20
-    #> Running under: macOS Tahoe 26.3
+    #> R version 4.6.0 (2026-04-24)
+    #> Platform: aarch64-apple-darwin25.4.0
+    #> Running under: macOS Tahoe 26.5.1
     #> 
     #> Matrix products: default
-    #> BLAS:   /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib 
-    #> LAPACK: /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.1
+    #> BLAS:   /opt/homebrew/Cellar/openblas/0.3.33/lib/libopenblasp-r0.3.33.dylib 
+    #> LAPACK: /opt/homebrew/Cellar/r/4.6.0/lib/R/lib/libRlapack.dylib;  LAPACK version 3.12.1
     #> 
     #> locale:
     #> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
@@ -227,16 +227,16 @@ the issue.
     #> [1] stats     graphics  grDevices utils     datasets  methods   base     
     #> 
     #> other attached packages:
-    #> [1] magick_2.9.0     kableExtra_1.4.0 magrittr_2.0.4   knitr_1.51      
+    #> [1] magick_2.9.1     kableExtra_1.4.0 magrittr_2.0.5   knitr_1.51      
     #> 
     #> loaded via a namespace (and not attached):
-    #>  [1] vctrs_0.7.1        svglite_2.2.2      cli_3.6.5          rlang_1.1.7       
-    #>  [5] xfun_0.56          stringi_1.8.7      otel_0.2.0         textshaping_1.0.4 
-    #>  [9] jsonlite_2.0.0     glue_1.8.0         htmltools_0.5.9    ragg_1.5.0        
-    #> [13] sass_0.4.10        scales_1.4.0       rmarkdown_2.30     evaluate_1.0.5    
+    #>  [1] vctrs_0.7.3        svglite_2.2.2      cli_3.6.6          rlang_1.2.0       
+    #>  [5] xfun_0.58          stringi_1.8.7      otel_0.2.0         textshaping_1.0.5 
+    #>  [9] jsonlite_2.0.0     glue_1.8.1         htmltools_0.5.9    ragg_1.5.2        
+    #> [13] sass_0.4.10        scales_1.4.0       rmarkdown_2.31     evaluate_1.0.5    
     #> [17] jquerylib_0.1.4    fastmap_1.2.0      yaml_2.3.12        lifecycle_1.0.5   
-    #> [21] stringr_1.6.0      compiler_4.5.2     RColorBrewer_1.1-3 fs_1.6.6          
-    #> [25] Rcpp_1.1.1         htmlwidgets_1.6.4  rstudioapi_0.18.0  farver_2.1.2      
-    #> [29] systemfonts_1.3.1  digest_0.6.39      viridisLite_0.4.2  R6_2.6.1          
-    #> [33] dichromat_2.0-0.1  bslib_0.9.0        tools_4.5.2        xml2_1.5.2        
+    #> [21] stringr_1.6.0      compiler_4.6.0     RColorBrewer_1.1-3 fs_2.1.0          
+    #> [25] Rcpp_1.1.1-1.1     htmlwidgets_1.6.4  rstudioapi_0.18.0  farver_2.1.2      
+    #> [29] systemfonts_1.3.2  digest_0.6.39      viridisLite_0.4.3  R6_2.6.1          
+    #> [33] dichromat_2.0-0.1  bslib_0.11.0       tools_4.6.0        xml2_1.5.2        
     #> [37] pkgdown_2.2.0      cachem_1.1.0       desc_1.4.3

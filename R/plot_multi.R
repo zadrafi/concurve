@@ -25,7 +25,12 @@
 #' @param legend.position Character or numeric vector. Legend position.
 #'   Default is "bottom".
 #'
-#' @return A ggplot2 object.
+#' @return A ggplot2 object (inheriting from ggplot).
+#'
+#' @details
+#' Curve names (passed as named arguments) are automatically used as legend labels.
+#' For example, `plot_multi("Study A" = curve1, "Study B" = curve2)` will use
+#' "Study A" and "Study B" as labels in the legend.
 #'
 #' @examples
 #' \dontrun{

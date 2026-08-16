@@ -8,8 +8,12 @@ arbitrary statistical procedures.
 ## Usage
 
 ``` r
-curve_wrap(ci_func, steps = 1000, cores = getOption("mc.cores", 1L),
-  table = TRUE)
+curve_wrap(
+  ci_func,
+  steps = 1000,
+  cores = getOption("mc.cores", 1L),
+  table = TRUE
+)
 ```
 
 ## Arguments
@@ -84,14 +88,16 @@ Common patterns for `ci_func`:
 
 ## See also
 
-[`ggcurve()`](reference/ggcurve.md) for plotting
+[`ggcurve()`](https://github.com/zadrafi/concurve/reference/ggcurve.md)
+for plotting
 
 `curve_gen()` for model-specific consonance functions
 
-[`curve_rev()`](reference/curve_rev.md) for constructing curves from
-published intervals
+[`curve_rev()`](https://github.com/zadrafi/concurve/reference/curve_rev.md)
+for constructing curves from published intervals
 
-[`curve_table()`](reference/curve_table.md) for interval summaries
+[`curve_table()`](https://github.com/zadrafi/concurve/reference/curve_table.md)
+for interval summaries
 
 ## Examples
 

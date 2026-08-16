@@ -2,22 +2,21 @@ pandoc: 3.8.3
 pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
-  bayes: bayes.html
-  bootstrap: bootstrap.html
+  2d_likelihood_visualization: 2d_likelihood_visualization.html
   customizing: customizing.html
   examples: examples.html
   likelihood: likelihood.html
   literature: literature.html
   logistic: logistic.html
+  NEWS: NEWS.html
   stata: stata.html
   supported: supported.html
   survival: survival.html
   svalues: svalues.html
   tables: tables.html
   troubleshooting: troubleshooting.html
-  variancecomponents: variancecomponents.html
   wishlist: wishlist.html
-last_built: 2026-01-26T22:02Z
+last_built: 2026-06-20T18:16Z
 urls:
-  reference: https://stat.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/reference
-  article: https://stat.lesslikely.com/concurve/, https://github.com/zadrafi/concurve/articles
+  reference: https://github.com/zadrafi/concurve/reference
+  article: https://github.com/zadrafi/concurve/articles

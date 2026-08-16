@@ -1,9 +1,9 @@
 # Profile Likelihoods
 
 For this example, we’ll explore the
-[`curve_lik()`](reference/curve_lik.md) function, which can help
-generate profile likelihood functions, and deviance functions with the
-help of the
+[`curve_lik()`](https://github.com/zadrafi/concurve/reference/curve_lik.md)
+function, which can help generate profile likelihood functions, and
+deviance functions with the help of the
 [`ProfileLikelihood`](https://cran.r-project.org/package=ProfileLikelihood)
 package.^([1](#ref-choiProfileLikelihoodProfileLikelihood2011)). For an
 introduction to what profile likelihoods are, [see the following
@@ -28,8 +28,9 @@ xx <- profilelike.glm(y ~ x1 + x2,
 #> Warning message: provide lo.theta and hi.theta
 ```
 
-Then, we’ll use [`curve_lik()`](reference/curve_lik.md) on the object
-that the
+Then, we’ll use
+[`curve_lik()`](https://github.com/zadrafi/concurve/reference/curve_lik.md)
+on the object that the
 [`ProfileLikelihood`](https://cran.r-project.org/package=ProfileLikelihood)
 package produced.
 
@@ -96,8 +97,8 @@ citation("concurve")
 #>   Rafi Z, Greenland S (2020). "Semantic and Cognitive Tools to Aid
 #>   Statistical Science: Replace Confidence and Significance by
 #>   Compatibility and Surprise." _BMC Medical Research Methodology_,
-#>   *20*, 244. ISSN 1471-2288, doi:10.1186/s12874-020-01105-9
-#>   <https://doi.org/10.1186/s12874-020-01105-9>,
+#>   *20*, 244. ISSN 1471-2288. doi:10.1186/s12874-020-01105-9
+#>   <https://doi.org/10.1186/s12874-020-01105-9>.
 #>   <https://doi.org/10.1186/s12874-020-01105-9>.
 #> 
 #> To see these entries in BibTeX format, use 'print(<citation>,
@@ -109,7 +110,7 @@ citation("ProfileLikelihood")
 #>   Choi L (2023). _ProfileLikelihood: Profile Likelihood for a Parameter
 #>   in Commonly Used Statistical Models_.
 #>   doi:10.32614/CRAN.package.ProfileLikelihood
-#>   <https://doi.org/10.32614/CRAN.package.ProfileLikelihood>, R package
+#>   <https://doi.org/10.32614/CRAN.package.ProfileLikelihood>. R package
 #>   version 1.3, <https://CRAN.R-project.org/package=ProfileLikelihood>.
 #> 
 #> A BibTeX entry for LaTeX users is

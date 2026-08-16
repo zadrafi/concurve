@@ -6,9 +6,17 @@ consonance distributions for each result set.
 ## Usage
 
 ``` r
-curve_snowflake_batch(conn, queries, estimate_col = "estimate",
-  lower_col = "lower", upper_col = "upper", conf.level = 0.95,
-  steps = 1000, cores = getOption("mc.cores", 1L), table = TRUE)
+curve_snowflake_batch(
+  conn,
+  queries,
+  estimate_col = "estimate",
+  lower_col = "lower",
+  upper_col = "upper",
+  conf.level = 0.95,
+  steps = 1000,
+  cores = getOption("mc.cores", 1L),
+  table = TRUE
+)
 ```
 
 ## Arguments
@@ -55,10 +63,11 @@ A named list of concurve objects, one for each query.
 
 ## See also
 
-[`curve_snowflake()`](reference/curve_snowflake.md) for single query
-processing
+[`curve_snowflake()`](https://github.com/zadrafi/concurve/reference/curve_snowflake.md)
+for single query processing
 
-[`plot_compare()`](reference/plot_compare.md) for comparing results
+[`plot_compare()`](https://github.com/zadrafi/concurve/reference/plot_compare.md)
+for comparing results
 
 ## Examples
 

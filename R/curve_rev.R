@@ -50,6 +50,7 @@
 #' @seealso [curve_compare()]
 #' @seealso [plot_compare()]
 #'
+#' @export
 curve_rev <- function(point,
                       LL = NULL, UL = NULL,
                       se = NULL,
@@ -57,8 +58,6 @@ curve_rev <- function(point,
                       type = "c", measure = "ratio",
                       steps = 10000, cores = getOption("mc.cores", 1L),
                       table = TRUE) {
-
-
   # Produce Consonance / Surprisal Functions --------------------------------
 
   # Moved outside the "c" conditional; otherwise skipped in "l"
@@ -104,9 +103,7 @@ curve_rev <- function(point,
   }
 
 
-
   if (type == "c") {
-
     # intrvls <- (1:steps) / steps
     # z <- qnorm(1 - intrvls / 2)
     # conf.level_two = (1-conf.level)/2
@@ -119,9 +116,7 @@ curve_rev <- function(point,
       df <- data.frame(do.call(rbind, UL), do.call(rbind, LL))
       intrvl.limit <- c("lower.limit", "upper.limit")
       colnames(df) <- intrvl.limit
-    }
-
-    else if (measure == "ratio") {
+    } else if (measure == "ratio") {
       # se <- log(UL / LL) / (2*conf_range)
       logpoint <- log(point)
       logLL <- parallel::mclapply(z, FUN = function(i) logpoint + (i * se), mc.cores = cores)
@@ -174,10 +169,7 @@ curve_rev <- function(point,
       df$lower.limit <- exp(df$lower.limit)
       df$upper.limit <- exp(df$upper.limit)
       class(df) <- c("data.frame", "concurve")
-    }
-
-
-    else if (measure == "mean") {
+    } else if (measure == "mean") {
       stop("likelihood functions for continuous measures currently not supported")
       #      # se <- (UL - LL) / (2*conf_range)
       #      LL <- parallel::mclapply(z, FUN = function(i) point + (i * se), mc.cores = cores)

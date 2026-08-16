@@ -50,13 +50,12 @@
 #'
 #' @export
 export_for_powerbi <- function(data, file,
-                                format = NULL,
-                                include_metadata = TRUE,
-                                pivot = FALSE) {
-
+                               format = NULL,
+                               include_metadata = TRUE,
+                               pivot = FALSE) {
   # Extract data frame if concurve object
   if (is.list(data) && !is.data.frame(data)) {
-    df <- data[[1]]  # Get intervals dataframe
+    df <- data[[1]] # Get intervals dataframe
   } else if (is.data.frame(data)) {
     df <- data
   } else {
@@ -98,7 +97,6 @@ export_for_powerbi <- function(data, file,
   if (format == "csv") {
     utils::write.csv(df, file, row.names = FALSE)
     message("Exported ", nrow(df), " rows to: ", file)
-
   } else if (format == "excel") {
     if (!requireNamespace("openxlsx", quietly = TRUE)) {
       warning("Package 'openxlsx' not installed. Falling back to CSV format.")
@@ -112,7 +110,6 @@ export_for_powerbi <- function(data, file,
       openxlsx::saveWorkbook(wb, file, overwrite = TRUE)
       message("Exported ", nrow(df), " rows to: ", file)
     }
-
   } else if (format == "json") {
     if (!requireNamespace("jsonlite", quietly = TRUE)) {
       stop("Package 'jsonlite' required for JSON export. Please install it.")

@@ -254,7 +254,8 @@ Consonance
 Pretty neat, eh? And below is what our surprisal function looks like,
 which is simply the $`-\log_{2}`$(*p*) transformation of the observed
 P-value. For a more comprehensive discussion on surprisals, [see this
-page](articles/) and check out some of the references at the bottom.
+page](https://github.com/zadrafi/concurve/articles/) and check out some
+of the references at the bottom.
 
 ``` stata
 clear
@@ -377,9 +378,10 @@ citation("Statamarkdown")
 
     To cite package 'Statamarkdown' in publications use:
 
-      Hemken D (2025). _Statamarkdown: 'Stata' Markdown_. R package version
-      0.9.6, commit dc936d8d6b310a753b7eb32daae9f4d42cf57ae7,
-      <https://github.com/Hemken/Statamarkdown>.
+      Hemken D (2025). _Statamarkdown: 'Stata' Markdown_.
+      doi:10.32614/CRAN.package.Statamarkdown
+      <https://doi.org/10.32614/CRAN.package.Statamarkdown>. R package
+      version 0.9.6, <https://CRAN.R-project.org/package=Statamarkdown>.
 
     A BibTeX entry for LaTeX users is
 
@@ -387,19 +389,20 @@ citation("Statamarkdown")
         title = {Statamarkdown: 'Stata' Markdown},
         author = {Doug Hemken},
         year = {2025},
-        note = {R package version 0.9.6, commit dc936d8d6b310a753b7eb32daae9f4d42cf57ae7},
-        url = {https://github.com/Hemken/Statamarkdown},
+        note = {R package version 0.9.6},
+        url = {https://CRAN.R-project.org/package=Statamarkdown},
+        doi = {10.32614/CRAN.package.Statamarkdown},
       }
 
 ## Session info
 
-    R version 4.5.2 (2025-10-31)
-    Platform: aarch64-apple-darwin20
-    Running under: macOS Tahoe 26.3
+    R version 4.6.0 (2026-04-24)
+    Platform: aarch64-apple-darwin25.4.0
+    Running under: macOS Tahoe 26.5.1
 
     Matrix products: default
-    BLAS:   /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib 
-    LAPACK: /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.1
+    BLAS:   /opt/homebrew/Cellar/openblas/0.3.33/lib/libopenblasp-r0.3.33.dylib 
+    LAPACK: /opt/homebrew/Cellar/r/4.6.0/lib/R/lib/libRlapack.dylib;  LAPACK version 3.12.1
 
     locale:
     [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
@@ -415,9 +418,9 @@ citation("Statamarkdown")
 
     loaded via a namespace (and not attached):
      [1] digest_0.6.39     desc_1.4.3        R6_2.6.1          fastmap_1.2.0    
-     [5] xfun_0.56         cachem_1.1.0      knitr_1.51        htmltools_0.5.9  
-     [9] rmarkdown_2.30    lifecycle_1.0.5   cli_3.6.5         sass_0.4.10      
-    [13] pkgdown_2.2.0     textshaping_1.0.4 jquerylib_0.1.4   systemfonts_1.3.1
-    [17] compiler_4.5.2    rstudioapi_0.18.0 tools_4.5.2       ragg_1.5.0       
-    [21] bslib_0.9.0       evaluate_1.0.5    yaml_2.3.12       otel_0.2.0       
-    [25] jsonlite_2.0.0    htmlwidgets_1.6.4 rlang_1.1.7       fs_1.6.6         
+     [5] xfun_0.58         cachem_1.1.0      knitr_1.51        htmltools_0.5.9  
+     [9] rmarkdown_2.31    lifecycle_1.0.5   cli_3.6.6         sass_0.4.10      
+    [13] pkgdown_2.2.0     textshaping_1.0.5 jquerylib_0.1.4   systemfonts_1.3.2
+    [17] compiler_4.6.0    rstudioapi_0.18.0 tools_4.6.0       ragg_1.5.2       
+    [21] bslib_0.11.0      evaluate_1.0.5    yaml_2.3.12       otel_0.2.0       
+    [25] jsonlite_2.0.0    htmlwidgets_1.6.4 rlang_1.2.0       fs_2.1.0         

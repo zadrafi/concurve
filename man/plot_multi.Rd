@@ -60,7 +60,7 @@ names from input or generates sequential labels.}
 \value{
 A ggplot object.
 
-A ggplot2 object.
+A ggplot2 object (inheriting from ggplot).
 }
 \description{
 Creates a combined plot showing multiple consonance functions for comparison.
@@ -72,6 +72,10 @@ time periods, or studies.
 \details{
 This function overlays multiple consonance or surprisal functions on a
 single plot for easy comparison. Each curve is distinguished by color.
+
+Curve names (passed as named arguments) are automatically used as legend labels.
+For example, \code{plot_multi("Study A" = curve1, "Study B" = curve2)} will use
+"Study A" and "Study B" as labels in the legend.
 }
 \examples{
 \dontrun{

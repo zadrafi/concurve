@@ -15,9 +15,22 @@ vignette: >
 ---
 
 ```{r setup, include=FALSE}
-require(Statamarkdown)
-statapath = ("/Applications/Stata/StataIC.app/Contents/MacOS/StataIC")
-knitr::opts_chunk$set(engine.path=list(stata=statapath))
+statapath <- "/Applications/Stata/StataIC.app/Contents/MacOS/StataIC"
+stata_available <- file.exists(statapath) &&
+  requireNamespace("Statamarkdown", quietly = TRUE)
+
+if (stata_available) {
+  library(Statamarkdown)
+  knitr::opts_chunk$set(engine.path = list(stata = statapath))
+}
+
+# Disable stata chunks when Stata is not available on this machine
+knitr::opts_hooks$set(engine = function(options) {
+  if (identical(options$engine, "stata") && !stata_available) {
+    options$eval <- FALSE
+  }
+  options
+})
 ```
 
 Although `concurve` was originally designed to be used in `R`, it is possible to achieve very similar results in `Stata`. We can use some datasets that are built into `Stata` to show how to achieve this. I'll use the `Statamarkdown` R package so that I can obtain Stata outputs using RMarkdown via my Stata 16 package. 

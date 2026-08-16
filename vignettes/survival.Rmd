@@ -66,9 +66,10 @@ Rossi[1:5, 1:10]
 
 ```{r echo=TRUE, fig.height=4.5, fig.width=6}
 library(survival)
-mod.allison <- coxph(Surv(week, arrest) ~
-fin + age + race + wexp + mar + paro + prio,
-data = Rossi
+mod.allison <- coxph(
+  Surv(week, arrest) ~
+    fin + age + race + wexp + mar + paro + prio,
+  data = Rossi
 )
 mod.allison
 ```

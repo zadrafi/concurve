@@ -38,6 +38,7 @@
 #'
 #' z <- curve_surv(mod.allison, "prio")
 #' }
+#' @export
 curve_surv <- function(data, x, steps = 10000, cores = getOption("mc.cores", 1L), table = TRUE) {
   if (is.list(data) != TRUE) {
     stop("Error: 'data' must be an object with a Cox Proportional Hazards model")

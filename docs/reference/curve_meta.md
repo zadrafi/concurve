@@ -8,9 +8,18 @@ the corresponding p-values and s-values.
 ## Usage
 
 ``` r
-curve_meta(x, measure = "default", method = "uni", parm = NULL,
-  robust = FALSE, cluster = NULL, adjust = FALSE, steps = 1000,
-  cores = getOption("mc.cores", 1L), table = TRUE)
+curve_meta(
+  x,
+  measure = "default",
+  method = "uni",
+  parm = NULL,
+  robust = FALSE,
+  cluster = NULL,
+  adjust = FALSE,
+  steps = 1000,
+  cores = getOption("mc.cores", 1L),
+  table = TRUE
+)
 ```
 
 ## Arguments

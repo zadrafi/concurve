@@ -6,8 +6,14 @@ estimate and its standard error.
 ## Usage
 
 ``` r
-curve_from_se(estimate, se, measure = "mean", steps = 1000,
-  cores = getOption("mc.cores", 1L), table = TRUE)
+curve_from_se(
+  estimate,
+  se,
+  measure = "mean",
+  steps = 1000,
+  cores = getOption("mc.cores", 1L),
+  table = TRUE
+)
 ```
 
 ## Arguments
@@ -53,10 +59,11 @@ internally.
 
 ## See also
 
-[`curve_from_ratio()`](reference/curve_from_ratio.md) for constructing
-from CI bounds
+[`curve_from_ratio()`](https://github.com/zadrafi/concurve/reference/curve_from_ratio.md)
+for constructing from CI bounds
 
-[`curve_rev()`](reference/curve_rev.md) for the underlying function
+[`curve_rev()`](https://github.com/zadrafi/concurve/reference/curve_rev.md)
+for the underlying function
 
 ## Examples
 

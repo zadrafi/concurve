@@ -6,9 +6,18 @@ and boot packages to generate consonance distrbutions.
 ## Usage
 
 ``` r
-curve_boot(data = data, func = func, method = "bca", t0, tt, bb,
-  replicates = 2000, steps = 1000, cores = getOption("mc.cores", 1L),
-  table = TRUE)
+curve_boot(
+  data = data,
+  func = func,
+  method = "bca",
+  t0,
+  tt,
+  bb,
+  replicates = 2000,
+  steps = 1000,
+  cores = getOption("mc.cores", 1L),
+  table = TRUE
+)
 ```
 
 ## Arguments

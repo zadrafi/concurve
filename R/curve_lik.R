@@ -15,6 +15,7 @@
 #' data(dataglm)
 #' xx <- profilelike.glm(y ~ x1 + x2, dataglm, profile.theta = "group", binomial("logit"))
 #' lik <- curve_lik(xx, dataglm)
+#' @export
 curve_lik <- function(likobject, data, table = TRUE) {
   values <- likobject[[1]] # theta values
   likelihood <- likobject[[2]] # profile likelihoods

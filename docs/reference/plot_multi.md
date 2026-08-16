@@ -10,21 +10,37 @@ periods, or studies.
 ## Usage
 
 ``` r
-plot_multi(..., type = "c", measure = "default", nullvalue = NULL,
-  position = "pyramid", title = "Comparison of Consonance Functions",
+plot_multi(
+  ...,
+  type = "c",
+  measure = "default",
+  nullvalue = NULL,
+  position = "pyramid",
+  title = "Comparison of Consonance Functions",
   subtitle = "Functions display intervals at every level.",
   xaxis = expression(theta == ~"Effect Size"),
   yaxis1 = expression(paste(italic(p), "-value")),
-  yaxis2 = "Confidence Level (%)", colors = NULL, alpha = 0.15,
-  legend.position = "bottom")
+  yaxis2 = "Confidence Level (%)",
+  colors = NULL,
+  alpha = 0.15,
+  legend.position = "bottom"
+)
 
-plot_multi(..., type = "c", measure = "default", nullvalue = NULL,
-  position = "pyramid", title = "Comparison of Consonance Functions",
+plot_multi(
+  ...,
+  type = "c",
+  measure = "default",
+  nullvalue = NULL,
+  position = "pyramid",
+  title = "Comparison of Consonance Functions",
   subtitle = "Functions display intervals at every level.",
   xaxis = expression(theta == ~"Effect Size"),
   yaxis1 = expression(paste(italic(p), "-value")),
-  yaxis2 = "Confidence Level (%)", colors = NULL, alpha = 0.15,
-  legend.position = "bottom")
+  yaxis2 = "Confidence Level (%)",
+  colors = NULL,
+  alpha = 0.15,
+  legend.position = "bottom"
+)
 ```
 
 ## Arguments
@@ -105,13 +121,15 @@ single plot for easy comparison. Each curve is distinguished by color.
 
 ## See also
 
-[`ggcurve()`](reference/ggcurve.md) for single curve plotting
+[`ggcurve()`](https://github.com/zadrafi/concurve/reference/ggcurve.md)
+for single curve plotting
 
-[`curve_overlap()`](reference/curve_overlap.md) for quantifying overlap
+[`curve_overlap()`](https://github.com/zadrafi/concurve/reference/curve_overlap.md)
+for quantifying overlap
 
-[`ggcurve()`](reference/ggcurve.md),
-[`plot_compare()`](reference/plot_compare.md),
-[`curve_compare()`](reference/curve_compare.md)
+[`ggcurve()`](https://github.com/zadrafi/concurve/reference/ggcurve.md),
+[`plot_compare()`](https://github.com/zadrafi/concurve/reference/plot_compare.md),
+[`curve_compare()`](https://github.com/zadrafi/concurve/reference/curve_compare.md)
 
 ## Examples
 

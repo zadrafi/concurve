@@ -8,8 +8,13 @@ the corresponding p-value and s-value.
 ## Usage
 
 ``` r
-curve_surv(data, x, steps = 10000, cores = getOption("mc.cores", 1L),
-  table = TRUE)
+curve_surv(
+  data,
+  x,
+  steps = 10000,
+  cores = getOption("mc.cores", 1L),
+  table = TRUE
+)
 ```
 
 ## Arguments

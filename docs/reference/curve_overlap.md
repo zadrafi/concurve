@@ -6,8 +6,13 @@ providing a measure of compatibility between two estimates.
 ## Usage
 
 ``` r
-curve_overlap(data1, data2, type = "c", plot = TRUE,
-  title = "Consonance Function Overlap")
+curve_overlap(
+  data1,
+  data2,
+  type = "c",
+  plot = TRUE,
+  title = "Consonance Function Overlap"
+)
 ```
 
 ## Arguments
@@ -64,9 +69,11 @@ each confidence level and integrating over the shared region.
 
 ## See also
 
-[`curve_compare()`](reference/curve_compare.md) for graphical comparison
+[`curve_compare()`](https://github.com/zadrafi/concurve/reference/curve_compare.md)
+for graphical comparison
 
-[`plot_compare()`](reference/plot_compare.md) for visualization
+[`plot_compare()`](https://github.com/zadrafi/concurve/reference/plot_compare.md)
+for visualization
 
 ## Examples
 

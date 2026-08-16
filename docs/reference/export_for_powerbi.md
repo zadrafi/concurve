@@ -6,8 +6,13 @@ visualization and analysis.
 ## Usage
 
 ``` r
-export_for_powerbi(data, file, format = NULL, include_metadata = TRUE,
-  pivot = FALSE)
+export_for_powerbi(
+  data,
+  file,
+  format = NULL,
+  include_metadata = TRUE,
+  pivot = FALSE
+)
 ```
 
 ## Arguments
@@ -58,11 +63,11 @@ When `include_metadata = TRUE`, adds columns for:
 
 ## See also
 
-[`curve_table()`](reference/curve_table.md) for formatted interval
-tables
+[`curve_table()`](https://github.com/zadrafi/concurve/reference/curve_table.md)
+for formatted interval tables
 
-[`curve_snowflake()`](reference/curve_snowflake.md) for Snowflake
-database integration
+[`curve_snowflake()`](https://github.com/zadrafi/concurve/reference/curve_snowflake.md)
+for Snowflake database integration
 
 ## Examples
 

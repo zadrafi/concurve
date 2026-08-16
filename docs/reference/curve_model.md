@@ -1,14 +1,22 @@
 # Construct Consonance Functions from Fitted Models
 
-A convenience wrapper around [`curve_wrap`](reference/curve_wrap.md) for
-common model objects. Automatically selects the appropriate confidence
-interval method based on the model class or user specification.
+A convenience wrapper around
+[`curve_wrap`](https://github.com/zadrafi/concurve/reference/curve_wrap.md)
+for common model objects. Automatically selects the appropriate
+confidence interval method based on the model class or user
+specification.
 
 ## Usage
 
 ``` r
-curve_model(model, param, method = "default", steps = 1000,
-  cores = getOption("mc.cores", 1L), table = TRUE)
+curve_model(
+  model,
+  param,
+  method = "default",
+  steps = 1000,
+  cores = getOption("mc.cores", 1L),
+  table = TRUE
+)
 ```
 
 ## Arguments
@@ -50,13 +58,16 @@ curve_model(model, param, method = "default", steps = 1000,
 ## Value
 
 A list with class "concurve" (see
-[`curve_wrap`](reference/curve_wrap.md) for details).
+[`curve_wrap`](https://github.com/zadrafi/concurve/reference/curve_wrap.md)
+for details).
 
 ## Details
 
 This is a convenience function that constructs the appropriate `ci_func`
-for [`curve_wrap`](reference/curve_wrap.md) based on the specified
-method. For maximum flexibility, use `curve_wrap` directly.
+for
+[`curve_wrap`](https://github.com/zadrafi/concurve/reference/curve_wrap.md)
+based on the specified method. For maximum flexibility, use `curve_wrap`
+directly.
 
 Method selection guidelines:
 
@@ -70,11 +81,13 @@ Method selection guidelines:
 
 ## See also
 
-[`curve_wrap()`](reference/curve_wrap.md) for the generic wrapper
+[`curve_wrap()`](https://github.com/zadrafi/concurve/reference/curve_wrap.md)
+for the generic wrapper
 
 `curve_gen()` for the original model-based function
 
-[`ggcurve()`](reference/ggcurve.md) for plotting
+[`ggcurve()`](https://github.com/zadrafi/concurve/reference/ggcurve.md)
+for plotting
 
 ## Examples
 

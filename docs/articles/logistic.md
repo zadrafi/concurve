@@ -27,8 +27,8 @@ citation("concurve")
     ##   Rafi Z, Greenland S (2020). "Semantic and Cognitive Tools to Aid
     ##   Statistical Science: Replace Confidence and Significance by
     ##   Compatibility and Surprise." _BMC Medical Research Methodology_,
-    ##   *20*, 244. ISSN 1471-2288, doi:10.1186/s12874-020-01105-9
-    ##   <https://doi.org/10.1186/s12874-020-01105-9>,
+    ##   *20*, 244. ISSN 1471-2288. doi:10.1186/s12874-020-01105-9
+    ##   <https://doi.org/10.1186/s12874-020-01105-9>.
     ##   <https://doi.org/10.1186/s12874-020-01105-9>.
     ## 
     ## To see these entries in BibTeX format, use 'print(<citation>,
@@ -44,7 +44,7 @@ citation("cowplot")
     ## 
     ##   Wilke C (2025). _cowplot: Streamlined Plot Theme and Plot Annotations
     ##   for 'ggplot2'_. doi:10.32614/CRAN.package.cowplot
-    ##   <https://doi.org/10.32614/CRAN.package.cowplot>, R package version
+    ##   <https://doi.org/10.32614/CRAN.package.cowplot>. R package version
     ##   1.2.0, <https://CRAN.R-project.org/package=cowplot>.
     ## 
     ## A BibTeX entry for LaTeX users is

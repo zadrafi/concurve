@@ -36,11 +36,11 @@ curve_table(data, levels, type = "c", format = "data.frame")
 
 ## See also
 
-[`ggcurve()`](reference/ggcurve.md)
+[`ggcurve()`](https://github.com/zadrafi/concurve/reference/ggcurve.md)
 
-[`curve_compare()`](reference/curve_compare.md)
+[`curve_compare()`](https://github.com/zadrafi/concurve/reference/curve_compare.md)
 
-[`plot_compare()`](reference/plot_compare.md)
+[`plot_compare()`](https://github.com/zadrafi/concurve/reference/plot_compare.md)
 
 ## Examples
 

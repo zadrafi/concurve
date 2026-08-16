@@ -23,9 +23,11 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Suppose we wanted to produce confidence distributions for data with binary outcomes and where we employ a logistic regression, we would do the following.
-Here, I use the mtcars dataset for the example and also simulate some very simple binary data.
-We use `suppressMessages()` to avoid seeing the long list of profiling messages.
+Suppose we wanted to produce confidence distributions for data with
+binary outcomes and where we employ a logistic regression, we would do
+the following. Here, I use the mtcars dataset for the example and also
+simulate some very simple binary data. We use `suppressMessages()` to
+avoid seeing the long list of profiling messages.
 
 ```{r eval=FALSE, include=FALSE}
 library(concurve)
@@ -68,15 +70,6 @@ model_con <- suppressMessages(curve_gen(
 
 
 
-((ggcurve(model_con$[1],
-  measure = "ratio",
-  type = "c",
-  nullvalue = c(0.8, 1.2), title = "Confidence Curve",
-  subtitle = "The function displays intervals at every level.",
-  xaxis = expression(theta == ~"Range of Values"),
-  yaxis1 = expression(paste(italic(p), "-value")),
-  yaxis2 = "Levels for CI (%)"
-))
 
 
 (ggcurve(model_pro[[1]],

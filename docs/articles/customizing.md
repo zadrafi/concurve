@@ -4,11 +4,12 @@
 
 Because `concurve` graphs functions via `ggplot2`, it is quite easy to
 customize parts of the plot beyond some of the arguments that are
-provided in the [`ggcurve()`](reference/ggcurve.md) function. For
-example, we are able to provide arguments to the function to give custom
-titles, subtitles, x-axes, y-axes, fills, and colors. However, we could
-also do this using the standard `ggplot2` grammar. We’ll generate a
-quick graph to show how.
+provided in the
+[`ggcurve()`](https://github.com/zadrafi/concurve/reference/ggcurve.md)
+function. For example, we are able to provide arguments to the function
+to give custom titles, subtitles, x-axes, y-axes, fills, and colors.
+However, we could also do this using the standard `ggplot2` grammar.
+We’ll generate a quick graph to show how.
 
 ``` r
 
@@ -34,9 +35,10 @@ intervalsdf <- curve_mean(GroupA, GroupB,
 ![](customizing_files/figure-html/unnamed-chunk-1-1.png)
 
 Those are some of the default options provided to
-[`ggcurve()`](reference/ggcurve.md). We could provide
-[`ggcurve()`](reference/ggcurve.md) arguments for the title, subtitle,
-etc, but we could also do it like so:
+[`ggcurve()`](https://github.com/zadrafi/concurve/reference/ggcurve.md).
+We could provide
+[`ggcurve()`](https://github.com/zadrafi/concurve/reference/ggcurve.md)
+arguments for the title, subtitle, etc, but we could also do it like so:
 
 ``` r
 
@@ -78,9 +80,9 @@ themes.^([**Wilke_2019?**](#ref-Wilke_2019))
 ## More Advanced Customization
 
 Although the above shows how flexible `concurve`’s
-[`ggcurve()`](reference/ggcurve.md) is due to the integration with the
-`ggplot2` framework, we can achieve much more with a newer package
-called
+[`ggcurve()`](https://github.com/zadrafi/concurve/reference/ggcurve.md)
+is due to the integration with the `ggplot2` framework, we can achieve
+much more with a newer package called
 `ggtext`.^([**wilkeGgtextImprovedText2020?**](#ref-wilkeGgtextImprovedText2020))
 If we wanted to fully control how the labels and titles in our graphs
 looked or insert textboxes with full control, we could easily do that
@@ -90,7 +92,6 @@ Before we used `cowplot`, here’s what our plain function looked like
 (after regenerating it from scratch)
 
 ``` r
-
 
 (function1 <- ggcurve(data = intervalsdf[[1]], type = "c", nullvalue = TRUE))
 ```
@@ -117,7 +118,6 @@ control the size, form, and color of the text. We’ll load `ggtext` and
 then specify the arguments.
 
 ``` r
-
 
 library(ggtext)
 
@@ -188,7 +188,7 @@ library(svglite)
 library(ggplot2)
 
 res <- 144
-svglite("pvalfunc.svg", width = 720/res, height = 500/res)
+svglite("pvalfunc.svg", width = 720 / res, height = 500 / res)
 (function1 <- ggcurve(data = intervalsdf[[1]], type = "c", nullvalue = TRUE))
 dev.off()
 #> agg_png 
@@ -213,8 +213,8 @@ citation("concurve")
 #>   Rafi Z, Greenland S (2020). "Semantic and Cognitive Tools to Aid
 #>   Statistical Science: Replace Confidence and Significance by
 #>   Compatibility and Surprise." _BMC Medical Research Methodology_,
-#>   *20*, 244. ISSN 1471-2288, doi:10.1186/s12874-020-01105-9
-#>   <https://doi.org/10.1186/s12874-020-01105-9>,
+#>   *20*, 244. ISSN 1471-2288. doi:10.1186/s12874-020-01105-9
+#>   <https://doi.org/10.1186/s12874-020-01105-9>.
 #>   <https://doi.org/10.1186/s12874-020-01105-9>.
 #> 
 #> To see these entries in BibTeX format, use 'print(<citation>,
@@ -241,7 +241,7 @@ citation("ggtext")
 #> 
 #>   Wilke C, Wiernik B (2022). _ggtext: Improved Text Rendering Support
 #>   for 'ggplot2'_. doi:10.32614/CRAN.package.ggtext
-#>   <https://doi.org/10.32614/CRAN.package.ggtext>, R package version
+#>   <https://doi.org/10.32614/CRAN.package.ggtext>. R package version
 #>   0.1.2, <https://CRAN.R-project.org/package=ggtext>.
 #> 
 #> A BibTeX entry for LaTeX users is
@@ -259,7 +259,7 @@ citation("cowplot")
 #> 
 #>   Wilke C (2025). _cowplot: Streamlined Plot Theme and Plot Annotations
 #>   for 'ggplot2'_. doi:10.32614/CRAN.package.cowplot
-#>   <https://doi.org/10.32614/CRAN.package.cowplot>, R package version
+#>   <https://doi.org/10.32614/CRAN.package.cowplot>. R package version
 #>   1.2.0, <https://CRAN.R-project.org/package=cowplot>.
 #> 
 #> A BibTeX entry for LaTeX users is

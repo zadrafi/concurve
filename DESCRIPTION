@@ -54,10 +54,34 @@ Imports:
     tibble,
     tidyr,
     pbmcapply
-Suggests: DBI, odbc, MASS, covr, roxygen2, spelling, testthat, rmarkdown, 
-          Lock5Data, carData, bench, rms, brms, rstan, rstanarm, bayesplot,
-          vdiffr, ggtext, daewr, svglite, data.table, nlme,
-          simstudy, patchwork, cowplot, reprex
+Suggests: 
+    DBI,
+    odbc,
+    MASS,
+    covr,
+    roxygen2,
+    spelling,
+    testthat,
+    rmarkdown,
+    Lock5Data,
+    carData,
+    bench,
+    rms,
+    brms,
+    rstan,
+    rstanarm,
+    bayesplot,
+    vdiffr,
+    ggtext,
+    daewr,
+    svglite,
+    data.table,
+    nlme,
+    simstudy,
+    patchwork,
+    cowplot,
+    reprex,
+    roxygen2md
 VignetteBuilder: 
     knitr
 ByteCompile: true
@@ -65,6 +89,6 @@ Encoding: UTF-8
 Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE, old_usage = TRUE)
-RoxygenNote: 7.3.3
 X-schema.org-keywords: confidence, compatibility, consonance, curve,
     information statistics, surprisals, interval, function, distribution, fiducial
+Config/roxygen2/version: 8.1.0

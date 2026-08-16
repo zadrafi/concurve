@@ -14,12 +14,13 @@ Here are some to-dos for `concurve` in the future.
     actually reached a solution.”
   - “Identification tests check whether the solution is unique, and
     stable under small perturbations to the data.” \* \* \*
-- Make [`curve_rev()`](reference/curve_rev.md) more usable for a wide
-  range of scenarios (beyond proportions, and normal approximations).
-  The confidence functions they produce especially break down with
-  continuous variables, so I have completely disabled the option for
-  now, and will implement an approach by working backwards from the
-  deviance and log-likelihood functions. \* \* \*
+- Make
+  [`curve_rev()`](https://github.com/zadrafi/concurve/reference/curve_rev.md)
+  more usable for a wide range of scenarios (beyond proportions, and
+  normal approximations). The confidence functions they produce
+  especially break down with continuous variables, so I have completely
+  disabled the option for now, and will implement an approach by working
+  backwards from the deviance and log-likelihood functions. \* \* \*
 - Produce consonance/confidence functions for quantile regressions from
   the `quantreg` package
 - Implementation with the `nlme` package, although that has already
@@ -42,7 +43,7 @@ citation("quantreg")
     ## 
     ##   Koenker R (2025). _quantreg: Quantile Regression_.
     ##   doi:10.32614/CRAN.package.quantreg
-    ##   <https://doi.org/10.32614/CRAN.package.quantreg>, R package version
+    ##   <https://doi.org/10.32614/CRAN.package.quantreg>. R package version
     ##   6.1, <https://CRAN.R-project.org/package=quantreg>.
     ## 
     ## A BibTeX entry for LaTeX users is
@@ -63,10 +64,10 @@ citation("nlme")
 
     ## To cite package 'nlme' in publications use:
     ## 
-    ##   Pinheiro J, Bates D, R Core Team (2025). _nlme: Linear and Nonlinear
+    ##   Pinheiro J, Bates D, R Core Team (2026). _nlme: Linear and Nonlinear
     ##   Mixed Effects Models_. doi:10.32614/CRAN.package.nlme
-    ##   <https://doi.org/10.32614/CRAN.package.nlme>, R package version
-    ##   3.1-168, <https://CRAN.R-project.org/package=nlme>.
+    ##   <https://doi.org/10.32614/CRAN.package.nlme>. R package version
+    ##   3.1-169, <https://CRAN.R-project.org/package=nlme>.
     ## 
     ##   Pinheiro JC, Bates DM (2000). _Mixed-Effects Models in S and S-PLUS_.
     ##   Springer, New York. doi:10.1007/b98882
@@ -106,7 +107,7 @@ citation("rstantools")
     ##   Gabry J, Goodrich B, Lysy M, Johnson A (2026). _rstantools: Tools for
     ##   Developing R Packages Interfacing with 'Stan'_.
     ##   doi:10.32614/CRAN.package.rstantools
-    ##   <https://doi.org/10.32614/CRAN.package.rstantools>, R package version
+    ##   <https://doi.org/10.32614/CRAN.package.rstantools>. R package version
     ##   2.6.0, <https://CRAN.R-project.org/package=rstantools>.
     ## 
     ## A BibTeX entry for LaTeX users is

@@ -162,7 +162,6 @@ As you can see, the results end up being very similar. You can likely get very s
 Here's another example, but this time the variables we simulate have different location parameters. 
 
 ```{r echo=TRUE}
-
 GroupA <- rnorm(500, mean = 2)
 GroupB <- rnorm(500, mean = 1)
 RandomData <- data.frame(GroupA, GroupB)
@@ -170,7 +169,6 @@ model_freq <- lm(GroupA ~ GroupB, data = RandomData)
 ```
 
 ```{r, results = 'hide', message = FALSE}
-
 # Using flat prior
 model_bayes <- stan_lm(GroupA ~ GroupB,
   data = RandomData, prior = NULL,
@@ -180,7 +178,6 @@ model_bayes <- stan_lm(GroupA ~ GroupB,
 
 
 ```{r echo=TRUE}
-
 randomframe <- curve_gen(model_freq, "GroupB", steps = 10000)
 
 (function1 <- ggcurve(type = "c", randomframe[[1]], nullvalue = TRUE))
@@ -225,7 +222,6 @@ Here's another dataset, however, here we're not generating random numbers.
 
 
 ```{r, results = 'hide', message = FALSE}
-
 data(kidiq)
 
 # flat prior
