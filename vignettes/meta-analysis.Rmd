@@ -158,8 +158,8 @@ dc <- addColumns(defI, dc)
 
 
 d.obs <- dc[, .(study, id,s2.k, x, y)]
-d.obs <-  as.data.frame(d.obs)
-res <- rma.mv(yi = y, V = s2.k, W = NULL, mods = ~  factor(study) + factor(x),  random = ~ factor(x) | study, struct="CS", data = d.obs, method = "REML")
+d.obs <-  as.data.frame(d.obs)
+res <- rma.mv(yi = y, V = s2.k, mods = ~  factor(study) + factor(x),  random = ~ factor(x) | study, struct="CS", data = d.obs, method = "REML")
 
 a <- curve_meta(x = res, measure = "default", method = "mv", parm = "factor(x)1", cores = 1L)
 ggcurve(a[[2]], type = "cdf")
