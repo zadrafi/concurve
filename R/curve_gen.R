@@ -40,7 +40,9 @@
 #' is not recommended as it will take longer to produce all the intervals and
 #' store them into a data frame.
 #' @param cores Select the number of cores to use in  order to compute the intervals
-#'  The default is 1 core.
+#'  The default is 1 core. Parallel computation uses forking via
+#'  \code{parallel::mclapply()}, which is unavailable on Windows; on that
+#'  platform the intervals are computed sequentially regardless of this value.
 #' @param table Indicates whether or not a table output with some relevant
 #' statistics should be generated. The default is TRUE and generates a table
 #' which is included in the list object.
@@ -59,199 +61,95 @@
 #' bob <- curve_gen(rob, "GroupB")
 #' }
 #'
-#' @name curve_gen
 #' @export
-if ((Sys.info()["sysname"]) == "Windows") {
-  curve_gen <- function(model, var, method = "lm", log = FALSE, penalty = NULL, m = NULL,
-                        steps = 1000, table = TRUE) {
-    if (is.character(method) != TRUE) {
-      stop("Error: 'method' must be a character vector")
-    }
-    if (is.numeric(steps) != TRUE) {
-      stop("Error: 'steps' must be a numeric vector")
-    }
-
-    intrvls <- (1:(steps - 1)) / steps
-
-    # No adjustment for multiple comparisons ----------------------------------
-
-    if (is.null(penalty) & is.null(m)) {
-      if (method == "lm") {
-        results <- lapply(intrvls, FUN = function(i) confint.default(object = model, level = i)[var, ])
-      } else if (method == "rlm") {
-        results <- lapply(intrvls, FUN = function(i) confint(object = model, level = i)[var, ])
-      } else if (method == "glm") {
-        results <- lapply(intrvls, FUN = function(i) confint(object = model, level = i, trace = FALSE)[var, ])
-      } else if (method == "aov") {
-        results <- lapply(intrvls, FUN = function(i) confint(object = model, level = i)[var, ])
-      } else if (method == "gls") {
-        results <- lapply(intrvls, FUN = function(i) confint.default(object = model, level = i)[var, ])
-      }
-
-      # Bonferroni adjustment for multiple comparisons --------------------------
-    } else if (penalty == "bonferroni" & m > 1) {
-      bon.adj <- (1 - ((1 - intrvls) / m))
-
-      if (method == "lm") {
-        results <- lapply(bon.adj, FUN = function(i) confint.default(object = model, level = i)[var, ])
-      } else if (method == "rlm") {
-        results <- lapply(bon.adj, FUN = function(i) confint(object = model, level = i)[var, ])
-      } else if (method == "glm") {
-        results <- lapply(bon.adj, FUN = function(i) confint(object = model, level = i, trace = FALSE)[var, ])
-      } else if (method == "aov") {
-        results <- lapply(bon.adj, FUN = function(i) confint(object = model, level = i)[var, ])
-      } else if (method == "gls") {
-        results <- lapply(bon.adj, FUN = function(i) confint.default(object = model, level = i)[var, ])
-      }
-
-      # Sidak adjustment for multiple comparisons -------------------------------
-    } else if (penalty == "sidak" & m > 1) {
-      sidak.adj <- (((intrvls)^(1 / m)))
-
-      if (method == "lm") {
-        results <- lapply(sidak.adj, FUN = function(i) confint.default(object = model, level = i)[var, ])
-      } else if (method == "rlm") {
-        results <- lapply(sidak.adj, FUN = function(i) confint(object = model, level = i)[var, ])
-      } else if (method == "glm") {
-        results <- lapply(sidak.adj, FUN = function(i) confint(object = model, level = i, trace = FALSE)[var, ])
-      } else if (method == "aov") {
-        results <- lapply(sidak.adj, FUN = function(i) confint(object = model, level = i)[var, ])
-      } else if (method == "gls") {
-        results <- lapply(sidak.adj, FUN = function(i) confint.default(object = model, level = i)[var, ])
-      }
-    }
-
-
-    df <- data.frame(do.call(rbind, results))
-
-    if (log == FALSE) {
-      df <- (df)
-    } else if (log == TRUE) {
-      df <- exp(df)
-    }
-
-    intrvl.limit <- c("lower.limit", "upper.limit")
-    colnames(df) <- intrvl.limit
-    df$intrvl.width <- (abs((df$upper.limit) - (df$lower.limit)))
-    df$intrvl.level <- intrvls
-    df$cdf <- (abs(df$intrvl.level / 2)) + 0.5
-    df$pvalue <- 1 - intrvls
-    df$svalue <- -log2(df$pvalue)
-    df <- head(df, -1)
-    class(df) <- c("data.frame", "concurve")
-    densdf <- data.frame(c(df$lower.limit, df$upper.limit))
-    colnames(densdf) <- "x"
-    densdf <- head(densdf, -1)
-    class(densdf) <- c("data.frame", "concurve")
-
-
-    if (table == TRUE) {
-      levels <- c(0.25, 0.50, 0.75, 0.80, 0.85, 0.90, 0.95, 0.975, 0.99)
-      (df_subintervals <- (curve_table(df, levels, type = "c", format = "data.frame")))
-      class(df_subintervals) <- c("data.frame", "concurve")
-      dataframes <- list(df, densdf, df_subintervals)
-      names(dataframes) <- c("Intervals Dataframe", "Intervals Density", "Intervals Table")
-      class(dataframes) <- "concurve"
-      return(dataframes)
-    } else if (table == FALSE) {
-      return(list(df, densdf))
-    }
+curve_gen <- function(model, var, method = "lm", log = FALSE, penalty = NULL, m = NULL,
+                      steps = 1000, cores = getOption("mc.cores", 1L), table = TRUE) {
+  if (is.character(method) != TRUE) {
+    stop("Error: 'method' must be a character vector")
   }
-} else if ((Sys.info()["sysname"]) == "Darwin") {
-  curve_gen <- function(model, var, method = "lm", log = FALSE, penalty = NULL, m = NULL,
-                        steps = 1000, cores = getOption("mc.cores", 1L), table = TRUE) {
-    if (is.character(method) != TRUE) {
-      stop("Error: 'method' must be a character vector")
-    }
-    if (is.numeric(steps) != TRUE) {
-      stop("Error: 'steps' must be a numeric vector")
-    }
+  if (is.numeric(steps) != TRUE) {
+    stop("Error: 'steps' must be a numeric vector")
+  }
 
-    intrvls <- (1:(steps - 1)) / steps
+  intrvls <- (1:(steps - 1)) / steps
 
-    # No adjustment for multiple comparisons ----------------------------------
+  # Adjust the requested levels for multiple comparisons, if asked ------------
 
-    if (is.null(penalty) & is.null(m)) {
-      if (method == "lm") {
-        results <- parallel::mclapply(intrvls, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = cores)
-      } else if (method == "rlm") {
-        results <- parallel::mclapply(intrvls, FUN = function(i) confint(object = model, level = i)[var, ], mc.cores = cores)
-      } else if (method == "glm") {
-        results <- parallel::mclapply(intrvls, FUN = function(i) confint(object = model, level = i, trace = FALSE)[var, ], mc.cores = cores)
-      } else if (method == "aov") {
-        results <- parallel::mclapply(intrvls, FUN = function(i) confint(object = model, level = i)[var, ], mc.cores = cores)
-      } else if (method == "gls") {
-        results <- parallel::mclapply(intrvls, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = cores)
-      }
+  adj_levels <- if (is.null(penalty) && is.null(m)) {
+    intrvls
+  } else if (identical(penalty, "bonferroni") && !is.null(m) && m > 1) {
+    1 - ((1 - intrvls) / m)
+  } else if (identical(penalty, "sidak") && !is.null(m) && m > 1) {
+    intrvls^(1 / m)
+  } else {
+    stop(
+      "Error: 'penalty' must be NULL, \"bonferroni\", or \"sidak\", ",
+      "and 'm' must be greater than 1"
+    )
+  }
 
-      # Bonferroni adjustment for multiple comparisons --------------------------
-    } else if (penalty == "bonferroni" & m > 1) {
-      bon.adj <- (1 - ((1 - intrvls) / m))
+  # Interval function for the requested model type ---------------------------
 
-      if (method == "lm") {
-        results <- parallel::mclapply(bon.adj, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = cores)
-      } else if (method == "rlm") {
-        results <- parallel::mclapply(bon.adj, FUN = function(i) confint(object = model, level = i)[var, ], mc.cores = cores)
-      } else if (method == "glm") {
-        results <- parallel::mclapply(bon.adj, FUN = function(i) confint(object = model, level = i, trace = FALSE)[var, ], mc.cores = cores)
-      } else if (method == "aov") {
-        results <- parallel::mclapply(bon.adj, FUN = function(i) confint(object = model, level = i)[var, ], mc.cores = cores)
-      } else if (method == "gls") {
-        results <- parallel::mclapply(bon.adj, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = cores)
-      }
+  ci_fun <- switch(method,
+    lm = function(i) confint.default(object = model, level = i)[var, ],
+    gls = function(i) confint.default(object = model, level = i)[var, ],
+    rlm = function(i) confint(object = model, level = i)[var, ],
+    aov = function(i) confint(object = model, level = i)[var, ],
+    glm = function(i) confint(object = model, level = i, trace = FALSE)[var, ],
+    stop("Error: 'method' must be one of \"lm\", \"rlm\", \"glm\", \"aov\", or \"gls\"")
+  )
 
-      # Sidak adjustment for multiple comparisons -------------------------------
-    } else if (penalty == "sidak" & m > 1) {
-      sidak.adj <- (((intrvls)^(1 / m)))
+  results <- .curve_apply(adj_levels, ci_fun, cores)
 
-      if (method == "lm") {
-        results <- parallel::mclapply(sidak.adj, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = cores)
-      } else if (method == "rlm") {
-        results <- parallel::mclapply(sidak.adj, FUN = function(i) confint(object = model, level = i)[var, ], mc.cores = cores)
-      } else if (method == "glm") {
-        results <- parallel::mclapply(sidak.adj, FUN = function(i) confint(object = model, level = i, trace = FALSE)[var, ], mc.cores = cores)
-      } else if (method == "aov") {
-        results <- parallel::mclapply(sidak.adj, FUN = function(i) confint(object = model, level = i)[var, ], mc.cores = cores)
-      } else if (method == "gls") {
-        results <- parallel::mclapply(sidak.adj, FUN = function(i) confint.default(object = model, level = i)[var, ], mc.cores = cores)
-      }
-    }
+  df <- data.frame(do.call(rbind, results))
+
+  if (log == FALSE) {
+    df <- (df)
+  } else if (log == TRUE) {
+    df <- exp(df)
+  }
+
+  intrvl.limit <- c("lower.limit", "upper.limit")
+  colnames(df) <- intrvl.limit
+  df$intrvl.width <- (abs((df$upper.limit) - (df$lower.limit)))
+  df$intrvl.level <- intrvls
+  df$cdf <- (abs(df$intrvl.level / 2)) + 0.5
+  df$pvalue <- 1 - intrvls
+  df$svalue <- -log2(df$pvalue)
+  df <- head(df, -1)
+  class(df) <- c("data.frame", "concurve")
+  densdf <- data.frame(c(df$lower.limit, df$upper.limit))
+  colnames(densdf) <- "x"
+  densdf <- head(densdf, -1)
+  class(densdf) <- c("data.frame", "concurve")
 
 
-    df <- data.frame(do.call(rbind, results))
-
-    if (log == FALSE) {
-      df <- (df)
-    } else if (log == TRUE) {
-      df <- exp(df)
-    }
-
-    intrvl.limit <- c("lower.limit", "upper.limit")
-    colnames(df) <- intrvl.limit
-    df$intrvl.width <- (abs((df$upper.limit) - (df$lower.limit)))
-    df$intrvl.level <- intrvls
-    df$cdf <- (abs(df$intrvl.level / 2)) + 0.5
-    df$pvalue <- 1 - intrvls
-    df$svalue <- -log2(df$pvalue)
-    df <- head(df, -1)
-    class(df) <- c("data.frame", "concurve")
-    densdf <- data.frame(c(df$lower.limit, df$upper.limit))
-    colnames(densdf) <- "x"
-    densdf <- head(densdf, -1)
-    class(densdf) <- c("data.frame", "concurve")
+  if (table == TRUE) {
+    levels <- c(0.25, 0.50, 0.75, 0.80, 0.85, 0.90, 0.95, 0.975, 0.99)
+    (df_subintervals <- (curve_table(df, levels, type = "c", format = "data.frame")))
+    class(df_subintervals) <- c("data.frame", "concurve")
+    dataframes <- list(df, densdf, df_subintervals)
+    names(dataframes) <- c("Intervals Dataframe", "Intervals Density", "Intervals Table")
+    class(dataframes) <- "concurve"
+    return(dataframes)
+  } else if (table == FALSE) {
+    return(list(df, densdf))
+  }
+}
 
 
-    if (table == TRUE) {
-      levels <- c(0.25, 0.50, 0.75, 0.80, 0.85, 0.90, 0.95, 0.975, 0.99)
-      (df_subintervals <- (curve_table(df, levels, type = "c", format = "data.frame")))
-      class(df_subintervals) <- c("data.frame", "concurve")
-      dataframes <- list(df, densdf, df_subintervals)
-      names(dataframes) <- c("Intervals Dataframe", "Intervals Density", "Intervals Table")
-      class(dataframes) <- "concurve"
-      return(dataframes)
-    } else if (table == FALSE) {
-      return(list(df, densdf))
-    }
+# Internal: apply FUN over X, in parallel where the platform allows it.
+#
+# parallel::mclapply() parallelises by forking, which is unavailable on
+# Windows, so fall back to lapply() there (and whenever a single core is
+# requested). This is resolved at *call* time; deciding it at install time
+# via Sys.info() bakes the host's OS into the installed package and leaves
+# the function undefined entirely on unhandled platforms such as Linux.
+.curve_apply <- function(X, FUN, cores = 1L) {
+  if (.Platform$OS.type == "windows" || !is.numeric(cores) || cores <= 1L) {
+    lapply(X, FUN)
+  } else {
+    parallel::mclapply(X, FUN, mc.cores = cores)
   }
 }
 
