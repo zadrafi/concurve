@@ -194,7 +194,7 @@
 R Tools</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/zadrafi/concurve/blob/HEAD/vignettes/likelihood-tools.Rmd" class="external-link"><code>vignettes/likelihood-tools.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/zadrafi/concurve/blob/master/vignettes/likelihood-tools.Rmd" class="external-link"><code>vignettes/likelihood-tools.Rmd</code></a></small>
       <div class="hidden name"><code>likelihood-tools.Rmd</code></div>
 
     </div>
@@ -203,7 +203,7 @@ R Tools</h1>
     
 <p>R has no shortage of machinery for building likelihoods:
 <code><a href="https://rdrr.io/r/stats/optim.html" class="external-link">optim()</a></code> and <code><a href="https://rdrr.io/r/stats/optimize.html" class="external-link">optimize()</a></code> in base R,
-<code>maxLik</code>, <code><a href="https://rdrr.io/pkg/bbmle/man/mle2.html" class="external-link">bbmle::mle2()</a></code>,
+<code>maxLik</code>, <code>bbmle::mle2()</code>,
 <code>ProfileLikelihood</code>, and <code>cond</code> for exact
 conditional GLM inference.<span class="citation"><sup><a href="#ref-choiProfileLikelihoodProfileLikelihood2011">1</a></sup></span>
 They look different, but for <code>concurve</code> they all reduce to
@@ -309,33 +309,13 @@ with SEs. To get the function rather than just the point, evaluate the
 profiled log-likelihood on a grid and hand it to the adapter.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">maxLik</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Loading required package: miscTools</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Please cite the 'maxLik' package as:</span></span>
-<span><span class="co">#&gt; Henningsen, Arne and Toomet, Ott (2011). maxLik: A package for maximum likelihood estimation in R. Computational Statistics 26(3), 443-458. DOI 10.1007/s00180-010-0217-1.</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; If you have questions, suggestions, or comments regarding the 'maxLik' package, please use a forum or 'tracker' at maxLik's R-Forge site:</span></span>
-<span><span class="co">#&gt; https://r-forge.r-project.org/projects/maxlik/</span></span>
 <span></span>
 <span><span class="va">loglik_normal</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">theta</span>, <span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">dnorm</a></span><span class="op">(</span><span class="va">x</span>, mean <span class="op">=</span> <span class="va">theta</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">theta</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>, log <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span><span class="va">start</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>mu <span class="op">=</span> <span class="fl">8</span>, sig2 <span class="op">=</span> <span class="fl">9</span><span class="op">)</span></span>
-<span><span class="va">theta_mle</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/maxLik/man/maxLik.html" class="external-link">maxLik</a></span><span class="op">(</span><span class="va">loglik_normal</span>, start <span class="op">=</span> <span class="va">start</span>, x <span class="op">=</span> <span class="va">x</span><span class="op">)</span></span>
+<span><span class="va">theta_mle</span> <span class="op">&lt;-</span> <span class="fu">maxLik</span><span class="op">(</span><span class="va">loglik_normal</span>, start <span class="op">=</span> <span class="va">start</span>, x <span class="op">=</span> <span class="va">x</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">theta_mle</span><span class="op">)</span></span>
-<span><span class="co">#&gt; --------------------------------------------</span></span>
-<span><span class="co">#&gt; Maximum Likelihood estimation</span></span>
-<span><span class="co">#&gt; Newton-Raphson maximisation, 7 iterations</span></span>
-<span><span class="co">#&gt; Return code 8: successive function values within relative tolerance limit (reltol)</span></span>
-<span><span class="co">#&gt; Log-Likelihood: -124.7483 </span></span>
-<span><span class="co">#&gt; 2  free parameters</span></span>
-<span><span class="co">#&gt; Estimates:</span></span>
-<span><span class="co">#&gt;      Estimate Std. error t value  Pr(&gt; t)    </span></span>
-<span><span class="co">#&gt; mu     9.4101     0.4153  22.657  &lt; 2e-16 ***</span></span>
-<span><span class="co">#&gt; sig2   8.6025     1.7124   5.024 5.07e-07 ***</span></span>
-<span><span class="co">#&gt; ---</span></span>
-<span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
-<span><span class="co">#&gt; --------------------------------------------</span></span>
 <span></span>
 <span><span class="co"># profile likelihood for mu, reusing the closed-form sigma^2 profile</span></span>
 <span><span class="va">loglik_mu2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span><span class="va">mu_grid</span>, <span class="kw">function</span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="op">{</span></span>
@@ -346,12 +326,15 @@ profiled log-likelihood on a grid and hand it to the adapter.</p>
 <span>        nullvalue <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef</a></span><span class="op">(</span><span class="va">theta_mle</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">2</span><span class="op">)</span>,</span>
 <span>        xaxis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">mu</span><span class="op">)</span>,</span>
 <span>        title <span class="op">=</span> <span class="st">"Likelihood for the Mean (via maxLik)"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="likelihood-tools_files/figure-html/unnamed-chunk-5-1.png" class="r-plt" alt="" width="576"></p>
+<blockquote>
+<p><code>maxLik</code> is not installed, so this route is not evaluated.
+Install it with <code>install.packages("maxLik")</code> to run it.</p>
+</blockquote>
 </div>
 <div class="section level2">
 <h2 id="route-3-bbmlemle2-with-built-in-profiling">Route 3: <code>bbmle::mle2()</code> with built-in profiling<a class="anchor" aria-label="anchor" href="#route-3-bbmlemle2-with-built-in-profiling"></a>
 </h2>
-<p><code>bbmle</code> is purpose-built for this: <code><a href="https://rdrr.io/pkg/bbmle/man/mle2.html" class="external-link">mle2()</a></code>
+<p><code>bbmle</code> is purpose-built for this: <code>mle2()</code>
 fits by maximum likelihood and <code><a href="https://rdrr.io/r/stats/profile.html" class="external-link">profile()</a></code> returns the
 profile likelihood for each parameter, which is exactly what we want.
 <code>bbmle</code> reports the profile on the <strong>signed square-root
@@ -362,15 +345,9 @@ scale; squaring recovers the deviance, and
 recovers the relative likelihood.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bbolker/bbmle" class="external-link">bbmle</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Loading required package: stats4</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Attaching package: 'bbmle'</span></span>
-<span><span class="co">#&gt; The following object is masked from 'package:miscTools':</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;     stdEr</span></span>
 <span></span>
 <span><span class="va">nll</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">mu</span>, <span class="va">sigma</span><span class="op">)</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">dnorm</a></span><span class="op">(</span><span class="va">x</span>, mean <span class="op">=</span> <span class="va">mu</span>, sd <span class="op">=</span> <span class="va">sigma</span>, log <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/bbmle/man/mle2.html" class="external-link">mle2</a></span><span class="op">(</span><span class="va">nll</span>, start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mu <span class="op">=</span> <span class="fl">8</span>, sigma <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu">mle2</span><span class="op">(</span><span class="va">nll</span>, start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mu <span class="op">=</span> <span class="fl">8</span>, sigma <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">pr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/profile.html" class="external-link">profile</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span>
 <span><span class="va">pr_mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">pr</span><span class="op">)</span>                      <span class="co"># columns: param, z, par.vals...</span></span>
@@ -384,7 +361,10 @@ recovers the relative likelihood.</p>
 <span><span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span><span class="va">lik_bbmle</span>, type <span class="op">=</span> <span class="st">"l1"</span>, nullvalue <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">[</span><span class="st">"mu"</span><span class="op">]</span>, <span class="fl">2</span><span class="op">)</span>,</span>
 <span>        xaxis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">mu</span><span class="op">)</span>,</span>
 <span>        title <span class="op">=</span> <span class="st">"Profile Likelihood for the Mean (via bbmle)"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="likelihood-tools_files/figure-html/unnamed-chunk-7-1.png" class="r-plt" alt="" width="576"></p>
+<blockquote>
+<p><code>bbmle</code> is not installed, so this route is not evaluated.
+Install it with <code>install.packages("bbmle")</code> to run it.</p>
+</blockquote>
 </div>
 <div class="section level2">
 <h2 id="route-4-exact-conditional-glm-inference-with-cond">Route 4: exact conditional GLM inference with <code>cond</code><a class="anchor" aria-label="anchor" href="#route-4-exact-conditional-glm-inference-with-cond"></a>
@@ -398,56 +378,20 @@ same spirit as the exact conditional odds-ratio likelihood in the
 full regression.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.r-project.org" class="external-link">cond</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Loading required package: statmod</span></span>
-<span><span class="co">#&gt; Loading required package: survival</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;    Package "cond" 1.2-4 (2025-05-22) </span></span>
-<span><span class="co">#&gt;     Copyright (C) 2000-2025 A. R. Brazzale</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  This is free software, and you are welcome to redistribute</span></span>
-<span><span class="co">#&gt;  it and/or modify it under the terms of the GNU General</span></span>
-<span><span class="co">#&gt;  Public License published by the Free Software Foundation.</span></span>
-<span><span class="co">#&gt;  Package "cond" comes with ABSOLUTELY NO WARRANTY.</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  type `help(package="cond")' for summary information</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">babies</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">r1</span>, <span class="va">r2</span><span class="op">)</span> <span class="op">~</span> <span class="va">day</span> <span class="op">+</span> <span class="va">lull</span> <span class="op">-</span> <span class="fl">1</span>, family <span class="op">=</span> <span class="va">binomial</span>, data <span class="op">=</span> <span class="va">babies</span><span class="op">)</span></span>
-<span><span class="va">cond_fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/cond/man/cond.html" class="external-link">cond</a></span><span class="op">(</span><span class="va">mod</span>, offset <span class="op">=</span> <span class="va">lullyes</span><span class="op">)</span>   <span class="co"># exact conditional inference for 'lull'</span></span>
+<span><span class="va">cond_fit</span> <span class="op">&lt;-</span> <span class="fu">cond</span><span class="op">(</span><span class="va">mod</span>, offset <span class="op">=</span> <span class="va">lullyes</span><span class="op">)</span>   <span class="co"># exact conditional inference for 'lull'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">cond_fit</span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  Formula:  cbind(r1, r2) ~ day + lull - 1</span></span>
-<span><span class="co">#&gt;  Family:  binomial</span></span>
-<span><span class="co">#&gt;  Offset:  lullyes</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;           Estimate   Std. Error </span></span>
-<span><span class="co">#&gt; uncond.       1.432       0.7341</span></span>
-<span><span class="co">#&gt; cond.         1.270       0.6888</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Confidence intervals</span></span>
-<span><span class="co">#&gt; --------------------</span></span>
-<span><span class="co">#&gt;  level = 95 %</span></span>
-<span><span class="co">#&gt;                                             lower two-sided upper</span></span>
-<span><span class="co">#&gt; Wald pivot                              -0.006514           2.871</span></span>
-<span><span class="co">#&gt; Wald pivot (cond. MLE)                  -0.080180           2.620</span></span>
-<span><span class="co">#&gt; Likelihood root                          0.122800           3.086</span></span>
-<span><span class="co">#&gt; Modified likelihood root                 0.010690           2.755</span></span>
-<span><span class="co">#&gt; Modified likelihood root (cont. corr.)  -0.152300           3.097</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Diagnostics:</span></span>
-<span><span class="co">#&gt; ----------- </span></span>
-<span><span class="co">#&gt;     INF      NP </span></span>
-<span><span class="co">#&gt; 0.07596 0.28882 </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  Approximation based on 20 points</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">cond_fit</span>, which <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>                 <span class="co"># conditional (modified profile) likelihood</span></span></code></pre></div>
-<p><img src="likelihood-tools_files/figure-html/unnamed-chunk-9-1.png" class="r-plt" alt="" width="576"></p>
-<pre><code><span><span class="co">#&gt; Warning in par(old.par): graphical parameter "cin" cannot be set</span></span>
-<span><span class="co">#&gt; Warning in par(old.par): graphical parameter "cra" cannot be set</span></span>
-<span><span class="co">#&gt; Warning in par(old.par): graphical parameter "csi" cannot be set</span></span>
-<span><span class="co">#&gt; Warning in par(old.par): graphical parameter "cxy" cannot be set</span></span>
-<span><span class="co">#&gt; Warning in par(old.par): graphical parameter "din" cannot be set</span></span>
-<span><span class="co">#&gt; Warning in par(old.par): graphical parameter "page" cannot be set</span></span></code></pre>
+<blockquote>
+<p><code>cond</code> is not installed, so this route is not evaluated.
+Install it with <code>install.packages("cond")</code> to run it. Its
+<code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> draws the conditional and modified-profile
+likelihoods directly; to bring them into concurve, pass the object’s
+grid of parameter values and conditional log-likelihood to
+<code>as_concurve_lik()</code>.</p>
+</blockquote>
 <p><code>cond</code> plots the conditional and modified-profile
 likelihoods itself; to render them in <code>concurve</code>, extract its
 grid of values and conditional log-likelihood and pass them to
@@ -464,7 +408,7 @@ variance, not a profile. It peaks in the right place but carries the
 wrong curvature — so every interval read off it is wrong unless
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>σ</mi><mn>2</mn></msup><annotation encoding="application/x-tex">\sigma^2</annotation></semantics></math>
 really is 1.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">loglik_slice</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span><span class="va">mu_grid</span>, <span class="kw">function</span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="op">-</span><span class="fl">0.5</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="va">m</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span>                  <span class="co"># fixes sigma^2 = 1</span></span>
 <span><span class="op">}</span>, <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
@@ -494,7 +438,7 @@ with <code><a href="../reference/plot_compare.html">plot_compare()</a></code> us
 <code><a href="../reference/curve_lik_glm.html">curve_lik_glm()</a></code> and <code><a href="../reference/curve_analytic.html">curve_analytic()</a></code> (this
 section evaluates when those functions are available in your installed
 version of <code>concurve</code>).</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">am</span> <span class="op">~</span> <span class="va">mpg</span>, family <span class="op">=</span> <span class="va">binomial</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
 <span><span class="va">est</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span><span class="op">[</span><span class="st">"mpg"</span><span class="op">]</span></span>
 <span><span class="va">se</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/vcov.html" class="external-link">vcov</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="st">"mpg"</span><span class="op">]</span></span>
@@ -518,7 +462,7 @@ version of the same statement: the 1/6.83 support interval from the
 profile likelihood reproduces the 95% consonance interval from the
 profile-based function, while the Wald consonance interval matches the
 Wald likelihood.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># 95% consonance interval, Wald construction</span></span>
 <span><span class="va">cons</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/curve_analytic.html">curve_analytic</a></span><span class="op">(</span>estimate <span class="op">=</span> <span class="va">est</span>, se <span class="op">=</span> <span class="va">se</span>, dist <span class="op">=</span> <span class="st">"z"</span><span class="op">)</span></span>
 <span><span class="va">ci95</span> <span class="op">&lt;-</span> <span class="va">cons</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html" class="external-link">which.min</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">cons</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">intrvl.level</span> <span class="op">-</span> <span class="fl">0.95</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -557,7 +501,7 @@ dependencies.</p>
 <h2 id="cite-r-packages">Cite R Packages<a class="anchor" aria-label="anchor" href="#cite-r-packages"></a>
 </h2>
 <p>Please remember to cite the packages that you use.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"concurve"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; To cite package 'concurve' in publications use:</span></span>
 <span><span class="co">#&gt; </span></span>
