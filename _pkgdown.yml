@@ -150,6 +150,7 @@ reference:
   desc: Compute consonance and surprisal distributions for a wide range of scenarios,
         along with likelihood functions.
 - contents:
+  - curve_analytic
   - curve_boot
   - curve_corr
   - curve_gen
@@ -158,6 +159,7 @@ reference:
   - curve_mean
   - curve_meta
   - curve_model
+  - curve_region
   - curve_rev
   - curve_surv
   - curve_wrap
@@ -190,6 +192,10 @@ reference:
   desc: Construct likelihood, log-likelihood, profile likelihood, and deviance
         functions from fitted models, and plot them.
 - contents:
+  - as_curve_lik
+  - curve_lik_glm
+  - curve_lik_exact
+  - curve_support
   - construct_likelihood
   - plot.likelihood_function
   - ggplot_likelihood
