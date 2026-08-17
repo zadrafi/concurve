@@ -1,3 +1,81 @@
+# concurve 3.0.0
+
+## Major changes
+
+- New functions for analytic and native likelihood-based inference:
+  - `curve_analytic()` computes consonance intervals directly from
+    closed-form quantile functions (z, t, Fisher-z correlation,
+    chi-squared variance, Wilson-score proportion) instead of
+    numerically inverting `confint()` thousands of times, and is
+    typically orders of magnitude faster.
+  - `curve_region()` computes the confidence-distribution probability
+    that a parameter lies in an arbitrary region, from any `concurve`
+    intervals data frame, along with the counternull value for a
+    supplied null.
+  - `construct_likelihood()` builds likelihood, log-likelihood, score,
+    information, and profile-likelihood functions directly from
+    `lm()`/`glm()` objects (or from scratch), with `coef()`, `vcov()`,
+    `logLik()`, `confint()`, `summary()`, and `plot()` methods.
+  - `as_curve_lik()`, `curve_lik_glm()`, and `curve_lik_exact()`
+    construct native likelihood functions -- from any grid of
+    parameter values and log-likelihood, by direct profiling of a
+    model coefficient, or exactly for common designs (proportions,
+    odds ratios, rate ratios, means, variances, correlations) -- with
+    no dependency beyond base R and `stats`.
+  - `curve_support()` computes likelihood/support intervals at
+    arbitrary relative-likelihood cutoffs.
+  - `ggplot_likelihood()`, `plotly_likelihood()`,
+    `plot_all_parameters()`, `plot_ci_levels()`, and
+    `plot_profile_vs_wald()` add ggplot2 and interactive plotly
+    output, multi-parameter panels, and profile-vs-Wald comparison
+    plots for `construct_likelihood()` objects.
+  - `curve_wrap()` is a generic wrapper that constructs consonance
+    functions from any function that produces confidence intervals.
+  - `curve_from_ratio()` and `curve_from_se()` construct consonance
+    functions from a published ratio estimate, or from a point
+    estimate and its standard error.
+  - `curve_overlap()` quantifies the area of overlap between two
+    consonance functions.
+  - `curve_summary()` summarizes a consonance function at a set of
+    confidence levels.
+  - `plot_multi()` overlays consonance or surprisal functions from
+    several analyses on one plot.
+- Four new articles: "Constructing Valid Likelihood Functions",
+  "Likelihoods with Existing R Tools", "Correlation: Likelihood and
+  P-value Functions", and "Count and Rate Models: Likelihood and
+  P-value Functions".
+- Removed the `pbmcapply` dependency, replaced with base R.
+
+## Bug fixes
+
+- `curve_gen()` was only ever defined when installed on Windows or
+  macOS, due to a check of the installing machine's OS; on Linux the
+  function did not exist at all and the package could not be
+  installed. It is now a single function that dispatches at call time
+  instead.
+- `plot_compare()` was missing its `@export` tag and so was not
+  actually callable after a normal installation, despite being
+  documented and used in several articles.
+- Several functions called functions from `boot`, `dplyr`, `tibble`,
+  `lme4`, `metafor`, `flextable`, `ggplot2`, and `scales` without
+  namespace-qualifying them; depending on which packages happened to
+  already be loaded in a session, these could fail with "could not
+  find function" after a clean install. All such calls are now
+  namespace-qualified.
+- `rlang` and `numDeriv` were used internally but not declared as
+  dependencies; `plotly` is now declared as a Suggested package.
+
+## Minor changes
+
+- Fixed several broken or misplaced articles (including one that had
+  ended up outside the package entirely) and cleaned up missing
+  alt-text on images throughout the documentation site for
+  accessibility; the "Supported Versions" table now indicates support
+  status with text instead of images.
+- Modernized the continuous-integration workflows and fixed the
+  configuration that had been preventing the documentation site from
+  deploying.
+
 # concurve 2.7.7
 
 ## Major changes

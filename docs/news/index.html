@@ -152,6 +152,53 @@
     </div>
 
     <div class="section level2">
+<h2 class="page-header" data-toc-text="3.0.0" id="concurve-300">concurve 3.0.0<a class="anchor" aria-label="anchor" href="#concurve-300"></a></h2>
+<div class="section level3">
+<h3 id="major-changes-3-0-0">Major changes<a class="anchor" aria-label="anchor" href="#major-changes-3-0-0"></a></h3>
+<ul><li>New functions for analytic and native likelihood-based inference:
+<ul><li>
+<code><a href="../reference/curve_analytic.html">curve_analytic()</a></code> computes consonance intervals directly from closed-form quantile functions (z, t, Fisher-z correlation, chi-squared variance, Wilson-score proportion) instead of numerically inverting <code><a href="https://rdrr.io/r/stats/confint.html" class="external-link">confint()</a></code> thousands of times, and is typically orders of magnitude faster.</li>
+<li>
+<code><a href="../reference/curve_region.html">curve_region()</a></code> computes the confidence-distribution probability that a parameter lies in an arbitrary region, from any <code>concurve</code> intervals data frame, along with the counternull value for a supplied null.</li>
+<li>
+<code><a href="../reference/construct_likelihood.html">construct_likelihood()</a></code> builds likelihood, log-likelihood, score, information, and profile-likelihood functions directly from <code><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm()</a></code>/<code><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm()</a></code> objects (or from scratch), with <code><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef()</a></code>, <code><a href="https://rdrr.io/r/stats/vcov.html" class="external-link">vcov()</a></code>, <code><a href="https://rdrr.io/r/stats/logLik.html" class="external-link">logLik()</a></code>, <code><a href="https://rdrr.io/r/stats/confint.html" class="external-link">confint()</a></code>, <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code>, and <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> methods.</li>
+<li>
+<code><a href="../reference/as_curve_lik.html">as_curve_lik()</a></code>, <code><a href="../reference/curve_lik_glm.html">curve_lik_glm()</a></code>, and <code><a href="../reference/curve_lik_exact.html">curve_lik_exact()</a></code> construct native likelihood functions – from any grid of parameter values and log-likelihood, by direct profiling of a model coefficient, or exactly for common designs (proportions, odds ratios, rate ratios, means, variances, correlations) – with no dependency beyond base R and <code>stats</code>.</li>
+<li>
+<code><a href="../reference/curve_support.html">curve_support()</a></code> computes likelihood/support intervals at arbitrary relative-likelihood cutoffs.</li>
+<li>
+<code><a href="../reference/ggplot_likelihood.html">ggplot_likelihood()</a></code>, <code><a href="../reference/plotly_likelihood.html">plotly_likelihood()</a></code>, <code><a href="../reference/plot_all_parameters.html">plot_all_parameters()</a></code>, <code><a href="../reference/plot_ci_levels.html">plot_ci_levels()</a></code>, and <code><a href="../reference/plot_profile_vs_wald.html">plot_profile_vs_wald()</a></code> add ggplot2 and interactive plotly output, multi-parameter panels, and profile-vs-Wald comparison plots for <code><a href="../reference/construct_likelihood.html">construct_likelihood()</a></code> objects.</li>
+<li>
+<code><a href="../reference/curve_wrap.html">curve_wrap()</a></code> is a generic wrapper that constructs consonance functions from any function that produces confidence intervals.</li>
+<li>
+<code><a href="../reference/curve_from_ratio.html">curve_from_ratio()</a></code> and <code><a href="../reference/curve_from_se.html">curve_from_se()</a></code> construct consonance functions from a published ratio estimate, or from a point estimate and its standard error.</li>
+<li>
+<code><a href="../reference/curve_overlap.html">curve_overlap()</a></code> quantifies the area of overlap between two consonance functions.</li>
+<li>
+<code><a href="../reference/curve_summary.html">curve_summary()</a></code> summarizes a consonance function at a set of confidence levels.</li>
+<li>
+<code><a href="../reference/plot_multi.html">plot_multi()</a></code> overlays consonance or surprisal functions from several analyses on one plot.</li>
+</ul></li>
+<li>Four new articles: “Constructing Valid Likelihood Functions”, “Likelihoods with Existing R Tools”, “Correlation: Likelihood and P-value Functions”, and “Count and Rate Models: Likelihood and P-value Functions”.</li>
+<li>Removed the <code>pbmcapply</code> dependency, replaced with base R.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="bug-fixes-3-0-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-3-0-0"></a></h3>
+<ul><li>
+<code><a href="../reference/curve_gen.html">curve_gen()</a></code> was only ever defined when installed on Windows or macOS, due to a check of the installing machine’s OS; on Linux the function did not exist at all and the package could not be installed. It is now a single function that dispatches at call time instead.</li>
+<li>
+<code><a href="../reference/plot_compare.html">plot_compare()</a></code> was missing its <code>@export</code> tag and so was not actually callable after a normal installation, despite being documented and used in several articles.</li>
+<li>Several functions called functions from <code>boot</code>, <code>dplyr</code>, <code>tibble</code>, <code>lme4</code>, <code>metafor</code>, <code>flextable</code>, <code>ggplot2</code>, and <code>scales</code> without namespace-qualifying them; depending on which packages happened to already be loaded in a session, these could fail with “could not find function” after a clean install. All such calls are now namespace-qualified.</li>
+<li>
+<code>rlang</code> and <code>numDeriv</code> were used internally but not declared as dependencies; <code>plotly</code> is now declared as a Suggested package.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="minor-changes-3-0-0">Minor changes<a class="anchor" aria-label="anchor" href="#minor-changes-3-0-0"></a></h3>
+<ul><li>Fixed several broken or misplaced articles (including one that had ended up outside the package entirely) and cleaned up missing alt-text on images throughout the documentation site for accessibility; the “Supported Versions” table now indicates support status with text instead of images.</li>
+<li>Modernized the continuous-integration workflows and fixed the configuration that had been preventing the documentation site from deploying.</li>
+</ul></div>
+</div>
+    <div class="section level2">
 <h2 class="page-header" data-toc-text="2.7.7" id="concurve-277">concurve 2.7.7<small>2020-10-12</small><a class="anchor" aria-label="anchor" href="#concurve-277"></a></h2>
 <div class="section level3">
 <h3 id="major-changes-2-7-7">Major changes<a class="anchor" aria-label="anchor" href="#major-changes-2-7-7"></a></h3>
@@ -228,7 +275,7 @@
 <code>concurve</code> is now intergrated with the <code>cowplot</code> package for easier graphing.</li>
 <li>removed <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble::tibble()</a></code> integration due to breakage in code.</li>
 <li>
-<code><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">expand_scale()</a></code> has been replaced with <code><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">expansion()</a></code> within the inner workings of <code><a href="../reference/ggcurve.html">ggcurve()</a></code> and <code><a href="../reference/plot_compare.html">plot_compare()</a></code> due to the former function (<code><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">expand_scale()</a></code>) being deprecated.</li>
+<code>expand_scale()</code> has been replaced with <code>expansion()</code> within the inner workings of <code><a href="../reference/ggcurve.html">ggcurve()</a></code> and <code><a href="../reference/plot_compare.html">plot_compare()</a></code> due to the former function (<code>expand_scale()</code>) being deprecated.</li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -236,7 +283,7 @@
 <div class="section level3">
 <h3 id="major-changes-2-4-1">Major changes<a class="anchor" aria-label="anchor" href="#major-changes-2-4-1"></a></h3>
 <ul><li>New function <code><a href="../reference/curve_lmer.html">curve_lmer()</a></code> for mixed-effects models</li>
-<li>Fixed a bug where <code><a href="../reference/curve_meta.html">curve_meta()</a></code> could not utilize <code><a href="https://wviechtb.github.io/metafor/reference/rma.mh.html" class="external-link">rma.mh()</a></code> or <code><a href="https://wviechtb.github.io/metafor/reference/rma.peto.html" class="external-link">rma.peto()</a></code> from <code>metafor</code>.</li>
+<li>Fixed a bug where <code><a href="../reference/curve_meta.html">curve_meta()</a></code> could not utilize <code>rma.mh()</code> or <code>rma.peto()</code> from <code>metafor</code>.</li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -255,7 +302,7 @@
 <div class="section level3">
 <h3 id="minor-changes-2-4-0">Minor changes<a class="anchor" aria-label="anchor" href="#minor-changes-2-4-0"></a></h3>
 <ul><li>
-<code><a href="../reference/ggcurve.html">ggcurve()</a></code> theme has been changed from <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw()</a></code> to <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal()</a></code>.</li>
+<code><a href="../reference/ggcurve.html">ggcurve()</a></code> theme has been changed from <code>theme_bw()</code> to <code>theme_minimal()</code>.</li>
 <li>Several new examples in the “<a href="https://data.lesslikely.com/concurve/articles/examples.html" class="external-link">Examples in R</a>” article.</li>
 </ul></div>
 </div>
@@ -314,7 +361,7 @@
 <li>Consonance functions can be plotted as a pyramid (right side up) or inverted (upside down) via the “position” item in <code><a href="../reference/defunct.html">ggconcurve()</a></code>.</li>
 <li>Null values (for means &amp; ratios) can be plotted via the <code><a href="../reference/defunct.html">ggconcurve()</a></code> function to show how much of the interval surrounds it.</li>
 <li>Log transformations included in all the plotting functions for ratio measures.</li>
-<li>Parallel programming has now been implemented into the computations via the <code><a href="https://rdrr.io/r/parallel/mclapply.html" class="external-link">mclapply()</a></code> function from the <em>parallel</em> package.</li>
+<li>Parallel programming has now been implemented into the computations via the <code>mclapply()</code> function from the <em>parallel</em> package.</li>
 </ul></div>
 </div>
     <div class="section level2">
