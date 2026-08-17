@@ -1,7 +1,11 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://stat.lesslikely.com/concurve/404.html</loc></url>
+<url><loc>https://stat.lesslikely.com/concurve/AGENTS.html</loc></url>
 <url><loc>https://stat.lesslikely.com/concurve/CODE_OF_CONDUCT.html</loc></url>
 <url><loc>https://stat.lesslikely.com/concurve/CONTRIBUTING.html</loc></url>
+<url><loc>https://stat.lesslikely.com/concurve/EXECUTIVE_SUMMARY.html</loc></url>
+<url><loc>https://stat.lesslikely.com/concurve/IMPROVEMENTS_CHECKLIST.html</loc></url>
+<url><loc>https://stat.lesslikely.com/concurve/IMPROVEMENTS_SUMMARY.html</loc></url>
 <url><loc>https://stat.lesslikely.com/concurve/ISSUE_TEMPLATE.html</loc></url>
 <url><loc>https://stat.lesslikely.com/concurve/LICENSE-text.html</loc></url>
 <url><loc>https://stat.lesslikely.com/concurve/SUPPORT.html</loc></url>
@@ -11,6 +15,7 @@
 <url><loc>https://stat.lesslikely.com/concurve/articles/examples.html</loc></url>
 <url><loc>https://stat.lesslikely.com/concurve/articles/index.html</loc></url>
 <url><loc>https://stat.lesslikely.com/concurve/articles/likelihood.html</loc></url>
+<url><loc>https://stat.lesslikely.com/concurve/articles/likelihood_visualization_2d.html</loc></url>
 <url><loc>https://stat.lesslikely.com/concurve/articles/literature.html</loc></url>
 <url><loc>https://stat.lesslikely.com/concurve/articles/logistic.html</loc></url>
 <url><loc>https://stat.lesslikely.com/concurve/articles/meta-analysis.html</loc></url>
