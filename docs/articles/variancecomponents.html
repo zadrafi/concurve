@@ -90,6 +90,18 @@
       <a href="../articles/likelihood.html">Profile Likelihoods</a>
     </li>
     <li>
+      <a href="../articles/likelihood-constructions.html">Constructing Valid Likelihood Functions</a>
+    </li>
+    <li>
+      <a href="../articles/likelihood-tools.html">Likelihoods with Existing R Tools</a>
+    </li>
+    <li>
+      <a href="../articles/correlation.html">Correlation: Likelihood and P-value Functions</a>
+    </li>
+    <li>
+      <a href="../articles/poisson-rate.html">Count and Rate Models: Likelihood and P-value Functions</a>
+    </li>
+    <li>
       <a href="../articles/bootstrap.html">Bootstrap and Consonance Functions</a>
     </li>
     <li>
@@ -214,12 +226,12 @@ profiling messages.</p>
 <span></span>
 <span><span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">sample1</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, type <span class="op">=</span> <span class="st">"c"</span>, measure <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please use `linewidth` instead.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">concurve</span> package.</span></span>
-<span><span class="co">#&gt;   Please report the issue at <span style="color: #0000BB; font-style: italic;">&lt;https://github.com/zadrafi/concurve/issues&gt;</span>.</span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once per session.</span></span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">generated.</span></span></span></code></pre></div>
+<span><span class="co">#&gt; ℹ Please use `linewidth` instead.</span></span>
+<span><span class="co">#&gt; ℹ The deprecated feature was likely used in the concurve package.</span></span>
+<span><span class="co">#&gt;   Please report the issue at &lt;https://github.com/zadrafi/concurve/issues&gt;.</span></span>
+<span><span class="co">#&gt; This warning is displayed once per session.</span></span>
+<span><span class="co">#&gt; Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span>
+<span><span class="co">#&gt; generated.</span></span></code></pre></div>
 <p><img src="variancecomponents_files/figure-html/unnamed-chunk-2-1.png" class="r-plt" alt="" width="700"></p>
 <p>Suppose we wanted to study the sources of variability in an
 experiment, which could be used for descriptive purposes or to better
@@ -356,22 +368,23 @@ plot.</p>
 <span><span class="co">#&gt; [1] daewr_1.2-11   lme4_2.0-6     Matrix_1.7-6   concurve_3.0.0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
-<span><span class="co">#&gt;  [1] sass_0.4.10        generics_0.1.4     tidyr_1.3.2        lattice_0.23-1    </span></span>
-<span><span class="co">#&gt;  [5] digest_0.6.39      magrittr_2.0.5     evaluate_1.0.5     grid_4.6.1        </span></span>
-<span><span class="co">#&gt;  [9] RColorBrewer_1.1-3 fastmap_1.2.0      jsonlite_2.0.0     purrr_1.2.2       </span></span>
-<span><span class="co">#&gt; [13] scales_1.4.0       textshaping_1.0.5  jquerylib_0.1.4    reformulas_0.4.4  </span></span>
-<span><span class="co">#&gt; [17] Rdpack_2.6.6       cli_3.6.6          rlang_1.3.0        rbibutils_2.4.1   </span></span>
-<span><span class="co">#&gt; [21] splines_4.6.1      withr_3.0.3        cachem_1.1.0       yaml_2.3.12       </span></span>
-<span><span class="co">#&gt; [25] otel_0.2.0         parallel_4.6.1     tools_4.6.1        nloptr_2.2.1      </span></span>
-<span><span class="co">#&gt; [29] minqa_1.2.8        dplyr_1.2.1        colorspace_2.1-3   ggplot2_4.0.3     </span></span>
-<span><span class="co">#&gt; [33] boot_1.3-32        vctrs_0.7.3        R6_2.6.1           lifecycle_1.0.5   </span></span>
-<span><span class="co">#&gt; [37] fs_2.1.0           htmlwidgets_1.6.4  MASS_7.3-66        ragg_1.5.2        </span></span>
-<span><span class="co">#&gt; [41] pkgconfig_2.0.3    desc_1.4.3         pkgdown_2.2.1      pillar_1.11.1     </span></span>
-<span><span class="co">#&gt; [45] bslib_0.12.0       gtable_0.3.6       Rcpp_1.1.2         glue_1.8.1        </span></span>
-<span><span class="co">#&gt; [49] systemfonts_1.3.2  xfun_0.60          tibble_3.3.1       tidyselect_1.2.1  </span></span>
-<span><span class="co">#&gt; [53] rstudioapi_0.19.0  knitr_1.51         dichromat_2.0-1    farver_2.1.2      </span></span>
-<span><span class="co">#&gt; [57] nlme_3.1-170       htmltools_0.5.9    rmarkdown_2.31     compiler_4.6.1    </span></span>
-<span><span class="co">#&gt; [61] S7_0.2.2</span></span></code></pre>
+<span><span class="co">#&gt;  [1] sass_0.4.10        generics_0.1.4     tidyr_1.3.2        xml2_1.6.0        </span></span>
+<span><span class="co">#&gt;  [5] lattice_0.23-1     digest_0.6.39      magrittr_2.0.5     evaluate_1.0.5    </span></span>
+<span><span class="co">#&gt;  [9] grid_4.6.1         RColorBrewer_1.1-3 fastmap_1.2.0      jsonlite_2.0.0    </span></span>
+<span><span class="co">#&gt; [13] whisker_0.4.1      purrr_1.2.2        scales_1.4.0       textshaping_1.0.5 </span></span>
+<span><span class="co">#&gt; [17] jquerylib_0.1.4    reformulas_0.4.4   Rdpack_2.6.6       cli_3.6.6         </span></span>
+<span><span class="co">#&gt; [21] rlang_1.3.0        rbibutils_2.4.1    splines_4.6.1      withr_3.0.3       </span></span>
+<span><span class="co">#&gt; [25] cachem_1.1.0       yaml_2.3.12        otel_0.2.0         parallel_4.6.1    </span></span>
+<span><span class="co">#&gt; [29] tools_4.6.1        nloptr_2.2.1       memoise_2.0.1      minqa_1.2.8       </span></span>
+<span><span class="co">#&gt; [33] dplyr_1.2.1        colorspace_2.1-3   ggplot2_4.0.3      boot_1.3-32       </span></span>
+<span><span class="co">#&gt; [37] vctrs_0.7.3        R6_2.6.1           lifecycle_1.0.5    fs_2.1.0          </span></span>
+<span><span class="co">#&gt; [41] htmlwidgets_1.6.4  MASS_7.3-66        ragg_1.5.2         pkgconfig_2.0.3   </span></span>
+<span><span class="co">#&gt; [45] desc_1.4.3         pkgdown_2.2.1      pillar_1.11.1      bslib_0.12.0      </span></span>
+<span><span class="co">#&gt; [49] gtable_0.3.6       Rcpp_1.1.2         glue_1.8.1         systemfonts_1.3.2 </span></span>
+<span><span class="co">#&gt; [53] xfun_0.60          tibble_3.3.1       tidyselect_1.2.1   rstudioapi_0.19.0 </span></span>
+<span><span class="co">#&gt; [57] knitr_1.51         dichromat_2.0-1    farver_2.1.2       nlme_3.1-170      </span></span>
+<span><span class="co">#&gt; [61] htmltools_0.5.9    rmarkdown_2.31     compiler_4.6.1     S7_0.2.2          </span></span>
+<span><span class="co">#&gt; [65] downlit_0.4.5</span></span></code></pre>
 <hr>
 </div>
 <div class="section level2">
