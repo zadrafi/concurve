@@ -82,6 +82,7 @@ citation("nlme")
 citation("rstan")
 ```
 
+{% raw %}
     ## To cite RStan in publications use:
     ## 
     ##   Stan Development Team (2025). RStan: the R interface to Stan. R
@@ -96,6 +97,7 @@ citation("rstan")
     ##     year = {2025},
     ##     url = {https://mc-stan.org/},
     ##   }
+{% endraw %}
 
 ``` r
 
