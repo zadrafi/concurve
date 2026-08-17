@@ -90,7 +90,16 @@
       <a href="../articles/likelihood.html">Profile Likelihoods</a>
     </li>
     <li>
+      <a href="../articles/likelihood-constructions.html">Constructing Valid Likelihood Functions</a>
+    </li>
+    <li>
       <a href="../articles/likelihood-tools.html">Likelihoods with Existing R Tools</a>
+    </li>
+    <li>
+      <a href="../articles/correlation.html">Correlation: Likelihood and P-value Functions</a>
+    </li>
+    <li>
+      <a href="../articles/poisson-rate.html">Count and Rate Models: Likelihood and P-value Functions</a>
     </li>
     <li>
       <a href="../articles/bootstrap.html">Bootstrap and Consonance Functions</a>
@@ -354,13 +363,13 @@ argument that almost all the curve functions in the
 <span><span class="co">#&gt; disabled.</span></span></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">func1</span><span class="op">$</span><span class="va">median</span></span>
-<span><span class="co">#&gt; [1] 2.14ms</span></span>
+<span><span class="co">#&gt; [1] 1.5ms</span></span>
 <span><span class="va">func2</span><span class="op">$</span><span class="va">median</span></span>
-<span><span class="co">#&gt; [1] 1.64s</span></span>
+<span><span class="co">#&gt; [1] 1.93s</span></span>
 <span><span class="va">func3</span><span class="op">$</span><span class="va">median</span></span>
-<span><span class="co">#&gt; [1] 2.16ms</span></span>
+<span><span class="co">#&gt; [1] 1.56ms</span></span>
 <span><span class="va">func4</span><span class="op">$</span><span class="va">median</span></span>
-<span><span class="co">#&gt; [1] 1.53s</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 2.86s</span></span></code></pre></div>
 <p>When setting the number of iterations to 100, utilizing
 parallelization doesn’t seem to help much, but when setting the number
 of iterations to 500000 and using multiple cores, there seems to be a
