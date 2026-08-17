@@ -22,5 +22,5 @@ RobustMin <- function(x) {
 }
 
 .onAttach <- function(libname, pkgname) {
-  packageStartupMessage("Please see the documentation on https://data.lesslikely.com/concurve/ or by typing `help(concurve)`")
+  packageStartupMessage("Please see the documentation on https://stat.lesslikely.com/concurve/ or by typing `help(concurve)`")
 }

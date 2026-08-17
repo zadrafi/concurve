@@ -29,7 +29,7 @@ Here are some to-dos for `concurve` in the future.
 * * * 
 * Possibly incorporate `rstan` via `rstantools` to produce likelihoods and posteriors
 
-If you'd like to help contribute, please see the [contributing guide](https://data.lesslikely.com/concurve/CONTRIBUTING.html).
+If you'd like to help contribute, please see the [contributing guide](https://stat.lesslikely.com/concurve/CONTRIBUTING.html).
 
 ### R Package Citations
 

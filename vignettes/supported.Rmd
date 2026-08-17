@@ -52,7 +52,7 @@ changes in arguments to functions, along with new functions. We urge
 users to consult and stay up to date with the documentation, and update
 their `R` packages as frequently as possible. An easy way to remain
 updated is to visit the [package
-website](https://data.lesslikely.com/concurve/), as the newest version
+website](https://stat.lesslikely.com/concurve/), as the newest version
 of the package number will always be on the top left.
 
 ## Previous Versions
@@ -66,7 +66,7 @@ also be [found
 here](https://cloud.r-project.org/web/checks/check_results_concurve.html).
 
 Another useful link will be the
-[NEWS](https://data.lesslikely.com/concurve/news/index.html) section,
+[NEWS](https://stat.lesslikely.com/concurve/news/index.html) section,
 which will inform users of bugs that have been patched and new changes
 to old functions. However, checking `CRAN` is less than desirable, due
 to the fact that new changes (that may even be very important), will
@@ -96,11 +96,11 @@ versions <- c(3.00, 2.77, 2.76, 2.75, 2.70)
 # without relying on alt-text support that kableExtra::spec_image() lacks.
 support <- c(rep("\u2714 Supported", 4), "\u2718 Not Supported")
 information <- c(
-  "[Updates and Information about version 3.0.0](https://data.lesslikely.com/concurve/news/index.html#concurve-3-0-0)",
-  "[Updates and Information about version 2.7.7](https://data.lesslikely.com/concurve/news/index.html#concurve-2-7-7-unreleased)",
-  "[Updates and Information about version 2.7.6](https://data.lesslikely.com/concurve/news/index.html#concurve-2-7-6-unreleased)",
-  "[Updates and Information about version 2.7.5](https://data.lesslikely.com/concurve/news/index.html#concurve-2-7-5-unreleased)",
-  "[Updates and Information about version 2.7.0](https://data.lesslikely.com/concurve/news/index.html#concurve-2-7-0-unreleased)"
+  "[Updates and Information about version 3.0.0](https://stat.lesslikely.com/concurve/news/index.html#concurve-3-0-0)",
+  "[Updates and Information about version 2.7.7](https://stat.lesslikely.com/concurve/news/index.html#concurve-2-7-7-unreleased)",
+  "[Updates and Information about version 2.7.6](https://stat.lesslikely.com/concurve/news/index.html#concurve-2-7-6-unreleased)",
+  "[Updates and Information about version 2.7.5](https://stat.lesslikely.com/concurve/news/index.html#concurve-2-7-5-unreleased)",
+  "[Updates and Information about version 2.7.0](https://stat.lesslikely.com/concurve/news/index.html#concurve-2-7-0-unreleased)"
 )
 
 df <- data.frame(versions, support, information)
@@ -231,7 +231,7 @@ kable(suggests_df,
 ------------------------------------------------------------------------
 
 Please [see
-here](https://data.lesslikely.com/concurve/CONTRIBUTING.html) to report
+here](https://stat.lesslikely.com/concurve/CONTRIBUTING.html) to report
 any vulnerabilities within the package, and to follow best practices for
 reporting any bugs, issues, or concerns. When submitting an issue,
 please try to submit a REPREX, so that the developers may quickly see

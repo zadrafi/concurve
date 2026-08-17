@@ -233,7 +233,7 @@ of the confidence curve and how it relates to the likelihood function,
 and how both of these functions are much richer sources of information
 that single numerical estimates. For more detailed vignettes and
 explanations, please see some of the other articles listed on this [site
-here.](https://data.lesslikely.com/concurve/articles/index.html)
+here.](https://stat.lesslikely.com/concurve/articles/index.html)
 
 # Cite R Packages
 
