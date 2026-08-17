@@ -32,6 +32,7 @@ articles:
   - survival
   - meta-analysis
   - likelihood
+  - likelihood-tools
   - bootstrap
   - bayes
   - variancecomponents
@@ -102,6 +103,8 @@ navbar:
         href: articles/meta-analysis.html
       - text: Profile Likelihoods
         href: articles/likelihood.html
+      - text: Likelihoods with Existing R Tools
+        href: articles/likelihood-tools.html
       - text: Bootstrap and Consonance Functions
         href: articles/bootstrap.html
       - text: Comparison to Bayesian Posteriors
