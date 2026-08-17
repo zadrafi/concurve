@@ -1,0 +1,326 @@
+---
+title: "Constructing Likelihood Functions with Existing R Tools"
+description: "Any tool that returns a (profile) log-likelihood -- optim, maxLik, bbmle, ProfileLikelihood, cond -- can feed a concurve likelihood object through one small adapter."
+output:
+  rmarkdown::html_vignette:
+    toc: true
+opengraph:
+  image:
+    src: "https://res.cloudinary.com/less-likely/image/upload/v1591475692/Site/lfunctions.png"
+  twitter:
+    card: summary
+    creator: "@dailyzad"
+bibliography: references.bib
+link-citations: yes
+csl: american-medical-association.csl
+vignette: >
+  %\VignetteIndexEntry{Constructing Likelihood Functions with Existing R Tools}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  message = TRUE,
+  warning = TRUE,
+  collapse = TRUE,
+  comment = "#>",
+  fig.height = 4.5,
+  fig.width = 6
+)
+library(concurve)
+
+# availability guards -- these packages are illustrative and are NOT concurve
+# dependencies, so every chunk that uses one is gated on it being installed.
+has_maxLik <- requireNamespace("maxLik", quietly = TRUE)
+has_bbmle  <- requireNamespace("bbmle",  quietly = TRUE)
+has_cond   <- requireNamespace("cond",   quietly = TRUE)
+```
+
+R has no shortage of machinery for building likelihoods: `optim()` and
+`optimize()` in base R, `maxLik`, `bbmle::mle2()`, `ProfileLikelihood`,
+and `cond` for exact conditional GLM
+inference.[@choiProfileLikelihoodProfileLikelihood2011] They look
+different, but for `concurve` they all reduce to the same thing: a grid
+of parameter `values` and a **profile** log-likelihood evaluated on it.
+This vignette shows several of those tools feeding one adapter.
+
+> Note: `maxLik`, `bbmle`, and `cond` are not `concurve` dependencies,
+> so the chunks that use them run only if you have them installed. The
+> `optim()` route is base R and always runs.
+
+# One adapter for all of them
+
+Whatever produces the log-likelihood, this helper normalizes it and
+packs it into the five columns `concurve` uses (`values`, `likelihood`,
+`loglikelihood`, `support`, `deviancestat`) --- the object `curve_lik()`
+returns and `ggcurve()` draws.
+
+```{r echo=TRUE}
+as_concurve_lik <- function(values, loglik) {
+  loglik_rel <- loglik - max(loglik)
+  support    <- exp(loglik_rel)
+  df <- data.frame(
+    values        = values,
+    likelihood    = support,
+    loglikelihood = loglik_rel,
+    support       = support,
+    deviancestat  = -loglik_rel
+  )
+  class(df) <- c("data.frame", "concurve")
+  df
+}
+```
+
+The only rule that matters for validity: when the model has more than
+one parameter, the log-likelihood you evaluate at each grid point must
+be **profiled** over the others (maximized over the nuisance
+parameters), not merely sliced at their
+estimates.[@coxTheoreticalStatistics1974] We return to that at the end,
+because it is the single most common way a "likelihood" plot goes wrong.
+
+Some data to reuse:
+
+```{r echo=TRUE}
+set.seed(123)
+x <- rnorm(50, mean = 9.3, sd = 3.2)
+c(mean = mean(x), sd = sd(x))
+```
+
+# Route 1: base R `optim()` (+ observed-information SEs)
+
+Minimize the negative log-likelihood to get the MLE and, from the
+Hessian, the observed-information standard errors --- exactly the
+pattern in the pasted script.
+
+```{r echo=TRUE}
+nll_normal <- function(theta, x) {
+  mu <- theta[1]; sigma <- theta[2]
+  -sum(dnorm(x, mean = mu, sd = sigma, log = TRUE))
+}
+
+fit <- optim(c(mu = 8, sigma = 3), nll_normal, x = x,
+             method = "BFGS", hessian = TRUE)
+fit$par
+sqrt(diag(solve(fit$hessian)))   # SE(mu), SE(sigma)
+```
+
+To turn this into a likelihood *function* for the mean, profile out
+`sigma` at each candidate `mu` --- and here profiling is free, since the
+conditional MLE of `sigma` given `mu` is closed-form.
+
+```{r echo=TRUE}
+n <- length(x)
+mu_grid <- seq(fit$par["mu"] - 3, fit$par["mu"] + 3, length.out = 4000)
+loglik_mu <- vapply(mu_grid, function(m) {
+  sigma2_hat <- mean((x - m)^2)          # profile: MLE of sigma^2 given mu
+  -(n / 2) * (log(2 * pi) + log(sigma2_hat) + 1)
+}, numeric(1))
+
+lik_optim <- as_concurve_lik(mu_grid, loglik_mu)
+
+ggcurve(lik_optim, type = "l1", nullvalue = round(fit$par["mu"], 2),
+        xaxis = expression(mu),
+        title = "Likelihood for the Mean (via optim profiling)")
+```
+
+# Route 2: `maxLik`
+
+`maxLik` maximizes a log-likelihood you supply (returning the value, not
+its negative) and gives a tidy `summary()` with SEs. To get the function
+rather than just the point, evaluate the profiled log-likelihood on a
+grid and hand it to the adapter.
+
+```{r eval=has_maxLik, echo=TRUE}
+library(maxLik)
+
+loglik_normal <- function(theta, x) {
+  sum(dnorm(x, mean = theta[1], sd = sqrt(theta[2]), log = TRUE))
+}
+start <- c(mu = 8, sig2 = 9)
+theta_mle <- maxLik(loglik_normal, start = start, x = x)
+summary(theta_mle)
+
+# profile likelihood for mu, reusing the closed-form sigma^2 profile
+loglik_mu2 <- vapply(mu_grid, function(m) {
+  loglik_normal(c(m, mean((x - m)^2)), x = x)
+}, numeric(1))
+
+ggcurve(as_concurve_lik(mu_grid, loglik_mu2), type = "l1",
+        nullvalue = round(coef(theta_mle)[1], 2),
+        xaxis = expression(mu),
+        title = "Likelihood for the Mean (via maxLik)")
+```
+
+```{r eval=!has_maxLik, echo=FALSE, results="asis"}
+cat("> `maxLik` is not installed, so this route is not evaluated. Install it with `install.packages(\"maxLik\")` to run it.")
+```
+
+# Route 3: `bbmle::mle2()` with built-in profiling
+
+`bbmle` is purpose-built for this: `mle2()` fits by maximum likelihood
+and `profile()` returns the profile likelihood for each parameter, which
+is exactly what we want. `bbmle` reports the profile on the **signed
+square-root deviance** ($z$) scale; squaring recovers the deviance, and
+$\exp(-\tfrac12 z^2)$ recovers the relative likelihood.
+
+```{r eval=has_bbmle, echo=TRUE}
+library(bbmle)
+
+nll <- function(mu, sigma) -sum(dnorm(x, mean = mu, sd = sigma, log = TRUE))
+m <- mle2(nll, start = list(mu = 8, sigma = 3), data = list(x = x))
+
+pr <- profile(m)
+pr_mu <- as.data.frame(pr)                      # columns: param, z, par.vals...
+pr_mu <- pr_mu[pr_mu$param == "mu", ]
+
+mu_vals <- pr_mu[["par.vals.mu"]]
+if (is.null(mu_vals)) mu_vals <- pr_mu[["mu"]]  # column name varies by version
+
+lik_bbmle <- as_concurve_lik(mu_vals, -0.5 * pr_mu$z^2)  # loglik_rel = -z^2/2
+
+ggcurve(lik_bbmle, type = "l1", nullvalue = round(coef(m)["mu"], 2),
+        xaxis = expression(mu),
+        title = "Profile Likelihood for the Mean (via bbmle)")
+```
+
+```{r eval=!has_bbmle, echo=FALSE, results="asis"}
+cat("> `bbmle` is not installed, so this route is not evaluated. Install it with `install.packages(\"bbmle\")` to run it.")
+```
+
+# Route 4: exact conditional GLM inference with `cond`
+
+For a logistic model, `cond` computes higher-order **exact conditional**
+likelihood inference for a coefficient of interest, eliminating the
+nuisance parameters by conditioning rather than by asymptotic
+approximation.[@coxTheoreticalStatistics1974] This is the same spirit as
+the exact conditional odds-ratio likelihood in the *Constructing Valid
+Likelihood Functions* vignette, but for a full regression.
+
+```{r eval=has_cond, echo=TRUE}
+library(cond)
+data(babies)
+
+mod <- glm(cbind(r1, r2) ~ day + lull - 1, family = binomial, data = babies)
+cond_fit <- cond(mod, offset = lullyes)   # exact conditional inference for 'lull'
+summary(cond_fit)
+plot(cond_fit, which = 2)                 # conditional (modified profile) likelihood
+```
+
+```{r eval=!has_cond, echo=FALSE, results="asis"}
+cat("> `cond` is not installed, so this route is not evaluated. Install it with `install.packages(\"cond\")` to run it. Its `plot()` draws the conditional and modified-profile likelihoods directly; to bring them into concurve, pass the object's grid of parameter values and conditional log-likelihood to `as_concurve_lik()`.")
+```
+
+`cond` plots the conditional and modified-profile likelihoods itself; to
+render them in `concurve`, extract its grid of values and conditional
+log-likelihood and pass them to `as_concurve_lik()` as above.
+
+# The pitfall: slicing is not profiling
+
+The pasted script contains a `likelihood.normal.mu(mu, sig2 = 1, x)`
+that fixes $\sigma^2 = 1$. That is a **slice** through the likelihood at
+an assumed variance, not a profile. It peaks in the right place but
+carries the wrong curvature --- so every interval read off it is wrong
+unless $\sigma^2$ really is 1.
+
+```{r echo=TRUE}
+loglik_slice <- vapply(mu_grid, function(m) {
+  -0.5 * sum((x - m)^2)                  # fixes sigma^2 = 1
+}, numeric(1))
+
+lik_slice <- as_concurve_lik(mu_grid, loglik_slice)
+
+ggcurve(lik_slice, type = "l1", nullvalue = round(fit$par["mu"], 2),
+        xaxis = expression(mu),
+        title = "WRONG: mean likelihood with sigma^2 fixed at 1",
+        subtitle = "Too narrow -- the real sigma is about 3.2, not 1")
+```
+
+Compare its width to the profiled version from Route 1: the slice is far
+too tight because it pretends the variance is known and small. When you
+build a likelihood with any of the tools above, profile the nuisance
+parameters --- `optim()` over them, `bbmle::profile()`, `maxLik` on a
+profiled objective, or a package like `cond` that conditions them away
+exactly.[@royallStatisticalEvidenceLikelihood1997;
+@coxTheoreticalStatistics1974]
+
+# Likelihood meets the P-value function
+
+The payoff of building likelihoods properly is that they line up with
+the consonance (P-value) function for the same parameter --- the two are
+coordinate views of one inferential object. Here we make that visible
+with `plot_compare()` using the native constructors `curve_lik_glm()`
+and `curve_analytic()` (this section evaluates when those functions are
+available in your installed version of `concurve`).
+
+```{r echo=FALSE}
+has_native <- exists("curve_lik_glm") && exists("curve_analytic") &&
+  exists("curve_support") && exists("as_curve_lik")
+```
+
+```{r eval=has_native, echo=TRUE}
+mod <- glm(am ~ mpg, family = binomial, data = mtcars)
+est <- coef(mod)["mpg"]
+se  <- sqrt(diag(vcov(mod)))["mpg"]
+
+# profile likelihood: nuisance intercept maximized out at every grid point
+lik_prof <- curve_lik_glm(mod, "mpg", steps = 200)
+
+# Wald likelihood: the normal approximation implied by (est, se) --
+# exactly the likelihood the consonance function from curve_analytic encodes
+grid <- lik_prof[[1]]$values
+lik_wald <- as_curve_lik(grid, dnorm(grid, mean = est, sd = se, log = TRUE))
+
+plot_compare(lik_prof[[1]], lik_wald[[1]], type = "l1",
+             title = "Profile vs Wald Likelihood",
+             subtitle = "Same coefficient; the gap between them is the skew the Wald approximation ignores",
+             xaxis = expression(beta[mpg]))
+```
+
+The two curves agree near the maximum and part company in the shoulders
+--- which is precisely where interval limits live. The numeric version
+of the same statement: the 1/6.83 support interval from the profile
+likelihood reproduces the 95% consonance interval from the profile-based
+function, while the Wald consonance interval matches the Wald
+likelihood.
+
+```{r eval=has_native, echo=TRUE}
+# 95% consonance interval, Wald construction
+cons <- curve_analytic(estimate = est, se = se, dist = "z")
+ci95 <- cons[[1]][which.min(abs(cons[[1]]$intrvl.level - 0.95)),
+                  c("lower.limit", "upper.limit")]
+
+rbind(
+  `profile 1/6.83 support` = unlist(curve_support(lik_prof[[1]], 6.83)[c("lower.limit","upper.limit")]),
+  `Wald    1/6.83 support` = unlist(curve_support(lik_wald[[1]], 6.83)[c("lower.limit","upper.limit")]),
+  `Wald    95% consonance` = unlist(ci95)
+)
+```
+
+The Wald support interval and the Wald consonance interval are identical
+by construction ($e^{-z^2/2}$ at $z = 1.96$ is $1/6.83$); the profile
+versions differ from both exactly as much as the likelihood is skewed.
+Report the profile-based ones.
+
+```{r eval=!has_native, echo=FALSE, results="asis"}
+cat("> This section requires a version of `concurve` that includes the native likelihood constructors (`curve_lik_glm()`, `curve_analytic()`, `curve_support()`, `as_curve_lik()`).")
+```
+
+# Adding these tools to your package
+
+If you want any of the guarded routes to run when the vignettes build on
+CRAN, add the packages to `Suggests` in `DESCRIPTION` (`maxLik`,
+`bbmle`, `cond`) and keep the `requireNamespace()` guards --- that is
+the pattern CRAN expects for optional, illustrative dependencies.
+
+# Cite R Packages
+
+Please remember to cite the packages that you use.
+
+```{r}
+citation("concurve")
+```
+
+# References
+
+------------------------------------------------------------------------
