@@ -1,8 +1,8 @@
-url: https://stat.lesslikely.com/concurve/, https://github.com/zadrafi/concurve
+url: https://stat.lesslikely.com/concurve
 
 title: concurve
 description: An R package that constructs and graphs consonance, surprisal, and likelihood functions.
-  
+
 authors:
   Zad Rafi:
     href: https://twitter.com/dailyzad
@@ -50,7 +50,7 @@ navbar:
       menu:
       - text: Simple Examples in R
         href: articles/examples.html
-      - text: Logistic Regression    
+      - text: Logistic Regression
         href: articles/logistic.html
       - text: Survival Modeling
         href: articles/survival.html
@@ -63,20 +63,20 @@ navbar:
       - text: Comparison to Bayesian Posteriors
         href: articles/bayes.html
       - text: Estimating Variance Components
-        href: articles/variancecomponents.html  
+        href: articles/variancecomponents.html
       - text: Using Stata
         href: articles/stata.html
       - text: Customizing Plots
         href: articles/customizing.html
       - text: Generating Tables
-        href: articles/tables.html  
+        href: articles/tables.html
       - text: Troubleshooting
         href: articles/troubleshooting.html
     misc:
       text: Misc
       menu:
       - text: Surprisal values
-        href: articles/svalues.html  
+        href: articles/svalues.html
     literature:
       text: Literature
       href: articles/literature.html
@@ -100,11 +100,12 @@ reference:
 - contents:
   - concurve-package
 - title: Statistical Computations
-  desc: Compute consonance and surprisal distributions for a wide range of scenarios, 
+  desc: Compute consonance and surprisal distributions for a wide range of scenarios,
         along with likelihood functions.
 - contents:
   - curve_boot
   - curve_corr
+  - curve_gen
   - curve_lik
   - curve_lmer
   - curve_mean
@@ -121,7 +122,7 @@ reference:
   - curve_snowflake
   - curve_snowflake_batch
 - title: Statistical Graphics
-  desc: Plot the overall functions that were computed such as the consonance, 
+  desc: Plot the overall functions that were computed such as the consonance,
         surprisal, and likelihood functions.
 - contents:
   - ggcurve
@@ -138,6 +139,27 @@ reference:
   desc: Export consonance data to other tools and formats.
 - contents:
   - export_for_powerbi
+- title: Likelihood Functions
+  desc: Construct likelihood, log-likelihood, profile likelihood, and deviance
+        functions from fitted models, and plot them.
+- contents:
+  - construct_likelihood
+  - plot.likelihood_function
+  - ggplot_likelihood
+  - plotly_likelihood
+  - plot_all_parameters
+  - plot_ci_levels
+  - plot_profile_vs_wald
+- title: Likelihood Function Methods
+  desc: S3 methods for objects returned by construct_likelihood().
+- contents:
+  - coef.likelihood_function
+  - confint.likelihood_function
+  - logLik.likelihood_function
+  - print.likelihood_function
+  - print.summary.likelihood_function
+  - summary.likelihood_function
+  - vcov.likelihood_function
 - title: Miscellaneous Functions
   desc: Some internal helper functions.
 - contents:
