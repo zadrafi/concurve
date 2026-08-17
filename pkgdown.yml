@@ -7,6 +7,7 @@ articles:
   customizing: customizing.html
   examples: examples.html
   likelihood_visualization_2d: likelihood_visualization_2d.html
+  likelihood-tools: likelihood-tools.html
   likelihood: likelihood.html
   literature: literature.html
   logistic: logistic.html
@@ -17,7 +18,7 @@ articles:
   tables: tables.html
   troubleshooting: troubleshooting.html
   wishlist: wishlist.html
-last_built: 2026-08-17T02:08Z
+last_built: 2026-08-17T19:19Z
 urls:
   reference: https://stat.lesslikely.com/concurve/reference
   article: https://stat.lesslikely.com/concurve/articles
