@@ -206,13 +206,13 @@ func4 <- mark(df1 <- curve_rev(
 ``` r
 
 func1$median
-#> [1] 2.17ms
+#> [1] 2.16ms
 func2$median
-#> [1] 1.69s
+#> [1] 1.64s
 func3$median
 #> [1] 2.15ms
 func4$median
-#> [1] 1.51s
+#> [1] 1.49s
 ```
 
 When setting the number of iterations to 100, utilizing parallelization

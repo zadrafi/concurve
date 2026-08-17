@@ -78,14 +78,6 @@
   package including slow loading of the graphs, warnings, and distorted
   plots.
 
-- [Consonance Functions for Linear Mixed-Effects
-  Models](https://stat.lesslikely.com/concurve/articles/variancecomponents.md):
-
-  This guide walks through how to construct consonance functions in the
-  context of designing and analyzing experiments in which the analyst is
-  interested examining the sources of variability between and within
-  groups.
-
 - [Wish
   List](https://stat.lesslikely.com/concurve/articles/wishlist.md):
 
