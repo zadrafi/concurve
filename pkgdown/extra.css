@@ -237,3 +237,8 @@ pre code {
 }
 
 
+
+/* Smaller table of contents */
+#toc { font-size: 14px; }
+#toc .nav-link, #toc .nav > li > a { font-size: 14px; }
+#toc .nav .nav .nav-link, #toc .nav .nav > li > a { font-size: 12px; }

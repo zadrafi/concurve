@@ -60,7 +60,6 @@
 #' @importFrom scales pretty_breaks
 #' @importFrom colorspace darken
 #' @export
-
 plot_multi <- function(...,
                        type = "c",
                        measure = "default",

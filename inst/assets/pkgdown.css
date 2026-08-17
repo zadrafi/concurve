@@ -333,3 +333,56 @@ nav[data-toggle='toc'] .nav .nav > .active:focus > a {
   font-weight: 500;
   font-size: 18px;
 }
+.headroom--pinned {
+  background-color: rgb(255, 255, 255);
+  color: rgb(33, 37, 41);
+  border-bottom: 1px solid rgb(222, 226, 230);
+}
+
+.navbar-brand {
+  color: rgb(33, 37, 41);
+}
+
+.navbar-expand-lg .navbar-nav .nav-link {
+  color: rgb(33, 37, 41);
+}
+
+.nav-item.active .nav-link {
+  color: rgb(33, 37, 41);
+}
+
+.navbar-expand-lg .navbar-nav .nav-link {
+  color: rgb(33, 37, 41);
+}
+
+.navbar-expand-lg .navbar-nav .nav-link {
+  color: rgb(33, 37, 41);
+}
+
+.navbar-expand-lg .navbar-nav .nav-link {
+  color: rgb(33, 37, 41);
+}
+
+.navbar-expand-lg .navbar-nav .nav-link {
+  color: rgb(33, 37, 41);
+}
+
+.navbar-expand-lg .navbar-nav .nav-link {
+  color: rgb(33, 37, 41);
+}
+
+.navbar-expand-lg .navbar-nav .nav-link {
+  color: rgb(33, 37, 41);
+}
+
+.navbar-expand-lg .navbar-nav .nav-link {
+  color: rgb(33, 37, 41);
+}
+
+.text-muted {
+  color: rgb(33, 37, 41);
+}
+
+.navbar-toggler-icon {
+  filter: invert(0);
+}

@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
 <link rel="icon" sizes="any" href="../favicon.ico">
 <link rel="manifest" href="../site.webmanifest">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/paper/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -90,6 +90,9 @@
       <a href="../articles/likelihood.html">Profile Likelihoods</a>
     </li>
     <li>
+      <a href="../articles/bootstrap.html">Bootstrap and Consonance Functions</a>
+    </li>
+    <li>
       <a href="../articles/bayes.html">Comparison to Bayesian Posteriors</a>
     </li>
     <li>
@@ -132,7 +135,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/news.html">Package Updates</a>
+      <a href="../news/index.html">Package Updates</a>
     </li>
     <li>
       <a href="../articles/supported.html">Supported Versions</a>
@@ -145,8 +148,14 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/zadrafi/concurve">
+  <a href="https://github.com/zadrafi/concurve" class="external-link">
     <span class="fa fa-github fa-lg"></span>
+
+  </a>
+</li>
+<li>
+  <a href="https://twitter.com/dailyzad" class="external-link">
+    <span class="fa fa-twitter fa-lg"></span>
 
   </a>
 </li>
@@ -173,7 +182,7 @@
 Models</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/zadrafi/concurve/blob/HEAD/vignettes/variancecomponents.Rmd"><code>vignettes/variancecomponents.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/zadrafi/concurve/blob/HEAD/vignettes/variancecomponents.Rmd" class="external-link"><code>vignettes/variancecomponents.Rmd</code></a></small>
       <div class="hidden name"><code>variancecomponents.Rmd</code></div>
 
     </div>
@@ -185,20 +194,20 @@ documentation.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="fu">confint.merMod</span><span class="op">(</span><span class="va">fm1</span> <span class="op">&lt;-</span> <span class="fu">lmer</span><span class="op">(</span><span class="va">Reaction</span> <span class="op">~</span> <span class="va">Days</span> <span class="op">+</span> <span class="op">(</span><span class="va">Days</span> <span class="op">|</span> <span class="va">Subject</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">sleepstudy</span>, REML <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Computing profile confidence intervals ...</span></span>
-<span><span class="co">#&gt;                   2.5 %     97.5 %</span></span>
-<span><span class="co">#&gt; .sig01       14.3814729  37.715993</span></span>
-<span><span class="co">#&gt; .sig02       -0.4815007   0.684986</span></span>
-<span><span class="co">#&gt; .sig03        3.8011645   8.753386</span></span>
-<span><span class="co">#&gt; .sigma       22.8982669  28.857997</span></span>
-<span><span class="co">#&gt; (Intercept) 237.6806955 265.129515</span></span>
-<span><span class="co">#&gt; Days          7.3586533  13.575919</span></span></code></pre></div>
+<span><span class="co">#&gt;                   2.5 %      97.5 %</span></span>
+<span><span class="co">#&gt; .sig01       14.3813860  37.7165596</span></span>
+<span><span class="co">#&gt; .sig02        3.8011632   8.7533849</span></span>
+<span><span class="co">#&gt; .sig03       -0.4815008   0.6849863</span></span>
+<span><span class="co">#&gt; .sigma       22.8982669  28.8579965</span></span>
+<span><span class="co">#&gt; (Intercept) 237.6806955 265.1295146</span></span>
+<span><span class="co">#&gt; Days          7.3586533  13.5759187</span></span></code></pre></div>
 <p>There’s our output. Now suppose that we wanted the to see the
 interval estimates and functions of the variable “Days”, here’s how we
 would do it with <code><a href="../reference/curve_lmer.html">curve_lmer()</a></code>. We use
 <code><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressMessages()</a></code> to avoid seeing the long list of
 profiling messages.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://stat.lesslikely.com/concurve/" class="external-link">concurve</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://stat.lesslikely.com/concurve/">concurve</a></span><span class="op">)</span></span>
 <span><span class="va">object1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressMessages</a></span><span class="op">(</span><span class="fu"><a href="../reference/curve_lmer.html">curve_lmer</a></span><span class="op">(</span>object <span class="op">=</span> <span class="va">fm1</span>, parm <span class="op">=</span> <span class="st">"Days"</span>, method <span class="op">=</span> <span class="st">"profile"</span>, steps <span class="op">=</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">sample1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressMessages</a></span><span class="op">(</span><span class="fu"><a href="../reference/curve_lmer.html">curve_lmer</a></span><span class="op">(</span>object <span class="op">=</span> <span class="va">fm1</span>, parm <span class="op">=</span> <span class="st">".sig01"</span>, method <span class="op">=</span> <span class="st">"profile"</span>, steps <span class="op">=</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span></span>
@@ -247,7 +256,7 @@ of moments. However, in certain scenarios, this method is not desirable,
 and the restricted maximum likelihood approach (REML) is preferable.</p>
 <p>Here we show how to do that.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">fm1M</span> <span class="op">&lt;-</span> <span class="fu">lmer</span><span class="op">(</span><span class="va">yield</span> <span class="op">~</span> <span class="fl">1</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">sample</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">Naph</span>, REML <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">fm1M</span> <span class="op">&lt;-</span> <span class="fu">lmer</span><span class="op">(</span> <span class="va">yield</span> <span class="op">~</span> <span class="fl">1</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span> <span class="va">sample</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">Naph</span>, REML <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">fm1M</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Linear mixed model fit by REML ['lmerMod']</span></span>
@@ -281,9 +290,9 @@ components.</p>
 </h3>
 <p>You can also embed plots, for example:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">c1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.5</span>, <span class="op">-</span><span class="fl">.5</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">c1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span> <span class="fl">.5</span>, <span class="op">-</span><span class="fl">.5</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">mod4</span> <span class="op">&lt;-</span> <span class="fu">lmer</span><span class="op">(</span><span class="va">pl</span> <span class="op">~</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">Group</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">Subject</span><span class="op">:</span><span class="va">Group</span><span class="op">)</span> <span class="op">+</span> <span class="va">Period</span> <span class="op">+</span> <span class="va">Treat</span>, contrasts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Group <span class="op">=</span> <span class="va">c1</span>, Period <span class="op">=</span> <span class="va">c1</span>, Treat <span class="op">=</span> <span class="va">c1</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">antifungal</span><span class="op">)</span></span>
+<span><span class="va">mod4</span> <span class="op">&lt;-</span> <span class="fu">lmer</span><span class="op">(</span> <span class="va">pl</span> <span class="op">~</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">Group</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span><span class="va">Subject</span><span class="op">:</span><span class="va">Group</span><span class="op">)</span> <span class="op">+</span> <span class="va">Period</span> <span class="op">+</span> <span class="va">Treat</span>, contrasts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Group <span class="op">=</span> <span class="va">c1</span>, Period <span class="op">=</span> <span class="va">c1</span>, Treat <span class="op">=</span> <span class="va">c1</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">antifungal</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod4</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Linear mixed model fit by REML ['lmerMod']</span></span>
@@ -326,13 +335,13 @@ plot.</p>
 <div class="section level2">
 <h2 id="session-info">Session info<a class="anchor" aria-label="anchor" href="#session-info"></a>
 </h2>
-<pre><code><span><span class="co">#&gt; R version 4.5.2 (2025-10-31)</span></span>
-<span><span class="co">#&gt; Platform: aarch64-apple-darwin20</span></span>
-<span><span class="co">#&gt; Running under: macOS Tahoe 26.3</span></span>
+<pre><code><span><span class="co">#&gt; R version 4.6.1 (2026-06-24)</span></span>
+<span><span class="co">#&gt; Platform: aarch64-apple-darwin25.4.0</span></span>
+<span><span class="co">#&gt; Running under: macOS Golden Gate 27.0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Matrix products: default</span></span>
-<span><span class="co">#&gt; BLAS:   /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib </span></span>
-<span><span class="co">#&gt; LAPACK: /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.1</span></span>
+<span><span class="co">#&gt; BLAS:   /opt/homebrew/Cellar/openblas/0.3.34/lib/libopenblasp-r0.3.34.dylib </span></span>
+<span><span class="co">#&gt; LAPACK: /opt/homebrew/Cellar/r/4.6.1/lib/R/lib/libRlapack.dylib;  LAPACK version 3.12.1</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; locale:</span></span>
 <span><span class="co">#&gt; [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8</span></span>
@@ -344,42 +353,25 @@ plot.</p>
 <span><span class="co">#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; other attached packages:</span></span>
-<span><span class="co">#&gt; [1] daewr_1.2-11   lme4_1.1-38    Matrix_1.7-4   concurve_3.0.0</span></span>
+<span><span class="co">#&gt; [1] daewr_1.2-11   lme4_2.0-6     Matrix_1.7-6   concurve_3.0.0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
-<span><span class="co">#&gt;  [1] tidyselect_1.2.1        dplyr_1.2.0             farver_2.1.2           </span></span>
-<span><span class="co">#&gt;  [4] S7_0.2.1                fastmap_1.2.0           fontquiver_0.2.1       </span></span>
-<span><span class="co">#&gt;  [7] mathjaxr_2.0-0          digest_0.6.39           lifecycle_1.0.5        </span></span>
-<span><span class="co">#&gt; [10] survival_3.8-6          magrittr_2.0.4          compiler_4.5.2         </span></span>
-<span><span class="co">#&gt; [13] rlang_1.1.7             sass_0.4.10             tools_4.5.2            </span></span>
-<span><span class="co">#&gt; [16] yaml_2.3.12             data.table_1.18.2.1     knitr_1.51             </span></span>
-<span><span class="co">#&gt; [19] ggsignif_0.6.4          askpass_1.2.1           htmlwidgets_1.6.4      </span></span>
-<span><span class="co">#&gt; [22] xml2_1.5.2              RColorBrewer_1.1-3      abind_1.4-8            </span></span>
-<span><span class="co">#&gt; [25] withr_3.0.2             numDeriv_2016.8-1.1     purrr_1.2.1            </span></span>
-<span><span class="co">#&gt; [28] desc_1.4.3              bcaboot_0.2-3           grid_4.5.2             </span></span>
-<span><span class="co">#&gt; [31] ggpubr_0.6.2            gdtools_0.5.0           xtable_1.8-4           </span></span>
-<span><span class="co">#&gt; [34] colorspace_2.1-2        ggplot2_4.0.2           scales_1.4.0           </span></span>
-<span><span class="co">#&gt; [37] MASS_7.3-65             dichromat_2.0-0.1       cli_3.6.5              </span></span>
-<span><span class="co">#&gt; [40] rmarkdown_2.30          metafor_4.8-0           reformulas_0.4.4       </span></span>
-<span><span class="co">#&gt; [43] ragg_1.5.0              generics_0.1.4          otel_0.2.0             </span></span>
-<span><span class="co">#&gt; [46] rstudioapi_0.18.0       km.ci_0.5-6             survminer_0.5.1        </span></span>
-<span><span class="co">#&gt; [49] minqa_1.2.8             cachem_1.1.0            splines_4.5.2          </span></span>
-<span><span class="co">#&gt; [52] metadat_1.4-0           parallel_4.5.2          survMisc_0.5.6         </span></span>
-<span><span class="co">#&gt; [55] vctrs_0.7.1             boot_1.3-32             jsonlite_2.0.0         </span></span>
-<span><span class="co">#&gt; [58] fontBitstreamVera_0.1.1 carData_3.0-6           car_3.1-5              </span></span>
-<span><span class="co">#&gt; [61] patchwork_1.3.2         rstatix_0.7.3           Formula_1.2-5          </span></span>
-<span><span class="co">#&gt; [64] pbmcapply_1.5.1         systemfonts_1.3.1       tidyr_1.3.2            </span></span>
-<span><span class="co">#&gt; [67] jquerylib_0.1.4         glue_1.8.0              nloptr_2.2.1           </span></span>
-<span><span class="co">#&gt; [70] pkgdown_2.2.0           flextable_0.9.11        gtable_0.3.6           </span></span>
-<span><span class="co">#&gt; [73] tibble_3.3.1            pillar_1.11.1           htmltools_0.5.9        </span></span>
-<span><span class="co">#&gt; [76] openssl_2.3.4           ProfileLikelihood_1.3   R6_2.6.1               </span></span>
-<span><span class="co">#&gt; [79] KMsurv_0.1-6            Rdpack_2.6.6            textshaping_1.0.4      </span></span>
-<span><span class="co">#&gt; [82] evaluate_1.0.5          lattice_0.22-9          rbibutils_2.4.1        </span></span>
-<span><span class="co">#&gt; [85] backports_1.5.0         broom_1.0.12            fontLiberation_0.1.0   </span></span>
-<span><span class="co">#&gt; [88] bslib_0.10.0            Rcpp_1.1.1              zip_2.3.3              </span></span>
-<span><span class="co">#&gt; [91] uuid_1.2-2              gridExtra_2.3           nlme_3.1-168           </span></span>
-<span><span class="co">#&gt; [94] officer_0.7.3           xfun_0.56               fs_1.6.6               </span></span>
-<span><span class="co">#&gt; [97] zoo_1.8-15              pkgconfig_2.0.3</span></span></code></pre>
+<span><span class="co">#&gt;  [1] sass_0.4.10        generics_0.1.4     tidyr_1.3.2        lattice_0.23-1    </span></span>
+<span><span class="co">#&gt;  [5] digest_0.6.39      magrittr_2.0.5     evaluate_1.0.5     grid_4.6.1        </span></span>
+<span><span class="co">#&gt;  [9] RColorBrewer_1.1-3 fastmap_1.2.0      jsonlite_2.0.0     purrr_1.2.2       </span></span>
+<span><span class="co">#&gt; [13] scales_1.4.0       textshaping_1.0.5  jquerylib_0.1.4    reformulas_0.4.4  </span></span>
+<span><span class="co">#&gt; [17] Rdpack_2.6.6       cli_3.6.6          rlang_1.3.0        rbibutils_2.4.1   </span></span>
+<span><span class="co">#&gt; [21] splines_4.6.1      withr_3.0.3        cachem_1.1.0       yaml_2.3.12       </span></span>
+<span><span class="co">#&gt; [25] otel_0.2.0         parallel_4.6.1     tools_4.6.1        nloptr_2.2.1      </span></span>
+<span><span class="co">#&gt; [29] minqa_1.2.8        dplyr_1.2.1        colorspace_2.1-3   ggplot2_4.0.3     </span></span>
+<span><span class="co">#&gt; [33] boot_1.3-32        vctrs_0.7.3        R6_2.6.1           lifecycle_1.0.5   </span></span>
+<span><span class="co">#&gt; [37] fs_2.1.0           htmlwidgets_1.6.4  MASS_7.3-66        ragg_1.5.2        </span></span>
+<span><span class="co">#&gt; [41] pkgconfig_2.0.3    desc_1.4.3         pkgdown_2.2.1      pillar_1.11.1     </span></span>
+<span><span class="co">#&gt; [45] bslib_0.12.0       gtable_0.3.6       Rcpp_1.1.2         glue_1.8.1        </span></span>
+<span><span class="co">#&gt; [49] systemfonts_1.3.2  xfun_0.60          tibble_3.3.1       tidyselect_1.2.1  </span></span>
+<span><span class="co">#&gt; [53] rstudioapi_0.19.0  knitr_1.51         dichromat_2.0-1    farver_2.1.2      </span></span>
+<span><span class="co">#&gt; [57] nlme_3.1-170       htmltools_0.5.9    rmarkdown_2.31     compiler_4.6.1    </span></span>
+<span><span class="co">#&gt; [61] S7_0.2.2</span></span></code></pre>
 <hr>
 </div>
 <div class="section level2">
@@ -399,12 +391,12 @@ plot.</p>
 
       <footer><div class="copyright">
   <p></p>
-<p>NULL</p>
+<p>Developed by <a href="https://twitter.com/dailyzad" class="external-link">Zad Rafi</a>, <a href="https://www.researchgate.net/profile/Andrew_Vigotsky" class="external-link">Andrew D. Vigotsky</a>.</p>
 </div>
 
 <div class="pkgdown">
   <p></p>
-<p>Developed by Zad Rafi, Andrew D. Vigotsky, and Aaron Caldwell. Provided without <strong>any warranty</strong>.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
       </footer>
@@ -413,10 +405,10 @@ plot.</p>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script><script>
   docsearch({
+    appId: 'VMM13662FC',
 
-
-    apiKey: '328a30be91979e947c28ffd52f604eda',
-    indexName: 'lesslikely-concurve',
+    apiKey: 'f19ae0e3ba80c69747114868874b5f4d',
+    indexName: 'concurveconcurve',
     inputSelector: 'input#search-input.form-control',
     transformData: function(hits) {
       return hits.map(function (hit) {

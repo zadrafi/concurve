@@ -1,0 +1,210 @@
+---
+title: "2D Likelihood Surface Visualization"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{2D Likelihood Surface Visualization}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+\## Overview
+
+Visualizing joint likelihood surfaces reveals:
+
+\- Parameter correlation structure
+
+\- Asymmetry in joint distribution
+
+\- Ridge lines and identifiability issues
+
+\- Differences between profile and Wald methods
+
+\## Plot Types
+
+\### 1. Contour Plots
+
+Shows iso-likelihood contours. Lines represent parameter combinations
+with equal likelihood.
+
+\`\`\`{r contour, eval=FALSE}
+
+plot_2d_contour(lik, param1 = "wt", param2 = "hp")
+
+\`\`\`
+
+\*\*When to use:\*\* Publication figures, comparing multiple confidence
+levels
+
+\### 2. Heatmap
+
+Color-coded likelihood surface.
+
+\`\`\`{r heatmap, eval=FALSE}
+
+plot_2d_heatmap(lik, param1 = "wt", param2 = "hp")
+
+\`\`\`
+
+\*\*When to use:\*\* Presentations, showing local maxima
+
+\### 3. 3D Surface
+
+Interactive 3D view of likelihood surface.
+
+\`\`\`{r 3d, eval=FALSE}
+
+plotly_3d_surface(lik, param1 = "wt", param2 = "hp")
+
+\`\`\`
+
+\*\*When to use:\*\* Exploring complex surfaces, teaching
+
+\### 4. Marginal Distributions
+
+Joint distribution with marginal profiles.
+
+\`\`\`{r marginals, eval=FALSE}
+
+plot_2d_with_marginals(lik, param1 = "wt", param2 = "hp")
+
+\`\`\`
+
+\*\*When to use:\*\* Understanding joint vs marginal inference
+
+\### 5. Correlation Ellipses
+
+Wald-based approximation using covariance matrix.
+
+\`\`\`{r ellipse, eval=FALSE}
+
+plot_correlation_ellipse(lik, param1 = "wt", param2 = "hp")
+
+\`\`\`
+
+\*\*When to use:\*\* Comparing Wald vs profile methods
+
+\### 6. Profile Trace
+
+Shows parameter path during profiling.
+
+\`\`\`{r trace, eval=FALSE}
+
+plot_profile_trace(lik, param1 = "wt", param2 = "hp")
+
+\`\`\`
+
+\*\*When to use:\*\* Diagnosing identifiability issues
+
+\## Interpreting 2D Plots
+
+\### Shape Indicates Correlation
+
+\- \*\*Circular contours\*\*: Parameters uncorrelated
+
+\- \*\*Elliptical contours\*\*: Parameters correlated
+
+\- \*\*Narrow ellipse\*\*: Strong correlation
+
+\- \*\*Tilted ellipse\*\*: Positive/negative correlation
+
+\### Asymmetry
+
+\- \*\*Symmetric\*\*: Normal approximation valid
+
+\- \*\*Asymmetric\*\*: Profile methods more accurate
+
+\- \*\*Ridge\*\*: Identifiability issues
+
+\### Confidence Regions
+
+For 2 parameters, use df=2:
+
+\- 50% region: χ² = 1.39, cutoff = 0.497
+
+\- 68% region: χ² = 2.28, cutoff = 0.317
+
+\- 90% region: χ² = 4.61, cutoff = 0.100
+
+\- 95% region: χ² = 5.99, cutoff = 0.050
+
+\- 99% region: χ² = 9.21, cutoff = 0.010
+
+\## Profile vs Wald Comparison
+
+\`\`\`{r comparison, eval=FALSE}
+
+par(mfrow = c(1, 2))
+
+plot_2d_contour(lik, "wt", "hp", main = "Profile")
+
+plot_correlation_ellipse(lik, "wt", "hp", main = "Wald")
+
+\`\`\`
+
+\*\*Differences indicate:\*\*
+
+\- Non-linearity
+
+\- Small sample effects
+
+\- Boundary issues
+
+\- Profile is more accurate
+
+\## Best Practices
+
+\### Resolution
+
+\- Exploratory: n_points = 30-40
+
+\- Publication: n_points = 50-100
+
+\- High-detail: n_points = 100-200
+
+\### Color Schemes
+
+\- \*\*Viridis\*\*: Colorblind-safe, print-friendly
+
+\- \*\*Heat\*\*: Traditional, high contrast
+
+\- \*\*Blues/Reds\*\*: Single hue, good for overlays
+
+\### Performance
+
+Computing 2D surfaces requires optimization at each grid point.
+
+\*\*Time per grid point:\*\*
+
+\- 2-parameter model: \~0.01s
+
+\- 5-parameter model: \~0.1s
+
+\- 10-parameter model: \~0.5s
+
+\*\*Total time for 50×50 grid:\*\*
+
+\- 2-parameter: \~25s
+
+\- 5-parameter: \~4 min
+
+\- 10-parameter: \~20 min
+
+Use coarser grids (n_points = 30) for exploration.
+
+\## Troubleshooting
+
+\### Optimization failures
+
+Reduce n_points or check model convergence.
+
+\### Flat regions
+
+Parameters not well identified. Check VIF or condition number.
+
+\### Unexpected shapes
+
+May indicate model misspecification or numerical issues.
+
+\### Slow computation
+
+Use parallel processing or reduce resolution.

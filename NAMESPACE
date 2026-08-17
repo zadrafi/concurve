@@ -50,6 +50,7 @@ export(sym)
 export(syms)
 importFrom(colorspace,darken)
 importFrom(dplyr,
+  "%>%",
   bind_rows,
   mutate
 )
@@ -74,6 +75,14 @@ importFrom(ggplot2,
   theme,
   theme_minimal
 )
+importFrom(grDevices,colorRampPalette)
+importFrom(graphics,
+  abline,
+  grid,
+  legend,
+  par,
+  segments
+)
 importFrom(rlang,
   ":=",
   .data,
@@ -86,4 +95,32 @@ importFrom(rlang,
   syms
 )
 importFrom(scales,pretty_breaks)
+importFrom(stats,
+  approxfun,
+  coef,
+  confint,
+  confint.default,
+  cor.test,
+  density,
+  dgamma,
+  gaussian,
+  integrate,
+  median,
+  model.frame,
+  model.matrix,
+  model.response,
+  optim,
+  pnorm,
+  printCoefmat,
+  qchisq,
+  qnorm,
+  quantile,
+  t.test,
+  uniroot,
+  vcov
+)
 importFrom(tidyr,pivot_longer)
+importFrom(utils,
+  head,
+  tail
+)

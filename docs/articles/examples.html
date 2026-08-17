@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
 <link rel="icon" sizes="any" href="../favicon.ico">
 <link rel="manifest" href="../site.webmanifest">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/paper/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -90,6 +90,9 @@
       <a href="../articles/likelihood.html">Profile Likelihoods</a>
     </li>
     <li>
+      <a href="../articles/bootstrap.html">Bootstrap and Consonance Functions</a>
+    </li>
+    <li>
       <a href="../articles/bayes.html">Comparison to Bayesian Posteriors</a>
     </li>
     <li>
@@ -132,7 +135,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/news.html">Package Updates</a>
+      <a href="../news/index.html">Package Updates</a>
     </li>
     <li>
       <a href="../articles/supported.html">Supported Versions</a>
@@ -145,8 +148,14 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/zadrafi/concurve">
+  <a href="https://github.com/zadrafi/concurve" class="external-link">
     <span class="fa fa-github fa-lg"></span>
+
+  </a>
+</li>
+<li>
+  <a href="https://twitter.com/dailyzad" class="external-link">
+    <span class="fa fa-twitter fa-lg"></span>
 
   </a>
 </li>
@@ -173,7 +182,7 @@
       <h1 data-toc-skip>Examples in R</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/zadrafi/concurve/blob/HEAD/vignettes/examples.Rmd"><code>vignettes/examples.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/zadrafi/concurve/blob/HEAD/vignettes/examples.Rmd" class="external-link"><code>vignettes/examples.Rmd</code></a></small>
       <div class="hidden name"><code>examples.Rmd</code></div>
 
     </div>
@@ -200,7 +209,7 @@ references.<span class="citation"><sup><a href="#ref-xieConfidenceDistributionFr
 could generate some normal data and combine two vectors in a
 dataframe,</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://stat.lesslikely.com/concurve/" class="external-link">concurve</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://stat.lesslikely.com/concurve/">concurve</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; Please see the documentation on https://data.lesslikely.com/concurve/ or by typing `help(concurve)`</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1031</span><span class="op">)</span></span>
 <span><span class="va">GroupA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">500</span><span class="op">)</span></span>
@@ -287,98 +296,98 @@ files.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/curve_table.html">curve_table</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">intervalsdf</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, format <span class="op">=</span> <span class="st">"image"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="tabwid">
-<style>.cl-e4a355b4{}.cl-e4973856{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-e4a1304a{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-e4a13f7c{width:1.066in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e4a13f7d{width:1.219in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e4a13f86{width:1.474in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e4a13f87{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e4a13f90{width:0.803in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e4a13f91{width:1.185in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e4a13f9a{width:1.066in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e4a13f9b{width:1.219in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e4a13fa4{width:1.474in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e4a13fa5{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e4a13fae{width:0.803in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e4a13fc2{width:1.185in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e4a13fc3{width:1.066in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e4a13fc4{width:1.219in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e4a13fcc{width:1.474in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e4a13fcd{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e4a13fce{width:0.803in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e4a13fcf{width:1.185in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
-<table data-quarto-disable-processing="true" class="table cl-e4a355b4">
+<style>.cl-df8e0cc8{}.cl-df81349e{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-df8b9e3e{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-df8bade8{width:1.066in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-df8bade9{width:1.219in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-df8badf2{width:1.474in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-df8badf3{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-df8badf4{width:0.803in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-df8badfc{width:1.185in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-df8bae06{width:1.066in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-df8bae07{width:1.219in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-df8bae08{width:1.474in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-df8bae10{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-df8bae11{width:0.803in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-df8bae12{width:1.185in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-df8bae1a{width:1.066in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-df8bae1b{width:1.219in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-df8bae24{width:1.474in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-df8bae25{width:0.668in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-df8bae2e{width:0.803in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-df8bae2f{width:1.185in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
+<table data-quarto-disable-processing="true" class="table cl-df8e0cc8">
 <thead><tr style="overflow-wrap:break-word;">
-<th class="cl-e4a13f7c"><p class="cl-e4a1304a"><span class="cl-e4973856">Lower Limit</span></p></th>
-<th class="cl-e4a13f7c"><p class="cl-e4a1304a"><span class="cl-e4973856">Upper Limit</span></p></th>
-<th class="cl-e4a13f7d"><p class="cl-e4a1304a"><span class="cl-e4973856">Interval Width</span></p></th>
-<th class="cl-e4a13f86"><p class="cl-e4a1304a"><span class="cl-e4973856">Interval Level (%)</span></p></th>
-<th class="cl-e4a13f87"><p class="cl-e4a1304a"><span class="cl-e4973856">CDF</span></p></th>
-<th class="cl-e4a13f90"><p class="cl-e4a1304a"><span class="cl-e4973856">P-value</span></p></th>
-<th class="cl-e4a13f91"><p class="cl-e4a1304a"><span class="cl-e4973856">S-value (bits)</span></p></th>
+<th class="cl-df8bade8"><p class="cl-df8b9e3e"><span class="cl-df81349e">Lower Limit</span></p></th>
+<th class="cl-df8bade8"><p class="cl-df8b9e3e"><span class="cl-df81349e">Upper Limit</span></p></th>
+<th class="cl-df8bade9"><p class="cl-df8b9e3e"><span class="cl-df81349e">Interval Width</span></p></th>
+<th class="cl-df8badf2"><p class="cl-df8b9e3e"><span class="cl-df81349e">Interval Level (%)</span></p></th>
+<th class="cl-df8badf3"><p class="cl-df8b9e3e"><span class="cl-df81349e">CDF</span></p></th>
+<th class="cl-df8badf4"><p class="cl-df8b9e3e"><span class="cl-df81349e">P-value</span></p></th>
+<th class="cl-df8badfc"><p class="cl-df8b9e3e"><span class="cl-df81349e">S-value (bits)</span></p></th>
 </tr></thead>
 <tbody>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-e4a13f9a"><p class="cl-e4a1304a"><span class="cl-e4973856">-0.132</span></p></td>
-<td class="cl-e4a13f9a"><p class="cl-e4a1304a"><span class="cl-e4973856">-0.093</span></p></td>
-<td class="cl-e4a13f9b"><p class="cl-e4a1304a"><span class="cl-e4973856">0.039</span></p></td>
-<td class="cl-e4a13fa4"><p class="cl-e4a1304a"><span class="cl-e4973856">25.0</span></p></td>
-<td class="cl-e4a13fa5"><p class="cl-e4a1304a"><span class="cl-e4973856">0.625</span></p></td>
-<td class="cl-e4a13fae"><p class="cl-e4a1304a"><span class="cl-e4973856">0.750</span></p></td>
-<td class="cl-e4a13fc2"><p class="cl-e4a1304a"><span class="cl-e4973856">0.415</span></p></td>
+<td class="cl-df8bae06"><p class="cl-df8b9e3e"><span class="cl-df81349e">-0.132</span></p></td>
+<td class="cl-df8bae06"><p class="cl-df8b9e3e"><span class="cl-df81349e">-0.093</span></p></td>
+<td class="cl-df8bae07"><p class="cl-df8b9e3e"><span class="cl-df81349e">0.039</span></p></td>
+<td class="cl-df8bae08"><p class="cl-df8b9e3e"><span class="cl-df81349e">25.0</span></p></td>
+<td class="cl-df8bae10"><p class="cl-df8b9e3e"><span class="cl-df81349e">0.625</span></p></td>
+<td class="cl-df8bae11"><p class="cl-df8b9e3e"><span class="cl-df81349e">0.750</span></p></td>
+<td class="cl-df8bae12"><p class="cl-df8b9e3e"><span class="cl-df81349e">0.415</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-e4a13f9a"><p class="cl-e4a1304a"><span class="cl-e4973856">-0.154</span></p></td>
-<td class="cl-e4a13f9a"><p class="cl-e4a1304a"><span class="cl-e4973856">-0.071</span></p></td>
-<td class="cl-e4a13f9b"><p class="cl-e4a1304a"><span class="cl-e4973856">0.083</span></p></td>
-<td class="cl-e4a13fa4"><p class="cl-e4a1304a"><span class="cl-e4973856">50.0</span></p></td>
-<td class="cl-e4a13fa5"><p class="cl-e4a1304a"><span class="cl-e4973856">0.750</span></p></td>
-<td class="cl-e4a13fae"><p class="cl-e4a1304a"><span class="cl-e4973856">0.500</span></p></td>
-<td class="cl-e4a13fc2"><p class="cl-e4a1304a"><span class="cl-e4973856">1.000</span></p></td>
+<td class="cl-df8bae06"><p class="cl-df8b9e3e"><span class="cl-df81349e">-0.154</span></p></td>
+<td class="cl-df8bae06"><p class="cl-df8b9e3e"><span class="cl-df81349e">-0.071</span></p></td>
+<td class="cl-df8bae07"><p class="cl-df8b9e3e"><span class="cl-df81349e">0.083</span></p></td>
+<td class="cl-df8bae08"><p class="cl-df8b9e3e"><span class="cl-df81349e">50.0</span></p></td>
+<td class="cl-df8bae10"><p class="cl-df8b9e3e"><span class="cl-df81349e">0.750</span></p></td>
+<td class="cl-df8bae11"><p class="cl-df8b9e3e"><span class="cl-df81349e">0.500</span></p></td>
+<td class="cl-df8bae12"><p class="cl-df8b9e3e"><span class="cl-df81349e">1.000</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-e4a13f9a"><p class="cl-e4a1304a"><span class="cl-e4973856">-0.183</span></p></td>
-<td class="cl-e4a13f9a"><p class="cl-e4a1304a"><span class="cl-e4973856">-0.042</span></p></td>
-<td class="cl-e4a13f9b"><p class="cl-e4a1304a"><span class="cl-e4973856">0.142</span></p></td>
-<td class="cl-e4a13fa4"><p class="cl-e4a1304a"><span class="cl-e4973856">75.0</span></p></td>
-<td class="cl-e4a13fa5"><p class="cl-e4a1304a"><span class="cl-e4973856">0.875</span></p></td>
-<td class="cl-e4a13fae"><p class="cl-e4a1304a"><span class="cl-e4973856">0.250</span></p></td>
-<td class="cl-e4a13fc2"><p class="cl-e4a1304a"><span class="cl-e4973856">2.000</span></p></td>
+<td class="cl-df8bae06"><p class="cl-df8b9e3e"><span class="cl-df81349e">-0.183</span></p></td>
+<td class="cl-df8bae06"><p class="cl-df8b9e3e"><span class="cl-df81349e">-0.042</span></p></td>
+<td class="cl-df8bae07"><p class="cl-df8b9e3e"><span class="cl-df81349e">0.142</span></p></td>
+<td class="cl-df8bae08"><p class="cl-df8b9e3e"><span class="cl-df81349e">75.0</span></p></td>
+<td class="cl-df8bae10"><p class="cl-df8b9e3e"><span class="cl-df81349e">0.875</span></p></td>
+<td class="cl-df8bae11"><p class="cl-df8b9e3e"><span class="cl-df81349e">0.250</span></p></td>
+<td class="cl-df8bae12"><p class="cl-df8b9e3e"><span class="cl-df81349e">2.000</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-e4a13f9a"><p class="cl-e4a1304a"><span class="cl-e4973856">-0.192</span></p></td>
-<td class="cl-e4a13f9a"><p class="cl-e4a1304a"><span class="cl-e4973856">-0.034</span></p></td>
-<td class="cl-e4a13f9b"><p class="cl-e4a1304a"><span class="cl-e4973856">0.158</span></p></td>
-<td class="cl-e4a13fa4"><p class="cl-e4a1304a"><span class="cl-e4973856">80.0</span></p></td>
-<td class="cl-e4a13fa5"><p class="cl-e4a1304a"><span class="cl-e4973856">0.900</span></p></td>
-<td class="cl-e4a13fae"><p class="cl-e4a1304a"><span class="cl-e4973856">0.200</span></p></td>
-<td class="cl-e4a13fc2"><p class="cl-e4a1304a"><span class="cl-e4973856">2.322</span></p></td>
+<td class="cl-df8bae06"><p class="cl-df8b9e3e"><span class="cl-df81349e">-0.192</span></p></td>
+<td class="cl-df8bae06"><p class="cl-df8b9e3e"><span class="cl-df81349e">-0.034</span></p></td>
+<td class="cl-df8bae07"><p class="cl-df8b9e3e"><span class="cl-df81349e">0.158</span></p></td>
+<td class="cl-df8bae08"><p class="cl-df8b9e3e"><span class="cl-df81349e">80.0</span></p></td>
+<td class="cl-df8bae10"><p class="cl-df8b9e3e"><span class="cl-df81349e">0.900</span></p></td>
+<td class="cl-df8bae11"><p class="cl-df8b9e3e"><span class="cl-df81349e">0.200</span></p></td>
+<td class="cl-df8bae12"><p class="cl-df8b9e3e"><span class="cl-df81349e">2.322</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-e4a13f9a"><p class="cl-e4a1304a"><span class="cl-e4973856">-0.201</span></p></td>
-<td class="cl-e4a13f9a"><p class="cl-e4a1304a"><span class="cl-e4973856">-0.024</span></p></td>
-<td class="cl-e4a13f9b"><p class="cl-e4a1304a"><span class="cl-e4973856">0.177</span></p></td>
-<td class="cl-e4a13fa4"><p class="cl-e4a1304a"><span class="cl-e4973856">85.0</span></p></td>
-<td class="cl-e4a13fa5"><p class="cl-e4a1304a"><span class="cl-e4973856">0.925</span></p></td>
-<td class="cl-e4a13fae"><p class="cl-e4a1304a"><span class="cl-e4973856">0.150</span></p></td>
-<td class="cl-e4a13fc2"><p class="cl-e4a1304a"><span class="cl-e4973856">2.737</span></p></td>
+<td class="cl-df8bae06"><p class="cl-df8b9e3e"><span class="cl-df81349e">-0.201</span></p></td>
+<td class="cl-df8bae06"><p class="cl-df8b9e3e"><span class="cl-df81349e">-0.024</span></p></td>
+<td class="cl-df8bae07"><p class="cl-df8b9e3e"><span class="cl-df81349e">0.177</span></p></td>
+<td class="cl-df8bae08"><p class="cl-df8b9e3e"><span class="cl-df81349e">85.0</span></p></td>
+<td class="cl-df8bae10"><p class="cl-df8b9e3e"><span class="cl-df81349e">0.925</span></p></td>
+<td class="cl-df8bae11"><p class="cl-df8b9e3e"><span class="cl-df81349e">0.150</span></p></td>
+<td class="cl-df8bae12"><p class="cl-df8b9e3e"><span class="cl-df81349e">2.737</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-e4a13f9a"><p class="cl-e4a1304a"><span class="cl-e4973856">-0.214</span></p></td>
-<td class="cl-e4a13f9a"><p class="cl-e4a1304a"><span class="cl-e4973856">-0.011</span></p></td>
-<td class="cl-e4a13f9b"><p class="cl-e4a1304a"><span class="cl-e4973856">0.203</span></p></td>
-<td class="cl-e4a13fa4"><p class="cl-e4a1304a"><span class="cl-e4973856">90.0</span></p></td>
-<td class="cl-e4a13fa5"><p class="cl-e4a1304a"><span class="cl-e4973856">0.950</span></p></td>
-<td class="cl-e4a13fae"><p class="cl-e4a1304a"><span class="cl-e4973856">0.100</span></p></td>
-<td class="cl-e4a13fc2"><p class="cl-e4a1304a"><span class="cl-e4973856">3.322</span></p></td>
+<td class="cl-df8bae06"><p class="cl-df8b9e3e"><span class="cl-df81349e">-0.214</span></p></td>
+<td class="cl-df8bae06"><p class="cl-df8b9e3e"><span class="cl-df81349e">-0.011</span></p></td>
+<td class="cl-df8bae07"><p class="cl-df8b9e3e"><span class="cl-df81349e">0.203</span></p></td>
+<td class="cl-df8bae08"><p class="cl-df8b9e3e"><span class="cl-df81349e">90.0</span></p></td>
+<td class="cl-df8bae10"><p class="cl-df8b9e3e"><span class="cl-df81349e">0.950</span></p></td>
+<td class="cl-df8bae11"><p class="cl-df8b9e3e"><span class="cl-df81349e">0.100</span></p></td>
+<td class="cl-df8bae12"><p class="cl-df8b9e3e"><span class="cl-df81349e">3.322</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-e4a13f9a"><p class="cl-e4a1304a"><span class="cl-e4973856">-0.233</span></p></td>
-<td class="cl-e4a13f9a"><p class="cl-e4a1304a"><span class="cl-e4973856">0.008</span></p></td>
-<td class="cl-e4a13f9b"><p class="cl-e4a1304a"><span class="cl-e4973856">0.242</span></p></td>
-<td class="cl-e4a13fa4"><p class="cl-e4a1304a"><span class="cl-e4973856">95.0</span></p></td>
-<td class="cl-e4a13fa5"><p class="cl-e4a1304a"><span class="cl-e4973856">0.975</span></p></td>
-<td class="cl-e4a13fae"><p class="cl-e4a1304a"><span class="cl-e4973856">0.050</span></p></td>
-<td class="cl-e4a13fc2"><p class="cl-e4a1304a"><span class="cl-e4973856">4.322</span></p></td>
+<td class="cl-df8bae06"><p class="cl-df8b9e3e"><span class="cl-df81349e">-0.233</span></p></td>
+<td class="cl-df8bae06"><p class="cl-df8b9e3e"><span class="cl-df81349e">0.008</span></p></td>
+<td class="cl-df8bae07"><p class="cl-df8b9e3e"><span class="cl-df81349e">0.242</span></p></td>
+<td class="cl-df8bae08"><p class="cl-df8b9e3e"><span class="cl-df81349e">95.0</span></p></td>
+<td class="cl-df8bae10"><p class="cl-df8b9e3e"><span class="cl-df81349e">0.975</span></p></td>
+<td class="cl-df8bae11"><p class="cl-df8b9e3e"><span class="cl-df81349e">0.050</span></p></td>
+<td class="cl-df8bae12"><p class="cl-df8b9e3e"><span class="cl-df81349e">4.322</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-e4a13f9a"><p class="cl-e4a1304a"><span class="cl-e4973856">-0.251</span></p></td>
-<td class="cl-e4a13f9a"><p class="cl-e4a1304a"><span class="cl-e4973856">0.026</span></p></td>
-<td class="cl-e4a13f9b"><p class="cl-e4a1304a"><span class="cl-e4973856">0.276</span></p></td>
-<td class="cl-e4a13fa4"><p class="cl-e4a1304a"><span class="cl-e4973856">97.5</span></p></td>
-<td class="cl-e4a13fa5"><p class="cl-e4a1304a"><span class="cl-e4973856">0.988</span></p></td>
-<td class="cl-e4a13fae"><p class="cl-e4a1304a"><span class="cl-e4973856">0.025</span></p></td>
-<td class="cl-e4a13fc2"><p class="cl-e4a1304a"><span class="cl-e4973856">5.322</span></p></td>
+<td class="cl-df8bae06"><p class="cl-df8b9e3e"><span class="cl-df81349e">-0.251</span></p></td>
+<td class="cl-df8bae06"><p class="cl-df8b9e3e"><span class="cl-df81349e">0.026</span></p></td>
+<td class="cl-df8bae07"><p class="cl-df8b9e3e"><span class="cl-df81349e">0.276</span></p></td>
+<td class="cl-df8bae08"><p class="cl-df8b9e3e"><span class="cl-df81349e">97.5</span></p></td>
+<td class="cl-df8bae10"><p class="cl-df8b9e3e"><span class="cl-df81349e">0.988</span></p></td>
+<td class="cl-df8bae11"><p class="cl-df8b9e3e"><span class="cl-df81349e">0.025</span></p></td>
+<td class="cl-df8bae12"><p class="cl-df8b9e3e"><span class="cl-df81349e">5.322</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-e4a13fc3"><p class="cl-e4a1304a"><span class="cl-e4973856">-0.271</span></p></td>
-<td class="cl-e4a13fc3"><p class="cl-e4a1304a"><span class="cl-e4973856">0.046</span></p></td>
-<td class="cl-e4a13fc4"><p class="cl-e4a1304a"><span class="cl-e4973856">0.318</span></p></td>
-<td class="cl-e4a13fcc"><p class="cl-e4a1304a"><span class="cl-e4973856">99.0</span></p></td>
-<td class="cl-e4a13fcd"><p class="cl-e4a1304a"><span class="cl-e4973856">0.995</span></p></td>
-<td class="cl-e4a13fce"><p class="cl-e4a1304a"><span class="cl-e4973856">0.010</span></p></td>
-<td class="cl-e4a13fcf"><p class="cl-e4a1304a"><span class="cl-e4973856">6.644</span></p></td>
+<td class="cl-df8bae1a"><p class="cl-df8b9e3e"><span class="cl-df81349e">-0.271</span></p></td>
+<td class="cl-df8bae1a"><p class="cl-df8b9e3e"><span class="cl-df81349e">0.046</span></p></td>
+<td class="cl-df8bae1b"><p class="cl-df8b9e3e"><span class="cl-df81349e">0.318</span></p></td>
+<td class="cl-df8bae24"><p class="cl-df8b9e3e"><span class="cl-df81349e">99.0</span></p></td>
+<td class="cl-df8bae25"><p class="cl-df8b9e3e"><span class="cl-df81349e">0.995</span></p></td>
+<td class="cl-df8bae2e"><p class="cl-df8b9e3e"><span class="cl-df81349e">0.010</span></p></td>
+<td class="cl-df8bae2f"><p class="cl-df8b9e3e"><span class="cl-df81349e">6.644</span></p></td>
 </tr>
 </tbody>
 </table>
@@ -398,7 +407,7 @@ see in the real world, but that serves as a great tutorial.</p>
 <span><span class="va">GroupB2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">500</span><span class="op">)</span></span>
 <span><span class="va">RandomData2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">GroupA2</span>, <span class="va">GroupB2</span><span class="op">)</span></span>
 <span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">GroupA2</span> <span class="op">~</span> <span class="va">GroupB2</span>, data <span class="op">=</span> <span class="va">RandomData2</span><span class="op">)</span></span>
-<span><span class="va">randomframe</span> <span class="op">&lt;-</span> <span class="fu">curve_gen</span><span class="op">(</span><span class="va">model</span>, <span class="st">"GroupB2"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">randomframe</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/curve_gen.html">curve_gen</a></span><span class="op">(</span><span class="va">model</span>, <span class="st">"GroupB2"</span><span class="op">)</span></span></code></pre></div>
 <p>Once again, we’ll plot this data with <code><a href="../reference/ggcurve.html">ggcurve()</a></code>. We can
 also indicate whether we want certain interval estimates to be plotted
 in the function with the “<code>levels</code>” argument. If we wanted to
@@ -409,20 +418,14 @@ plot the <strong>50</strong>%, <strong>75</strong>%, and
 <p><img src="examples_files/figure-html/unnamed-chunk-9-1.png" class="r-plt" alt="" width="576"></p>
 <p>Now that we have two datasets, and two functions, we can compare them
 using the <code><a href="../reference/plot_compare.html">plot_compare()</a></code> function.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="op">(</span><span class="fu"><a href="../reference/plot_compare.html">plot_compare</a></span><span class="op">(</span></span>
-<span>  data1 <span class="op">=</span> <span class="va">intervalsdf</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, data2 <span class="op">=</span> <span class="va">randomframe</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, type <span class="op">=</span> <span class="st">"c"</span>,</span>
-<span>  measure <span class="op">=</span> <span class="st">"default"</span>, nullvalue <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="examples_files/figure-html/unnamed-chunk-10-1.png" class="r-plt" alt="" width="576"></p>
 <p>This function will provide us with the area that is shared between
 the curve, along with a ratio of overlap to non-overlap.</p>
 <p>Another way to compare the functions is to use the
 <code>cowplot</code> &amp; <code><a href="https://wilkelab.org/cowplot/reference/plot_grid.html" class="external-link">plot_grid()</a></code> functions, which I
 am mostly beginning to lean towards to.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/plot_grid.html" class="external-link">plot_grid</a></span><span class="op">(</span><span class="va">function1</span>, <span class="va">function2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="examples_files/figure-html/unnamed-chunk-11-1.png" class="r-plt" alt="" width="700"></p>
+<p><img src="examples_files/figure-html/unnamed-chunk-10-1.png" class="r-plt" alt="" width="700"></p>
 <p>It’s clear that the outputs have changed and indicate far more
 overlap than before. A very useful and easy way to spot differences or
 lack of them.</p>
@@ -452,48 +455,36 @@ results.</p>
 <p>Here I take the reported effect estimates from both studies, the
 confidence limits, and use them to reconstruct entire confidence curves
 to show how much the results truly differed.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">curve1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/curve_rev.html">curve_rev</a></span><span class="op">(</span>point <span class="op">=</span> <span class="fl">1.7</span>, LL <span class="op">=</span> <span class="fl">1.1</span>, UL <span class="op">=</span> <span class="fl">2.6</span>, type <span class="op">=</span> <span class="st">"c"</span>, measure <span class="op">=</span> <span class="st">"ratio"</span>, steps <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.2194431</span></span>
 <span><span class="op">(</span><span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">curve1</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, type <span class="op">=</span> <span class="st">"c"</span>, measure <span class="op">=</span> <span class="st">"ratio"</span>, nullvalue <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="examples_files/figure-html/unnamed-chunk-12-1.png" class="r-plt" alt="" width="576"></p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<p><img src="examples_files/figure-html/unnamed-chunk-11-1.png" class="r-plt" alt="" width="576"></p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">curve2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/curve_rev.html">curve_rev</a></span><span class="op">(</span>point <span class="op">=</span> <span class="fl">1.61</span>, LL <span class="op">=</span> <span class="fl">0.997</span>, UL <span class="op">=</span> <span class="fl">2.59</span>, type <span class="op">=</span> <span class="st">"c"</span>, measure <span class="op">=</span> <span class="st">"ratio"</span>, steps <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.2435408</span></span>
 <span><span class="op">(</span><span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">curve2</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, type <span class="op">=</span> <span class="st">"c"</span>, measure <span class="op">=</span> <span class="st">"ratio"</span>, nullvalue <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="examples_files/figure-html/unnamed-chunk-12-2.png" class="r-plt" alt="" width="576"></p>
+<p><img src="examples_files/figure-html/unnamed-chunk-11-2.png" class="r-plt" alt="" width="576"></p>
 <p>The null value is shown via the red line and a large portion of bnoth
 of the confidence curves are away from it. We can also see this by
 plotting the likelihood functions via the <code><a href="../reference/curve_rev.html">curve_rev()</a></code>
 function.</p>
 <p>We can specify that we want a likelihood function using curve_rev()
 by specifying “l” for the type argument.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lik1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/curve_rev.html">curve_rev</a></span><span class="op">(</span>point <span class="op">=</span> <span class="fl">1.7</span>, LL <span class="op">=</span> <span class="fl">1.1</span>, UL <span class="op">=</span> <span class="fl">2.6</span>, type <span class="op">=</span> <span class="st">"l"</span>, measure <span class="op">=</span> <span class="st">"ratio"</span>, steps <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.2194431</span></span>
 <span><span class="op">(</span><span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">lik1</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, type <span class="op">=</span> <span class="st">"l1"</span>, measure <span class="op">=</span> <span class="st">"ratio"</span>, nullvalue <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="examples_files/figure-html/unnamed-chunk-13-1.png" class="r-plt" alt="" width="576"></p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<p><img src="examples_files/figure-html/unnamed-chunk-12-1.png" class="r-plt" alt="" width="576"></p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lik2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/curve_rev.html">curve_rev</a></span><span class="op">(</span>point <span class="op">=</span> <span class="fl">1.61</span>, LL <span class="op">=</span> <span class="fl">0.997</span>, UL <span class="op">=</span> <span class="fl">2.59</span>, type <span class="op">=</span> <span class="st">"l"</span>, measure <span class="op">=</span> <span class="st">"ratio"</span>, steps <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.2435408</span></span>
 <span><span class="op">(</span><span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">lik2</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, type <span class="op">=</span> <span class="st">"l1"</span>, measure <span class="op">=</span> <span class="st">"ratio"</span>, nullvalue <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="examples_files/figure-html/unnamed-chunk-13-2.png" class="r-plt" alt="" width="576"></p>
+<p><img src="examples_files/figure-html/unnamed-chunk-12-2.png" class="r-plt" alt="" width="576"></p>
 <p>We can also view the amount of agreement between the likelihood
 functions of these two studies using the plot_compare function and
 producing areas shared between the curves.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="op">(</span><span class="fu"><a href="../reference/plot_compare.html">plot_compare</a></span><span class="op">(</span></span>
-<span>  data1 <span class="op">=</span> <span class="va">lik1</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, data2 <span class="op">=</span> <span class="va">lik2</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, type <span class="op">=</span> <span class="st">"l1"</span>, measure <span class="op">=</span> <span class="st">"ratio"</span>, nullvalue <span class="op">=</span> <span class="cn">TRUE</span>, title <span class="op">=</span> <span class="st">"Brown et al. 2017. J Clin Psychiatry. vs. \nBrown et al. 2017. JAMA."</span>,</span>
-<span>  subtitle <span class="op">=</span> <span class="st">"J Clin Psychiatry: OR = 1.7, 1/6.83 LI: LL = 1.1, UL = 2.6 \nJAMA: HR = 1.61, 1/6.83 LI: LL = 0.997, UL = 2.59"</span>, xaxis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">Theta</span> <span class="op">~</span> <span class="st">"= Hazard Ratio / Odds Ratio"</span><span class="op">)</span></span>
-<span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="examples_files/figure-html/unnamed-chunk-14-1.png" class="r-plt" alt="" width="576"></p>
 <p>We can also do the same with the confidence curves.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="op">(</span><span class="fu"><a href="../reference/plot_compare.html">plot_compare</a></span><span class="op">(</span></span>
-<span>  data1 <span class="op">=</span> <span class="va">curve1</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, data2 <span class="op">=</span> <span class="va">curve2</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, type <span class="op">=</span> <span class="st">"c"</span>, measure <span class="op">=</span> <span class="st">"ratio"</span>, nullvalue <span class="op">=</span> <span class="cn">TRUE</span>, title <span class="op">=</span> <span class="st">"Brown et al. 2017. J Clin Psychiatry. vs. \nBrown et al. 2017. JAMA."</span>,</span>
-<span>  subtitle <span class="op">=</span> <span class="st">"J Clin Psychiatry: OR = 1.7, 1/6.83 LI: LL = 1.1, UL = 2.6 \nJAMA: HR = 1.61, 1/6.83 LI: LL = 0.997, UL = 2.59"</span>, xaxis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">Theta</span> <span class="op">~</span> <span class="st">"= Hazard Ratio / Odds Ratio"</span><span class="op">)</span></span>
-<span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="examples_files/figure-html/unnamed-chunk-15-1.png" class="r-plt" alt="" width="576"></p>
 <p>This vignette was meant to be a very simple introduction to the
 concept of the confidence curve and how it relates to the likelihood
 function, and how both of these functions are much richer sources of
@@ -506,7 +497,7 @@ here.</a></p>
 <h2 id="cite-r-packages">Cite R Packages<a class="anchor" aria-label="anchor" href="#cite-r-packages"></a>
 </h2>
 <p>Please remember to cite the R packages that you use in your work.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"concurve"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; To cite package 'concurve' in publications use:</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -711,12 +702,12 @@ review and meta-analysis. <em>The Journal of Clinical Psychiatry</em>.
 
       <footer><div class="copyright">
   <p></p>
-<p>NULL</p>
+<p>Developed by <a href="https://twitter.com/dailyzad" class="external-link">Zad Rafi</a>, <a href="https://www.researchgate.net/profile/Andrew_Vigotsky" class="external-link">Andrew D. Vigotsky</a>.</p>
 </div>
 
 <div class="pkgdown">
   <p></p>
-<p>Developed by Zad Rafi, Andrew D. Vigotsky, and Aaron Caldwell. Provided without <strong>any warranty</strong>.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
       </footer>
@@ -725,10 +716,10 @@ review and meta-analysis. <em>The Journal of Clinical Psychiatry</em>.
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script><script>
   docsearch({
+    appId: 'VMM13662FC',
 
-
-    apiKey: '328a30be91979e947c28ffd52f604eda',
-    indexName: 'lesslikely-concurve',
+    apiKey: 'f19ae0e3ba80c69747114868874b5f4d',
+    indexName: 'concurveconcurve',
     inputSelector: 'input#search-input.form-control',
     transformData: function(hits) {
       return hits.map(function (hit) {

@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
 <link rel="icon" sizes="any" href="../favicon.ico">
 <link rel="manifest" href="../site.webmanifest">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/paper/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -89,6 +89,9 @@
       <a href="../articles/likelihood.html">Profile Likelihoods</a>
     </li>
     <li>
+      <a href="../articles/bootstrap.html">Bootstrap and Consonance Functions</a>
+    </li>
+    <li>
       <a href="../articles/bayes.html">Comparison to Bayesian Posteriors</a>
     </li>
     <li>
@@ -131,7 +134,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/news.html">Package Updates</a>
+      <a href="../news/index.html">Package Updates</a>
     </li>
     <li>
       <a href="../articles/supported.html">Supported Versions</a>
@@ -144,8 +147,14 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/zadrafi/concurve">
+  <a href="https://github.com/zadrafi/concurve" class="external-link">
     <span class="fa fa-github fa-lg"></span>
+
+  </a>
+</li>
+<li>
+  <a href="https://twitter.com/dailyzad" class="external-link">
+    <span class="fa fa-twitter fa-lg"></span>
 
   </a>
 </li>
@@ -172,7 +181,7 @@
       <h1 data-toc-skip>Supported Versions</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/zadrafi/concurve/blob/HEAD/vignettes/supported.Rmd"><code>vignettes/supported.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/zadrafi/concurve/blob/HEAD/vignettes/supported.Rmd" class="external-link"><code>vignettes/supported.Rmd</code></a></small>
       <div class="hidden name"><code>supported.Rmd</code></div>
 
     </div>
@@ -218,7 +227,7 @@ version of <code>concurve</code> via the script,</p>
 <code class="sourceCode R"><span><span class="fu">install_github</span><span class="op">(</span><span class="st">"zadrafi/concurve@master"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>may be useful.</p>
 <p>You can also directly download a tarball or zip of the most recent
-package version using the <a href="https://github.com/zadrafi/concurve/releases">following
+package version using the <a href="https://github.com/zadrafi/concurve/releases" class="external-link">following
 link</a>.</p>
 <hr>
 </div>
@@ -424,7 +433,7 @@ methods
 methods
 </td>
 <td style="text-align:left;">
-4.6.0
+4.6.1
 </td>
 </tr>
 <tr>
@@ -457,7 +466,7 @@ lme4
 lme4
 </td>
 <td style="text-align:left;">
-2.0-1
+2.0-6
 </td>
 </tr>
 <tr>
@@ -479,7 +488,7 @@ flextable
 flextable
 </td>
 <td style="text-align:left;">
-0.9.12
+0.10.0
 </td>
 </tr>
 <tr>
@@ -523,7 +532,7 @@ officer
 officer
 </td>
 <td style="text-align:left;">
-0.7.5
+0.7.6
 </td>
 </tr>
 <tr>
@@ -534,7 +543,7 @@ parallel
 parallel
 </td>
 <td style="text-align:left;">
-4.6.0
+4.6.1
 </td>
 </tr>
 <tr>
@@ -567,7 +576,7 @@ colorspace
 colorspace
 </td>
 <td style="text-align:left;">
-2.1-2
+2.1-3
 </td>
 </tr>
 <tr>
@@ -578,7 +587,7 @@ survival
 survival
 </td>
 <td style="text-align:left;">
-3.8-6
+3.8-9
 </td>
 </tr>
 <tr>
@@ -667,7 +676,7 @@ MASS
 MASS
 </td>
 <td style="text-align:left;">
-7.3-65
+7.3-66
 </td>
 </tr>
 <tr>
@@ -689,7 +698,7 @@ roxygen2
 roxygen2
 </td>
 <td style="text-align:left;">
-8.0.0
+8.1.0
 </td>
 </tr>
 <tr>
@@ -876,7 +885,7 @@ nlme
 nlme
 </td>
 <td style="text-align:left;">
-3.1-169
+3.1-170
 </td>
 </tr>
 <tr>
@@ -942,13 +951,13 @@ developers may quickly see the issue.</p>
 <div class="section level2">
 <h2 id="session-info">Session info<a class="anchor" aria-label="anchor" href="#session-info"></a>
 </h2>
-<pre><code><span><span class="co">#&gt; R version 4.6.0 (2026-04-24)</span></span>
+<pre><code><span><span class="co">#&gt; R version 4.6.1 (2026-06-24)</span></span>
 <span><span class="co">#&gt; Platform: aarch64-apple-darwin25.4.0</span></span>
-<span><span class="co">#&gt; Running under: macOS Tahoe 26.5.1</span></span>
+<span><span class="co">#&gt; Running under: macOS Golden Gate 27.0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Matrix products: default</span></span>
-<span><span class="co">#&gt; BLAS:   /opt/homebrew/Cellar/openblas/0.3.33/lib/libopenblasp-r0.3.33.dylib </span></span>
-<span><span class="co">#&gt; LAPACK: /opt/homebrew/Cellar/r/4.6.0/lib/R/lib/libRlapack.dylib;  LAPACK version 3.12.1</span></span>
+<span><span class="co">#&gt; BLAS:   /opt/homebrew/Cellar/openblas/0.3.34/lib/libopenblasp-r0.3.34.dylib </span></span>
+<span><span class="co">#&gt; LAPACK: /opt/homebrew/Cellar/r/4.6.1/lib/R/lib/libRlapack.dylib;  LAPACK version 3.12.1</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; locale:</span></span>
 <span><span class="co">#&gt; [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8</span></span>
@@ -960,19 +969,19 @@ developers may quickly see the issue.</p>
 <span><span class="co">#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; other attached packages:</span></span>
-<span><span class="co">#&gt; [1] magick_2.9.1     kableExtra_1.4.0 magrittr_2.0.5   knitr_1.51      </span></span>
+<span><span class="co">#&gt; [1] magick_2.9.1     kableExtra_1.4.1 magrittr_2.0.5   knitr_1.51      </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
-<span><span class="co">#&gt;  [1] vctrs_0.7.3        svglite_2.2.2      cli_3.6.6          rlang_1.2.0       </span></span>
-<span><span class="co">#&gt;  [5] xfun_0.58          stringi_1.8.7      otel_0.2.0         textshaping_1.0.5 </span></span>
+<span><span class="co">#&gt;  [1] vctrs_0.7.3        svglite_2.2.2      cli_3.6.6          rlang_1.3.0       </span></span>
+<span><span class="co">#&gt;  [5] xfun_0.60          stringi_1.8.9      otel_0.2.0         textshaping_1.0.5 </span></span>
 <span><span class="co">#&gt;  [9] jsonlite_2.0.0     glue_1.8.1         htmltools_0.5.9    ragg_1.5.2        </span></span>
 <span><span class="co">#&gt; [13] sass_0.4.10        scales_1.4.0       rmarkdown_2.31     evaluate_1.0.5    </span></span>
 <span><span class="co">#&gt; [17] jquerylib_0.1.4    fastmap_1.2.0      yaml_2.3.12        lifecycle_1.0.5   </span></span>
-<span><span class="co">#&gt; [21] stringr_1.6.0      compiler_4.6.0     RColorBrewer_1.1-3 fs_2.1.0          </span></span>
-<span><span class="co">#&gt; [25] Rcpp_1.1.1-1.1     htmlwidgets_1.6.4  rstudioapi_0.18.0  farver_2.1.2      </span></span>
+<span><span class="co">#&gt; [21] stringr_1.6.0      compiler_4.6.1     RColorBrewer_1.1-3 fs_2.1.0          </span></span>
+<span><span class="co">#&gt; [25] Rcpp_1.1.2         htmlwidgets_1.6.4  rstudioapi_0.19.0  farver_2.1.2      </span></span>
 <span><span class="co">#&gt; [29] systemfonts_1.3.2  digest_0.6.39      viridisLite_0.4.3  R6_2.6.1          </span></span>
-<span><span class="co">#&gt; [33] dichromat_2.0-0.1  bslib_0.11.0       tools_4.6.0        xml2_1.5.2        </span></span>
-<span><span class="co">#&gt; [37] pkgdown_2.2.0      cachem_1.1.0       desc_1.4.3</span></span></code></pre>
+<span><span class="co">#&gt; [33] dichromat_2.0-1    bslib_0.12.0       tools_4.6.1        xml2_1.6.0        </span></span>
+<span><span class="co">#&gt; [37] pkgdown_2.2.1      cachem_1.1.0       desc_1.4.3</span></span></code></pre>
 </div>
   </div>
 
@@ -986,12 +995,12 @@ developers may quickly see the issue.</p>
 
       <footer><div class="copyright">
   <p></p>
-<p>NULL</p>
+<p>Developed by <a href="https://twitter.com/dailyzad" class="external-link">Zad Rafi</a>, <a href="https://www.researchgate.net/profile/Andrew_Vigotsky" class="external-link">Andrew D. Vigotsky</a>.</p>
 </div>
 
 <div class="pkgdown">
   <p></p>
-<p>Developed by Zad Rafi, Andrew D. Vigotsky, and Aaron Caldwell. Provided without <strong>any warranty</strong>.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
       </footer>
@@ -1000,10 +1009,10 @@ developers may quickly see the issue.</p>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script><script>
   docsearch({
+    appId: 'VMM13662FC',
 
-
-    apiKey: '328a30be91979e947c28ffd52f604eda',
-    indexName: 'lesslikely-concurve',
+    apiKey: 'f19ae0e3ba80c69747114868874b5f4d',
+    indexName: 'concurveconcurve',
     inputSelector: 'input#search-input.form-control',
     transformData: function(hits) {
       return hits.map(function (hit) {

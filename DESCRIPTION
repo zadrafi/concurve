@@ -34,7 +34,7 @@ URL: https://stat.lesslikely.com/concurve/,
      https://github.com/zadrafi/concurve
 BugReports: https://github.com/zadrafi/concurve/issues
 Depends: R (>= 4.0.0)
-Imports: 
+Imports:
     methods,
     bcaboot,
     boot,
@@ -44,22 +44,27 @@ Imports:
     ggplot2,
     knitr,
     metafor,
-    officer,
     parallel,
-    ProfileLikelihood,
     scales,
     colorspace,
-    survival,
-    survminer,
     tibble,
     tidyr,
-    pbmcapply,
     numDeriv,
-    rlang
+    rlang,
+    pbmcapply,
+    ProfileLikelihood,
+    officer,
+    survival,
+    survminer
 Suggests:
     plotly,
     DBI,
     odbc,
+    jsonlite,
+    openxlsx,
+    kableExtra,
+    magick,
+    magrittr,
     MASS,
     covr,
     roxygen2,

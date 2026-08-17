@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="icon" sizes="any" href="favicon.ico">
 <link rel="manifest" href="site.webmanifest">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/paper/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -21,7 +21,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><link href="extra.css" rel="stylesheet">
 <meta property="og:title" content="Computes &amp; Plots Compatibility (Confidence), Surprisal, &amp; Likelihood Distributions">
 <meta property="og:description" content="Computes compatibility (confidence) distributions along with their corresponding P-values, S-values, and likelihoods. The intervals can be plotted to form the distributions themselves. Functions can be compared to one another to see how much they overlap. Results can be exported to Microsoft Word, Powerpoint, and TeX documents. The package currently supports resampling methods, computing differences, generalized linear models, mixed-effects models, survival analysis, and meta-analysis. These methods are discussed by Schweder T, Hjort NL. (2016, ISBN:9781316445051) and Rafi Z, Greenland S. (2020) &lt;doi:10.1186/s12874-020-01105-9&gt;.">
-<meta property="og:image" content="https://github.com/zadrafi/concurve/reference/figures/logo.svg">
+<meta property="og:image" content="https://stat.lesslikely.com/concurve/reference/figures/logo.svg">
 <meta property="og:image:alt" content="concurve R package hex-logo">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:creator" content="@dailyzad">
@@ -90,6 +90,9 @@
       <a href="articles/likelihood.html">Profile Likelihoods</a>
     </li>
     <li>
+      <a href="articles/bootstrap.html">Bootstrap and Consonance Functions</a>
+    </li>
+    <li>
       <a href="articles/bayes.html">Comparison to Bayesian Posteriors</a>
     </li>
     <li>
@@ -132,7 +135,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/news.html">Package Updates</a>
+      <a href="news/index.html">Package Updates</a>
     </li>
     <li>
       <a href="articles/supported.html">Supported Versions</a>
@@ -145,8 +148,14 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/zadrafi/concurve">
+  <a href="https://github.com/zadrafi/concurve" class="external-link">
     <span class="fa fa-github fa-lg"></span>
+
+  </a>
+</li>
+<li>
+  <a href="https://twitter.com/dailyzad" class="external-link">
+    <span class="fa fa-twitter fa-lg"></span>
 
   </a>
 </li>
@@ -219,7 +228,7 @@
 <p>Try the following script if you run into any installation issues:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"concurve"</span>, repos <span class="op">=</span> <span class="st">"https://cloud.r-project.org/"</span>, dep <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p>Install the developer version from <a href="https://github.com/zadrafi/concurve/">GitHub</a> using the following:</p>
+<p>Install the developer version from <a href="https://github.com/zadrafi/concurve/" class="external-link">GitHub</a> using the following:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"zadrafi/concurve@master"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>See which versions of the package are currently <a href="articles/supported.html">supported here</a>.</p>
@@ -294,7 +303,7 @@
 <span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a><span class="do">## loaded via a namespace (and not attached):</span></span>
 <span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a><span class="do">##  [1] compiler_4.6.0    here_1.0.2        fastmap_1.2.0     cli_3.6.6         rprojroot_2.1.1   htmltools_0.5.9   tools_4.6.0      </span></span>
-<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a><span class="do">##  [8] parallel_4.6.0    otel_0.2.0        rstudioapi_0.18.0 yaml_2.3.12       rmarkdown_2.31    knitr_1.51        xfun_0.58        </span></span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a><span class="do">##  [8] parallel_4.6.0    otel_0.2.0        rstudioapi_0.19.0 yaml_2.3.12       rmarkdown_2.31    knitr_1.51        xfun_0.59        </span></span>
 <span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a><span class="do">## [15] digest_0.6.39     rlang_1.2.0       evaluate_1.0.5</span></span></code></pre></div>
 <hr>
 </div>
@@ -307,8 +316,8 @@
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
 <li><a href="https://cloud.r-project.org/package=concurve" class="external-link">View on CRAN</a></li>
-<li><a href="https://github.com/zadrafi/concurve/">Browse source code</a></li>
-<li><a href="https://github.com/zadrafi/concurve/issues">Report a bug</a></li>
+<li><a href="https://github.com/zadrafi/concurve/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/zadrafi/concurve/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
@@ -344,8 +353,7 @@
 <a href="https://twitter.com/dailyzad" class="external-link">Zad Rafi</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-1545-8199" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
 <li>
 <a href="https://www.researchgate.net/profile/Andrew_Vigotsky" class="external-link">Andrew D. Vigotsky</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-3166-0688" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
-<li>
-<a href="https://twitter.com/ExPhysStudent" class="external-link">Aaron Caldwell</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-4541-6283" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
+<li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
 
@@ -357,12 +365,12 @@
 
       <footer><div class="copyright">
   <p></p>
-<p>NULL</p>
+<p>Developed by <a href="https://twitter.com/dailyzad" class="external-link">Zad Rafi</a>, <a href="https://www.researchgate.net/profile/Andrew_Vigotsky" class="external-link">Andrew D. Vigotsky</a>.</p>
 </div>
 
 <div class="pkgdown">
   <p></p>
-<p>Developed by Zad Rafi, Andrew D. Vigotsky, and Aaron Caldwell. Provided without <strong>any warranty</strong>.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
       </footer>
@@ -371,10 +379,10 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script><script>
   docsearch({
+    appId: 'VMM13662FC',
 
-
-    apiKey: '328a30be91979e947c28ffd52f604eda',
-    indexName: 'lesslikely-concurve',
+    apiKey: 'f19ae0e3ba80c69747114868874b5f4d',
+    indexName: 'concurveconcurve',
     inputSelector: 'input#search-input.form-control',
     transformData: function(hits) {
       return hits.map(function (hit) {

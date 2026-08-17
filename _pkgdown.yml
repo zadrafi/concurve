@@ -43,7 +43,7 @@ articles:
   - literature
   - supported
   - wishlist
-  - 2d_likelihood_visualization
+  - likelihood_visualization_2d
 
 title: concurve
 description: An R package that constructs and graphs consonance, surprisal, and likelihood functions.

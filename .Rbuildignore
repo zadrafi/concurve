@@ -55,3 +55,7 @@
 ^last\.dump\.rda$
 ^\.posit/assistant$
 ^tools$
+^AGENTS\.md$
+^concurve-Ex\.timings$
+^consonance_data\.csv$
+^consonance_data\.xlsx$
