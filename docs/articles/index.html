@@ -59,6 +59,18 @@
       <a href="../articles/likelihood.html">Profile Likelihoods</a>
     </li>
     <li>
+      <a href="../articles/likelihood-constructions.html">Constructing Valid Likelihood Functions</a>
+    </li>
+    <li>
+      <a href="../articles/likelihood-tools.html">Likelihoods with Existing R Tools</a>
+    </li>
+    <li>
+      <a href="../articles/correlation.html">Correlation: Likelihood and P-value Functions</a>
+    </li>
+    <li>
+      <a href="../articles/poisson-rate.html">Count and Rate Models: Likelihood and P-value Functions</a>
+    </li>
+    <li>
       <a href="../articles/bootstrap.html">Bootstrap and Consonance Functions</a>
     </li>
     <li>
@@ -152,6 +164,14 @@
         <dd><p>This guide walks through how to construct consonance functions from meta-analysis data using the metafor R package. Both simple and complex data structures are examined.</p>
         </dd><dt><a href="likelihood.html">Profile Likelihoods</a></dt>
         <dd><p>This vignette walks through how to construct and graph profile likelihood functions.</p>
+        </dd><dt><a href="likelihood-constructions.html">Constructing Valid Likelihood Functions</a></dt>
+        <dd><p>Building exact likelihood functions from first principles for common designs – proportions, odds ratios, rate ratios, means, and variances – and coercing them into concurve objects.</p>
+        </dd><dt><a href="likelihood-tools.html">Constructing Likelihood Functions with Existing R Tools</a></dt>
+        <dd><p>Any tool that returns a (profile) log-likelihood – optim, maxLik, bbmle, ProfileLikelihood, cond – can feed a concurve likelihood object through one small adapter.</p>
+        </dd><dt><a href="correlation.html">Correlation: Likelihood and P-value Functions</a></dt>
+        <dd><p>Constructing a profile likelihood function for a correlation coefficient and pairing it with the consonance (P-value) function from curve_corr().</p>
+        </dd><dt><a href="poisson-rate.html">Count and Rate Models: Likelihood and P-value Functions</a></dt>
+        <dd><p>Constructing a profile likelihood function for a Poisson rate ratio with curve_lik(), then pairing it with the consonance (P-value) function from curve_gen().</p>
         </dd><dt><a href="bootstrap.html">The Bootstrap and Consonance Functions</a></dt>
         <dd><p>This guide discusses the bootstrap resampling method and its close connection to the consonance distribution and how to use certain iterations of the bootstrap to construct a consonance distribution.</p>
         </dd><dt><a href="bayes.html">Comparison to Bayesian Posterior Distributions</a></dt>
