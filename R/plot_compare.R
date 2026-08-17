@@ -87,6 +87,7 @@
 #' @seealso [ggcurve()]
 #' @seealso [curve_compare()]
 #'
+#' @export
 plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalue = FALSE, position = "pyramid",
                          title = "Interval Functions",
                          subtitle = "The function displays intervals at every level.",
