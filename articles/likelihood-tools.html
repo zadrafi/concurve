@@ -426,7 +426,7 @@ exactly.<span class="citation"><sup><a href="#ref-coxTheoreticalStatistics1974">
 the consonance (P-value) function for the same parameter — the two are
 coordinate views of one inferential object. Here we make that visible
 with <code><a href="../reference/plot_compare.html">plot_compare()</a></code> using the native constructors
-<code>curve_lik_glm()</code> and <code>curve_analytic()</code> (this
+<code><a href="../reference/curve_lik_glm.html">curve_lik_glm()</a></code> and <code><a href="../reference/curve_analytic.html">curve_analytic()</a></code> (this
 section evaluates when those functions are available in your installed
 version of <code>concurve</code>).</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
@@ -435,17 +435,18 @@ version of <code>concurve</code>).</p>
 <span><span class="va">se</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/vcov.html" class="external-link">vcov</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="st">"mpg"</span><span class="op">]</span></span>
 <span></span>
 <span><span class="co"># profile likelihood: nuisance intercept maximized out at every grid point</span></span>
-<span><span class="va">lik_prof</span> <span class="op">&lt;-</span> <span class="fu">curve_lik_glm</span><span class="op">(</span><span class="va">mod</span>, <span class="st">"mpg"</span>, steps <span class="op">=</span> <span class="fl">200</span><span class="op">)</span></span>
+<span><span class="va">lik_prof</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/curve_lik_glm.html">curve_lik_glm</a></span><span class="op">(</span><span class="va">mod</span>, <span class="st">"mpg"</span>, steps <span class="op">=</span> <span class="fl">200</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Wald likelihood: the normal approximation implied by (est, se) --</span></span>
 <span><span class="co"># exactly the likelihood the consonance function from curve_analytic encodes</span></span>
 <span><span class="va">grid</span> <span class="op">&lt;-</span> <span class="va">lik_prof</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">values</span></span>
-<span><span class="va">lik_wald</span> <span class="op">&lt;-</span> <span class="fu">as_curve_lik</span><span class="op">(</span><span class="va">grid</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">dnorm</a></span><span class="op">(</span><span class="va">grid</span>, mean <span class="op">=</span> <span class="va">est</span>, sd <span class="op">=</span> <span class="va">se</span>, log <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">lik_wald</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as_curve_lik.html">as_curve_lik</a></span><span class="op">(</span><span class="va">grid</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">dnorm</a></span><span class="op">(</span><span class="va">grid</span>, mean <span class="op">=</span> <span class="va">est</span>, sd <span class="op">=</span> <span class="va">se</span>, log <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/plot_compare.html">plot_compare</a></span><span class="op">(</span><span class="va">lik_prof</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="va">lik_wald</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, type <span class="op">=</span> <span class="st">"l1"</span>,</span>
 <span>             title <span class="op">=</span> <span class="st">"Profile vs Wald Likelihood"</span>,</span>
 <span>             subtitle <span class="op">=</span> <span class="st">"Same coefficient; the gap between them is the skew the Wald approximation ignores"</span>,</span>
 <span>             xaxis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">beta</span><span class="op">[</span><span class="va">mpg</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="likelihood-tools_files/figure-html/unnamed-chunk-13-1.png" class="r-plt" alt="" width="576"></p>
 <p>The two curves agree near the maximum and part company in the
 shoulders — which is precisely where interval limits live. The numeric
 version of the same statement: the 1/6.83 support interval from the
@@ -454,15 +455,19 @@ profile-based function, while the Wald consonance interval matches the
 Wald likelihood.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># 95% consonance interval, Wald construction</span></span>
-<span><span class="va">cons</span> <span class="op">&lt;-</span> <span class="fu">curve_analytic</span><span class="op">(</span>estimate <span class="op">=</span> <span class="va">est</span>, se <span class="op">=</span> <span class="va">se</span>, dist <span class="op">=</span> <span class="st">"z"</span><span class="op">)</span></span>
+<span><span class="va">cons</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/curve_analytic.html">curve_analytic</a></span><span class="op">(</span>estimate <span class="op">=</span> <span class="va">est</span>, se <span class="op">=</span> <span class="va">se</span>, dist <span class="op">=</span> <span class="st">"z"</span><span class="op">)</span></span>
 <span><span class="va">ci95</span> <span class="op">&lt;-</span> <span class="va">cons</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html" class="external-link">which.min</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">cons</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">intrvl.level</span> <span class="op">-</span> <span class="fl">0.95</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>                  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lower.limit"</span>, <span class="st">"upper.limit"</span><span class="op">)</span><span class="op">]</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span>
-<span>  `profile 1/6.83 support` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu">curve_support</span><span class="op">(</span><span class="va">lik_prof</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="fl">6.83</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lower.limit"</span>,<span class="st">"upper.limit"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>,</span>
-<span>  `Wald    1/6.83 support` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu">curve_support</span><span class="op">(</span><span class="va">lik_wald</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="fl">6.83</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lower.limit"</span>,<span class="st">"upper.limit"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>  `profile 1/6.83 support` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="../reference/curve_support.html">curve_support</a></span><span class="op">(</span><span class="va">lik_prof</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="fl">6.83</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lower.limit"</span>,<span class="st">"upper.limit"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>  `Wald    1/6.83 support` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="../reference/curve_support.html">curve_support</a></span><span class="op">(</span><span class="va">lik_wald</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="fl">6.83</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lower.limit"</span>,<span class="st">"upper.limit"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>,</span>
 <span>  `Wald    95% consonance` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">ci95</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt;                        lower.limit upper.limit</span></span>
+<span><span class="co">#&gt; profile 1/6.83 support  0.12184097   0.5875499</span></span>
+<span><span class="co">#&gt; Wald    1/6.83 support  0.08183696   0.5322194</span></span>
+<span><span class="co">#&gt; Wald    95% consonance  0.08194283   0.5321136</span></span></code></pre></div>
 <p>The Wald support interval and the Wald consonance interval are
 identical by construction
 (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>e</mi><mrow><mi>−</mi><msup><mi>z</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn></mrow></msup><annotation encoding="application/x-tex">e^{-z^2/2}</annotation></semantics></math>
@@ -472,12 +477,6 @@ is
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>6.83</mn></mrow><annotation encoding="application/x-tex">1/6.83</annotation></semantics></math>);
 the profile versions differ from both exactly as much as the likelihood
 is skewed. Report the profile-based ones.</p>
-<blockquote>
-<p>This section requires a version of <code>concurve</code> that
-includes the native likelihood constructors
-(<code>curve_lik_glm()</code>, <code>curve_analytic()</code>,
-<code>curve_support()</code>, <code>as_curve_lik()</code>).</p>
-</blockquote>
 </div>
 <div class="section level2">
 <h2 id="adding-these-tools-to-your-package">Adding these tools to your package<a class="anchor" aria-label="anchor" href="#adding-these-tools-to-your-package"></a>
