@@ -1,11 +1,33 @@
 on:
   push:
     branches: master
+  pull_request:
+    branches: master
+  workflow_dispatch: {}
 
 name: pkgdown
 
+# GitHub Pages for this repo is configured to serve from branch `master`,
+# path `/docs` (a legacy Jekyll build; see docs/.nojekyll, which disables
+# Jekyll's Liquid template processing so pkgdown's own HTML is served
+# as-is). Deploying via `pkgdown::deploy_to_branch()` -- which defaults
+# to pushing to an unrelated `gh-pages` branch -- had no effect on the
+# live site. Build the site with plain `pkgdown::build_site()` instead,
+# which targets docs/ directly and, on push to master, commit the
+# result back to master so Pages picks it up.
+#
+# build_site() only writes files it regenerates and never deletes
+# anything it doesn't produce, so docs/articles/stata.html and
+# docs/articles/variancecomponents.html -- whose sources live outside
+# vignettes/ because one needs a real Stata install and the other's
+# curve_lmer(profile) calls are too slow for CI -- are left untouched.
+
 permissions:
   contents: write
+
+concurrency:
+  group: pkgdown-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   pkgdown:
@@ -21,15 +43,24 @@ jobs:
         with:
           use-public-rspm: true
 
-      # setup-r-dependencies handles dependency resolution *and* caching,
-      # replacing the old Query dependencies / actions/cache / install_deps trio.
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: any::pkgdown, local::.
-          needs: website
+          needs: check
 
-      - name: Deploy package
+      - name: Build site
+        run: pkgdown::build_site(new_process = FALSE, install = FALSE)
+        shell: Rscript {0}
+
+      - name: Commit and push docs/ if changed
+        if: github.event_name == 'push'
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
-          Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'
+          git add docs/
+          if git diff --cached --quiet; then
+            echo "No changes to docs/; nothing to commit."
+          else
+            git commit -m "Rebuild pkgdown site [skip ci]"
+            git push origin HEAD:master
+          fi
