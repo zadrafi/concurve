@@ -275,7 +275,7 @@
 <code>concurve</code> is now intergrated with the <code>cowplot</code> package for easier graphing.</li>
 <li>removed <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble::tibble()</a></code> integration due to breakage in code.</li>
 <li>
-<code>expand_scale()</code> has been replaced with <code>expansion()</code> within the inner workings of <code><a href="../reference/ggcurve.html">ggcurve()</a></code> and <code><a href="../reference/plot_compare.html">plot_compare()</a></code> due to the former function (<code>expand_scale()</code>) being deprecated.</li>
+<code><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">expand_scale()</a></code> has been replaced with <code><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">expansion()</a></code> within the inner workings of <code><a href="../reference/ggcurve.html">ggcurve()</a></code> and <code><a href="../reference/plot_compare.html">plot_compare()</a></code> due to the former function (<code><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">expand_scale()</a></code>) being deprecated.</li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -283,7 +283,7 @@
 <div class="section level3">
 <h3 id="major-changes-2-4-1">Major changes<a class="anchor" aria-label="anchor" href="#major-changes-2-4-1"></a></h3>
 <ul><li>New function <code><a href="../reference/curve_lmer.html">curve_lmer()</a></code> for mixed-effects models</li>
-<li>Fixed a bug where <code><a href="../reference/curve_meta.html">curve_meta()</a></code> could not utilize <code>rma.mh()</code> or <code>rma.peto()</code> from <code>metafor</code>.</li>
+<li>Fixed a bug where <code><a href="../reference/curve_meta.html">curve_meta()</a></code> could not utilize <code><a href="https://wviechtb.github.io/metafor/reference/rma.mh.html" class="external-link">rma.mh()</a></code> or <code><a href="https://wviechtb.github.io/metafor/reference/rma.peto.html" class="external-link">rma.peto()</a></code> from <code>metafor</code>.</li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -302,7 +302,7 @@
 <div class="section level3">
 <h3 id="minor-changes-2-4-0">Minor changes<a class="anchor" aria-label="anchor" href="#minor-changes-2-4-0"></a></h3>
 <ul><li>
-<code><a href="../reference/ggcurve.html">ggcurve()</a></code> theme has been changed from <code>theme_bw()</code> to <code>theme_minimal()</code>.</li>
+<code><a href="../reference/ggcurve.html">ggcurve()</a></code> theme has been changed from <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw()</a></code> to <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal()</a></code>.</li>
 <li>Several new examples in the “<a href="https://data.lesslikely.com/concurve/articles/examples.html" class="external-link">Examples in R</a>” article.</li>
 </ul></div>
 </div>
@@ -361,7 +361,7 @@
 <li>Consonance functions can be plotted as a pyramid (right side up) or inverted (upside down) via the “position” item in <code><a href="../reference/defunct.html">ggconcurve()</a></code>.</li>
 <li>Null values (for means &amp; ratios) can be plotted via the <code><a href="../reference/defunct.html">ggconcurve()</a></code> function to show how much of the interval surrounds it.</li>
 <li>Log transformations included in all the plotting functions for ratio measures.</li>
-<li>Parallel programming has now been implemented into the computations via the <code>mclapply()</code> function from the <em>parallel</em> package.</li>
+<li>Parallel programming has now been implemented into the computations via the <code><a href="https://rdrr.io/r/parallel/mclapply.html" class="external-link">mclapply()</a></code> function from the <em>parallel</em> package.</li>
 </ul></div>
 </div>
     <div class="section level2">
