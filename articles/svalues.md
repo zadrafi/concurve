@@ -16,7 +16,7 @@ tosses?
 
 Number of Coin Tosses
 
-![](_w_2b960feee37f4144a6dfb18ea8c8c08f/PandaCoin.png)  
+![](_w_0e66346e9c3440e0b4e3e790beee434c/PandaCoin.png)  
   
 
 To learn about S-values, check out [this blog

@@ -206,11 +206,11 @@ func4 <- mark(df1 <- curve_rev(
 ``` r
 
 func1$median
-#> [1] 2.19ms
+#> [1] 2.17ms
 func2$median
-#> [1] 1.67s
+#> [1] 1.69s
 func3$median
-#> [1] 2.18ms
+#> [1] 2.15ms
 func4$median
 #> [1] 1.51s
 ```
