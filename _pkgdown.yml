@@ -79,7 +79,15 @@ template:
       card: summary_large_image
 
 development:
-  mode: auto
+  # Always build to docs/ (the site root), regardless of DESCRIPTION's
+  # version number. mode: auto would split the site into docs/ (release)
+  # and docs/dev/ (in-development) the moment Version gains a 4th
+  # component (e.g. a .9000 dev suffix) -- this project has never used
+  # that split, publishes to a single custom domain with nothing
+  # pointing at /dev/, and mode: auto activating unexpectedly is exactly
+  # what caused docs/ to silently stop receiving updates once Version
+  # became 3.0.0.9000.
+  mode: release
 
 navbar:
   structure:
@@ -201,10 +209,6 @@ reference:
   desc: Construct likelihood, log-likelihood, profile likelihood, and deviance
         functions from fitted models, and plot them.
 - contents:
-  - as_curve_lik
-  - curve_lik_glm
-  - curve_lik_exact
-  - curve_support
   - construct_likelihood
   - plot.likelihood_function
   - ggplot_likelihood
