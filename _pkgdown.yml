@@ -32,7 +32,10 @@ articles:
   - survival
   - meta-analysis
   - likelihood
+  - likelihood-constructions
   - likelihood-tools
+  - correlation
+  - poisson-rate
   - bootstrap
   - bayes
   - variancecomponents
@@ -103,8 +106,14 @@ navbar:
         href: articles/meta-analysis.html
       - text: Profile Likelihoods
         href: articles/likelihood.html
+      - text: Constructing Valid Likelihood Functions
+        href: articles/likelihood-constructions.html
       - text: Likelihoods with Existing R Tools
         href: articles/likelihood-tools.html
+      - text: "Correlation: Likelihood and P-value Functions"
+        href: articles/correlation.html
+      - text: "Count and Rate Models: Likelihood and P-value Functions"
+        href: articles/poisson-rate.html
       - text: Bootstrap and Consonance Functions
         href: articles/bootstrap.html
       - text: Comparison to Bayesian Posteriors

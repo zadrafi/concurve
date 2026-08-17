@@ -1,0 +1,149 @@
+---
+title: "Count and Rate Models: Likelihood and P-value Functions"
+description: "Constructing a profile likelihood function for a Poisson rate ratio with curve_lik(), then pairing it with the consonance (P-value) function from curve_gen()."
+output:
+  rmarkdown::html_vignette:
+    toc: true
+opengraph:
+  image:
+    src: "https://res.cloudinary.com/less-likely/image/upload/v1591475692/Site/lfunctions.png"
+  twitter:
+    card: summary
+    creator: "@dailyzad"
+bibliography: references.bib
+link-citations: yes
+csl: american-medical-association.csl
+vignette: >
+  %\VignetteIndexEntry{Count and Rate Models: Likelihood and P-value Functions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  message = TRUE,
+  warning = TRUE,
+  collapse = TRUE,
+  comment = "#>",
+  fig.height = 4.5,
+  fig.width = 6
+)
+library(concurve)
+```
+
+Count outcomes --- events per person, per unit time, per unit area --- are the natural home of the Poisson model, and the parameter that epidemiologists actually care about is the **rate ratio**.[@cummingsAnalysisIncidenceRates2019] This vignette leads with the *likelihood function* for a Poisson log-rate-ratio and then shows the matching consonance (P-value) function, so you can see the same coefficient described two ways.[@rafiSemanticCognitiveTools2020; @fraserPvalueFunctionStatistical2019]
+
+# The data
+
+We simulate counts for an exposed vs. unexposed group, adjusting for one continuous covariate. The true log-rate-ratio for `group` is $0.8$ (a rate ratio of about $2.2$).
+
+```{r echo=TRUE}
+set.seed(2718)
+n <- 200
+x1    <- rnorm(n)
+group <- rbinom(n, size = 1, prob = 0.5)
+eta   <- -0.5 + 0.8 * group + 0.3 * x1
+y     <- rpois(n, lambda = exp(eta))
+
+pois_dat <- data.frame(y, group, x1)
+head(pois_dat)
+```
+
+# Constructing the likelihood function
+
+We reuse the same machinery as the profile-likelihood vignette: `ProfileLikelihood::profilelike.glm()` profiles the Poisson GLM over the nuisance coefficients at each value of the target parameter, and `curve_lik()` turns that into a `concurve` likelihood object.[@choiProfileLikelihoodProfileLikelihood2011; @coleMaximumLikelihoodProfile2013] The variable named in `profile.theta` (here `group`) is the one profiled; it is left out of the formula.
+
+```{r echo=TRUE}
+library(ProfileLikelihood)
+
+xx <- profilelike.glm(
+  y ~ x1,
+  data          = pois_dat,
+  profile.theta = "group",
+  family        = poisson(link = "log"),
+  length        = 500,
+  round         = 2
+)
+
+lik <- curve_lik(xx, data = pois_dat)
+```
+
+The profiled parameter is on the **log scale**, so `values` here are candidate log-rate-ratios and the null of "no association" is at $0$.
+
+## Plotting the likelihood
+
+```{r echo=TRUE}
+ggcurve(lik[[1]], type = "l1", nullvalue = TRUE,
+        xaxis = "log(Rate Ratio)",
+        title = "Relative Likelihood Function",
+        subtitle = "Profile likelihood for the Poisson log-rate-ratio")
+
+ggcurve(lik[[1]], type = "l2",
+        xaxis = "log(Rate Ratio)",
+        title = "Log-Likelihood Function")
+
+ggcurve(lik[[1]], type = "d", nullvalue = 0,
+        xaxis = "log(Rate Ratio)",
+        title = "Deviance Function")
+```
+
+The likelihood peaks near the true value of $0.8$, and the deviance function --- $-\log$ relative likelihood --- turns the same curve into a "distance from the best-supported value" scale, where Royall's $1/8$ and $1/32$ support cutoffs correspond to deviance heights of about $2.08$ and $3.47$.[@royallStatisticalEvidenceLikelihood1997]
+
+# The companion: consonance and surprisal functions
+
+For the frequentist view we fit the full Poisson GLM and hand it to `curve_gen()` with `method = "glm"`. Setting `log = TRUE` keeps the underlying values on the log scale but lets us plot on the **rate-ratio** scale with `measure = "ratio"`, where the null is $1$.[@rafiSemanticCognitiveTools2020] We wrap the call in `suppressMessages()` to hide the long list of profiling messages.
+
+```{r echo=TRUE}
+pois_mod <- glm(y ~ group + x1, data = pois_dat, family = poisson(link = "log"))
+
+rate_curve <- suppressMessages(curve_gen(
+  model  = pois_mod,
+  var    = "group",
+  method = "glm",
+  log    = TRUE,
+  steps  = 1000
+))
+```
+
+```{r echo=TRUE}
+ggcurve(rate_curve[[1]], type = "c", measure = "ratio", nullvalue = 1,
+        xaxis = "Rate Ratio",
+        title = "Consonance (P-value) Function")
+
+ggcurve(rate_curve[[1]], type = "s", measure = "ratio", nullvalue = 1,
+        xaxis = "Rate Ratio",
+        title = "Surprisal (S-value) Function")
+```
+
+The consonance function peaks at the estimated rate ratio; its slice at $1 - \alpha = 0.95$ is the ordinary 95% rate-ratio interval. The surprisal function reports $-\log_2 p$ against each candidate rate ratio, so a rate ratio of $1$ carries a readable number of **bits** of information against it.[@rafiSemanticCognitiveTools2020; @greenlandStatisticalTestsValues2016]
+
+## A confidence distribution too
+
+Because `curve_gen()` also returns the density-function values, you can draw the full confidence distribution and density for the rate ratio.[@schwederConfidenceLikelihood2002; @xieConfidenceDistributionFrequentist2013]
+
+```{r echo=TRUE}
+ggcurve(rate_curve[[2]], type = "cdf", measure = "ratio", nullvalue = 1,
+        xaxis = "Rate Ratio",
+        title = "Consonance Distribution")
+
+ggcurve(rate_curve[[2]], type = "cd", measure = "ratio",
+        xaxis = "Rate Ratio",
+        title = "Consonance Density")
+```
+
+# Putting it together
+
+The log-rate-ratio likelihood and the rate-ratio consonance function are the same coefficient viewed on two scales and through two inferential lenses. The likelihood asks *how well each value is supported by the data*; the consonance function asks *how compatible each value is under the model*.[@rafiSemanticCognitiveTools2020] For a smooth one-parameter target like this, the $1/6.8$ likelihood interval and the 95% consonance interval will land in almost the same place --- which is exactly why neither a single interval nor a single P-value deserves a bright line.[@pooleConfidenceIntervalsExclude1987]
+
+# Cite R Packages
+
+Please remember to cite the packages that you use.
+
+```{r}
+citation("concurve")
+citation("ProfileLikelihood")
+```
+
+# References
+
+------------------------------------------------------------------------

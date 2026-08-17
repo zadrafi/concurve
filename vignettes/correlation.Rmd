@@ -1,0 +1,218 @@
+---
+title: "Correlation: Likelihood and P-value Functions"
+description: "Constructing a profile likelihood function for a correlation coefficient and pairing it with the consonance (P-value) function from curve_corr()."
+output:
+  rmarkdown::html_vignette:
+    toc: true
+opengraph:
+  image:
+    src: "https://res.cloudinary.com/less-likely/image/upload/v1591475692/Site/lfunctions.png"
+  twitter:
+    card: summary
+    creator: "@dailyzad"
+bibliography: references.bib
+link-citations: yes
+csl: american-medical-association.csl
+vignette: >
+  %\VignetteIndexEntry{Correlation: Likelihood and P-value Functions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  message = TRUE,
+  warning = TRUE,
+  collapse = TRUE,
+  comment = "#>",
+  fig.height = 4.5,
+  fig.width = 6
+)
+library(concurve)
+```
+
+Most of the other vignettes start from a fitted model and read the
+likelihood off an object built by another package. Here we do the
+opposite: we build a **likelihood function from scratch** for a parameter
+that `concurve` does not have a dedicated interval function for --- the
+Pearson correlation coefficient $\rho$ --- and then show that the
+consonance (P-value) function produced by `curve_corr()` tells the same
+story from the frequentist side.[@schwederConfidenceLikelihood2002;@royallStatisticalEvidenceLikelihood1997]
+
+The point is methodological. A likelihood function, a consonance
+function, a confidence distribution, and a surprisal function are
+different coordinate views of the *same* underlying object.[@rafiSemanticCognitiveTools2020;@birnbaumUnifiedTheoryEstimation1961]
+If you can build any one of them, you can build the rest, and for a
+one-parameter target they will very nearly coincide.
+
+# The data
+
+We simulate two variables with a moderate population correlation so the
+example is reproducible.
+
+```{r echo=TRUE}
+set.seed(1031)
+n <- 30
+x <- rnorm(n)
+y <- 0.6 * x + sqrt(1 - 0.6^2) * rnorm(n)
+
+(r <- cor(x, y))
+```
+
+# Constructing the likelihood function
+
+For a bivariate normal, the log-likelihood at a fixed value of $\rho$,
+with the four nuisance parameters (the two means and two standard
+deviations) profiled out by maximum likelihood, is the **profile
+log-likelihood** of $\rho$.[@schwederConfidenceLikelihood2002] We compute
+it directly: for each candidate $\rho$ we maximize the bivariate-normal
+log-likelihood over the nuisance parameters with `optim()`.
+
+```{r echo=TRUE}
+# Profile log-likelihood of rho: maximize over (mu_x, mu_y, log sd_x, log sd_y)
+prof_loglik_rho <- function(rho, x, y) {
+  n <- length(x)
+  neg_ll <- function(par) {
+    mux <- par[1]; muy <- par[2]
+    sx <- exp(par[3]); sy <- exp(par[4])
+    dx <- (x - mux) / sx
+    dy <- (y - muy) / sy
+    quad <- (dx^2 - 2 * rho * dx * dy + dy^2) / (1 - rho^2)
+    ll <- -n * log(2 * pi) - n * log(sx) - n * log(sy) -
+      0.5 * n * log(1 - rho^2) - 0.5 * sum(quad)
+    -ll
+  }
+  start <- c(mean(x), mean(y), log(sd(x)), log(sd(y)))
+  -optim(start, neg_ll, method = "BFGS")$value
+}
+```
+
+Now evaluate it over a grid of $\rho$ and coerce the result into the
+data frame layout that `ggcurve()` expects for likelihood functions ---
+the same five columns `curve_lik()` produces: `values`, `likelihood`,
+`loglikelihood`, `support`, and `deviancestat`.
+
+```{r echo=TRUE}
+grid <- seq(-0.95, 0.95, length.out = 600)
+ll <- vapply(grid, prof_loglik_rho, numeric(1), x = x, y = y)
+
+loglik_rel <- ll - max(ll)     # relative log-likelihood (max = 0)
+support     <- exp(loglik_rel) # relative (normalized) likelihood, max = 1
+
+lik_rho <- data.frame(
+  values        = grid,
+  likelihood    = exp(ll),      # raw profile likelihood         -> type = "l3"
+  loglikelihood = loglik_rel,   # relative log-likelihood         -> type = "l2"
+  support       = support,      # relative likelihood (0, 1]      -> type = "l1"
+  deviancestat  = -loglik_rel   # -log relative likelihood        -> type = "d"
+)
+class(lik_rho) <- c("data.frame", "concurve")
+head(lik_rho)
+```
+
+This is exactly the object `curve_lik()` hands back, so every downstream
+`concurve` verb works on it unchanged.
+
+## Plotting the likelihood
+
+```{r echo=TRUE}
+ggcurve(lik_rho, type = "l1", nullvalue = TRUE,
+        xaxis = expression(rho),
+        title = "Relative Likelihood Function",
+        subtitle = "Profile likelihood for the correlation coefficient")
+
+ggcurve(lik_rho, type = "l2",
+        xaxis = expression(rho),
+        title = "Log-Likelihood Function")
+
+ggcurve(lik_rho, type = "d", nullvalue = 0,
+        xaxis = expression(rho),
+        title = "Deviance Function")
+```
+
+The maximum of the relative likelihood sits at the sample correlation
+$r$, and the null value $\rho = 0$ receives whatever support the data
+happen to give it --- not a verdict, a height.[@pooleConfidenceIntervalsExclude1987]
+
+## Reading support intervals
+
+A pure-likelihood interval collects every $\rho$ whose relative
+likelihood exceeds a cutoff $1/k$.[@royallStatisticalEvidenceLikelihood1997]
+Royall's conventional cutoffs are $1/8$ and $1/32$; the $1/6.8$ cutoff is
+the likelihood interval that, for an approximately normal likelihood,
+matches the usual 95% interval (since $e^{-1.96^2 / 2} \approx 1/6.8$).
+
+```{r echo=TRUE}
+support_interval <- function(df, k) {
+  keep <- df$values[df$support >= 1 / k]
+  c(lower = min(keep), upper = max(keep))
+}
+
+rbind(
+  `1/6.8` = support_interval(lik_rho, 6.8),
+  `1/8`   = support_interval(lik_rho, 8),
+  `1/32`  = support_interval(lik_rho, 32)
+)
+```
+
+# The companion: consonance and surprisal functions
+
+Now the frequentist view. `curve_corr()` inverts `cor.test()` at every
+level to produce the consonance (P-value) function and its surprisal
+transform.[@fraserPvalueFunctionStatistical2019;@rafiSemanticCognitiveTools2020]
+
+```{r echo=TRUE}
+rho_curve <- curve_corr(
+  x = x, y = y,
+  alternative = "two.sided",
+  method = "pearson"
+)
+```
+
+```{r echo=TRUE}
+ggcurve(rho_curve[[1]], type = "c", nullvalue = TRUE,
+        xaxis = expression(rho),
+        title = "Consonance (P-value) Function")
+
+ggcurve(rho_curve[[1]], type = "s", nullvalue = TRUE,
+        xaxis = expression(rho),
+        title = "Surprisal (S-value) Function")
+```
+
+The consonance function peaks at $r$, and its horizontal slice at
+$1 - \alpha = 0.95$ is the ordinary 95% interval. The surprisal function
+$S(\rho) = -\log_2 p(\rho)$ rescales the same curve into **bits of
+information** against each value of $\rho$.[@rafiSemanticCognitiveTools2020]
+
+## The two views agree
+
+The $1/6.8$ likelihood interval and the 95% consonance interval should
+land in nearly the same place --- that is the whole point.
+
+```{r echo=TRUE}
+ci95 <- as.numeric(rho_curve[[1]][which.min(abs(rho_curve[[1]]$intrvl.level - 0.95)),
+                                  c("lower.limit", "upper.limit")])
+
+rbind(
+  `Likelihood 1/6.8` = support_interval(lik_rho, 6.8),
+  `Consonance 95%`   = c(lower = ci95[1], upper = ci95[2])
+)
+```
+
+They are close but not identical: the likelihood interval is exact for
+the profiled normal model, while `cor.test()` uses Fisher's $z$
+approximation. The small gap is a feature to notice, not a bug to hide
+--- it is the difference between two legitimate inferential
+summaries.[@schwederConfidenceLikelihood2002]
+
+# Cite R Packages
+
+Please remember to cite the packages that you use.
+
+```{r}
+citation("concurve")
+```
+
+# References
+
+* * *
