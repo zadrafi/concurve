@@ -6,7 +6,7 @@ on:
     branches:
       - master
 
-name: scan-bare-imports
+name: repo-checks
 
 jobs:
   scan-bare-imports:
@@ -28,3 +28,22 @@ jobs:
 
       - name: Scan for unqualified Imports-package calls
         run: Rscript tools/scan_bare_imports.R
+
+  check-version-consistency:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      # Only needs DESCRIPTION/NEWS.md/_pkgdown.yml parsing, not the package
+      # or its dependencies -- yaml is the one non-base package required.
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::yaml
+          dependencies: '"hard"'
+
+      - name: Check NEWS.md matches DESCRIPTION and no dormant pkgdown config
+        run: Rscript tools/check_version_consistency.R
