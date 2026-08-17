@@ -28,7 +28,7 @@ library(concurve)
 ```
 <center>
 <figure>
-<img src="confdistributions.png" align="center" width="500"/>  
+<img src="confdistributions.png" align="center" width="500" alt="Example consonance (confidence) distribution plot, showing the p-value function across a range of compatibility levels"/>  
 <figcaption><p style="font-size: 12px">Sample image taken from Schweder T, Hjort NL. (2016) </p></figcaption>
 </figure>
 </center>

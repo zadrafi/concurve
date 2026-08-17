@@ -12,9 +12,8 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-<center>
-<img src = "https://res.cloudinary.com/less-likely/image/upload/v1575441662/Site/Logo2.jpg" align="right" width="100">
-</center>
+
+<center><img src="https://res.cloudinary.com/less-likely/image/upload/v1575441662/Site/Logo2.jpg" alt="concurve logo" align="right" width="100"/></center>
 
 ```{r setup, include=FALSE}
 library(knitr)
@@ -39,17 +38,41 @@ if (has_kable) {
 ```
 
 ## Staying Up to Date
- 
-* * * 
 
-This page is a summary of which versions of [`concurve`](https://cran.r-project.org/package=concurve) are currently supported and which we will provide support with depending on the context. 
-We will mostly be supporting the most recent versions of the package, as these versions will also be using the latest version of `R` and other dependencies that are necessary. As such, those who continue to use older versions of the package may be out of the loop on new changes in arguments to functions, along with new functions. We urge users to consult and stay up to date with the documentation, and update their `R` packages as frequently as possible. An easy way to remain updated is to visit the [package website](https://data.lesslikely.com/concurve/), as the newest version of the package number will always be on the top left. 
+------------------------------------------------------------------------
+
+This page is a summary of which versions of
+[`concurve`](https://cran.r-project.org/package=concurve) are currently
+supported and which we will provide support with depending on the
+context. We will mostly be supporting the most recent versions of the
+package, as these versions will also be using the latest version of `R`
+and other dependencies that are necessary. As such, those who continue
+to use older versions of the package may be out of the loop on new
+changes in arguments to functions, along with new functions. We urge
+users to consult and stay up to date with the documentation, and update
+their `R` packages as frequently as possible. An easy way to remain
+updated is to visit the [package
+website](https://data.lesslikely.com/concurve/), as the newest version
+of the package number will always be on the top left.
 
 ## Previous Versions
 
-However, we'd still like users to be able to access old versions of concurve for whatever, reason, and in addition to using GitHub, those can also be found on the [CRAN archive](https://cloud.r-project.org/web/checks/check_results_concurve.html). A page with the test results for the most recent package on CRAN can also be [found here](https://cloud.r-project.org/web/checks/check_results_concurve.html).  
+However, we'd still like users to be able to access old versions of
+concurve for whatever, reason, and in addition to using GitHub, those
+can also be found on the [CRAN
+archive](https://cloud.r-project.org/web/checks/check_results_concurve.html).
+A page with the test results for the most recent package on CRAN can
+also be [found
+here](https://cloud.r-project.org/web/checks/check_results_concurve.html).
 
-Another useful link will be the [NEWS](https://data.lesslikely.com/concurve/news/index.html) section, which will inform users of bugs that have been patched and new changes to old functions. However, checking `CRAN` is less than desirable, due to the fact that new changes (that may even be very important), will often quickly be pushed to `GitHub`, rather than `CRAN`. Thus, installing or upgrading to the newest version of `concurve` via the script, 
+Another useful link will be the
+[NEWS](https://data.lesslikely.com/concurve/news/index.html) section,
+which will inform users of bugs that have been patched and new changes
+to old functions. However, checking `CRAN` is less than desirable, due
+to the fact that new changes (that may even be very important), will
+often quickly be pushed to `GitHub`, rather than `CRAN`. Thus,
+installing or upgrading to the newest version of `concurve` via the
+script,
 
 ```{r eval=FALSE}
 install_github("zadrafi/concurve@master", dependencies = TRUE)
@@ -57,17 +80,21 @@ install_github("zadrafi/concurve@master", dependencies = TRUE)
 
 may be useful.
 
-You can also directly download a tarball or zip of the most recent package version using the [following link](https://github.com/zadrafi/concurve/releases). 
- 
-* * * 
+You can also directly download a tarball or zip of the most recent
+package version using the [following
+link](https://github.com/zadrafi/concurve/releases).
+
+------------------------------------------------------------------------
 
 ## Supported Versions
- 
-* * * 
+
+------------------------------------------------------------------------
 
 ```{r echo=FALSE, eval=has_kable}
 versions <- c(3.00, 2.77, 2.76, 2.75, 2.70)
-support <- c(rep("-", 5))
+# Text rather than checkmark/crossmark images: accessible to screen readers
+# without relying on alt-text support that kableExtra::spec_image() lacks.
+support <- c(rep("\u2714 Supported", 4), "\u2718 Not Supported")
 information <- c(
   "[Updates and Information about version 3.0.0](https://data.lesslikely.com/concurve/news/index.html#concurve-3-0-0)",
   "[Updates and Information about version 2.7.7](https://data.lesslikely.com/concurve/news/index.html#concurve-2-7-7-unreleased)",
@@ -76,66 +103,78 @@ information <- c(
   "[Updates and Information about version 2.7.0](https://data.lesslikely.com/concurve/news/index.html#concurve-2-7-0-unreleased)"
 )
 
-check <- ("https://res.cloudinary.com/less-likely/image/upload/v1602195577/Site/checkmark.png")
-cross <- ("https://res.cloudinary.com/less-likely/image/upload/v1602195577/Site/crossmark.png")
-
 df <- data.frame(versions, support, information)
 colnames(df) <- c("Package Version", "Currently Supported", "Information About Version")
 
 kable(df, booktabs = F, format = "html", col.names = colnames(df), table.attr = "class=\"striped\"") %>%
-  column_spec(2, width = "20em", bold = TRUE, image = spec_image(c(rep(check, 4), cross), width = 150, height = 150, res = 300)) %>%
+  column_spec(2, width = "20em", bold = TRUE) %>%
   column_spec(1, width = "15em", bold = TRUE) %>%
   column_spec(3, width = "40em", bold = TRUE) %>%
   kable_styling(full_width = TRUE, "striped", font_size = 20, position = "right", html_font = "helvetica")
 ```
 
-* * * 
+------------------------------------------------------------------------
 
 ## What's New in Version 3.0
- 
-* * * 
 
-Version 3.0 is a major update that includes new functionality, reduced dependencies, and improved compatibility.
+------------------------------------------------------------------------
+
+Version 3.0 is a major update that includes new functionality, reduced
+dependencies, and improved compatibility.
 
 ### New Functions
 
 - **`curve_wrap()`** - Generic wrapper for any CI-producing function
 - **`curve_model()`** - Convenience wrapper for model objects
-- **`curve_snowflake()`** - Construct consonance distributions directly from Snowflake database query results
-- **`curve_snowflake_batch()`** - Batch processing for multiple Snowflake analyses
-- **`export_for_powerbi()`** - Export consonance data in Power BI-ready format
+- **`curve_snowflake()`** - Construct consonance distributions directly
+  from Snowflake database query results
+- **`curve_snowflake_batch()`** - Batch processing for multiple
+  Snowflake analyses
+- **`export_for_powerbi()`** - Export consonance data in Power BI-ready
+  format
 - **`curve_from_ratio()`** - Construct curves from ratio estimates
 - **`curve_from_se()`** - Construct curves from standard error estimates
 - **`curve_overlap()`** - Calculate overlap between consonance functions
-- **`curve_summary()`** - Generate summary statistics for consonance objects
+- **`curve_summary()`** - Generate summary statistics for consonance
+  objects
 - **`plot_multi()`** - Plot multiple consonance functions simultaneously
 
 ### Dependency Changes
 
-- **Removed `pbmcapply` dependency** - Replaced with base R `parallel::mclapply()` for parallel processing, reducing the package's dependency footprint
-- **Optional database dependencies** - `DBI` and `odbc` are now in Suggests for Snowflake integration (install only if needed)
+- **Removed `pbmcapply` dependency** - Replaced with base R
+  `parallel::mclapply()` for parallel processing, reducing the package's
+  dependency footprint
+- **Optional database dependencies** - `DBI` and `odbc` are now in
+  Suggests for Snowflake integration (install only if needed)
 
 ### Bug Fixes and Improvements
+
 - Fixed scoping issues with `subset()` inside parallel processing calls
 - Improved roxygen2 documentation across all functions
 - Enhanced error messages and input validation
 - Updated vignettes with corrected examples
 
-* * * 
+------------------------------------------------------------------------
 
 ## Dependencies
- 
-* * * 
 
-The package constructs interval estimates using a wide variety of functions that already exist within the R ecosystem, whether that is from base R or from community-contributed packages that are on CRAN. Here is a list of those packages. Those that are necessary to produce distributions of parameters are specified as `Imports`, while those that are optional and not necessary are specified as `Suggests`. 
+------------------------------------------------------------------------
 
-Those that are listed in the Suggests section are typically used for additional functionality such as database connectivity or testing.
- 
-* * * 
+The package constructs interval estimates using a wide variety of
+functions that already exist within the R ecosystem, whether that is
+from base R or from community-contributed packages that are on CRAN.
+Here is a list of those packages. Those that are necessary to produce
+distributions of parameters are specified as `Imports`, while those that
+are optional and not necessary are specified as `Suggests`.
 
-### Package Imports 
- 
-* * * 
+Those that are listed in the Suggests section are typically used for
+additional functionality such as database connectivity or testing.
+
+------------------------------------------------------------------------
+
+### Package Imports
+
+------------------------------------------------------------------------
 
 ```{r echo=FALSE, eval=has_kable}
 packinfo <- installed.packages(fields = c("Package", "Version"))
@@ -159,10 +198,11 @@ kable(Imports,
   kable_styling(full_width = TRUE, "striped", font_size = 10, position = "center", html_font = "helvetica")
 ```
 
-* * * 
-### Package Suggestions 
- 
-* * * 
+------------------------------------------------------------------------
+
+### Package Suggestions
+
+------------------------------------------------------------------------
 
 ```{r echo=FALSE, eval=has_kable}
 # Package suggests (updated for v3.0 - added DBI, odbc for Snowflake)
@@ -183,16 +223,21 @@ kable(suggests_df,
 ) %>%
   kable_styling(full_width = TRUE, "striped", font_size = 10, position = "center", html_font = "helvetica")
 ```
- 
-* * * 
+
+------------------------------------------------------------------------
 
 ## Reporting Bugs, Vulnerabilities, and Issues
- 
-* * * 
 
-Please [see here](https://data.lesslikely.com/concurve/CONTRIBUTING.html) to report any vulnerabilities within the package, and to follow best practices for reporting any bugs, issues, or concerns. When submitting an issue, please try to submit a REPREX, so that the developers may quickly see the issue.
+------------------------------------------------------------------------
 
-* * * 
+Please [see
+here](https://data.lesslikely.com/concurve/CONTRIBUTING.html) to report
+any vulnerabilities within the package, and to follow best practices for
+reporting any bugs, issues, or concerns. When submitting an issue,
+please try to submit a REPREX, so that the developers may quickly see
+the issue.
+
+------------------------------------------------------------------------
 
 ## Session info
 

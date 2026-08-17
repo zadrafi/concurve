@@ -37,7 +37,7 @@ information for scientific inference and the image below, taken from Xie
 & Singh, 2013[\@@xieConfidenceDistributionFrequentist2013;] displays
 why.
 
-<img src="densityfunction.png" align="center" width="750"/>
+<img src="densityfunction.png" alt="Consonance density function plot, showing the probability density implied by the interval estimates" align="center" width="750"/>
 
 For a more extensive discussion of these concepts, see the following
 references. [@birnbaumUnifiedTheoryEstimation1961;
