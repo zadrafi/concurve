@@ -201,7 +201,7 @@
     
     
 <center>
-<img src="https://res.cloudinary.com/less-likely/image/upload/v1575441662/Site/Logo2.jpg" align="right" width="100">
+<img src="https://res.cloudinary.com/less-likely/image/upload/v1575441662/Site/Logo2.jpg" alt="concurve logo" align="right" width="100">
 </center>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -295,7 +295,7 @@ functions.</p>
 <p>I would also recommend saving plots using the
 <code><a href="https://wilkelab.org/cowplot/reference/save_plot.html" class="external-link">cowplot::save_plot()</a></code> function with the actual
 <code><a href="../reference/ggcurve.html">ggcurve()</a></code> object. It has better default settings than the
-<code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave()</a></code> function.</p>
+<code>ggsave()</code> function.</p>
 </div>
 <div class="section level2">
 <h2 id="slow-performance">Slow Performance<a class="anchor" aria-label="anchor" href="#slow-performance"></a>
@@ -363,13 +363,13 @@ argument that almost all the curve functions in the
 <span><span class="co">#&gt; disabled.</span></span></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">func1</span><span class="op">$</span><span class="va">median</span></span>
-<span><span class="co">#&gt; [1] 780µs</span></span>
+<span><span class="co">#&gt; [1] 817µs</span></span>
 <span><span class="va">func2</span><span class="op">$</span><span class="va">median</span></span>
-<span><span class="co">#&gt; [1] 1.13s</span></span>
+<span><span class="co">#&gt; [1] 995ms</span></span>
 <span><span class="va">func3</span><span class="op">$</span><span class="va">median</span></span>
-<span><span class="co">#&gt; [1] 791µs</span></span>
+<span><span class="co">#&gt; [1] 810µs</span></span>
 <span><span class="va">func4</span><span class="op">$</span><span class="va">median</span></span>
-<span><span class="co">#&gt; [1] 1.46s</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 1.5s</span></span></code></pre></div>
 <p>When setting the number of iterations to 100, utilizing
 parallelization doesn’t seem to help much, but when setting the number
 of iterations to 500000 and using multiple cores, there seems to be a
@@ -378,7 +378,7 @@ computational advantage.</p>
 <div class="section level2">
 <h2 id="bugs">Bugs<a class="anchor" aria-label="anchor" href="#bugs"></a>
 </h2>
-<p>If you encounter any other bugs, please report them at <a href="https://github.com/zadrafi/concurve/issues" class="external-link">https://github.com/zadrafi/concurve/issues</a></p>
+<p>If you encounter any other bugs, please report them at <a href="https://github.com/zadrafi/concurve/issues" class="external-link uri">https://github.com/zadrafi/concurve/issues</a></p>
 </div>
 <div class="section level2">
 <h2 id="session-info">Session info<a class="anchor" aria-label="anchor" href="#session-info"></a>
@@ -402,21 +402,39 @@ computational advantage.</p>
 <span><span class="co">#&gt; [8] base     </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; other attached packages:</span></span>
-<span><span class="co">#&gt; [1] bench_1.1.4    concurve_3.0.0</span></span>
+<span><span class="co">#&gt; [1] bench_1.1.4      magick_2.9.1     kableExtra_1.4.1 magrittr_2.0.5  </span></span>
+<span><span class="co">#&gt; [5] knitr_1.51       concurve_3.0.0  </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
-<span><span class="co">#&gt;  [1] gtable_0.3.6       jsonlite_2.0.0     dplyr_1.2.1        compiler_4.6.1    </span></span>
-<span><span class="co">#&gt;  [5] tidyselect_1.2.1   dichromat_2.0-1    tidyr_1.3.2        jquerylib_0.1.4   </span></span>
-<span><span class="co">#&gt;  [9] systemfonts_1.3.2  scales_1.4.0       textshaping_1.0.5  yaml_2.3.12       </span></span>
-<span><span class="co">#&gt; [13] fastmap_1.2.0      ggplot2_4.0.3      R6_2.6.1           generics_0.1.4    </span></span>
-<span><span class="co">#&gt; [17] knitr_1.51         htmlwidgets_1.6.4  tibble_3.3.1       desc_1.4.3        </span></span>
-<span><span class="co">#&gt; [21] bslib_0.12.0       pillar_1.11.1      RColorBrewer_1.1-3 rlang_1.3.0       </span></span>
-<span><span class="co">#&gt; [25] cachem_1.1.0       xfun_0.60          S7_0.2.2           fs_2.1.0          </span></span>
-<span><span class="co">#&gt; [29] sass_0.4.10        otel_0.2.0         cli_3.6.6          pkgdown_2.2.1     </span></span>
-<span><span class="co">#&gt; [33] magrittr_2.0.5     digest_0.6.39      grid_4.6.1         rstudioapi_0.19.0 </span></span>
-<span><span class="co">#&gt; [37] lifecycle_1.0.5    vctrs_0.7.3        evaluate_1.0.5     glue_1.8.1        </span></span>
-<span><span class="co">#&gt; [41] farver_2.1.2       ragg_1.5.2         colorspace_2.1-3   purrr_1.2.2       </span></span>
-<span><span class="co">#&gt; [45] rmarkdown_2.31     tools_4.6.1        pkgconfig_2.0.3    htmltools_0.5.9</span></span></code></pre>
+<span><span class="co">#&gt;  [1] xslt_1.5.1              gtable_0.3.6            xfun_0.60              </span></span>
+<span><span class="co">#&gt;  [4] bslib_0.12.0            ggplot2_4.0.3           httr2_1.3.0            </span></span>
+<span><span class="co">#&gt;  [7] htmlwidgets_1.6.4       devtools_2.5.2          remotes_2.5.0          </span></span>
+<span><span class="co">#&gt; [10] vctrs_0.7.3             tools_4.6.1             generics_0.1.4         </span></span>
+<span><span class="co">#&gt; [13] curl_7.1.0              tibble_3.3.1            fansi_1.0.7            </span></span>
+<span><span class="co">#&gt; [16] pkgconfig_2.0.3         katex_1.5.0             data.table_1.18.4      </span></span>
+<span><span class="co">#&gt; [19] RColorBrewer_1.1-3      S7_0.2.2                desc_1.4.3             </span></span>
+<span><span class="co">#&gt; [22] uuid_1.2-2              lifecycle_1.0.5         flextable_0.10.0       </span></span>
+<span><span class="co">#&gt; [25] stringr_1.6.0           compiler_4.6.1          farver_2.1.2           </span></span>
+<span><span class="co">#&gt; [28] textshaping_1.0.5       fontLiberation_0.1.0    fontquiver_0.2.1       </span></span>
+<span><span class="co">#&gt; [31] htmltools_0.5.9         usethis_3.2.1           sass_0.4.10            </span></span>
+<span><span class="co">#&gt; [34] yaml_2.3.12             pillar_1.11.1           pkgdown_2.2.1          </span></span>
+<span><span class="co">#&gt; [37] jquerylib_0.1.4         whisker_0.4.1           tidyr_1.3.2            </span></span>
+<span><span class="co">#&gt; [40] ellipsis_0.3.3          openssl_2.4.2           cachem_1.1.0           </span></span>
+<span><span class="co">#&gt; [43] sessioninfo_1.2.4       fontBitstreamVera_0.1.1 zip_3.0.2              </span></span>
+<span><span class="co">#&gt; [46] tidyselect_1.2.1        digest_0.6.39           stringi_1.8.9          </span></span>
+<span><span class="co">#&gt; [49] dplyr_1.2.1             purrr_1.2.2             labeling_0.4.3         </span></span>
+<span><span class="co">#&gt; [52] cowplot_1.2.0           fastmap_1.2.0           grid_4.6.1             </span></span>
+<span><span class="co">#&gt; [55] colorspace_2.1-3        cli_3.6.6               equatags_0.2.2         </span></span>
+<span><span class="co">#&gt; [58] patchwork_1.3.2         dichromat_2.0-1         pkgbuild_1.4.8         </span></span>
+<span><span class="co">#&gt; [61] withr_3.0.3             gdtools_0.5.1           scales_1.4.0           </span></span>
+<span><span class="co">#&gt; [64] officer_0.7.6           rmarkdown_2.31          httr_1.4.8             </span></span>
+<span><span class="co">#&gt; [67] otel_0.2.0              askpass_1.2.1           ragg_1.5.2             </span></span>
+<span><span class="co">#&gt; [70] memoise_2.0.1           evaluate_1.0.5          covr_3.6.5             </span></span>
+<span><span class="co">#&gt; [73] V8_8.2.0                rex_1.2.2               viridisLite_0.4.3      </span></span>
+<span><span class="co">#&gt; [76] rlang_1.3.0             downlit_0.4.5           Rcpp_1.1.2             </span></span>
+<span><span class="co">#&gt; [79] glue_1.8.1              xml2_1.6.0              pkgload_1.5.3          </span></span>
+<span><span class="co">#&gt; [82] svglite_2.2.2           rstudioapi_0.19.0       jsonlite_2.0.0         </span></span>
+<span><span class="co">#&gt; [85] R6_2.6.1                systemfonts_1.3.2       fs_2.1.0</span></span></code></pre>
 </div>
   </div>
 
