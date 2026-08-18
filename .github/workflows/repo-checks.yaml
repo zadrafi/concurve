@@ -38,12 +38,14 @@ jobs:
         with:
           use-public-rspm: true
 
-      # Only needs DESCRIPTION/NEWS.md/_pkgdown.yml parsing, not the package
-      # or its dependencies -- yaml is the one non-base package required.
+      # Doesn't need the package installed or its own Imports/Suggests --
+      # pkgdown::check_pkgdown() and check_urls() work directly against the
+      # source tree (DESCRIPTION, NAMESPACE, man/, _pkgdown.yml). yaml is
+      # needed for the custom checks; pkgdown for the check_pkgdown() catch-all.
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::yaml
+          extra-packages: any::yaml, any::pkgdown
           dependencies: '"hard"'
 
-      - name: Check NEWS.md matches DESCRIPTION and no dormant pkgdown config
+      - name: Check NEWS.md/DESCRIPTION/_pkgdown.yml are consistent
         run: Rscript tools/check_version_consistency.R

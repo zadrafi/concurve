@@ -18,6 +18,20 @@
 #      site quietly stopped updating. Fail loudly if this reappears instead
 #      of relying on someone noticing a stale site.
 #
+#   3. _pkgdown.yml's `url:` silently drifting out of sync with
+#      DESCRIPTION's `URL:` field. pkgdown requires its site url to appear
+#      among DESCRIPTION's URL entries (checked by pkgdown::check_pkgdown()
+#      itself, via check_urls()) -- hit earlier this session as "URL is
+#      missing package url" when _pkgdown.yml's url held a comma-separated
+#      list instead of a single site URL. Checked here directly (fast, no
+#      pkgdown dependency) in addition to via check_pkgdown() below.
+#
+#   4. Anything else pkgdown's own check_pkgdown() validates -- reference
+#      index completeness, articles index completeness, and whatever
+#      DESCRIPTION-coupled checks future pkgdown versions add -- run as a
+#      catch-all if the pkgdown package is available, rather than
+#      re-implementing pkgdown's own validation logic by hand.
+#
 # Usage:
 #   Rscript tools/check_version_consistency.R
 #
@@ -88,14 +102,61 @@ if (file.exists(pkgdown_path)) {
       ))
     }
   }
+  # ---- 3. url: in _pkgdown.yml matches a DESCRIPTION URL entry ------------
+
+  if (!is.null(pd) && !is.null(pd$url)) {
+    desc_urls <- if ("URL" %in% colnames(desc)) {
+      trimws(strsplit(desc[1, "URL"], ",")[[1]])
+    } else {
+      character(0)
+    }
+    norm_url <- function(u) sub("/+$", "", trimws(u))
+
+    if (length(desc_urls) == 0) {
+      problems <- c(problems, paste(
+        "_pkgdown.yml has a url:, but DESCRIPTION has no URL: field at all.",
+        "pkgdown::check_pkgdown() requires the site url to be listed there."
+      ))
+    } else if (!norm_url(pd$url) %in% norm_url(desc_urls)) {
+      problems <- c(problems, sprintf(
+        paste(
+          "_pkgdown.yml's url (%s) does not match any entry in DESCRIPTION's",
+          "URL field (%s). pkgdown::check_pkgdown() fails on this mismatch,",
+          "and a wrong url also breaks canonical-link and opengraph metadata",
+          "on every page of the built site."
+        ),
+        pd$url, paste(desc_urls, collapse = ", ")
+      ))
+    }
+  }
 } else {
   cat("(No _pkgdown.yml; skipping pkgdown config checks.)\n")
+}
+
+# ---- 4. Catch-all: pkgdown's own validation, if pkgdown is installed ------
+
+if (file.exists(pkgdown_path)) {
+  if (requireNamespace("pkgdown", quietly = TRUE)) {
+    tryCatch(
+      {
+        suppressMessages(pkgdown::check_pkgdown(pkg_root))
+        cat("pkgdown::check_pkgdown(): no problems found.\n")
+      },
+      error = function(e) {
+        problems <<- c(problems, paste0(
+          "pkgdown::check_pkgdown() failed: ", conditionMessage(e)
+        ))
+      }
+    )
+  } else {
+    cat("(pkgdown package not installed; skipping pkgdown::check_pkgdown().)\n")
+  }
 }
 
 # ---- Report -----------------------------------------------------------------
 
 if (length(problems) == 0) {
-  cat("OK: NEWS.md matches DESCRIPTION Version, and no dormant pkgdown config found.\n")
+  cat("OK: NEWS.md matches DESCRIPTION Version, and no pkgdown config drift found.\n")
   quit(status = 0, save = "no")
 }
 
