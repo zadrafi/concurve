@@ -2,8 +2,8 @@ Type: Package
 Package: concurve
 Title: Computes & Plots Compatibility (Confidence),
        Surprisal, & Likelihood Distributions
-Version: 3.0.0.9000
-Date: 2026-01-26
+Version: 3.0.0
+Date: 2026-08-18
 Authors@R: 
     c(person(given = "Zad",
              family = "Rafi",
@@ -50,14 +50,16 @@ Imports:
     tibble,
     tidyr,
     numDeriv,
-    rlang,
-    pbmcapply,
+    rlang
+Suggests:
+    plotly,
     ProfileLikelihood,
     officer,
     survival,
-    survminer
-Suggests:
-    plotly,
+    survminer,
+    bbmle,
+    cond,
+    maxLik,
     DBI,
     odbc,
     jsonlite,
