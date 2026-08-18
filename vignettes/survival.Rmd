@@ -28,7 +28,7 @@ knitr::opts_chunk$set(
 
 Here, we'll look at how to create consonance functions from the coefficients of predictors of interest in a Cox regression model.
 
-We'll use the `carData` package for this. [Fox & Weisberg, 2018](https://socialsciences.mcmaster.ca/jfox/Books/Companion/appendices/Appendix-Cox-Regression.pdf) describe the dataset elegantly in their paper,
+We'll use the `carData` package for this. [Fox & Weisberg, 2018](https://www.john-fox.ca/Companion/appendices/Appendix-Cox-Regression.pdf) describe the dataset elegantly in their paper,
 
 > The Rossi data set in the `carData` package contains data from an experimental study of recidivism of 432 male prisoners, who were observed for a year after being released from prison (Rossi et al., 1980). The following variables are included in the data; the variable names are those used by Allison (1995), from whom this example and variable descriptions are adapted: 
 >

@@ -14,7 +14,6 @@
 ^references\.bib$
 ^american-medical-association\.csl$
 ^\.covrignore$
-^\.travis\.yml$
 ^\.circleci$
 ^Manuscripts$
 ^\.here$

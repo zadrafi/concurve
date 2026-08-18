@@ -60,10 +60,9 @@ of the package number will always be on the top left.
 However, we'd still like users to be able to access old versions of
 concurve for whatever, reason, and in addition to using GitHub, those
 can also be found on the [CRAN
-archive](https://cloud.r-project.org/web/checks/check_results_concurve.html).
-A page with the test results for the most recent package on CRAN can
-also be [found
-here](https://cloud.r-project.org/web/checks/check_results_concurve.html).
+archive](https://CRAN.R-project.org/package=concurve). A page with the
+test results for the most recent package on CRAN can also be [found
+here](https://CRAN.R-project.org/package=concurve).
 
 Another useful link will be the
 [NEWS](https://stat.lesslikely.com/concurve/news/index.html) section,

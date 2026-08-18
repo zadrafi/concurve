@@ -46,45 +46,45 @@ Rafi, Z., and Greenland, S. (2020),
 “Semantic and Cognitive Tools to Aid Statistical Science:
 Replace Confidence and Significance by Compatibility and Surprise"
 BMC Medical Research Methodology
-\url{https://doi.org/10.1186/s12874-020-01105-9}
+\doi{10.1186/s12874-020-01105-9}
 
 Fraser DAS. The P-value function and statistical inference. The American Statistician. 2019;73(sup1):135-147. doi:10.1080/00031305.2018.1556735
-\url{https://doi.org/10.1080/00031305.2018.1556735}
+\doi{10.1080/00031305.2018.1556735}
 
 Fraser DAS. P-Values: The Insight to Modern Statistical Inference. Annual Review of Statistics and Its Application. 2017;4(1):1-14.
-\url{https://doi.org/10.1146/annurev-statistics-060116-054139}
+\doi{10.1146/annurev-statistics-060116-054139}
 
 Poole C. Beyond the confidence interval. American Journal of Public Health. 1987;77(2):195-199. doi:10.2105/AJPH.77.2.195
-\url{https://doi.org/10.1002/jrsm.1410}
+\doi{10.2105/AJPH.77.2.195}
 
 Poole C. Confidence intervals exclude nothing. American Journal of Public Health. 1987;77(4):492-493. doi:10.2105/ajph.77.4.492
-\url{https://doi.org/10.2105/ajph.77.4.492}
+\doi{10.2105/ajph.77.4.492}
 
 Schweder T, Hjort NL. Confidence and Likelihood*. Scandinavian Journal of Statistics. 2002;29(2):309-332. doi:10.1111/1467-9469.00285
-\url{https://doi.org/10.1111/1467-9469.00285}
+\doi{10.1111/1467-9469.00285}
 
 Schweder T, Hjort NL. Confidence, Likelihood, Probability: Statistical Inference with Confidence Distributions. Cambridge University Press; 2016.
 \url{https://books.google.com/books/about/Confidence_Likelihood_Probability.html?id=t7KzCwAAQBAJ}
 
 Singh K, Xie M, Strawderman WE. Confidence distribution (CD) – distribution estimator of a parameter. arXiv. August 2007.
-\url{http://arxiv.org/abs/0708.0976}
+\url{https://arxiv.org/abs/0708.0976}
 
 Sullivan KM, Foster DA. Use of the confidence interval function. Epidemiology. 1990;1(1):39-42. doi:10.1097/00001648-199001000-00009
-\url{https://doi.org/10.1097/00001648-199001000-00009}
+\doi{10.1097/00001648-199001000-00009}
 
 Whitehead J. The case for frequentism in clinical trials. Statistics in Medicine. 1993;12(15-16):1405-1413. doi:10.1002/sim.4780121506
-\url{https://doi.org/10.1002/sim.4780121506}
+\doi{10.1002/sim.4780121506}
 
 Xie M-g, Singh K. Confidence Distribution, the Frequentist Distribution Estimator of a Parameter: A Review. International Statistical Review. 2013;81(1):3-39. doi:10.1111/insr.12000
-\url{https://doi.org/10.1111/insr.12000}
+\doi{10.1111/insr.12000}
 
 Rothman KJ, Greenland S, Lash TL. Precision and statistics in epidemiologic studies. In: Rothman KJ, Greenland S, Lash TL, eds. Modern Epidemiology. 3rd ed. Lippincott Williams & Wilkins; 2008:148-167.
 
 Rücker G, Schwarzer G. Beyond the forest plot: The drapery plot. Research Synthesis Methods. April 2020. doi:10.1002/jrsm.1410
-\url{https://doi.org/10.1002/jrsm.1410}
+\doi{10.1002/jrsm.1410}
 
 Cox DR. Discussion. International Statistical Review. 2013;81(1):40-41. doi:10/gg9s2f
-\url{https://onlinelibrary.wiley.com/doi/abs/10.1111/insr.12007}
+\doi{10/gg9s2f}
 }
 \seealso{
 \code{\link{curve_gen}},
