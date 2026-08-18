@@ -53,6 +53,7 @@ Imports:
     rlang
 Suggests:
     plotly,
+    pbmcapply,
     ProfileLikelihood,
     officer,
     survival,

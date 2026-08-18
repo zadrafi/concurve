@@ -64,6 +64,42 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "bbmle",
+      "name": "bbmle",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=bbmle"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "cond",
+      "name": "cond",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=cond"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "maxLik",
+      "name": "maxLik",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=maxLik"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "DBI",
       "name": "DBI",
       "provider": {
@@ -695,7 +731,7 @@
     "SystemRequirements": null
   },
   "keywords": ["confidence", "compatibility", "consonance", "curve", "informationstatistics", "surprisals", "interval", "function", "distribution", "fiducial", "confidence-intervals", "compatibility-intervals", "stata", "confidence-distribution", "likelihood-functions", "bootstrap-method", "r", "frequentist-methods", "fiducial-distribution", "density-function", "cumulative-distribution-function", "surprisal-function", "deviance-function"],
-  "fileSize": "19479.521KB",
+  "fileSize": "22781.428KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
@@ -750,6 +786,6 @@
   ],
   "releaseNotes": "https://github.com/zadrafi/concurve/blob/main/NEWS.md",
   "readme": "https://github.com/zadrafi/concurve/blob/master/README.md",
-  "contIntegration": ["https://travis-ci.com/zadrafi/concurve", "https://codecov.io/gh/zadrafi/concurve?branch=master"],
+  "contIntegration": "https://app.codecov.io/gh/zadrafi/concurve?branch=master",
   "developmentStatus": "https://www.tidyverse.org/lifecycle/#maturing"
 }

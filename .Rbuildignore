@@ -49,6 +49,8 @@
 ^bootstrap_ci\.R$
 ^consonance_data\.*$
 ^logistic\.Rmd$
+^logistic\.html$
+^README\.html$
 ^meta-analysis\.Rmd$
 ^quack\.db$
 ^last\.dump\.rda$
@@ -58,3 +60,4 @@
 ^concurve-Ex\.timings$
 ^consonance_data\.csv$
 ^consonance_data\.xlsx$
+^\.travis\.yml$
