@@ -209,6 +209,10 @@ reference:
   desc: Construct likelihood, log-likelihood, profile likelihood, and deviance
         functions from fitted models, and plot them.
 - contents:
+  - as_curve_lik
+  - curve_lik_glm
+  - curve_lik_exact
+  - curve_support
   - construct_likelihood
   - plot.likelihood_function
   - ggplot_likelihood
