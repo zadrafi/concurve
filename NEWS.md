@@ -1,10 +1,21 @@
+# concurve 3.0.2
+
+## Minor changes
+
+- Replaced a remaining shortDOI link and a defunct tidy evaluation URL
+  with their canonical targets, per CRAN incoming checks.
+- Fixed redirected and malformed links and a local file path in the
+  README; removed an unstable citation URL from the vignette
+  references.
+- Corrected an invalid image width attribute in the package help page.
+
 # concurve 3.0.1
 
 ## Minor changes
 
 - Replaced shortDOI links in vignette references with their canonical
-  full DOIs, and updated two redirected URLs (rstanarm, tidy
-  evaluation) to their canonical forms, per CRAN incoming checks.
+  full DOIs, and updated two redirected URLs (rstanarm, tidy evaluation)
+  to their canonical forms, per CRAN incoming checks.
 - Corrected the spelling of 'PowerPoint' in DESCRIPTION.
 
 # concurve 3.0.0

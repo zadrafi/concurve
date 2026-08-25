@@ -8,7 +8,7 @@
 [![CRAN
 status](https://www.r-pkg.org/badges/version/concurve)](https://CRAN.R-project.org/package=concurve)
 [![Lifecycle:
-maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
 [![Monthly
 Downloads](https://cranlogs.r-pkg.org/badges/concurve)](https://cran.r-project.org/package=concurve)
 [![Total
@@ -27,7 +27,7 @@ coverage](https://codecov.io/gh/zadrafi/concurve/branch/master/graph/badge.svg)]
 
 <figure>
 
-<img src="vignettes/confdistributions.png" alt="Example consonance (confidence) distribution plot, showing the p-value function and its interval estimates across a range of compatibility levels" align="center" width="550"/>  
+<img src="vignettes/confdistributions.png" alt="Example consonance (confidence) distribution plot, showing the p-value function and its interval estimates across a range of compatibility levels" align="center" width="550"/>\
 
 <figcaption>
 
@@ -86,7 +86,7 @@ remotes::install_github("zadrafi/concurve@master", dependencies = TRUE)
 ```
 
 See which versions of the package are currently [supported
-here](articles/supported.html).
+here](https://stat.lesslikely.com/concurve/articles/supported.html).
 
 ------------------------------------------------------------------------
 
@@ -132,8 +132,8 @@ here](articles/supported.html).
 ### Citation
 
 To properly cite the package, please see the [following
-page](file:///Users/zad/Desktop/GitHub/concurve/docs/authors.html) or
-run the R script below.
+page](https://stat.lesslikely.com/concurve/authors.html) or run the R
+script below.
 
 ``` r
 citation("concurve")
@@ -145,7 +145,7 @@ citation("concurve")
 
 Please note that the concurve project is released with a [Contributor
 Code of
-Conduct](https://stat.lesslikely.com/concurve//CODE_OF_CONDUCT.html). By
+Conduct](https://stat.lesslikely.com/concurve/CODE_OF_CONDUCT.html). By
 contributing to this project, you agree to abide by its terms.
 
 ##### Environment

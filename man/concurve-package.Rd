@@ -14,7 +14,7 @@ see what effect sizes are compatible with the test model at various
 compatibility levels rather than being limited to one interval estimate
 such as 95\%.
 \tabular{ll}{ Package: \tab concurve\cr
-Logo: \tab \figure{logo.png}{options: width="50px"}\cr
+Logo: \tab \figure{logo.png}{options: width="50"}\cr
 Type: \tab Package\cr Version: \tab
 3.0.0\cr Date: \tab 2026-10-07\cr License: \tab GLP-3}
 }

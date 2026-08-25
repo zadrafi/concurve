@@ -2,19 +2,29 @@
 
 This package was previously on CRAN and was archived on 2022-10-03
 ("check issues were not corrected despite reminders"). This is a
-resubmission (3.0.1) that additionally addresses the automated
-incoming-check feedback on the 3.0.0 submission of 2026-08-25:
+resubmission (3.0.2) that addresses the automated incoming-check
+feedback on the 3.0.1 submission of 2026-08-25:
 
-- All flagged redirected/shortDOI URLs have been replaced with their
-  canonical targets (doi.org/10.1214/ss/1028905930,
-  doi.org/10.1214/aoms/1177706815, mc-stan.org/rstanarm/,
-  tidyeval.tidyverse.org/).
-- "Powerpoint" in DESCRIPTION corrected to "PowerPoint".
-- The remaining words flagged as possibly misspelled in DESCRIPTION are
-  proper names and technical terms: Schweder, Hjort, and NL are the
-  cited authors "Schweder T, Hjort NL"; Rafi is the maintainer's
-  surname; Surprisal is a standard information-theoretic term;
-  PowerPoint is the Microsoft product.
+- The remaining shortDOI link (doi.org/10/gg9s2f) now uses its canonical
+  DOI (doi.org/10.1111/insr.12007), and the defunct
+  tidyeval.tidyverse.org URL in man/tidyeval.Rd has been replaced with
+  <https://rlang.r-lib.org/>.
+- README.md: the redirected lifecycle badge URL, a malformed
+  double-slash URL, a relative file URI, and a local file path have all
+  been replaced with canonical absolute URLs.
+- The invalid `width="50px"` image attribute in concurve-package.Rd is
+  now `width="50"`.
+- The semanticscholar.org citation URL (status 202) has been removed
+  from the vignette references.
+- The stat.lesslikely.com URLs flagged as unresolvable on the Debian
+  pretest machine belong to this package's own documentation website,
+  which is online and resolves normally (the Windows pretest of the same
+  tarball resolved them without error); this appears to have been a
+  transient DNS failure on the check machine.
+- The words flagged as possibly misspelled in DESCRIPTION are proper
+  names and technical terms: Schweder, Hjort, and NL are the cited
+  authors "Schweder T, Hjort NL"; Rafi is the maintainer's surname;
+  Surprisal is a standard information-theoretic term.
 
 A full `R CMD check --as-cran` run against the current source, including
 vignette rebuilding, completes locally with 0 errors, 0 warnings, and 0
