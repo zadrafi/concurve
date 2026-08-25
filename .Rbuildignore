@@ -64,3 +64,4 @@
 ^consonance_data\.xlsx$
 ^\.travis\.yml$
 ^dev$
+^CRAN-SUBMISSION$
