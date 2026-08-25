@@ -1,7 +1,11 @@
 AJPH
 Appl
+Asymptotics
 BMC
+Barndorff
 Bca
+Bellio
+Biometrika
 CRC
 Chu
 Codecov
@@ -22,6 +26,7 @@ KJ
 Kristoffer
 Lifecycle
 Lippincott
+MPL
 Magnusson
 Marschner
 Metaprogramming
@@ -48,6 +53,7 @@ SSRI
 Schwarzer
 Schweder
 Ser
+Skovgaard
 Stata
 Strawderman
 Surprisal
@@ -62,6 +68,7 @@ ajph
 al
 analysesusing
 aov
+asymptotics
 bayesplot
 bbmle
 bc
@@ -113,13 +120,13 @@ iso
 jacknife
 jrsm
 js
-jsd
 json
 kendall
 leq
 levelinto
 lidocaine
 lik
+likelihoodAsy
 lm
 lme
 logarithmically
@@ -129,6 +136,7 @@ metafor
 mfrow
 mh
 microbenchmark
+miscalibrated
 misspecification
 mtcars
 nls
@@ -155,8 +163,6 @@ rlm
 rma
 rms
 roxygen
-sdboot
-sdjack
 sidak
 spearman
 summarise

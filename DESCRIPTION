@@ -58,6 +58,7 @@ Suggests:
     officer,
     survival,
     survminer,
+    likelihoodAsy,
     bbmle,
     cond,
     maxLik,
