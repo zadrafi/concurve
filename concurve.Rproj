@@ -17,9 +17,9 @@ StripTrailingWhitespace: Yes
 
 BuildType: Package
 PackageUseDevtools: Yes
+PackageInstallArgs: --no-multiarch --with-keep.source
+PackageCheckArgs: --as-cran
 PackageRoxygenize: rd,collate,namespace,vignette
-
-QuitChildProcessesOnExit: Yes
 
 MarkdownWrap: Column
 MarkdownWrapAtColumn: 72
@@ -33,3 +33,5 @@ PythonVersion: 3.13.9
 PythonPath: /opt/anaconda3/bin/python3.13
 
 SpellingDictionary: en_US
+
+EditorTheme: Material

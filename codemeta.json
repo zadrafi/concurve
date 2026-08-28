@@ -2,13 +2,13 @@
   "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
   "identifier": "concurve",
-  "description": "Computes compatibility (confidence) distributions along with their corresponding P-values, S-values, and likelihoods. The intervals can be plotted to form the distributions themselves. Functions can be compared to one another to see how much they overlap. Results can be exported to Microsoft Word, Powerpoint, and TeX documents. The package currently supports resampling methods, computing differences, generalized linear models, mixed-effects models, survival analysis, and meta-analysis. These methods are discussed by Schweder T, Hjort NL. (2016, ISBN:9781316445051) and Rafi Z, Greenland S. (2020) <doi:10.1186/s12874-020-01105-9>.",
+  "description": "Computes compatibility (confidence) distributions along with their corresponding P-values, S-values, and likelihoods. The intervals can be plotted to form the distributions themselves. Functions can be compared to one another to see how much they overlap. Results can be exported to Microsoft Word, PowerPoint, and TeX documents. The package currently supports resampling methods, computing differences, generalized linear models, mixed-effects models, survival analysis, and meta-analysis. These methods are discussed by Schweder T, Hjort NL. (2016, ISBN:9781316445051) and Rafi Z, Greenland S. (2020) <doi:10.1186/s12874-020-01105-9>.",
   "name": "concurve: Computes & Plots Compatibility (Confidence),\n       Surprisal, & Likelihood Distributions",
   "relatedLink": "https://stat.lesslikely.com/concurve/",
   "codeRepository": "https://github.com/zadrafi/concurve",
   "issueTracker": "https://github.com/zadrafi/concurve/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "3.0.0",
+  "version": "3.0.2",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -743,7 +743,7 @@
     "SystemRequirements": null
   },
   "keywords": ["confidence", "compatibility", "consonance", "curve", "informationstatistics", "surprisals", "interval", "function", "distribution", "fiducial", "confidence-intervals", "compatibility-intervals", "stata", "confidence-distribution", "likelihood-functions", "bootstrap-method", "r", "frequentist-methods", "fiducial-distribution", "density-function", "cumulative-distribution-function", "surprisal-function", "deviance-function"],
-  "fileSize": "20744.731KB",
+  "fileSize": "NAKB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
@@ -762,7 +762,7 @@
       ],
       "name": "{concurve}: Computes and Plots Compatibility (Confidence) Intervals, P-Values, S-Values, & Likelihood Intervals to Form Consonance, Surprisal, & Likelihood Functions",
       "url": "https://CRAN.R-project.org/package=concurve",
-      "description": "R package version 3.0.0"
+      "description": "R package version 3.0.2"
     },
     {
       "@type": "ScholarlyArticle",
@@ -799,5 +799,5 @@
   "releaseNotes": "https://github.com/zadrafi/concurve/blob/main/NEWS.md",
   "readme": "https://github.com/zadrafi/concurve/blob/master/README.md",
   "contIntegration": "https://app.codecov.io/gh/zadrafi/concurve?branch=master",
-  "developmentStatus": "https://www.tidyverse.org/lifecycle/#maturing"
+  "developmentStatus": "https://lifecycle.r-lib.org/articles/stages.html#maturing"
 }

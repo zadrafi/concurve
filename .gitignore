@@ -9,3 +9,7 @@ Manuscripts/
 .positai
 .posit
 README.md
+/concurve_*.tar.gz
+/README.html
+/logistic.html
+/*.Rcheck/
