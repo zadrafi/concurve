@@ -178,6 +178,7 @@ reference:
   - curve_model
   - curve_region
   - curve_rev
+  - curve_rstar
   - curve_surv
   - curve_wrap
   - curve_from_ratio
@@ -212,6 +213,7 @@ reference:
   - as_curve_lik
   - curve_lik_glm
   - curve_lik_exact
+  - curve_mpl
   - curve_support
   - construct_likelihood
   - plot.likelihood_function
