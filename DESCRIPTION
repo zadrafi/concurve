@@ -53,11 +53,6 @@ Imports:
     rlang
 Suggests:
     plotly,
-    pbmcapply,
-    ProfileLikelihood,
-    officer,
-    survival,
-    survminer,
     likelihoodAsy,
     bbmle,
     cond,
@@ -93,8 +88,11 @@ Suggests:
     patchwork,
     cowplot,
     reprex,
-    roxygen2md
-VignetteBuilder: 
+    roxygen2md,
+    survival,
+    ProfileLikelihood,
+    survminer
+VignetteBuilder:
     knitr
 ByteCompile: true
 Encoding: UTF-8
