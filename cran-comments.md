@@ -2,42 +2,45 @@
 
 This package was previously on CRAN and was archived on 2022-10-03
 ("check issues were not corrected despite reminders"). This is a
-resubmission (3.0.2) that addresses the automated incoming-check
-feedback on the 3.0.1 submission of 2026-08-25:
+resubmission (3.0.3) that corrects the problems reported by the
+automated incoming pretest of the 3.0.2 submission (1 ERROR, 1 WARNING,
+1 NOTE):
 
-- The remaining shortDOI link (doi.org/10/gg9s2f) now uses its canonical
-  DOI (doi.org/10.1111/insr.12007), and the defunct
-  tidyeval.tidyverse.org URL in man/tidyeval.Rd has been replaced with
-  <https://rlang.r-lib.org/>.
-- README.md: the redirected lifecycle badge URL, a malformed
-  double-slash URL, a relative file URI, and a local file path have all
-  been replaced with canonical absolute URLs.
-- The invalid `width="50px"` image attribute in concurve-package.Rd is
-  now `width="50"`.
-- The semanticscholar.org citation URL (status 202) has been removed
-  from the vignette references.
-- The stat.lesslikely.com URLs flagged as unresolvable on the Debian
-  pretest machine belong to this package's own documentation website,
-  which is online and resolves normally (the Windows pretest of the same
-  tarball resolved them without error); this appears to have been a
-  transient DNS failure on the check machine.
-- The words flagged as possibly misspelled in DESCRIPTION are proper
-  names and technical terms: Schweder, Hjort, and NL are the cited
-  authors "Schweder T, Hjort NL"; Rafi is the maintainer's surname;
-  Surprisal is a standard information-theoretic term.
+- **PDF manual ERROR/WARNING ("Illegal unit of measure (pt inserted)").**
+  The package help page (`man/concurve-package.Rd`, generated from
+  `R/concurve-package.R`) carried a hand-maintained `\tabular{}` block
+  containing `\figure{logo.png}{options: width="50"}`. That directive
+  emits `\includegraphics[width="50"]` into the LaTeX manual, i.e. a
+  width with no valid LaTeX unit, which broke the PDF build. The block
+  also duplicated the package version, date, and license (with a
+  "GLP-3" typo). The entire block has been removed; version, date, and
+  license are taken from `DESCRIPTION`. The reference manual now builds
+  cleanly.
 
-A full `R CMD check --as-cran` run against the current source, including
-vignette rebuilding, completes locally with 0 errors, 0 warnings, and 0
-notes. The maintainer will address any outstanding check issues promptly
-if this submission has problems.
+- **Tarball size NOTE (~13 MB).** The source tarball has been reduced to
+  under 5 MB by removing image assets that were not referenced by any
+  help page, vignette, or the README: a 7 MB animated logo
+  (`man/figures/HomeLogo.gif`), several large curve PDFs/SVGs, stray
+  files (`.DS_Store`, an empty `checkmark.png`), and five uncited SVGs
+  in `vignettes/`.
+
+## Expected NOTEs
+
+- **`checking CRAN incoming feasibility` ... New submission / Package was
+  archived on CRAN.** Expected: this is a resubmission of a previously
+  archived package.
+
+- **Possibly misspelled words in DESCRIPTION** (Schweder, Hjort, NL,
+  Rafi, Surprisal). These are not misspellings: "Schweder T, Hjort NL"
+  are cited authors, Rafi is the maintainer's surname, and "surprisal"
+  is a standard information-theoretic term (the S-value / surprisal is
+  central to this package).
 
 ## R CMD check results
 
-0 errors \| 0 warnings \| 0 notes
-
-- `checking CRAN incoming feasibility` (run only on CRAN infrastructure,
-  not in local checks) is expected to report the prior archival; this is
-  expected for a resubmission.
+Local `R CMD check --as-cran` on the current source completes with
+0 errors and 0 warnings. The only NOTEs are the two expected items
+above, which are raised only on CRAN incoming infrastructure.
 
 ## Test environments
 

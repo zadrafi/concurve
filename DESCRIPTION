@@ -2,8 +2,8 @@ Type: Package
 Package: concurve
 Title: Computes & Plots Compatibility (Confidence),
        Surprisal, & Likelihood Distributions
-Version: 3.0.2
-Date: 2026-08-25
+Version: 3.0.3
+Date: 2026-08-31
 Authors@R: 
     c(person(given = "Zad",
              family = "Rafi",

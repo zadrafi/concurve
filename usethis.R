@@ -75,7 +75,7 @@ manage_build_ignores <- function() {
   lapply(ignore_files, function(file) {
     tryCatch(
       {
-        use_build_ignore(file, escape = TRUE)
+        use_build_ignore(file, escape = FALSE)
       },
       error = function(e) {
         message(paste("Error ignoring file", file, ":", e$message))
@@ -87,7 +87,7 @@ manage_build_ignores <- function() {
 # Comprehensive Package Check Function
 comprehensive_package_check <- function() {
   # Spell Check
-  use_spell_check(vignettes = TRUE, lang = "en-US", error = FALSE)
+  use_spell_check(vignettes = TRUE, lang = "en-US", error = TRUE)
 
   # Generate CRAN Comments
   use_cran_comments(open = interactive())
@@ -104,7 +104,7 @@ comprehensive_package_check <- function() {
     package.dir = ".",
     roclets = c("collate", "rd"),
     load_code = NULL,
-    clean = TRUE
+    clean = FALSE
   )
 
   # Generate PDF Documentation
@@ -121,7 +121,7 @@ comprehensive_package_check <- function() {
     quiet = FALSE,
     args = character(),
     build_args = character(),
-    check_dir = NULL,
+    check_dir = FALSE,
     libpath = .libPaths(),
     repos = getOption("repos"),
     timeout = Inf,
@@ -147,7 +147,7 @@ comprehensive_package_check <- function() {
     build_args = c("--compact-vignettes"),
     quiet = FALSE,
     check_dir = tempdir(),
-    vignettes = FALSE,
+    vignettes = TRUE,
     error_on = c("never", "error", "warning", "note")
   )
 }
@@ -159,8 +159,9 @@ manage_pkgdown_site <- function() {
   pkgdown::build_site()
 
   # Preview site
-  pkgdown::preview_site()
-}
+  # shows which CRAN queue your package is sitting in
+  install.packages("foghorn")
+  foghorn::cran_incoming(pkg = "concurve")}
 
 # Main Execution Function
 execute_package_workflow <- function() {

@@ -1,3 +1,22 @@
+# concurve 3.0.3
+
+## Bug fixes
+
+- Fixed a fatal LaTeX error when building the PDF reference manual
+  ("Illegal unit of measure (pt inserted)"). The package help page no
+  longer carries a hand-maintained `\tabular{}` block containing a
+  `\figure{}{options: width="50"}` directive, which produced an
+  `\includegraphics` width with no valid LaTeX unit. Package version,
+  date, and license are taken from `DESCRIPTION` as usual.
+
+## Minor changes
+
+- Reduced the source tarball from ~13 MB to under 5 MB by removing
+  unused image assets from `man/figures/` (a 7 MB animated logo, several
+  large curve PDFs/SVGs, and stray files) and uncited SVGs from
+  `vignettes/`. None were referenced by any help page, vignette, or
+  README.
+
 # concurve 3.0.2
 
 ## Minor changes
