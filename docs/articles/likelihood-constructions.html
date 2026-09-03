@@ -226,14 +226,14 @@ into the five columns <code>concurve</code> expects
 returns.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">as_concurve_lik</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">values</span>, <span class="va">loglik</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">loglik_rel</span> <span class="op">&lt;-</span> <span class="va">loglik</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">loglik</span><span class="op">)</span>   <span class="co"># relative log-likelihood, max = 0</span></span>
-<span>  <span class="va">support</span>    <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">loglik_rel</span><span class="op">)</span>         <span class="co"># relative likelihood in (0, 1]</span></span>
+<span>  <span class="va">loglik_rel</span> <span class="op">&lt;-</span> <span class="va">loglik</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">loglik</span><span class="op">)</span> <span class="co"># relative log-likelihood, max = 0</span></span>
+<span>  <span class="va">support</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">loglik_rel</span><span class="op">)</span> <span class="co"># relative likelihood in (0, 1]</span></span>
 <span>  <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>    values        <span class="op">=</span> <span class="va">values</span>,</span>
-<span>    likelihood    <span class="op">=</span> <span class="va">support</span>,            <span class="co"># relative likelihood      -&gt; type = "l3"</span></span>
-<span>    loglikelihood <span class="op">=</span> <span class="va">loglik_rel</span>,         <span class="co"># relative log-likelihood   -&gt; type = "l2"</span></span>
-<span>    support       <span class="op">=</span> <span class="va">support</span>,            <span class="co"># relative likelihood       -&gt; type = "l1"</span></span>
-<span>    deviancestat  <span class="op">=</span> <span class="op">-</span><span class="va">loglik_rel</span>         <span class="co"># -log relative likelihood  -&gt; type = "d"</span></span>
+<span>    likelihood    <span class="op">=</span> <span class="va">support</span>, <span class="co"># relative likelihood      -&gt; type = "l3"</span></span>
+<span>    loglikelihood <span class="op">=</span> <span class="va">loglik_rel</span>, <span class="co"># relative log-likelihood   -&gt; type = "l2"</span></span>
+<span>    support       <span class="op">=</span> <span class="va">support</span>, <span class="co"># relative likelihood       -&gt; type = "l1"</span></span>
+<span>    deviancestat  <span class="op">=</span> <span class="op">-</span><span class="va">loglik_rel</span> <span class="co"># -log relative likelihood  -&gt; type = "d"</span></span>
 <span>  <span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"data.frame"</span>, <span class="st">"concurve"</span><span class="op">)</span></span>
 <span>  <span class="va">df</span></span>
@@ -260,17 +260,20 @@ and its maximum is the sample proportion
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>p</mi><mo accent="true">̂</mo></mover><mo>=</mo><mi>x</mi><mi>/</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">\hat p = x/n</annotation></semantics></math>.
 No approximation is needed — this is the likelihood.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">8</span>; <span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">20</span></span>
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">8</span></span>
+<span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">20</span></span>
 <span><span class="va">phat</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">/</span> <span class="va">n</span></span>
 <span></span>
 <span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1e-4</span>, <span class="fl">1</span> <span class="op">-</span> <span class="fl">1e-4</span>, length.out <span class="op">=</span> <span class="fl">4000</span><span class="op">)</span></span>
 <span><span class="va">loglik_binom</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="va">x</span><span class="op">)</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">p</span><span class="op">)</span></span>
 <span><span class="va">lik_p</span> <span class="op">&lt;-</span> <span class="fu">as_concurve_lik</span><span class="op">(</span><span class="va">p</span>, <span class="va">loglik_binom</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span><span class="va">lik_p</span>, type <span class="op">=</span> <span class="st">"l1"</span>, nullvalue <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>        xaxis <span class="op">=</span> <span class="st">"Risk (p)"</span>,</span>
-<span>        title <span class="op">=</span> <span class="st">"Exact Binomial Likelihood"</span>,</span>
-<span>        subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"x = %d successes in n = %d trials"</span>, <span class="va">x</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span><span class="va">lik_p</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"l1"</span>, nullvalue <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  xaxis <span class="op">=</span> <span class="st">"Risk (p)"</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"Exact Binomial Likelihood"</span>,</span>
+<span>  subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"x = %d successes in n = %d trials"</span>, <span class="va">x</span>, <span class="va">n</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="likelihood-constructions_files/figure-html/unnamed-chunk-2-1.png" class="r-plt" alt="" width="576"></p>
 <div class="section level3">
 <h3 id="why-exact-earns-its-keep">Why “exact” earns its keep<a class="anchor" aria-label="anchor" href="#why-exact-earns-its-keep"></a>
@@ -287,10 +290,12 @@ while the Wald bump does not.<span class="citation"><sup><a href="#ref-rothmanMo
 <span><span class="va">loglik_wald</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">0.5</span> <span class="op">*</span> <span class="op">(</span><span class="va">p</span> <span class="op">-</span> <span class="va">phat</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span> <span class="op">/</span> <span class="va">se_wald</span><span class="op">^</span><span class="fl">2</span></span>
 <span><span class="va">lik_p_wald</span> <span class="op">&lt;-</span> <span class="fu">as_concurve_lik</span><span class="op">(</span><span class="va">p</span>, <span class="va">loglik_wald</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span><span class="va">lik_p_wald</span>, type <span class="op">=</span> <span class="st">"l1"</span>, nullvalue <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>        xaxis <span class="op">=</span> <span class="st">"Risk (p)"</span>,</span>
-<span>        title <span class="op">=</span> <span class="st">"Wald (Normal) Approximation"</span>,</span>
-<span>        subtitle <span class="op">=</span> <span class="st">"Symmetric by construction -- compare the skew above"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span><span class="va">lik_p_wald</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"l1"</span>, nullvalue <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  xaxis <span class="op">=</span> <span class="st">"Risk (p)"</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"Wald (Normal) Approximation"</span>,</span>
+<span>  subtitle <span class="op">=</span> <span class="st">"Symmetric by construction -- compare the skew above"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="likelihood-constructions_files/figure-html/unnamed-chunk-3-1.png" class="r-plt" alt="" width="576"></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span>
@@ -330,15 +335,21 @@ We plot on the log-OR scale, where the null is
 <code class="sourceCode R"><span><span class="co"># table:            D+   D-</span></span>
 <span><span class="co">#         E+         a    b</span></span>
 <span><span class="co">#         E-         c    d</span></span>
-<span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">12</span>; <span class="va">b</span> <span class="op">&lt;-</span> <span class="fl">8</span>; <span class="va">c</span> <span class="op">&lt;-</span> <span class="fl">5</span>; <span class="va">d</span> <span class="op">&lt;-</span> <span class="fl">15</span></span>
-<span><span class="va">n1</span> <span class="op">&lt;-</span> <span class="va">a</span> <span class="op">+</span> <span class="va">b</span>; <span class="va">n0</span> <span class="op">&lt;-</span> <span class="va">c</span> <span class="op">+</span> <span class="va">d</span>; <span class="va">m1</span> <span class="op">&lt;-</span> <span class="va">a</span> <span class="op">+</span> <span class="va">c</span></span>
+<span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">12</span></span>
+<span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fl">8</span></span>
+<span><span class="va">c</span> <span class="op">&lt;-</span> <span class="fl">5</span></span>
+<span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fl">15</span></span>
+<span><span class="va">n1</span> <span class="op">&lt;-</span> <span class="va">a</span> <span class="op">+</span> <span class="va">b</span></span>
+<span><span class="va">n0</span> <span class="op">&lt;-</span> <span class="va">c</span> <span class="op">+</span> <span class="va">d</span></span>
+<span><span class="va">m1</span> <span class="op">&lt;-</span> <span class="va">a</span> <span class="op">+</span> <span class="va">c</span></span>
 <span></span>
 <span><span class="va">cond_loglik_or</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">logpsi</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">klo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">m1</span> <span class="op">-</span> <span class="va">n0</span><span class="op">)</span>; <span class="va">khi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">m1</span>, <span class="va">n1</span><span class="op">)</span></span>
+<span>  <span class="va">klo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">m1</span> <span class="op">-</span> <span class="va">n0</span><span class="op">)</span></span>
+<span>  <span class="va">khi</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">m1</span>, <span class="va">n1</span><span class="op">)</span></span>
 <span>  <span class="va">k</span> <span class="op">&lt;-</span> <span class="va">klo</span><span class="op">:</span><span class="va">khi</span></span>
 <span>  <span class="va">logterms</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Special.html" class="external-link">lchoose</a></span><span class="op">(</span><span class="va">n1</span>, <span class="va">k</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Special.html" class="external-link">lchoose</a></span><span class="op">(</span><span class="va">n0</span>, <span class="va">m1</span> <span class="op">-</span> <span class="va">k</span><span class="op">)</span> <span class="op">+</span> <span class="va">k</span> <span class="op">*</span> <span class="va">logpsi</span></span>
 <span>  <span class="va">M</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">logterms</span><span class="op">)</span></span>
-<span>  <span class="va">logZ</span> <span class="op">&lt;-</span> <span class="va">M</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">logterms</span> <span class="op">-</span> <span class="va">M</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>   <span class="co"># log-sum-exp for stability</span></span>
+<span>  <span class="va">logZ</span> <span class="op">&lt;-</span> <span class="va">M</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">logterms</span> <span class="op">-</span> <span class="va">M</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="co"># log-sum-exp for stability</span></span>
 <span>  <span class="va">a</span> <span class="op">*</span> <span class="va">logpsi</span> <span class="op">-</span> <span class="va">logZ</span></span>
 <span><span class="op">}</span></span>
 <span></span>
@@ -346,10 +357,12 @@ We plot on the log-OR scale, where the null is
 <span><span class="va">loglik_or</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span><span class="va">logpsi</span>, <span class="va">cond_loglik_or</span>, <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">lik_or</span> <span class="op">&lt;-</span> <span class="fu">as_concurve_lik</span><span class="op">(</span><span class="va">logpsi</span>, <span class="va">loglik_or</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span><span class="va">lik_or</span>, type <span class="op">=</span> <span class="st">"l1"</span>, nullvalue <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>        xaxis <span class="op">=</span> <span class="st">"log(Odds Ratio)"</span>,</span>
-<span>        title <span class="op">=</span> <span class="st">"Exact Conditional Likelihood for the Odds Ratio"</span>,</span>
-<span>        subtitle <span class="op">=</span> <span class="st">"Noncentral hypergeometric -- free of the baseline odds"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span><span class="va">lik_or</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"l1"</span>, nullvalue <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  xaxis <span class="op">=</span> <span class="st">"log(Odds Ratio)"</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"Exact Conditional Likelihood for the Odds Ratio"</span>,</span>
+<span>  subtitle <span class="op">=</span> <span class="st">"Noncentral hypergeometric -- free of the baseline odds"</span></span>
+<span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please use `linewidth` instead.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">concurve</span> package.</span></span>
@@ -360,9 +373,11 @@ We plot on the log-OR scale, where the null is
 <p><img src="likelihood-constructions_files/figure-html/unnamed-chunk-5-1.png" class="r-plt" alt="" width="576"></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span><span class="va">lik_or</span>, type <span class="op">=</span> <span class="st">"d"</span>, nullvalue <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>        xaxis <span class="op">=</span> <span class="st">"log(Odds Ratio)"</span>,</span>
-<span>        title <span class="op">=</span> <span class="st">"Deviance Function"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span><span class="va">lik_or</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"d"</span>, nullvalue <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  xaxis <span class="op">=</span> <span class="st">"log(Odds Ratio)"</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"Deviance Function"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="likelihood-constructions_files/figure-html/unnamed-chunk-5-2.png" class="r-plt" alt="" width="576"></p>
 <p>Note the peak: the conditional likelihood is maximized at the
 <em>conditional</em> MLE, which is close to but <strong>not
@@ -370,8 +385,8 @@ identical</strong> to the naive cross-product
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>d</mi><mi>/</mi><mi>b</mi><mi>c</mi></mrow><annotation encoding="application/x-tex">ad/bc</annotation></semantics></math>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>  `sample ad/bc`   <span class="op">=</span> <span class="op">(</span><span class="va">a</span> <span class="op">*</span> <span class="va">d</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">b</span> <span class="op">*</span> <span class="va">c</span><span class="op">)</span>,</span>
-<span>  `conditional MLE`<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">lik_or</span><span class="op">$</span><span class="va">values</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html" class="external-link">which.max</a></span><span class="op">(</span><span class="va">lik_or</span><span class="op">$</span><span class="va">support</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span>  `sample ad/bc` <span class="op">=</span> <span class="op">(</span><span class="va">a</span> <span class="op">*</span> <span class="va">d</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">b</span> <span class="op">*</span> <span class="va">c</span><span class="op">)</span>,</span>
+<span>  `conditional MLE` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">lik_or</span><span class="op">$</span><span class="va">values</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html" class="external-link">which.max</a></span><span class="op">(</span><span class="va">lik_or</span><span class="op">$</span><span class="va">support</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt;    sample ad/bc conditional MLE </span></span>
 <span><span class="co">#&gt;        4.500000        4.321558</span></span></code></pre></div>
@@ -397,8 +412,10 @@ once you condition on the total number of events. Conditionally,
 with
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>π</mi><mo stretchy="false" form="prefix">(</mo><mi>θ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>θ</mi><msub><mi>T</mi><mn>1</mn></msub><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>θ</mi><msub><mi>T</mi><mn>1</mn></msub><mo>+</mo><msub><mi>T</mi><mn>0</mn></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\pi(\theta) = \theta T_1 / (\theta T_1 + T_0)</annotation></semantics></math>.<span class="citation"><sup><a href="#ref-cummingsAnalysisIncidenceRates2019">4</a></sup></span></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">a_e</span> <span class="op">&lt;-</span> <span class="fl">30</span>; <span class="va">T1</span> <span class="op">&lt;-</span> <span class="fl">1000</span>   <span class="co"># exposed:   events, person-time</span></span>
-<span><span class="va">b_e</span> <span class="op">&lt;-</span> <span class="fl">18</span>; <span class="va">T0</span> <span class="op">&lt;-</span> <span class="fl">1200</span>   <span class="co"># unexposed: events, person-time</span></span>
+<code class="sourceCode R"><span><span class="va">a_e</span> <span class="op">&lt;-</span> <span class="fl">30</span></span>
+<span><span class="va">T1</span> <span class="op">&lt;-</span> <span class="fl">1000</span> <span class="co"># exposed:   events, person-time</span></span>
+<span><span class="va">b_e</span> <span class="op">&lt;-</span> <span class="fl">18</span></span>
+<span><span class="va">T0</span> <span class="op">&lt;-</span> <span class="fl">1200</span> <span class="co"># unexposed: events, person-time</span></span>
 <span></span>
 <span><span class="va">cond_loglik_rr</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">logtheta</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">theta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">logtheta</span><span class="op">)</span></span>
@@ -410,17 +427,19 @@ with
 <span><span class="va">loglik_rr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span><span class="va">logtheta</span>, <span class="va">cond_loglik_rr</span>, <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">lik_rr</span> <span class="op">&lt;-</span> <span class="fu">as_concurve_lik</span><span class="op">(</span><span class="va">logtheta</span>, <span class="va">loglik_rr</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span><span class="va">lik_rr</span>, type <span class="op">=</span> <span class="st">"l1"</span>, nullvalue <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>        xaxis <span class="op">=</span> <span class="st">"log(Rate Ratio)"</span>,</span>
-<span>        title <span class="op">=</span> <span class="st">"Exact Conditional Likelihood for the Rate Ratio"</span>,</span>
-<span>        subtitle <span class="op">=</span> <span class="st">"Binomial conditional on total events -- no offset approximation"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span><span class="va">lik_rr</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"l1"</span>, nullvalue <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  xaxis <span class="op">=</span> <span class="st">"log(Rate Ratio)"</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"Exact Conditional Likelihood for the Rate Ratio"</span>,</span>
+<span>  subtitle <span class="op">=</span> <span class="st">"Binomial conditional on total events -- no offset approximation"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="likelihood-constructions_files/figure-html/unnamed-chunk-7-1.png" class="r-plt" alt="" width="576"></p>
 <p>Here the conditional MLE <em>is</em> the sample rate ratio
 exactly:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>  `sample RR`      <span class="op">=</span> <span class="op">(</span><span class="va">a_e</span> <span class="op">/</span> <span class="va">T1</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">b_e</span> <span class="op">/</span> <span class="va">T0</span><span class="op">)</span>,</span>
-<span>  `likelihood peak`<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">lik_rr</span><span class="op">$</span><span class="va">values</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html" class="external-link">which.max</a></span><span class="op">(</span><span class="va">lik_rr</span><span class="op">$</span><span class="va">support</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span>  `sample RR` <span class="op">=</span> <span class="op">(</span><span class="va">a_e</span> <span class="op">/</span> <span class="va">T1</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">b_e</span> <span class="op">/</span> <span class="va">T0</span><span class="op">)</span>,</span>
+<span>  `likelihood peak` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">lik_rr</span><span class="op">$</span><span class="va">values</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html" class="external-link">which.max</a></span><span class="op">(</span><span class="va">lik_rr</span><span class="op">$</span><span class="va">support</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt;       sample RR likelihood peak </span></span>
 <span><span class="co">#&gt;        2.000000        2.000052</span></span></code></pre></div>
@@ -436,16 +455,19 @@ Likelihood</em>, 2001):<span class="citation"><sup><a href="#ref-royallStatistic
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ℓ</mi><mi>p</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>μ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>−</mi><mfrac><mi>n</mi><mn>2</mn></mfrac><mrow><mi mathvariant="normal">log</mi><mo>⁡</mo></mrow><mspace width="-0.167em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><munder><mo>∑</mo><mi>i</mi></munder><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo>−</mo><mi>μ</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow><mrow><munder><mo>∑</mo><mi>i</mi></munder><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo>−</mo><mover><mi>x</mi><mo accent="true">‾</mo></mover><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\ell_p(\mu) = -\frac{n}{2}\log\!\left(\frac{\sum_i (x_i - \mu)^2}{\sum_i (x_i - \bar x)^2}\right).</annotation></semantics></math></p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">xs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5.1</span>, <span class="fl">4.8</span>, <span class="fl">5.5</span>, <span class="fl">4.9</span>, <span class="fl">5.3</span>, <span class="fl">5.0</span>, <span class="fl">4.7</span>, <span class="fl">5.2</span>, <span class="fl">5.4</span>, <span class="fl">4.6</span><span class="op">)</span></span>
-<span><span class="va">n_x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">xs</span><span class="op">)</span>; <span class="va">xbar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">xs</span><span class="op">)</span></span>
+<span><span class="va">n_x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">xs</span><span class="op">)</span></span>
+<span><span class="va">xbar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">xs</span><span class="op">)</span></span>
 <span><span class="va">ss_min</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="op">(</span><span class="va">xs</span> <span class="op">-</span> <span class="va">xbar</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">4.4</span>, <span class="fl">5.8</span>, length.out <span class="op">=</span> <span class="fl">4000</span><span class="op">)</span></span>
 <span><span class="va">loglik_mu</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="op">(</span><span class="va">n_x</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span><span class="va">mu</span>, <span class="kw">function</span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="op">(</span><span class="va">xs</span> <span class="op">-</span> <span class="va">m</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="va">ss_min</span><span class="op">)</span></span>
 <span><span class="va">lik_mu</span> <span class="op">&lt;-</span> <span class="fu">as_concurve_lik</span><span class="op">(</span><span class="va">mu</span>, <span class="va">loglik_mu</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span><span class="va">lik_mu</span>, type <span class="op">=</span> <span class="st">"l1"</span>, nullvalue <span class="op">=</span> <span class="fl">5.0</span>,</span>
-<span>        xaxis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">mu</span><span class="op">)</span>,</span>
-<span>        title <span class="op">=</span> <span class="st">"Profile Likelihood for the Mean"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span><span class="va">lik_mu</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"l1"</span>, nullvalue <span class="op">=</span> <span class="fl">5.0</span>,</span>
+<span>  xaxis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">mu</span><span class="op">)</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"Profile Likelihood for the Mean"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="likelihood-constructions_files/figure-html/unnamed-chunk-9-1.png" class="r-plt" alt="" width="576"></p>
 </div>
 <div class="section level2">
@@ -464,16 +486,19 @@ the Wald habit hides it. We plot it on the standard- deviation scale by
 mapping
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mo>=</mo><msqrt><msup><mi>σ</mi><mn>2</mn></msup></msqrt></mrow><annotation encoding="application/x-tex">\sigma = \sqrt{\sigma^2}</annotation></semantics></math>.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">var</a></span><span class="op">(</span><span class="va">xs</span><span class="op">)</span>; <span class="va">nu</span> <span class="op">&lt;-</span> <span class="va">n_x</span> <span class="op">-</span> <span class="fl">1</span></span>
+<code class="sourceCode R"><span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">var</a></span><span class="op">(</span><span class="va">xs</span><span class="op">)</span></span>
+<span><span class="va">nu</span> <span class="op">&lt;-</span> <span class="va">n_x</span> <span class="op">-</span> <span class="fl">1</span></span>
 <span></span>
 <span><span class="va">sig2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0.02</span>, <span class="fl">0.60</span>, length.out <span class="op">=</span> <span class="fl">4000</span><span class="op">)</span></span>
 <span><span class="va">loglik_var</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="op">(</span><span class="va">nu</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">sig2</span><span class="op">)</span> <span class="op">-</span> <span class="va">nu</span> <span class="op">*</span> <span class="va">s2</span> <span class="op">/</span> <span class="op">(</span><span class="fl">2</span> <span class="op">*</span> <span class="va">sig2</span><span class="op">)</span></span>
-<span><span class="va">lik_sd</span> <span class="op">&lt;-</span> <span class="fu">as_concurve_lik</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">sig2</span><span class="op">)</span>, <span class="va">loglik_var</span><span class="op">)</span>   <span class="co"># values on the SD scale</span></span>
+<span><span class="va">lik_sd</span> <span class="op">&lt;-</span> <span class="fu">as_concurve_lik</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">sig2</span><span class="op">)</span>, <span class="va">loglik_var</span><span class="op">)</span> <span class="co"># values on the SD scale</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span><span class="va">lik_sd</span>, type <span class="op">=</span> <span class="st">"l1"</span>, nullvalue <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>        xaxis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">sigma</span><span class="op">)</span>,</span>
-<span>        title <span class="op">=</span> <span class="st">"Likelihood for the Standard Deviation"</span>,</span>
-<span>        subtitle <span class="op">=</span> <span class="st">"Asymmetric by nature -- the chi-square shows through"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span><span class="va">lik_sd</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"l1"</span>, nullvalue <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  xaxis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">sigma</span><span class="op">)</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"Likelihood for the Standard Deviation"</span>,</span>
+<span>  subtitle <span class="op">=</span> <span class="st">"Asymmetric by nature -- the chi-square shows through"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="likelihood-constructions_files/figure-html/unnamed-chunk-10-1.png" class="r-plt" alt="" width="576"></p>
 </div>
 <div class="section level2">

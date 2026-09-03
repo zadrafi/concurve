@@ -247,8 +247,10 @@ parameters with <code><a href="https://rdrr.io/r/stats/optim.html" class="extern
 <span><span class="va">prof_loglik_rho</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">rho</span>, <span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span>  <span class="va">neg_ll</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">par</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="va">mux</span> <span class="op">&lt;-</span> <span class="va">par</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>; <span class="va">muy</span> <span class="op">&lt;-</span> <span class="va">par</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
-<span>    <span class="va">sx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">par</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span>; <span class="va">sy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">par</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span>
+<span>    <span class="va">mux</span> <span class="op">&lt;-</span> <span class="va">par</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
+<span>    <span class="va">muy</span> <span class="op">&lt;-</span> <span class="va">par</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
+<span>    <span class="va">sx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">par</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span>    <span class="va">sy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">par</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span>
 <span>    <span class="va">dx</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="va">mux</span><span class="op">)</span> <span class="op">/</span> <span class="va">sx</span></span>
 <span>    <span class="va">dy</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">y</span> <span class="op">-</span> <span class="va">muy</span><span class="op">)</span> <span class="op">/</span> <span class="va">sy</span></span>
 <span>    <span class="va">quad</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">dx</span><span class="op">^</span><span class="fl">2</span> <span class="op">-</span> <span class="fl">2</span> <span class="op">*</span> <span class="va">rho</span> <span class="op">*</span> <span class="va">dx</span> <span class="op">*</span> <span class="va">dy</span> <span class="op">+</span> <span class="va">dy</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">rho</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
@@ -270,15 +272,15 @@ columns <code><a href="../reference/curve_lik.html">curve_lik()</a></code> produ
 <code class="sourceCode R"><span><span class="va">grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.95</span>, <span class="fl">0.95</span>, length.out <span class="op">=</span> <span class="fl">600</span><span class="op">)</span></span>
 <span><span class="va">ll</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span><span class="va">grid</span>, <span class="va">prof_loglik_rho</span>, <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">loglik_rel</span> <span class="op">&lt;-</span> <span class="va">ll</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">ll</span><span class="op">)</span>     <span class="co"># relative log-likelihood (max = 0)</span></span>
-<span><span class="va">support</span>     <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">loglik_rel</span><span class="op">)</span> <span class="co"># relative (normalized) likelihood, max = 1</span></span>
+<span><span class="va">loglik_rel</span> <span class="op">&lt;-</span> <span class="va">ll</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">ll</span><span class="op">)</span> <span class="co"># relative log-likelihood (max = 0)</span></span>
+<span><span class="va">support</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">loglik_rel</span><span class="op">)</span> <span class="co"># relative (normalized) likelihood, max = 1</span></span>
 <span></span>
 <span><span class="va">lik_rho</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  values        <span class="op">=</span> <span class="va">grid</span>,</span>
-<span>  likelihood    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">ll</span><span class="op">)</span>,      <span class="co"># raw profile likelihood         -&gt; type = "l3"</span></span>
-<span>  loglikelihood <span class="op">=</span> <span class="va">loglik_rel</span>,   <span class="co"># relative log-likelihood         -&gt; type = "l2"</span></span>
-<span>  support       <span class="op">=</span> <span class="va">support</span>,      <span class="co"># relative likelihood (0, 1]      -&gt; type = "l1"</span></span>
-<span>  deviancestat  <span class="op">=</span> <span class="op">-</span><span class="va">loglik_rel</span>   <span class="co"># -log relative likelihood        -&gt; type = "d"</span></span>
+<span>  likelihood    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">ll</span><span class="op">)</span>, <span class="co"># raw profile likelihood         -&gt; type = "l3"</span></span>
+<span>  loglikelihood <span class="op">=</span> <span class="va">loglik_rel</span>, <span class="co"># relative log-likelihood         -&gt; type = "l2"</span></span>
+<span>  support       <span class="op">=</span> <span class="va">support</span>, <span class="co"># relative likelihood (0, 1]      -&gt; type = "l1"</span></span>
+<span>  deviancestat  <span class="op">=</span> <span class="op">-</span><span class="va">loglik_rel</span> <span class="co"># -log relative likelihood        -&gt; type = "d"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">lik_rho</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"data.frame"</span>, <span class="st">"concurve"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">lik_rho</span><span class="op">)</span></span>
@@ -295,22 +297,28 @@ every downstream <code>concurve</code> verb works on it unchanged.</p>
 <h3 id="plotting-the-likelihood">Plotting the likelihood<a class="anchor" aria-label="anchor" href="#plotting-the-likelihood"></a>
 </h3>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span><span class="va">lik_rho</span>, type <span class="op">=</span> <span class="st">"l1"</span>, nullvalue <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>        xaxis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">rho</span><span class="op">)</span>,</span>
-<span>        title <span class="op">=</span> <span class="st">"Relative Likelihood Function"</span>,</span>
-<span>        subtitle <span class="op">=</span> <span class="st">"Profile likelihood for the correlation coefficient"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span><span class="va">lik_rho</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"l1"</span>, nullvalue <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  xaxis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">rho</span><span class="op">)</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"Relative Likelihood Function"</span>,</span>
+<span>  subtitle <span class="op">=</span> <span class="st">"Profile likelihood for the correlation coefficient"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="correlation_files/figure-html/unnamed-chunk-4-1.png" class="r-plt" alt="" width="576"></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span><span class="va">lik_rho</span>, type <span class="op">=</span> <span class="st">"l2"</span>,</span>
-<span>        xaxis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">rho</span><span class="op">)</span>,</span>
-<span>        title <span class="op">=</span> <span class="st">"Log-Likelihood Function"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span><span class="va">lik_rho</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"l2"</span>,</span>
+<span>  xaxis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">rho</span><span class="op">)</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"Log-Likelihood Function"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="correlation_files/figure-html/unnamed-chunk-4-2.png" class="r-plt" alt="" width="576"></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span><span class="va">lik_rho</span>, type <span class="op">=</span> <span class="st">"d"</span>, nullvalue <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>        xaxis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">rho</span><span class="op">)</span>,</span>
-<span>        title <span class="op">=</span> <span class="st">"Deviance Function"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span><span class="va">lik_rho</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"d"</span>, nullvalue <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  xaxis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">rho</span><span class="op">)</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"Deviance Function"</span></span>
+<span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please use `linewidth` instead.</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">concurve</span> package.</span></span>
@@ -372,15 +380,19 @@ likelihood, matches the usual 95% interval (since
 <span>  method <span class="op">=</span> <span class="st">"pearson"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span><span class="va">rho_curve</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, type <span class="op">=</span> <span class="st">"c"</span>, nullvalue <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>        xaxis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">rho</span><span class="op">)</span>,</span>
-<span>        title <span class="op">=</span> <span class="st">"Consonance (P-value) Function"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span><span class="va">rho_curve</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"c"</span>, nullvalue <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  xaxis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">rho</span><span class="op">)</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"Consonance (P-value) Function"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="correlation_files/figure-html/unnamed-chunk-7-1.png" class="r-plt" alt="" width="576"></p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span><span class="va">rho_curve</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, type <span class="op">=</span> <span class="st">"s"</span>, nullvalue <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>        xaxis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">rho</span><span class="op">)</span>,</span>
-<span>        title <span class="op">=</span> <span class="st">"Surprisal (S-value) Function"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/ggcurve.html">ggcurve</a></span><span class="op">(</span><span class="va">rho_curve</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"s"</span>, nullvalue <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  xaxis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">rho</span><span class="op">)</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"Surprisal (S-value) Function"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="correlation_files/figure-html/unnamed-chunk-7-2.png" class="r-plt" alt="" width="576"></p>
 <p>The consonance function peaks at
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>,
@@ -399,8 +411,10 @@ against each value of
 likelihood interval and the 95% consonance interval should land in
 nearly the same place — that is the whole point.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ci95</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">rho_curve</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html" class="external-link">which.min</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">rho_curve</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">intrvl.level</span> <span class="op">-</span> <span class="fl">0.95</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>                                  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lower.limit"</span>, <span class="st">"upper.limit"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">ci95</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">rho_curve</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/which.min.html" class="external-link">which.min</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">rho_curve</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">intrvl.level</span> <span class="op">-</span> <span class="fl">0.95</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lower.limit"</span>, <span class="st">"upper.limit"</span><span class="op">)</span></span>
+<span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span>
 <span>  `Likelihood 1/6.8` <span class="op">=</span> <span class="fu">support_interval</span><span class="op">(</span><span class="va">lik_rho</span>, <span class="fl">6.8</span><span class="op">)</span>,</span>

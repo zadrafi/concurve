@@ -207,6 +207,16 @@
 <h2 id="session-hygiene">Session hygiene<a class="anchor" aria-label="anchor" href="#session-hygiene"></a></h2>
 <p>This repo was heavily disturbed by a concurrent autonomous agent session (reverting DESCRIPTION/cran-comments.md, writing scripts into <code>R/</code>, activating renv, installing packages). Before any build or commit: <code>git status</code>, run the R/ content scan above, and confirm DESCRIPTION’s Imports block ends at <code>rlang</code>.</p>
 </div>
+<div class="section level2">
+<h2 id="landmines-learned-2026-09-03-303-resubmission">Landmines (learned 2026-09-03, 3.0.3 resubmission)<a class="anchor" aria-label="anchor" href="#landmines-learned-2026-09-03-303-resubmission"></a></h2>
+<ul><li>
+<strong>Never <code>source("usethis.R")</code>.</strong> Its trailing <code>execute_package_workflow()</code> is now commented out, but the functions inside still: move survival/survminer/ProfileLikelihood/officer/pbmcapply into <code>Imports</code> (nothing in <code>R/</code> calls them → “unused Imports” NOTE); <code>use_build_ignore()</code> <code>references.bib</code> / <code>american-medical-association.csl</code> with <code>escape = FALSE</code>, which also hides <code>vignettes/references.bib</code> + the CSL from the tarball so every vignette fails to re-build under <code>R CMD check</code>; overwrite <code>cran-comments.md</code>, <code>tests/spelling.R</code>, <code>codemeta.json</code>; and rebuild <code>docs/</code>.</li>
+<li>RStudio on this machine writes its session state to <code>&lt;root&gt;/AB4607D1/</code> and <code>&lt;root&gt;/shared/</code> (not <code>.Rproj.user/</code>). Both are in <code>.Rbuildignore</code> and <code>.gitignore</code>; do not “clean them up” by hand, they come back on relaunch.</li>
+<li>Only one process may install/check at a time. Two concurrent installs produce “S3 methods … declared in NAMESPACE but not found” from the library copy; fix with <code>remove.packages("concurve"); devtools::install()</code>.</li>
+<li>
+<code>tests/testthat/Untitled.R</code> is a real test file (curve_from_ratio) but is NOT run by testthat (name must start with <code>test</code>). Rename once verified.</li>
+<li>Release check that is trusted: quit RStudio, then <code>Rscript -e "devtools::check(args = '--as-cran')"</code> from a terminal, then <code>R CMD build concurve</code> from <code>~</code> and inspect <code>tar -tzf</code> for stray files.</li>
+</ul></div>
 </div>
 
   </div>
