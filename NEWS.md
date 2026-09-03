@@ -9,6 +9,20 @@
   `\includegraphics` width with no valid LaTeX unit. Package version,
   date, and license are taken from `DESCRIPTION` as usual.
 
+- `curve_lik_glm()` now divides the profile deviance by the model's
+  estimated dispersion for families with a free dispersion parameter
+  (`gaussian`, `Gamma`, `inverse.gaussian`, `quasi*`), as `confint()` does.
+  Previously the curve for these families was too flat by a factor of the
+  dispersion, so its support intervals disagreed with the profile
+  likelihood CI (e.g. ~50% too wide for a Gamma model with shape 2).
+  `binomial` and `poisson` results are unchanged.
+- `curve_lik_glm()` starts each constrained refit from the full model's
+  fitted means and drops (with a message) grid points where the refit
+  does not converge, instead of failing outright far in the tails of an
+  inverse-link model.
+- `curve_rev()` no longer prints the reconstructed standard error to the
+  console for `measure = "ratio"` (a leftover debugging `print()`).
+
 ## Minor changes
 
 - Reduced the source tarball from ~13 MB to under 5 MB by removing
@@ -16,6 +30,11 @@
   large curve PDFs/SVGs, and stray files) and uncited SVGs from
   `vignettes/`. None were referenced by any help page, vignette, or
   README.
+- `survival`, `survminer`, `ProfileLikelihood`, and `officer` are declared
+  in `Suggests` rather than `Imports`: no function in `R/` calls them; they
+  are used only in vignettes, examples, and tests (which already guard
+  with `requireNamespace()` / `skip_if_not_installed()`). This clears the
+  "All declared Imports should be used" NOTE.
 
 # concurve 3.0.2
 

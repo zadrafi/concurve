@@ -8,7 +8,7 @@
   "codeRepository": "https://github.com/zadrafi/concurve",
   "issueTracker": "https://github.com/zadrafi/concurve/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -743,7 +743,7 @@
     "SystemRequirements": null
   },
   "keywords": ["confidence", "compatibility", "consonance", "curve", "informationstatistics", "surprisals", "interval", "function", "distribution", "fiducial", "confidence-intervals", "compatibility-intervals", "stata", "confidence-distribution", "likelihood-functions", "bootstrap-method", "r", "frequentist-methods", "fiducial-distribution", "density-function", "cumulative-distribution-function", "surprisal-function", "deviance-function"],
-  "fileSize": "NAKB",
+  "fileSize": "35015.934KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
@@ -762,7 +762,7 @@
       ],
       "name": "{concurve}: Computes and Plots Compatibility (Confidence) Intervals, P-Values, S-Values, & Likelihood Intervals to Form Consonance, Surprisal, & Likelihood Functions",
       "url": "https://CRAN.R-project.org/package=concurve",
-      "description": "R package version 3.0.2"
+      "description": "R package version 3.0.3"
     },
     {
       "@type": "ScholarlyArticle",

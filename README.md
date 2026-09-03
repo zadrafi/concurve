@@ -172,7 +172,7 @@ The package was currently run on:
     ## loaded via a namespace (and not attached):
     ##  [1] compiler_4.6.1    fastmap_1.2.0     cli_3.6.6         tools_4.6.1      
     ##  [5] htmltools_0.5.9   otel_0.2.0        rstudioapi_0.19.0 yaml_2.3.12      
-    ##  [9] rmarkdown_2.31    knitr_1.51        xfun_0.60         digest_0.6.39    
+    ##  [9] rmarkdown_2.32    knitr_1.51        xfun_0.60         digest_0.6.39    
     ## [13] rlang_1.3.0       evaluate_1.0.5
 
 ------------------------------------------------------------------------

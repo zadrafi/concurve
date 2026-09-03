@@ -24,6 +24,10 @@ automated incoming pretest of the 3.0.2 submission (1 ERROR, 1 WARNING,
   files (`.DS_Store`, an empty `checkmark.png`), and five uncited SVGs
   in `vignettes/`.
 
+- **Unused Imports NOTE.** `survival`, `survminer`, `ProfileLikelihood`,
+  and `officer` were declared in `Imports` but are only used in vignettes,
+  examples, and tests; they are now in `Suggests`.
+
 ## Expected NOTEs
 
 - **`checking CRAN incoming feasibility` ... New submission / Package was

@@ -99,7 +99,6 @@ curve_rev <- function(point,
 
   if (is.null(se) && measure == "ratio") {
     se <- log(UL / LL) / (2 * conf_range)
-    print(se)
   }
 
 

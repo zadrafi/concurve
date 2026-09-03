@@ -69,8 +69,10 @@ curve_rstar <- function(object, statistic = "rstar", steps = 1000, table = TRUE)
   }
   statvals <- if (statistic == "rstar") object$rsvals else object$rvals
   if (is.null(statvals)) {
-    stop("the requested statistic is not present in 'object'; ",
-         "run likelihoodAsy::rstar.ci() with ronly = FALSE for r*")
+    stop(
+      "the requested statistic is not present in 'object'; ",
+      "run likelihoodAsy::rstar.ci() with ronly = FALSE for r*"
+    )
   }
 
   # Same inversion used by likelihoodAsy to produce $CIr / $CIrs:
@@ -88,9 +90,11 @@ curve_rstar <- function(object, statistic = "rstar", steps = 1000, table = TRUE)
   rng <- range(statvals)
   keep <- (zlo >= rng[1]) & (zhi <= rng[2])
   if (any(!keep)) {
-    message(sum(!keep), " level(s) beyond the computed grid of '",
-            statistic, "' were dropped; widen the grid in rstar.ci() ",
-            "to obtain more extreme consonance levels.")
+    message(
+      sum(!keep), " level(s) beyond the computed grid of '",
+      statistic, "' were dropped; widen the grid in rstar.ci() ",
+      "to obtain more extreme consonance levels."
+    )
   }
   intrvls <- intrvls[keep]
   zlo <- zlo[keep]

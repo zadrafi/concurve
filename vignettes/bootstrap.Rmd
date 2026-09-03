@@ -12,10 +12,10 @@ vignette: >
 
 ```{r setup }
 knitr::opts_chunk$set(
-	echo = TRUE,
-	message = TRUE,
-	warning = TRUE,
-	collapse = TRUE
+  echo = TRUE,
+  message = TRUE,
+  warning = TRUE,
+  collapse = TRUE
 )
 library(concurve)
 library(flextable)
@@ -58,7 +58,7 @@ foo <- function(data, indices) {
 We can now use the `curve_boot()` method to construct a function. The
 default method used for this function is the "`Bca`" method provided by
 the [`bcaboot`](https://cran.r-project.org/package=bcaboot)
-package.[@efron2018]
+package.[@efronAutomaticConstructionBootstrap2018]
 
 ```{r echo=TRUE}
 y <- curve_boot(data = iris, func = foo, method = "bca", replicates = 2000, steps = 1000)

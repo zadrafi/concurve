@@ -1,5 +1,37 @@
-# Comprehensive R Package Development Script for concurve
-
+# Standard project initialization
+create_project_structure <- function() {
+  usethis::use_blank_slate()
+  usethis::use_git()
+  usethis::use_github()
+}# Comprehensive R Package Development Script for concurve
+# Standardize package development workflow
+setup_package_infrastructure <- function() {
+  usethis::use_mit_license()
+  usethis::use_readme_rmd()
+  usethis::use_news_md()
+  usethis::use_lifecycle_badge("experimental")
+  usethis::use_code_of_conduct()
+}
+# Setup GitHub Actions
+configure_ci <- function() {
+  usethis::use_github_action_check_standard()
+  usethis::use_github_action("test-coverage")
+  usethis::use_codecov()
+  usethis::use_github_action("pkgdown")
+}
+# Add common development dependencies
+add_dev_dependencies <- function() {
+  usethis::use_dev_package("testthat")
+  usethis::use_dev_package("knitr")
+  usethis::use_dev_package("rmarkdown")
+  usethis::use_package_doc()
+}
+# Generate comprehensive documentation
+update_documentation <- function() {
+  devtools::document()
+  pkgdown::build_site()
+  usethis::use_vignette("intro")
+}
 # Load essential development libraries
 library(usethis)
 library(devtools)
@@ -179,4 +211,12 @@ execute_package_workflow <- function() {
 }
 
 # Run the workflow
-execute_package_workflow()
+# DISABLED 2026-09-03: sourcing this file re-ran the whole workflow, which
+# (a) moved survival/survminer/ProfileLikelihood/officer/pbmcapply into
+#     Imports although nothing in R/ calls them  -> 'unused Imports' NOTE
+# (b) build-ignored 'references.bib' and 'american-medical-association.csl'
+#     with escape = FALSE, which also hides vignettes/references.bib and the
+#     CSL from the tarball -> every vignette fails to re-build under check
+# (c) overwrote cran-comments.md, tests/spelling.R and codemeta.json.
+# Call individual functions deliberately instead of sourcing the file.
+# execute_package_workflow()

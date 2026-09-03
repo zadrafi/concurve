@@ -81,8 +81,10 @@ curve_mpl <- function(data, mle, floglik, datagen, indpsi, lo, hi,
                       steps = 50, fscore = NULL, R = 100, seed = NULL,
                       table = TRUE, ...) {
   if (!requireNamespace("likelihoodAsy", quietly = TRUE)) {
-    stop("the 'likelihoodAsy' package is required for curve_mpl(); ",
-         "please install it first")
+    stop(
+      "the 'likelihoodAsy' package is required for curve_mpl(); ",
+      "please install it first"
+    )
   }
   if (!is.function(floglik) || !is.function(datagen)) {
     stop("'floglik' and 'datagen' must be functions of (theta, data)")

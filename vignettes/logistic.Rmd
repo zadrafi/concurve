@@ -68,10 +68,6 @@ model_con <- suppressMessages(curve_gen(
 ))
 
 
-
-
-
-
 (ggcurve(model_pro[[1]],
   measure = "ratio",
   type = "c",

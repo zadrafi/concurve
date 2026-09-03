@@ -3,7 +3,7 @@ Package: concurve
 Title: Computes & Plots Compatibility (Confidence),
        Surprisal, & Likelihood Distributions
 Version: 3.0.3
-Date: 2026-08-31
+Date: 2026-09-03
 Authors@R: 
     c(person(given = "Zad",
              family = "Rafi",
@@ -90,8 +90,9 @@ Suggests:
     reprex,
     roxygen2md,
     survival,
+    survminer,
     ProfileLikelihood,
-    survminer
+    officer
 VignetteBuilder:
     knitr
 ByteCompile: true

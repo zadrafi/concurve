@@ -33,8 +33,8 @@ library(concurve)
 # availability guards -- these packages are illustrative and are NOT concurve
 # dependencies, so every chunk that uses one is gated on it being installed.
 has_maxLik <- requireNamespace("maxLik", quietly = TRUE)
-has_bbmle  <- requireNamespace("bbmle",  quietly = TRUE)
-has_cond   <- requireNamespace("cond",   quietly = TRUE)
+has_bbmle <- requireNamespace("bbmle", quietly = TRUE)
+has_cond <- requireNamespace("cond", quietly = TRUE)
 ```
 
 R has no shortage of machinery for building likelihoods: `optim()` and
@@ -59,7 +59,7 @@ returns and `ggcurve()` draws.
 ```{r echo=TRUE}
 as_concurve_lik <- function(values, loglik) {
   loglik_rel <- loglik - max(loglik)
-  support    <- exp(loglik_rel)
+  support <- exp(loglik_rel)
   df <- data.frame(
     values        = values,
     likelihood    = support,
@@ -95,14 +95,17 @@ pattern in the pasted script.
 
 ```{r echo=TRUE}
 nll_normal <- function(theta, x) {
-  mu <- theta[1]; sigma <- theta[2]
+  mu <- theta[1]
+  sigma <- theta[2]
   -sum(dnorm(x, mean = mu, sd = sigma, log = TRUE))
 }
 
-fit <- optim(c(mu = 8, sigma = 3), nll_normal, x = x,
-             method = "BFGS", hessian = TRUE)
+fit <- optim(c(mu = 8, sigma = 3), nll_normal,
+  x = x,
+  method = "BFGS", hessian = TRUE
+)
 fit$par
-sqrt(diag(solve(fit$hessian)))   # SE(mu), SE(sigma)
+sqrt(diag(solve(fit$hessian))) # SE(mu), SE(sigma)
 ```
 
 To turn this into a likelihood *function* for the mean, profile out
@@ -113,15 +116,17 @@ conditional MLE of `sigma` given `mu` is closed-form.
 n <- length(x)
 mu_grid <- seq(fit$par["mu"] - 3, fit$par["mu"] + 3, length.out = 4000)
 loglik_mu <- vapply(mu_grid, function(m) {
-  sigma2_hat <- mean((x - m)^2)          # profile: MLE of sigma^2 given mu
+  sigma2_hat <- mean((x - m)^2) # profile: MLE of sigma^2 given mu
   -(n / 2) * (log(2 * pi) + log(sigma2_hat) + 1)
 }, numeric(1))
 
 lik_optim <- as_concurve_lik(mu_grid, loglik_mu)
 
-ggcurve(lik_optim, type = "l1", nullvalue = round(fit$par["mu"], 2),
-        xaxis = expression(mu),
-        title = "Likelihood for the Mean (via optim profiling)")
+ggcurve(lik_optim,
+  type = "l1", nullvalue = round(fit$par["mu"], 2),
+  xaxis = expression(mu),
+  title = "Likelihood for the Mean (via optim profiling)"
+)
 ```
 
 # Route 2: `maxLik`
@@ -146,10 +151,12 @@ loglik_mu2 <- vapply(mu_grid, function(m) {
   loglik_normal(c(m, mean((x - m)^2)), x = x)
 }, numeric(1))
 
-ggcurve(as_concurve_lik(mu_grid, loglik_mu2), type = "l1",
-        nullvalue = round(coef(theta_mle)[1], 2),
-        xaxis = expression(mu),
-        title = "Likelihood for the Mean (via maxLik)")
+ggcurve(as_concurve_lik(mu_grid, loglik_mu2),
+  type = "l1",
+  nullvalue = round(coef(theta_mle)[1], 2),
+  xaxis = expression(mu),
+  title = "Likelihood for the Mean (via maxLik)"
+)
 ```
 
 ```{r eval=!has_maxLik, echo=FALSE, results="asis"}
@@ -171,17 +178,19 @@ nll <- function(mu, sigma) -sum(dnorm(x, mean = mu, sd = sigma, log = TRUE))
 m <- mle2(nll, start = list(mu = 8, sigma = 3), data = list(x = x))
 
 pr <- profile(m)
-pr_mu <- as.data.frame(pr)                      # columns: param, z, par.vals...
+pr_mu <- as.data.frame(pr) # columns: param, z, par.vals...
 pr_mu <- pr_mu[pr_mu$param == "mu", ]
 
 mu_vals <- pr_mu[["par.vals.mu"]]
-if (is.null(mu_vals)) mu_vals <- pr_mu[["mu"]]  # column name varies by version
+if (is.null(mu_vals)) mu_vals <- pr_mu[["mu"]] # column name varies by version
 
-lik_bbmle <- as_concurve_lik(mu_vals, -0.5 * pr_mu$z^2)  # loglik_rel = -z^2/2
+lik_bbmle <- as_concurve_lik(mu_vals, -0.5 * pr_mu$z^2) # loglik_rel = -z^2/2
 
-ggcurve(lik_bbmle, type = "l1", nullvalue = round(coef(m)["mu"], 2),
-        xaxis = expression(mu),
-        title = "Profile Likelihood for the Mean (via bbmle)")
+ggcurve(lik_bbmle,
+  type = "l1", nullvalue = round(coef(m)["mu"], 2),
+  xaxis = expression(mu),
+  title = "Profile Likelihood for the Mean (via bbmle)"
+)
 ```
 
 ```{r eval=!has_bbmle, echo=FALSE, results="asis"}
@@ -202,9 +211,9 @@ library(cond)
 data(babies)
 
 mod <- glm(cbind(r1, r2) ~ day + lull - 1, family = binomial, data = babies)
-cond_fit <- cond(mod, offset = lullyes)   # exact conditional inference for 'lull'
+cond_fit <- cond(mod, offset = lullyes) # exact conditional inference for 'lull'
 summary(cond_fit)
-plot(cond_fit, which = 2)                 # conditional (modified profile) likelihood
+plot(cond_fit, which = 2) # conditional (modified profile) likelihood
 ```
 
 ```{r eval=!has_cond, echo=FALSE, results="asis"}
@@ -225,15 +234,17 @@ unless $\sigma^2$ really is 1.
 
 ```{r echo=TRUE}
 loglik_slice <- vapply(mu_grid, function(m) {
-  -0.5 * sum((x - m)^2)                  # fixes sigma^2 = 1
+  -0.5 * sum((x - m)^2) # fixes sigma^2 = 1
 }, numeric(1))
 
 lik_slice <- as_concurve_lik(mu_grid, loglik_slice)
 
-ggcurve(lik_slice, type = "l1", nullvalue = round(fit$par["mu"], 2),
-        xaxis = expression(mu),
-        title = "WRONG: mean likelihood with sigma^2 fixed at 1",
-        subtitle = "Too narrow -- the real sigma is about 3.2, not 1")
+ggcurve(lik_slice,
+  type = "l1", nullvalue = round(fit$par["mu"], 2),
+  xaxis = expression(mu),
+  title = "WRONG: mean likelihood with sigma^2 fixed at 1",
+  subtitle = "Too narrow -- the real sigma is about 3.2, not 1"
+)
 ```
 
 Compare its width to the profiled version from Route 1: the slice is far
@@ -261,7 +272,7 @@ has_native <- exists("curve_lik_glm") && exists("curve_analytic") &&
 ```{r eval=has_native, echo=TRUE}
 mod <- glm(am ~ mpg, family = binomial, data = mtcars)
 est <- coef(mod)["mpg"]
-se  <- sqrt(diag(vcov(mod)))["mpg"]
+se <- sqrt(diag(vcov(mod)))["mpg"]
 
 # profile likelihood: nuisance intercept maximized out at every grid point
 lik_prof <- curve_lik_glm(mod, "mpg", steps = 200)
@@ -271,10 +282,12 @@ lik_prof <- curve_lik_glm(mod, "mpg", steps = 200)
 grid <- lik_prof[[1]]$values
 lik_wald <- as_curve_lik(grid, dnorm(grid, mean = est, sd = se, log = TRUE))
 
-plot_compare(lik_prof[[1]], lik_wald[[1]], type = "l1",
-             title = "Profile vs Wald Likelihood",
-             subtitle = "Same coefficient; the gap between them is the skew the Wald approximation ignores",
-             xaxis = expression(beta[mpg]))
+plot_compare(lik_prof[[1]], lik_wald[[1]],
+  type = "l1",
+  title = "Profile vs Wald Likelihood",
+  subtitle = "Same coefficient; the gap between them is the skew the Wald approximation ignores",
+  xaxis = expression(beta[mpg])
+)
 ```
 
 The two curves agree near the maximum and part company in the shoulders
@@ -287,12 +300,14 @@ likelihood.
 ```{r eval=has_native, echo=TRUE}
 # 95% consonance interval, Wald construction
 cons <- curve_analytic(estimate = est, se = se, dist = "z")
-ci95 <- cons[[1]][which.min(abs(cons[[1]]$intrvl.level - 0.95)),
-                  c("lower.limit", "upper.limit")]
+ci95 <- cons[[1]][
+  which.min(abs(cons[[1]]$intrvl.level - 0.95)),
+  c("lower.limit", "upper.limit")
+]
 
 rbind(
-  `profile 1/6.83 support` = unlist(curve_support(lik_prof[[1]], 6.83)[c("lower.limit","upper.limit")]),
-  `Wald    1/6.83 support` = unlist(curve_support(lik_wald[[1]], 6.83)[c("lower.limit","upper.limit")]),
+  `profile 1/6.83 support` = unlist(curve_support(lik_prof[[1]], 6.83)[c("lower.limit", "upper.limit")]),
+  `Wald    1/6.83 support` = unlist(curve_support(lik_wald[[1]], 6.83)[c("lower.limit", "upper.limit")]),
   `Wald    95% consonance` = unlist(ci95)
 )
 ```

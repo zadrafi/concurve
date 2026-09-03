@@ -84,3 +84,25 @@ activating renv, installing packages). Before any build or commit:
 `git status`, run the R/ content scan above, and confirm DESCRIPTION's
 Imports block ends at `rlang`.
 
+
+## Landmines (learned 2026-09-03, 3.0.3 resubmission)
+
+- **Never `source("usethis.R")`.** Its trailing `execute_package_workflow()`
+  is now commented out, but the functions inside still: move
+  survival/survminer/ProfileLikelihood/officer/pbmcapply into `Imports`
+  (nothing in `R/` calls them → "unused Imports" NOTE); `use_build_ignore()`
+  `references.bib` / `american-medical-association.csl` with `escape = FALSE`,
+  which also hides `vignettes/references.bib` + the CSL from the tarball so
+  every vignette fails to re-build under `R CMD check`; overwrite
+  `cran-comments.md`, `tests/spelling.R`, `codemeta.json`; and rebuild `docs/`.
+- RStudio on this machine writes its session state to `<root>/AB4607D1/` and
+  `<root>/shared/` (not `.Rproj.user/`). Both are in `.Rbuildignore` and
+  `.gitignore`; do not "clean them up" by hand, they come back on relaunch.
+- Only one process may install/check at a time. Two concurrent installs
+  produce "S3 methods ... declared in NAMESPACE but not found" from the
+  library copy; fix with `remove.packages("concurve"); devtools::install()`.
+- `tests/testthat/Untitled.R` is a real test file (curve_from_ratio) but is
+  NOT run by testthat (name must start with `test`). Rename once verified.
+- Release check that is trusted: quit RStudio, then
+  `Rscript -e "devtools::check(args = '--as-cran')"` from a terminal, then
+  `R CMD build concurve` from `~` and inspect `tar -tzf` for stray files.

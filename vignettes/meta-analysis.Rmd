@@ -101,7 +101,6 @@ The results are practically the same and we cannot actually see any difference, 
 `concurve` can also handle complex data structures from `metafor` that are clustered. 
 
 ```{r echo=TRUE, fig.height=4.5, fig.width=6}
-
 ### copy data from Berkey et al. (1998) into 'dat'
 dat <- dat.berkey1998
 
@@ -137,12 +136,14 @@ library(concurve)
 
 defS <- defData(varname = "a.k", formula = 3, variance = 2, id = "study")
 defS <- defData(defS, varname = "d.0", formula = 3, dist = "nonrandom")
-defS <- defData(defS, varname = "v.k", formula = 0, variance = 6, dist= "normal")
+defS <- defData(defS, varname = "v.k", formula = 0, variance = 6, dist = "normal")
 defS <- defData(defS, varname = "s2.k", formula = 16, variance = .2, dist = "gamma")
 defS <- defData(defS, varname = "size.study", formula = ".3;.5;.2", dist = "categorical")
-defS <- defData(defS, varname = "n.study",
-                formula = "(size.study==1) * 20 + (size.study==2) * 40 + (size.study==3) * 60",
-                dist = "poisson")
+defS <- defData(defS,
+  varname = "n.study",
+  formula = "(size.study==1) * 20 + (size.study==2) * 40 + (size.study==3) * 60",
+  dist = "poisson"
+)
 
 defI <- defDataAdd(varname = "y", formula = "a.k + x * (d.0 + v.k)", variance = "s2.k")
 
@@ -157,13 +158,12 @@ dc <- trtAssign(dc, strata = "study", grpName = "x")
 dc <- addColumns(defI, dc)
 
 
-d.obs <- dc[, .(study, id,s2.k, x, y)]
-d.obs <-  as.data.frame(d.obs)
-res <- rma.mv(yi = y, V = s2.k, mods = ~  factor(study) + factor(x),  random = ~ factor(x) | study, struct="CS", data = d.obs, method = "REML")
+d.obs <- dc[, .(study, id, s2.k, x, y)]
+d.obs <- as.data.frame(d.obs)
+res <- rma.mv(yi = y, V = s2.k, mods = ~ factor(study) + factor(x), random = ~ factor(x) | study, struct = "CS", data = d.obs, method = "REML")
 
 a <- curve_meta(x = res, measure = "default", method = "mv", parm = "factor(x)1", cores = 1L)
 ggcurve(a[[2]], type = "cdf")
-
 ```
 
 # Cite R packages

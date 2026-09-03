@@ -40,10 +40,10 @@ We simulate counts for an exposed vs. unexposed group, adjusting for one continu
 ```{r echo=TRUE}
 set.seed(2718)
 n <- 200
-x1    <- rnorm(n)
+x1 <- rnorm(n)
 group <- rbinom(n, size = 1, prob = 0.5)
-eta   <- -0.5 + 0.8 * group + 0.3 * x1
-y     <- rpois(n, lambda = exp(eta))
+eta <- -0.5 + 0.8 * group + 0.3 * x1
+y <- rpois(n, lambda = exp(eta))
 
 pois_dat <- data.frame(y, group, x1)
 head(pois_dat)
@@ -73,18 +73,24 @@ The profiled parameter is on the **log scale**, so `values` here are candidate l
 ## Plotting the likelihood
 
 ```{r echo=TRUE}
-ggcurve(lik[[1]], type = "l1", nullvalue = TRUE,
-        xaxis = "log(Rate Ratio)",
-        title = "Relative Likelihood Function",
-        subtitle = "Profile likelihood for the Poisson log-rate-ratio")
+ggcurve(lik[[1]],
+  type = "l1", nullvalue = TRUE,
+  xaxis = "log(Rate Ratio)",
+  title = "Relative Likelihood Function",
+  subtitle = "Profile likelihood for the Poisson log-rate-ratio"
+)
 
-ggcurve(lik[[1]], type = "l2",
-        xaxis = "log(Rate Ratio)",
-        title = "Log-Likelihood Function")
+ggcurve(lik[[1]],
+  type = "l2",
+  xaxis = "log(Rate Ratio)",
+  title = "Log-Likelihood Function"
+)
 
-ggcurve(lik[[1]], type = "d", nullvalue = 0,
-        xaxis = "log(Rate Ratio)",
-        title = "Deviance Function")
+ggcurve(lik[[1]],
+  type = "d", nullvalue = 0,
+  xaxis = "log(Rate Ratio)",
+  title = "Deviance Function"
+)
 ```
 
 The likelihood peaks near the true value of $0.8$, and the deviance function --- $-\log$ relative likelihood --- turns the same curve into a "distance from the best-supported value" scale, where Royall's $1/8$ and $1/32$ support cutoffs correspond to deviance heights of about $2.08$ and $3.47$.[@royallStatisticalEvidenceLikelihood1997]
@@ -106,13 +112,17 @@ rate_curve <- suppressMessages(curve_gen(
 ```
 
 ```{r echo=TRUE}
-ggcurve(rate_curve[[1]], type = "c", measure = "ratio", nullvalue = 1,
-        xaxis = "Rate Ratio",
-        title = "Consonance (P-value) Function")
+ggcurve(rate_curve[[1]],
+  type = "c", measure = "ratio", nullvalue = 1,
+  xaxis = "Rate Ratio",
+  title = "Consonance (P-value) Function"
+)
 
-ggcurve(rate_curve[[1]], type = "s", measure = "ratio", nullvalue = 1,
-        xaxis = "Rate Ratio",
-        title = "Surprisal (S-value) Function")
+ggcurve(rate_curve[[1]],
+  type = "s", measure = "ratio", nullvalue = 1,
+  xaxis = "Rate Ratio",
+  title = "Surprisal (S-value) Function"
+)
 ```
 
 The consonance function peaks at the estimated rate ratio; its slice at $1 - \alpha = 0.95$ is the ordinary 95% rate-ratio interval. The surprisal function reports $-\log_2 p$ against each candidate rate ratio, so a rate ratio of $1$ carries a readable number of **bits** of information against it.[@rafiSemanticCognitiveTools2020; @greenlandStatisticalTestsValues2016]
@@ -122,13 +132,17 @@ The consonance function peaks at the estimated rate ratio; its slice at $1 - \al
 Because `curve_gen()` also returns the density-function values, you can draw the full confidence distribution and density for the rate ratio.[@schwederConfidenceLikelihood2002; @xieConfidenceDistributionFrequentist2013]
 
 ```{r echo=TRUE}
-ggcurve(rate_curve[[2]], type = "cdf", measure = "ratio", nullvalue = 1,
-        xaxis = "Rate Ratio",
-        title = "Consonance Distribution")
+ggcurve(rate_curve[[2]],
+  type = "cdf", measure = "ratio", nullvalue = 1,
+  xaxis = "Rate Ratio",
+  title = "Consonance Distribution"
+)
 
-ggcurve(rate_curve[[2]], type = "cd", measure = "ratio",
-        xaxis = "Rate Ratio",
-        title = "Consonance Density")
+ggcurve(rate_curve[[2]],
+  type = "cd", measure = "ratio",
+  xaxis = "Rate Ratio",
+  title = "Consonance Density"
+)
 ```
 
 # Putting it together

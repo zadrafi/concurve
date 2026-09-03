@@ -56,7 +56,7 @@ as_curve_lik <- function(values, loglik, table = TRUE) {
   loglik <- loglik[o]
 
   loglikelihood <- loglik - max(loglik) # relative log-likelihood, max = 0
-  support <- exp(loglikelihood)         # relative likelihood in (0, 1]
+  support <- exp(loglikelihood) # relative likelihood in (0, 1]
 
   likfunction <- data.frame(
     values        = values,
@@ -107,11 +107,20 @@ as_curve_lik <- function(values, loglik, table = TRUE) {
 #' @details The constrained fits use the offset trick: to fix the
 #' coefficient of \eqn{x_j} at \eqn{b}, the term \eqn{b x_j} is moved
 #' into an offset and the model is refit without \eqn{x_j}. For
-#' \code{lm} objects the equivalent weighted least-squares profile is
-#' used. The profile deviance from this function agrees with
+#' \code{lm} objects the residual variance is profiled out exactly, so
+#' the curve is the likelihood-ratio profile; its 1/6.83 interval is
+#' slightly narrower than the t-based \code{confint.lm()} interval in
+#' small samples. For \code{glm} objects the profile deviance agrees with
 #' \code{confint()}'s profile-likelihood intervals: the relative
 #' likelihood cutoff \eqn{\exp(-\chi^2_{1,0.95}/2) = 1/6.83} reproduces
-#' the 95\% profile CI.
+#' the 95\% profile CI up to the grid resolution.
+#'
+#' For families with a free dispersion parameter (\code{gaussian},
+#' \code{Gamma}, \code{inverse.gaussian}, and the \code{quasi} families)
+#' the profile deviance is divided by the dispersion estimated from the
+#' full model, \code{summary(model)$dispersion}, exactly as
+#' \code{confint()} does for such models. For \code{binomial} and
+#' \code{poisson} the dispersion is fixed at 1.
 #'
 #' @references
 #' Venzon DJ, Moolgavkar SH. A method for computing profile-likelihood-
@@ -162,6 +171,18 @@ curve_lik_glm <- function(model, var, range = 5, steps = 200, table = TRUE) {
 
   Xr <- X[, keep, drop = FALSE]
 
+  # Dispersion: fixed at 1 for binomial/poisson, otherwise the estimate from
+  # the full model (what stats:::profile.glm / confint() use). Without this,
+  # Gamma / gaussian / quasi profiles are off by a factor of phi.
+  phi <- if (is_glm && !fam$family %in% c("binomial", "poisson")) {
+    summary(model)$dispersion
+  } else {
+    1
+  }
+
+  # starting values for the constrained refits: the full model's fitted means
+  mu_start <- if (is_glm) stats::fitted(model) else NULL
+
   prof_one <- function(b) {
     off <- base_offset + b * xj
     if (ncol(Xr) == 0L) {
@@ -170,18 +191,26 @@ curve_lik_glm <- function(model, var, range = 5, steps = 200, table = TRUE) {
       mu <- fam$linkinv(eta)
       if (is_glm) {
         dev <- sum(fam$dev.resids(y, mu, w))
-        return(-dev / 2) # log-likelihood up to a constant
+        return(-dev / (2 * phi)) # scaled log-likelihood up to a constant
       }
       return(-0.5 * length(y) * log(mean((y - mu)^2)))
     }
-    fit <- suppressWarnings(
-      stats::glm.fit(Xr, y,
-        weights = w, offset = off, family = fam,
-        intercept = FALSE
-      )
+    fit <- tryCatch(
+      suppressWarnings(
+        stats::glm.fit(Xr, y,
+          weights = w, offset = off, family = fam,
+          mustart = mu_start, intercept = FALSE
+        )
+      ),
+      error = function(e) NULL
     )
+    # a constrained fit can be infeasible far in the tails (e.g. an inverse
+    # link driven to a negative mean); record NA and drop the point below
+    if (is.null(fit) || !isTRUE(fit$converged)) {
+      return(NA_real_)
+    }
     if (is_glm) {
-      -fit$deviance / 2 # log-likelihood up to a constant
+      -fit$deviance / (2 * phi) # scaled log-likelihood up to a constant
     } else {
       # gaussian lm: profile out sigma^2 as well
       -0.5 * length(y) * log(fit$deviance / length(y))
@@ -189,6 +218,18 @@ curve_lik_glm <- function(model, var, range = 5, steps = 200, table = TRUE) {
   }
 
   loglik <- vapply(grid, prof_one, numeric(1))
+  bad <- is.na(loglik)
+  if (all(bad)) {
+    stop("Error: no constrained refit converged; check the model or reduce 'range'")
+  }
+  if (any(bad)) {
+    message(
+      sum(bad), " grid point(s) where the constrained refit did not converge ",
+      "were dropped; reduce 'range' to avoid this."
+    )
+    grid <- grid[!bad]
+    loglik <- loglik[!bad]
+  }
   as_curve_lik(grid, loglik, table = table)
 }
 

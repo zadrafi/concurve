@@ -135,8 +135,8 @@ here](https://stat.lesslikely.com/concurve/articles/supported.html).
 ### Citation
 
 To properly cite the package, please see the [following
-page](https://stat.lesslikely.com/concurve/authors.html) or
-run the R script below.
+page](https://stat.lesslikely.com/concurve/authors.html) or run the R
+script below.
 
 ```{r eval=FALSE}
 citation("concurve")

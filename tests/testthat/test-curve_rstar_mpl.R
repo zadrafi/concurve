@@ -11,13 +11,17 @@ test_that("curve_rstar validates its inputs", {
 test_that("curve_mpl validates its inputs", {
   skip_if_not_installed("likelihoodAsy")
   expect_error(
-    curve_mpl(list(), mle = 0, floglik = "no", datagen = identity,
-              indpsi = 1, lo = 0, hi = 1),
+    curve_mpl(list(),
+      mle = 0, floglik = "no", datagen = identity,
+      indpsi = 1, lo = 0, hi = 1
+    ),
     "functions"
   )
   expect_error(
-    curve_mpl(list(), mle = 0, floglik = identity, datagen = identity,
-              indpsi = 1, lo = 2, hi = 1),
+    curve_mpl(list(),
+      mle = 0, floglik = identity, datagen = identity,
+      indpsi = 1, lo = 2, hi = 1
+    ),
     "lo < hi"
   )
 })
@@ -61,8 +65,10 @@ test_that("curve_rstar reproduces likelihoodAsy's own confidence limits", {
   df <- out[[1]]
   expect_identical(
     names(df),
-    c("lower.limit", "upper.limit", "intrvl.width", "intrvl.level",
-      "cdf", "pvalue", "svalue")
+    c(
+      "lower.limit", "upper.limit", "intrvl.width", "intrvl.level",
+      "cdf", "pvalue", "svalue"
+    )
   )
   expect_identical(class(df), c("data.frame", "concurve"))
   expect_identical(names(out[[2]]), "x")
@@ -70,15 +76,19 @@ test_that("curve_rstar reproduces likelihoodAsy's own confidence limits", {
   # the key invariant: limits at 90/95/99% equal the object's own CIrs
   levs <- c(0.90, 0.95, 0.99)
   for (i in seq_along(levs)) {
-    mine <- unlist(df[abs(df$intrvl.level - levs[i]) < 1e-9,
-                      c("lower.limit", "upper.limit")])
+    mine <- unlist(df[
+      abs(df$intrvl.level - levs[i]) < 1e-9,
+      c("lower.limit", "upper.limit")
+    ])
     expect_equal(unname(mine), sort(rs_int$CIrs[i, ]), tolerance = 1e-8)
   }
 
   # first-order curve matches CIr
   out_r <- suppressMessages(curve_rstar(rs_int, statistic = "r", steps = 1000))
-  mine_r <- unlist(out_r[[1]][abs(out_r[[1]]$intrvl.level - 0.95) < 1e-9,
-                              c("lower.limit", "upper.limit")])
+  mine_r <- unlist(out_r[[1]][
+    abs(out_r[[1]]$intrvl.level - 0.95) < 1e-9,
+    c("lower.limit", "upper.limit")
+  ])
   expect_equal(unname(mine_r), sort(rs_int$CIr[2, ]), tolerance = 1e-8)
 
   # independent reference: the r-based 95% interval should approximate the

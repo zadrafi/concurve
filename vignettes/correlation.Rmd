@@ -73,8 +73,10 @@ log-likelihood over the nuisance parameters with `optim()`.
 prof_loglik_rho <- function(rho, x, y) {
   n <- length(x)
   neg_ll <- function(par) {
-    mux <- par[1]; muy <- par[2]
-    sx <- exp(par[3]); sy <- exp(par[4])
+    mux <- par[1]
+    muy <- par[2]
+    sx <- exp(par[3])
+    sy <- exp(par[4])
     dx <- (x - mux) / sx
     dy <- (y - muy) / sy
     quad <- (dx^2 - 2 * rho * dx * dy + dy^2) / (1 - rho^2)
@@ -96,15 +98,15 @@ the same five columns `curve_lik()` produces: `values`, `likelihood`,
 grid <- seq(-0.95, 0.95, length.out = 600)
 ll <- vapply(grid, prof_loglik_rho, numeric(1), x = x, y = y)
 
-loglik_rel <- ll - max(ll)     # relative log-likelihood (max = 0)
-support     <- exp(loglik_rel) # relative (normalized) likelihood, max = 1
+loglik_rel <- ll - max(ll) # relative log-likelihood (max = 0)
+support <- exp(loglik_rel) # relative (normalized) likelihood, max = 1
 
 lik_rho <- data.frame(
   values        = grid,
-  likelihood    = exp(ll),      # raw profile likelihood         -> type = "l3"
-  loglikelihood = loglik_rel,   # relative log-likelihood         -> type = "l2"
-  support       = support,      # relative likelihood (0, 1]      -> type = "l1"
-  deviancestat  = -loglik_rel   # -log relative likelihood        -> type = "d"
+  likelihood    = exp(ll), # raw profile likelihood         -> type = "l3"
+  loglikelihood = loglik_rel, # relative log-likelihood         -> type = "l2"
+  support       = support, # relative likelihood (0, 1]      -> type = "l1"
+  deviancestat  = -loglik_rel # -log relative likelihood        -> type = "d"
 )
 class(lik_rho) <- c("data.frame", "concurve")
 head(lik_rho)
@@ -116,18 +118,24 @@ This is exactly the object `curve_lik()` hands back, so every downstream
 ## Plotting the likelihood
 
 ```{r echo=TRUE}
-ggcurve(lik_rho, type = "l1", nullvalue = TRUE,
-        xaxis = expression(rho),
-        title = "Relative Likelihood Function",
-        subtitle = "Profile likelihood for the correlation coefficient")
+ggcurve(lik_rho,
+  type = "l1", nullvalue = TRUE,
+  xaxis = expression(rho),
+  title = "Relative Likelihood Function",
+  subtitle = "Profile likelihood for the correlation coefficient"
+)
 
-ggcurve(lik_rho, type = "l2",
-        xaxis = expression(rho),
-        title = "Log-Likelihood Function")
+ggcurve(lik_rho,
+  type = "l2",
+  xaxis = expression(rho),
+  title = "Log-Likelihood Function"
+)
 
-ggcurve(lik_rho, type = "d", nullvalue = 0,
-        xaxis = expression(rho),
-        title = "Deviance Function")
+ggcurve(lik_rho,
+  type = "d", nullvalue = 0,
+  xaxis = expression(rho),
+  title = "Deviance Function"
+)
 ```
 
 The maximum of the relative likelihood sits at the sample correlation
@@ -170,13 +178,17 @@ rho_curve <- curve_corr(
 ```
 
 ```{r echo=TRUE}
-ggcurve(rho_curve[[1]], type = "c", nullvalue = TRUE,
-        xaxis = expression(rho),
-        title = "Consonance (P-value) Function")
+ggcurve(rho_curve[[1]],
+  type = "c", nullvalue = TRUE,
+  xaxis = expression(rho),
+  title = "Consonance (P-value) Function"
+)
 
-ggcurve(rho_curve[[1]], type = "s", nullvalue = TRUE,
-        xaxis = expression(rho),
-        title = "Surprisal (S-value) Function")
+ggcurve(rho_curve[[1]],
+  type = "s", nullvalue = TRUE,
+  xaxis = expression(rho),
+  title = "Surprisal (S-value) Function"
+)
 ```
 
 The consonance function peaks at $r$, and its horizontal slice at
@@ -190,8 +202,10 @@ The $1/6.8$ likelihood interval and the 95% consonance interval should
 land in nearly the same place --- that is the whole point.
 
 ```{r echo=TRUE}
-ci95 <- as.numeric(rho_curve[[1]][which.min(abs(rho_curve[[1]]$intrvl.level - 0.95)),
-                                  c("lower.limit", "upper.limit")])
+ci95 <- as.numeric(rho_curve[[1]][
+  which.min(abs(rho_curve[[1]]$intrvl.level - 0.95)),
+  c("lower.limit", "upper.limit")
+])
 
 rbind(
   `Likelihood 1/6.8` = support_interval(lik_rho, 6.8),

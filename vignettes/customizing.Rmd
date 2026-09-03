@@ -73,7 +73,7 @@ function2 <- ggdraw(function1) +
 function2
 ```
 
-I've only tried testing this with the `cowplot` package, so I cannot say for sure that the functions won't break when applied with other themes.[@Wilke_2019]
+I've only tried testing this with the `cowplot` package, so I cannot say for sure that the functions won't break when applied with other themes.[@wilkeCowplotStreamlinedPlot2019]
 
 # More Advanced Customization
 

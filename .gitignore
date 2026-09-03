@@ -13,3 +13,9 @@ README.md
 /README.html
 /logistic.html
 /*.Rcheck/
+
+# scratch parked out of the package root
+dev/root-cleanup-*/
+# RStudio writes its session state into the project root on this machine
+/AB4607D1/
+/shared/

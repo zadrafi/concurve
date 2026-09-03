@@ -91,10 +91,13 @@ test_that("curve_lik_exact prop/or/rr peak at the design's estimator", {
   # conditional MLE solves E[A; psi] = a (score identity), != ad/bc
   lo <- curve_lik_exact(type = "or", a = 12, b = 8, c = 5, d = 15)
   psi <- exp(lo[[1]]$values[which.max(lo[[1]]$support)])
-  n1 <- 20; n0 <- 20; m1 <- 17
+  n1 <- 20
+  n0 <- 20
+  m1 <- 17
   ks <- max(0, m1 - n0):min(m1, n1)
   w <- lchoose(n1, ks) + lchoose(n0, m1 - ks) + ks * log(psi)
-  w <- exp(w - max(w)); w <- w / sum(w)
+  w <- exp(w - max(w))
+  w <- w / sum(w)
   expect_lt(abs(sum(ks * w) - 12), 0.05)
   expect_gt(abs(psi - (12 * 15) / (8 * 5)), 0.05) # differs from ad/bc
 
@@ -148,4 +151,80 @@ test_that("ggcurve renders all likelihood types from native constructors", {
   for (tp in c("l1", "l2", "l3", "d")) {
     expect_s3_class(ggcurve(lp[[1]], type = tp), "ggplot")
   }
+})
+
+# ---- dispersion handling -----------------------------------------------------
+# Reference: stats::confint.glm() profiles the *scaled* deviance, dividing by
+# summary(model)$dispersion for families with a free dispersion parameter.
+# The 1/6.83 support interval must therefore agree with confint() up to one
+# grid step for every family, not just binomial/poisson.
+
+support_interval <- function(lik) {
+  df <- lik[[1]]
+  range(df$values[df$support >= 1 / 6.83])
+}
+
+grid_step <- function(lik) {
+  diff(lik[[1]]$values[1:2])
+}
+
+test_that("curve_lik_glm divides the Gamma profile deviance by the dispersion", {
+  set.seed(3)
+  z <- runif(80)
+  yy <- rgamma(80, shape = 2, rate = 2 / exp(1 + 0.5 * z))
+  mod <- glm(yy ~ z, family = Gamma(link = "log"))
+
+  lik <- curve_lik_glm(mod, "z", steps = 1000)
+  ci <- suppressMessages(confint(mod, "z"))
+
+  expect_equal(support_interval(lik), unname(ci), tolerance = 2 * grid_step(lik))
+  # without the dispersion the interval is sqrt(1/phi) times too wide;
+  # phi ~ 0.5 here, so guard against that specific regression
+  expect_lt(diff(support_interval(lik)) / diff(ci), 1.05)
+})
+
+test_that("curve_lik_glm matches confint() for a gaussian glm", {
+  mod <- glm(mpg ~ wt + hp, data = mtcars)
+  lik <- curve_lik_glm(mod, "wt", steps = 1000)
+  ci <- suppressMessages(confint(mod, "wt"))
+  expect_equal(support_interval(lik), unname(ci), tolerance = 2 * grid_step(lik))
+})
+
+test_that("curve_lik_glm matches confint() for a quasipoisson glm", {
+  set.seed(11)
+  x <- rnorm(60)
+  y <- rpois(60, exp(0.4 + 0.6 * x))
+  mod <- glm(y ~ x, family = quasipoisson)
+  lik <- curve_lik_glm(mod, "x", steps = 1000)
+  ci <- suppressMessages(confint(mod, "x"))
+  expect_equal(support_interval(lik), unname(ci), tolerance = 2 * grid_step(lik))
+})
+
+test_that("curve_lik_glm leaves poisson and binomial profiles unchanged (phi = 1)", {
+  mod <- glm(am ~ mpg, family = binomial, data = mtcars)
+  lik <- curve_lik_glm(mod, "mpg", steps = 1000)
+  ci <- suppressMessages(confint(mod, "mpg"))
+  expect_equal(support_interval(lik), unname(ci), tolerance = 2 * grid_step(lik))
+})
+
+test_that("curve_lik_glm handles a model with no nuisance regressors", {
+  set.seed(11)
+  x <- rnorm(60)
+  y <- rpois(60, exp(0.6 * x))
+  mod <- glm(y ~ x - 1, family = poisson)
+  lik <- curve_lik_glm(mod, "x", steps = 1000)
+  ci <- suppressMessages(confint(mod, "x"))
+  expect_equal(support_interval(lik), unname(ci), tolerance = 2 * grid_step(lik))
+})
+
+test_that("curve_lik_glm converges for an inverse-link Gamma model", {
+  # glm.fit() without starting values fails in the tails of this grid;
+  # the constrained refits start from the full model's fitted means
+  set.seed(3)
+  z <- runif(80)
+  yy <- rgamma(80, shape = 2, rate = 2 / exp(1 + 0.5 * z))
+  mod <- glm(yy ~ z, family = Gamma)
+  lik <- expect_silent(curve_lik_glm(mod, "z", steps = 500))
+  ci <- suppressMessages(confint(mod, "z"))
+  expect_equal(support_interval(lik), unname(ci), tolerance = 2 * grid_step(lik))
 })
