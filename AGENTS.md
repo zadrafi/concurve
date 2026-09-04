@@ -127,21 +127,59 @@ R CMD check --as-cran concurve_3.0.3.tar.gz
 With the real validator the manual passes and the check drops to a
 **single NOTE** — the unavoidable archival / incoming-feasibility one.
 
+## BREAKING CHANGE in 3.0.4: the `deviancestat` scale
+
+`deviancestat` used to mean two different things. `curve_rev()` reported
+`D = -2 log(L / Lmax)`, the likelihood-ratio statistic on the
+chi-squared (1 df) scale, so its 95% point sits at 3.84. But
+`as_curve_lik()`, `curve_lik()`, `curve_lik_glm()`, and `curve_mpl()`
+reported **half** that. As of `6bf6073` on `release/3.0.4`, all five
+agree on the chi-squared scale.
+
+This is breaking for anything that reads the column or plots it:
+
+- `ggcurve(type = "d")` and `plot_compare(type = "d")` plot
+  `deviancestat` directly, so **y-values from those four constructors
+  double**. Any saved figure, vignette output, or snapshot comparing
+  against old values will differ by exactly 2.
+- `curve_table(type = "l")` shows it as "Deviance Statistic".
+- Relative likelihoods, `support`, support intervals, and
+  `curve_support()` are **unaffected** — only the deviance column moves.
+
+`curve_rev()` was the correct one: `plot_compare()` has always labelled
+that axis `Deviance Statistic 2ln(MLR)`, so the other four were
+contradicting the label. Regression tests in
+`test-curve_likelihood.R` now assert every constructor puts the 1/6.83
+cutoff at `qchisq(0.95, 1)`; `test-curve_rstar_mpl.R:122` asserted the
+old convention and was updated.
+
 ## State (as of 2026-09-04)
 
-- Version is now 3.0.3. Full `R CMD check --as-cran` with vignette
-  rebuilds: **0 errors, 0 warnings, 0 notes** including the new
-  `curve_stan` family (uncommitted as of 2026-09-04; earlier clean
-  commits `6011eca`, `435d8d5`).
+- **`master` is 3.0.3** and deliberately matches the tarball CRAN is
+  reviewing. **`release/3.0.4`** carries everything since (PR #60, kept
+  as a draft). Do not merge until CRAN resolves 3.0.3.
+- **3.0.3 is pending, not accepted.** CRAN's incoming queue is publicly
+  browsable, which settles the question without waiting on email:
+
+  ``` sh
+  for d in pretest inspect pending recheck waiting newbies publish archive; do
+    printf "%-10s " "$d"; curl -s "https://cran.r-project.org/incoming/$d/" | grep -o 'concurve[^"<]*' | sort -u | tr '\n' ' '; echo
+  done
+  ```
+
+  On 2026-09-04 that put `concurve_3.0.3.tar.gz` in **`newbies/`**
+  (awaiting manual review — where returning archived packages land), with
+  3.0.0, 3.0.1 and 3.0.2 in `archive/` as superseded attempts.
+- `curve_lik_glm()` in the pending 3.0.3 has a dispersion bug making
+  intervals depend on the units of the response (up to 5x too narrow).
+  A withdrawal email is drafted at `dev/cran-withdraw-3.0.3.md`. **It
+  must be sent by the maintainer from the registered address**; CRAN
+  authenticates on the From: header.
 - `.venv/` (a Python venv at the root) was inflating the tarball to 12
   MB; now `.Rbuildignore`d along with `rstanlm/` and `stan_vs_nostan*`.
 - `bayes.Rmd` needs rstanarm → igraph at vignette-build time; a missing
   igraph fails the whole build. `rstan`, `rstanarm`, `brms` are Suggests
   "not available for checking" unless installed.
-- CRAN submission built (concurve_3.0.0.tar.gz) but deliberately
-  deferred by the maintainer at the final prompt; complete via
-  `devtools::submit_cran()`. CRAN's incoming check will NOTE the 2022
-  archival — expected, explained in cran-comments.md.
 - Intentionally uncommitted local files: `concurve.Rproj` (personal
   editor theme), `tests/testthat/Rplots.pdf`, `README.html`,
   `logistic.html`, `variancecomponents/*`.
