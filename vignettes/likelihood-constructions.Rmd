@@ -48,7 +48,7 @@ as_concurve_lik <- function(values, loglik) {
     likelihood    = support, # relative likelihood      -> type = "l3"
     loglikelihood = loglik_rel, # relative log-likelihood   -> type = "l2"
     support       = support, # relative likelihood       -> type = "l1"
-    deviancestat  = -loglik_rel # -log relative likelihood  -> type = "d"
+    deviancestat  = -2 * loglik_rel # -2 log rel. lik.      -> type = "d"
   )
   class(df) <- c("data.frame", "concurve")
   df
