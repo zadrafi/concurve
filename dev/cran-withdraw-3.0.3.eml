@@ -1,0 +1,42 @@
+To: cran-submissions@r-project.org
+From: Zad Rafi <zad@lesslikely.com>
+Subject: concurve 3.0.3 - request to withdraw pending submission
+X-Unsent: 1
+Content-Type: text/plain; charset=utf-8
+
+Dear CRAN maintainers,
+
+I submitted concurve 3.0.3 on 1 September 2026. Please could that
+submission be discarded rather than published.
+
+Since submitting, I found a correctness bug in curve_lik_glm(), a
+function that is new in this version. For families with a free dispersion
+parameter - gaussian, Gamma, inverse.gaussian, and the quasi families -
+it profiled the unscaled deviance instead of dividing by the estimated
+dispersion, as stats::confint.glm() does. The resulting likelihood
+support intervals are wrong by a factor of 1/sqrt(dispersion), which
+makes them depend on the units of the response variable: refitting the
+same relationship with the response rescaled changes the interval.
+
+Measured against confint(), a gaussian fit with residual SD 0.4 gave an
+interval 219% of the correct width, and the same relationship with
+residual SD 5.0 gave 19% - five times too narrow. Since gaussian is the
+default family for glm(), an ordinary glm(y ~ x) is affected, and the
+too-narrow direction overstates precision. For a package whose purpose is
+communicating statistical uncertainty, I would rather not publish that
+function in this state.
+
+The fix, along with regression tests covering each affected family and
+the rescaling equivariance the bug violated, is ready as 3.0.4. I will
+submit it once 3.0.3 has been withdrawn. binomial and poisson results
+were never affected, their dispersion being fixed at 1.
+
+I apologise for the extra work this causes. concurve was archived in 2022
+for uncorrected check problems, and I would rather catch this myself than
+publish a function I know gives incorrect answers.
+
+Thank you for your time and for maintaining CRAN.
+
+Best regards,
+Zad Rafi
+zad@lesslikely.com
