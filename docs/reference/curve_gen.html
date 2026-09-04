@@ -251,14 +251,45 @@ and the table for the values in the third if table = TRUE.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="co"># Simulate random data</span></span></span>
-<span class="r-in"><span><span class="va">GroupA</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">GroupB</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">RandomData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">GroupA</span>, <span class="va">GroupB</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">rob</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">GroupA</span> <span class="op">~</span> <span class="va">GroupB</span>, data <span class="op">=</span> <span class="va">RandomData</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">bob</span> <span class="op">&lt;-</span> <span class="fu">curve_gen</span><span class="op">(</span><span class="va">rob</span>, <span class="st">"GroupB"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Consonance intervals at 1000 levels for a single coefficient</span></span></span>
+<span class="r-in"><span><span class="va">curves</span> <span class="op">&lt;-</span> <span class="fu">curve_gen</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">wt</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span>, <span class="st">"wt"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># The interval function itself: limits, level, P-value, and S-value.</span></span></span>
+<span class="r-in"><span><span class="co"># Rows run from the widest interval to the narrowest.</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">curves</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   lower.limit upper.limit intrvl.width intrvl.level    cdf pvalue      svalue</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   -5.345172   -5.343771  0.001401459        0.001 0.5005  0.999 0.001443417</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   -5.345873   -5.343070  0.002802920        0.002 0.5010  0.998 0.002888279</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   -5.346574   -5.342369  0.004204385        0.003 0.5015  0.997 0.004334590</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   -5.347275   -5.341669  0.005605857        0.004 0.5020  0.996 0.005782353</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   -5.347975   -5.340968  0.007007338        0.005 0.5025  0.995 0.007231569</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   -5.348676   -5.340267  0.008408830        0.006 0.5030  0.994 0.008682243</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Conventional levels, for reporting</span></span></span>
+<span class="r-in"><span><span class="va">curves</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Lower Limit Upper Limit Interval Width Interval Level (%)   CDF P-value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 250      -5.523      -5.166          0.356               25.0 0.625   0.750</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 500      -5.722      -4.967          0.754               50.0 0.750   0.500</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 750      -5.988      -4.701          1.286               75.0 0.875   0.250</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 800      -6.061      -4.628          1.433               80.0 0.900   0.200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 850      -6.149      -4.540          1.610               85.0 0.925   0.150</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 900      -6.264      -4.425          1.839               90.0 0.950   0.100</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 950      -6.440      -4.249          2.192               95.0 0.975   0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 975      -6.598      -4.091          2.506               97.5 0.988   0.025</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 990      -6.785      -3.904          2.880               99.0 0.995   0.010</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     S-value (bits)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 250          0.415</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 500          1.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 750          2.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 800          2.322</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 850          2.737</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 900          3.322</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 950          4.322</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 975          5.322</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 990          6.644</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="ggcurve.html">ggcurve</a></span><span class="op">(</span><span class="va">curves</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, type <span class="op">=</span> <span class="st">"c"</span>, nullvalue <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="curve_gen-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

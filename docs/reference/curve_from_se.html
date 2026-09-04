@@ -211,15 +211,38 @@ density dataframe, and optionally a summary table.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="co"># Mean difference with SE</span></span></span>
-<span class="r-in"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">curve_from_se</span><span class="op">(</span>estimate <span class="op">=</span> <span class="fl">2.5</span>, se <span class="op">=</span> <span class="fl">0.8</span>, measure <span class="op">=</span> <span class="st">"mean"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="ggcurve.html">ggcurve</a></span><span class="op">(</span><span class="va">result</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, type <span class="op">=</span> <span class="st">"c"</span>, nullvalue <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># A mean difference of 2.5 with a standard error of 0.8</span></span></span>
+<span class="r-in"><span><span class="va">curves</span> <span class="op">&lt;-</span> <span class="fu">curve_from_se</span><span class="op">(</span>estimate <span class="op">=</span> <span class="fl">2.5</span>, se <span class="op">=</span> <span class="fl">0.8</span>, measure <span class="op">=</span> <span class="st">"mean"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Odds ratio with SE (on log scale internally)</span></span></span>
-<span class="r-in"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">curve_from_se</span><span class="op">(</span>estimate <span class="op">=</span> <span class="fl">1.5</span>, se <span class="op">=</span> <span class="fl">0.2</span>, measure <span class="op">=</span> <span class="st">"ratio"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="ggcurve.html">ggcurve</a></span><span class="op">(</span><span class="va">result</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, type <span class="op">=</span> <span class="st">"c"</span>, nullvalue <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
+<span class="r-in"><span><span class="va">curves</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Lower Limit Upper Limit Interval Width Interval Level (%)   CDF P-value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 750       2.245       2.755          0.510               25.0 0.625   0.750</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 500       1.960       3.040          1.079               50.0 0.750   0.500</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 250       1.580       3.420          1.841               75.0 0.875   0.250</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 200       1.475       3.525          2.050               80.0 0.900   0.200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 150       1.348       3.652          2.303               85.0 0.925   0.150</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 100       1.184       3.816          2.632               90.0 0.950   0.100</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50        0.932       4.068          3.136               95.0 0.975   0.050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25        0.707       4.293          3.586               97.5 0.988   0.025</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        0.439       4.561          4.121               99.0 0.995   0.010</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     S-value (bits)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 750          0.415</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 500          1.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 250          2.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 200          2.322</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 150          2.737</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 100          3.322</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50           4.322</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25           5.322</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10           6.644</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="ggcurve.html">ggcurve</a></span><span class="op">(</span><span class="va">curves</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, type <span class="op">=</span> <span class="st">"c"</span>, nullvalue <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="curve_from_se-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># A ratio measure; the log transformation is handled internally</span></span></span>
+<span class="r-in"><span><span class="va">or</span> <span class="op">&lt;-</span> <span class="fu">curve_from_se</span><span class="op">(</span>estimate <span class="op">=</span> <span class="fl">1.5</span>, se <span class="op">=</span> <span class="fl">0.2</span>, measure <span class="op">=</span> <span class="st">"ratio"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="ggcurve.html">ggcurve</a></span><span class="op">(</span><span class="va">or</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, type <span class="op">=</span> <span class="st">"c"</span>, measure <span class="op">=</span> <span class="st">"ratio"</span>, nullvalue <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="curve_from_se-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

@@ -39,6 +39,7 @@
 <url><loc>https://stat.lesslikely.com/concurve/reference/as_curve_lik.html</loc></url>
 <url><loc>https://stat.lesslikely.com/concurve/reference/coef.likelihood_function.html</loc></url>
 <url><loc>https://stat.lesslikely.com/concurve/reference/concurve-package.html</loc></url>
+<url><loc>https://stat.lesslikely.com/concurve/reference/concurve_stan_file.html</loc></url>
 <url><loc>https://stat.lesslikely.com/concurve/reference/confint.likelihood_function.html</loc></url>
 <url><loc>https://stat.lesslikely.com/concurve/reference/construct_likelihood.html</loc></url>
 <url><loc>https://stat.lesslikely.com/concurve/reference/curve_analytic.html</loc></url>
@@ -62,6 +63,8 @@
 <url><loc>https://stat.lesslikely.com/concurve/reference/curve_rstar.html</loc></url>
 <url><loc>https://stat.lesslikely.com/concurve/reference/curve_snowflake.html</loc></url>
 <url><loc>https://stat.lesslikely.com/concurve/reference/curve_snowflake_batch.html</loc></url>
+<url><loc>https://stat.lesslikely.com/concurve/reference/curve_stan.html</loc></url>
+<url><loc>https://stat.lesslikely.com/concurve/reference/curve_stan_fit.html</loc></url>
 <url><loc>https://stat.lesslikely.com/concurve/reference/curve_summary.html</loc></url>
 <url><loc>https://stat.lesslikely.com/concurve/reference/curve_support.html</loc></url>
 <url><loc>https://stat.lesslikely.com/concurve/reference/curve_surv.html</loc></url>
