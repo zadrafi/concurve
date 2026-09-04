@@ -61,37 +61,48 @@ defunct_stop <- function(old, new) {
 # Graphical functions ---------------------------------------------------
 
 #' @rdname defunct
+#' @export
 plotpint <- function(...) defunct_stop("plotpint", "ggcurve")
 
 #' @rdname defunct
+#' @export
 plotsint <- function(...) defunct_stop("plotsint", "ggcurve")
 
 #' @rdname defunct
+#' @export
 ggconcurve <- function(...) defunct_stop("ggconcurve", "ggcurve")
 
 #' @rdname defunct
+#' @export
 plot_concurve <- function(...) defunct_stop("plot_concurve", "ggcurve")
 
 
 # Computational functions -----------------------------------------------
 
 #' @rdname defunct
+#' @export
 meanintervals <- function(...) defunct_stop("meanintervals", "curve_mean")
 
 #' @rdname defunct
+#' @export
 metaintervals <- function(...) defunct_stop("metaintervals", "curve_meta")
 
 #' @rdname defunct
+#' @export
 genintervals <- function(...) defunct_stop("genintervals", "curve_gen")
 
 #' @rdname defunct
+#' @export
 corrintervals <- function(...) defunct_stop("corrintervals", "curve_corr")
 
 #' @rdname defunct
+#' @export
 survintervals <- function(...) defunct_stop("survintervals", "curve_surv")
 
 #' @rdname defunct
+#' @export
 likintervals <- function(...) defunct_stop("likintervals", "curve_lik")
 
 #' @rdname defunct
+#' @export
 rev_eng <- function(...) defunct_stop("rev_eng", "curve_rev")

@@ -26,6 +26,17 @@
 
 ## Bug fixes
 
+- The defunct functions (`plotpint()`, `plotsint()`, `ggconcurve()`,
+  `plot_concurve()`, `meanintervals()`, `metaintervals()`,
+  `genintervals()`, `corrintervals()`, `survintervals()`,
+  `likintervals()`, and `rev_eng()`) are now exported. They had never
+  been, so calling one raised "could not find function" and the message
+  naming the current replacement was unreachable. They now signal an
+  error of class `defunctError` that names the function to use instead.
+  `likintervals()` had a help alias but no definition at all, and
+  `man/defunct.Rd` was hand-maintained and had drifted from the source;
+  it is now generated from roxygen comments.
+
 - Fixed a fatal LaTeX error when building the PDF reference manual
   ("Illegal unit of measure (pt inserted)"). The package help page no
   longer carries a hand-maintained `\tabular{}` block containing a
