@@ -1,5 +1,29 @@
 # concurve 3.0.3
 
+## New features
+
+- Consonance functions from Monte Carlo confidence distributions. The new
+  `curve_stan()` builds a standard `concurve` object from draws of a
+  confidence distribution -- for example a generalized fiducial
+  distribution sampled with Stan, or a bootstrap distribution -- by reading
+  the interval limits at every level off the empirical quantiles. The
+  output works with `ggcurve()`, `plot_compare()`, and `curve_table()`
+  unchanged, and requires no Stan installation.
+- `curve_stan_fit()` compiles and samples a Stan program with **rstan**,
+  extracts one scalar parameter, and passes the draws to `curve_stan()`.
+  Compiled models are cached for the session. **rstan** is a `Suggests`
+  dependency only: the package installs and works without it, and the
+  function stops with an informative message if it is unavailable.
+- `concurve_stan_file()` locates three Stan programs shipped as plain text
+  in `inst/stan/`: `normal_gfd` (Hannig's generalized fiducial
+  distribution for the normal location-scale model, whose marginal for
+  the mean is exactly Student-t), `normal_profile` (for profiling over
+  the scale with `rstan::optimizing()`), and `normal_mle`. Nothing is
+  compiled at install time.
+- Note that `curve_compare()` integrates an interpolant of the interval
+  endpoints and can fail on Monte Carlo curves; use `plot_compare()` to
+  compare `curve_stan()` output graphically.
+
 ## Bug fixes
 
 - Fixed a fatal LaTeX error when building the PDF reference manual
