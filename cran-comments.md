@@ -1,66 +1,68 @@
-## Resubmission
+## Submission
 
-This package was previously on CRAN and was archived on 2022-10-03
-("check issues were not corrected despite reminders"). This is a
-resubmission (3.0.3) that corrects the problems reported by the
-automated incoming pretest of the 3.0.2 submission (1 ERROR, 1 WARNING,
-1 NOTE):
+concurve 3.0.4 is an update to 3.0.3, which returned the package to CRAN
+after it was archived on 2022-10-03 ("check issues were not corrected
+despite reminders"). The check problems behind that archival — a
+`LazyData` field with no `data/` directory, an invalid image width in
+the HTML manual, and an undeclared `rlang` in Rd cross-references — are
+all resolved; the last of them, the stray `LazyData` field, is removed
+in this release.
 
-- **PDF manual ERROR/WARNING ("Illegal unit of measure (pt inserted)").**
-  The package help page (`man/concurve-package.Rd`, generated from
-  `R/concurve-package.R`) carried a hand-maintained `\tabular{}` block
-  containing `\figure{logo.png}{options: width="50"}`. That directive
-  emits `\includegraphics[width="50"]` into the LaTeX manual, i.e. a
-  width with no valid LaTeX unit, which broke the PDF build. The block
-  also duplicated the package version, date, and license (with a
-  "GLP-3" typo). The entire block has been removed; version, date, and
-  license are taken from `DESCRIPTION`. The reference manual now builds
-  cleanly.
+## What is new in 3.0.4
 
-- **Tarball size NOTE (~13 MB).** The source tarball has been reduced to
-  under 5 MB by removing image assets that were not referenced by any
-  help page, vignette, or the README: a 7 MB animated logo
-  (`man/figures/HomeLogo.gif`), several large curve PDFs/SVGs, stray
-  files (`.DS_Store`, an empty `checkmark.png`), and five uncited SVGs
-  in `vignettes/`.
-
-- **Unused Imports NOTE.** `survival`, `survminer`, `ProfileLikelihood`,
-  and `officer` were declared in `Imports` but are only used in vignettes,
-  examples, and tests; they are now in `Suggests`.
+- **`curve_stan()`, `curve_stan_fit()`, `concurve_stan_file()`** build
+  consonance functions from Monte Carlo draws of a confidence
+  distribution. See the note on `inst/stan/` below.
+- **Eleven defunct functions are now exported.** They never were, so old
+  code calling `plotpint()` and friends raised "could not find function"
+  instead of the message naming the current replacement. They now signal
+  a `defunctError` that names the function to use.
+- **The examples for the eight most-used functions now run** rather than
+  sitting in `\dontrun{}`, so `R CMD check` executes them. This
+  uncovered two example blocks that had never been valid.
+- Bug fixes in `curve_lik_glm()` (dispersion handling for families with
+  a free dispersion parameter, and convergence in the tails of
+  inverse-link models) and `curve_rev()` (a stray debugging `print()`).
 
 ## Note on `inst/stan/`
 
-This release adds `curve_stan()`, `curve_stan_fit()`, and
-`concurve_stan_file()`. The three `.stan` files in `inst/stan/` are
-shipped as plain text only: the package has no `src/`, `configure`,
-`LinkingTo`, or `SystemRequirements`, does not use **rstantools**, and
-compiles nothing at install time. `curve_stan_fit()` compiles a model on
-demand with **rstan**, which is declared in `Suggests` only and guarded
-by `requireNamespace()`; the package installs, loads, and passes its
-tests and examples without rstan. The corresponding tests are skipped
-when rstan is not installed, and the `stanc()` parse test is additionally
-`skip_on_cran()`.
+The three `.stan` files in `inst/stan/` are shipped as plain text only:
+the package has no `src/`, `configure`, `LinkingTo`, or
+`SystemRequirements`, does not use **rstantools**, and compiles nothing
+at install time. `curve_stan_fit()` compiles a model on demand with
+**rstan**, which is in `Suggests` only and guarded by
+`requireNamespace()`; the package installs, loads, and passes its tests
+and examples without rstan. Those tests are skipped when rstan is
+absent, and the `stanc()` parse test is additionally `skip_on_cran()`.
 
 ## Expected NOTEs
-
-- **`checking CRAN incoming feasibility` ... New submission / Package was
-  archived on CRAN.** Expected: this is a resubmission of a previously
-  archived package.
 
 - **Possibly misspelled words in DESCRIPTION** (Schweder, Hjort, NL,
   Rafi, Surprisal). These are not misspellings: "Schweder T, Hjort NL"
   are cited authors, Rafi is the maintainer's surname, and "surprisal"
-  is a standard information-theoretic term (the S-value / surprisal is
-  central to this package).
+  is a standard information-theoretic term central to this package.
+
+- **Possibly invalid URLs at `stat.lesslikely.com`.** The incoming
+  pretest for 3.0.3 reported that this host could not be resolved. The
+  site is the package's pkgdown documentation, served by GitHub Pages;
+  it resolves (CNAME to `zadrafi.github.io`) and returns HTTP 200 when
+  checked from outside the pretest machine. We believe this is a DNS
+  limitation of the check environment rather than a broken link, but we
+  are happy to substitute different URLs if CRAN prefers.
 
 ## R CMD check results
 
-Local `R CMD check --as-cran` on the current source completes with
-0 errors and 0 warnings. The only NOTEs are the two expected items
-above, which are raised only on CRAN incoming infrastructure.
+0 errors, 0 warnings, 0 notes locally, other than the expected items
+above.
+
+HTML validation was run with HTML Tidy 5.8.0. Note that on macOS the
+system `/usr/bin/tidy` is a 2006 build, which causes `R CMD check` to
+*skip* HTML validation and emit a NOTE saying so; with a current Tidy on
+`PATH` the manual validates cleanly.
 
 ## Test environments
 
-- local: macOS, R 4.6.1
-- GitHub Actions: ubuntu-latest (release, devel, oldrel-1),
-  windows-latest (release), macos-latest (release)
+- local: macOS 15 (arm64), R 4.6.1, with HTML Tidy 5.8.0
+- GitHub Actions: ubuntu-latest (r-devel, release, oldrel-1),
+  windows-latest (release), macos-latest (release) — all passing
+- win-builder: r-devel and r-release
