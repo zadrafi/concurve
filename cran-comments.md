@@ -28,6 +28,19 @@ automated incoming pretest of the 3.0.2 submission (1 ERROR, 1 WARNING,
   and `officer` were declared in `Imports` but are only used in vignettes,
   examples, and tests; they are now in `Suggests`.
 
+## Note on `inst/stan/`
+
+This release adds `curve_stan()`, `curve_stan_fit()`, and
+`concurve_stan_file()`. The three `.stan` files in `inst/stan/` are
+shipped as plain text only: the package has no `src/`, `configure`,
+`LinkingTo`, or `SystemRequirements`, does not use **rstantools**, and
+compiles nothing at install time. `curve_stan_fit()` compiles a model on
+demand with **rstan**, which is declared in `Suggests` only and guarded
+by `requireNamespace()`; the package installs, loads, and passes its
+tests and examples without rstan. The corresponding tests are skipped
+when rstan is not installed, and the `stanc()` parse test is additionally
+`skip_on_cran()`.
+
 ## Expected NOTEs
 
 - **`checking CRAN incoming feasibility` ... New submission / Package was
