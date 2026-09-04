@@ -7,6 +7,11 @@
 # and plot_compare() work unchanged:
 #   [[1]] "Intervals Dataframe": values, likelihood, loglikelihood, support,
 #         deviancestat  (class c("data.frame", "concurve"))
+#
+# deviancestat is D = -2 log(L / Lmax), i.e. the likelihood-ratio statistic on
+# the chi-squared(1) scale, so the 1/6.83 relative-likelihood cutoff sits at
+# qchisq(0.95, 1) = 3.84. plot_compare() labels that axis "2ln(MLR)". Every
+# constructor must use this scale; curve_rev() derives it as zscore^2.
 #   [[2]] "Intervals Table" (when table = TRUE), list classed "concurve"
 
 #' Package A Log-Likelihood Grid As A concurve Likelihood Object
@@ -28,7 +33,12 @@
 #'
 #' @return A list with 2 items where the dataframe of values is in the
 #' first object, and the table for the values in the second if
-#' \code{table = TRUE}.
+#' \code{table = TRUE}. The dataframe holds \code{values},
+#' \code{likelihood}, \code{loglikelihood} (relative, maximum 0),
+#' \code{support} (relative likelihood in (0, 1]), and
+#' \code{deviancestat}, the likelihood-ratio statistic
+#' \eqn{D = -2\log(L/\hat{L})} on the \eqn{\chi^2_1} scale, so that the
+#' \eqn{1/6.83} support cutoff corresponds to \eqn{D = 3.84}.
 #'
 #' @examples
 #' # exact binomial likelihood for 8 successes in 20 trials
@@ -63,7 +73,8 @@ as_curve_lik <- function(values, loglik, table = TRUE) {
     likelihood    = support,
     loglikelihood = loglikelihood,
     support       = support,
-    deviancestat  = -loglikelihood
+    # D = -2 log(L / Lmax), on the chi-squared(1) scale
+    deviancestat  = -2 * loglikelihood
   )
   class(likfunction) <- c("data.frame", "concurve")
 

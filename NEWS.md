@@ -56,10 +56,24 @@
   inverse-link model.
 - `curve_rev()` no longer prints the reconstructed standard error to the
   console for `measure = "ratio"` (a leftover debugging `print()`).
-- Corrected two typos in `curve_corr()`'s description, "analysesusing"
-  and "levelinto", each missing a space. Both had been listed in
-  `inst/WORDLIST`, which whitelisted the misspelling rather than fixing
-  it; those entries are removed.
+- Corrected two typos in `curve_corr()`'s help text, each a pair of words
+  run together by a missing space. Both had been listed in
+  `inst/WORDLIST`, which whitelisted the misspellings rather than fixing
+  them; those entries are removed, so the spell check now guards against
+  the typos returning.
+- The `deviancestat` column is now on the same scale in every likelihood
+  object. `curve_rev()` reported the likelihood-ratio statistic
+  `D = -2 * log(L / Lmax)`, on the chi-squared (1 df) scale, while
+  `as_curve_lik()`, `curve_lik()`, `curve_lik_glm()`, and `curve_mpl()`
+  reported half of it. The four now agree with `curve_rev()`, which also
+  matches the axis label `plot_compare()` has always used for this
+  quantity, "2ln(MLR)". Previously `ggcurve(type = "d")` and
+  `plot_compare(type = "d")` could overlay two curves differing by a
+  factor of two with no indication, and a deviance read off a
+  `curve_lik_glm()` plot could not be compared against a chi-squared
+  cutoff such as 3.84. Deviance values from those four constructors are
+  now twice their former size; relative likelihoods, support intervals,
+  and `curve_support()` are unaffected.
 
 ## Minor changes
 

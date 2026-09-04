@@ -23,7 +23,9 @@ curve_lik <- function(likobject, data, table = TRUE) {
   likelihood <- likobject[[2]] # profile likelihoods
   support <- likobject[[3]] # normalized profile likelihoods
   loglikelihood <- log(support) # log of normalized profile likelihoods
-  deviancestat <- -(loglikelihood) # deviance statistic
+  # Deviance statistic D = -2 log(L / Lmax), on the chi-squared(1) scale,
+  # so that D = 3.84 marks the 95% likelihood-ratio limit.
+  deviancestat <- -2 * loglikelihood
 
   likfunction <- data.frame(values, likelihood, loglikelihood, support, deviancestat)
   class(likfunction) <- c("data.frame", "concurve")

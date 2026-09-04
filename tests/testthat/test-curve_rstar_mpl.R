@@ -119,7 +119,9 @@ test_that("curve_mpl emits the curve_lik contract and a sane MPL", {
   expect_identical(class(lf), c("data.frame", "concurve"))
   expect_true(all(is.finite(lf$loglikelihood)))
   expect_equal(max(lf$support), 1)
-  expect_equal(lf$deviancestat, -lf$loglikelihood)
+  # D = -2 log(L / Lmax), on the chi-squared(1) scale, as for every other
+  # concurve likelihood constructor
+  expect_equal(lf$deviancestat, -2 * lf$loglikelihood)
   # MPL of a full exponential family tracks the conditional likelihood;
   # its maximum must lie near the unadjusted MLE of the log odds ratio
   argmax <- lf$values[which.max(lf$support)]

@@ -20,7 +20,12 @@ table which is included in the list object.}
 \value{
 A list with 2 items where the dataframe of values is in the
 first object, and the table for the values in the second if
-\code{table = TRUE}.
+\code{table = TRUE}. The dataframe holds \code{values},
+\code{likelihood}, \code{loglikelihood} (relative, maximum 0),
+\code{support} (relative likelihood in (0, 1]), and
+\code{deviancestat}, the likelihood-ratio statistic
+\eqn{D = -2\log(L/\hat{L})} on the \eqn{\chi^2_1} scale, so that the
+\eqn{1/6.83} support cutoff corresponds to \eqn{D = 3.84}.
 }
 \description{
 Takes a grid of parameter values and the corresponding (profile)

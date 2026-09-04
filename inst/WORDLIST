@@ -96,6 +96,7 @@ likelihoodAsy
 Lippincott
 lm
 lme
+ln
 logarithmically
 Magnusson
 Marschner
@@ -109,6 +110,7 @@ mh
 microbenchmark
 miscalibrated
 misspecification
+MLR
 Moolgavkar
 MPL
 mtcars
