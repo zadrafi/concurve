@@ -33,22 +33,24 @@
 #' "Study A" and "Study B" as labels in the legend.
 #'
 #' @examples
-#' \dontrun{
-#' # Compare two studies
-#' study1 <- curve_from_se(point = 0.5, se = 0.2, df = 50)
-#' study2 <- curve_from_se(point = 0.8, se = 0.25, df = 80)
+#' # Overlay estimates from two studies. Names become legend labels.
+#' study_a <- curve_from_se(estimate = 0.5, se = 0.20)
+#' study_b <- curve_from_se(estimate = 0.8, se = 0.25)
 #'
 #' plot_multi(
-#'   "Study A" = study1[[1]],
-#'   "Study B" = study2[[1]],
+#'   "Study A" = study_a[[1]],
+#'   "Study B" = study_b[[1]],
 #'   nullvalue = 0,
 #'   title = "Comparison of Treatment Effects"
 #' )
 #'
-#' # Using a list
-#' curves_list <- list("Group 1" = study1[[1]], "Group 2" = study2[[1]])
-#' plot_multi(curves_list, type = "s", nullvalue = 0)
-#' }
+#' # A named list works too. The surprisal scale is often easier to read
+#' # when the curves overlap heavily.
+#' plot_multi(
+#'   list("Study A" = study_a[[1]], "Study B" = study_b[[1]]),
+#'   type = "s",
+#'   nullvalue = 0
+#' )
 #'
 #' @seealso [ggcurve()], [plot_compare()], [curve_compare()]
 #' @importFrom ggplot2 ggplot aes geom_line geom_ribbon scale_color_manual

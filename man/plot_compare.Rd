@@ -98,22 +98,13 @@ A plot that compares two functions.
 Compares the p-value/s-value, and likelihood functions using ggplot2 graphics.
 }
 \examples{
-\dontrun{
-library(concurve)
+# How far does adjusting for horsepower move the estimated effect of
+# weight on fuel economy? Overlaying the two curves shows the shift and
+# the change in precision at every level at once.
+unadjusted <- curve_gen(lm(mpg ~ wt, data = mtcars), "wt")
+adjusted <- curve_gen(lm(mpg ~ wt + hp, data = mtcars), "wt")
 
-GroupA <- rnorm(50)
-GroupB <- rnorm(50)
-RandomData <- data.frame(GroupA, GroupB)
-intervalsdf <- curve_mean(GroupA, GroupB, data = RandomData)
-GroupA2 <- rnorm(50)
-GroupB2 <- rnorm(50)
-RandomData2 <- data.frame(GroupA2, GroupB2)
-model <- lm(GroupA2 ~ GroupB2, data = RandomData2)
-
-randomframe <- curve_gen(model, "GroupB2")
-
-plot_compare(intervalsdf[[1]], randomframe[[1]], type = "c")
-}
+plot_compare(unadjusted[[1]], adjusted[[1]], type = "c", nullvalue = TRUE)
 
 }
 \seealso{

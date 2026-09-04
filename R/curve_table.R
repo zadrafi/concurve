@@ -14,20 +14,16 @@
 #' "image", which produces an image of the table.
 #'
 #' @examples
-#' \dontrun{
-#' library(concurve)
+#' curves <- curve_gen(lm(mpg ~ wt, data = mtcars), "wt")
 #'
-#' GroupA <- rnorm(500)
-#' GroupB <- rnorm(500)
+#' # Interval limits at conventional levels, with their P- and S-values
+#' curve_table(curves[[1]], format = "data.frame")
 #'
-#' RandomData <- data.frame(GroupA, GroupB)
+#' # The same table as LaTeX, for a manuscript
+#' curve_table(curves[[1]], format = "latex")
 #'
-#' intervalsdf <- curve_mean(GroupA, GroupB, data = RandomData, method = "default")
-#'
-#' (z <- curve_table(intervalsdf[[1]], format = "data.frame"))
-#' (z <- curve_table(intervalsdf[[1]], format = "latex"))
-#' (z <- curve_table(intervalsdf[[1]], format = "image"))
-#' }
+#' # "docx", "pptx", and "image" return flextable objects for Word,
+#' # PowerPoint, and figure output respectively.
 #' @seealso [ggcurve()]
 #' @seealso [curve_compare()]
 #' @seealso [plot_compare()]

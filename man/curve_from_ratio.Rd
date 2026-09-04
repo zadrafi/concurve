@@ -37,15 +37,17 @@ for ratio measures. It automatically handles the log transformation
 and sets appropriate measure type.
 }
 \examples{
-\dontrun{
-# From a published odds ratio: OR = 1.5, 95\% CI [1.1, 2.0]
-result <- curve_from_ratio(ratio = 1.5, lower = 1.1, upper = 2.0)
-ggcurve(result[[1]], type = "c", nullvalue = TRUE)
+# Recover the whole curve from a published odds ratio and its interval:
+# OR = 1.5, 95\% CI [1.1, 2.0]. Nothing but the three numbers is needed.
+curves <- curve_from_ratio(ratio = 1.5, lower = 1.1, upper = 2.0)
 
-# Hazard ratio from survival analysis: HR = 0.75, 95\% CI [0.60, 0.95]
-result <- curve_from_ratio(ratio = 0.75, lower = 0.60, upper = 0.95)
-ggcurve(result[[1]], type = "c", nullvalue = TRUE)
-}
+curves[[3]]
+
+ggcurve(curves[[1]], type = "c", measure = "ratio", nullvalue = 1)
+
+# A hazard ratio below 1: HR = 0.75, 95\% CI [0.60, 0.95]
+hr <- curve_from_ratio(ratio = 0.75, lower = 0.60, upper = 0.95)
+ggcurve(hr[[1]], type = "c", measure = "ratio", nullvalue = 1)
 
 }
 \seealso{

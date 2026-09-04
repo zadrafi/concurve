@@ -52,11 +52,17 @@ limits for each interval level into a data frame along with the corresponding
 p-values and s-values.
 }
 \examples{
-\dontrun{
-# Simulate random data
-GroupA <- runif(100, min = 0, max = 100)
-GroupB <- runif(100, min = 0, max = 100)
+set.seed(1031)
+GroupA <- rnorm(50, mean = 4)
+GroupB <- rnorm(50, mean = 3)
 RandomData <- data.frame(GroupA, GroupB)
-bob <- curve_mean(GroupA, GroupB, RandomData)
-}
+
+curves <- suppressMessages(
+  curve_mean(GroupA, GroupB, data = RandomData, method = "default")
+)
+
+# The difference in means at conventional levels
+curves[[3]]
+
+ggcurve(curves[[1]], type = "c", nullvalue = 0)
 }

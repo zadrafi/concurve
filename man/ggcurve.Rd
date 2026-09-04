@@ -94,19 +94,28 @@ the interval estimates to produce a p-value/s-value function
 using ggplot2 graphics.
 }
 \examples{
-\dontrun{
-# Simulate random data
+# The consonance curve for a regression coefficient. Every horizontal
+# slice is an interval, and the height is the P-value for that value
+# of the parameter.
+curves <- curve_gen(lm(mpg ~ wt, data = mtcars), "wt")
 
-library(concurve)
+ggcurve(curves[[1]], type = "c", nullvalue = 0)
 
-GroupA <- rnorm(500)
-GroupB <- rnorm(500)
+# The same evidence as surprisal, -log2(p): the bits of information
+# against each value. The 95\% limits sit at about 4.3 bits.
+ggcurve(curves[[1]], type = "s")
 
-RandomData <- data.frame(GroupA, GroupB)
+# The consonance density, built from the second element of the object
+ggcurve(curves[[2]], type = "cd")
 
-intervalsdf <- suppressMessages(curve_mean(GroupA, GroupB, data = RandomData, method = "default"))
-ggcurve(type = "c", intervalsdf[[1]], nullvalue = c(0))
-}
+# Several interval levels at once, with a relabelled axis
+ggcurve(
+  curves[[1]],
+  type = "c",
+  levels = c(0.50, 0.75, 0.95),
+  nullvalue = 0,
+  xaxis = "Change in mpg per 1000 lb"
+)
 }
 \seealso{
 \code{\link[=plot_compare]{plot_compare()}}

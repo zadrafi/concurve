@@ -71,13 +71,16 @@ with the corresponding p-values and s-values. Can also adjust for multiple compa
 recommended to wrap this function using suppressMessages() due to the long list of profiling messages.
 }
 \examples{
-\dontrun{
-# Simulate random data
-GroupA <- rnorm(50)
-GroupB <- rnorm(50)
-RandomData <- data.frame(GroupA, GroupB)
-rob <- lm(GroupA ~ GroupB, data = RandomData)
-bob <- curve_gen(rob, "GroupB")
-}
+# Consonance intervals at 1000 levels for a single coefficient
+curves <- curve_gen(lm(mpg ~ wt, data = mtcars), "wt")
+
+# The interval function itself: limits, level, P-value, and S-value.
+# Rows run from the widest interval to the narrowest.
+head(curves[[1]])
+
+# Conventional levels, for reporting
+curves[[3]]
+
+ggcurve(curves[[1]], type = "c", nullvalue = 0)
 
 }

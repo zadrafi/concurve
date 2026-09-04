@@ -34,13 +34,19 @@
 #' and the table for the values in the third if table = TRUE.
 #'
 #' @examples
-#' \dontrun{
-#' # Simulate random data
-#' GroupA <- runif(100, min = 0, max = 100)
-#' GroupB <- runif(100, min = 0, max = 100)
+#' set.seed(1031)
+#' GroupA <- rnorm(50, mean = 4)
+#' GroupB <- rnorm(50, mean = 3)
 #' RandomData <- data.frame(GroupA, GroupB)
-#' bob <- curve_mean(GroupA, GroupB, RandomData)
-#' }
+#'
+#' curves <- suppressMessages(
+#'   curve_mean(GroupA, GroupB, data = RandomData, method = "default")
+#' )
+#'
+#' # The difference in means at conventional levels
+#' curves[[3]]
+#'
+#' ggcurve(curves[[1]], type = "c", nullvalue = 0)
 #' @export
 curve_mean <- function(x, y, data, paired = F, method = "default", replicates = 1000,
                        steps = 10000, cores = getOption("mc.cores", 1L), table = TRUE) {
