@@ -40,11 +40,20 @@ maximized over at every grid point -- not fixed at their MLEs.
 The constrained fits use the offset trick: to fix the
 coefficient of \eqn{x_j} at \eqn{b}, the term \eqn{b x_j} is moved
 into an offset and the model is refit without \eqn{x_j}. For
-\code{lm} objects the equivalent weighted least-squares profile is
-used. The profile deviance from this function agrees with
+\code{lm} objects the residual variance is profiled out exactly, so
+the curve is the likelihood-ratio profile; its 1/6.83 interval is
+slightly narrower than the t-based \code{confint.lm()} interval in
+small samples. For \code{glm} objects the profile deviance agrees with
 \code{confint()}'s profile-likelihood intervals: the relative
 likelihood cutoff \eqn{\exp(-\chi^2_{1,0.95}/2) = 1/6.83} reproduces
-the 95\\% profile CI.
+the 95\\% profile CI up to the grid resolution.
+
+For families with a free dispersion parameter (\code{gaussian},
+\code{Gamma}, \code{inverse.gaussian}, and the \code{quasi} families)
+the profile deviance is divided by the dispersion estimated from the
+full model, \code{summary(model)$dispersion}, exactly as
+\code{confint()} does for such models. For \code{binomial} and
+\code{poisson} the dispersion is fixed at 1.
 }
 \examples{
 \dontrun{
