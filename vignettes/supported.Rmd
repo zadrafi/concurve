@@ -176,22 +176,46 @@ additional functionality such as database connectivity or testing.
 ------------------------------------------------------------------------
 
 ```{r echo=FALSE, eval=has_kable}
-packinfo <- installed.packages(fields = c("Package", "Version"))
+# Read the dependency lists from DESCRIPTION rather than restating them here.
+# The previous hard-coded vectors had drifted: they listed officer,
+# ProfileLikelihood, survival, and survminer as Imports after those moved to
+# Suggests, and omitted numDeriv and rlang. Reading the authoritative source
+# means this table cannot go stale. Packages that are declared but not
+# installed are reported as such instead of raising a subscript error.
+dep_table <- function(field) {
+  # Prefer the source DESCRIPTION. Vignettes are knitted with the working
+  # directory set to vignettes/, both by R CMD build and by pkgdown, so
+  # ../DESCRIPTION is the package being built. packageDescription() would
+  # read whatever copy happens to be installed, which can lag the source.
+  path <- if (file.exists("../DESCRIPTION")) {
+    "../DESCRIPTION"
+  } else {
+    system.file("DESCRIPTION", package = "concurve")
+  }
+  desc <- read.dcf(path)
+  if (!field %in% colnames(desc)) {
+    return(data.frame(Package = character(), `Package Version` = character(),
+                      check.names = FALSE))
+  }
+  raw <- desc[1, field]
+  if (is.na(raw)) {
+    return(data.frame(Package = character(), `Package Version` = character(),
+                      check.names = FALSE))
+  }
+  pkgs <- trimws(gsub("\\(.*?\\)", "", strsplit(raw, ",")[[1]]))
+  pkgs <- sort(pkgs[nzchar(pkgs) & pkgs != "R"])
+  ver <- vapply(
+    pkgs,
+    function(p) tryCatch(as.character(utils::packageVersion(p)),
+                         error = function(e) "not installed"),
+    character(1)
+  )
+  data.frame(Package = pkgs, `Package Version` = ver,
+             row.names = NULL, check.names = FALSE)
+}
 
-
-# Package imports (updated for v3.0 - removed pbmcapply)
-Imports <- c(
-  "methods", "bcaboot", "boot", "lme4", "dplyr", "flextable", "ggplot2",
-  "knitr", "metafor", "officer", "parallel", "ProfileLikelihood",
-  "scales", "colorspace", "survival", "survminer", "tibble", "tidyr"
-)
-
-Imports <- packinfo[Imports, c("Package", "Version")]
-
-colnames(Imports) <- c("Package", "Package Version")
-
-kable(Imports,
-  booktabs = T, format = "html", col.names = colnames(Imports), table.attr = "class=\"striped\"",
+kable(dep_table("Imports"),
+  booktabs = T, format = "html", table.attr = "class=\"striped\"",
   caption = "Package Imports"
 ) %>%
   kable_styling(full_width = TRUE, "striped", font_size = 10, position = "center", html_font = "helvetica")
@@ -204,20 +228,8 @@ kable(Imports,
 ------------------------------------------------------------------------
 
 ```{r echo=FALSE, eval=has_kable}
-# Package suggests (updated for v3.0 - added DBI, odbc for Snowflake)
-suggests <- c(
-  "DBI", "odbc", "MASS", "covr", "roxygen2", "spelling", "testthat", "rmarkdown", "Lock5Data",
-  "carData", "bench", "rms", "brms", "rstan", "rstanarm", "bayesplot",
-  "vdiffr", "ggtext", "daewr", "svglite", "data.table", "nlme",
-  "simstudy", "patchwork", "cowplot", "reprex"
-)
-
-suggests_df <- packinfo[suggests, c("Package", "Version")]
-
-colnames(suggests_df) <- c("Package", "Package Version")
-
-kable(suggests_df,
-  booktabs = T, format = "html", col.names = colnames(suggests_df), table.attr = "class=\"striped\"",
+kable(dep_table("Suggests"),
+  booktabs = T, format = "html", table.attr = "class=\"striped\"",
   caption = "Package Suggestions"
 ) %>%
   kable_styling(full_width = TRUE, "striped", font_size = 10, position = "center", html_font = "helvetica")
