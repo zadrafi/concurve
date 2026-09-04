@@ -105,6 +105,10 @@ here](https://stat.lesslikely.com/concurve/articles/supported.html).
   Distributions**](https://stat.lesslikely.com/concurve/articles/bayes.html)
 - [**The Bootstrap and Consonance
   Functions**](https://stat.lesslikely.com/concurve/articles/bootstrap.html)
+- [**Correlation: Likelihood and P-value
+  Functions**](https://stat.lesslikely.com/concurve/articles/correlation.html)
+- [**Count and Rate Models: Likelihood and P-value
+  Functions**](https://stat.lesslikely.com/concurve/articles/poisson-rate.html)
 - [**Background
   Literature**](https://stat.lesslikely.com/concurve/articles/literature.html)
 - [**Customizing
@@ -115,6 +119,12 @@ here](https://stat.lesslikely.com/concurve/articles/supported.html).
   R**](https://stat.lesslikely.com/concurve/articles/logistic.html)
 - [**Profile
   Likelihoods**](https://stat.lesslikely.com/concurve/articles/likelihood.html)
+- [**Constructing Valid Likelihood
+  Functions**](https://stat.lesslikely.com/concurve/articles/likelihood-constructions.html)
+- [**Constructing Likelihood Functions with Existing R
+  Tools**](https://stat.lesslikely.com/concurve/articles/likelihood-tools.html)
+- [**2D Likelihood Surface
+  Visualization**](https://stat.lesslikely.com/concurve/articles/likelihood_visualization_2d.html)
 - [**Meta-Analysis
   Examples**](https://stat.lesslikely.com/concurve/articles/meta-analysis.html)
 - [**Using

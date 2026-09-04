@@ -102,6 +102,10 @@ here](https://stat.lesslikely.com/concurve/articles/supported.html).
   Distributions**](https://stat.lesslikely.com/concurve/articles/bayes.html)
 - [**The Bootstrap and Consonance
   Functions**](https://stat.lesslikely.com/concurve/articles/bootstrap.html)
+- [**Correlation: Likelihood and P-value
+  Functions**](https://stat.lesslikely.com/concurve/articles/correlation.html)
+- [**Count and Rate Models: Likelihood and P-value
+  Functions**](https://stat.lesslikely.com/concurve/articles/poisson-rate.html)
 - [**Background
   Literature**](https://stat.lesslikely.com/concurve/articles/literature.html)
 - [**Customizing
@@ -112,6 +116,12 @@ here](https://stat.lesslikely.com/concurve/articles/supported.html).
   R**](https://stat.lesslikely.com/concurve/articles/logistic.html)
 - [**Profile
   Likelihoods**](https://stat.lesslikely.com/concurve/articles/likelihood.html)
+- [**Constructing Valid Likelihood
+  Functions**](https://stat.lesslikely.com/concurve/articles/likelihood-constructions.html)
+- [**Constructing Likelihood Functions with Existing R
+  Tools**](https://stat.lesslikely.com/concurve/articles/likelihood-tools.html)
+- [**2D Likelihood Surface
+  Visualization**](https://stat.lesslikely.com/concurve/articles/likelihood_visualization_2d.html)
 - [**Meta-Analysis
   Examples**](https://stat.lesslikely.com/concurve/articles/meta-analysis.html)
 - [**Using
@@ -169,10 +179,18 @@ The package was currently run on:
     ## attached base packages:
     ## [1] stats     graphics  grDevices utils     datasets  methods   base     
     ## 
+    ## other attached packages:
+    ## [1] concurve_3.0.4
+    ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] compiler_4.6.1    fastmap_1.2.0     cli_3.6.6         tools_4.6.1      
-    ##  [5] htmltools_0.5.9   otel_0.2.0        rstudioapi_0.19.0 yaml_2.3.12      
-    ##  [9] rmarkdown_2.32    knitr_1.51        xfun_0.60         digest_0.6.39    
-    ## [13] rlang_1.3.0       evaluate_1.0.5
+    ##  [1] vctrs_0.7.3        knitr_1.51         cli_3.6.6          xfun_0.60         
+    ##  [5] rlang_1.3.0        otel_0.2.0         purrr_1.2.2        generics_0.1.4    
+    ##  [9] S7_0.2.2           glue_1.8.1         colorspace_2.1-3   htmltools_0.5.9   
+    ## [13] scales_1.4.0       rmarkdown_2.32     grid_4.6.1         evaluate_1.0.5    
+    ## [17] tibble_3.3.1       fastmap_1.2.0      yaml_2.3.12        lifecycle_1.0.5   
+    ## [21] compiler_4.6.1     dplyr_1.2.1        RColorBrewer_1.1-3 pkgconfig_2.0.3   
+    ## [25] tidyr_1.3.2        rstudioapi_0.19.0  digest_0.6.39      farver_2.1.2      
+    ## [29] R6_2.6.1           dichromat_2.0-1    tidyselect_1.2.1   pillar_1.11.1     
+    ## [33] magrittr_2.0.5     tools_4.6.1        gtable_0.3.6       ggplot2_4.0.3
 
 ------------------------------------------------------------------------
