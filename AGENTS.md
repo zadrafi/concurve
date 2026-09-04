@@ -87,6 +87,7 @@ rstan and `skip_on_cran()` the `stanc()` parse test.
 
 ``` r
 devtools::document(roclets = c('rd', 'collate', 'namespace', 'vignette'))
+pkgdown::check_pkgdown()  # ~1 s; MUST run after document()
 devtools::check(document = FALSE, args = "--as-cran", cran = TRUE)  # ~90 s
 devtools::spell_check()   # WORDLIST entries like yxis/tfrac/emp are real
                           # (digit-adjacent tokens); don't "clean" them
@@ -96,6 +97,16 @@ devtools::submit_cran()   # interactive prompts + CRAN email confirmation
 For a check immune to working-tree churn: snapshot the source to a temp
 dir (excluding .git/docs/dev), content-scan `R/`, and check the
 snapshot.
+
+`_pkgdown.yml` lists reference topics **explicitly**, so any newly
+exported function that is not listed makes the CI site rebuild fail
+while `R CMD check` still passes clean — `R CMD check` does not look at
+`_pkgdown.yml` at all. This bit the `curve_stan` family on 2026-09-04.
+`pkgdown::check_pkgdown()` catches it in about a second and is wired
+into `dev_check.R` as step 2, ahead of the slow check. It reads
+`man/*.Rd` to enumerate topics, so it is only meaningful *after*
+`document()`. Topics with `@keywords internal` (the `R/defunct.R` stubs)
+are exempt and need no entry.
 
 ## State (as of 2026-09-04)
 

@@ -10,13 +10,38 @@ if (!file.exists("DESCRIPTION")) {
        "usethis/devtools act on the working directory / active project.")
 }
 
-# ---- 1. ROUTINE: this is the whole check ------------------------------
-# devtools::check() already: documents (roxygen -> Rd + NAMESPACE),
-# builds the source tarball, builds the PDF manual, and runs
-# R CMD check --as-cran. You do not need rcmdcheck + check_man +
-# roxygenize + a manual Rd2pdf on top of it.
+# ---- 1. Regenerate docs once, up front --------------------------------
+# Both the index check in step 2 and R CMD check in step 3 need current
+# Rd files. Documenting here rather than inside check() means step 2 can
+# see a newly exported function, and check() need not repeat the work.
+devtools::document()
+
+# ---- 2. FAST: is every exported topic in the pkgdown index? -----------
+# _pkgdown.yml lists reference topics explicitly, so an exported function
+# that is not listed there makes pkgdown::build_site() fail -- and with
+# it the CI site rebuild. R CMD check does NOT catch this: the package
+# checks clean while the site is broken. Costs about a second, so it runs
+# before the slow check rather than after it.
+#
+# Topics marked @keywords internal are exempt, which is how the defunct
+# stubs in R/defunct.R stay out of the reference index while remaining
+# exported.
+if (requireNamespace("pkgdown", quietly = TRUE)) {
+  pkgdown::check_pkgdown()
+} else {
+  warning(
+    "pkgdown is not installed, so the reference index was NOT checked. ",
+    "An unindexed export will not surface until CI rebuilds the site.",
+    call. = FALSE
+  )
+}
+
+# ---- 3. ROUTINE: this is the whole check ------------------------------
+# devtools::check() also builds the source tarball, builds the PDF
+# manual, and runs R CMD check --as-cran. You do not need rcmdcheck +
+# check_man + roxygenize + a manual Rd2pdf on top of it.
 devtools::check(
-  document  = TRUE,           # regenerate Rd/NAMESPACE from roxygen first
+  document  = FALSE,          # already documented in step 1
   cran      = TRUE,           # adds --as-cran
   manual    = TRUE,           # build the PDF manual (needs LaTeX; see note)
   vignettes = TRUE,
@@ -26,13 +51,13 @@ devtools::check(
 # Equivalent one-liner if you prefer rcmdcheck directly:
 # rcmdcheck::rcmdcheck(args = "--as-cran", error_on = "warning")
 
-# ---- 2. OPTIONAL: spelling, when you want it --------------------------
+# ---- 4. OPTIONAL: spelling, when you want it --------------------------
 # One value flagged the CRAN false positives (Hjort, Rafi, Schweder,
 # Surprisal, ...). Keep them in inst/WORDLIST so this stays quiet.
 # spelling::spell_check_package(".")            # report only
 # spelling::update_wordlist(".")                # fold new false positives in
 
-# ---- 3. OPTIONAL: see the CRAN incoming queue -------------------------
+# ---- 5. OPTIONAL: see the CRAN incoming queue -------------------------
 # Do NOT install packages inside a check script. Install once, separately.
 # foghorn::cran_incoming()   # whole incoming dashboard; no per-pkg arg
 
