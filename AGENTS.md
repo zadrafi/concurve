@@ -108,6 +108,25 @@ into `dev_check.R` as step 2, ahead of the slow check. It reads
 `document()`. Topics with `@keywords internal` (the `R/defunct.R` stubs)
 are exempt and need no entry.
 
+**HTML validation is silently skipped unless a modern Tidy is on PATH.**
+macOS ships `/usr/bin/tidy` = "Apple Inc. build 8070", released 2006, so
+`R CMD check` prints "Skipping checking HTML validation: 'tidy' doesn't
+look like recent enough HTML Tidy" and raises a NOTE *in place of
+running the check*. That NOTE means the check did not happen — it is not
+a pass. This matters here specifically: an HTML validation failure was
+one of the three NOTEs behind the 2022 archival. `tidy-html5` 5.8.0 is
+installed via Homebrew but is shadowed by `/usr/bin/tidy`, so it has to
+be put first:
+
+``` sh
+export PATH="$(brew --prefix tidy-html5)/bin:$PATH"
+export R_TIDYCMD="$(brew --prefix tidy-html5)/bin/tidy"
+R CMD check --as-cran concurve_3.0.3.tar.gz
+```
+
+With the real validator the manual passes and the check drops to a
+**single NOTE** — the unavoidable archival / incoming-feasibility one.
+
 ## State (as of 2026-09-04)
 
 - Version is now 3.0.3. Full `R CMD check --as-cran` with vignette

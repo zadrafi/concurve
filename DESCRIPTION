@@ -98,7 +98,6 @@ VignetteBuilder:
 ByteCompile: true
 Encoding: UTF-8
 Language: en-US
-LazyData: true
 Roxygen: list(markdown = TRUE, old_usage = TRUE)
 X-schema.org-keywords: confidence, compatibility, consonance, curve,
     information statistics, surprisals, interval, function, distribution, fiducial
