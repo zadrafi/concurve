@@ -126,17 +126,27 @@ Imports block ends at `rlang`.
 
 ## Landmines (learned 2026-09-03, 3.0.3 resubmission)
 
-- **Never `source("usethis.R")`.** Its trailing
-  `execute_package_workflow()` is now commented out, but the functions
-  inside still: move
-  survival/survminer/ProfileLikelihood/officer/pbmcapply into `Imports`
-  (nothing in `R/` calls them → "unused Imports" NOTE);
-  `use_build_ignore()` `references.bib` /
-  `american-medical-association.csl` with `escape = FALSE`, which also
-  hides `vignettes/references.bib` + the CSL from the tarball so every
-  vignette fails to re-build under `R CMD check`; overwrite
-  `cran-comments.md`, `tests/spelling.R`, `codemeta.json`; and rebuild
-  `docs/`.
+- **`usethis.R` now lives at `dev/usethis.R` and is definitions-only**
+  (moved 2026-09-04, commit `afcee3e`). The root copy had 12 top-level
+  `library()` calls, and pasted copies still carried a live
+  `execute_package_workflow()`, so sourcing it re-ran the whole workflow
+  and reverted DESCRIPTION / `.Rbuildignore` / `cran-comments.md` /
+  `tests/spelling.R` / `codemeta.json`. This happened twice on
+  2026-09-04 alone, once landing bad `.Rbuildignore` lines inside commit
+  `d96f4af` (fixed in `0b8d857`). Nothing automated ever ran it — no
+  cron, no Makefile target, no `dev_check.R` call; it was always a
+  console `source()`/paste.
+  - The harmful defaults are fixed: dependencies go to `Suggests`;
+    `manage_build_ignores()` no longer touches `references.bib` /
+    `american-medical-association.csl` and uses the default
+    `escape = TRUE`; the `cran-comments.md` / `spelling.R` /
+    `codemeta.json` overwrites are behind `scaffold = FALSE`;
+    `manage_pkgdown_site()` no longer installs foghorn.
+  - `execute_package_workflow()` is intentionally not defined. Call one
+    function at a time and check `git status` in between. For a routine
+    check use `dev_check.R`.
+  - **If `usethis.R` reappears at the package root, that is the old
+    destructive copy** — do not source it.
 - RStudio on this machine writes its session state to `<root>/AB4607D1/`
   and `<root>/shared/` (not `.Rproj.user/`). Both are in `.Rbuildignore`
   and `.gitignore`; do not "clean them up" by hand, they come back on
@@ -152,4 +162,3 @@ Imports block ends at `rlang`.
   `Rscript -e "devtools::check(args = '--as-cran')"` from a terminal,
   then `R CMD build concurve` from `~` and inspect `tar -tzf` for stray
   files.
-
