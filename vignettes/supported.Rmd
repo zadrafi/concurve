@@ -90,16 +90,37 @@ link](https://github.com/zadrafi/concurve/releases).
 ------------------------------------------------------------------------
 
 ```{r echo=FALSE, eval=has_kable}
-versions <- c(3.00, 2.77, 2.76, 2.75, 2.70)
+# Generated from NEWS.md, the authoritative record of releases, rather than
+# restated here. The previous hand-kept vector had gone stale: it stopped at
+# 3.0.0 and so omitted 3.0.1-3.0.4, listed a 2.7.6 that has no NEWS entry,
+# held versions as numeric literals (so 2.7.7 rendered as "2.77" and 3.0.0
+# as "3"), and linked to "-unreleased" anchors the headings no longer produce.
+n_shown <- 5L # releases to list
+n_supported <- 4L # how many of those are still supported
+
+news_path <- if (file.exists("../NEWS.md")) {
+  "../NEWS.md"
+} else {
+  system.file("NEWS.md", package = "concurve")
+}
+headings <- grep("^# concurve ", readLines(news_path, warn = FALSE), value = TRUE)
+headings <- utils::head(headings, n_shown)
+versions <- sub("^# concurve ", "", headings)
+
+# pkgdown slugifies a heading by lowercasing it and collapsing runs of
+# non-alphanumeric characters to "-", so "# concurve 3.0.4" -> "concurve-3-0-4"
+anchor <- gsub("^-+|-+$", "", gsub("[^a-z0-9]+", "-", tolower(headings)))
+
 # Text rather than checkmark/crossmark images: accessible to screen readers
 # without relying on alt-text support that kableExtra::spec_image() lacks.
-support <- c(rep("\u2714 Supported", 4), "\u2718 Not Supported")
-information <- c(
-  "[Updates and Information about version 3.0.0](https://stat.lesslikely.com/concurve/news/index.html#concurve-3-0-0)",
-  "[Updates and Information about version 2.7.7](https://stat.lesslikely.com/concurve/news/index.html#concurve-2-7-7-unreleased)",
-  "[Updates and Information about version 2.7.6](https://stat.lesslikely.com/concurve/news/index.html#concurve-2-7-6-unreleased)",
-  "[Updates and Information about version 2.7.5](https://stat.lesslikely.com/concurve/news/index.html#concurve-2-7-5-unreleased)",
-  "[Updates and Information about version 2.7.0](https://stat.lesslikely.com/concurve/news/index.html#concurve-2-7-0-unreleased)"
+support <- c(
+  rep("\u2714 Supported", min(n_supported, length(versions))),
+  rep("\u2718 Not Supported", max(0L, length(versions) - n_supported))
+)
+
+information <- sprintf(
+  "[Updates and Information about version %s](https://stat.lesslikely.com/concurve/news/index.html#%s)",
+  versions, anchor
 )
 
 df <- data.frame(versions, support, information)
