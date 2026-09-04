@@ -100,3 +100,5 @@ supported.Rmd
 ^stan_vs_nostan.*$
 ^AB4607D1$
 ^shared$
+^(.*/)?Rplots\.pdf$
+^vignettes/.*\.html$
