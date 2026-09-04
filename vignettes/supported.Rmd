@@ -135,29 +135,80 @@ kable(df, booktabs = F, format = "html", col.names = colnames(df), table.attr = 
 
 ------------------------------------------------------------------------
 
-## What's New in Version 3.0
+## What's New in Version 3.0.x
 
 ------------------------------------------------------------------------
 
-Version 3.0 is a major update that includes new functionality, reduced
-dependencies, and improved compatibility.
+The 3.0 series is a major update that includes new functionality,
+reduced dependencies, and improved compatibility.
 
 ### New Functions
 
-- **`curve_wrap()`** - Generic wrapper for any CI-producing function
-- **`curve_model()`** - Convenience wrapper for model objects
-- **`curve_snowflake()`** - Construct consonance distributions directly
-  from Snowflake database query results
-- **`curve_snowflake_batch()`** - Batch processing for multiple
-  Snowflake analyses
-- **`export_for_powerbi()`** - Export consonance data in Power BI-ready
-  format
-- **`curve_from_ratio()`** - Construct curves from ratio estimates
-- **`curve_from_se()`** - Construct curves from standard error estimates
+The 3.0 series adds 27 exported functions relative to 2.7.7, the last
+release before it. (Determined by comparing the function definitions in
+`R/` at tag `2.7.7` against the current `NAMESPACE`, excluding the
+tidy-eval re-exports and the defunct stubs.)
+
+#### Constructing curves from estimates and models
+
+- **`curve_analytic()`** - Analytic consonance functions from summary
+  statistics, read straight off a closed-form quantile function
+- **`curve_from_ratio()`** - Construct a consonance function from a
+  ratio estimate and its interval bounds
+- **`curve_from_se()`** - Construct a consonance function from an
+  estimate and its standard error
+- **`curve_wrap()`** - Construct consonance functions from any
+  CI-producing function
+- **`curve_model()`** - Construct consonance functions from fitted
+  models
+- **`curve_region()`** - Confidence in a parameter region
+
+#### Likelihood functions
+
+- **`as_curve_lik()`** - Package a log-likelihood grid as a `concurve`
+  likelihood object, bridging any likelihood-producing tool
+- **`curve_lik_glm()`** - Profile likelihood function for a model
+  coefficient
+- **`curve_lik_exact()`** - Exact likelihood functions for common
+  designs
+- **`curve_mpl()`** - Modified profile likelihood functions
+- **`curve_rstar()`** - Second-order consonance functions via the r\*
+  statistic
+- **`curve_support()`** - Support (likelihood) intervals from a
+  likelihood function
+- **`construct_likelihood()`** - Build likelihood functions for
+  statistical models from scratch
+
+#### Monte Carlo confidence distributions
+
+- **`curve_stan()`** - Consonance functions from Monte Carlo draws of a
+  confidence distribution; needs no Stan installation
+- **`curve_stan_fit()`** - Sample a Stan model and build a consonance
+  function from it
+- **`concurve_stan_file()`** - Locate the Stan programs bundled with the
+  package
+
+#### Databases and export
+
+- **`curve_snowflake()`** - Construct consonance functions directly from
+  Snowflake query results
+- **`curve_snowflake_batch()`** - Batch process multiple Snowflake
+  queries
+- **`export_for_powerbi()`** - Export consonance data for Power BI
+
+#### Plotting and reporting
+
+- **`plot_multi()`** - Plot multiple consonance functions for comparison
 - **`curve_overlap()`** - Calculate overlap between consonance functions
 - **`curve_summary()`** - Generate summary statistics for consonance
   objects
-- **`plot_multi()`** - Plot multiple consonance functions simultaneously
+- **`ggplot_likelihood()`** - Plot a likelihood function using ggplot2
+- **`plotly_likelihood()`** - Interactive likelihood plot
+- **`plot_all_parameters()`** - Plot the likelihood for all parameters
+- **`plot_ci_levels()`** - Plot a likelihood with multiple confidence
+  levels
+- **`plot_profile_vs_wald()`** - Compare profile and Wald confidence
+  intervals
 
 ### Dependency Changes
 
@@ -276,3 +327,4 @@ the issue.
 ```{r session_info, include=TRUE, echo=FALSE}
 sessionInfo()
 ```
+
