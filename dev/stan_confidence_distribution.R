@@ -1,5 +1,5 @@
 ## =====================================================================
-## Confidence distributions with Stan
+## Confidence distributions with Stan (rstan edition)
 ##
 ##   Route A  Generalized fiducial (Hannig): sample  L(theta) * J(y,theta)
 ##   Route B  Stan as a likelihood engine: profile deviance -> signed root
@@ -8,86 +8,44 @@
 ## Worked on the normal location-scale model, where an exact confidence
 ## distribution is known, so every number below has a reference to be
 ## checked against.
+##
+## Requirements: rstan (a Suggests of concurve, not an Imports) and a C++
+## toolchain. The Stan programs live in inst/stan/ and are compiled here
+## at runtime; nothing in the package build depends on them. Run
+## devtools::load_all() (or install concurve) first so curve_stan() and
+## concurve_stan_file() are available.
 ## =====================================================================
 
-library(cmdstanr)
+if (!requireNamespace("rstan", quietly = TRUE)) {
+  stop("This script needs the 'rstan' package: install.packages(\"rstan\")")
+}
+if (!requireNamespace("concurve", quietly = TRUE)) {
+  stop("Run devtools::load_all() or install concurve first.")
+}
 
-## Point this at your CmdStan installation, or drop the line if
-## cmdstanr already knows where it is.
-if (nzchar(Sys.getenv("CMDSTAN"))) set_cmdstan_path(Sys.getenv("CMDSTAN"))
+## Chains run in parallel on however many cores are present. Do NOT set
+## rstan_options(auto_write = TRUE): it writes platform-specific .rds
+## files next to the .stan sources in inst/stan, which would ship in the
+## tarball. Compiled models live only in this session.
+options(mc.cores = max(1L, parallel::detectCores() - 1L))
 
 set.seed(1859)
 
 
 ## ---------------------------------------------------------------------
-## 1. Stan programs
+## 1. Stan programs -- shipped in inst/stan/, see ?concurve_stan_file
 ## ---------------------------------------------------------------------
 
-## Route A -- generalized fiducial distribution.
-##
-## Data-generating equation:  y_i = mu + sigma * z_i,  z_i ~ N(0,1).
-## Hannig's Jacobian formula gives the GFD density
-##
-##     r(theta | y)  proportional to  L(y, theta) * J(y, theta),
-##     J = det( grad_theta F' grad_theta F )^(1/2).
-##
-## Here grad_theta F has rows (1, u_i) with u_i = (y_i - mu)/sigma, so
-##
-##     det(.) = n*sum(u^2) - (sum u)^2 = n(n-1)s^2 / sigma^2
-##     J      = sqrt(n(n-1)) * s / sigma   proportional to  1/sigma.
-##
-## Derived, not assumed: for other models you must redo this. Note that
-## J depends on the DATA. Stan does not care -- it needs a log density up
-## to a constant and has no opinion about where the terms came from.
-gfi_code <- "
-data {
-  int<lower=1> N;
-  vector[N] y;
+## When running from the source tree, prefer inst/stan so edits to the
+## .stan files are picked up without reinstalling.
+stan_file <- function(name) {
+  local <- file.path("inst", "stan", paste0(name, ".stan"))
+  if (file.exists(local)) local else concurve::concurve_stan_file(name)
 }
-parameters {
-  real mu;
-  real<lower=0> sigma;
-}
-model {
-  target += normal_lpdf(y | mu, sigma);   // likelihood
-  target += -log(sigma);                  // fiducial Jacobian, up to a constant
-}
-"
 
-## Route B -- the same likelihood, with mu passed as DATA so that
-## optimising over sigma returns the profile log-likelihood at mu.
-prof_code <- "
-data {
-  int<lower=1> N;
-  vector[N] y;
-  real mu_fixed;
-}
-parameters {
-  real<lower=0> sigma;
-}
-model {
-  target += normal_lpdf(y | mu_fixed, sigma);
-}
-"
-
-## Unrestricted MLE, for the maximum of the profile.
-mle_code <- "
-data {
-  int<lower=1> N;
-  vector[N] y;
-}
-parameters {
-  real mu;
-  real<lower=0> sigma;
-}
-model {
-  target += normal_lpdf(y | mu, sigma);
-}
-"
-
-gfi_mod  <- cmdstan_model(write_stan_file(gfi_code))
-prof_mod <- cmdstan_model(write_stan_file(prof_code))
-mle_mod  <- cmdstan_model(write_stan_file(mle_code))
+gfi_mod  <- rstan::stan_model(file = stan_file("normal_gfd"))
+prof_mod <- rstan::stan_model(file = stan_file("normal_profile"))
+mle_mod  <- rstan::stan_model(file = stan_file("normal_mle"))
 
 
 ## ---------------------------------------------------------------------
@@ -114,45 +72,9 @@ cd_from_functions <- function(H, Q, method = "analytic") {
 }
 
 ## p-value function (two-sided) and surprisal, the usual companions.
-cd_pvalue  <- function(cd, theta) 2 * pmin(cd$H(theta), 1 - cd$H(theta))
-cd_svalue  <- function(cd, theta) -log2(cd_pvalue(cd, theta))
+cd_pvalue   <- function(cd, theta) 2 * pmin(cd$H(theta), 1 - cd$H(theta))
+cd_svalue   <- function(cd, theta) -log2(cd_pvalue(cd, theta))
 cd_interval <- function(cd, level = 0.95) cd$Q(c((1 - level) / 2, (1 + level) / 2))
-
-## Emit a concurve-compatible consonance object so ggcurve() works.
-## Contract (concurve 3.0.0): list of 3, classed "concurve";
-##   [[1]] 7 columns exactly; [[2]] one column named x; [[3]] curve_table.
-as_concurve <- function(cd, steps = 1000) {
-  levels <- (1:(steps - 1)) / steps
-  lo <- cd$Q((1 - levels) / 2)
-  hi <- cd$Q((1 + levels) / 2)
-  df <- data.frame(
-    lower.limit  = lo,
-    upper.limit  = hi,
-    intrvl.width = hi - lo,
-    intrvl.level = levels,
-    cdf          = levels / 2 + 0.5,
-    pvalue       = 1 - levels,
-    svalue       = -log2(1 - levels)
-  )
-  df <- utils::head(df, -1)
-  class(df) <- c("data.frame", "concurve")
-
-  dens <- data.frame(x = c(df$lower.limit, df$upper.limit))
-  class(dens) <- c("data.frame", "concurve")
-
-  tbl <- if (requireNamespace("concurve", quietly = TRUE)) {
-    concurve::curve_table(
-      df,
-      levels = c(.25, .5, .75, .8, .85, .9, .95, .975, .99),
-      type = "c", format = "data.frame"
-    )
-  } else NULL
-
-  out <- list(df, dens, tbl)
-  names(out) <- c("Intervals Dataframe", "Intervals Density", "Intervals Table")
-  class(out) <- "concurve"
-  out
-}
 
 
 ## ---------------------------------------------------------------------
@@ -163,14 +85,23 @@ n <- 12
 y <- rnorm(n, mean = 3.2, sd = 1.4)
 sdat <- list(N = n, y = y)
 
-gfi_fit <- gfi_mod$sample(
-  data = sdat, seed = 1859,
-  chains = 4, parallel_chains = 4,
-  iter_warmup = 2000, iter_sampling = 20000,
-  refresh = 0, show_messages = FALSE
+## rstan counts warmup inside iter: 2000 warmup + 20000 kept per chain.
+gfi_fit <- rstan::sampling(
+  gfi_mod, data = sdat, seed = 1859,
+  chains = 4, iter = 22000, warmup = 2000,
+  refresh = 0
 )
 
-cd_gfi <- cd_from_draws(gfi_fit$draws("mu"))
+gfi_draws <- rstan::extract(gfi_fit, pars = "mu")$mu
+cd_gfi <- cd_from_draws(gfi_draws)
+
+## The same thing through the package API: a concurve object straight
+## from the draws, so ggcurve()/curve_table() work on it.
+cv_gfi <- concurve::curve_stan(gfi_draws)
+
+## Or, in one step (compiles via the same cached path):
+## cv_gfi <- concurve::curve_stan_fit("normal_gfd", data = sdat, parameter = "mu",
+##                                    chains = 4, iter = 22000, warmup = 2000, seed = 1859)
 
 
 ## The exact CD for mu in this model, for comparison.
@@ -186,26 +117,27 @@ cd_exact <- cd_from_functions(
 ## 4. Route B -- profile deviance via Stan's optimiser -> signed root
 ## ---------------------------------------------------------------------
 
+## rstan::optimizing() reports the log density on the constrained scale
+## without the Jacobian adjustment, i.e. the log-likelihood here.
 stan_profile_loglik <- function(mod, y, mu_grid) {
   vapply(mu_grid, function(m) {
-    o <- mod$optimize(
-      data = list(N = length(y), y = y, mu_fixed = m),
-      jacobian = FALSE, seed = 1, refresh = 0, show_messages = FALSE
+    o <- rstan::optimizing(
+      mod, data = list(N = length(y), y = y, mu_fixed = m),
+      seed = 1, hessian = FALSE, verbose = FALSE
     )
-    o$lp()
+    o$value
   }, numeric(1))
 }
 
 mu_grid <- seq(ybar - 5 * se, ybar + 5 * se, length.out = 121)
 lp_prof <- stan_profile_loglik(prof_mod, y, mu_grid)
 
-mle_opt <- mle_mod$optimize(data = sdat, jacobian = FALSE, seed = 1,
-                            refresh = 0, show_messages = FALSE)
-lp_max  <- mle_opt$lp()
-mu_hat  <- mle_opt$mle("mu")
+mle_opt <- rstan::optimizing(mle_mod, data = sdat, seed = 1, hessian = FALSE, verbose = FALSE)
+lp_max  <- mle_opt$value
+mu_hat  <- unname(mle_opt$par["mu"])
 
 ## Signed root of the likelihood ratio; the CD is Phi(r).
-r_signed  <- sign(mu_grid - mu_hat) * sqrt(pmax(0, 2 * (lp_max - lp_prof)))
+r_signed    <- sign(mu_grid - mu_hat) * sqrt(pmax(0, 2 * (lp_max - lp_prof)))
 H_prof_grid <- stats::pnorm(r_signed)
 
 cd_prof <- cd_from_functions(
@@ -234,6 +166,10 @@ cat(sprintf("GFD 95%% interval                     : [%.4f, %.4f]\n", ci_gfi[1],
 cat(sprintf("t.test() 95%% interval                : [%.4f, %.4f]\n", ci_ref[1], ci_ref[2]))
 stopifnot(max(abs(ci_gfi - ci_ref)) < 0.02)
 
+## (b') curve_stan() must agree with the hand-rolled CD at the same level.
+row95 <- cv_gfi[[1]][which.min(abs(cv_gfi[[1]]$intrvl.level - 0.95)), ]
+stopifnot(max(abs(c(row95$lower.limit, row95$upper.limit) - ci_gfi)) < 1e-6)
+
 ## (c) CD ordinate equals one minus the one-sided p-value. By construction,
 ##     but if this ever fails a sign convention has been flipped.
 mu0 <- 3.0
@@ -258,7 +194,7 @@ cat(sprintf("Signed-root CD vs exact, max |H diff|: %.5f  (approximation, n=%d)\
             d_prof, n))
 
 cat(sprintf("concurve object columns OK           : %s\n",
-            identical(names(as_concurve(cd_exact, steps = 100)[[1]]),
+            identical(names(cv_gfi[[1]]),
                       c("lower.limit","upper.limit","intrvl.width",
                         "intrvl.level","cdf","pvalue","svalue"))))
 
@@ -327,11 +263,10 @@ if (requireNamespace("ggplot2", quietly = TRUE)) {
     ggplot2::geom_line(linewidth = 0.7) +
     ggplot2::labs(x = expression(mu), y = "two-sided p-value", colour = NULL) +
     ggplot2::theme_bw() + ggplot2::theme(legend.position = "bottom")
-  ggplot2::ggsave("consonance_stan.png", p, width = 7, height = 4.5, dpi = 150)
-  cat("\nWrote consonance_stan.png\n")
+  ggplot2::ggsave("dev/consonance_stan.png", p, width = 7, height = 4.5, dpi = 150)
+  cat("\nWrote dev/consonance_stan.png\n")
 }
 
-## If concurve is installed:
-##   cv <- as_concurve(cd_gfi)
-##   concurve::ggcurve(cv[[1]], type = "c")
-##   concurve::ggcurve(cv[[2]], type = "cd")
+## Package-level plots of the same object:
+##   concurve::ggcurve(cv_gfi[[1]], type = "c")
+##   concurve::ggcurve(cv_gfi[[2]], type = "cd")

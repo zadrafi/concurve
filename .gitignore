@@ -19,3 +19,5 @@ dev/root-cleanup-*/
 # RStudio writes its session state into the project root on this machine
 /AB4607D1/
 /shared/
+
+inst/stan/*.rds

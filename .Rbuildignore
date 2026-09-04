@@ -95,5 +95,10 @@ concurve.pdf
 supported.Rmd
 ~/concurve/vignettes/bootstrap.Rmd
 ^dev_check\.R$
+^\.venv$
+^rstanlm$
+^stan_vs_nostan.*$
 ^AB4607D1$
 ^shared$
+references.bib
+american-medical-association.csl
