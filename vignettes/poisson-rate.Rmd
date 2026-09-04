@@ -93,7 +93,7 @@ ggcurve(lik[[1]],
 )
 ```
 
-The likelihood peaks near the true value of $0.8$, and the deviance function --- $-\log$ relative likelihood --- turns the same curve into a "distance from the best-supported value" scale, where Royall's $1/8$ and $1/32$ support cutoffs correspond to deviance heights of about $2.08$ and $3.47$.[@royallStatisticalEvidenceLikelihood1997]
+The likelihood peaks near the true value of $0.8$, and the deviance function --- $-2\log$ relative likelihood, the likelihood-ratio statistic on the $\chi^2_1$ scale --- turns the same curve into a "distance from the best-supported value" scale. Royall's $1/8$ and $1/32$ support cutoffs correspond to deviance heights of about $4.16$ and $6.93$, and the conventional $1/6.83$ cutoff to $3.84 = \chi^2_{1,\,0.95}$.[@royallStatisticalEvidenceLikelihood1997]
 
 # The companion: consonance and surprisal functions
 

@@ -54,7 +54,10 @@ This vignette shows several of those tools feeding one adapter.
 Whatever produces the log-likelihood, this helper normalizes it and
 packs it into the five columns `concurve` uses (`values`, `likelihood`,
 `loglikelihood`, `support`, `deviancestat`) --- the object `curve_lik()`
-returns and `ggcurve()` draws.
+returns and `ggcurve()` draws. It is spelled out here to show what those
+columns are; in practice [`as_curve_lik()`](../reference/as_curve_lik.html)
+does exactly this, and using it avoids having to keep the `deviancestat`
+scaling in step by hand.
 
 ```{r echo=TRUE}
 as_concurve_lik <- function(values, loglik) {
@@ -65,7 +68,7 @@ as_concurve_lik <- function(values, loglik) {
     likelihood    = support,
     loglikelihood = loglik_rel,
     support       = support,
-    deviancestat  = -loglik_rel
+    deviancestat  = -2 * loglik_rel
   )
   class(df) <- c("data.frame", "concurve")
   df

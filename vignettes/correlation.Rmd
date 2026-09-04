@@ -106,7 +106,7 @@ lik_rho <- data.frame(
   likelihood    = exp(ll), # raw profile likelihood         -> type = "l3"
   loglikelihood = loglik_rel, # relative log-likelihood         -> type = "l2"
   support       = support, # relative likelihood (0, 1]      -> type = "l1"
-  deviancestat  = -loglik_rel # -log relative likelihood        -> type = "d"
+  deviancestat  = -2 * loglik_rel # -2 log rel. likelihood       -> type = "d"
 )
 class(lik_rho) <- c("data.frame", "concurve")
 head(lik_rho)
