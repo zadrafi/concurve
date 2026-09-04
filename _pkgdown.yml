@@ -179,10 +179,13 @@ reference:
   - curve_region
   - curve_rev
   - curve_rstar
+  - curve_stan
+  - curve_stan_fit
   - curve_surv
   - curve_wrap
   - curve_from_ratio
   - curve_from_se
+  - concurve_stan_file
 - title: Database Integration
   desc: Connect to databases and construct consonance functions from query results.
 - contents:
