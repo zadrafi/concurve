@@ -109,7 +109,8 @@ curve_mpl <- function(data, mle, floglik, datagen, indpsi, lo, hi,
   loglikelihood <- logmpl - max(logmpl) # relative log MPL, max = 0
   support <- exp(loglikelihood) # normalized MPL, max = 1
   likelihood <- support # MPL is defined up to a constant
-  deviancestat <- -(loglikelihood)
+  # D = -2 log(L / Lmax), on the chi-squared(1) scale
+  deviancestat <- -2 * loglikelihood
 
   likfunction <- data.frame(values, likelihood, loglikelihood, support, deviancestat)
   class(likfunction) <- c("data.frame", "concurve")

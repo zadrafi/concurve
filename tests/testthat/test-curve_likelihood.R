@@ -228,3 +228,78 @@ test_that("curve_lik_glm converges for an inverse-link Gamma model", {
   ci <- suppressMessages(confint(mod, "z"))
   expect_equal(support_interval(lik), unname(ci), tolerance = 2 * grid_step(lik))
 })
+
+test_that("curve_lik_glm matches confint() for an inverse.gaussian glm", {
+  # inverse.gaussian also carries a free dispersion parameter and is named in
+  # the documentation, but was the one such family with no test
+  set.seed(21)
+  z <- runif(80)
+  yy <- rgamma(80, shape = 6, rate = 6 / exp(1 + 0.4 * z))
+  mod <- glm(yy ~ z, family = inverse.gaussian(link = "log"))
+  lik <- curve_lik_glm(mod, "z", steps = 1000)
+  ci <- suppressMessages(confint(mod, "z"))
+  expect_equal(support_interval(lik), unname(ci), tolerance = 2 * grid_step(lik))
+})
+
+test_that("a large dispersion does not shrink the interval", {
+  # The pre-3.0.4 bug scaled the interval by 1/sqrt(dispersion). The existing
+  # tests guard the too-wide direction (dispersion < 1); this guards the
+  # anti-conservative one, where the interval was five times too NARROW.
+  set.seed(99)
+  x <- rnorm(60)
+  y <- 2 * x + rnorm(60, sd = 5) # dispersion >> 1
+  mod <- glm(y ~ x)
+  lik <- curve_lik_glm(mod, "x", steps = 1000)
+  ci <- suppressMessages(confint(mod, "x"))
+
+  ratio <- diff(support_interval(lik)) / diff(ci)
+  expect_gt(ratio, 0.95) # 1/sqrt(phi) would be about 0.2
+  expect_lt(ratio, 1.05)
+})
+
+test_that("support intervals are equivariant to rescaling the response", {
+  # The bug made the answer depend on the units of y: same relationship,
+  # different measurement scale, different inference. Rescaling y by c must
+  # rescale the interval by exactly c.
+  set.seed(77)
+  x <- rnorm(60)
+  y <- 2 * x + rnorm(60, sd = 5)
+
+  s1 <- support_interval(curve_lik_glm(glm(y ~ x), "x", steps = 1000))
+  s2 <- support_interval(curve_lik_glm(glm(I(y / 100) ~ x), "x", steps = 1000))
+
+  expect_equal(s2 * 100, s1, tolerance = 0.02 * diff(s1))
+})
+
+# ---- deviance statistic scale ------------------------------------------------
+# deviancestat is D = -2 log(L / Lmax), so D ~ chi-squared(1) and the 1/6.83
+# relative-likelihood cutoff sits at qchisq(0.95, 1) = 3.84. plot_compare()
+# labels that axis "2ln(MLR)", so every constructor must agree on the scale or
+# ggcurve(type = "d") and plot_compare(type = "d") silently mix two of them.
+
+test_that("deviancestat is -2 * loglikelihood, on the chi-squared scale", {
+  p <- seq(0.001, 0.999, length.out = 2000)
+  lik <- as_curve_lik(p, 8 * log(p) + 12 * log(1 - p))
+
+  expect_equal(lik[[1]]$deviancestat, -2 * lik[[1]]$loglikelihood)
+  j <- which.min(abs(lik[[1]]$support - 1 / 6.83))
+  expect_equal(lik[[1]]$deviancestat[j], stats::qchisq(0.95, 1), tolerance = 0.02)
+})
+
+test_that("all constructors put the 1/6.83 cutoff at the same deviance", {
+  target <- stats::qchisq(0.95, 1)
+
+  lg <- curve_lik_glm(glm(mpg ~ wt, data = mtcars), "wt", steps = 800)
+  jg <- which.min(abs(lg[[1]]$support - 1 / 6.83))
+  expect_equal(lg[[1]]$deviancestat[jg], target, tolerance = 0.05)
+
+  le <- curve_lik_exact(type = "prop", x = 8, n = 20)
+  je <- which.min(abs(le[[1]]$support - 1 / 6.83))
+  expect_equal(le[[1]]$deviancestat[je], target, tolerance = 0.05)
+
+  rv <- suppressMessages(
+    curve_rev(point = 2, LL = 1.2, UL = 3.3, type = "l", measure = "ratio")
+  )
+  jr <- which.min(abs(rv[[1]]$support - 1 / 6.83))
+  expect_equal(rv[[1]]$deviancestat[jr], target, tolerance = 0.05)
+})
