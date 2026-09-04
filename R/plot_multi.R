@@ -59,6 +59,7 @@
 #' @importFrom dplyr bind_rows mutate
 #' @importFrom scales pretty_breaks
 #' @importFrom colorspace darken
+#' @importFrom rlang .data
 #' @export
 plot_multi <- function(...,
                        type = "c",
@@ -144,8 +145,8 @@ plot_multi <- function(...,
 
   # Build plot
   p <- ggplot2::ggplot(curves_long, ggplot2::aes(
-    x = value, y = .data[[yvar]],
-    color = source, fill = source
+    x = .data$value, y = .data[[yvar]],
+    color = .data$source, fill = .data$source
   )) +
     ggplot2::geom_line(linewidth = 0.8, alpha = 0.9) +
     ggplot2::scale_color_manual(values = colors, name = NULL) +
@@ -169,24 +170,24 @@ plot_multi <- function(...,
       p <- p +
         ggplot2::geom_ribbon(
           data = df,
-          ggplot2::aes(x = lower.limit, ymin = min(pvalue), ymax = pvalue),
+          ggplot2::aes(x = .data$lower.limit, ymin = min(.data$pvalue), ymax = .data$pvalue),
           fill = colors[i], color = NA, alpha = alpha, inherit.aes = FALSE
         ) +
         ggplot2::geom_ribbon(
           data = df,
-          ggplot2::aes(x = upper.limit, ymin = min(pvalue), ymax = pvalue),
+          ggplot2::aes(x = .data$upper.limit, ymin = min(.data$pvalue), ymax = .data$pvalue),
           fill = colors[i], color = NA, alpha = alpha, inherit.aes = FALSE
         )
     } else {
       p <- p +
         ggplot2::geom_ribbon(
           data = df,
-          ggplot2::aes(x = lower.limit, ymin = max(svalue), ymax = svalue),
+          ggplot2::aes(x = .data$lower.limit, ymin = max(.data$svalue), ymax = .data$svalue),
           fill = colors[i], color = NA, alpha = alpha, inherit.aes = FALSE
         ) +
         ggplot2::geom_ribbon(
           data = df,
-          ggplot2::aes(x = upper.limit, ymin = max(svalue), ymax = svalue),
+          ggplot2::aes(x = .data$upper.limit, ymin = max(.data$svalue), ymax = .data$svalue),
           fill = colors[i], color = NA, alpha = alpha, inherit.aes = FALSE
         )
     }
@@ -248,9 +249,3 @@ plot_multi <- function(...,
 
   return(p)
 }
-
-# RMD Check
-utils::globalVariables(c(
-  "source", "value", "bound", "lower.limit", "upper.limit",
-  "pvalue", "svalue"
-))
