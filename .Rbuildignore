@@ -102,3 +102,4 @@ supported.Rmd
 ^shared$
 ^(.*/)?Rplots\.pdf$
 ^vignettes/.*\.html$
+^vignettes/.*\.R$
