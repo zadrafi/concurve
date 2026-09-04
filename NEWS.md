@@ -1,4 +1,4 @@
-# concurve 3.0.3
+# concurve 3.0.4
 
 ## New features
 
@@ -37,13 +37,6 @@
   `man/defunct.Rd` was hand-maintained and had drifted from the source;
   it is now generated from roxygen comments.
 
-- Fixed a fatal LaTeX error when building the PDF reference manual
-  ("Illegal unit of measure (pt inserted)"). The package help page no
-  longer carries a hand-maintained `\tabular{}` block containing a
-  `\figure{}{options: width="50"}` directive, which produced an
-  `\includegraphics` width with no valid LaTeX unit. Package version,
-  date, and license are taken from `DESCRIPTION` as usual.
-
 - `curve_lik_glm()` now divides the profile deviance by the model's
   estimated dispersion for families with a free dispersion parameter
   (`gaussian`, `Gamma`, `inverse.gaussian`, `quasi*`), as `confint()` does.
@@ -57,6 +50,37 @@
   inverse-link model.
 - `curve_rev()` no longer prints the reconstructed standard error to the
   console for `measure = "ratio"` (a leftover debugging `print()`).
+- Corrected two typos in `curve_corr()`'s description, "analysesusing"
+  and "levelinto", each missing a space. Both had been listed in
+  `inst/WORDLIST`, which whitelisted the misspelling rather than fixing
+  it; those entries are removed.
+
+## Minor changes
+
+- The examples for `ggcurve()`, `curve_gen()`, `curve_mean()`,
+  `curve_table()`, `plot_compare()`, `plot_multi()`, `curve_from_ratio()`,
+  and `curve_from_se()` now run, so `R CMD check` executes them and their
+  output appears in the reference documentation. Two of those blocks were
+  broken and could never have worked: `plot_multi()` documented
+  `curve_from_se(point =, se =, df =)`, which are not its arguments, and
+  `curve_from_ratio()` passed `nullvalue = TRUE` for a ratio measure,
+  where the null value is 1.
+- `plot_multi()` uses the `.data` pronoun in its `aes()` calls instead of
+  declaring column names via `utils::globalVariables()`, so a renamed or
+  missing column now fails loudly instead of resolving to nothing.
+- Removed `LazyData: true` from `DESCRIPTION`; the package ships no
+  `data/` directory.
+
+# concurve 3.0.3
+
+## Bug fixes
+
+- Fixed a fatal LaTeX error when building the PDF reference manual
+  ("Illegal unit of measure (pt inserted)"). The package help page no
+  longer carries a hand-maintained `\tabular{}` block containing a
+  `\figure{}{options: width="50"}` directive, which produced an
+  `\includegraphics` width with no valid LaTeX unit. Package version,
+  date, and license are taken from `DESCRIPTION` as usual.
 
 ## Minor changes
 
