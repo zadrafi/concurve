@@ -148,38 +148,44 @@ This is breaking for anything that reads the column or plots it:
 
 `curve_rev()` was the correct one: `plot_compare()` has always labelled
 that axis `Deviance Statistic 2ln(MLR)`, so the other four were
-contradicting the label. Regression tests in
-`test-curve_likelihood.R` now assert every constructor puts the 1/6.83
-cutoff at `qchisq(0.95, 1)`; `test-curve_rstar_mpl.R:122` asserted the
-old convention and was updated.
+contradicting the label. Regression tests in `test-curve_likelihood.R`
+now assert every constructor puts the 1/6.83 cutoff at
+`qchisq(0.95, 1)`; `test-curve_rstar_mpl.R:122` asserted the old
+convention and was updated.
 
 ## State (as of 2026-09-04)
 
 - **`master` is 3.0.3** and deliberately matches the tarball CRAN is
   reviewing. **`release/3.0.4`** carries everything since (PR #60, kept
   as a draft). Do not merge until CRAN resolves 3.0.3.
+
 - **3.0.3 is pending, not accepted.** CRAN's incoming queue is publicly
   browsable, which settles the question without waiting on email:
 
   ``` sh
-  for d in pretest inspect pending recheck waiting newbies publish archive; do
-    printf "%-10s " "$d"; curl -s "https://cran.r-project.org/incoming/$d/" | grep -o 'concurve[^"<]*' | sort -u | tr '\n' ' '; echo
-  done
+  sh tools/cran-queue.sh   # checks every incoming folder + the package page
   ```
 
+  The script documents what each folder means. Movement is driven by
+  CRAN volunteers by hand, so no change over a few hours means nothing.
+
   On 2026-09-04 that put `concurve_3.0.3.tar.gz` in **`newbies/`**
-  (awaiting manual review — where returning archived packages land), with
-  3.0.0, 3.0.1 and 3.0.2 in `archive/` as superseded attempts.
+  (awaiting manual review — where returning archived packages land),
+  with 3.0.0, 3.0.1 and 3.0.2 in `archive/` as superseded attempts.
+
 - `curve_lik_glm()` in the pending 3.0.3 has a dispersion bug making
-  intervals depend on the units of the response (up to 5x too narrow).
-  A withdrawal email is drafted at `dev/cran-withdraw-3.0.3.md`. **It
-  must be sent by the maintainer from the registered address**; CRAN
+  intervals depend on the units of the response (up to 5x too narrow). A
+  withdrawal email is drafted at `dev/cran-withdraw-3.0.3.md`. **It must
+  be sent by the maintainer from the registered address**; CRAN
   authenticates on the From: header.
+
 - `.venv/` (a Python venv at the root) was inflating the tarball to 12
   MB; now `.Rbuildignore`d along with `rstanlm/` and `stan_vs_nostan*`.
+
 - `bayes.Rmd` needs rstanarm → igraph at vignette-build time; a missing
   igraph fails the whole build. `rstan`, `rstanarm`, `brms` are Suggests
   "not available for checking" unless installed.
+
 - Intentionally uncommitted local files: `concurve.Rproj` (personal
   editor theme), `tests/testthat/Rplots.pdf`, `README.html`,
   `logistic.html`, `variancecomponents/*`.
