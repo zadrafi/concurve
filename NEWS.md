@@ -39,11 +39,17 @@
 
 - `curve_lik_glm()` now divides the profile deviance by the model's
   estimated dispersion for families with a free dispersion parameter
-  (`gaussian`, `Gamma`, `inverse.gaussian`, `quasi*`), as `confint()` does.
-  Previously the curve for these families was too flat by a factor of the
-  dispersion, so its support intervals disagreed with the profile
-  likelihood CI (e.g. ~50% too wide for a Gamma model with shape 2).
-  `binomial` and `poisson` results are unchanged.
+  (`gaussian`, `Gamma`, `inverse.gaussian`, `quasi*`), as `confint()`
+  does. Without that division the support intervals were wrong by a
+  factor of `1 / sqrt(dispersion)`, which means they depended on the
+  **units of the response**: refitting the same relationship with the
+  response rescaled changed the interval. Measured against
+  `confint()`, a gaussian fit with residual SD 0.4 gave intervals 219%
+  of the correct width, and the same relationship with residual SD 5.0
+  gave 19% — that is, five times too narrow, overstating precision.
+  `gaussian` is `glm()`'s default family, so an ordinary
+  `glm(y ~ x)` was affected. `binomial` and `poisson` are unchanged,
+  their dispersion being fixed at 1.
 - `curve_lik_glm()` starts each constrained refit from the full model's
   fitted means and drops (with a message) grid points where the refit
   does not converge, instead of failing outright far in the tails of an
