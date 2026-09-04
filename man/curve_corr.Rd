@@ -43,8 +43,8 @@ and the table for the values in the third if table = TRUE.
 }
 \description{
 Computes consonance intervals to produce P- and S-value functions for
-correlational analysesusing the cor.test function in base R and places the
-interval limits for each interval levelinto a data frame along with the
+correlational analyses using the cor.test function in base R and places the
+interval limits for each interval level into a data frame along with the
 corresponding p-values and s-values.
 }
 \examples{

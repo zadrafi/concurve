@@ -1,8 +1,8 @@
 #' Consonance Functions for Correlations
 #'
 #' Computes consonance intervals to produce P- and S-value functions for
-#' correlational analysesusing the cor.test function in base R and places the
-#' interval limits for each interval levelinto a data frame along with the
+#' correlational analyses using the cor.test function in base R and places the
+#' interval limits for each interval level into a data frame along with the
 #' corresponding p-values and s-values.
 #'
 #' @param x A vector that contains the data for one of the variables that will

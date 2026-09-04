@@ -51,7 +51,7 @@ calling one is an error. They are retained as stubs so that old scripts
 fail with a message naming the current replacement, rather than an
 opaque "could not find function".
 
-They date from the reorganisation in which the interval constructors
+They date from the reorganization in which the interval constructors
 were renamed to a common \verb{curve_*} prefix and the several plotting
 functions were consolidated into a single \code{\link[=ggcurve]{ggcurve()}}.
 }
