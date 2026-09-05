@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.4</span>
       </span>
     </div>
 
@@ -219,14 +219,47 @@
 <p>With the real validator the manual passes and the check drops to a <strong>single NOTE</strong> — the unavoidable archival / incoming-feasibility one.</p>
 </div>
 <div class="section level2">
+<h2 id="breaking-change-in-304-the-deviancestat-scale">BREAKING CHANGE in 3.0.4: the <code>deviancestat</code> scale<a class="anchor" aria-label="anchor" href="#breaking-change-in-304-the-deviancestat-scale"></a></h2>
+<p><code>deviancestat</code> used to mean two different things. <code><a href="reference/curve_rev.html">curve_rev()</a></code> reported <code>D = -2 log(L / Lmax)</code>, the likelihood-ratio statistic on the chi-squared (1 df) scale, so its 95% point sits at 3.84. But <code><a href="reference/as_curve_lik.html">as_curve_lik()</a></code>, <code><a href="reference/curve_lik.html">curve_lik()</a></code>, <code><a href="reference/curve_lik_glm.html">curve_lik_glm()</a></code>, and <code><a href="reference/curve_mpl.html">curve_mpl()</a></code> reported <strong>half</strong> that. As of <code>6bf6073</code> on <code>release/3.0.4</code>, all five agree on the chi-squared scale.</p>
+<p>This is breaking for anything that reads the column or plots it:</p>
+<ul><li>
+<code>ggcurve(type = "d")</code> and <code>plot_compare(type = "d")</code> plot <code>deviancestat</code> directly, so <strong>y-values from those four constructors double</strong>. Any saved figure, vignette output, or snapshot comparing against old values will differ by exactly 2.</li>
+<li>
+<code>curve_table(type = "l")</code> shows it as “Deviance Statistic”.</li>
+<li>Relative likelihoods, <code>support</code>, support intervals, and <code><a href="reference/curve_support.html">curve_support()</a></code> are <strong>unaffected</strong> — only the deviance column moves.</li>
+</ul><p><code><a href="reference/curve_rev.html">curve_rev()</a></code> was the correct one: <code><a href="reference/plot_compare.html">plot_compare()</a></code> has always labelled that axis <code>Deviance Statistic 2ln(MLR)</code>, so the other four were contradicting the label. Regression tests in <code>test-curve_likelihood.R</code> now assert every constructor puts the 1/6.83 cutoff at <code>qchisq(0.95, 1)</code>; <code>test-curve_rstar_mpl.R:122</code> asserted the old convention and was updated.</p>
+</div>
+<div class="section level2">
 <h2 id="state-as-of-2026-09-04">State (as of 2026-09-04)<a class="anchor" aria-label="anchor" href="#state-as-of-2026-09-04"></a></h2>
-<ul><li>Version is now 3.0.3. Full <code>R CMD check --as-cran</code> with vignette rebuilds: <strong>0 errors, 0 warnings, 0 notes</strong> including the new <code>curve_stan</code> family (uncommitted as of 2026-09-04; earlier clean commits <code>6011eca</code>, <code>435d8d5</code>).</li>
+<ul><li>
+<p><strong><code>master</code> is 3.0.3</strong> and deliberately matches the tarball CRAN is reviewing; leave it alone until that resolves. <strong><code>release/3.0.4</code></strong> carries everything since: 13 commits behind draft PR #60, green on all five CI platforms, and <code>R CMD check --as-cran</code> at a single expected NOTE (with a modern HTML Tidy on <code>PATH</code> — see above).</p>
+<p>Do not merge, and do not submit anything, while 3.0.3 is in the queue. A version number cannot be reused with different contents, and CRAN asks maintainers not to resubmit while a submission is pending. When 3.0.3 leaves <code>newbies/</code>:</p>
+<table class="table"><colgroup><col width="50%"><col width="50%"></colgroup><thead><tr><th>It lands in</th>
+<th>Then</th>
+</tr></thead><tbody><tr><td><code>archive/</code></td>
+<td>Withdrawn or rejected. Merge <code>release/3.0.4</code> and submit 3.0.4.</td>
+</tr><tr><td><code>publish/</code></td>
+<td>Accepted before the withdrawal was read. 3.0.4 becomes a fast bug-fix follow-up; the <code><a href="reference/curve_lik_glm.html">curve_lik_glm()</a></code> dispersion bug is the justification for the short interval.</td>
+</tr><tr><td>
+<code>pending/</code> or <code>inspect/</code>
+</td>
+<td>A reviewer has it open; expect email, reply the same day.</td>
+</tr></tbody></table></li>
 <li>
-<code>.venv/</code> (a Python venv at the root) was inflating the tarball to 12 MB; now <code>.Rbuildignore</code>d along with <code>rstanlm/</code> and <code>stan_vs_nostan*</code>.</li>
-<li>
-<code>bayes.Rmd</code> needs rstanarm → igraph at vignette-build time; a missing igraph fails the whole build. <code>rstan</code>, <code>rstanarm</code>, <code>brms</code> are Suggests “not available for checking” unless installed.</li>
-<li>CRAN submission built (concurve_3.0.0.tar.gz) but deliberately deferred by the maintainer at the final prompt; complete via <code><a href="https://devtools.r-lib.org/reference/submit_cran.html" class="external-link">devtools::submit_cran()</a></code>. CRAN’s incoming check will NOTE the 2022 archival — expected, explained in cran-comments.md.</li>
-<li>Intentionally uncommitted local files: <code>concurve.Rproj</code> (personal editor theme), <code>tests/testthat/Rplots.pdf</code>, <code>README.html</code>, <code>logistic.html</code>, <code>variancecomponents/*</code>.</li>
+<p><strong>3.0.3 is pending, not accepted.</strong> CRAN’s incoming queue is publicly browsable, which settles the question without waiting on email:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">sh</span> tools/cran-queue.sh   <span class="co"># checks every incoming folder + the package page</span></span></code></pre></div>
+<p>The script documents what each folder means, prints the action for whatever it finds, and exits 2 rather than advising if it cannot reach CRAN. Movement is driven by CRAN volunteers by hand, so no change over a few hours means nothing.</p>
+<p>A <strong>launchd agent</strong> checks this daily at 10:00 and notifies only when the status <em>changes</em> (installed 2026-09-04, at the maintainer’s request):</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">sh</span> tools/cran-queue-agent.sh status      <span class="co"># is it installed and loaded?</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">sh</span> tools/cran-queue-agent.sh uninstall   <span class="co"># remove it completely</span></span></code></pre></div>
+<p>Label <code>com.zad.concurve-cran-queue</code>; plist in <code>~/Library/LaunchAgents/</code> and state in <code>~/.local/state/concurve-cran/</code>, both outside the repo, so nothing about it is committed or shipped. If a background job appears to be contacting CRAN, this is it.</p>
+<p>On 2026-09-04 that put <code>concurve_3.0.3.tar.gz</code> in <strong><code>newbies/</code></strong> (awaiting manual review — where returning archived packages land), with 3.0.0, 3.0.1 and 3.0.2 in <code>archive/</code> as superseded attempts.</p>
+</li>
+<li><p><code><a href="reference/curve_lik_glm.html">curve_lik_glm()</a></code> in the pending 3.0.3 has a dispersion bug making intervals depend on the units of the response (up to 5x too narrow). A withdrawal email is drafted at <code>dev/cran-withdraw-3.0.3.md</code>, with an openable pre-addressed copy at <code>dev/cran-withdraw-3.0.3.eml</code> (<code>open dev/cran-withdraw-3.0.3.eml</code>). <strong>It must be sent by the maintainer from the registered address</strong>; CRAN authenticates on the From: header, so no one else can send it.</p></li>
+<li><p><code>.venv/</code> (a Python venv at the root) was inflating the tarball to 12 MB; now <code>.Rbuildignore</code>d along with <code>rstanlm/</code> and <code>stan_vs_nostan*</code>.</p></li>
+<li><p><code>bayes.Rmd</code> needs rstanarm → igraph at vignette-build time; a missing igraph fails the whole build. <code>rstan</code>, <code>rstanarm</code>, <code>brms</code> are Suggests “not available for checking” unless installed.</p></li>
+<li><p>Intentionally uncommitted local files: <code>concurve.Rproj</code> (personal editor theme), <code>tests/testthat/Rplots.pdf</code>, <code>tests/.DS_Store</code>, <code>vignettes/function2.pdf</code>, <code>README.html</code>, <code>logistic.html</code>, <code>variancecomponents/*</code>.</p></li>
+<li><p><strong><code>docs/</code> belongs to CI, not to hand commits.</strong> Every recent commit touching it is <code>GitHub Actions: Rebuild pkgdown site [skip ci]</code>, and <code>.github/workflows/pkgdown.yaml</code> deploys only from <code>master</code>. Building the site locally leaves ~176 modified files that the bot will redo, so discard that churn rather than committing it. While it sits there <code>git pull --rebase</code> refuses to run and needs a <code>git stash</code> first — which is exactly what happened pushing to this branch on 2026-09-04.</p></li>
 </ul></div>
 <div class="section level2">
 <h2 id="session-hygiene">Session hygiene<a class="anchor" aria-label="anchor" href="#session-hygiene"></a></h2>

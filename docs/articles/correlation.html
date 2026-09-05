@@ -52,7 +52,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.4</span>
       </span>
     </div>
 
@@ -280,17 +280,17 @@ columns <code><a href="../reference/curve_lik.html">curve_lik()</a></code> produ
 <span>  likelihood    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">ll</span><span class="op">)</span>, <span class="co"># raw profile likelihood         -&gt; type = "l3"</span></span>
 <span>  loglikelihood <span class="op">=</span> <span class="va">loglik_rel</span>, <span class="co"># relative log-likelihood         -&gt; type = "l2"</span></span>
 <span>  support       <span class="op">=</span> <span class="va">support</span>, <span class="co"># relative likelihood (0, 1]      -&gt; type = "l1"</span></span>
-<span>  deviancestat  <span class="op">=</span> <span class="op">-</span><span class="va">loglik_rel</span> <span class="co"># -log relative likelihood        -&gt; type = "d"</span></span>
+<span>  deviancestat  <span class="op">=</span> <span class="op">-</span><span class="fl">2</span> <span class="op">*</span> <span class="va">loglik_rel</span> <span class="co"># -2 log rel. likelihood       -&gt; type = "d"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">lik_rho</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"data.frame"</span>, <span class="st">"concurve"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">lik_rho</span><span class="op">)</span></span>
 <span><span class="co">#&gt;       values   likelihood loglikelihood      support deviancestat</span></span>
-<span><span class="co">#&gt; 1 -0.9500000 2.658658e-58     -59.03525 2.297821e-26     59.03525</span></span>
-<span><span class="co">#&gt; 2 -0.9468280 6.788766e-58     -58.09780 5.867384e-26     58.09780</span></span>
-<span><span class="co">#&gt; 3 -0.9436561 1.643237e-57     -57.21382 1.420214e-25     57.21382</span></span>
-<span><span class="co">#&gt; 4 -0.9404841 3.792590e-57     -56.37744 3.277853e-25     56.37744</span></span>
-<span><span class="co">#&gt; 5 -0.9373122 8.387765e-57     -55.58371 7.249364e-25     55.58371</span></span>
-<span><span class="co">#&gt; 6 -0.9341402 1.785096e-56     -54.82843 1.542820e-24     54.82843</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 -0.9500000 2.658658e-58     -59.03525 2.297821e-26     118.0705</span></span>
+<span><span class="co">#&gt; 2 -0.9468280 6.788766e-58     -58.09780 5.867384e-26     116.1956</span></span>
+<span><span class="co">#&gt; 3 -0.9436561 1.643237e-57     -57.21382 1.420214e-25     114.4276</span></span>
+<span><span class="co">#&gt; 4 -0.9404841 3.792590e-57     -56.37744 3.277853e-25     112.7549</span></span>
+<span><span class="co">#&gt; 5 -0.9373122 8.387765e-57     -55.58371 7.249364e-25     111.1674</span></span>
+<span><span class="co">#&gt; 6 -0.9341402 1.785096e-56     -54.82843 1.542820e-24     109.6569</span></span></code></pre></div>
 <p>This is exactly the object <code><a href="../reference/curve_lik.html">curve_lik()</a></code> hands back, so
 every downstream <code>concurve</code> verb works on it unchanged.</p>
 <div class="section level3">
@@ -442,7 +442,7 @@ it is the difference between two legitimate inferential summaries.<span class="c
 <span><span class="co">#&gt;   Rafi Z, Vigotsky A (2026). _concurve: Computes and Plots</span></span>
 <span><span class="co">#&gt;   Compatibility (Confidence) Intervals, P-Values, S-Values, &amp;</span></span>
 <span><span class="co">#&gt;   Likelihood Intervals to Form Consonance, Surprisal, &amp; Likelihood</span></span>
-<span><span class="co">#&gt;   Functions_. R package version 3.0.3,</span></span>
+<span><span class="co">#&gt;   Functions_. R package version 3.0.4,</span></span>
 <span><span class="co">#&gt;   &lt;https://CRAN.R-project.org/package=concurve&gt;.</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   Rafi Z, Greenland S (2020). "Semantic and Cognitive Tools to Aid</span></span>
