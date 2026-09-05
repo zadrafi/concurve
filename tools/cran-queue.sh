@@ -46,7 +46,16 @@ for d in $ALL_DIRS; do
     *" $d "*)
       if [ -n "$hit" ] && [ -z "$live_ver" ]; then
         live_dir=$d
-        live_ver=$(printf '%s\n' $hit | head -1 | sed "s/^${PKG}_//; s/\.tar\.gz$//")
+        # Highest version wins, compared numerically field by field. A
+        # plain lexical sort gets this wrong in the ordinary case: it
+        # would rank 3.0.3 before 3.0.4 and pick the older one. sort -V
+        # would do the job but is not portable (absent on some BSD
+        # sorts), so compare the dot-separated fields as numbers. The
+        # fourth field covers development versions like 3.0.0.9000.
+        live_ver=$(printf '%s\n' $hit \
+          | sed "s/^${PKG}_//; s/\.tar\.gz$//" \
+          | sort -t. -k1,1n -k2,2n -k3,3n -k4,4n \
+          | tail -1)
       fi
       ;;
   esac
