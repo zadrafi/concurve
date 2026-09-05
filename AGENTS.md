@@ -179,8 +179,24 @@ convention and was updated.
   sh tools/cran-queue.sh   # checks every incoming folder + the package page
   ```
 
-  The script documents what each folder means. Movement is driven by
-  CRAN volunteers by hand, so no change over a few hours means nothing.
+  The script documents what each folder means, prints the action for
+  whatever it finds, and exits 2 rather than advising if it cannot reach
+  CRAN. Movement is driven by CRAN volunteers by hand, so no change over
+  a few hours means nothing.
+
+  A **launchd agent** checks this daily at 10:00 and notifies only when
+  the status *changes* (installed 2026-09-04, at the maintainer's
+  request):
+
+  ``` sh
+  sh tools/cran-queue-agent.sh status      # is it installed and loaded?
+  sh tools/cran-queue-agent.sh uninstall   # remove it completely
+  ```
+
+  Label `com.zad.concurve-cran-queue`; plist in `~/Library/LaunchAgents/`
+  and state in `~/.local/state/concurve-cran/`, both outside the repo, so
+  nothing about it is committed or shipped. If a background job appears
+  to be contacting CRAN, this is it.
 
   On 2026-09-04 that put `concurve_3.0.3.tar.gz` in **`newbies/`**
   (awaiting manual review — where returning archived packages land),
