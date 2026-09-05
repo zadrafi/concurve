@@ -1,2 +1,9 @@
 *.html
 *.R
+
+# Written by the "Saving Plots" section of customizing.Rmd, which
+# demonstrates cowplot::save_plot() and svglite() by writing into this
+# directory. Nothing reads them back, so every knit shows them as
+# modified. The .png files here ARE inputs and stay tracked.
+function2.pdf
+pvalfunc.svg
