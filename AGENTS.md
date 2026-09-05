@@ -193,10 +193,11 @@ convention and was updated.
   sh tools/cran-queue-agent.sh uninstall   # remove it completely
   ```
 
-  Label `com.zad.concurve-cran-queue`; plist in `~/Library/LaunchAgents/`
-  and state in `~/.local/state/concurve-cran/`, both outside the repo, so
-  nothing about it is committed or shipped. If a background job appears
-  to be contacting CRAN, this is it.
+  Label `com.zad.concurve-cran-queue`; plist in
+  `~/Library/LaunchAgents/` and state in
+  `~/.local/state/concurve-cran/`, both outside the repo, so nothing
+  about it is committed or shipped. If a background job appears to be
+  contacting CRAN, this is it.
 
   On 2026-09-04 that put `concurve_3.0.3.tar.gz` in **`newbies/`**
   (awaiting manual review — where returning archived packages land),
@@ -276,3 +277,4 @@ Imports block ends at `rlang`.
   `Rscript -e "devtools::check(args = '--as-cran')"` from a terminal,
   then `R CMD build concurve` from `~` and inspect `tar -tzf` for stray
   files.
+

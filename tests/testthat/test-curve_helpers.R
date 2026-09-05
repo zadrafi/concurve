@@ -17,8 +17,10 @@ test_that("curve_from_ratio returns the concurve interval contract", {
   expect_identical(class(df), c("data.frame", "concurve"))
   expect_identical(
     names(df),
-    c("lower.limit", "upper.limit", "intrvl.width", "intrvl.level",
-      "cdf", "pvalue", "svalue")
+    c(
+      "lower.limit", "upper.limit", "intrvl.width", "intrvl.level",
+      "cdf", "pvalue", "svalue"
+    )
   )
   expect_identical(ncol(res[[2]]), 1L)
   expect_true(all(df$lower.limit > 0))

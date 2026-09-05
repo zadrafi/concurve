@@ -266,24 +266,33 @@ dep_table <- function(field) {
   }
   desc <- read.dcf(path)
   if (!field %in% colnames(desc)) {
-    return(data.frame(Package = character(), `Package Version` = character(),
-                      check.names = FALSE))
+    return(data.frame(
+      Package = character(), `Package Version` = character(),
+      check.names = FALSE
+    ))
   }
   raw <- desc[1, field]
   if (is.na(raw)) {
-    return(data.frame(Package = character(), `Package Version` = character(),
-                      check.names = FALSE))
+    return(data.frame(
+      Package = character(), `Package Version` = character(),
+      check.names = FALSE
+    ))
   }
   pkgs <- trimws(gsub("\\(.*?\\)", "", strsplit(raw, ",")[[1]]))
   pkgs <- sort(pkgs[nzchar(pkgs) & pkgs != "R"])
   ver <- vapply(
     pkgs,
-    function(p) tryCatch(as.character(utils::packageVersion(p)),
-                         error = function(e) "not installed"),
+    function(p) {
+      tryCatch(as.character(utils::packageVersion(p)),
+        error = function(e) "not installed"
+      )
+    },
     character(1)
   )
-  data.frame(Package = pkgs, `Package Version` = ver,
-             row.names = NULL, check.names = FALSE)
+  data.frame(
+    Package = pkgs, `Package Version` = ver,
+    row.names = NULL, check.names = FALSE
+  )
 }
 
 kable(dep_table("Imports"),

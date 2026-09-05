@@ -58,7 +58,8 @@ matching prior. It is not justified for arbitrary Bayesian models; see
 set.seed(4821)
 y <- rnorm(12, 3.2, 1.4)
 gfd <- curve_stan_fit(
-  "normal_gfd", data = list(N = length(y), y = y), parameter = "mu",
+  "normal_gfd",
+  data = list(N = length(y), y = y), parameter = "mu",
   chains = 4, iter = 22000, warmup = 2000, seed = 1859
 )
 ggcurve(gfd[[1]], type = "c")
