@@ -21,3 +21,8 @@ dev/root-cleanup-*/
 /shared/
 
 inst/stan/*.rds
+
+# R's default graphics device drops Rplots.pdf wherever it happens to be
+# running -- tests/testthat/ during a test run, the root during a check.
+# Nothing reads it. Unanchored so it is caught in any directory.
+Rplots.pdf
