@@ -9,28 +9,46 @@
 # volunteers acting by hand, not by a queue runner, so nothing changing
 # over a few hours means nothing.
 #
-# The recommended action printed at the end mirrors the decision table in
-# AGENTS.md ("State"). It assumes the situation as of 2026-09-04: 3.0.3 is
-# in the queue with a known curve_lik_glm() dispersion bug, a withdrawal
-# request has been drafted at dev/cran-withdraw-3.0.3.md, and
-# release/3.0.4 holds the fix. Revisit this script once that resolves.
+# The version under review is DISCOVERED from the queue rather than pinned
+# in this file, so the script does not go stale when a submission
+# resolves. Anything in archive/ is historical -- rejected, withdrawn, or
+# superseded -- so the live submission is whatever sits in one of the
+# other folders.
+#
+# The one piece of version-specific advice is the withdrawal note for
+# 3.0.3, which carries a known curve_lik_glm() dispersion bug. It is gated
+# on 3.0.3 actually being the version in the queue, so it disappears by
+# itself once that resolves. See AGENTS.md, "State".
 
 set -u
 
 PKG=concurve
-PENDING_VERSION=3.0.3
-DIRS="pretest newbies inspect pending recheck waiting publish archive special"
 BASE=https://cran.r-project.org/incoming
+QUEUE_DIRS="pretest newbies inspect pending recheck waiting publish"
+ALL_DIRS="$QUEUE_DIRS archive special"
 
-printf '%s incoming queue, %s\n\n' "$PKG" "$(date -u '+%Y-%m-%d %H:%M UTC')"
+ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." 2>/dev/null && pwd) || ROOT=.
+src_ver=$(awk '/^Version:/ {print $2; exit}' "$ROOT/DESCRIPTION" 2>/dev/null)
 
-where=""
-for d in $DIRS; do
+printf '%s incoming queue, %s\n' "$PKG" "$(date -u '+%Y-%m-%d %H:%M UTC')"
+[ -n "$src_ver" ] && printf 'local source is at %s\n' "$src_ver"
+echo
+
+live_dir=""
+live_ver=""
+for d in $ALL_DIRS; do
   hit=$(curl -sS --max-time 25 "$BASE/$d/" 2>/dev/null \
         | grep -io "${PKG}_[0-9][0-9.]*\.tar\.gz" | sort -u | tr '\n' ' ')
   printf '  %-10s %s\n' "$d/" "${hit:-—}"
-  case "$hit" in
-    *"${PKG}_${PENDING_VERSION}.tar.gz"*) where="$d" ;;
+
+  # A submission anywhere but archive/ is the one still under review.
+  case " $QUEUE_DIRS " in
+    *" $d "*)
+      if [ -n "$hit" ] && [ -z "$live_ver" ]; then
+        live_dir=$d
+        live_ver=$(printf '%s\n' $hit | head -1 | sed "s/^${PKG}_//; s/\.tar\.gz$//")
+      fi
+      ;;
   esac
 done
 
@@ -46,51 +64,57 @@ fi
 
 echo
 echo "-------------------------------------------------------------------"
-printf '%s %s is ' "$PKG" "$PENDING_VERSION"
-case "$where" in
-  pretest|newbies)
-    echo "in ${where}/ -- still queued."
+
+if [ -z "$live_ver" ]; then
+  if [ "$on_cran" = yes ]; then
+    echo "Nothing of $PKG is in the queue, and the package page is live."
     echo
-    echo "ACTION: nothing to do. It is awaiting manual review; returning"
-    echo "  archived packages land in newbies/. If the withdrawal request"
-    echo "  has not been sent yet, send it:"
+    echo "ACTION: the last submission published. Any fix in hand becomes a"
+    echo "  normal follow-up release -- bump the version, update"
+    echo "  cran-comments.md, and submit when ready."
+  else
+    echo "Nothing of $PKG is in the queue, but the page still shows removed."
+    echo
+    echo "ACTION: ambiguous. Check email for a CRAN decision before doing"
+    echo "  anything; a rejection does not always leave a trace in archive/."
+  fi
+else
+  printf '%s %s is in %s/' "$PKG" "$live_ver" "$live_dir"
+  [ -n "$src_ver" ] && [ "$src_ver" != "$live_ver" ] \
+    && printf ' (local source is ahead, at %s)' "$src_ver"
+  echo "."
+  echo
+
+  case "$live_dir" in
+    pretest|newbies)
+      echo "ACTION: nothing to do -- it is awaiting review. Returning"
+      echo "  archived packages land in newbies/. Do not submit a newer"
+      echo "  version while this sits here: a version number cannot be"
+      echo "  reused with different contents, and CRAN asks maintainers not"
+      echo "  to resubmit while a submission is pending."
+      ;;
+    inspect|pending|recheck|waiting)
+      echo "ACTION: a reviewer has it open. Expect email and reply the same"
+      echo "  day -- concurve was archived in 2022 for slow responses, so"
+      echo "  turnaround is itself being assessed. Do not submit meanwhile."
+      ;;
+    publish)
+      echo "ACTION: accepted, about to appear on CRAN. Any fix in hand"
+      echo "  becomes a follow-up release. A correctness bug justifies a"
+      echo "  shorter interval than CRAN's usual 1-2 months between"
+      echo "  releases; say so in cran-comments.md."
+      ;;
+  esac
+
+  # Version-specific: 3.0.3 has a known dispersion bug in curve_lik_glm().
+  if [ "$live_ver" = "3.0.3" ]; then
+    echo
+    echo "  NOTE, specific to 3.0.3: it carries a curve_lik_glm() dispersion"
+    echo "  bug making support intervals depend on the units of the response"
+    echo "  (up to 5x too narrow). release/3.0.4 has the fix. If the"
+    echo "  withdrawal request has not been sent yet:"
     echo "      open dev/cran-withdraw-3.0.3.eml"
-    echo "  Do not submit 3.0.4 while this sits here."
-    ;;
-  inspect|pending|recheck|waiting)
-    echo "in ${where}/ -- a reviewer has it open."
-    echo
-    echo "ACTION: expect an email from a CRAN volunteer, and reply the same"
-    echo "  day. concurve was archived in 2022 for slow responses, so"
-    echo "  turnaround is itself being assessed. Still do not submit 3.0.4."
-    ;;
-  publish)
-    echo "in publish/ -- accepted, about to appear on CRAN."
-    echo
-    echo "ACTION: the withdrawal did not land in time. 3.0.4 becomes a fast"
-    echo "  bug-fix follow-up; the curve_lik_glm() dispersion bug (intervals"
-    echo "  up to 5x too narrow, depending on the units of the response)"
-    echo "  justifies the short interval. Merge release/3.0.4 and submit."
-    ;;
-  archive)
-    echo "in archive/ -- withdrawn, rejected, or superseded."
-    echo
-    echo "ACTION: the way is clear for 3.0.4. Merge release/3.0.4 (draft"
-    echo "  PR #60), confirm CI is green, then:"
-    echo "      devtools::submit_cran()"
-    echo "  cran-comments.md is already written for 3.0.4."
-    ;;
-  "")
-    if [ "$on_cran" = yes ]; then
-      echo "not in the queue, and the package page is live -- it published."
-      echo
-      echo "ACTION: treat 3.0.4 as a follow-up release; see the publish/ case."
-    else
-      echo "not in the queue, but the page still shows as archived."
-      echo
-      echo "ACTION: ambiguous. Check email for a CRAN decision before doing"
-      echo "  anything -- it may have been rejected without reaching archive/."
-    fi
-    ;;
-esac
+    echo "  It must come from the maintainer's registered address."
+  fi
+fi
 echo "-------------------------------------------------------------------"
