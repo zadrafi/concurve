@@ -156,8 +156,21 @@ convention and was updated.
 ## State (as of 2026-09-04)
 
 - **`master` is 3.0.3** and deliberately matches the tarball CRAN is
-  reviewing. **`release/3.0.4`** carries everything since (PR #60, kept
-  as a draft). Do not merge until CRAN resolves 3.0.3.
+  reviewing; leave it alone until that resolves. **`release/3.0.4`**
+  carries everything since: 13 commits behind draft PR #60, green on all
+  five CI platforms, and `R CMD check --as-cran` at a single expected
+  NOTE (with a modern HTML Tidy on `PATH` — see above).
+
+  Do not merge, and do not submit anything, while 3.0.3 is in the queue.
+  A version number cannot be reused with different contents, and CRAN
+  asks maintainers not to resubmit while a submission is pending. When
+  3.0.3 leaves `newbies/`:
+
+  | It lands in | Then |
+  |----|----|
+  | `archive/` | Withdrawn or rejected. Merge `release/3.0.4` and submit 3.0.4. |
+  | `publish/` | Accepted before the withdrawal was read. 3.0.4 becomes a fast bug-fix follow-up; the `curve_lik_glm()` dispersion bug is the justification for the short interval. |
+  | `pending/` or `inspect/` | A reviewer has it open; expect email, reply the same day. |
 
 - **3.0.3 is pending, not accepted.** CRAN's incoming queue is publicly
   browsable, which settles the question without waiting on email:
@@ -175,9 +188,11 @@ convention and was updated.
 
 - `curve_lik_glm()` in the pending 3.0.3 has a dispersion bug making
   intervals depend on the units of the response (up to 5x too narrow). A
-  withdrawal email is drafted at `dev/cran-withdraw-3.0.3.md`. **It must
-  be sent by the maintainer from the registered address**; CRAN
-  authenticates on the From: header.
+  withdrawal email is drafted at `dev/cran-withdraw-3.0.3.md`, with an
+  openable pre-addressed copy at `dev/cran-withdraw-3.0.3.eml`
+  (`open dev/cran-withdraw-3.0.3.eml`). **It must be sent by the
+  maintainer from the registered address**; CRAN authenticates on the
+  From: header, so no one else can send it.
 
 - `.venv/` (a Python venv at the root) was inflating the tarball to 12
   MB; now `.Rbuildignore`d along with `rstanlm/` and `stan_vs_nostan*`.
@@ -187,8 +202,17 @@ convention and was updated.
   "not available for checking" unless installed.
 
 - Intentionally uncommitted local files: `concurve.Rproj` (personal
-  editor theme), `tests/testthat/Rplots.pdf`, `README.html`,
-  `logistic.html`, `variancecomponents/*`.
+  editor theme), `tests/testthat/Rplots.pdf`, `tests/.DS_Store`,
+  `vignettes/function2.pdf`, `README.html`, `logistic.html`,
+  `variancecomponents/*`.
+
+- **`docs/` belongs to CI, not to hand commits.** Every recent commit
+  touching it is `GitHub Actions: Rebuild pkgdown site [skip ci]`, and
+  `.github/workflows/pkgdown.yaml` deploys only from `master`. Building
+  the site locally leaves \~176 modified files that the bot will redo,
+  so discard that churn rather than committing it. While it sits there
+  `git pull --rebase` refuses to run and needs a `git stash` first —
+  which is exactly what happened pushing to this branch on 2026-09-04.
 
 ## Session hygiene
 
