@@ -15,6 +15,12 @@
 # superseded -- so the live submission is whatever sits in one of the
 # other folders.
 #
+# A failed fetch is reported as a failure, never as an empty folder: an
+# unreachable CRAN would otherwise read as "nothing is queued", which is
+# the one wrong answer that could lead to submitting on top of a pending
+# submission. If any fetch fails the script says so, withholds its
+# recommendation, and exits 2.
+#
 # The one piece of version-specific advice is the withdrawal note for
 # 3.0.3, which carries a known curve_lik_glm() dispersion bug. It is gated
 # on 3.0.3 actually being the version in the queue, so it disappears by
@@ -23,7 +29,9 @@
 set -u
 
 PKG=concurve
-BASE=https://cran.r-project.org/incoming
+# Overridable so the failure path can be exercised against a dead host.
+BASE=${CRAN_INCOMING_BASE:-https://cran.r-project.org/incoming}
+PKG_PAGE=${CRAN_PKG_PAGE:-https://cran.r-project.org/web/packages/$PKG/index.html}
 QUEUE_DIRS="pretest newbies inspect pending recheck waiting publish"
 ALL_DIRS="$QUEUE_DIRS archive special"
 
@@ -34,10 +42,21 @@ printf '%s incoming queue, %s\n' "$PKG" "$(date -u '+%Y-%m-%d %H:%M UTC')"
 [ -n "$src_ver" ] && printf 'local source is at %s\n' "$src_ver"
 echo
 
+fetch_failed=0
 live_dir=""
 live_ver=""
+
 for d in $ALL_DIRS; do
-  hit=$(curl -sS --max-time 25 "$BASE/$d/" 2>/dev/null \
+  # --fail turns HTTP >= 400 into a non-zero exit, so a 404 or a network
+  # error are both caught here rather than silently yielding no matches.
+  listing=$(curl -sS --fail --max-time 25 "$BASE/$d/" 2>/dev/null)
+  if [ $? -ne 0 ]; then
+    printf '  %-10s %s\n' "$d/" "!! could not fetch"
+    fetch_failed=1
+    continue
+  fi
+
+  hit=$(printf '%s\n' "$listing" \
         | grep -io "${PKG}_[0-9][0-9.]*\.tar\.gz" | sort -u | tr '\n' ' ')
   printf '  %-10s %s\n' "$d/" "${hit:-—}"
 
@@ -62,8 +81,12 @@ for d in $ALL_DIRS; do
 done
 
 printf '\nOn CRAN now? '
-if curl -sS --max-time 25 "https://cran.r-project.org/web/packages/$PKG/index.html" 2>/dev/null \
-     | grep -q "was removed from the CRAN repository"; then
+page=$(curl -sS --fail --max-time 25 "$PKG_PAGE" 2>/dev/null)
+if [ $? -ne 0 ]; then
+  on_cran=unknown
+  fetch_failed=1
+  echo "could not fetch the package page"
+elif printf '%s\n' "$page" | grep -q "was removed from the CRAN repository"; then
   on_cran=no
   echo "no - the package page still reports removal"
 else
@@ -73,6 +96,16 @@ fi
 
 echo
 echo "-------------------------------------------------------------------"
+
+if [ "$fetch_failed" -eq 1 ]; then
+  echo "INCOMPLETE: at least one request failed, so this listing cannot be"
+  echo "trusted. A folder shown as unfetched may well hold a submission."
+  echo
+  echo "ACTION: none. Do not read this as 'nothing is queued' and do not"
+  echo "  submit on the strength of it. Check the network and re-run."
+  echo "-------------------------------------------------------------------"
+  exit 2
+fi
 
 if [ -z "$live_ver" ]; then
   if [ "$on_cran" = yes ]; then
