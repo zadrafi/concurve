@@ -222,17 +222,30 @@ convention and was updated.
   and spelling ones (next bullet). Also `brms` was "suggested but not
   available for checking".
 
-- **win-builder r-release: `Status: 1 NOTE`** (2026-09-09, R 4.6.1,
-  results at `https://win-builder.r-project.org/HGvI2DeFJ3SV/`; the
-  r-devel submission has its own separate URL). The one NOTE is incoming
-  feasibility — "New submission", "Package was archived on CRAN", the
-  `X-CRAN-Comment` archival override, and the five DESCRIPTION words
-  (Hjort, NL, Rafi, Schweder, Surprisal). All of it is pre-addressed in
-  `cran-comments.md`, and the archival line cannot be cleared from this
-  end. Everything else passed, including examples, both test files,
-  vignette re-building (168s), and **both the PDF and HTML manuals** —
-  the HTML one matters because an invalid image width there was one of
-  the three 2022 archival issues.
+- **win-builder r-release *and* r-devel both `Status: 1 NOTE`**
+  (2026-09-09): r-release on R 4.6.1 at
+  `https://win-builder.r-project.org/HGvI2DeFJ3SV/`, r-devel on r90509
+  (4.7.0) at `https://win-builder.r-project.org/z2yIvlB9M0RO/`. Nothing
+  r-devel-specific appeared — the NOTE is identical on both. Results
+  directories are deleted after \~72 hours. The first
+  `check_win_devel()` call produced no result, so it probably never
+  landed; a re-submission came back in \~10 minutes.
+  `check_win_*(quiet = TRUE)` hides the confirmation, and
+  `quiet = FALSE` *blocks* on `confirm_maintainer_email()` in an
+  interactive console — use
+  `withr::with_options(list(rlang_interactive = FALSE), ...)` to get the
+  messages without the prompt, and confirm the upload landed with
+  `curl -sS --list-only ftp://win-builder.r-project.org/R-devel/`
+  (uploaded names are public; the file disappears once processed).
+
+  The one NOTE is incoming feasibility — "New submission", "Package was
+  archived on CRAN", the `X-CRAN-Comment` archival override, and the
+  five DESCRIPTION words (Hjort, NL, Rafi, Schweder, Surprisal). All of
+  it is pre-addressed in `cran-comments.md`, and the archival line
+  cannot be cleared from this end. Everything else passed, including
+  examples, both test files, vignette re-building (168s), and **both the
+  PDF and HTML manuals** — the HTML one matters because an invalid image
+  width there was one of the three 2022 archival issues.
 
   The `stat.lesslikely.com` URL NOTE from the 3.0.3 pretest did *not*
   appear, but win-builder's log has no URL-checking step at all, so that
@@ -311,6 +324,7 @@ Imports block ends at `rlang`.
   `d96f4af` (fixed in `0b8d857`). Nothing automated ever ran it — no
   cron, no Makefile target, no `dev_check.R` call; it was always a
   console `source()`/paste.
+
   - The harmful defaults are fixed: dependencies go to `Suggests`;
     `manage_build_ignores()` no longer touches `references.bib` /
     `american-medical-association.csl` and uses the default
@@ -322,19 +336,57 @@ Imports block ends at `rlang`.
     check use `dev_check.R`.
   - **If `usethis.R` reappears at the package root, that is the old
     destructive copy** — do not source it.
+
+- **`.Rbuildignore` has no comments, and unanchored lines match
+  substrings.** Every line is a PCRE regex passed to
+  `grepl(pattern, files, perl = TRUE, ignore.case = TRUE)`.
+
+  - A `#` line is *not* a comment, it is a pattern. On 2026-09-09 an
+    explanatory `#` line containing an unbalanced `(` raised "PCRE
+    pattern compilation error / missing closing parenthesis" and
+    **aborted `R CMD build`**. Keep the file pure patterns and put the
+    rationale here instead.
+  - An unanchored line matches anywhere in the *relative* path. The bare
+    `docs` entry was silently excluding `inst/assets/docsearch.css` and
+    `pkgdown` was excluding `inst/assets/pkgdown.css`; conversely
+    `^bayes\.Rmd$` does **not** match `vignettes/bayes.Rmd` — only the
+    bare `bayes.Rmd` line did. Four vignette sources (bayes, examples,
+    supported, wishlist) were kept out of the tarball purely by such
+    accidental substring matches.
+
+  Cleaned up 2026-09-09 (105 → 79 lines): the duplicated unanchored
+  block is gone, replaced by explicit
+  `^vignettes/(bayes|examples|supported|wishlist)\.Rmd$`,
+  `^inst/assets/(docsearch|pkgdown)\.(css|js)$` and
+  `^inst/templates/(config-)?docsearch\.(json|html)$`; `^\.posit$`
+  replaced `^\.posit/assistant$` (the narrower rule left an empty
+  `.posit` shell for the build to prune, hence the recurring "Removed
+  empty directory" message). `inst/assets/bootstrap*.css|js` still ship
+  while the pkgdown/docsearch ones do not — inherited asymmetry, not a
+  decision. Verify any change to this file by diffing the tarball file
+  list, never by reading the regexes:
+
+  ``` r
+  before <- untar(pkgbuild::build(".", tempdir(), vignettes = FALSE), list = TRUE)
+  # edit .Rbuildignore, rebuild into `after`, then
+  setequal(before, after)   # TRUE = contents unchanged (155 files)
+  ```
+
 - RStudio on this machine writes its session state to `<root>/AB4607D1/`
   and `<root>/shared/` (not `.Rproj.user/`). Both are in `.Rbuildignore`
   and `.gitignore`; do not "clean them up" by hand, they come back on
   relaunch.
+
 - Only one process may install/check at a time. Two concurrent installs
   produce "S3 methods ... declared in NAMESPACE but not found" from the
   library copy; fix with
   `remove.packages("concurve"); devtools::install()`.
+
 - `tests/testthat/Untitled.R` is a real test file (curve_from_ratio) but
   is NOT run by testthat (name must start with `test`). Rename once
   verified.
+
 - Release check that is trusted: quit RStudio, then
   `Rscript -e "devtools::check(args = '--as-cran')"` from a terminal,
   then `R CMD build concurve` from `~` and inspect `tar -tzf` for stray
   files.
-
