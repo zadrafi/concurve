@@ -45,6 +45,7 @@ echo
 fetch_failed=0
 live_dir=""
 live_ver=""
+archive_top=""
 
 for d in $ALL_DIRS; do
   # --fail turns HTTP >= 400 into a non-zero exit, so a 404 or a network
@@ -59,6 +60,16 @@ for d in $ALL_DIRS; do
   hit=$(printf '%s\n' "$listing" \
         | grep -io "${PKG}_[0-9][0-9.]*\.tar\.gz" | sort -u | tr '\n' ' ')
   printf '  %-10s %s\n' "$d/" "${hit:-—}"
+
+  # archive/ is where withdrawn, rejected and superseded uploads land.
+  # Recording its highest version lets the empty-queue case below tell a
+  # clean withdrawal from a submission that vanished without trace.
+  if [ "$d" = archive ] && [ -n "$hit" ]; then
+    archive_top=$(printf '%s\n' $hit \
+      | sed "s/^${PKG}_//; s/\.tar\.gz$//" \
+      | sort -t. -k1,1n -k2,2n -k3,3n -k4,4n \
+      | tail -1)
+  fi
 
   # A submission anywhere but archive/ is the one still under review.
   case " $QUEUE_DIRS " in
@@ -114,8 +125,24 @@ if [ -z "$live_ver" ]; then
     echo "ACTION: the last submission published. Any fix in hand becomes a"
     echo "  normal follow-up release -- bump the version, update"
     echo "  cran-comments.md, and submit when ready."
+  elif [ -n "$archive_top" ] && [ -n "$src_ver" ] \
+       && [ "$(printf '%s\n%s\n' "$archive_top" "$src_ver" \
+               | sort -t. -k1,1n -k2,2n -k3,3n -k4,4n | tail -1)" = "$src_ver" ] \
+       && [ "$archive_top" != "$src_ver" ]; then
+    # Queue empty, the highest archived upload is BELOW the local source,
+    # and the package is not on CRAN. The previous submission was
+    # withdrawn, rejected or superseded, and its version number is spent.
+    printf 'Queue empty. Highest archived upload is %s; local source is %s.\n' \
+      "$archive_top" "$src_ver"
+    echo
+    echo "ACTION: the previous submission is resolved and its version number"
+    printf '  is consumed, so %s is free to submit. Confirm the outcome in\n' "$src_ver"
+    echo "  email if you have not already (archive/ does not say whether it"
+    echo "  was withdrawn or rejected), then check and submit:"
+    echo "      devtools::submit_cran()"
   else
     echo "Nothing of $PKG is in the queue, but the page still shows removed."
+    [ -n "$archive_top" ] && printf '  Highest archived upload: %s.\n' "$archive_top"
     echo
     echo "ACTION: ambiguous. Check email for a CRAN decision before doing"
     echo "  anything; a rejection does not always leave a trace in archive/."
