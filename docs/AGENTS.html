@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">concurve</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.5</span>
       </span>
     </div>
 
@@ -176,7 +176,7 @@
 </tr></tbody></table></div>
 <div class="section level2">
 <h2 id="the-dev-convention-critical">The dev/ convention (critical)<a class="anchor" aria-label="anchor" href="#the-dev-convention-critical"></a></h2>
-<p>Scripts with <strong>top-level executable code</strong> — <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code>, <code><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed()</a></code>, <code><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat()</a></code>, <code><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot()</a></code>, <code><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv()</a></code>, <code>ggsave()</code>, Stan compilation — belong in <code>dev/</code>, never <code>R/</code>. (A top-level <code><a href="https://rdrr.io/r/base/environment.html" class="external-link">new.env()</a></code> assignment for a cache, as in <code>R/curve_stan.R</code>, is a definition and is fine.) Top-level code in <code>R/</code> executes during <code>R CMD INSTALL</code> / <code><a href="https://pkgload.r-lib.org/reference/load_all.html" class="external-link">pkgload::load_all()</a></code> and breaks the build (e.g. <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library(cmdstanr)</a></code> fails at install; <code>pkg::fun()</code> self-references fail during load_all). Detection scan:</p>
+<p>Scripts with <strong>top-level executable code</strong> — <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code>, <code><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed()</a></code>, <code><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat()</a></code>, <code><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot()</a></code>, <code><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv()</a></code>, <code>ggsave()</code>, Stan compilation — belong in <code>dev/</code>, never <code>R/</code>. (A top-level <code><a href="https://rdrr.io/r/base/environment.html" class="external-link">new.env()</a></code> assignment for a cache, as in <code>R/curve_stan.R</code>, is a definition and is fine.) Top-level code in <code>R/</code> executes during <code>R CMD INSTALL</code> / <code><a href="https://pkgload.r-lib.org/reference/load_all.html" class="external-link">pkgload::load_all()</a></code> and breaks the build (e.g. <code><a href="https://mc-stan.org/cmdstanr/" class="external-link">library(cmdstanr)</a></code> fails at install; <code>pkg::fun()</code> self-references fail during load_all). Detection scan:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="cf">for</span> f <span class="kw">in</span> R/<span class="pp">*</span>.R<span class="kw">;</span> <span class="cf">do</span></span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  <span class="fu">grep</span> <span class="at">-lE</span> <span class="st">"^(library|set\.seed|cat|print|stopifnot|write\.csv|system|require)\("</span> <span class="st">"</span><span class="va">$f</span><span class="st">"</span></span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div>
@@ -281,19 +281,17 @@
 </td>
 <td>220 call sites, 0 classed conditions</td>
 <td>Makes errors testable; <code>cli</code> would move to Imports</td>
-</tr><tr><td>
-<code><a href="https://rdrr.io/r/utils/globalVariables.html" class="external-link">utils::globalVariables()</a></code> → <code>.data</code> pronoun</td>
-<td>20 declarations</td>
-<td>
-<code>R/curve_helpers.R</code> even lists <code>".data"</code> <em>inside</em> <code><a href="https://rdrr.io/r/utils/globalVariables.html" class="external-link">globalVariables()</a></code>, which is a smell; <code>R/utils-tidy-eval.R</code> already exists</td>
+</tr><tr><td><del><code><a href="https://rdrr.io/r/utils/globalVariables.html" class="external-link">utils::globalVariables()</a></code> → <code>.data</code> pronoun</del></td>
+<td><strong>done on <code>release/3.0.5</code></strong></td>
+<td>All 20 removed; only 5 functions needed <code>.data</code>. See the note below</td>
 </tr><tr><td>
 <code><a href="https://rdrr.io/r/base/match.arg.html" class="external-link">match.arg()</a></code> / bare strings → <code><a href="https://rlang.r-lib.org/reference/arg_match.html" class="external-link">rlang::arg_match()</a></code>
 </td>
 <td>0 uses of either today</td>
 <td>See the <code><a href="reference/curve_table.html">curve_table()</a></code> bugs below</td>
-</tr><tr><td><code>Config/testthat/edition: 3</code></td>
-<td>absent from DESCRIPTION</td>
-<td>Edition 2 semantics today. Switching changes comparisons to waldo and turns some deprecations into errors, so run the 11 test files before trusting it</td>
+</tr><tr><td><del><code>Config/testthat/edition: 3</code></del></td>
+<td><strong>done on <code>release/3.0.5</code></strong></td>
+<td>See the fallout note below</td>
 </tr><tr><td>
 <code>%&gt;%</code> → <code>|&gt;</code>
 </td>
@@ -311,13 +309,31 @@
 <code>@family</code> tags</td>
 <td>0 (49 <code>@seealso</code> instead)</td>
 <td>Would group the <code>curve_*</code> family in the pkgdown index</td>
-</tr></tbody></table><p>Two <strong>behaviour</strong> bugs found in <code>R/curve_table.R</code> during the audit. These are not style issues and each changes output, so they need their own release and a NEWS entry:</p>
+</tr></tbody></table><p><strong>testthat 3rd edition (adopted on <code>release/3.0.5</code>).</strong> The switch is one DESCRIPTION line but it changed three things in the suite, all of which had been hiding real problems:</p>
 <ul><li>
-<p><strong>The documented <code>levels</code> argument has never worked.</strong> Both branches overwrite it immediately — <code>levels &lt;- c(0.25, 0.50, ...)</code> for <code>type = "c"</code> and <code>levels &lt;- c(0.03, 0.05, 0.12, 0.14)</code> for <code>type = "l"</code> — so a user-supplied value is silently discarded. <code>git blame</code> puts the overwrite in <code>19c4529d</code> (2019-12-02), the commit that introduced the function, so it was born this way rather than regressing. <code>R CMD check</code> cannot see it.</p>
-<p>Every internal caller (<code>curve_gen</code>, <code>curve_corr</code>, <code>curve_mean</code>, <code>curve_surv</code>, <code>curve_rstar</code>, <code>curve_stan</code>, <code>curve_analytic</code>, <code>curve_wrap</code>, <code>curve_likelihood</code>) assigns <em>exactly</em> the same constant vector on the line above and then passes it positionally, so honouring the argument would not change any internal result — that redundancy is what makes the fix low-risk. But <code>levels</code> has no default and every documented/vignette call omits it, so forcing the promise would error; a fix has to add a default (<code>levels = NULL</code> → the conventional set for the given <code>type</code>).</p>
-</li>
-<li><p><strong><code>type</code> and <code>format</code> are unvalidated.</strong> A <code>type</code> outside <code>c("c", "l")</code> leaves <code>subdf</code> undefined and errors obscurely; an unmatched <code>format</code> falls through every branch and returns <code>NULL</code> invisibly. This is what <code><a href="https://rlang.r-lib.org/reference/arg_match.html" class="external-link">rlang::arg_match()</a></code> is for.</p></li>
-</ul></div>
+<code>expect_equal(x, y, tolerance = 2 * grid_step(lik))</code> broke in <code>test-curve_likelihood.R</code>. Edition 2 passed <code>tolerance</code> to <code><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal()</a></code>, which compares the <em>mean relative</em> difference over the whole vector; edition 3 uses waldo, which applies it per element. The Gamma inverse-link case has one endpoint near zero (0.0256 vs 0.0263), a 2.7% relative gap that the vector-averaged form absorbed. All seven of these comparisons now read <code>expect_lt(max(abs(a - b)), 2 * grid_step(lik))</code>, which says what was meant — endpoints within two grid steps — and is edition-independent.</li>
+<li>
+<code>expect_equivalent(str(bob[[1]]), str(sampledf))</code> in <code>testdfstructure.R</code> (3 sites) was <strong>vacuous</strong>: <code><a href="https://rdrr.io/r/utils/str.html" class="external-link">str()</a></code> returns <code>NULL</code> invisibly, so it compared <code>NULL</code> to <code>NULL</code> and could never fail. It was also the source of the <code><a href="https://rdrr.io/r/utils/str.html" class="external-link">str()</a></code> dumps in the test log. Now <code>expect_setequal(names(...), columnnames)</code>; <code>setequal</code> rather than <code>expect_named</code> because <code><a href="reference/curve_meta.html">curve_meta()</a></code> returns the columns in a different order.</li>
+<li>
+<code>context()</code> (3 files: <code>testdfstructure.R</code>, <code>tests3class.R</code>, <code>test-curve_rstar_mpl.R</code>) is deprecated in 3e and removed.</li>
+</ul><p>Result: <code>FAIL 0 | WARN 0 | SKIP 11 | PASS 256</code>.</p>
+<p><strong>The <code>.data</code> migration (done on <code>release/3.0.5</code>).</strong> Delete the declarations first and let <code>R CMD check</code> tell you which were load-bearing — that is the only authoritative list. Of the 20 declarations across 17 files, only five functions referenced anything: <code>curve_compare</code>, <code>curve_meta</code>, <code>ggcurve</code>, <code>ggplot_likelihood</code>, <code>plot_compare</code>. Three quarters were dead weight. Two traps:</p>
+<ul><li>
+<strong><code>pivot_longer(df, lower.limit:upper.limit)</code> is a tidyselect <em>range</em>, not an <code>aes()</code> reference</strong>, so <code>.data$</code> does not apply (<code>.data$a:.data$b</code> is invalid). Those became <code>c("lower.limit", "upper.limit")</code>; same for <code>X2:X3</code> in <code><a href="reference/ggcurve.html">ggcurve()</a></code>.</li>
+<li>
+<strong><code>globalVariables("res")</code> was masking a real bug</strong> in <code><a href="reference/curve_meta.html">curve_meta()</a></code>’s <code>mv</code> branch — see NEWS for 3.0.5. Declaring a name silences the checker without making the code work, so treat every entry as a possible hidden bug rather than boilerplate. A leftover <code>res</code> in the calling environment (an <code>rcmdcheck</code> object, in this session) is enough to hide it interactively.</li>
+</ul><p>Two <strong>behaviour</strong> bugs were found in <code>R/curve_table.R</code> during the audit. <strong>Both are fixed on <code>release/3.0.5</code></strong>; neither was visible to <code>R CMD check</code>, so this is the record of what they were.</p>
+<ul><li>
+<p><strong>The documented <code>levels</code> argument never worked</strong> (fixed in <code>b6894f6</code>). Both branches overwrote it on entry — <code>levels &lt;- c(0.25, 0.50, ...)</code> for <code>type = "c"</code>, <code>levels &lt;- c(0.03, 0.05, 0.12, 0.14)</code> for <code>type = "l"</code> — so a user-supplied value was silently discarded. <code>git blame</code> puts the overwrite in <code>19c4529d</code> (2019-12-02), the commit that introduced the function: it was born this way, never regressed.</p>
+<p>The fix is <code>levels = NULL</code> selecting the conventional set. Two things the audit got wrong, both found only by running the suite:</p>
+<ul><li>
+<strong>There are 20 call sites across 15 files, not the nine first counted.</strong> <code>curve_boot.R</code> alone has five, and <code>curve_lik.R</code>, <code>curve_lmer.R</code> and <code>curve_meta.R</code> were missed entirely by a hand-picked <code>for f in ...</code> loop. Use <code>grep -rn "curve_table(" R/</code>. Each assigned the same constant vector and passed it positionally, so all now rely on the default and the redundant assignments are gone. <strong><code>curve_boot.R</code> also binds <code>levels</code> to a <em>data frame</em></strong> (lines ~80-106 and ~177-203) which is unrelated and must not be deleted.</li>
+<li>
+<strong>The unmatched-level warning must fire only for supplied levels.</strong> A coarse <code>steps</code> legitimately cannot produce several of the conventional levels (<code>steps = 50</code> has no 0.975), and callers have always silently taken whatever subset existed. Warning unconditionally made most of the suite noisy and broke <code>test-curve_helpers.R:68</code>, which asserts <code><a href="reference/curve_from_ratio.html">curve_from_ratio()</a></code> runs silently. Gating on “did the user supply <code>levels</code>” only works <em>after</em> the internal callers stop passing it.</li>
+</ul></li>
+<li><p><strong><code>type</code> and <code>format</code> were unvalidated</strong> (fixed in the follow-up commit). A <code>type</code> outside <code>c("c", "l")</code> left <code>subdf</code> undefined and errored obscurely; an unmatched <code>format</code> fell through every branch and returned <code>NULL</code> invisibly. Both now go through <code><a href="https://rlang.r-lib.org/reference/arg_match.html" class="external-link">rlang::arg_match()</a></code> with the permitted values in the signature; <code>rlang</code> was already in Imports, so this added no dependency.</p></li>
+</ul><p><strong>Spelling gotcha:</strong> <code>tests/spelling.R</code> checks DESCRIPTION, Rd files, vignettes and <strong>NEWS.md</strong> against en-US, but <em>not</em> test files — which is why <code>test-curve_helpers.R</code> has said “honours” for years while the same word in a NEWS entry fails the check.</p>
+</div>
 <div class="section level2">
 <h2 id="session-hygiene">Session hygiene<a class="anchor" aria-label="anchor" href="#session-hygiene"></a></h2>
 <p>This repo was heavily disturbed by a concurrent autonomous agent session (reverting DESCRIPTION/cran-comments.md, writing scripts into <code>R/</code>, activating renv, installing packages). Before any build or commit: <code>git status</code>, run the R/ content scan above, and confirm DESCRIPTION’s Imports block ends at <code>rlang</code>.</p>

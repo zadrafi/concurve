@@ -77,3 +77,4 @@
 ^(.*/)?Rplots\.pdf$
 ^vignettes/.*\.html$
 ^vignettes/.*\.R$
+^\.posit/assistant$

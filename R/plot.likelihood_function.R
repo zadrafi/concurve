@@ -629,7 +629,7 @@ plotly_likelihood <- function(x,
   ci <- x$confint(parameter, level = ci_level)
 
   # Create plotly
-  p <- plotly::plot_ly() %>%
+  p <- plotly::plot_ly() |>
     plotly::add_trace(
       data = profile_data,
       x = ~value,
@@ -643,7 +643,7 @@ plotly_likelihood <- function(x,
         "Rel. Likelihood: %{y:.4f}<br>",
         "<extra></extra>"
       )
-    ) %>%
+    ) |>
     plotly::add_trace(
       x = c(mle_val, mle_val),
       y = c(0, 1),
@@ -652,7 +652,7 @@ plotly_likelihood <- function(x,
       name = "MLE",
       line = list(color = "red", width = 2, dash = "dash"),
       hoverinfo = "skip"
-    ) %>%
+    ) |>
     plotly::add_trace(
       x = c(ci[1], ci[1]),
       y = c(0, 1),
@@ -662,7 +662,7 @@ plotly_likelihood <- function(x,
       line = list(color = "blue", width = 1.5, dash = "dash"),
       hoverinfo = "skip",
       showlegend = TRUE
-    ) %>%
+    ) |>
     plotly::add_trace(
       x = c(ci[2], ci[2]),
       y = c(0, 1),
@@ -672,7 +672,7 @@ plotly_likelihood <- function(x,
       line = list(color = "blue", width = 1.5, dash = "dash"),
       hoverinfo = "skip",
       showlegend = FALSE
-    ) %>%
+    ) |>
     plotly::layout(
       title = sprintf("Interactive Likelihood: %s", parameter),
       xaxis = list(title = parameter),
