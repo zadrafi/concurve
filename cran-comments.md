@@ -8,6 +8,10 @@ the HTML manual, and an undeclared `rlang` in Rd cross-references — are
 all resolved; the last of them, the stray `LazyData` field, is removed
 in this release.
 
+3.0.3 was withdrawn from the incoming queue at the maintainer's request,
+after a dispersion bug in `curve_lik_glm()` was found in it; 3.0.4 fixes
+that bug and supersedes it.
+
 ## What is new in 3.0.4
 
 - **`curve_stan()`, `curve_stan_fit()`, `concurve_stan_file()`** build

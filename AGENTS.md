@@ -153,27 +153,26 @@ now assert every constructor puts the 1/6.83 cutoff at
 `qchisq(0.95, 1)`; `test-curve_rstar_mpl.R:122` asserted the old
 convention and was updated.
 
-## State (as of 2026-09-04)
+## State (as of 2026-09-09)
 
-- **`master` is 3.0.3** and deliberately matches the tarball CRAN is
-  reviewing; leave it alone until that resolves. **`release/3.0.4`**
-  carries everything since: 13 commits behind draft PR #60, green on all
-  five CI platforms, and `R CMD check --as-cran` at a single expected
-  NOTE (with a modern HTML Tidy on `PATH` — see above).
+- **`master` is 3.0.4** and `release/3.0.4` is gone — it was merged, so
+  there is no longer a separate release branch. `master` was one commit
+  ahead of `origin/master` on 2026-09-09 (`e15da58`, a `cran-queue.sh`
+  change).
 
-  Do not merge, and do not submit anything, while 3.0.3 is in the queue.
-  A version number cannot be reused with different contents, and CRAN
-  asks maintainers not to resubmit while a submission is pending. When
-  3.0.3 leaves `newbies/`:
+- **3.0.3 is archived; the queue is empty.** As of 2026-09-09
+  `tools/cran-queue.sh` finds every incoming folder empty and
+  `concurve_3.0.3.tar.gz` in **`archive/`** alongside 3.0.0–3.0.2, and
+  the package page still reports the package as removed. `archive/`
+  means withdrawn *or* rejected and does not distinguish them, so
+  confirm the outcome in CRAN email before drawing conclusions from it.
 
-  | It lands in | Then |
-  |----|----|
-  | `archive/` | Withdrawn or rejected. Merge `release/3.0.4` and submit 3.0.4. |
-  | `publish/` | Accepted before the withdrawal was read. 3.0.4 becomes a fast bug-fix follow-up; the `curve_lik_glm()` dispersion bug is the justification for the short interval. |
-  | `pending/` or `inspect/` | A reviewer has it open; expect email, reply the same day. |
+  The practical consequence: the 3.0.3 version number is consumed and
+  nothing is pending, so **3.0.4 is free to submit**. The old "do not
+  merge or submit while 3.0.3 is in the queue" hold no longer applies.
 
-- **3.0.3 is pending, not accepted.** CRAN's incoming queue is publicly
-  browsable, which settles the question without waiting on email:
+- **The queue is publicly browsable**, which settles status questions
+  without waiting on email:
 
   ``` sh
   sh tools/cran-queue.sh   # checks every incoming folder + the package page
@@ -199,17 +198,28 @@ convention and was updated.
   about it is committed or shipped. If a background job appears to be
   contacting CRAN, this is it.
 
-  On 2026-09-04 that put `concurve_3.0.3.tar.gz` in **`newbies/`**
-  (awaiting manual review — where returning archived packages land),
-  with 3.0.0, 3.0.1 and 3.0.2 in `archive/` as superseded attempts.
+  On 2026-09-04 it put `concurve_3.0.3.tar.gz` in `newbies/` (awaiting
+  manual review — where returning archived packages land); by 2026-09-09
+  that had moved to `archive/`.
 
-- `curve_lik_glm()` in the pending 3.0.3 has a dispersion bug making
-  intervals depend on the units of the response (up to 5x too narrow). A
-  withdrawal email is drafted at `dev/cran-withdraw-3.0.3.md`, with an
-  openable pre-addressed copy at `dev/cran-withdraw-3.0.3.eml`
-  (`open dev/cran-withdraw-3.0.3.eml`). **It must be sent by the
-  maintainer from the registered address**; CRAN authenticates on the
-  From: header, so no one else can send it.
+- `curve_lik_glm()` in the withdrawn 3.0.3 had a dispersion bug making
+  intervals depend on the units of the response (up to 5x too narrow),
+  fixed in 3.0.4. The withdrawal request was drafted at
+  `dev/cran-withdraw-3.0.3.md`, with a pre-addressed copy at
+  `dev/cran-withdraw-3.0.3.eml`. **It had to be sent by the maintainer
+  from the registered address** — CRAN authenticates on the From:
+  header. `cran-comments.md` for 3.0.4 records the withdrawal in its
+  opening section.
+
+- **`dev_check.R` was green on 2026-09-09**: `document()` +
+  `pkgdown::check_pkgdown()` clean, then
+  `devtools::check(cran = TRUE, manual = TRUE, vignettes = TRUE)` at **0
+  errors / 0 warnings / 0 notes**, HTML manual validated by Tidy 5.8.0.
+  Two caveats on reading that as "no NOTEs": `devtools::check()` sets
+  `_R_CHECK_CRAN_INCOMING_ = FALSE`, so the archival /
+  incoming-feasibility NOTE and the URL and DESCRIPTION-spelling NOTEs
+  are simply not exercised locally — expect them from win-builder. Also
+  `brms` was "suggested but not available for checking".
 
 - `.venv/` (a Python venv at the root) was inflating the tarball to 12
   MB; now `.Rbuildignore`d along with `rstanlm/` and `stan_vs_nostan*`.
