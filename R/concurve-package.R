@@ -66,5 +66,4 @@
 #' @importFrom graphics abline grid legend par segments
 #' @importFrom stats approxfun coef confint confint.default cor.test density dgamma gaussian integrate median model.frame model.matrix model.response optim pnorm printCoefmat qchisq qnorm quantile t.test uniroot vcov
 #' @importFrom utils head tail
-#' @importFrom dplyr %>%
 "_PACKAGE"
