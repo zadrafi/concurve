@@ -16,6 +16,17 @@
   still filtered silently, as it always was. `levels` must now be numeric,
   free of missing values, and strictly between 0 and 1 when `type = "c"`.
 
+- `ggcurve()` and `plot_compare()` validate `type`, `measure` and
+  `position` with `rlang::arg_match()`. An unrecognized value used to fall
+  through every branch and return `NULL` invisibly, so a typo such as
+  `type = "s1"` produced no plot and no error. The permitted values now
+  appear in each function's signature and help page, and note that
+  `plot_compare()` implements fewer types than `ggcurve()`: it has no
+  `"cdf"` or `"cd"`. Both help pages had also documented a `"pd"` type for
+  the consonance distribution function, which neither function has ever
+  implemented -- the branch is `"cdf"` -- and `plot_compare()`'s page
+  advertised `"cdf"` and `"cd"` as well. Both are corrected.
+
 - `curve_meta(method = "mv")` works. The `confint()` call in the
   multivariate branch passed `object = res`, a name that exists only in the
   function's own examples, so the branch failed with "object 'res' not

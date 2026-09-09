@@ -7,13 +7,12 @@
 #'
 #' @param data The dataframe produced by one of the interval functions
 #' in which the intervals are stored.
-#' @param type Choose whether to plot a "consonance" function, a
-#' "surprisal" function or "likelihood". The default option is set to "c".
-#' The type must be set in quotes, for example ggcurve (type = "s") or
-#' ggcurve(type = "c"). Other options include "pd" for the consonance
-#' distribution function, and "cd" for the consonance density function,
-#' "l1" for relative likelihood, "l2" for log-likelihood, "l3" for likelihood
-#' and "d" for deviance function.
+#' @param type The kind of function to plot. One of `"c"` for a consonance
+#' function, the default, `"s"` for a surprisal function, `"cdf"` for the
+#' consonance distribution function, `"cd"` for the consonance density
+#' function, `"l1"` for relative likelihood, `"l2"` for log-likelihood,
+#' `"l3"` for likelihood, or `"d"` for the deviance function. An
+#' unrecognized value is an error naming the permitted ones.
 #' @param measure Indicates whether the object has a log transformation
 #' or is normal/default. The default setting is "default". If the measure
 #' is set to "ratio", it will take logarithmically transformed values and
@@ -94,8 +93,12 @@
 #' @importFrom ggplot2 expansion
 #' @export
 
-ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullvalue = NULL,
-                    position = "pyramid",
+ggcurve <- function(data,
+                    type = c("c", "s", "cdf", "cd", "l1", "l2", "l3", "d"),
+                    measure = c("default", "ratio"),
+                    levels = 0.95,
+                    nullvalue = NULL,
+                    position = c("pyramid", "inverted"),
                     title = "Consonance Function",
                     subtitle = "The function displays intervals at every level.",
                     xaxis = expression(theta == ~"Range of Values"),
@@ -103,6 +106,10 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
                     yaxis2 = "Levels for CI (%)",
                     color = colorspace::darken("#009E73", 0.5),
                     fill = "#239a98") {
+  type <- rlang::arg_match(type)
+  measure <- rlang::arg_match(measure)
+  position <- rlang::arg_match(position)
+
   # Consonance Curve -----------------------------------------------------
 
   if (type == "c") {

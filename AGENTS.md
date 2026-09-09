@@ -356,8 +356,8 @@ declarations across 17 files, only five functions referenced anything:
 
 - **`pivot_longer(df, lower.limit:upper.limit)` is a tidyselect *range*,
   not an `aes()` reference**, so `.data$` does not apply
-  (`.data$a:.data$b` is invalid). Those became `c("lower.limit",
-  "upper.limit")`; same for `X2:X3` in `ggcurve()`.
+  (`.data$a:.data$b` is invalid). Those became
+  `c("lower.limit", "upper.limit")`; same for `X2:X3` in `ggcurve()`.
 - **`globalVariables("res")` was masking a real bug** in
   `curve_meta()`'s `mv` branch — see NEWS for 3.0.5. Declaring a name
   silences the checker without making the code work, so treat every

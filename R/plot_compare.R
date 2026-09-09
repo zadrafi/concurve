@@ -6,13 +6,12 @@
 #' intervals are stored.
 #' @param data2 The second dataframe produced by one of the interval functions in which the
 #' intervals are stored.
-#' @param type Choose whether to plot a "consonance" function, a
-#' "surprisal" function or "likelihood". The default option is set to "c".
-#' The type must be set in quotes, for example plot_compare(type = "s") or
-#' plot_compare(type = "c"). Other options include "pd" for the consonance
-#' distribution function, and "cd" for the consonance density function,
-#' "l1" for relative likelihood, "l2" for log-likelihood, "l3" for likelihood
-#' and "d" for deviance function.
+#' @param type The kind of function to plot. One of `"c"` for a consonance
+#' function, the default, `"s"` for a surprisal function, `"l1"` for
+#' relative likelihood, `"l2"` for log-likelihood, `"l3"` for likelihood,
+#' or `"d"` for the deviance function. Unlike [ggcurve()], `plot_compare()`
+#' implements neither `"cdf"` nor `"cd"`. An unrecognized value is an error
+#' naming the permitted ones.
 #' @param measure Indicates whether the object has a log transformation
 #' or is normal/default. The default setting is "default". If the measure
 #' is set to "ratio", it will take logarithmically transformed values and
@@ -79,7 +78,11 @@
 #' @seealso [curve_compare()]
 #'
 #' @export
-plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalue = FALSE, position = "pyramid",
+plot_compare <- function(data1, data2,
+                         type = c("c", "s", "l1", "l2", "l3", "d"),
+                         measure = c("default", "ratio"),
+                         nullvalue = FALSE,
+                         position = c("pyramid", "inverted"),
                          title = "Interval Functions",
                          subtitle = "The function displays intervals at every level.",
                          xaxis = expression(theta == ~"Range of Values"),
@@ -89,6 +92,10 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
                          color2 = darken("#009E73", 0.2),
                          fill1 = "#99c7c7",
                          fill2 = "#d46c5b") {
+  type <- rlang::arg_match(type)
+  measure <- rlang::arg_match(measure)
+  position <- rlang::arg_match(position)
+
   cols <- c(fill1, fill2)
 
   # Consonance Curve -----------------------------------------------------
