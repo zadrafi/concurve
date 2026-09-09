@@ -294,7 +294,7 @@
 <td>See the fallout note below</td>
 </tr><tr><td><del><code>%&gt;%</code> → <code>|&gt;</code></del></td>
 <td><strong>done on <code>release/3.0.5</code></strong></td>
-<td>All 5 were one plotly chain in <code>R/plot.likelihood_function.R</code>; <code>@importFrom dplyr %&gt;%</code> dropped with them. <code>dplyr</code> stays in Imports (14 <code>dplyr::</code> calls)</td>
+<td>5 in <code>R/</code> (one plotly chain in <code>R/plot.likelihood_function.R</code>) plus 6 in <code>vignettes/supported.Rmd</code>. <code>@importFrom dplyr %&gt;%</code> went with the first set, <code>magrittr</code> (Suggests) with the second. <code>dplyr</code> stays in Imports (14 <code>dplyr::</code> calls)</td>
 </tr><tr><td>Lines &gt; 80 chars</td>
 <td>459, of which 193 are roxygen</td>
 <td>Cosmetic. Code formatting is handled by air (no <code>air.toml</code>, so defaults)</td>
