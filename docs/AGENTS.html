@@ -176,7 +176,7 @@
 </tr></tbody></table></div>
 <div class="section level2">
 <h2 id="the-dev-convention-critical">The dev/ convention (critical)<a class="anchor" aria-label="anchor" href="#the-dev-convention-critical"></a></h2>
-<p>Scripts with <strong>top-level executable code</strong> — <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code>, <code><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed()</a></code>, <code><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat()</a></code>, <code><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot()</a></code>, <code><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv()</a></code>, <code>ggsave()</code>, Stan compilation — belong in <code>dev/</code>, never <code>R/</code>. (A top-level <code><a href="https://rdrr.io/r/base/environment.html" class="external-link">new.env()</a></code> assignment for a cache, as in <code>R/curve_stan.R</code>, is a definition and is fine.) Top-level code in <code>R/</code> executes during <code>R CMD INSTALL</code> / <code><a href="https://pkgload.r-lib.org/reference/load_all.html" class="external-link">pkgload::load_all()</a></code> and breaks the build (e.g. <code><a href="https://mc-stan.org/cmdstanr/" class="external-link">library(cmdstanr)</a></code> fails at install; <code>pkg::fun()</code> self-references fail during load_all). Detection scan:</p>
+<p>Scripts with <strong>top-level executable code</strong> — <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code>, <code><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed()</a></code>, <code><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat()</a></code>, <code><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot()</a></code>, <code><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv()</a></code>, <code>ggsave()</code>, Stan compilation — belong in <code>dev/</code>, never <code>R/</code>. (A top-level <code><a href="https://rdrr.io/r/base/environment.html" class="external-link">new.env()</a></code> assignment for a cache, as in <code>R/curve_stan.R</code>, is a definition and is fine.) Top-level code in <code>R/</code> executes during <code>R CMD INSTALL</code> / <code><a href="https://pkgload.r-lib.org/reference/load_all.html" class="external-link">pkgload::load_all()</a></code> and breaks the build (e.g. <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library(cmdstanr)</a></code> fails at install; <code>pkg::fun()</code> self-references fail during load_all). Detection scan:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="cf">for</span> f <span class="kw">in</span> R/<span class="pp">*</span>.R<span class="kw">;</span> <span class="cf">do</span></span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  <span class="fu">grep</span> <span class="at">-lE</span> <span class="st">"^(library|set\.seed|cat|print|stopifnot|write\.csv|system|require)\("</span> <span class="st">"</span><span class="va">$f</span><span class="st">"</span></span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div>
@@ -292,12 +292,9 @@
 </tr><tr><td><del><code>Config/testthat/edition: 3</code></del></td>
 <td><strong>done on <code>release/3.0.5</code></strong></td>
 <td>See the fallout note below</td>
-</tr><tr><td>
-<code>%&gt;%</code> → <code>|&gt;</code>
-</td>
-<td>5 live uses in <code>R/plot.likelihood_function.R</code>
-</td>
-<td>Not a dependency bug: imported via <code>@importFrom dplyr %&gt;%</code>, and dplyr is in Imports</td>
+</tr><tr><td><del><code>%&gt;%</code> → <code>|&gt;</code></del></td>
+<td><strong>done on <code>release/3.0.5</code></strong></td>
+<td>All 5 were one plotly chain in <code>R/plot.likelihood_function.R</code>; <code>@importFrom dplyr %&gt;%</code> dropped with them. <code>dplyr</code> stays in Imports (14 <code>dplyr::</code> calls)</td>
 </tr><tr><td>Lines &gt; 80 chars</td>
 <td>459, of which 193 are roxygen</td>
 <td>Cosmetic. Code formatting is handled by air (no <code>air.toml</code>, so defaults)</td>
