@@ -218,8 +218,58 @@ convention and was updated.
   Two caveats on reading that as "no NOTEs": `devtools::check()` sets
   `_R_CHECK_CRAN_INCOMING_ = FALSE`, so the archival /
   incoming-feasibility NOTE and the URL and DESCRIPTION-spelling NOTEs
-  are simply not exercised locally — expect them from win-builder. Also
-  `brms` was "suggested but not available for checking".
+  are simply not exercised locally — win-builder confirmed the archival
+  and spelling ones (next bullet). Also `brms` was "suggested but not
+  available for checking".
+
+- **win-builder r-release: `Status: 1 NOTE`** (2026-09-09, R 4.6.1,
+  results at `https://win-builder.r-project.org/HGvI2DeFJ3SV/`; the
+  r-devel submission has its own separate URL). The one NOTE is incoming
+  feasibility — "New submission", "Package was archived on CRAN", the
+  `X-CRAN-Comment` archival override, and the five DESCRIPTION words
+  (Hjort, NL, Rafi, Schweder, Surprisal). All of it is pre-addressed in
+  `cran-comments.md`, and the archival line cannot be cleared from this
+  end. Everything else passed, including examples, both test files,
+  vignette re-building (168s), and **both the PDF and HTML manuals** —
+  the HTML one matters because an invalid image width there was one of
+  the three 2022 archival issues.
+
+  The `stat.lesslikely.com` URL NOTE from the 3.0.3 pretest did *not*
+  appear, but win-builder's log has no URL-checking step at all, so that
+  is absence of evidence — CRAN's own incoming machines run that check.
+
+- **All CI green on `17e8092`** (2026-09-09): R-CMD-check `Status: OK`
+  on all five platforms (ubuntu devel/release/oldrel-1, macos, windows),
+  plus test-coverage, repo-checks, and pkgdown. `actions/checkout` was
+  bumped v4 → v5 across all five workflows in that commit, because
+  GitHub was forcing v4 onto Node 24 and warning about Node 20. pkgdown
+  passing proves v5's credentials still work for the docs commit-back;
+  `pr-commands.yaml` only fires on PR comments, so its `pr-fetch` /
+  `pr-push` pair is the one place v5 is still unproven.
+
+- **A red CI run is not necessarily yours.** On 2026-09-09 every Linux
+  job failed in under 20s at `r-lib/actions/setup-r@v2` with
+
+  ``` text
+  Err: https://dl.google.com/linux/chrome-stable/deb stable/main amd64 Packages
+    Hash Sum mismatch
+  ##[error]Failed to get R release: ... '/usr/bin/sudo' failed with exit code 100
+  ```
+
+  Google's Chrome apt repo — preinstalled on the runner image and
+  nothing to do with this package — served a `Packages.gz` whose
+  checksum did not match its `Release` file, so `apt-get update` exited
+  100 and R was never installed. macOS and Windows are unaffected, which
+  is the tell. It outlasted three re-runs over \~20 minutes and then
+  cleared on its own. Confirm recovery before re-running by comparing
+  the advertised and actual hashes:
+
+  ``` sh
+  curl -sS -o /tmp/Release https://dl.google.com/linux/chrome-stable/deb/dists/stable/Release
+  curl -sS -o /tmp/Packages.gz https://dl.google.com/linux/chrome-stable/deb/dists/stable/main/binary-amd64/Packages.gz
+  grep "main/binary-amd64/Packages.gz" /tmp/Release | head -2   # expected
+  shasum -a 256 /tmp/Packages.gz                                # actual
+  ```
 
 - `.venv/` (a Python venv at the root) was inflating the tarball to 12
   MB; now `.Rbuildignore`d along with `rstanlm/` and `stan_vs_nostan*`.
