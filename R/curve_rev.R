@@ -140,8 +140,7 @@ curve_rev <- function(point,
     class(densdf) <- c("data.frame", "concurve")
 
     if (table == TRUE) {
-      levels <- c(0.25, 0.50, 0.75, 0.80, 0.85, 0.90, 0.95, 0.975, 0.99)
-      (df_subintervals <- (curve_table(df, levels, type = "c", format = "data.frame")))
+      (df_subintervals <- (curve_table(df, type = "c", format = "data.frame")))
       class(df_subintervals) <- c("data.frame", "concurve")
       dataframes <- list(df, densdf, df_subintervals)
       names(dataframes) <- c("Intervals Dataframe", "Intervals Density", "Intervals Table")
@@ -217,8 +216,7 @@ curve_rev <- function(point,
 
 
     if (table == TRUE) {
-      levels <- c(0.03, 0.05, 0.12, 0.14)
-      (df_subintervals <- (curve_table(likfunction, levels, type = "l", format = "data.frame")))
+      (df_subintervals <- (curve_table(likfunction, type = "l", format = "data.frame")))
       class(df_subintervals) <- c("data.frame", "concurve")
       dataframes <- list(likfunction, df_subintervals)
       names(dataframes) <- c("Intervals Dataframe", "Intervals Table")

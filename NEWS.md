@@ -1,3 +1,21 @@
+# concurve 3.0.5
+
+## Bug fixes
+
+- `curve_table()` honors its documented `levels` argument. Both branches
+  overwrote it with a hard-coded vector, so a user-supplied value was
+  silently discarded and every table showed the same conventional levels.
+  The overwrite dates from the commit that introduced the function in
+  December 2019, so the argument had never had any effect. `levels` now
+  defaults to `NULL`, which selects the conventional set that was
+  previously forced -- existing calls, including those from `curve_gen()`
+  and the other `curve_*()` functions, produce identical output -- while a
+  supplied vector selects those levels instead. A *supplied* level that
+  matches no row in `data` -- which depends on the `steps` the curve was
+  built with -- is omitted with a warning naming it; the default set is
+  still filtered silently, as it always was. `levels` must now be numeric,
+  free of missing values, and strictly between 0 and 1 when `type = "c"`.
+
 # concurve 3.0.4
 
 ## New features

@@ -4,13 +4,18 @@
 \alias{curve_table}
 \title{Produce Tables For concurve Functions}
 \usage{
-curve_table(data, levels, type = "c", format = "data.frame")
+curve_table(data, levels = NULL, type = "c", format = "data.frame")
 }
 \arguments{
 \item{data}{Dataframe from a concurve function to produce a table for}
 
-\item{levels}{Levels of the consonance intervals or likelihood intervals that should be
-included in the table.}
+\item{levels}{Levels of the consonance intervals or likelihood intervals
+that should be included in the table. If \code{NULL}, the default, a
+conventional set is used: 0.25, 0.50, 0.75, 0.80, 0.85, 0.90, 0.95, 0.975
+and 0.99 for \code{type = "c"}, and 0.03, 0.05, 0.12 and 0.14 for
+\code{type = "l"}. Values must match levels actually present in \code{data}, which
+depends on the \code{steps} used to build it; any supplied level that matches
+no row is omitted, with a warning naming it.}
 
 \item{type}{Indicates whether the table is for a consonance function or likelihood function.
 The default is set to "c" for consonance and can be switched to "l" for likelihood.}
@@ -41,6 +46,9 @@ curves <- curve_gen(lm(mpg ~ wt, data = mtcars), "wt")
 
 # Interval limits at conventional levels, with their P- and S-values
 curve_table(curves[[1]], format = "data.frame")
+
+# Only the levels you ask for
+curve_table(curves[[1]], levels = c(0.50, 0.95), format = "data.frame")
 
 # The same table as LaTeX, for a manuscript
 curve_table(curves[[1]], format = "latex")
