@@ -155,7 +155,7 @@ ggcurve <- function(data,
         color = color
       ) +
       ggplot2::geom_point(data = interval, mapping = aes(x = .data$limits, y = 1 - levels), size = 1.75, shape = 18) +
-      geom_line(data = interval, mapping = aes(x = .data$limits, y = 1 - levels, group = levels), size = .30) +
+      geom_line(data = interval, mapping = aes(x = .data$limits, y = 1 - levels, group = levels), linewidth = .30) +
       geom_ribbon(aes(x = .data$lower.limit, ymin = min(.data$pvalue), ymax = .data$pvalue),
         fill = fill, alpha = 0.10
       ) +
@@ -204,7 +204,7 @@ ggcurve <- function(data,
         if (is.numeric(nullvalue) == TRUE) {
           annotate("rect",
             xmin = min(nullvalue), xmax = max(nullvalue), ymin = 0, ymax = 1,
-            fill = "#d46c5b", color = "#d46c5b", alpha = 0.05, linetype = 3, size = 0.2
+            fill = "#d46c5b", color = "#d46c5b", alpha = 0.05, linetype = 3, linewidth = 0.2
           )
         }
       }
@@ -248,7 +248,7 @@ ggcurve <- function(data,
         color = color
       ) +
       ggplot2::geom_point(data = interval, mapping = aes(x = .data$limits, y = (-log2(1 - levels))), size = 1.75, shape = 18) +
-      geom_line(data = interval, mapping = aes(x = .data$limits, y = (-log2(1 - levels)), group = levels), size = .30) +
+      geom_line(data = interval, mapping = aes(x = .data$limits, y = (-log2(1 - levels)), group = levels), linewidth = .30) +
       geom_ribbon(aes(x = .data$lower.limit, ymin = max(.data$svalue), ymax = .data$svalue),
         fill = fill, alpha = 0.10
       ) +
@@ -278,7 +278,7 @@ ggcurve <- function(data,
       scale_y_continuous(breaks = seq(0, 14, 1), expand = c(0.0075, 0.0075)) +
       if (is.numeric(nullvalue) == TRUE) {
         annotate("rect",
-          xmin = min(nullvalue), xmax = max(nullvalue), ymin = RobustMin((interval$svalue)), ymax = RobustMax((interval$svalue)), fill = "#d46c5b", color = "#d46c5b", alpha = 0.05, linetype = 3, size = 0.2
+          xmin = min(nullvalue), xmax = max(nullvalue), ymin = RobustMin((interval$svalue)), ymax = RobustMax((interval$svalue)), fill = "#d46c5b", color = "#d46c5b", alpha = 0.05, linetype = 3, linewidth = 0.2
         )
       }
 
@@ -332,7 +332,7 @@ ggcurve <- function(data,
       if (is.numeric(nullvalue) == TRUE) {
         annotate("rect",
           xmin = min(nullvalue), xmax = max(nullvalue), ymin = 0, ymax = 1,
-          fill = "#d46c5b", color = "#d46c5b", alpha = 0.05, linetype = 3, size = 0.2
+          fill = "#d46c5b", color = "#d46c5b", alpha = 0.05, linetype = 3, linewidth = 0.2
         )
       }
 
@@ -375,7 +375,7 @@ ggcurve <- function(data,
       if (is.numeric(nullvalue) == TRUE) {
         annotate("rect",
           xmin = min(nullvalue), xmax = max(nullvalue), ymin = min(density(data$x)[["y"]]), ymax = max(density(data$x)[["y"]]),
-          fill = "#d46c5b", color = "#d46c5b", alpha = 0.05, linetype = 3, size = 0.2
+          fill = "#d46c5b", color = "#d46c5b", alpha = 0.05, linetype = 3, linewidth = 0.2
         )
       }
 
@@ -423,7 +423,7 @@ ggcurve <- function(data,
       if (is.numeric(nullvalue) == TRUE) {
         annotate("rect",
           xmin = min(nullvalue), xmax = max(nullvalue), ymin = 0, ymax = 1,
-          fill = "#d46c5b", color = "#d46c5b", alpha = 0.05, linetype = 3, size = 0.2
+          fill = "#d46c5b", color = "#d46c5b", alpha = 0.05, linetype = 3, linewidth = 0.2
         )
       }
     # Log-Likelihood Function -----------------------------------------------------
@@ -470,7 +470,7 @@ ggcurve <- function(data,
       if (is.numeric(nullvalue) == TRUE) {
         annotate("rect",
           xmin = min(nullvalue), xmax = max(nullvalue), ymin = RobustMin(data$loglikelihood), ymax = RobustMax(data$loglikelihood),
-          fill = "#d46c5b", color = "#d46c5b", alpha = 0.05, linetype = 3, size = 0.2
+          fill = "#d46c5b", color = "#d46c5b", alpha = 0.05, linetype = 3, linewidth = 0.2
         )
       }
 
@@ -518,7 +518,7 @@ ggcurve <- function(data,
       if (is.numeric(nullvalue) == TRUE) {
         annotate("rect",
           xmin = min(nullvalue), xmax = max(nullvalue), ymin = 0, ymax = RobustMax(data$likelihood),
-          fill = "#d46c5b", color = "#d46c5b", alpha = 0.05, linetype = 3, size = 0.2
+          fill = "#d46c5b", color = "#d46c5b", alpha = 0.05, linetype = 3, linewidth = 0.2
         )
       }
 
@@ -567,7 +567,7 @@ ggcurve <- function(data,
         if (is.numeric(nullvalue) == TRUE) {
           annotate("rect",
             xmin = min(nullvalue), xmax = max(nullvalue), ymin = 0, ymax = RobustMax(data$deviancestat),
-            fill = "#d46c5b", color = "#d46c5b", alpha = 0.05, linetype = 3, size = 0.2
+            fill = "#d46c5b", color = "#d46c5b", alpha = 0.05, linetype = 3, linewidth = 0.2
           )
         }
       }

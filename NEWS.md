@@ -16,6 +16,15 @@
   still filtered silently, as it always was. `levels` must now be numeric,
   free of missing values, and strictly between 0 and 1 when `type = "c"`.
 
+- `ggcurve()` and `plot_compare()` use `linewidth` rather than `size` for
+  line and border widths, which ggplot2 deprecated in 3.4.0 and which had
+  been emitting a deprecation warning naming this package. This affects the
+  eight `annotate("rect")` null-value bands in `ggcurve()`, the eight
+  `annotate("segment")` null-value markers in `plot_compare()`, and two
+  `geom_line()` calls. The `size` argument is retained where it is still
+  correct, namely `geom_point()`, `stat_ecdf(geom = "point")`, and every
+  `element_text()`.
+
 - `ggcurve()` and `plot_compare()` validate `type`, `measure` and
   `position` with `rlang::arg_match()`. An unrecognized value used to fall
   through every branch and return `NULL` invisibly, so a typo such as

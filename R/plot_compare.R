@@ -225,12 +225,12 @@ plot_compare <- function(data1, data2,
         if (measure == "default") {
           annotate("segment",
             x = 0, xend = 0, y = 0, yend = 1,
-            color = "#990000", alpha = 0.4, size = .75, linetype = 3
+            color = "#990000", alpha = 0.4, linewidth = .75, linetype = 3
           )
         } else if (measure == "ratio") {
           annotate("segment",
             x = 1, xend = 1, y = 0, yend = 1,
-            color = "#990000", alpha = 0.4, size = .75, linetype = 3
+            color = "#990000", alpha = 0.4, linewidth = .75, linetype = 3
           )
         }
       } else if (nullvalue == FALSE) {}
@@ -411,12 +411,12 @@ plot_compare <- function(data1, data2,
         if (measure == "default") {
           annotate("segment",
             x = 0, xend = 0, y = 0, yend = 1,
-            color = "#990000", alpha = 0.4, size = .75, linetype = 3
+            color = "#990000", alpha = 0.4, linewidth = .75, linetype = 3
           )
         } else if (measure == "ratio") {
           annotate("segment",
             x = 1, xend = 1, y = 0, yend = 1,
-            color = "#990000", alpha = 0.4, size = .75, linetype = 3
+            color = "#990000", alpha = 0.4, linewidth = .75, linetype = 3
           )
         }
       }
@@ -496,12 +496,12 @@ plot_compare <- function(data1, data2,
         if (measure == "default") {
           annotate("segment",
             x = 0, xend = 0, y = 0, yend = 1,
-            color = "#990000", alpha = 0.4, size = .75, linetype = 3
+            color = "#990000", alpha = 0.4, linewidth = .75, linetype = 3
           )
         } else if (measure == "ratio") {
           annotate("segment",
             x = 1, xend = 1, y = 0, yend = 1,
-            color = "#990000", alpha = 0.4, size = .75, linetype = 3
+            color = "#990000", alpha = 0.4, linewidth = .75, linetype = 3
           )
         }
       }
@@ -581,12 +581,12 @@ plot_compare <- function(data1, data2,
         if (measure == "default") {
           annotate("segment",
             x = 0, xend = 0, y = 0, yend = 1,
-            color = "#990000", alpha = 0.4, size = .75, linetype = 3
+            color = "#990000", alpha = 0.4, linewidth = .75, linetype = 3
           )
         } else if (measure == "ratio") {
           annotate("segment",
             x = 1, xend = 1, y = 0, yend = 1,
-            color = "#990000", alpha = 0.4, size = .75, linetype = 3
+            color = "#990000", alpha = 0.4, linewidth = .75, linetype = 3
           )
         }
       }

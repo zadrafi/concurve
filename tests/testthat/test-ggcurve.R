@@ -21,14 +21,12 @@ test_that("ggcurve() validates type, measure and position", {
 test_that("ggcurve() still accepts every documented type", {
   curves <- consonance_curves()[[1]]
 
-  # suppressWarnings(): these paths trip ggplot2's size -> linewidth
-  # deprecation, which predates this validation work.
   for (ty in c("c", "s")) {
-    expect_s3_class(suppressWarnings(ggcurve(curves[[1]], type = ty)), "ggplot")
+    expect_s3_class(ggcurve(curves[[1]], type = ty), "ggplot")
   }
   # "cdf" and "cd" read the density data frame, not the interval limits.
   for (ty in c("cdf", "cd")) {
-    expect_s3_class(suppressWarnings(ggcurve(curves[[2]], type = ty)), "ggplot")
+    expect_s3_class(ggcurve(curves[[2]], type = ty), "ggplot")
   }
 })
 
@@ -53,6 +51,6 @@ test_that("plot_compare() still accepts its documented types", {
   d2 <- curves[[2]][[1]]
 
   for (ty in c("c", "s")) {
-    expect_s3_class(suppressWarnings(plot_compare(d1, d2, type = ty)), "ggplot")
+    expect_s3_class(plot_compare(d1, d2, type = ty), "ggplot")
   }
 })
