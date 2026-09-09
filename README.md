@@ -64,21 +64,8 @@ Sample image taken from Schweder T, Hjort NL. (2016)
 
 ------------------------------------------------------------------------
 
-##### Install the package from [CRAN](https://cran.r-project.org/package=concurve) and check out the [articles](https://stat.lesslikely.com/concurve/articles/index.html), which can also be found below.
+##### Install the package from
 
-(`It is highly recommended that you look at the articles.`)
-
-``` r
-install.packages("concurve")
-```
-
-Try the following script if you run into any installation issues:
-
-``` r
-install.packages("concurve", repos = "https://cloud.r-project.org/", dep = TRUE)
-```
-
-Install the developer version from
 [GitHub](https://github.com/zadrafi/concurve/) using the following:
 
 ``` r
@@ -179,18 +166,10 @@ The package was currently run on:
     ## attached base packages:
     ## [1] stats     graphics  grDevices utils     datasets  methods   base     
     ## 
-    ## other attached packages:
-    ## [1] concurve_3.0.4
-    ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] vctrs_0.7.3        knitr_1.51         cli_3.6.6          xfun_0.60         
-    ##  [5] rlang_1.3.0        otel_0.2.0         purrr_1.2.2        generics_0.1.4    
-    ##  [9] S7_0.2.2           glue_1.8.1         colorspace_2.1-3   htmltools_0.5.9   
-    ## [13] scales_1.4.0       rmarkdown_2.32     grid_4.6.1         evaluate_1.0.5    
-    ## [17] tibble_3.3.1       fastmap_1.2.0      yaml_2.3.12        lifecycle_1.0.5   
-    ## [21] compiler_4.6.1     dplyr_1.2.1        RColorBrewer_1.1-3 pkgconfig_2.0.3   
-    ## [25] tidyr_1.3.2        rstudioapi_0.19.0  digest_0.6.39      farver_2.1.2      
-    ## [29] R6_2.6.1           dichromat_2.0-1    tidyselect_1.2.1   pillar_1.11.1     
-    ## [33] magrittr_2.0.5     tools_4.6.1        gtable_0.3.6       ggplot2_4.0.3
+    ##  [1] compiler_4.6.1    fastmap_1.2.0     cli_3.6.6         tools_4.6.1      
+    ##  [5] htmltools_0.5.9   otel_0.2.0        rstudioapi_0.19.0 yaml_2.3.12      
+    ##  [9] rmarkdown_2.32    knitr_1.52        xfun_0.60         digest_0.6.39    
+    ## [13] rlang_1.3.0       evaluate_1.0.5
 
 ------------------------------------------------------------------------

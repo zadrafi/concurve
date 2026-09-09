@@ -67,21 +67,8 @@ Sample image taken from Schweder T, Hjort NL. (2016)
 
 ------------------------------------------------------------------------
 
-##### Install the package from [CRAN](https://cran.r-project.org/package=concurve) and check out the [articles](https://stat.lesslikely.com/concurve/articles/index.html), which can also be found below.
+##### Install the package from [GitHub](https://github.com/zadrafi/concurve/) using the following:
 
-(`It is highly recommended that you look at the articles.`)
-
-```{r eval=FALSE}
-install.packages("concurve")
-```
-
-Try the following script if you run into any installation issues:
-
-```{r eval=FALSE}
-install.packages("concurve", repos = "https://cloud.r-project.org/", dep = TRUE)
-```
-
-Install the developer version from
 [GitHub](https://github.com/zadrafi/concurve/) using the following:
 
 ```{r eval=FALSE}
@@ -170,3 +157,4 @@ sessionInfo()
 ```
 
 ------------------------------------------------------------------------
+
