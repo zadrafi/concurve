@@ -4,7 +4,8 @@
 \alias{curve_table}
 \title{Produce Tables For concurve Functions}
 \usage{
-curve_table(data, levels = NULL, type = "c", format = "data.frame")
+curve_table(data, levels = NULL, type = c("c", "l"),
+  format = c("data.frame", "docx", "pptx", "latex", "image"))
 }
 \arguments{
 \item{data}{Dataframe from a concurve function to produce a table for}
@@ -17,13 +18,14 @@ and 0.99 for \code{type = "c"}, and 0.03, 0.05, 0.12 and 0.14 for
 depends on the \code{steps} used to build it; any supplied level that matches
 no row is omitted, with a warning naming it.}
 
-\item{type}{Indicates whether the table is for a consonance function or likelihood function.
-The default is set to "c" for consonance and can be switched to "l" for likelihood.}
+\item{type}{Indicates whether the table is for a consonance function or a
+likelihood function. One of \code{"c"} for consonance, the default, or \code{"l"}
+for likelihood.}
 
-\item{format}{The format of the tables. The options include "data.frame" which is the
-default, "docx" (which creates a table for a word document), "pptx" (which
-creates a table for powerpoint), "latex", (which creates a table for a TeX document), and
-"image", which produces an image of the table.}
+\item{format}{The format of the table. One of \code{"data.frame"}, the default,
+\code{"docx"} (a table for a Word document), \code{"pptx"} (for PowerPoint),
+\code{"latex"} (for a TeX document), or \code{"image"}. An unrecognized \code{type} or
+\code{format} is an error naming the permitted values.}
 }
 \value{
 The returned object depends on \code{format}:

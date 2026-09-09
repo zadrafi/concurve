@@ -41,6 +41,16 @@ test_that("curve_table() warns about levels that match no rows", {
   expect_equal(nrow(tbl), 1L)
 })
 
+test_that("curve_table() validates type and format", {
+  curves <- curve_gen(lm(mpg ~ wt, data = mtcars), "wt")
+
+  expect_error(curve_table(curves[[1]], type = "x"), "must be one of")
+  expect_error(curve_table(curves[[1]], format = "xlsx"), "must be one of")
+
+  # An unmatched format used to fall through every branch and return NULL.
+  expect_false(is.null(curve_table(curves[[1]], format = "data.frame")))
+})
+
 test_that("curve_table() validates levels", {
   curves <- curve_gen(lm(mpg ~ wt, data = mtcars), "wt")
 

@@ -322,32 +322,50 @@ of `R/`, so it was deliberately held back from the 3.0.4 submission.
 | `@examples` coverage | 32 blocks for 62 exports | The 11 defunct stubs account for some of the gap |
 | `@family` tags | 0 (49 `@seealso` instead) | Would group the `curve_*` family in the pkgdown index |
 
-Two **behaviour** bugs found in `R/curve_table.R` during the audit.
-These are not style issues and each changes output, so they need their
-own release and a NEWS entry:
+Two **behaviour** bugs were found in `R/curve_table.R` during the audit.
+**Both are fixed on `release/3.0.5`**; neither was visible to
+`R CMD check`, so this is the record of what they were.
 
-- **The documented `levels` argument has never worked.** Both branches
-  overwrite it immediately — `levels <- c(0.25, 0.50, ...)` for
-  `type = "c"` and `levels <- c(0.03, 0.05, 0.12, 0.14)` for
-  `type = "l"` — so a user-supplied value is silently discarded.
-  `git blame` puts the overwrite in `19c4529d` (2019-12-02), the commit
-  that introduced the function, so it was born this way rather than
-  regressing. `R CMD check` cannot see it.
+- **The documented `levels` argument never worked** (fixed in
+  `b6894f6`). Both branches overwrote it on entry —
+  `levels <- c(0.25, 0.50, ...)` for `type = "c"`,
+  `levels <- c(0.03, 0.05, 0.12, 0.14)` for `type = "l"` — so a
+  user-supplied value was silently discarded. `git blame` puts the
+  overwrite in `19c4529d` (2019-12-02), the commit that introduced the
+  function: it was born this way, never regressed.
 
-  Every internal caller (`curve_gen`, `curve_corr`, `curve_mean`,
-  `curve_surv`, `curve_rstar`, `curve_stan`, `curve_analytic`,
-  `curve_wrap`, `curve_likelihood`) assigns *exactly* the same constant
-  vector on the line above and then passes it positionally, so honouring
-  the argument would not change any internal result — that redundancy is
-  what makes the fix low-risk. But `levels` has no default and every
-  documented/vignette call omits it, so forcing the promise would error;
-  a fix has to add a default (`levels = NULL` → the conventional set for
-  the given `type`).
+  The fix is `levels = NULL` selecting the conventional set. Two things
+  the audit got wrong, both found only by running the suite:
 
-- **`type` and `format` are unvalidated.** A `type` outside
-  `c("c", "l")` leaves `subdf` undefined and errors obscurely; an
-  unmatched `format` falls through every branch and returns `NULL`
-  invisibly. This is what `rlang::arg_match()` is for.
+  - **There are 20 call sites across 15 files, not the nine first
+    counted.** `curve_boot.R` alone has five, and `curve_lik.R`,
+    `curve_lmer.R` and `curve_meta.R` were missed entirely by a
+    hand-picked `for f in ...` loop. Use `grep -rn "curve_table(" R/`.
+    Each assigned the same constant vector and passed it positionally,
+    so all now rely on the default and the redundant assignments are
+    gone. **`curve_boot.R` also binds `levels` to a *data frame***
+    (lines \~80-106 and \~177-203) which is unrelated and must not be
+    deleted.
+  - **The unmatched-level warning must fire only for supplied levels.**
+    A coarse `steps` legitimately cannot produce several of the
+    conventional levels (`steps = 50` has no 0.975), and callers have
+    always silently taken whatever subset existed. Warning
+    unconditionally made most of the suite noisy and broke
+    `test-curve_helpers.R:68`, which asserts `curve_from_ratio()` runs
+    silently. Gating on "did the user supply `levels`" only works
+    *after* the internal callers stop passing it.
+
+- **`type` and `format` were unvalidated** (fixed in the follow-up
+  commit). A `type` outside `c("c", "l")` left `subdf` undefined and
+  errored obscurely; an unmatched `format` fell through every branch and
+  returned `NULL` invisibly. Both now go through `rlang::arg_match()`
+  with the permitted values in the signature; `rlang` was already in
+  Imports, so this added no dependency.
+
+**Spelling gotcha:** `tests/spelling.R` checks DESCRIPTION, Rd files,
+vignettes and **NEWS.md** against en-US, but *not* test files — which is
+why `test-curve_helpers.R` has said "honours" for years while the same
+word in a NEWS entry fails the check.
 
 ## Session hygiene
 
@@ -435,3 +453,4 @@ Imports block ends at `rlang`.
   `Rscript -e "devtools::check(args = '--as-cran')"` from a terminal,
   then `R CMD build concurve` from `~` and inspect `tar -tzf` for stray
   files.
+

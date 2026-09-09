@@ -16,6 +16,13 @@
   still filtered silently, as it always was. `levels` must now be numeric,
   free of missing values, and strictly between 0 and 1 when `type = "c"`.
 
+- `curve_table()` validates `type` and `format` with `rlang::arg_match()`.
+  An unrecognized `type` previously left an internal object undefined and
+  failed with an obscure error, and an unrecognized `format` fell through
+  every branch to return `NULL` invisibly. Both now fail immediately with a
+  message listing the permitted values, which also now appear in the
+  function's signature and help page.
+
 # concurve 3.0.4
 
 ## New features

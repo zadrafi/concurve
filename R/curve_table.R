@@ -11,12 +11,13 @@
 #' `type = "l"`. Values must match levels actually present in `data`, which
 #' depends on the `steps` used to build it; any supplied level that matches
 #' no row is omitted, with a warning naming it.
-#' @param type Indicates whether the table is for a consonance function or likelihood function.
-#' The default is set to "c" for consonance and can be switched to "l" for likelihood.
-#' @param format The format of the tables. The options include "data.frame" which is the
-#' default, "docx" (which creates a table for a word document), "pptx" (which
-#' creates a table for powerpoint), "latex", (which creates a table for a TeX document), and
-#' "image", which produces an image of the table.
+#' @param type Indicates whether the table is for a consonance function or a
+#' likelihood function. One of `"c"` for consonance, the default, or `"l"`
+#' for likelihood.
+#' @param format The format of the table. One of `"data.frame"`, the default,
+#' `"docx"` (a table for a Word document), `"pptx"` (for PowerPoint),
+#' `"latex"` (for a TeX document), or `"image"`. An unrecognized `type` or
+#' `format` is an error naming the permitted values.
 #'
 #' @return The returned object depends on `format`:
 #' * `"data.frame"` (the default): a data frame of class
@@ -46,7 +47,13 @@
 #' @seealso [plot_compare()]
 #'
 #' @export
-curve_table <- function(data, levels = NULL, type = "c", format = "data.frame") {
+curve_table <- function(data,
+                        levels = NULL,
+                        type = c("c", "l"),
+                        format = c("data.frame", "docx", "pptx", "latex", "image")) {
+  type <- rlang::arg_match(type)
+  format <- rlang::arg_match(format)
+
   # Only report unmatched levels the caller actually asked for. The default
   # set is a superset of what a coarse `steps` can produce, and the internal
   # callers have always taken whatever subset existed.
