@@ -43,4 +43,3 @@ curve_lik <- function(likobject, data, table = TRUE) {
   }
 }
 
-utils::globalVariables(c("likfunction", "values", "likelihood", "loglikelihood", "support", "deviancestat"))

@@ -314,7 +314,7 @@ of `R/`, so it was deliberately held back from the 3.0.4 submission.
 | Item | Extent | Notes |
 |----|----|----|
 | `stop()` / `warning()` → `cli::cli_abort()` / `cli_warn()` | 220 call sites, 0 classed conditions | Makes errors testable; `cli` would move to Imports |
-| `utils::globalVariables()` → `.data` pronoun | 20 declarations | `R/curve_helpers.R` even lists `".data"` *inside* `globalVariables()`, which is a smell; `R/utils-tidy-eval.R` already exists |
+| ~~`utils::globalVariables()` → `.data` pronoun~~ | **done on `release/3.0.5`** | All 20 removed; only 5 functions needed `.data`. See the note below |
 | `match.arg()` / bare strings → `rlang::arg_match()` | 0 uses of either today | See the `curve_table()` bugs below |
 | ~~`Config/testthat/edition: 3`~~ | **done on `release/3.0.5`** | See the fallout note below |
 | `%>%` → `|>` | 5 live uses in `R/plot.likelihood_function.R` | Not a dependency bug: imported via `@importFrom dplyr %>%`, and dplyr is in Imports |
@@ -346,6 +346,24 @@ had been hiding real problems:
   `test-curve_rstar_mpl.R`) is deprecated in 3e and removed.
 
 Result: `FAIL 0 | WARN 0 | SKIP 11 | PASS 256`.
+
+**The `.data` migration (done on `release/3.0.5`).** Delete the
+declarations first and let `R CMD check` tell you which were
+load-bearing — that is the only authoritative list. Of the 20
+declarations across 17 files, only five functions referenced anything:
+`curve_compare`, `curve_meta`, `ggcurve`, `ggplot_likelihood`,
+`plot_compare`. Three quarters were dead weight. Two traps:
+
+- **`pivot_longer(df, lower.limit:upper.limit)` is a tidyselect *range*,
+  not an `aes()` reference**, so `.data$` does not apply
+  (`.data$a:.data$b` is invalid). Those became `c("lower.limit",
+  "upper.limit")`; same for `X2:X3` in `ggcurve()`.
+- **`globalVariables("res")` was masking a real bug** in
+  `curve_meta()`'s `mv` branch — see NEWS for 3.0.5. Declaring a name
+  silences the checker without making the code work, so treat every
+  entry as a possible hidden bug rather than boilerplate. A leftover
+  `res` in the calling environment (an `rcmdcheck` object, in this
+  session) is enough to hide it interactively.
 
 Two **behaviour** bugs were found in `R/curve_table.R` during the audit.
 **Both are fixed on `release/3.0.5`**; neither was visible to

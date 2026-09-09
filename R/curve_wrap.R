@@ -247,9 +247,3 @@ curve_model <- function(model, param, method = "default", steps = 1000,
   curve_wrap(ci_func, steps = steps, cores = cores, table = table)
 }
 
-
-# R CMD check
-utils::globalVariables(c(
-  "lower.limit", "upper.limit", "intrvl.width",
-  "intrvl.level", "cdf", "pvalue", "svalue"
-))

@@ -134,25 +134,25 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
 
     interval <- parallel::mclapply(levels, FUN = function(i) (c(i, data[data$intrvl.level == i, ][, 1], data[data$intrvl.level == i, ][, 2])), mc.cores = getOption("mc.cores", 1L))
     interval <- data.frame(do.call(rbind, interval))
-    interval <- pivot_longer(interval, X2:X3, names_to = "levels", values_to = "limits")
+    interval <- pivot_longer(interval, c("X2", "X3"), names_to = "levels", values_to = "limits")
     interval <- interval[, -2]
     colum_names <- c("levels", "limits")
     colnames(interval) <- colum_names
 
 
     ggplot(data = data) +
-      geom_line(aes(x = lower.limit, y = pvalue),
+      geom_line(aes(x = .data$lower.limit, y = .data$pvalue),
         color = color
       ) +
-      geom_line(aes(x = upper.limit, y = pvalue),
+      geom_line(aes(x = .data$upper.limit, y = .data$pvalue),
         color = color
       ) +
-      ggplot2::geom_point(data = interval, mapping = aes(x = limits, y = 1 - levels), size = 1.75, shape = 18) +
-      geom_line(data = interval, mapping = aes(x = limits, y = 1 - levels, group = levels), size = .30) +
-      geom_ribbon(aes(x = lower.limit, ymin = min(pvalue), ymax = pvalue),
+      ggplot2::geom_point(data = interval, mapping = aes(x = .data$limits, y = 1 - levels), size = 1.75, shape = 18) +
+      geom_line(data = interval, mapping = aes(x = .data$limits, y = 1 - levels, group = levels), size = .30) +
+      geom_ribbon(aes(x = .data$lower.limit, ymin = min(.data$pvalue), ymax = .data$pvalue),
         fill = fill, alpha = 0.10
       ) +
-      geom_ribbon(aes(x = upper.limit, ymin = min(pvalue), ymax = pvalue),
+      geom_ribbon(aes(x = .data$upper.limit, ymin = min(.data$pvalue), ymax = .data$pvalue),
         fill = fill, alpha = 0.10
       ) +
       labs(
@@ -228,24 +228,24 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
 
     interval <- parallel::mclapply(levels, FUN = function(i) (c(i, data[data$intrvl.level == i, ][, 1], data[data$intrvl.level == i, ][, 2])), mc.cores = getOption("mc.cores", 1L))
     interval <- data.frame(do.call(rbind, interval))
-    interval <- tidyr::pivot_longer(interval, X2:X3, names_to = "levels", values_to = "limits")
+    interval <- tidyr::pivot_longer(interval, c("X2", "X3"), names_to = "levels", values_to = "limits")
     interval <- interval[, -2]
     colum_names <- c("levels", "limits")
     colnames(interval) <- colum_names
 
     ggplot(data = data) +
-      geom_line(aes(x = lower.limit, y = svalue),
+      geom_line(aes(x = .data$lower.limit, y = .data$svalue),
         color = color
       ) +
-      geom_line(aes(x = upper.limit, y = svalue),
+      geom_line(aes(x = .data$upper.limit, y = .data$svalue),
         color = color
       ) +
-      ggplot2::geom_point(data = interval, mapping = aes(x = limits, y = (-log2(1 - levels))), size = 1.75, shape = 18) +
-      geom_line(data = interval, mapping = aes(x = limits, y = (-log2(1 - levels)), group = levels), size = .30) +
-      geom_ribbon(aes(x = lower.limit, ymin = max(svalue), ymax = svalue),
+      ggplot2::geom_point(data = interval, mapping = aes(x = .data$limits, y = (-log2(1 - levels))), size = 1.75, shape = 18) +
+      geom_line(data = interval, mapping = aes(x = .data$limits, y = (-log2(1 - levels)), group = levels), size = .30) +
+      geom_ribbon(aes(x = .data$lower.limit, ymin = max(.data$svalue), ymax = .data$svalue),
         fill = fill, alpha = 0.10
       ) +
-      geom_ribbon(aes(x = upper.limit, ymin = max(svalue), ymax = svalue),
+      geom_ribbon(aes(x = .data$upper.limit, ymin = max(.data$svalue), ymax = .data$svalue),
         fill = fill, alpha = 0.10
       ) +
       labs(
@@ -300,7 +300,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
       stop("Error: 'fill' must be a string for the color.")
     }
 
-    ggplot(data = data, mapping = aes(x = x)) +
+    ggplot(data = data, mapping = aes(x = .data$x)) +
       ggplot2::stat_ecdf(geom = "point", color = colorspace::darken("#e7998c", 0.2), size = 0.75, shape = 5, alpha = 0.75) +
       ggplot2::geom_hline(yintercept = 0.50, linetype = "dotted", alpha = 0.5) +
       labs(
@@ -344,7 +344,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
       stop("Error: 'fill' must be a string for the color.")
     }
 
-    ggplot(data = data, mapping = aes(x = x)) +
+    ggplot(data = data, mapping = aes(x = .data$x)) +
       ggplot2::geom_density(fill = fill, color = color, alpha = 0.20) +
       labs(
         title = title,
@@ -391,9 +391,9 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
       stop("Error: 'fill' must be a string for the color.")
     }
 
-    ggplot(data = data, mapping = aes(x = values, y = support)) +
+    ggplot(data = data, mapping = aes(x = .data$values, y = .data$support)) +
       geom_line() +
-      geom_ribbon(aes(x = values, ymin = min(support), ymax = support), fill = fill, color = color, alpha = 0.10) +
+      geom_ribbon(aes(x = .data$values, ymin = min(.data$support), ymax = .data$support), fill = fill, color = color, alpha = 0.10) +
       labs(
         title = title,
         subtitle = subtitle,
@@ -438,9 +438,9 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
       stop("Error: 'fill' must be a string for the color.")
     }
 
-    ggplot(data = data, mapping = aes(x = values, y = loglikelihood)) +
+    ggplot(data = data, mapping = aes(x = .data$values, y = .data$loglikelihood)) +
       geom_line() +
-      geom_ribbon(aes(x = values, ymin = min(loglikelihood), ymax = loglikelihood), fill = fill, color = color, alpha = 0.10) +
+      geom_ribbon(aes(x = .data$values, ymin = min(.data$loglikelihood), ymax = .data$loglikelihood), fill = fill, color = color, alpha = 0.10) +
       labs(
         title = title,
         subtitle = subtitle,
@@ -486,9 +486,9 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
       stop("Error: 'fill' must be a string for the color.")
     }
 
-    ggplot(data = data, mapping = aes(x = values, y = likelihood)) +
+    ggplot(data = data, mapping = aes(x = .data$values, y = .data$likelihood)) +
       geom_line() +
-      geom_ribbon(aes(x = values, ymin = min(likelihood), ymax = likelihood), fill = fill, color = color, alpha = 0.10) +
+      geom_ribbon(aes(x = .data$values, ymin = min(.data$likelihood), ymax = .data$likelihood), fill = fill, color = color, alpha = 0.10) +
       labs(
         title = title,
         subtitle = subtitle,
@@ -534,9 +534,9 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
       stop("Error: 'fill' must be a string for the color.")
     }
 
-    ggplot(data = data, mapping = aes(x = values, y = deviancestat)) +
+    ggplot(data = data, mapping = aes(x = .data$values, y = .data$deviancestat)) +
       geom_line() +
-      geom_ribbon(aes(x = values, ymin = deviancestat, ymax = max(deviancestat)), fill = fill, color = color, alpha = 0.10) +
+      geom_ribbon(aes(x = .data$values, ymin = .data$deviancestat, ymax = max(.data$deviancestat)), fill = fill, color = color, alpha = 0.10) +
       labs(
         title = title,
         subtitle = subtitle,
@@ -568,5 +568,3 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
 }
 
 # RMD Check
-utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.width", "intrvl.level", "cdf", "pvalue", "svalue"))
-utils::globalVariables(c("X2", "X3", "limits", "x"))

@@ -86,4 +86,3 @@ curve_corr <- function(x, y, alternative, method, steps = 10000, cores = getOpti
 }
 
 # RMD Check
-utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.width", "intrvl.level", "cdf", "pvalue", "svalue"))

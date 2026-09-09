@@ -16,6 +16,23 @@
   still filtered silently, as it always was. `levels` must now be numeric,
   free of missing values, and strictly between 0 and 1 when `type = "c"`.
 
+- `curve_meta(method = "mv")` works. The `confint()` call in the
+  multivariate branch passed `object = res`, a name that exists only in the
+  function's own examples, so the branch failed with "object 'res' not
+  found" unless a variable of that name happened to exist in the calling
+  environment. It now passes the function's `x` argument, as all four other
+  method branches already did. A stray `utils::globalVariables("res")`
+  declaration had kept `R CMD check` from reporting it.
+
+- The package no longer declares column names with
+  `utils::globalVariables()`. Columns referenced inside `aes()` now use the
+  `.data` pronoun, so a renamed or missing column fails loudly instead of
+  silently resolving to nothing. Removing the 20 declarations showed most of
+  the declared names were dead: only `curve_compare()`, `curve_meta()`,
+  `ggcurve()`, `ggplot_likelihood()` and `plot_compare()` referenced
+  anything at all. Two `pivot_longer()` calls that selected a column *range*
+  (`lower.limit:upper.limit` and `X2:X3`) now name their columns explicitly.
+
 - `curve_table()` validates `type` and `format` with `rlang::arg_match()`.
   An unrecognized `type` previously left an internal object undefined and
   failed with an obscure error, and an unrecognized `format` fell through

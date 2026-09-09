@@ -90,4 +90,3 @@ curve_lmer <- function(object, parm, method = "profile", zeta = NULL,
 }
 
 # RMD Check
-utils::globalVariables(c("df", "lower.limit", "confint.merMod", "upper.limit", "intrvl.width", "intrvl.level", "cdf", "pvalue", "svalue"))

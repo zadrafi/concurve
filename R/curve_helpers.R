@@ -374,5 +374,3 @@ curve_summary <- function(data,
 }
 
 
-# R CMD check global variables
-utils::globalVariables(c("curve_label", "bound", "x", ".data", "curve_id"))

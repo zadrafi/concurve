@@ -278,4 +278,3 @@ curve_boot <- function(data = data, func = func, method = "bca", t0, tt, bb,
 }
 
 # RMD Check -----------------------------------------------------
-utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.width", "intrvl.level", "cdf", "pvalue", "svalue"))

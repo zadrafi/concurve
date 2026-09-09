@@ -78,4 +78,3 @@ curve_surv <- function(data, x, steps = 10000, cores = getOption("mc.cores", 1L)
 }
 
 # RMD Check
-utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.width", "intrvl.level", "cdf", "pvalue", "svalue"))

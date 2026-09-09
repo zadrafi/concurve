@@ -128,32 +128,32 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
       stop("Error: 'fill2' must be a string for the color.")
     }
     ggplot(data = data1) +
-      geom_line(aes(x = lower.limit, y = pvalue),
+      geom_line(aes(x = .data$lower.limit, y = .data$pvalue),
         color = color2
       ) +
-      geom_line(aes(x = upper.limit, y = pvalue),
+      geom_line(aes(x = .data$upper.limit, y = .data$pvalue),
         color = color2
       ) +
-      geom_ribbon(aes(x = lower.limit, ymin = min(pvalue), ymax = pvalue, fill = fill1),
+      geom_ribbon(aes(x = .data$lower.limit, ymin = min(.data$pvalue), ymax = .data$pvalue, fill = fill1),
         alpha = 0.10
       ) +
-      geom_ribbon(aes(x = upper.limit, ymin = min(pvalue), ymax = pvalue, fill = fill1),
+      geom_ribbon(aes(x = .data$upper.limit, ymin = min(.data$pvalue), ymax = .data$pvalue, fill = fill1),
         alpha = 0.10
       ) +
       geom_line(
-        data = data2, aes(x = lower.limit, y = pvalue),
+        data = data2, aes(x = .data$lower.limit, y = .data$pvalue),
         color = color1
       ) +
       geom_line(
-        data = data2, aes(x = upper.limit, y = pvalue),
+        data = data2, aes(x = .data$upper.limit, y = .data$pvalue),
         color = color1
       ) +
       geom_ribbon(
-        data = data2, aes(x = lower.limit, ymin = min(pvalue), ymax = pvalue, fill = fill2),
+        data = data2, aes(x = .data$lower.limit, ymin = min(.data$pvalue), ymax = .data$pvalue, fill = fill2),
         alpha = 0.10
       ) +
       geom_ribbon(
-        data = data2, aes(x = upper.limit, ymin = min(pvalue), ymax = pvalue, fill = fill2),
+        data = data2, aes(x = .data$upper.limit, ymin = min(.data$pvalue), ymax = .data$pvalue, fill = fill2),
         alpha = 0.10
       ) +
       theme_minimal() +
@@ -259,32 +259,32 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
       stop("Error: 'fill2' must be a string for the color.")
     }
     ggplot(data = data1) +
-      geom_line(aes(x = lower.limit, y = svalue),
+      geom_line(aes(x = .data$lower.limit, y = .data$svalue),
         color = color2
       ) +
-      geom_line(aes(x = upper.limit, y = svalue),
+      geom_line(aes(x = .data$upper.limit, y = .data$svalue),
         color = color2
       ) +
-      geom_ribbon(aes(x = lower.limit, ymin = max(svalue), ymax = svalue, fill = fill1),
+      geom_ribbon(aes(x = .data$lower.limit, ymin = max(.data$svalue), ymax = .data$svalue, fill = fill1),
         alpha = 0.10
       ) +
-      geom_ribbon(aes(x = upper.limit, ymin = max(svalue), ymax = svalue, fill = fill1),
+      geom_ribbon(aes(x = .data$upper.limit, ymin = max(.data$svalue), ymax = .data$svalue, fill = fill1),
         alpha = 0.10
       ) +
       geom_line(
-        data = data2, aes(x = lower.limit, y = svalue),
+        data = data2, aes(x = .data$lower.limit, y = .data$svalue),
         color = color1
       ) +
       geom_line(
-        data = data2, aes(x = upper.limit, y = svalue),
+        data = data2, aes(x = .data$upper.limit, y = .data$svalue),
         color = color1
       ) +
       geom_ribbon(
-        data = data2, aes(x = lower.limit, ymin = max(svalue), ymax = svalue, fill = fill2),
+        data = data2, aes(x = .data$lower.limit, ymin = max(.data$svalue), ymax = .data$svalue, fill = fill2),
         alpha = 0.10
       ) +
       geom_ribbon(
-        data = data2, aes(x = upper.limit, ymin = max(svalue), ymax = svalue, fill = fill2),
+        data = data2, aes(x = .data$upper.limit, ymin = max(.data$svalue), ymax = .data$svalue, fill = fill2),
         alpha = 0.10
       ) +
       labs(
@@ -357,11 +357,11 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
       stop("Error: 'fill2' must be a string for the color.")
     }
 
-    ggplot(data = data1, mapping = aes(x = values, y = support)) +
+    ggplot(data = data1, mapping = aes(x = .data$values, y = .data$support)) +
       geom_line(color = color2) +
-      geom_ribbon(aes(x = values, ymin = min(support), ymax = support, fill = fill1), alpha = 0.10) +
+      geom_ribbon(aes(x = .data$values, ymin = min(.data$support), ymax = .data$support, fill = fill1), alpha = 0.10) +
       geom_line(data = data2, color = color1) +
-      geom_ribbon(data = data2, aes(x = values, ymin = min(support), ymax = support, fill = fill2), alpha = 0.10) +
+      geom_ribbon(data = data2, aes(x = .data$values, ymin = min(.data$support), ymax = .data$support, fill = fill2), alpha = 0.10) +
       labs(
         title = "Relative Likelihood Functions",
         subtitle = subtitle,
@@ -442,11 +442,11 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
       stop("Error: 'fill2' must be a string for the color.")
     }
 
-    ggplot(data = data1, mapping = aes(x = values, y = loglikelihood)) +
+    ggplot(data = data1, mapping = aes(x = .data$values, y = .data$loglikelihood)) +
       geom_line(color = color1) +
-      geom_ribbon(aes(x = values, ymin = min(loglikelihood), ymax = loglikelihood, fill = fill1), alpha = 0.10) +
+      geom_ribbon(aes(x = .data$values, ymin = min(.data$loglikelihood), ymax = .data$loglikelihood, fill = fill1), alpha = 0.10) +
       geom_line(data = data2, color = color2) +
-      geom_ribbon(data = data2, aes(x = values, ymin = min(loglikelihood), ymax = loglikelihood, fill = fill2), alpha = 0.10) +
+      geom_ribbon(data = data2, aes(x = .data$values, ymin = min(.data$loglikelihood), ymax = .data$loglikelihood, fill = fill2), alpha = 0.10) +
       labs(
         title = "Log-Likelihood Function",
         subtitle = subtitle,
@@ -527,11 +527,11 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
       stop("Error: 'fill2' must be a string for the color.")
     }
 
-    ggplot(data = data1, mapping = aes(x = values, y = likelihood)) +
+    ggplot(data = data1, mapping = aes(x = .data$values, y = .data$likelihood)) +
       geom_line(color = color1) +
-      geom_ribbon(aes(x = values, ymin = min(likelihood), ymax = likelihood, fill = fill1), alpha = 0.10) +
+      geom_ribbon(aes(x = .data$values, ymin = min(.data$likelihood), ymax = .data$likelihood, fill = fill1), alpha = 0.10) +
       geom_line(data = data2, color = color2) +
-      geom_ribbon(data = data2, aes(x = values, ymin = min(likelihood), ymax = likelihood, fill = fill2), alpha = 0.10) +
+      geom_ribbon(data = data2, aes(x = .data$values, ymin = min(.data$likelihood), ymax = .data$likelihood, fill = fill2), alpha = 0.10) +
       labs(
         title = "Likelihood Function",
         subtitle = subtitle,
@@ -611,11 +611,11 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
       stop("Error: 'fill2' must be a string for the color.")
     }
 
-    ggplot(data = data1, mapping = aes(x = values, y = deviancestat)) +
+    ggplot(data = data1, mapping = aes(x = .data$values, y = .data$deviancestat)) +
       geom_line(color = color1) +
-      geom_ribbon(aes(x = values, ymin = deviancestat, ymax = max(deviancestat), fill = fill1), alpha = 0.10) +
+      geom_ribbon(aes(x = .data$values, ymin = .data$deviancestat, ymax = max(.data$deviancestat), fill = fill1), alpha = 0.10) +
       geom_line(data = data2, color = color2) +
-      geom_ribbon(data = data2, aes(x = values, ymin = deviancestat, ymax = max(deviancestat), fill = fill2), alpha = 0.10) +
+      geom_ribbon(data = data2, aes(x = .data$values, ymin = .data$deviancestat, ymax = max(.data$deviancestat), fill = fill2), alpha = 0.10) +
       labs(
         title = "Deviance Functions",
         subtitle = subtitle,
@@ -659,4 +659,3 @@ plot_compare <- function(data1, data2, type = "c", measure = "default", nullvalu
 
 
 # RMD Check
-utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.width", "intrvl.level", "cdf", "pvalue", "svalue"))

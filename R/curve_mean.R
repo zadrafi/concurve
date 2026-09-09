@@ -114,4 +114,3 @@ curve_mean <- function(x, y, data, paired = FALSE, method = "default", replicate
 
 
 # RMD Check
-utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.width", "intrvl.level", "cdf", "pvalue", "svalue"))

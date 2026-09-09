@@ -156,4 +156,3 @@ curve_gen <- function(model, var, method = "lm", log = FALSE, penalty = NULL, m 
 }
 
 # RMD Check
-utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.width", "intrvl.level", "cdf", "pvalue", "svalue"))

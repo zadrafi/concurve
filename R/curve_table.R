@@ -144,4 +144,3 @@ curve_table <- function(data,
   invisible(found)
 }
 
-utils::globalVariables(c("subdf", "Lower Limit", "Upper Limit", "Interval Width", "Interval Level", "CDF", "P-value", "S-value"))
