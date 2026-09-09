@@ -24,14 +24,12 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-# kableExtra, magick, and magrittr are optional; chunks using them are skipped
+# kableExtra and magick are optional; chunks using them are skipped
 # when the packages are not installed.
 has_kable <- requireNamespace("kableExtra", quietly = TRUE) &&
-  requireNamespace("magick", quietly = TRUE) &&
-  requireNamespace("magrittr", quietly = TRUE)
+  requireNamespace("magick", quietly = TRUE)
 
 if (has_kable) {
-  library(magrittr)
   library(kableExtra)
   library(magick)
 }
@@ -126,10 +124,10 @@ information <- sprintf(
 df <- data.frame(versions, support, information)
 colnames(df) <- c("Package Version", "Currently Supported", "Information About Version")
 
-kable(df, booktabs = F, format = "html", col.names = colnames(df), table.attr = "class=\"striped\"") %>%
-  column_spec(2, width = "20em", bold = TRUE) %>%
-  column_spec(1, width = "15em", bold = TRUE) %>%
-  column_spec(3, width = "40em", bold = TRUE) %>%
+kable(df, booktabs = F, format = "html", col.names = colnames(df), table.attr = "class=\"striped\"") |>
+  column_spec(2, width = "20em", bold = TRUE) |>
+  column_spec(1, width = "15em", bold = TRUE) |>
+  column_spec(3, width = "40em", bold = TRUE) |>
   kable_styling(full_width = TRUE, "striped", font_size = 20, position = "right", html_font = "helvetica")
 ```
 
@@ -298,7 +296,7 @@ dep_table <- function(field) {
 kable(dep_table("Imports"),
   booktabs = T, format = "html", table.attr = "class=\"striped\"",
   caption = "Package Imports"
-) %>%
+) |>
   kable_styling(full_width = TRUE, "striped", font_size = 10, position = "center", html_font = "helvetica")
 ```
 
@@ -312,7 +310,7 @@ kable(dep_table("Imports"),
 kable(dep_table("Suggests"),
   booktabs = T, format = "html", table.attr = "class=\"striped\"",
   caption = "Package Suggestions"
-) %>%
+) |>
   kable_styling(full_width = TRUE, "striped", font_size = 10, position = "center", html_font = "helvetica")
 ```
 

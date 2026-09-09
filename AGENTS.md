@@ -317,7 +317,7 @@ of `R/`, so it was deliberately held back from the 3.0.4 submission.
 | ~~`utils::globalVariables()` → `.data` pronoun~~ | **done on `release/3.0.5`** | All 20 removed; only 5 functions needed `.data`. See the note below |
 | `match.arg()` / bare strings → `rlang::arg_match()` | 0 uses of either today | See the `curve_table()` bugs below |
 | ~~`Config/testthat/edition: 3`~~ | **done on `release/3.0.5`** | See the fallout note below |
-| ~~`%>%` → `|>`~~ | **done on `release/3.0.5`** | All 5 were one plotly chain in `R/plot.likelihood_function.R`; `@importFrom dplyr %>%` dropped with them. `dplyr` stays in Imports (14 `dplyr::` calls) |
+| ~~`%>%` → `|>`~~ | **done on `release/3.0.5`** | 5 in `R/` (one plotly chain in `R/plot.likelihood_function.R`) plus 6 in `vignettes/supported.Rmd`. `@importFrom dplyr %>%` went with the first set, `magrittr` (Suggests) with the second. `dplyr` stays in Imports (14 `dplyr::` calls) |
 | Lines \> 80 chars | 459, of which 193 are roxygen | Cosmetic. Code formatting is handled by air (no `air.toml`, so defaults) |
 | `@examples` coverage | 32 blocks for 62 exports | The 11 defunct stubs account for some of the gap |
 | `@family` tags | 0 (49 `@seealso` instead) | Would group the `curve_*` family in the pkgdown index |
