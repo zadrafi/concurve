@@ -184,18 +184,6 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "magrittr",
-      "name": "magrittr",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=magrittr"
-    },
-    {
-      "@type": "SoftwareApplication",
       "identifier": "MASS",
       "name": "MASS",
       "provider": {
@@ -548,7 +536,7 @@
       "@type": "SoftwareApplication",
       "identifier": "R",
       "name": "R",
-      "version": ">= 4.0.0"
+      "version": ">= 4.1.0"
     },
     "2": {
       "@type": "SoftwareApplication",
@@ -731,7 +719,7 @@
     "SystemRequirements": null
   },
   "keywords": ["confidence", "compatibility", "consonance", "curve", "informationstatistics", "surprisals", "interval", "function", "distribution", "fiducial", "confidence-intervals", "compatibility-intervals", "stata", "confidence-distribution", "likelihood-functions", "bootstrap-method", "r", "frequentist-methods", "fiducial-distribution", "density-function", "cumulative-distribution-function", "surprisal-function", "deviance-function"],
-  "fileSize": "3614.684KB",
+  "fileSize": "3619.493KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",

@@ -60,6 +60,12 @@
   message listing the permitted values, which also now appear in the
   function's signature and help page.
 
+- The declared minimum R version is now 4.1.0, up from 4.0.0. The package
+  uses the native pipe `|>`, which R gained in 4.1.0, so the old
+  declaration let `install.packages()` proceed on R 4.0.x and then fail
+  while parsing `R/plot.likelihood_function.R`. `R CMD check` had not
+  caught it because the CI matrix reaches only `oldrel-1`.
+
 # concurve 3.0.4
 
 ## New features

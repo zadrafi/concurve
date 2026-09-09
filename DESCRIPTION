@@ -33,7 +33,7 @@ License: GPL-3 | file LICENSE
 URL: https://stat.lesslikely.com/concurve/,
      https://github.com/zadrafi/concurve
 BugReports: https://github.com/zadrafi/concurve/issues
-Depends: R (>= 4.0.0)
+Depends: R (>= 4.1.0)
 Imports:
     methods,
     bcaboot,
