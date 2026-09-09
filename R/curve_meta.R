@@ -210,7 +210,7 @@ curve_meta <- function(x, measure = "default", method = "uni", parm = NULL, robu
   } else if (method == "mv") {
     steps <- 100
     intrvls_mv <- ((1:steps))
-    results <- parallel::mclapply(intrvls_mv, FUN = function(i) (confint(object = res, fixed = TRUE, level = i))[["fixed"]], mc.cores = cores)
+    results <- parallel::mclapply(intrvls_mv, FUN = function(i) (confint(object = x, fixed = TRUE, level = i))[["fixed"]], mc.cores = cores)
     results <- parallel::mclapply((1:(length(results))), FUN = function(j) as.data.frame(results[[j]]), mc.cores = cores)
     results <- parallel::mclapply((1:(length(results))), FUN = function(k) dplyr::filter(results[[k]], rownames(results[[k]]) == parm), mc.cores = cores)
     df <- (data.frame(do.call(rbind, results)))[, 2:3]
@@ -243,8 +243,7 @@ curve_meta <- function(x, measure = "default", method = "uni", parm = NULL, robu
   class(densdf) <- c("data.frame", "concurve")
 
   if (table == TRUE) {
-    levels <- c(0.25, 0.50, 0.75, 0.80, 0.85, 0.90, 0.95, 0.975, 0.99)
-    (df_subintervals <- (curve_table(df, levels, type = "c", format = "data.frame")))
+    (df_subintervals <- (curve_table(df, type = "c", format = "data.frame")))
     class(df_subintervals) <- c("data.frame", "concurve")
     dataframes <- list(df, densdf, df_subintervals)
     names(dataframes) <- c("Intervals Dataframe", "Intervals Density", "Intervals Table")
@@ -256,5 +255,3 @@ curve_meta <- function(x, measure = "default", method = "uni", parm = NULL, robu
 }
 
 # RMD Check
-utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.width", "intrvl.level", "cdf", "pvalue", "svalue"))
-utils::globalVariables(c("res"))

@@ -4,8 +4,9 @@
 \alias{plot_compare}
 \title{Graph and Compare Consonance, Surprisal, and Likelihood Functions}
 \usage{
-plot_compare(data1, data2, type = "c", measure = "default",
-  nullvalue = FALSE, position = "pyramid", title = "Interval Functions",
+plot_compare(data1, data2, type = c("c", "s", "l1", "l2", "l3", "d"),
+  measure = c("default", "ratio"), nullvalue = FALSE,
+  position = c("pyramid", "inverted"), title = "Interval Functions",
   subtitle = "The function displays intervals at every level.",
   xaxis = expression(theta == ~"Range of Values"),
   yaxis1 = expression(paste(italic(p), "-value")),
@@ -19,13 +20,12 @@ intervals are stored.}
 \item{data2}{The second dataframe produced by one of the interval functions in which the
 intervals are stored.}
 
-\item{type}{Choose whether to plot a "consonance" function, a
-"surprisal" function or "likelihood". The default option is set to "c".
-The type must be set in quotes, for example plot_compare(type = "s") or
-plot_compare(type = "c"). Other options include "pd" for the consonance
-distribution function, and "cd" for the consonance density function,
-"l1" for relative likelihood, "l2" for log-likelihood, "l3" for likelihood
-and "d" for deviance function.}
+\item{type}{The kind of function to plot. One of \code{"c"} for a consonance
+function, the default, \code{"s"} for a surprisal function, \code{"l1"} for
+relative likelihood, \code{"l2"} for log-likelihood, \code{"l3"} for likelihood,
+or \code{"d"} for the deviance function. Unlike \code{\link[=ggcurve]{ggcurve()}}, \code{plot_compare()}
+implements neither \code{"cdf"} nor \code{"cd"}. An unrecognized value is an error
+naming the permitted ones.}
 
 \item{measure}{Indicates whether the object has a log transformation
 or is normal/default. The default setting is "default". If the measure

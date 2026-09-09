@@ -1,3 +1,65 @@
+# concurve 3.0.5
+
+## Bug fixes
+
+- `curve_table()` honors its documented `levels` argument. Both branches
+  overwrote it with a hard-coded vector, so a user-supplied value was
+  silently discarded and every table showed the same conventional levels.
+  The overwrite dates from the commit that introduced the function in
+  December 2019, so the argument had never had any effect. `levels` now
+  defaults to `NULL`, which selects the conventional set that was
+  previously forced -- existing calls, including those from `curve_gen()`
+  and the other `curve_*()` functions, produce identical output -- while a
+  supplied vector selects those levels instead. A *supplied* level that
+  matches no row in `data` -- which depends on the `steps` the curve was
+  built with -- is omitted with a warning naming it; the default set is
+  still filtered silently, as it always was. `levels` must now be numeric,
+  free of missing values, and strictly between 0 and 1 when `type = "c"`.
+
+- `ggcurve()` and `plot_compare()` use `linewidth` rather than `size` for
+  line and border widths, which ggplot2 deprecated in 3.4.0 and which had
+  been emitting a deprecation warning naming this package. This affects the
+  eight `annotate("rect")` null-value bands in `ggcurve()`, the eight
+  `annotate("segment")` null-value markers in `plot_compare()`, and two
+  `geom_line()` calls. The `size` argument is retained where it is still
+  correct, namely `geom_point()`, `stat_ecdf(geom = "point")`, and every
+  `element_text()`.
+
+- `ggcurve()` and `plot_compare()` validate `type`, `measure` and
+  `position` with `rlang::arg_match()`. An unrecognized value used to fall
+  through every branch and return `NULL` invisibly, so a typo such as
+  `type = "s1"` produced no plot and no error. The permitted values now
+  appear in each function's signature and help page, and note that
+  `plot_compare()` implements fewer types than `ggcurve()`: it has no
+  `"cdf"` or `"cd"`. Both help pages had also documented a `"pd"` type for
+  the consonance distribution function, which neither function has ever
+  implemented -- the branch is `"cdf"` -- and `plot_compare()`'s page
+  advertised `"cdf"` and `"cd"` as well. Both are corrected.
+
+- `curve_meta(method = "mv")` works. The `confint()` call in the
+  multivariate branch passed `object = res`, a name that exists only in the
+  function's own examples, so the branch failed with "object 'res' not
+  found" unless a variable of that name happened to exist in the calling
+  environment. It now passes the function's `x` argument, as all four other
+  method branches already did. A stray `utils::globalVariables("res")`
+  declaration had kept `R CMD check` from reporting it.
+
+- The package no longer declares column names with
+  `utils::globalVariables()`. Columns referenced inside `aes()` now use the
+  `.data` pronoun, so a renamed or missing column fails loudly instead of
+  silently resolving to nothing. Removing the 20 declarations showed most of
+  the declared names were dead: only `curve_compare()`, `curve_meta()`,
+  `ggcurve()`, `ggplot_likelihood()` and `plot_compare()` referenced
+  anything at all. Two `pivot_longer()` calls that selected a column *range*
+  (`lower.limit:upper.limit` and `X2:X3`) now name their columns explicitly.
+
+- `curve_table()` validates `type` and `format` with `rlang::arg_match()`.
+  An unrecognized `type` previously left an internal object undefined and
+  failed with an obscure error, and an unrecognized `format` fell through
+  every branch to return `NULL` invisibly. Both now fail immediately with a
+  message listing the permitted values, which also now appear in the
+  function's signature and help page.
+
 # concurve 3.0.4
 
 ## New features

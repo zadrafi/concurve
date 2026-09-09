@@ -493,7 +493,7 @@ ggplot_likelihood <- function(x,
   chi2_crit <- qchisq(ci_level, df = 1)
 
   if (type == "likelihood" || type == "both") {
-    p_lik <- ggplot2::ggplot(profile_data, ggplot2::aes(x = value, y = rel_likelihood)) +
+    p_lik <- ggplot2::ggplot(profile_data, ggplot2::aes(x = .data$value, y = .data$rel_likelihood)) +
       ggplot2::geom_line(linewidth = 1.2, color = "black") +
       ggplot2::geom_vline(
         xintercept = mle_val, linetype = "dashed",
@@ -523,7 +523,7 @@ ggplot_likelihood <- function(x,
   }
 
   if (type == "deviance" || type == "both") {
-    p_dev <- ggplot2::ggplot(profile_data, ggplot2::aes(x = value, y = deviance)) +
+    p_dev <- ggplot2::ggplot(profile_data, ggplot2::aes(x = .data$value, y = .data$deviance)) +
       ggplot2::geom_line(linewidth = 1.2, color = "black") +
       ggplot2::geom_vline(
         xintercept = mle_val, linetype = "dashed",
@@ -683,5 +683,3 @@ plotly_likelihood <- function(x,
   p
 }
 
-# Declare global variables used in aes() to suppress R CMD check notes
-utils::globalVariables(c("rel_likelihood", "deviance", "value"))

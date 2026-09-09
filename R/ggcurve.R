@@ -7,13 +7,12 @@
 #'
 #' @param data The dataframe produced by one of the interval functions
 #' in which the intervals are stored.
-#' @param type Choose whether to plot a "consonance" function, a
-#' "surprisal" function or "likelihood". The default option is set to "c".
-#' The type must be set in quotes, for example ggcurve (type = "s") or
-#' ggcurve(type = "c"). Other options include "pd" for the consonance
-#' distribution function, and "cd" for the consonance density function,
-#' "l1" for relative likelihood, "l2" for log-likelihood, "l3" for likelihood
-#' and "d" for deviance function.
+#' @param type The kind of function to plot. One of `"c"` for a consonance
+#' function, the default, `"s"` for a surprisal function, `"cdf"` for the
+#' consonance distribution function, `"cd"` for the consonance density
+#' function, `"l1"` for relative likelihood, `"l2"` for log-likelihood,
+#' `"l3"` for likelihood, or `"d"` for the deviance function. An
+#' unrecognized value is an error naming the permitted ones.
 #' @param measure Indicates whether the object has a log transformation
 #' or is normal/default. The default setting is "default". If the measure
 #' is set to "ratio", it will take logarithmically transformed values and
@@ -94,8 +93,12 @@
 #' @importFrom ggplot2 expansion
 #' @export
 
-ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullvalue = NULL,
-                    position = "pyramid",
+ggcurve <- function(data,
+                    type = c("c", "s", "cdf", "cd", "l1", "l2", "l3", "d"),
+                    measure = c("default", "ratio"),
+                    levels = 0.95,
+                    nullvalue = NULL,
+                    position = c("pyramid", "inverted"),
                     title = "Consonance Function",
                     subtitle = "The function displays intervals at every level.",
                     xaxis = expression(theta == ~"Range of Values"),
@@ -103,6 +106,10 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
                     yaxis2 = "Levels for CI (%)",
                     color = colorspace::darken("#009E73", 0.5),
                     fill = "#239a98") {
+  type <- rlang::arg_match(type)
+  measure <- rlang::arg_match(measure)
+  position <- rlang::arg_match(position)
+
   # Consonance Curve -----------------------------------------------------
 
   if (type == "c") {
@@ -134,25 +141,25 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
 
     interval <- parallel::mclapply(levels, FUN = function(i) (c(i, data[data$intrvl.level == i, ][, 1], data[data$intrvl.level == i, ][, 2])), mc.cores = getOption("mc.cores", 1L))
     interval <- data.frame(do.call(rbind, interval))
-    interval <- pivot_longer(interval, X2:X3, names_to = "levels", values_to = "limits")
+    interval <- pivot_longer(interval, c("X2", "X3"), names_to = "levels", values_to = "limits")
     interval <- interval[, -2]
     colum_names <- c("levels", "limits")
     colnames(interval) <- colum_names
 
 
     ggplot(data = data) +
-      geom_line(aes(x = lower.limit, y = pvalue),
+      geom_line(aes(x = .data$lower.limit, y = .data$pvalue),
         color = color
       ) +
-      geom_line(aes(x = upper.limit, y = pvalue),
+      geom_line(aes(x = .data$upper.limit, y = .data$pvalue),
         color = color
       ) +
-      ggplot2::geom_point(data = interval, mapping = aes(x = limits, y = 1 - levels), size = 1.75, shape = 18) +
-      geom_line(data = interval, mapping = aes(x = limits, y = 1 - levels, group = levels), size = .30) +
-      geom_ribbon(aes(x = lower.limit, ymin = min(pvalue), ymax = pvalue),
+      ggplot2::geom_point(data = interval, mapping = aes(x = .data$limits, y = 1 - levels), size = 1.75, shape = 18) +
+      geom_line(data = interval, mapping = aes(x = .data$limits, y = 1 - levels, group = levels), linewidth = .30) +
+      geom_ribbon(aes(x = .data$lower.limit, ymin = min(.data$pvalue), ymax = .data$pvalue),
         fill = fill, alpha = 0.10
       ) +
-      geom_ribbon(aes(x = upper.limit, ymin = min(pvalue), ymax = pvalue),
+      geom_ribbon(aes(x = .data$upper.limit, ymin = min(.data$pvalue), ymax = .data$pvalue),
         fill = fill, alpha = 0.10
       ) +
       labs(
@@ -197,7 +204,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
         if (is.numeric(nullvalue) == TRUE) {
           annotate("rect",
             xmin = min(nullvalue), xmax = max(nullvalue), ymin = 0, ymax = 1,
-            fill = "#d46c5b", color = "#d46c5b", alpha = 0.05, linetype = 3, size = 0.2
+            fill = "#d46c5b", color = "#d46c5b", alpha = 0.05, linetype = 3, linewidth = 0.2
           )
         }
       }
@@ -228,24 +235,24 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
 
     interval <- parallel::mclapply(levels, FUN = function(i) (c(i, data[data$intrvl.level == i, ][, 1], data[data$intrvl.level == i, ][, 2])), mc.cores = getOption("mc.cores", 1L))
     interval <- data.frame(do.call(rbind, interval))
-    interval <- tidyr::pivot_longer(interval, X2:X3, names_to = "levels", values_to = "limits")
+    interval <- tidyr::pivot_longer(interval, c("X2", "X3"), names_to = "levels", values_to = "limits")
     interval <- interval[, -2]
     colum_names <- c("levels", "limits")
     colnames(interval) <- colum_names
 
     ggplot(data = data) +
-      geom_line(aes(x = lower.limit, y = svalue),
+      geom_line(aes(x = .data$lower.limit, y = .data$svalue),
         color = color
       ) +
-      geom_line(aes(x = upper.limit, y = svalue),
+      geom_line(aes(x = .data$upper.limit, y = .data$svalue),
         color = color
       ) +
-      ggplot2::geom_point(data = interval, mapping = aes(x = limits, y = (-log2(1 - levels))), size = 1.75, shape = 18) +
-      geom_line(data = interval, mapping = aes(x = limits, y = (-log2(1 - levels)), group = levels), size = .30) +
-      geom_ribbon(aes(x = lower.limit, ymin = max(svalue), ymax = svalue),
+      ggplot2::geom_point(data = interval, mapping = aes(x = .data$limits, y = (-log2(1 - levels))), size = 1.75, shape = 18) +
+      geom_line(data = interval, mapping = aes(x = .data$limits, y = (-log2(1 - levels)), group = levels), linewidth = .30) +
+      geom_ribbon(aes(x = .data$lower.limit, ymin = max(.data$svalue), ymax = .data$svalue),
         fill = fill, alpha = 0.10
       ) +
-      geom_ribbon(aes(x = upper.limit, ymin = max(svalue), ymax = svalue),
+      geom_ribbon(aes(x = .data$upper.limit, ymin = max(.data$svalue), ymax = .data$svalue),
         fill = fill, alpha = 0.10
       ) +
       labs(
@@ -271,7 +278,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
       scale_y_continuous(breaks = seq(0, 14, 1), expand = c(0.0075, 0.0075)) +
       if (is.numeric(nullvalue) == TRUE) {
         annotate("rect",
-          xmin = min(nullvalue), xmax = max(nullvalue), ymin = RobustMin((interval$svalue)), ymax = RobustMax((interval$svalue)), fill = "#d46c5b", color = "#d46c5b", alpha = 0.05, linetype = 3, size = 0.2
+          xmin = min(nullvalue), xmax = max(nullvalue), ymin = RobustMin((interval$svalue)), ymax = RobustMax((interval$svalue)), fill = "#d46c5b", color = "#d46c5b", alpha = 0.05, linetype = 3, linewidth = 0.2
         )
       }
 
@@ -300,7 +307,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
       stop("Error: 'fill' must be a string for the color.")
     }
 
-    ggplot(data = data, mapping = aes(x = x)) +
+    ggplot(data = data, mapping = aes(x = .data$x)) +
       ggplot2::stat_ecdf(geom = "point", color = colorspace::darken("#e7998c", 0.2), size = 0.75, shape = 5, alpha = 0.75) +
       ggplot2::geom_hline(yintercept = 0.50, linetype = "dotted", alpha = 0.5) +
       labs(
@@ -325,7 +332,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
       if (is.numeric(nullvalue) == TRUE) {
         annotate("rect",
           xmin = min(nullvalue), xmax = max(nullvalue), ymin = 0, ymax = 1,
-          fill = "#d46c5b", color = "#d46c5b", alpha = 0.05, linetype = 3, size = 0.2
+          fill = "#d46c5b", color = "#d46c5b", alpha = 0.05, linetype = 3, linewidth = 0.2
         )
       }
 
@@ -344,7 +351,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
       stop("Error: 'fill' must be a string for the color.")
     }
 
-    ggplot(data = data, mapping = aes(x = x)) +
+    ggplot(data = data, mapping = aes(x = .data$x)) +
       ggplot2::geom_density(fill = fill, color = color, alpha = 0.20) +
       labs(
         title = title,
@@ -368,7 +375,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
       if (is.numeric(nullvalue) == TRUE) {
         annotate("rect",
           xmin = min(nullvalue), xmax = max(nullvalue), ymin = min(density(data$x)[["y"]]), ymax = max(density(data$x)[["y"]]),
-          fill = "#d46c5b", color = "#d46c5b", alpha = 0.05, linetype = 3, size = 0.2
+          fill = "#d46c5b", color = "#d46c5b", alpha = 0.05, linetype = 3, linewidth = 0.2
         )
       }
 
@@ -391,9 +398,9 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
       stop("Error: 'fill' must be a string for the color.")
     }
 
-    ggplot(data = data, mapping = aes(x = values, y = support)) +
+    ggplot(data = data, mapping = aes(x = .data$values, y = .data$support)) +
       geom_line() +
-      geom_ribbon(aes(x = values, ymin = min(support), ymax = support), fill = fill, color = color, alpha = 0.10) +
+      geom_ribbon(aes(x = .data$values, ymin = min(.data$support), ymax = .data$support), fill = fill, color = color, alpha = 0.10) +
       labs(
         title = title,
         subtitle = subtitle,
@@ -416,7 +423,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
       if (is.numeric(nullvalue) == TRUE) {
         annotate("rect",
           xmin = min(nullvalue), xmax = max(nullvalue), ymin = 0, ymax = 1,
-          fill = "#d46c5b", color = "#d46c5b", alpha = 0.05, linetype = 3, size = 0.2
+          fill = "#d46c5b", color = "#d46c5b", alpha = 0.05, linetype = 3, linewidth = 0.2
         )
       }
     # Log-Likelihood Function -----------------------------------------------------
@@ -438,9 +445,9 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
       stop("Error: 'fill' must be a string for the color.")
     }
 
-    ggplot(data = data, mapping = aes(x = values, y = loglikelihood)) +
+    ggplot(data = data, mapping = aes(x = .data$values, y = .data$loglikelihood)) +
       geom_line() +
-      geom_ribbon(aes(x = values, ymin = min(loglikelihood), ymax = loglikelihood), fill = fill, color = color, alpha = 0.10) +
+      geom_ribbon(aes(x = .data$values, ymin = min(.data$loglikelihood), ymax = .data$loglikelihood), fill = fill, color = color, alpha = 0.10) +
       labs(
         title = title,
         subtitle = subtitle,
@@ -463,7 +470,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
       if (is.numeric(nullvalue) == TRUE) {
         annotate("rect",
           xmin = min(nullvalue), xmax = max(nullvalue), ymin = RobustMin(data$loglikelihood), ymax = RobustMax(data$loglikelihood),
-          fill = "#d46c5b", color = "#d46c5b", alpha = 0.05, linetype = 3, size = 0.2
+          fill = "#d46c5b", color = "#d46c5b", alpha = 0.05, linetype = 3, linewidth = 0.2
         )
       }
 
@@ -486,9 +493,9 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
       stop("Error: 'fill' must be a string for the color.")
     }
 
-    ggplot(data = data, mapping = aes(x = values, y = likelihood)) +
+    ggplot(data = data, mapping = aes(x = .data$values, y = .data$likelihood)) +
       geom_line() +
-      geom_ribbon(aes(x = values, ymin = min(likelihood), ymax = likelihood), fill = fill, color = color, alpha = 0.10) +
+      geom_ribbon(aes(x = .data$values, ymin = min(.data$likelihood), ymax = .data$likelihood), fill = fill, color = color, alpha = 0.10) +
       labs(
         title = title,
         subtitle = subtitle,
@@ -511,7 +518,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
       if (is.numeric(nullvalue) == TRUE) {
         annotate("rect",
           xmin = min(nullvalue), xmax = max(nullvalue), ymin = 0, ymax = RobustMax(data$likelihood),
-          fill = "#d46c5b", color = "#d46c5b", alpha = 0.05, linetype = 3, size = 0.2
+          fill = "#d46c5b", color = "#d46c5b", alpha = 0.05, linetype = 3, linewidth = 0.2
         )
       }
 
@@ -534,9 +541,9 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
       stop("Error: 'fill' must be a string for the color.")
     }
 
-    ggplot(data = data, mapping = aes(x = values, y = deviancestat)) +
+    ggplot(data = data, mapping = aes(x = .data$values, y = .data$deviancestat)) +
       geom_line() +
-      geom_ribbon(aes(x = values, ymin = deviancestat, ymax = max(deviancestat)), fill = fill, color = color, alpha = 0.10) +
+      geom_ribbon(aes(x = .data$values, ymin = .data$deviancestat, ymax = max(.data$deviancestat)), fill = fill, color = color, alpha = 0.10) +
       labs(
         title = title,
         subtitle = subtitle,
@@ -560,7 +567,7 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
         if (is.numeric(nullvalue) == TRUE) {
           annotate("rect",
             xmin = min(nullvalue), xmax = max(nullvalue), ymin = 0, ymax = RobustMax(data$deviancestat),
-            fill = "#d46c5b", color = "#d46c5b", alpha = 0.05, linetype = 3, size = 0.2
+            fill = "#d46c5b", color = "#d46c5b", alpha = 0.05, linetype = 3, linewidth = 0.2
           )
         }
       }
@@ -568,5 +575,3 @@ ggcurve <- function(data, type = "c", measure = "default", levels = 0.95, nullva
 }
 
 # RMD Check
-utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.width", "intrvl.level", "cdf", "pvalue", "svalue"))
-utils::globalVariables(c("X2", "X3", "limits", "x"))

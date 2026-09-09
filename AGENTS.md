@@ -314,40 +314,101 @@ of `R/`, so it was deliberately held back from the 3.0.4 submission.
 | Item | Extent | Notes |
 |----|----|----|
 | `stop()` / `warning()` → `cli::cli_abort()` / `cli_warn()` | 220 call sites, 0 classed conditions | Makes errors testable; `cli` would move to Imports |
-| `utils::globalVariables()` → `.data` pronoun | 20 declarations | `R/curve_helpers.R` even lists `".data"` *inside* `globalVariables()`, which is a smell; `R/utils-tidy-eval.R` already exists |
+| ~~`utils::globalVariables()` → `.data` pronoun~~ | **done on `release/3.0.5`** | All 20 removed; only 5 functions needed `.data`. See the note below |
 | `match.arg()` / bare strings → `rlang::arg_match()` | 0 uses of either today | See the `curve_table()` bugs below |
-| `Config/testthat/edition: 3` | absent from DESCRIPTION | Edition 2 semantics today. Switching changes comparisons to waldo and turns some deprecations into errors, so run the 11 test files before trusting it |
+| ~~`Config/testthat/edition: 3`~~ | **done on `release/3.0.5`** | See the fallout note below |
 | `%>%` → `|>` | 5 live uses in `R/plot.likelihood_function.R` | Not a dependency bug: imported via `@importFrom dplyr %>%`, and dplyr is in Imports |
 | Lines \> 80 chars | 459, of which 193 are roxygen | Cosmetic. Code formatting is handled by air (no `air.toml`, so defaults) |
 | `@examples` coverage | 32 blocks for 62 exports | The 11 defunct stubs account for some of the gap |
 | `@family` tags | 0 (49 `@seealso` instead) | Would group the `curve_*` family in the pkgdown index |
 
-Two **behaviour** bugs found in `R/curve_table.R` during the audit.
-These are not style issues and each changes output, so they need their
-own release and a NEWS entry:
+**testthat 3rd edition (adopted on `release/3.0.5`).** The switch is one
+DESCRIPTION line but it changed three things in the suite, all of which
+had been hiding real problems:
 
-- **The documented `levels` argument has never worked.** Both branches
-  overwrite it immediately — `levels <- c(0.25, 0.50, ...)` for
-  `type = "c"` and `levels <- c(0.03, 0.05, 0.12, 0.14)` for
-  `type = "l"` — so a user-supplied value is silently discarded.
-  `git blame` puts the overwrite in `19c4529d` (2019-12-02), the commit
-  that introduced the function, so it was born this way rather than
-  regressing. `R CMD check` cannot see it.
+- `expect_equal(x, y, tolerance = 2 * grid_step(lik))` broke in
+  `test-curve_likelihood.R`. Edition 2 passed `tolerance` to
+  `all.equal()`, which compares the *mean relative* difference over the
+  whole vector; edition 3 uses waldo, which applies it per element. The
+  Gamma inverse-link case has one endpoint near zero (0.0256 vs 0.0263),
+  a 2.7% relative gap that the vector-averaged form absorbed. All seven
+  of these comparisons now read
+  `expect_lt(max(abs(a - b)), 2 * grid_step(lik))`, which says what was
+  meant — endpoints within two grid steps — and is edition-independent.
+- `expect_equivalent(str(bob[[1]]), str(sampledf))` in
+  `testdfstructure.R` (3 sites) was **vacuous**: `str()` returns `NULL`
+  invisibly, so it compared `NULL` to `NULL` and could never fail. It
+  was also the source of the `str()` dumps in the test log. Now
+  `expect_setequal(names(...), columnnames)`; `setequal` rather than
+  `expect_named` because `curve_meta()` returns the columns in a
+  different order.
+- `context()` (3 files: `testdfstructure.R`, `tests3class.R`,
+  `test-curve_rstar_mpl.R`) is deprecated in 3e and removed.
 
-  Every internal caller (`curve_gen`, `curve_corr`, `curve_mean`,
-  `curve_surv`, `curve_rstar`, `curve_stan`, `curve_analytic`,
-  `curve_wrap`, `curve_likelihood`) assigns *exactly* the same constant
-  vector on the line above and then passes it positionally, so honouring
-  the argument would not change any internal result — that redundancy is
-  what makes the fix low-risk. But `levels` has no default and every
-  documented/vignette call omits it, so forcing the promise would error;
-  a fix has to add a default (`levels = NULL` → the conventional set for
-  the given `type`).
+Result: `FAIL 0 | WARN 0 | SKIP 11 | PASS 256`.
 
-- **`type` and `format` are unvalidated.** A `type` outside
-  `c("c", "l")` leaves `subdf` undefined and errors obscurely; an
-  unmatched `format` falls through every branch and returns `NULL`
-  invisibly. This is what `rlang::arg_match()` is for.
+**The `.data` migration (done on `release/3.0.5`).** Delete the
+declarations first and let `R CMD check` tell you which were
+load-bearing — that is the only authoritative list. Of the 20
+declarations across 17 files, only five functions referenced anything:
+`curve_compare`, `curve_meta`, `ggcurve`, `ggplot_likelihood`,
+`plot_compare`. Three quarters were dead weight. Two traps:
+
+- **`pivot_longer(df, lower.limit:upper.limit)` is a tidyselect *range*,
+  not an `aes()` reference**, so `.data$` does not apply
+  (`.data$a:.data$b` is invalid). Those became
+  `c("lower.limit", "upper.limit")`; same for `X2:X3` in `ggcurve()`.
+- **`globalVariables("res")` was masking a real bug** in
+  `curve_meta()`'s `mv` branch — see NEWS for 3.0.5. Declaring a name
+  silences the checker without making the code work, so treat every
+  entry as a possible hidden bug rather than boilerplate. A leftover
+  `res` in the calling environment (an `rcmdcheck` object, in this
+  session) is enough to hide it interactively.
+
+Two **behaviour** bugs were found in `R/curve_table.R` during the audit.
+**Both are fixed on `release/3.0.5`**; neither was visible to
+`R CMD check`, so this is the record of what they were.
+
+- **The documented `levels` argument never worked** (fixed in
+  `b6894f6`). Both branches overwrote it on entry —
+  `levels <- c(0.25, 0.50, ...)` for `type = "c"`,
+  `levels <- c(0.03, 0.05, 0.12, 0.14)` for `type = "l"` — so a
+  user-supplied value was silently discarded. `git blame` puts the
+  overwrite in `19c4529d` (2019-12-02), the commit that introduced the
+  function: it was born this way, never regressed.
+
+  The fix is `levels = NULL` selecting the conventional set. Two things
+  the audit got wrong, both found only by running the suite:
+
+  - **There are 20 call sites across 15 files, not the nine first
+    counted.** `curve_boot.R` alone has five, and `curve_lik.R`,
+    `curve_lmer.R` and `curve_meta.R` were missed entirely by a
+    hand-picked `for f in ...` loop. Use `grep -rn "curve_table(" R/`.
+    Each assigned the same constant vector and passed it positionally,
+    so all now rely on the default and the redundant assignments are
+    gone. **`curve_boot.R` also binds `levels` to a *data frame***
+    (lines \~80-106 and \~177-203) which is unrelated and must not be
+    deleted.
+  - **The unmatched-level warning must fire only for supplied levels.**
+    A coarse `steps` legitimately cannot produce several of the
+    conventional levels (`steps = 50` has no 0.975), and callers have
+    always silently taken whatever subset existed. Warning
+    unconditionally made most of the suite noisy and broke
+    `test-curve_helpers.R:68`, which asserts `curve_from_ratio()` runs
+    silently. Gating on "did the user supply `levels`" only works
+    *after* the internal callers stop passing it.
+
+- **`type` and `format` were unvalidated** (fixed in the follow-up
+  commit). A `type` outside `c("c", "l")` left `subdf` undefined and
+  errored obscurely; an unmatched `format` fell through every branch and
+  returned `NULL` invisibly. Both now go through `rlang::arg_match()`
+  with the permitted values in the signature; `rlang` was already in
+  Imports, so this added no dependency.
+
+**Spelling gotcha:** `tests/spelling.R` checks DESCRIPTION, Rd files,
+vignettes and **NEWS.md** against en-US, but *not* test files — which is
+why `test-curve_helpers.R` has said "honours" for years while the same
+word in a NEWS entry fails the check.
 
 ## Session hygiene
 

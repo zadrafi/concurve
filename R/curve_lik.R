@@ -32,8 +32,7 @@ curve_lik <- function(likobject, data, table = TRUE) {
 
 
   if (table == TRUE) {
-    levels <- c(0.03, 0.05, 0.12, 0.14)
-    (df_subintervals <- (curve_table(likfunction, levels, type = "l", format = "data.frame")))
+    (df_subintervals <- (curve_table(likfunction, type = "l", format = "data.frame")))
     class(df_subintervals) <- c("data.frame", "concurve")
     dataframes <- list(likfunction, df_subintervals)
     names(dataframes) <- c("Intervals Dataframe", "Intervals Table")
@@ -44,4 +43,3 @@ curve_lik <- function(likobject, data, table = TRUE) {
   }
 }
 
-utils::globalVariables(c("likfunction", "values", "likelihood", "loglikelihood", "support", "deviancestat"))

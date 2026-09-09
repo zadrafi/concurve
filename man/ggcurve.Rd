@@ -4,8 +4,9 @@
 \alias{ggcurve}
 \title{Plots Consonance, Surprisal, and Likelihood Functions}
 \usage{
-ggcurve(data, type = "c", measure = "default", levels = 0.95,
-  nullvalue = NULL, position = "pyramid", title = "Consonance Function",
+ggcurve(data, type = c("c", "s", "cdf", "cd", "l1", "l2", "l3", "d"),
+  measure = c("default", "ratio"), levels = 0.95, nullvalue = NULL,
+  position = c("pyramid", "inverted"), title = "Consonance Function",
   subtitle = "The function displays intervals at every level.",
   xaxis = expression(theta == ~"Range of Values"),
   yaxis1 = expression(paste(italic(p), "-value")),
@@ -16,13 +17,12 @@ ggcurve(data, type = "c", measure = "default", levels = 0.95,
 \item{data}{The dataframe produced by one of the interval functions
 in which the intervals are stored.}
 
-\item{type}{Choose whether to plot a "consonance" function, a
-"surprisal" function or "likelihood". The default option is set to "c".
-The type must be set in quotes, for example ggcurve (type = "s") or
-ggcurve(type = "c"). Other options include "pd" for the consonance
-distribution function, and "cd" for the consonance density function,
-"l1" for relative likelihood, "l2" for log-likelihood, "l3" for likelihood
-and "d" for deviance function.}
+\item{type}{The kind of function to plot. One of \code{"c"} for a consonance
+function, the default, \code{"s"} for a surprisal function, \code{"cdf"} for the
+consonance distribution function, \code{"cd"} for the consonance density
+function, \code{"l1"} for relative likelihood, \code{"l2"} for log-likelihood,
+\code{"l3"} for likelihood, or \code{"d"} for the deviance function. An
+unrecognized value is an error naming the permitted ones.}
 
 \item{measure}{Indicates whether the object has a log transformation
 or is normal/default. The default setting is "default". If the measure

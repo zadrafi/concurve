@@ -57,9 +57,9 @@ curve_compare <- function(data1, data2, type = "c", plot = TRUE, ...) {
     } else if (plot == FALSE) {}
 
     class(data1) <- "data.frame"
-    df1 <- pivot_longer(data1, lower.limit:upper.limit, names_to = "limit.bound", values_to = "Limit")
+    df1 <- pivot_longer(data1, c("lower.limit", "upper.limit"), names_to = "limit.bound", values_to = "Limit")
     class(data2) <- "data.frame"
-    df2 <- pivot_longer(data2, lower.limit:upper.limit, names_to = "limit.bound", values_to = "Limit")
+    df2 <- pivot_longer(data2, c("lower.limit", "upper.limit"), names_to = "limit.bound", values_to = "Limit")
 
     df1 <- data.frame(
       "x" = df1$Limit,
@@ -123,9 +123,9 @@ curve_compare <- function(data1, data2, type = "c", plot = TRUE, ...) {
     } else if (plot == FALSE) {}
 
     class(data1) <- "data.frame"
-    df1 <- pivot_longer(data1, lower.limit:upper.limit, names_to = "limit.bound", values_to = "Limit")
+    df1 <- pivot_longer(data1, c("lower.limit", "upper.limit"), names_to = "limit.bound", values_to = "Limit")
     class(data2) <- "data.frame"
-    df2 <- pivot_longer(data2, lower.limit:upper.limit, names_to = "limit.bound", values_to = "Limit")
+    df2 <- pivot_longer(data2, c("lower.limit", "upper.limit"), names_to = "limit.bound", values_to = "Limit")
 
 
     df1 <- data.frame(
@@ -172,4 +172,3 @@ curve_compare <- function(data1, data2, type = "c", plot = TRUE, ...) {
 }
 
 # RMD Check
-utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.width", "intrvl.level", "cdf", "pvalue", "svalue"))

@@ -193,5 +193,3 @@ curve_snowflake_batch <- function(conn, queries,
 }
 
 
-# R CMD check
-utils::globalVariables(c("estimate_col", "lower_col", "upper_col"))

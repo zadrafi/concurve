@@ -117,10 +117,9 @@ curve_boot <- function(data = data, func = func, method = "bca", t0, tt, bb,
     # Combine Data Frames -----------------------------------------------------
 
     if (table == TRUE) {
-      levels <- c(0.25, 0.50, 0.75, 0.80, 0.85, 0.90, 0.95, 0.975, 0.99)
-      (bca_subintervals <- (curve_table(df_bca, levels, type = "c", format = "data.frame")))
+      (bca_subintervals <- (curve_table(df_bca, type = "c", format = "data.frame")))
       class(bca_subintervals) <- c("data.frame", "concurve")
-      (std_subintervals <- (curve_table(df_std, levels, type = "c", format = "data.frame")))
+      (std_subintervals <- (curve_table(df_std, type = "c", format = "data.frame")))
       class(std_subintervals) <- c("data.frame", "concurve")
       dataframes <- list(df_std, std_subintervals, df_bca, bca_subintervals, bootstats, bcastats)
       names(dataframes) <- c("Standard Intervals", "Standard Table", "BCA Intervals", "BCA Table", "Bootstrap Statistics", "BCA Statistics")
@@ -213,10 +212,9 @@ curve_boot <- function(data = data, func = func, method = "bca", t0, tt, bb,
     # Combine Data Frames -----------------------------------------------------
 
     if (table == TRUE) {
-      levels <- c(0.25, 0.50, 0.75, 0.80, 0.85, 0.90, 0.95, 0.975, 0.99)
-      (bca_subintervals <- (curve_table(df_bca, levels, type = "c", format = "data.frame")))
+      (bca_subintervals <- (curve_table(df_bca, type = "c", format = "data.frame")))
       class(bca_subintervals) <- c("data.frame", "concurve")
-      (std_subintervals <- (curve_table(df_std, levels, type = "c", format = "data.frame")))
+      (std_subintervals <- (curve_table(df_std, type = "c", format = "data.frame")))
       class(std_subintervals) <- c("data.frame", "concurve")
       dataframes <- list(df_std, std_subintervals, df_bca, bca_subintervals, densdf, bootstats, bcastats)
       names(dataframes) <- c("Standard Intervals", "Standard Table", "BCA Intervals", "BCA Table", "BCA Density", "Bootstrap Statistics", "BCA Statistics")
@@ -267,8 +265,7 @@ curve_boot <- function(data = data, func = func, method = "bca", t0, tt, bb,
 
 
     if (table == TRUE) {
-      levels <- c(0.25, 0.50, 0.75, 0.80, 0.85, 0.90, 0.95, 0.975, 0.99)
-      (df_subintervals <- (curve_table(df, levels, type = "c", format = "data.frame")))
+      (df_subintervals <- (curve_table(df, type = "c", format = "data.frame")))
       class(df_subintervals) <- c("data.frame", "concurve")
       dataframes <- list(df, boot_dens, densdf, df_subintervals)
       names(dataframes) <- c("Intervals Dataframe", "Bootstrap Distribution", "Intervals Density", "Intervals Table")
@@ -281,4 +278,3 @@ curve_boot <- function(data = data, func = func, method = "bca", t0, tt, bb,
 }
 
 # RMD Check -----------------------------------------------------
-utils::globalVariables(c("df", "lower.limit", "upper.limit", "intrvl.width", "intrvl.level", "cdf", "pvalue", "svalue"))

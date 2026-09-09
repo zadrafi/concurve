@@ -177,7 +177,7 @@ test_that("curve_lik_glm divides the Gamma profile deviance by the dispersion", 
   lik <- curve_lik_glm(mod, "z", steps = 1000)
   ci <- suppressMessages(confint(mod, "z"))
 
-  expect_equal(support_interval(lik), unname(ci), tolerance = 2 * grid_step(lik))
+  expect_lt(max(abs(support_interval(lik) - unname(ci))), 2 * grid_step(lik))
   # without the dispersion the interval is sqrt(1/phi) times too wide;
   # phi ~ 0.5 here, so guard against that specific regression
   expect_lt(diff(support_interval(lik)) / diff(ci), 1.05)
@@ -187,7 +187,7 @@ test_that("curve_lik_glm matches confint() for a gaussian glm", {
   mod <- glm(mpg ~ wt + hp, data = mtcars)
   lik <- curve_lik_glm(mod, "wt", steps = 1000)
   ci <- suppressMessages(confint(mod, "wt"))
-  expect_equal(support_interval(lik), unname(ci), tolerance = 2 * grid_step(lik))
+  expect_lt(max(abs(support_interval(lik) - unname(ci))), 2 * grid_step(lik))
 })
 
 test_that("curve_lik_glm matches confint() for a quasipoisson glm", {
@@ -197,14 +197,14 @@ test_that("curve_lik_glm matches confint() for a quasipoisson glm", {
   mod <- glm(y ~ x, family = quasipoisson)
   lik <- curve_lik_glm(mod, "x", steps = 1000)
   ci <- suppressMessages(confint(mod, "x"))
-  expect_equal(support_interval(lik), unname(ci), tolerance = 2 * grid_step(lik))
+  expect_lt(max(abs(support_interval(lik) - unname(ci))), 2 * grid_step(lik))
 })
 
 test_that("curve_lik_glm leaves poisson and binomial profiles unchanged (phi = 1)", {
   mod <- glm(am ~ mpg, family = binomial, data = mtcars)
   lik <- curve_lik_glm(mod, "mpg", steps = 1000)
   ci <- suppressMessages(confint(mod, "mpg"))
-  expect_equal(support_interval(lik), unname(ci), tolerance = 2 * grid_step(lik))
+  expect_lt(max(abs(support_interval(lik) - unname(ci))), 2 * grid_step(lik))
 })
 
 test_that("curve_lik_glm handles a model with no nuisance regressors", {
@@ -214,7 +214,7 @@ test_that("curve_lik_glm handles a model with no nuisance regressors", {
   mod <- glm(y ~ x - 1, family = poisson)
   lik <- curve_lik_glm(mod, "x", steps = 1000)
   ci <- suppressMessages(confint(mod, "x"))
-  expect_equal(support_interval(lik), unname(ci), tolerance = 2 * grid_step(lik))
+  expect_lt(max(abs(support_interval(lik) - unname(ci))), 2 * grid_step(lik))
 })
 
 test_that("curve_lik_glm converges for an inverse-link Gamma model", {
@@ -226,7 +226,7 @@ test_that("curve_lik_glm converges for an inverse-link Gamma model", {
   mod <- glm(yy ~ z, family = Gamma)
   lik <- expect_silent(curve_lik_glm(mod, "z", steps = 500))
   ci <- suppressMessages(confint(mod, "z"))
-  expect_equal(support_interval(lik), unname(ci), tolerance = 2 * grid_step(lik))
+  expect_lt(max(abs(support_interval(lik) - unname(ci))), 2 * grid_step(lik))
 })
 
 test_that("curve_lik_glm matches confint() for an inverse.gaussian glm", {
@@ -238,7 +238,7 @@ test_that("curve_lik_glm matches confint() for an inverse.gaussian glm", {
   mod <- glm(yy ~ z, family = inverse.gaussian(link = "log"))
   lik <- curve_lik_glm(mod, "z", steps = 1000)
   ci <- suppressMessages(confint(mod, "z"))
-  expect_equal(support_interval(lik), unname(ci), tolerance = 2 * grid_step(lik))
+  expect_lt(max(abs(support_interval(lik) - unname(ci))), 2 * grid_step(lik))
 })
 
 test_that("a large dispersion does not shrink the interval", {

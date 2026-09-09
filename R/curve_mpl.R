@@ -116,8 +116,7 @@ curve_mpl <- function(data, mle, floglik, datagen, indpsi, lo, hi,
   class(likfunction) <- c("data.frame", "concurve")
 
   if (table == TRUE) {
-    levels <- c(0.03, 0.05, 0.12, 0.14)
-    (df_subintervals <- (curve_table(likfunction, levels, type = "l", format = "data.frame")))
+    (df_subintervals <- (curve_table(likfunction, type = "l", format = "data.frame")))
     class(df_subintervals) <- c("data.frame", "concurve")
     dataframes <- list(likfunction, df_subintervals)
     names(dataframes) <- c("Intervals Dataframe", "Intervals Table")
