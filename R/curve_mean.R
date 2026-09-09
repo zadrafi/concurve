@@ -9,9 +9,9 @@
 #' @param y Variable that contains the data for the second group being compared.
 #' @param data Data frame from which the variables are being extracted from.
 #' @param paired Indicates whether the statistical test is a paired difference test.
-#' By default, it is set to "F",which means the function will be an unpaired
-#' statistical test comparing two independent groups.Inserting "paired" will
-#' change the test to a paired difference test.
+#' By default, it is set to `FALSE`, which means the function will be an
+#' unpaired statistical test comparing two independent groups. Setting it to
+#' `TRUE` will change the test to a paired difference test.
 #' @param method By default this is turned off (set to "default"), but
 #' allows for bootstrapping if "boot" is inserted into the function call.
 #' @param replicates Indicates how many bootstrap replicates are to be performed.
@@ -48,7 +48,7 @@
 #'
 #' ggcurve(curves[[1]], type = "c", nullvalue = 0)
 #' @export
-curve_mean <- function(x, y, data, paired = F, method = "default", replicates = 1000,
+curve_mean <- function(x, y, data, paired = FALSE, method = "default", replicates = 1000,
                        steps = 10000, cores = getOption("mc.cores", 1L), table = TRUE) {
   if (is.numeric(x) != TRUE) {
     stop("Error: 'x' must be a numeric vector")
@@ -74,12 +74,12 @@ curve_mean <- function(x, y, data, paired = F, method = "default", replicates = 
     if (paired) {
       diffs <- x - y
       boot_dist <- replicate(replicates,
-        expr = mean(diffs[sample(length(diffs), replace = T)])
+        expr = mean(diffs[sample(length(diffs), replace = TRUE)])
       ) - diff
     } else {
       boot_dist <- replicate(replicates,
-        expr = mean(sample(x, length(x), replace = T)) -
-          mean(sample(y, length(y), replace = T))
+        expr = mean(sample(x, length(x), replace = TRUE)) -
+          mean(sample(y, length(y), replace = TRUE))
       ) - diff
     }
     results <- parallel::mclapply(intrvls, FUN = function(i) diff - quantile(boot_dist, probs = (1 + c(i, -i)) / 2), mc.cores = cores)

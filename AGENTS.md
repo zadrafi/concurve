@@ -304,6 +304,51 @@ convention and was updated.
   `git pull --rebase` refuses to run and needs a `git stash` first —
   which is exactly what happened pushing to this branch on 2026-09-04.
 
+## Deferred conformance work (3.0.5 checklist)
+
+Audited 2026-09-09 against *R Packages (2e)* / the tidyverse style and
+design guides. **None of this blocks CRAN** — 3.0.4 passes at the one
+expected NOTE on both win-builder targets — and all of it touches most
+of `R/`, so it was deliberately held back from the 3.0.4 submission.
+
+| Item | Extent | Notes |
+|----|----|----|
+| `stop()` / `warning()` → `cli::cli_abort()` / `cli_warn()` | 220 call sites, 0 classed conditions | Makes errors testable; `cli` would move to Imports |
+| `utils::globalVariables()` → `.data` pronoun | 20 declarations | `R/curve_helpers.R` even lists `".data"` *inside* `globalVariables()`, which is a smell; `R/utils-tidy-eval.R` already exists |
+| `match.arg()` / bare strings → `rlang::arg_match()` | 0 uses of either today | See the `curve_table()` bugs below |
+| `Config/testthat/edition: 3` | absent from DESCRIPTION | Edition 2 semantics today. Switching changes comparisons to waldo and turns some deprecations into errors, so run the 11 test files before trusting it |
+| `%>%` → `|>` | 5 live uses in `R/plot.likelihood_function.R` | Not a dependency bug: imported via `@importFrom dplyr %>%`, and dplyr is in Imports |
+| Lines \> 80 chars | 459, of which 193 are roxygen | Cosmetic. Code formatting is handled by air (no `air.toml`, so defaults) |
+| `@examples` coverage | 32 blocks for 62 exports | The 11 defunct stubs account for some of the gap |
+| `@family` tags | 0 (49 `@seealso` instead) | Would group the `curve_*` family in the pkgdown index |
+
+Two **behaviour** bugs found in `R/curve_table.R` during the audit.
+These are not style issues and each changes output, so they need their
+own release and a NEWS entry:
+
+- **The documented `levels` argument has never worked.** Both branches
+  overwrite it immediately — `levels <- c(0.25, 0.50, ...)` for
+  `type = "c"` and `levels <- c(0.03, 0.05, 0.12, 0.14)` for
+  `type = "l"` — so a user-supplied value is silently discarded.
+  `git blame` puts the overwrite in `19c4529d` (2019-12-02), the commit
+  that introduced the function, so it was born this way rather than
+  regressing. `R CMD check` cannot see it.
+
+  Every internal caller (`curve_gen`, `curve_corr`, `curve_mean`,
+  `curve_surv`, `curve_rstar`, `curve_stan`, `curve_analytic`,
+  `curve_wrap`, `curve_likelihood`) assigns *exactly* the same constant
+  vector on the line above and then passes it positionally, so honouring
+  the argument would not change any internal result — that redundancy is
+  what makes the fix low-risk. But `levels` has no default and every
+  documented/vignette call omits it, so forcing the promise would error;
+  a fix has to add a default (`levels = NULL` → the conventional set for
+  the given `type`).
+
+- **`type` and `format` are unvalidated.** A `type` outside
+  `c("c", "l")` leaves `subdf` undefined and errors obscurely; an
+  unmatched `format` falls through every branch and returns `NULL`
+  invisibly. This is what `rlang::arg_match()` is for.
+
 ## Session hygiene
 
 This repo was heavily disturbed by a concurrent autonomous agent session

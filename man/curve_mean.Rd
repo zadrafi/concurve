@@ -4,8 +4,9 @@
 \alias{curve_mean}
 \title{Consonance Functions For Mean Differences}
 \usage{
-curve_mean(x, y, data, paired = F, method = "default", replicates = 1000,
-  steps = 10000, cores = getOption("mc.cores", 1L), table = TRUE)
+curve_mean(x, y, data, paired = FALSE, method = "default",
+  replicates = 1000, steps = 10000, cores = getOption("mc.cores", 1L),
+  table = TRUE)
 }
 \arguments{
 \item{x}{Variable that contains the data for the first group being compared.}
@@ -15,9 +16,9 @@ curve_mean(x, y, data, paired = F, method = "default", replicates = 1000,
 \item{data}{Data frame from which the variables are being extracted from.}
 
 \item{paired}{Indicates whether the statistical test is a paired difference test.
-By default, it is set to "F",which means the function will be an unpaired
-statistical test comparing two independent groups.Inserting "paired" will
-change the test to a paired difference test.}
+By default, it is set to \code{FALSE}, which means the function will be an
+unpaired statistical test comparing two independent groups. Setting it to
+\code{TRUE} will change the test to a paired difference test.}
 
 \item{method}{By default this is turned off (set to "default"), but
 allows for bootstrapping if "boot" is inserted into the function call.}

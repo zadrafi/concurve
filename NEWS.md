@@ -90,6 +90,16 @@
   missing column now fails loudly instead of resolving to nothing.
 - Removed `LazyData: true` from `DESCRIPTION`; the package ships no
   `data/` directory.
+- `curve_table()` documents its return value. The help page had no
+  `\value` section, although the function returns four different kinds
+  of object depending on `format`: a `concurve` data frame, a
+  `knitr_kable`, a `flextable`, or the result of printing a `flextable`
+  to a temporary Word or PowerPoint document.
+- `curve_mean()` spells out `TRUE` and `FALSE` instead of the `T` and
+  `F` abbreviations, in the `paired` default and in three internal
+  `sample(replace = )` calls. The values are unchanged; `T` and `F` are
+  ordinary bindings that calling code can rebind, so the abbreviations
+  were not safe.
 
 # concurve 3.0.3
 

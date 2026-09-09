@@ -13,6 +13,15 @@
 #' creates a table for powerpoint), "latex", (which creates a table for a TeX document), and
 #' "image", which produces an image of the table.
 #'
+#' @return The returned object depends on `format`:
+#' * `"data.frame"` (the default): a data frame of class
+#'   `c("data.frame", "concurve")` giving the interval limits and their
+#'   statistics at conventional levels, rounded to three digits.
+#' * `"latex"`: a `knitr_kable` object for inclusion in a TeX document.
+#' * `"image"`: a `flextable` object.
+#' * `"docx"` or `"pptx"`: the result of printing the `flextable` to a
+#'   temporary Word or PowerPoint document.
+#'
 #' @examples
 #' curves <- curve_gen(lm(mpg ~ wt, data = mtcars), "wt")
 #'

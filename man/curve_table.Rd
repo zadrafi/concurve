@@ -20,6 +20,18 @@ default, "docx" (which creates a table for a word document), "pptx" (which
 creates a table for powerpoint), "latex", (which creates a table for a TeX document), and
 "image", which produces an image of the table.}
 }
+\value{
+The returned object depends on \code{format}:
+\itemize{
+\item \code{"data.frame"} (the default): a data frame of class
+\code{c("data.frame", "concurve")} giving the interval limits and their
+statistics at conventional levels, rounded to three digits.
+\item \code{"latex"}: a \code{knitr_kable} object for inclusion in a TeX document.
+\item \code{"image"}: a \code{flextable} object.
+\item \code{"docx"} or \code{"pptx"}: the result of printing the \code{flextable} to a
+temporary Word or PowerPoint document.
+}
+}
 \description{
 Produces publication-ready tables with relevant statistics of interest
 for functions produced from the concurve package.
