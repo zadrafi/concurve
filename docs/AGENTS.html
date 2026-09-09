@@ -271,6 +271,54 @@
 <li><p><strong><code>docs/</code> belongs to CI, not to hand commits.</strong> Every recent commit touching it is <code>GitHub Actions: Rebuild pkgdown site [skip ci]</code>, and <code>.github/workflows/pkgdown.yaml</code> deploys only from <code>master</code>. Building the site locally leaves ~176 modified files that the bot will redo, so discard that churn rather than committing it. While it sits there <code>git pull --rebase</code> refuses to run and needs a <code>git stash</code> first — which is exactly what happened pushing to this branch on 2026-09-04.</p></li>
 </ul></div>
 <div class="section level2">
+<h2 id="deferred-conformance-work-305-checklist">Deferred conformance work (3.0.5 checklist)<a class="anchor" aria-label="anchor" href="#deferred-conformance-work-305-checklist"></a></h2>
+<p>Audited 2026-09-09 against <em>R Packages (2e)</em> / the tidyverse style and design guides. <strong>None of this blocks CRAN</strong> — 3.0.4 passes at the one expected NOTE on both win-builder targets — and all of it touches most of <code>R/</code>, so it was deliberately held back from the 3.0.4 submission.</p>
+<table class="table"><colgroup><col width="33%"><col width="33%"><col width="33%"></colgroup><thead><tr><th>Item</th>
+<th>Extent</th>
+<th>Notes</th>
+</tr></thead><tbody><tr><td>
+<code><a href="https://rdrr.io/r/base/stop.html" class="external-link">stop()</a></code> / <code><a href="https://rdrr.io/r/base/warning.html" class="external-link">warning()</a></code> → <code><a href="https://cli.r-lib.org/reference/cli_abort.html" class="external-link">cli::cli_abort()</a></code> / <code>cli_warn()</code>
+</td>
+<td>220 call sites, 0 classed conditions</td>
+<td>Makes errors testable; <code>cli</code> would move to Imports</td>
+</tr><tr><td>
+<code><a href="https://rdrr.io/r/utils/globalVariables.html" class="external-link">utils::globalVariables()</a></code> → <code>.data</code> pronoun</td>
+<td>20 declarations</td>
+<td>
+<code>R/curve_helpers.R</code> even lists <code>".data"</code> <em>inside</em> <code><a href="https://rdrr.io/r/utils/globalVariables.html" class="external-link">globalVariables()</a></code>, which is a smell; <code>R/utils-tidy-eval.R</code> already exists</td>
+</tr><tr><td>
+<code><a href="https://rdrr.io/r/base/match.arg.html" class="external-link">match.arg()</a></code> / bare strings → <code><a href="https://rlang.r-lib.org/reference/arg_match.html" class="external-link">rlang::arg_match()</a></code>
+</td>
+<td>0 uses of either today</td>
+<td>See the <code><a href="reference/curve_table.html">curve_table()</a></code> bugs below</td>
+</tr><tr><td><code>Config/testthat/edition: 3</code></td>
+<td>absent from DESCRIPTION</td>
+<td>Edition 2 semantics today. Switching changes comparisons to waldo and turns some deprecations into errors, so run the 11 test files before trusting it</td>
+</tr><tr><td>
+<code>%&gt;%</code> → <code>|&gt;</code>
+</td>
+<td>5 live uses in <code>R/plot.likelihood_function.R</code>
+</td>
+<td>Not a dependency bug: imported via <code>@importFrom dplyr %&gt;%</code>, and dplyr is in Imports</td>
+</tr><tr><td>Lines &gt; 80 chars</td>
+<td>459, of which 193 are roxygen</td>
+<td>Cosmetic. Code formatting is handled by air (no <code>air.toml</code>, so defaults)</td>
+</tr><tr><td>
+<code>@examples</code> coverage</td>
+<td>32 blocks for 62 exports</td>
+<td>The 11 defunct stubs account for some of the gap</td>
+</tr><tr><td>
+<code>@family</code> tags</td>
+<td>0 (49 <code>@seealso</code> instead)</td>
+<td>Would group the <code>curve_*</code> family in the pkgdown index</td>
+</tr></tbody></table><p>Two <strong>behaviour</strong> bugs found in <code>R/curve_table.R</code> during the audit. These are not style issues and each changes output, so they need their own release and a NEWS entry:</p>
+<ul><li>
+<p><strong>The documented <code>levels</code> argument has never worked.</strong> Both branches overwrite it immediately — <code>levels &lt;- c(0.25, 0.50, ...)</code> for <code>type = "c"</code> and <code>levels &lt;- c(0.03, 0.05, 0.12, 0.14)</code> for <code>type = "l"</code> — so a user-supplied value is silently discarded. <code>git blame</code> puts the overwrite in <code>19c4529d</code> (2019-12-02), the commit that introduced the function, so it was born this way rather than regressing. <code>R CMD check</code> cannot see it.</p>
+<p>Every internal caller (<code>curve_gen</code>, <code>curve_corr</code>, <code>curve_mean</code>, <code>curve_surv</code>, <code>curve_rstar</code>, <code>curve_stan</code>, <code>curve_analytic</code>, <code>curve_wrap</code>, <code>curve_likelihood</code>) assigns <em>exactly</em> the same constant vector on the line above and then passes it positionally, so honouring the argument would not change any internal result — that redundancy is what makes the fix low-risk. But <code>levels</code> has no default and every documented/vignette call omits it, so forcing the promise would error; a fix has to add a default (<code>levels = NULL</code> → the conventional set for the given <code>type</code>).</p>
+</li>
+<li><p><strong><code>type</code> and <code>format</code> are unvalidated.</strong> A <code>type</code> outside <code>c("c", "l")</code> leaves <code>subdf</code> undefined and errors obscurely; an unmatched <code>format</code> falls through every branch and returns <code>NULL</code> invisibly. This is what <code><a href="https://rlang.r-lib.org/reference/arg_match.html" class="external-link">rlang::arg_match()</a></code> is for.</p></li>
+</ul></div>
+<div class="section level2">
 <h2 id="session-hygiene">Session hygiene<a class="anchor" aria-label="anchor" href="#session-hygiene"></a></h2>
 <p>This repo was heavily disturbed by a concurrent autonomous agent session (reverting DESCRIPTION/cran-comments.md, writing scripts into <code>R/</code>, activating renv, installing packages). Before any build or commit: <code>git status</code>, run the R/ content scan above, and confirm DESCRIPTION’s Imports block ends at <code>rlang</code>.</p>
 </div>

@@ -177,6 +177,10 @@
 <li>
 <code><a href="../reference/plot_multi.html">plot_multi()</a></code> uses the <code>.data</code> pronoun in its <code><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes()</a></code> calls instead of declaring column names via <code><a href="https://rdrr.io/r/utils/globalVariables.html" class="external-link">utils::globalVariables()</a></code>, so a renamed or missing column now fails loudly instead of resolving to nothing.</li>
 <li>Removed <code>LazyData: true</code> from <code>DESCRIPTION</code>; the package ships no <code>data/</code> directory.</li>
+<li>
+<code><a href="../reference/curve_table.html">curve_table()</a></code> documents its return value. The help page had no <code>\value</code> section, although the function returns four different kinds of object depending on <code>format</code>: a <code>concurve</code> data frame, a <code>knitr_kable</code>, a <code>flextable</code>, or the result of printing a <code>flextable</code> to a temporary Word or PowerPoint document.</li>
+<li>
+<code><a href="../reference/curve_mean.html">curve_mean()</a></code> spells out <code>TRUE</code> and <code>FALSE</code> instead of the <code>T</code> and <code>F</code> abbreviations, in the <code>paired</code> default and in three internal <code>sample(replace = )</code> calls. The values are unchanged; <code>T</code> and <code>F</code> are ordinary bindings that calling code can rebind, so the abbreviations were not safe.</li>
 </ul></div>
 </div>
     <div class="section level2">

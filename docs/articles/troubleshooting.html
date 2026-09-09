@@ -363,13 +363,13 @@ argument that almost all the curve functions in the
 <span><span class="co">#&gt; disabled.</span></span></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">func1</span><span class="op">$</span><span class="va">median</span></span>
-<span><span class="co">#&gt; [1] 2.14ms</span></span>
+<span><span class="co">#&gt; [1] 1ms</span></span>
 <span><span class="va">func2</span><span class="op">$</span><span class="va">median</span></span>
-<span><span class="co">#&gt; [1] 1.7s</span></span>
+<span><span class="co">#&gt; [1] 1.33s</span></span>
 <span><span class="va">func3</span><span class="op">$</span><span class="va">median</span></span>
-<span><span class="co">#&gt; [1] 2.15ms</span></span>
+<span><span class="co">#&gt; [1] 1.04ms</span></span>
 <span><span class="va">func4</span><span class="op">$</span><span class="va">median</span></span>
-<span><span class="co">#&gt; [1] 1.58s</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 1.25s</span></span></code></pre></div>
 <p>When setting the number of iterations to 100, utilizing
 parallelization doesn’t seem to help much, but when setting the number
 of iterations to 500000 and using multiple cores, there seems to be a
@@ -385,7 +385,7 @@ computational advantage.</p>
 </h2>
 <pre><code><span><span class="co">#&gt; R version 4.6.1 (2026-06-24)</span></span>
 <span><span class="co">#&gt; Platform: x86_64-pc-linux-gnu</span></span>
-<span><span class="co">#&gt; Running under: Ubuntu 24.04.4 LTS</span></span>
+<span><span class="co">#&gt; Running under: Ubuntu 24.04.5 LTS</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Matrix products: default</span></span>
 <span><span class="co">#&gt; BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 </span></span>

@@ -163,8 +163,9 @@ p-values and s-values.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">curve_mean</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">data</span>, paired <span class="op">=</span> <span class="cn">F</span>, method <span class="op">=</span> <span class="st">"default"</span>, replicates <span class="op">=</span> <span class="fl">1000</span>,</span>
-<span>  steps <span class="op">=</span> <span class="fl">10000</span>, cores <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"mc.cores"</span>, <span class="fl">1L</span><span class="op">)</span>, table <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">curve_mean</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">data</span>, paired <span class="op">=</span> <span class="cn">FALSE</span>, method <span class="op">=</span> <span class="st">"default"</span>,</span>
+<span>  replicates <span class="op">=</span> <span class="fl">1000</span>, steps <span class="op">=</span> <span class="fl">10000</span>, cores <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"mc.cores"</span>, <span class="fl">1L</span><span class="op">)</span>,</span>
+<span>  table <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -185,9 +186,9 @@ p-values and s-values.</p>
 
 <dt id="arg-paired">paired<a class="anchor" aria-label="anchor" href="#arg-paired"></a></dt>
 <dd><p>Indicates whether the statistical test is a paired difference test.
-By default, it is set to "F",which means the function will be an unpaired
-statistical test comparing two independent groups.Inserting "paired" will
-change the test to a paired difference test.</p></dd>
+By default, it is set to <code>FALSE</code>, which means the function will be an
+unpaired statistical test comparing two independent groups. Setting it to
+<code>TRUE</code> will change the test to a paired difference test.</p></dd>
 
 
 <dt id="arg-method">method<a class="anchor" aria-label="anchor" href="#arg-method"></a></dt>

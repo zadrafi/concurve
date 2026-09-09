@@ -187,6 +187,16 @@ creates a table for powerpoint), "latex", (which creates a table for a TeX docum
 "image", which produces an image of the table.</p></dd>
 
 </dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    <p>The returned object depends on <code>format</code>:</p><ul><li><p><code>"data.frame"</code> (the default): a data frame of class
+<code>c("data.frame", "concurve")</code> giving the interval limits and their
+statistics at conventional levels, rounded to three digits.</p></li>
+<li><p><code>"latex"</code>: a <code>knitr_kable</code> object for inclusion in a TeX document.</p></li>
+<li><p><code>"image"</code>: a <code>flextable</code> object.</p></li>
+<li><p><code>"docx"</code> or <code>"pptx"</code>: the result of printing the <code>flextable</code> to a
+temporary Word or PowerPoint document.</p></li>
+</ul></div>
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index"><p><code><a href="ggcurve.html">ggcurve()</a></code></p>
