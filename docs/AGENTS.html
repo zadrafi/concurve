@@ -230,32 +230,24 @@
 </ul><p><code><a href="reference/curve_rev.html">curve_rev()</a></code> was the correct one: <code><a href="reference/plot_compare.html">plot_compare()</a></code> has always labelled that axis <code>Deviance Statistic 2ln(MLR)</code>, so the other four were contradicting the label. Regression tests in <code>test-curve_likelihood.R</code> now assert every constructor puts the 1/6.83 cutoff at <code>qchisq(0.95, 1)</code>; <code>test-curve_rstar_mpl.R:122</code> asserted the old convention and was updated.</p>
 </div>
 <div class="section level2">
-<h2 id="state-as-of-2026-09-04">State (as of 2026-09-04)<a class="anchor" aria-label="anchor" href="#state-as-of-2026-09-04"></a></h2>
-<ul><li>
-<p><strong><code>master</code> is 3.0.3</strong> and deliberately matches the tarball CRAN is reviewing; leave it alone until that resolves. <strong><code>release/3.0.4</code></strong> carries everything since: 13 commits behind draft PR #60, green on all five CI platforms, and <code>R CMD check --as-cran</code> at a single expected NOTE (with a modern HTML Tidy on <code>PATH</code> — see above).</p>
-<p>Do not merge, and do not submit anything, while 3.0.3 is in the queue. A version number cannot be reused with different contents, and CRAN asks maintainers not to resubmit while a submission is pending. When 3.0.3 leaves <code>newbies/</code>:</p>
-<table class="table"><colgroup><col width="50%"><col width="50%"></colgroup><thead><tr><th>It lands in</th>
-<th>Then</th>
-</tr></thead><tbody><tr><td><code>archive/</code></td>
-<td>Withdrawn or rejected. Merge <code>release/3.0.4</code> and submit 3.0.4.</td>
-</tr><tr><td><code>publish/</code></td>
-<td>Accepted before the withdrawal was read. 3.0.4 becomes a fast bug-fix follow-up; the <code><a href="reference/curve_lik_glm.html">curve_lik_glm()</a></code> dispersion bug is the justification for the short interval.</td>
-</tr><tr><td>
-<code>pending/</code> or <code>inspect/</code>
-</td>
-<td>A reviewer has it open; expect email, reply the same day.</td>
-</tr></tbody></table></li>
+<h2 id="state-as-of-2026-09-09">State (as of 2026-09-09)<a class="anchor" aria-label="anchor" href="#state-as-of-2026-09-09"></a></h2>
+<ul><li><p><strong><code>master</code> is 3.0.4</strong> and <code>release/3.0.4</code> is gone — it was merged, so there is no longer a separate release branch. <code>master</code> was one commit ahead of <code>origin/master</code> on 2026-09-09 (<code>e15da58</code>, a <code>cran-queue.sh</code> change).</p></li>
 <li>
-<p><strong>3.0.3 is pending, not accepted.</strong> CRAN’s incoming queue is publicly browsable, which settles the question without waiting on email:</p>
+<p><strong>3.0.3 is archived; the queue is empty.</strong> As of 2026-09-09 <code>tools/cran-queue.sh</code> finds every incoming folder empty and <code>concurve_3.0.3.tar.gz</code> in <strong><code>archive/</code></strong> alongside 3.0.0–3.0.2, and the package page still reports the package as removed. <code>archive/</code> means withdrawn <em>or</em> rejected and does not distinguish them, so confirm the outcome in CRAN email before drawing conclusions from it.</p>
+<p>The practical consequence: the 3.0.3 version number is consumed and nothing is pending, so <strong>3.0.4 is free to submit</strong>. The old “do not merge or submit while 3.0.3 is in the queue” hold no longer applies.</p>
+</li>
+<li>
+<p><strong>The queue is publicly browsable</strong>, which settles status questions without waiting on email:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">sh</span> tools/cran-queue.sh   <span class="co"># checks every incoming folder + the package page</span></span></code></pre></div>
 <p>The script documents what each folder means, prints the action for whatever it finds, and exits 2 rather than advising if it cannot reach CRAN. Movement is driven by CRAN volunteers by hand, so no change over a few hours means nothing.</p>
 <p>A <strong>launchd agent</strong> checks this daily at 10:00 and notifies only when the status <em>changes</em> (installed 2026-09-04, at the maintainer’s request):</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">sh</span> tools/cran-queue-agent.sh status      <span class="co"># is it installed and loaded?</span></span>
 <span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">sh</span> tools/cran-queue-agent.sh uninstall   <span class="co"># remove it completely</span></span></code></pre></div>
 <p>Label <code>com.zad.concurve-cran-queue</code>; plist in <code>~/Library/LaunchAgents/</code> and state in <code>~/.local/state/concurve-cran/</code>, both outside the repo, so nothing about it is committed or shipped. If a background job appears to be contacting CRAN, this is it.</p>
-<p>On 2026-09-04 that put <code>concurve_3.0.3.tar.gz</code> in <strong><code>newbies/</code></strong> (awaiting manual review — where returning archived packages land), with 3.0.0, 3.0.1 and 3.0.2 in <code>archive/</code> as superseded attempts.</p>
+<p>On 2026-09-04 it put <code>concurve_3.0.3.tar.gz</code> in <code>newbies/</code> (awaiting manual review — where returning archived packages land); by 2026-09-09 that had moved to <code>archive/</code>.</p>
 </li>
-<li><p><code><a href="reference/curve_lik_glm.html">curve_lik_glm()</a></code> in the pending 3.0.3 has a dispersion bug making intervals depend on the units of the response (up to 5x too narrow). A withdrawal email is drafted at <code>dev/cran-withdraw-3.0.3.md</code>, with an openable pre-addressed copy at <code>dev/cran-withdraw-3.0.3.eml</code> (<code>open dev/cran-withdraw-3.0.3.eml</code>). <strong>It must be sent by the maintainer from the registered address</strong>; CRAN authenticates on the From: header, so no one else can send it.</p></li>
+<li><p><code><a href="reference/curve_lik_glm.html">curve_lik_glm()</a></code> in the withdrawn 3.0.3 had a dispersion bug making intervals depend on the units of the response (up to 5x too narrow), fixed in 3.0.4. The withdrawal request was drafted at <code>dev/cran-withdraw-3.0.3.md</code>, with a pre-addressed copy at <code>dev/cran-withdraw-3.0.3.eml</code>. <strong>It had to be sent by the maintainer from the registered address</strong> — CRAN authenticates on the From: header. <code>cran-comments.md</code> for 3.0.4 records the withdrawal in its opening section.</p></li>
+<li><p><strong><code>dev_check.R</code> was green on 2026-09-09</strong>: <code>document()</code> + <code><a href="https://pkgdown.r-lib.org/reference/check_pkgdown.html" class="external-link">pkgdown::check_pkgdown()</a></code> clean, then <code>devtools::check(cran = TRUE, manual = TRUE, vignettes = TRUE)</code> at <strong>0 errors / 0 warnings / 0 notes</strong>, HTML manual validated by Tidy 5.8.0. Two caveats on reading that as “no NOTEs”: <code><a href="https://devtools.r-lib.org/reference/check.html" class="external-link">devtools::check()</a></code> sets <code>_R_CHECK_CRAN_INCOMING_ = FALSE</code>, so the archival / incoming-feasibility NOTE and the URL and DESCRIPTION-spelling NOTEs are simply not exercised locally — expect them from win-builder. Also <code>brms</code> was “suggested but not available for checking”.</p></li>
 <li><p><code>.venv/</code> (a Python venv at the root) was inflating the tarball to 12 MB; now <code>.Rbuildignore</code>d along with <code>rstanlm/</code> and <code>stan_vs_nostan*</code>.</p></li>
 <li><p><code>bayes.Rmd</code> needs rstanarm → igraph at vignette-build time; a missing igraph fails the whole build. <code>rstan</code>, <code>rstanarm</code>, <code>brms</code> are Suggests “not available for checking” unless installed.</p></li>
 <li><p>Intentionally uncommitted local files: <code>concurve.Rproj</code> (personal editor theme), <code>tests/testthat/Rplots.pdf</code>, <code>tests/.DS_Store</code>, <code>vignettes/function2.pdf</code>, <code>README.html</code>, <code>logistic.html</code>, <code>variancecomponents/*</code>.</p></li>
