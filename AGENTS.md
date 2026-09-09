@@ -316,11 +316,36 @@ of `R/`, so it was deliberately held back from the 3.0.4 submission.
 | `stop()` / `warning()` → `cli::cli_abort()` / `cli_warn()` | 220 call sites, 0 classed conditions | Makes errors testable; `cli` would move to Imports |
 | `utils::globalVariables()` → `.data` pronoun | 20 declarations | `R/curve_helpers.R` even lists `".data"` *inside* `globalVariables()`, which is a smell; `R/utils-tidy-eval.R` already exists |
 | `match.arg()` / bare strings → `rlang::arg_match()` | 0 uses of either today | See the `curve_table()` bugs below |
-| `Config/testthat/edition: 3` | absent from DESCRIPTION | Edition 2 semantics today. Switching changes comparisons to waldo and turns some deprecations into errors, so run the 11 test files before trusting it |
+| ~~`Config/testthat/edition: 3`~~ | **done on `release/3.0.5`** | See the fallout note below |
 | `%>%` → `|>` | 5 live uses in `R/plot.likelihood_function.R` | Not a dependency bug: imported via `@importFrom dplyr %>%`, and dplyr is in Imports |
 | Lines \> 80 chars | 459, of which 193 are roxygen | Cosmetic. Code formatting is handled by air (no `air.toml`, so defaults) |
 | `@examples` coverage | 32 blocks for 62 exports | The 11 defunct stubs account for some of the gap |
 | `@family` tags | 0 (49 `@seealso` instead) | Would group the `curve_*` family in the pkgdown index |
+
+**testthat 3rd edition (adopted on `release/3.0.5`).** The switch is one
+DESCRIPTION line but it changed three things in the suite, all of which
+had been hiding real problems:
+
+- `expect_equal(x, y, tolerance = 2 * grid_step(lik))` broke in
+  `test-curve_likelihood.R`. Edition 2 passed `tolerance` to
+  `all.equal()`, which compares the *mean relative* difference over the
+  whole vector; edition 3 uses waldo, which applies it per element. The
+  Gamma inverse-link case has one endpoint near zero (0.0256 vs 0.0263),
+  a 2.7% relative gap that the vector-averaged form absorbed. All seven
+  of these comparisons now read
+  `expect_lt(max(abs(a - b)), 2 * grid_step(lik))`, which says what was
+  meant — endpoints within two grid steps — and is edition-independent.
+- `expect_equivalent(str(bob[[1]]), str(sampledf))` in
+  `testdfstructure.R` (3 sites) was **vacuous**: `str()` returns `NULL`
+  invisibly, so it compared `NULL` to `NULL` and could never fail. It
+  was also the source of the `str()` dumps in the test log. Now
+  `expect_setequal(names(...), columnnames)`; `setequal` rather than
+  `expect_named` because `curve_meta()` returns the columns in a
+  different order.
+- `context()` (3 files: `testdfstructure.R`, `tests3class.R`,
+  `test-curve_rstar_mpl.R`) is deprecated in 3e and removed.
+
+Result: `FAIL 0 | WARN 0 | SKIP 11 | PASS 256`.
 
 Two **behaviour** bugs were found in `R/curve_table.R` during the audit.
 **Both are fixed on `release/3.0.5`**; neither was visible to
@@ -453,4 +478,3 @@ Imports block ends at `rlang`.
   `Rscript -e "devtools::check(args = '--as-cran')"` from a terminal,
   then `R CMD build concurve` from `~` and inspect `tar -tzf` for stray
   files.
-

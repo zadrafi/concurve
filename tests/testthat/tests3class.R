@@ -1,4 +1,3 @@
-context("Class Type")
 
 # Test class structure
 

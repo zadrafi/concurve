@@ -102,3 +102,4 @@ Roxygen: list(markdown = TRUE, old_usage = TRUE)
 X-schema.org-keywords: confidence, compatibility, consonance, curve,
     information statistics, surprisals, interval, function, distribution, fiducial
 Config/roxygen2/version: 8.1.0
+Config/testthat/edition: 3

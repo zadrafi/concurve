@@ -1,4 +1,3 @@
-context("Dataframe Structure")
 test_that("curve_mean", {
   # Produce random sample data
   GroupA <- runif(100, min = 0, max = 100)
@@ -23,7 +22,7 @@ test_that("curve_mean", {
 
   colnames(sampledf) <- columnnames
 
-  expect_equivalent(str(bob[[1]]), str(sampledf))
+  expect_setequal(names(bob[[1]]), columnnames)
 })
 
 test_that("curve_gen", {
@@ -51,7 +50,7 @@ test_that("curve_gen", {
 
   colnames(sampledf) <- columnnames
 
-  expect_equivalent(str(bob[[1]]), str(sampledf))
+  expect_setequal(names(bob[[1]]), columnnames)
 })
 
 test_that("curve_meta", {
@@ -118,5 +117,5 @@ test_that("curve_meta", {
 
   colnames(sampledf) <- columnnames
 
-  expect_equivalent(str(metaf[[1]]), str(sampledf))
+  expect_setequal(names(metaf[[1]]), columnnames)
 })

@@ -1,4 +1,3 @@
-context("curve_rstar and curve_mpl")
 
 test_that("curve_rstar validates its inputs", {
   expect_error(curve_rstar(data.frame(x = 1)), "rstarci")
